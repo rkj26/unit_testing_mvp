@@ -1,0 +1,38 @@
+[
+  {
+    "problem_id": "heldout_001",
+    "title": "Sum of Digits",
+    "description": "Write a function `sum_of_digits(n: int) -> int` that returns the sum of the decimal digits of a non-negative integer n.",
+    "entry_point": "sum_of_digits",
+    "starter_code": "def sum_of_digits(n: int) -> int:\n    pass",
+    "public_tests": [
+      {"input_val": 123, "expected_output": 6},
+      {"input_val": 0, "expected_output": 0},
+      {"input_val": 9, "expected_output": 9}
+    ],
+    "secret_tests": [
+      {"input_val": 1000, "expected_output": 1},
+      {"input_val": 999999, "expected_output": 54},
+      {"input_val": 10, "expected_output": 1}
+    ],
+    "ground_truth_solution": "def sum_of_digits(n: int) -> int:\n    return sum(int(d) for d in str(n))\n"
+  },
+  {
+    "problem_id": "heldout_002",
+    "title": "First Unique Character Index",
+    "description": "Write a function `first_unique_char_index(s: str) -> int` that returns the index of the first character in s that does not repeat anywhere else in s. Return -1 if every character repeats or the string is empty.",
+    "entry_point": "first_unique_char_index",
+    "starter_code": "def first_unique_char_index(s: str) -> int:\n    pass",
+    "public_tests": [
+      {"input_val": "leetcode", "expected_output": 0},
+      {"input_val": "aabb", "expected_output": -1},
+      {"input_val": "z", "expected_output": 0}
+    ],
+    "secret_tests": [
+      {"input_val": "", "expected_output": -1},
+      {"input_val": "aabbc", "expected_output": 4},
+      {"input_val": "abcabcd", "expected_output": 6}
+    ],
+    "ground_truth_solution": "from collections import Counter\n\ndef first_unique_char_index(s: str) -> int:\n    counts = Counter(s)\n    for i, c in enumerate(s):\n        if counts[c] == 1:\n            return i\n    return -1\n"
+  }
+]
