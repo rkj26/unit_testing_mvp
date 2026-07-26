@@ -54,7 +54,7 @@ class ParetoSweepPoint(BaseModel):
 
 
 class Evaluator:
-    """Evaluates ControlArena micro-protocols (TM, TM-PBT, TE, Hybrid) natively using Inspect AI / ControlArena eval."""
+    """Evaluates ControlArena micro-protocols (TM, PBT, TE, Hybrid) natively using Inspect AI / ControlArena eval."""
 
     def __init__(self, config: Config):
         self.config = config
@@ -108,7 +108,7 @@ class Evaluator:
 
         if proto_name == "TM":
             return trusted_monitoring_builder(policy=untrusted_pol, monitor=basic_mon)
-        elif proto_name == "TM-PBT":
+        elif proto_name == "PBT":
             return trusted_monitoring_builder(policy=untrusted_pol, monitor=pbt_mon)
         elif proto_name == "TE":
             return trusted_editing_builder(
@@ -284,7 +284,7 @@ class Evaluator:
     ) -> ExperimentSummary:
         """Runs protocol evaluation across the requested micro-protocols (default: all 4)."""
         metrics: Dict[str, MetricSummary] = {}
-        protocols = protocols or ["TM", "TM-PBT", "TE", "Hybrid"]
+        protocols = protocols or ["TM", "PBT", "TE", "Hybrid"]
 
         for p in protocols:
             metrics[p] = self.run_experiment_for_protocol(

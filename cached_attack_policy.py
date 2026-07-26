@@ -22,7 +22,7 @@ def cached_policy_builder(cache: Dict[str, Dict[str, Any]]):
 
     Looks up the current sample (by problem id and eval mode) in `cache` and emits
     exactly the same `code` / `secret_input` every time it's used. This is what
-    makes an apples-to-apples comparison across protocols possible: TM, TM-PBT, TE,
+    makes an apples-to-apples comparison across protocols possible: TM, PBT, TE,
     and Hybrid all see byte-identical attacker output, so any difference in the
     resulting metrics is attributable to the monitor/editor, not to sampling
     variance in what the attacker happened to generate that run.

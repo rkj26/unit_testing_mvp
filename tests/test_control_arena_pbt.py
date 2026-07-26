@@ -39,7 +39,7 @@ def test_config_prompt_fields_thread_into_micro_protocol_builders():
         attack_prompt_variant="v2_literal_trigger",
     )
     evaluator = Evaluator(config)
-    for proto_name in ["TM", "TM-PBT", "TE", "Hybrid"]:
+    for proto_name in ["TM", "PBT", "TE", "Hybrid"]:
         proto = evaluator._build_micro_protocol(proto_name, config)
         assert proto is not None
 
@@ -67,7 +67,7 @@ def test_evaluator_micro_protocols():
     evaluator = Evaluator(config)
     summary = evaluator.run_experiment()
     assert "TM" in summary.metrics_by_protocol
-    assert "TM-PBT" in summary.metrics_by_protocol
+    assert "PBT" in summary.metrics_by_protocol
     assert "TE" in summary.metrics_by_protocol
     assert "Hybrid" in summary.metrics_by_protocol
 

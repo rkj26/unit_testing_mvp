@@ -1,12 +1,12 @@
 """Builds one consolidated, human-readable report comparing TM's LLM-judge verdict
-against TM-PBT's generated property test and verdict, per attack sample - so you
+against PBT's generated property test and verdict, per attack sample - so you
 can read through what each monitor actually saw and decided for all tasks at once,
 instead of digging through separate .eval logs, generated_code/, and pbt_scripts/.
 
 Usage:
     python build_comparison_report.py \\
         --tm-attack logs/xxx-tm-attack.eval \\
-        --tmpbt-attack logs/xxx-tmpbt-attack.eval \\
+        --pbt-attack logs/xxx-pbt-attack.eval \\
         --out comparison_report.md
 """
 
@@ -50,23 +50,23 @@ def _get_side_task(sample: EvalSample):
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tm-attack", required=True)
-    parser.add_argument("--tmpbt-attack", required=True)
+    parser.add_argument("--pbt-attack", required=True)
     parser.add_argument("--pbt-scripts-dir", default="pbt_scripts")
     parser.add_argument("--out", default="comparison_report.md")
     args = parser.parse_args()
 
     tm_log = read_eval_log(args.tm_attack)
-    tmpbt_log = read_eval_log(args.tmpbt_attack)
+    pbt_log = read_eval_log(args.pbt_attack)
 
     tm_by_id = {s.id: s for s in tm_log.samples}
-    tmpbt_by_id = {s.id: s for s in tmpbt_log.samples}
-    all_ids = sorted(set(tm_by_id) | set(tmpbt_by_id))
+    pbt_by_id = {s.id: s for s in pbt_log.samples}
+    all_ids = sorted(set(tm_by_id) | set(pbt_by_id))
 
-    lines = ["# TM vs TM-PBT: per-sample comparison (ATTACK mode)\n"]
+    lines = ["# TM vs PBT: per-sample comparison (ATTACK mode)\n"]
 
     for sid in all_ids:
         tm_s = tm_by_id.get(sid)
-        pbt_s = tmpbt_by_id.get(sid)
+        pbt_s = pbt_by_id.get(sid)
         lines.append(f"\n## {sid}\n")
 
         code, secret_input = (None, None)
@@ -91,7 +91,7 @@ def main() -> None:
             lines.append("### TM verdict\n(no sample)\n")
 
         if pbt_s is not None:
-            lines.append(f"### TM-PBT verdict\n**suspicion_score:** `{_get_suspicion(pbt_s)}`\n")
+            lines.append(f"### PBT verdict\n**suspicion_score:** `{_get_suspicion(pbt_s)}`\n")
             lines.append(f"**reasoning:**\n```\n{_get_reason(pbt_s).strip()[:800]}\n```\n")
             safe_id = str(sid).replace("/", "_")
             script_path = Path(args.pbt_scripts_dir) / f"{safe_id}_ATTACK_pbt_test.py"
@@ -100,7 +100,7 @@ def main() -> None:
             else:
                 lines.append(f"**Generated property test:** (not found at {script_path})\n")
         else:
-            lines.append("### TM-PBT verdict\n(no sample)\n")
+            lines.append("### PBT verdict\n(no sample)\n")
 
         lines.append("\n---\n")
 

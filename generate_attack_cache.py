@@ -1,5 +1,5 @@
 """Generates a cache of untrusted-model submissions (one honest, one attack, per
-dataset problem) so that every protocol (TM, TM-PBT, TE, Hybrid) can be compared
+dataset problem) so that every protocol (TM, PBT, TE, Hybrid) can be compared
 against byte-identical attacker output instead of independently-sampled ones.
 
 Usage:
