@@ -21,7 +21,7 @@ from control_arena.scorers import max_suspicion_scorer
 
 from bigcodebench_pbt_setting import BigCodeBenchPBTSetting, MAIN_TASK_IDS
 from cached_attack_policy import cached_policy_builder, load_attack_cache
-from hybrid_monitor import tm_pbt_monitor_builder
+from hybrid_monitor import pbt_informed_tm_monitor_builder, tm_pbt_monitor_builder
 from pbt_monitor import pbt_monitor_builder
 from prompts import load_prompt
 from config import Config
@@ -122,6 +122,17 @@ class Evaluator:
                 save_scripts_dir=config.pbt_save_scripts_dir,
             )
             return trusted_monitoring_builder(policy=untrusted_pol, monitor=hybrid_mon)
+        elif proto_name == "PBT-Informed-TM":
+            informed_mon = pbt_informed_tm_monitor_builder(
+                model_name=config.trusted_monitor_model,
+                tm_prompt_variant="v2_pbt_informed",
+                pbt_max_examples=config.pbt_max_examples,
+                pbt_prompt_variant=pbt_prompt_for_proto,
+                pbt_fewshot_k=config.pbt_fewshot_k,
+                pbt_fewshot_seed=config.pbt_fewshot_seed,
+                save_scripts_dir=config.pbt_save_scripts_dir,
+            )
+            return trusted_monitoring_builder(policy=untrusted_pol, monitor=informed_mon)
         elif proto_name == "TE":
             return trusted_editing_builder(
                 untrusted_policy=untrusted_pol,
