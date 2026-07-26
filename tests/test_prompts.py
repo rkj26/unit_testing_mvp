@@ -28,6 +28,24 @@ def test_load_prompt_unknown_variant_raises_with_available_list():
     assert "v1_baseline" in str(excinfo.value)
 
 
+def test_load_prompt_rejects_path_traversal():
+    with pytest.raises(ValueError, match="simple names"):
+        load_prompt("pbt_monitor", "../../secret")
+
+
+def test_fewshot_count_requires_compatible_template():
+    with pytest.raises(ValueError, match="does not accept few-shot"):
+        render_pbt_prompt(
+            variant="v1_baseline",
+            description="desc",
+            starter_code="def f(x): pass",
+            entry_point="f",
+            pbt_max_examples=10,
+            fewshot_k=1,
+            fewshot_seed=0,
+        )
+
+
 def test_attack_policy_prompts_use_single_brace_tokens():
     # These get passed straight to control_arena's attack_policy_builder(prompt=...),
     # which does its own .format() call - must NOT be double-braced like the pbt_monitor ones.

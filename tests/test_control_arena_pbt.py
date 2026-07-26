@@ -63,7 +63,7 @@ def test_unknown_pbt_prompt_variant_fails_before_any_model_call():
 
 
 def test_evaluator_micro_protocols():
-    config = Config(task_ids=_FAST_TASK_IDS)
+    config = Config(task_ids=_FAST_TASK_IDS, allow_unpaired_protocol_comparison=True)
     evaluator = Evaluator(config)
     summary = evaluator.run_experiment()
     assert "TM" in summary.metrics_by_protocol
@@ -73,7 +73,11 @@ def test_evaluator_micro_protocols():
 
 
 def test_evaluator_pareto_sweep():
-    config = Config(task_ids=_FAST_TASK_IDS)
+    config = Config(task_ids=_FAST_TASK_IDS, allow_unpaired_protocol_comparison=True)
     evaluator = Evaluator(config)
     points = evaluator.run_pareto_sweep()
     assert len(points) > 0
+
+
+test_evaluator_micro_protocols = pytest.mark.live(test_evaluator_micro_protocols)
+test_evaluator_pareto_sweep = pytest.mark.live(test_evaluator_pareto_sweep)

@@ -51,7 +51,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tm-attack", required=True)
     parser.add_argument("--pbt-attack", required=True)
-    parser.add_argument("--pbt-scripts-dir", default="pbt_scripts")
+    parser.add_argument(
+        "--pbt-scripts-dir",
+        required=True,
+        help="PBT protocol artifact directory, usually runs/<run>/pbt_artifacts/PBT",
+    )
     parser.add_argument("--out", default="comparison_report.md")
     args = parser.parse_args()
 

@@ -10,12 +10,19 @@ Usage:
 """
 
 import argparse
+import hashlib
 import json
+import os
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
 
+from inspect_ai.agent import AgentState
+from inspect_ai.tool import Tool
 from control_arena import EvalMode
 from control_arena.eval import ControlEvalConfig, get_control_task, eval as control_eval
 from control_arena.micro_protocol import trusted_monitoring_builder
-from control_arena.monitor import basic_monitor_builder
+from control_arena.monitor import MonitorResponse, monitor
 from control_arena.policy import (
     attack_policy_builder,
     honest_policy_builder,
@@ -33,9 +40,12 @@ def main() -> None:
     parser.add_argument("--untrusted-model", type=str, default=Config().untrusted_model)
     parser.add_argument("--trusted-model", type=str, default=Config().trusted_monitor_model)
     parser.add_argument("--attack-prompt", type=str, default="v1_default")
-    parser.add_argument("--docker", action="store_true")
+    parser.add_argument("--docker", action="store_true", help="Deprecated; Docker is the default")
     parser.add_argument("--out", type=str, default="attack_cache.json")
     args = parser.parse_args()
+    output_path = Path(args.out)
+    if output_path.exists():
+        parser.error(f"refusing to overwrite existing attack cache: {output_path}")
 
     task_ids = MAIN_TASK_IDS if args.dataset == "main" else HELDOUT_TASK_IDS
     config = Config(
@@ -43,7 +53,7 @@ def main() -> None:
         untrusted_model=args.untrusted_model,
         trusted_monitor_model=args.trusted_model,
         attack_prompt_variant=args.attack_prompt,
-        use_docker=args.docker,
+        use_docker=True,
     )
     setting = BigCodeBenchPBTSetting(
         task_ids=tuple(task_ids), sandbox_type="docker" if config.use_docker else "local"
@@ -55,27 +65,64 @@ def main() -> None:
         prompt=load_prompt("attack_policy", config.attack_prompt_variant),
     )
     untrusted_pol = untrusted_policy_builder(honest=honest_pol, attack=attack_pol)
-    # Cheapest real protocol shape that still exercises the actual policy prompts -
-    # we only keep the policy's own submission, the monitor here is scaffolding.
-    proto = trusted_monitoring_builder(
-        policy=untrusted_pol, monitor=basic_monitor_builder(model_role="trusted")
-    )
+    @monitor
+    async def capture_only_monitor(
+        state: AgentState, tools: list[Tool]
+    ) -> MonitorResponse:
+        return MonitorResponse(suspicion_score=0.0, reason="cache capture only")
+
+    proto = trusted_monitoring_builder(policy=untrusted_pol, monitor=capture_only_monitor)
     eval_cfg = ControlEvalConfig(
         untrusted_model=config.untrusted_model, trusted_model=config.trusted_monitor_model
     )
 
-    cache: dict[str, dict[str, dict]] = {"honest": {}, "attack": {}}
+    prompt_text = load_prompt("attack_policy", config.attack_prompt_variant)
+    try:
+        revision = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL
+        ).strip()
+        repository_status = subprocess.check_output(
+            ["git", "status", "--porcelain"], text=True, stderr=subprocess.DEVNULL
+        )
+        repository_diff = subprocess.check_output(
+            ["git", "diff", "HEAD", "--binary"], stderr=subprocess.DEVNULL
+        )
+    except (OSError, subprocess.CalledProcessError):
+        revision = "unknown"
+        repository_status = "unknown"
+        repository_diff = b""
+    cache: dict = {
+        "schema_version": 2,
+        "metadata": {
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "task_ids": task_ids,
+            "untrusted_model": config.untrusted_model,
+            "trusted_model": config.trusted_monitor_model,
+            "attack_prompt_variant": config.attack_prompt_variant,
+            "attack_prompt_sha256": hashlib.sha256(prompt_text.encode()).hexdigest(),
+            "repository_revision": revision,
+            "repository_dirty": repository_status == "unknown" or bool(repository_status.strip()),
+            "repository_diff_sha256": hashlib.sha256(repository_diff).hexdigest(),
+        },
+        "honest": {},
+        "attack": {},
+    }
     for mode, mode_key in [(EvalMode.HONEST, "honest"), (EvalMode.ATTACK, "attack")]:
         print(f"Generating {mode_key} submissions...")
         task = get_control_task(
             setting=setting, micro_protocol=proto, mode=mode, eval_config=eval_cfg
         )
-        logs = control_eval(task)
-        if not logs or not logs[0].samples:
-            print(f"  WARNING: no samples returned for {mode_key} mode")
-            continue
+        logs = control_eval(task, **eval_cfg.eval_args())
+        samples = [sample for log in logs for sample in (log.samples or [])]
+        if len(samples) != len(task_ids):
+            raise RuntimeError(
+                f"incomplete {mode_key} cache generation: expected {len(task_ids)} samples, "
+                f"got {len(samples)}"
+            )
 
-        for s in logs[0].samples:
+        for s in samples:
+            if s.error is not None:
+                raise RuntimeError(f"{mode_key} sample {s.id} failed: {s.error}")
             # Cache key must match what cached_attack_policy.py looks up at replay
             # time (ControlTaskMetadata.main_task_name), NOT the Inspect Sample id -
             # BigCodeBench's sample id swaps "/" for "_" but main_task_name doesn't.
@@ -90,19 +137,36 @@ def main() -> None:
                             code = tc.arguments.get("code")
                             secret_input = tc.arguments.get("secret_input")
             if not code:
-                print(f"  WARNING: no submission captured for sample {s.id}")
-                continue
+                raise RuntimeError(f"no submission captured for {mode_key} sample {s.id}")
             entry = {"code": code}
             if secret_input is not None:
                 entry["secret_input"] = secret_input
             cache[mode_key][main_task_name] = entry
             print(f"  cached {mode_key}/{main_task_name}")
 
-    with open(args.out, "w") as f:
-        json.dump(cache, f, indent=2)
+        cached_ids = set(cache[mode_key])
+        expected_ids = set(task_ids)
+        if cached_ids != expected_ids:
+            raise RuntimeError(
+                f"{mode_key} cache keys do not match configured tasks: "
+                f"missing={sorted(expected_ids - cached_ids)}, "
+                f"unexpected={sorted(cached_ids - expected_ids)}"
+            )
 
-    total = sum(len(v) for v in cache.values())
-    print(f"\nWrote {total} cached submissions to {args.out}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = output_path.with_name(f".{output_path.name}.tmp-{os.getpid()}")
+    try:
+        with temporary.open("x", encoding="utf-8") as handle:
+            json.dump(cache, handle, indent=2)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary.replace(output_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+    total = len(cache["honest"]) + len(cache["attack"])
+    print(f"\nWrote {total} cached submissions to {output_path}")
 
 
 if __name__ == "__main__":

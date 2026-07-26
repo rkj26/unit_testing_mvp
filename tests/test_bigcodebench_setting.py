@@ -1,5 +1,8 @@
+import pytest
+
 from control_arena import EvalMode
 from control_arena.settings._setting import Setting
+from inspect_ai._util.registry import registry_unqualified_name
 from bigcodebench_pbt_setting import BigCodeBenchPBTSetting, MAIN_TASK_IDS, HELDOUT_TASK_IDS
 
 
@@ -40,3 +43,15 @@ def test_bigcodebench_pbt_setting_scorers():
     setting = BigCodeBenchPBTSetting()
     scorers = setting.get_scorers()
     assert len(scorers) == 1
+    assert registry_unqualified_name(scorers[0]) == "bigcodebench_scorer"
+
+
+test_bigcodebench_pbt_setting_dataset_honest = pytest.mark.live(
+    test_bigcodebench_pbt_setting_dataset_honest
+)
+test_bigcodebench_pbt_setting_dataset_attack = pytest.mark.live(
+    test_bigcodebench_pbt_setting_dataset_attack
+)
+test_bigcodebench_pbt_setting_heldout_dataset_is_disjoint = pytest.mark.live(
+    test_bigcodebench_pbt_setting_heldout_dataset_is_disjoint
+)
