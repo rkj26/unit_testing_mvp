@@ -25,6 +25,13 @@ def main():
         "'heldout' (5 tasks, zero overlap with 'main' or the PBT fewshot bank - for generalization checks)",
     )
     parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Only evaluate the first N task IDs from the chosen dataset (e.g. for a quick "
+        "smoke test). Must match whatever --limit (if any) generated the --attack-cache.",
+    )
+    parser.add_argument(
         "--untrusted-model",
         type=str,
         default=Config().untrusted_model,
@@ -228,7 +235,11 @@ def main():
                 parser.error("TM has no PBT component and cannot use a PBT prompt override")
             pbt_prompt_overrides[proto] = variant.strip()
 
+    if args.limit is not None and args.limit < 1:
+        parser.error("--limit must be positive")
     task_ids = MAIN_TASK_IDS if args.dataset == "main" else HELDOUT_TASK_IDS
+    if args.limit is not None:
+        task_ids = task_ids[: args.limit]
 
     config = Config(
         task_ids=task_ids,

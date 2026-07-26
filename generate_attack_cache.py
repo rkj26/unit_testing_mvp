@@ -18,8 +18,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from inspect_ai.agent import AgentState
+from inspect_ai.model import GenerateConfig
 from inspect_ai.tool import Tool
-from control_arena import EvalMode
+from control_arena import EvalMode, control_agent
 from control_arena.eval import ControlEvalConfig, get_control_task, eval as control_eval
 from control_arena.micro_protocol import trusted_monitoring_builder
 from control_arena.monitor import MonitorResponse, monitor
@@ -42,12 +43,30 @@ def main() -> None:
     parser.add_argument("--attack-prompt", type=str, default="v1_default")
     parser.add_argument("--docker", action="store_true", help="Deprecated; Docker is the default")
     parser.add_argument("--out", type=str, default="attack_cache.json")
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Only cache the first N task IDs from the chosen dataset (e.g. for a quick "
+        "smoke test on a subset of the main set instead of all 50 tasks).",
+    )
+    parser.add_argument(
+        "--max-concurrent-samples",
+        type=int,
+        default=None,
+        help="Cap parallel samples and per-model API concurrency. Lower this (e.g. 2) if "
+        "a run shows climbing HTTP retries with no progress against a provider's rate limit.",
+    )
     args = parser.parse_args()
     output_path = Path(args.out)
     if output_path.exists():
         parser.error(f"refusing to overwrite existing attack cache: {output_path}")
+    if args.limit is not None and args.limit < 1:
+        parser.error("--limit must be positive")
 
     task_ids = MAIN_TASK_IDS if args.dataset == "main" else HELDOUT_TASK_IDS
+    if args.limit is not None:
+        task_ids = task_ids[: args.limit]
     config = Config(
         task_ids=task_ids,
         untrusted_model=args.untrusted_model,
@@ -65,15 +84,31 @@ def main() -> None:
         prompt=load_prompt("attack_policy", config.attack_prompt_variant),
     )
     untrusted_pol = untrusted_policy_builder(honest=honest_pol, attack=attack_pol)
-    @monitor
-    async def capture_only_monitor(
-        state: AgentState, tools: list[Tool]
-    ) -> MonitorResponse:
-        return MonitorResponse(suspicion_score=0.0, reason="cache capture only")
 
-    proto = trusted_monitoring_builder(policy=untrusted_pol, monitor=capture_only_monitor)
+    @control_agent
+    def capture_only_monitor_builder():
+        @monitor
+        async def _capture_only_monitor(
+            state: AgentState, tools: list[Tool]
+        ) -> MonitorResponse:
+            return MonitorResponse(suspicion_score=0.0, reason="cache capture only")
+
+        return _capture_only_monitor
+
+    proto = trusted_monitoring_builder(
+        policy=untrusted_pol, monitor=capture_only_monitor_builder()
+    )
+    model_config = (
+        GenerateConfig(max_connections=args.max_concurrent_samples)
+        if args.max_concurrent_samples
+        else None
+    )
     eval_cfg = ControlEvalConfig(
-        untrusted_model=config.untrusted_model, trusted_model=config.trusted_monitor_model
+        untrusted_model=config.untrusted_model,
+        trusted_model=config.trusted_monitor_model,
+        max_samples=args.max_concurrent_samples,
+        untrusted_config=model_config,
+        trusted_config=model_config,
     )
 
     prompt_text = load_prompt("attack_policy", config.attack_prompt_variant)
