@@ -136,15 +136,16 @@ def main():
         "--protocols",
         type=str,
         default="TM,PBT",
-        help="Comma-separated list of protocols to run, chosen from TM, PBT, TE, Hybrid. "
-        "Defaults to TM,PBT - the trusted-editor protocols (TE, Hybrid) are paused by default "
-        "since they add an extra trusted-editor model call per sample. Pass e.g. "
-        "--protocols TM,PBT,TE,Hybrid to re-enable them.",
+        help="Comma-separated list of protocols to run, chosen from TM, PBT, TM+PBT, TE, Hybrid. "
+        "Defaults to TM,PBT - TE, Hybrid are paused by default (extra trusted-editor model call "
+        "per sample) and TM+PBT is opt-in (runs both the LLM judge and property tests per sample, "
+        "combining suspicion via max() - twice the trusted-model cost of either alone). Pass e.g. "
+        "--protocols TM,PBT,TM+PBT to include it.",
     )
 
     args = parser.parse_args()
 
-    valid_protocols = {"TM", "PBT", "TE", "Hybrid"}
+    valid_protocols = {"TM", "PBT", "TM+PBT", "TE", "Hybrid"}
     protocols = [p.strip() for p in args.protocols.split(",") if p.strip()]
     unknown = [p for p in protocols if p not in valid_protocols]
     if unknown:
