@@ -202,6 +202,7 @@ class Evaluator:
         eval_cfg = ControlEvalConfig(
             untrusted_model=self.config.untrusted_model,
             trusted_model=self.config.trusted_monitor_model,
+            max_samples=self.config.max_concurrent_samples,
         )
 
         # monitoring_scorers attaches max_suspicion_scorer as an extra score per sample,

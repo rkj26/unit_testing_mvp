@@ -81,6 +81,13 @@ class Config(BaseModel):
         "replays the exact same cached submission per problem instead of independently sampling the "
         "untrusted model - required for an apples-to-apples comparison of monitors/editors across protocols.",
     )
+    max_concurrent_samples: Optional[int] = Field(
+        default=None,
+        description="Max samples to run in parallel (ControlEvalConfig.max_samples). None uses Inspect's "
+        "own default (~20), which can trigger a retry storm on heavier-prompt monitors (e.g. "
+        "PBT-Informed-TM, which bundles code + test + result into one larger request) against a "
+        "provider's rate limit. Lower this (e.g. 5) if a run shows climbing HTTP retries with no progress.",
+    )
     pbt_save_scripts_dir: Optional[str] = Field(
         default=None,
         description="If set, writes each generated Hypothesis property-test script to this directory "

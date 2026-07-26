@@ -100,6 +100,14 @@ def main():
         help="Directory to write generated PBT scripts into when --save-pbt-scripts is set (default: pbt_scripts/)",
     )
     parser.add_argument(
+        "--max-concurrent-samples",
+        type=int,
+        default=None,
+        help="Max samples to run in parallel. Lower this (e.g. 5) if a run shows climbing HTTP retries "
+        "with no progress - happens most with heavier-prompt monitors like PBT-Informed-TM against a "
+        "provider's rate limit. Default (unset) uses Inspect's own default (~20).",
+    )
+    parser.add_argument(
         "--attack-cache",
         type=str,
         default=None,
@@ -188,6 +196,7 @@ def main():
         tm_prompt_variant=args.tm_prompt,
         attack_cache_path=args.attack_cache,
         pbt_prompt_overrides=pbt_prompt_overrides,
+        max_concurrent_samples=args.max_concurrent_samples,
         pbt_save_scripts_dir=args.save_pbt_scripts_dir if args.save_pbt_scripts else None,
     )
 
