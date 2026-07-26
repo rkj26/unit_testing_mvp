@@ -5,6 +5,12 @@ BigCodeBench using ControlArena and Inspect AI. It compares code-visible trusted
 monitoring, specification-derived property testing, combined monitors, and trusted
 editing against identical cached honest and attack submissions.
 
+**→ [ARCHITECTURE.md](ARCHITECTURE.md)** is the detailed reference: the full call
+chain from `main.py` down to the sandbox, the candidate/checker isolation design,
+the protocol comparison table, and a file map of what lives where. The sections
+below cover the security model and metric definitions at a summary level; start
+there if you want to know exactly what's implemented.
+
 ## Security Model
 
 Every reported run requires Docker. Inspect creates five networkless services per
