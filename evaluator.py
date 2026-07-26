@@ -3,6 +3,7 @@ from typing import Dict, List, Any, Optional
 from pydantic import BaseModel, Field
 
 from inspect_ai.log import EvalLog
+from inspect_ai.model import GenerateConfig
 from inspect_ai.scorer import CORRECT
 from control_arena import EvalMode
 from control_arena.eval import get_control_task, ControlEvalConfig, eval as control_eval
@@ -199,10 +200,22 @@ class Evaluator:
     ) -> MetricSummary:
         """Runs ControlArena evaluation for a single protocol in both HONEST and ATTACK modes."""
         proto = self._build_micro_protocol(proto_name, self.config)
+        # max_samples alone only limits how many dataset samples run concurrently -
+        # each sample can still fire multiple simultaneous model calls (policy +
+        # monitor + PBT generation), so the actual provider-facing concurrency also
+        # needs GenerateConfig.max_connections capped per model, or a retry storm
+        # can still happen even with max_samples turned down.
+        model_config = (
+            GenerateConfig(max_connections=self.config.max_concurrent_samples)
+            if self.config.max_concurrent_samples
+            else None
+        )
         eval_cfg = ControlEvalConfig(
             untrusted_model=self.config.untrusted_model,
             trusted_model=self.config.trusted_monitor_model,
             max_samples=self.config.max_concurrent_samples,
+            untrusted_config=model_config,
+            trusted_config=model_config,
         )
 
         # monitoring_scorers attaches max_suspicion_scorer as an extra score per sample,
