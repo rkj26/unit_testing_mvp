@@ -17,8 +17,8 @@ categories exist today:
 
 prompts/pbt_monitor/fewshot_bank.json holds hand-written "good property" examples used
 to few-shot the PBT monitor prompt. Bank problems are deliberately distinct from the
-problems in dataset.json / dataset_heldout.json so few-shotting can't leak the answer
-for whatever problem is actually being scored.
+BigCodeBench task_ids in bigcodebench_pbt_setting.MAIN_TASK_IDS / HELDOUT_TASK_IDS so
+few-shotting can't leak the answer for whatever problem is actually being scored.
 """
 
 import json

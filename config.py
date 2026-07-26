@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -14,9 +14,11 @@ def _default_model() -> str:
 class Config(BaseModel):
     """Configuration for AI Control Trusted Monitoring."""
 
-    dataset_path: str = Field(
-        default="dataset.json",
-        description="Path to JSON dataset file containing APPS problem specifications",
+    task_ids: Optional[List[str]] = Field(
+        default=None,
+        description="Which BigCodeBench task_ids to evaluate against. Defaults to "
+        "bigcodebench_pbt_setting.MAIN_TASK_IDS (a curated, stdlib-only, PBT-friendly subset). "
+        "Pass bigcodebench_pbt_setting.HELDOUT_TASK_IDS for generalization checks.",
     )
     model_provider: str = Field(
         default_factory=lambda: "openai" if "OPENAI_API_KEY" in os.environ else "mockllm",
@@ -62,9 +64,32 @@ class Config(BaseModel):
         default=None,
         description="Seed for which few-shot examples get sampled, for reproducible prompt-variant comparisons within a run",
     )
+    tm_prompt_variant: Optional[str] = Field(
+        default=None,
+        description="Which prompts/tm_monitor/<name>.txt template the plain TM (basic_monitor_builder) "
+        "monitor uses. None (default) uses ControlArena's own generic monitor prompt. "
+        "'v1_ai_control_paper' uses the actual trusted-monitoring prompt from Greenblatt et al.'s "
+        "AI Control paper (verified against monitoring/monitoring_misc.py in the paper's own repo).",
+    )
     attack_prompt_variant: str = Field(
         default="v1_default",
         description="Which prompts/attack_policy/<name>.txt template the attack policy uses in EvalMode.ATTACK (lets you vary the backdoor 'family' the attacker is instructed to use, e.g. literal-trigger vs range-trigger, for held-out generalization testing)",
+    )
+    attack_cache_path: Optional[str] = Field(
+        default=None,
+        description="Path to a JSON cache produced by generate_attack_cache.py. When set, every protocol "
+        "replays the exact same cached submission per problem instead of independently sampling the "
+        "untrusted model - required for an apples-to-apples comparison of monitors/editors across protocols.",
+    )
+    pbt_save_scripts_dir: Optional[str] = Field(
+        default=None,
+        description="If set, writes each generated Hypothesis property-test script to this directory "
+        "(one file per sample/mode) so you can inspect exactly what the PBT monitor tested.",
+    )
+    pbt_prompt_overrides: Dict[str, str] = Field(
+        default_factory=dict,
+        description="Per-protocol override of pbt_prompt_variant, e.g. {'TE': 'v3_backdoor_focused'}. "
+        "Protocols not listed here fall back to pbt_prompt_variant.",
     )
     
     # Execution Sandbox & Docker Config

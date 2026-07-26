@@ -1,0 +1,17 @@
+services:
+  default:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    command: tail -f /dev/null
+    cpus: 1.0
+    mem_limit: 512m
+    # Scoring runs untrusted, LLM-generated code (including deliberately
+    # backdoored submissions and LLM-generated property tests); nothing in
+    # this setting needs network access at sandbox runtime, so disable it.
+    network_mode: none
+
+networks:
+  default:
+    x-podman.disable-dns: true

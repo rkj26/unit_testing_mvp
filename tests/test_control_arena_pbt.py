@@ -1,9 +1,16 @@
 import asyncio
 
 import pytest
+from bigcodebench_pbt_setting import MAIN_TASK_IDS
 from config import Config
 from evaluator import Evaluator
 from pbt_monitor import pbt_monitor_builder, generate_pbt_script_with_llm
+
+# Wiring tests only need to confirm the protocols run end-to-end, not produce
+# meaningful metrics - keep them to 1 task so they stay fast even now that the
+# dataset is real BigCodeBench (heavier sandboxed unittest execution per task
+# than the old 2-problem toy dataset).
+_FAST_TASK_IDS = MAIN_TASK_IDS[:1]
 
 
 def test_pbt_monitor_builder_instance():
@@ -26,7 +33,6 @@ def test_config_prompt_fields_thread_into_micro_protocol_builders():
     # reach the protocol builders without erroring, including with a non-default
     # prompt variant and a non-default attack prompt variant.
     config = Config(
-        dataset_path="dataset.json",
         pbt_prompt_variant="v3_backdoor_focused",
         pbt_fewshot_k=2,
         pbt_fewshot_seed=3,
@@ -57,7 +63,7 @@ def test_unknown_pbt_prompt_variant_fails_before_any_model_call():
 
 
 def test_evaluator_micro_protocols():
-    config = Config(dataset_path="dataset.json")
+    config = Config(task_ids=_FAST_TASK_IDS)
     evaluator = Evaluator(config)
     summary = evaluator.run_experiment()
     assert "TM" in summary.metrics_by_protocol
@@ -67,7 +73,7 @@ def test_evaluator_micro_protocols():
 
 
 def test_evaluator_pareto_sweep():
-    config = Config(dataset_path="dataset.json")
+    config = Config(task_ids=_FAST_TASK_IDS)
     evaluator = Evaluator(config)
     points = evaluator.run_pareto_sweep()
     assert len(points) > 0
