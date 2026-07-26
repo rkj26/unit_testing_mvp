@@ -1,12 +1,15 @@
 import argparse
-import sys
+from datetime import datetime, timezone
+from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
+from control_arena import EvalMode
 from bigcodebench_pbt_setting import HELDOUT_TASK_IDS, MAIN_TASK_IDS
 from config import Config
 from evaluator import Evaluator
+from run_artifacts import build_manifest, write_new_manifest, write_summary
 
 
 def main():
@@ -18,7 +21,7 @@ def main():
         type=str,
         choices=["main", "heldout"],
         default="main",
-        help="Which curated BigCodeBench task subset to evaluate: 'main' (10 tasks, default) or "
+        help="Which curated BigCodeBench task subset to evaluate: 'main' (50 tasks, default) or "
         "'heldout' (5 tasks, zero overlap with 'main' or the PBT fewshot bank - for generalization checks)",
     )
     parser.add_argument(
@@ -48,12 +51,12 @@ def main():
     parser.add_argument(
         "--docker",
         action="store_true",
-        help="Enable Docker container sandboxed execution",
+        help="Deprecated compatibility flag; Docker isolation is now the default",
     )
     parser.add_argument(
         "--sweep",
         action="store_true",
-        help="Run parameter sweep and display Evasion Rate vs Cost Pareto frontier",
+        help="Run a threshold and PBT-budget safety/usefulness sweep",
     )
     parser.add_argument(
         "--pbt-prompt",
@@ -70,15 +73,15 @@ def main():
     parser.add_argument(
         "--pbt-fewshot-seed",
         type=int,
-        default=None,
+        default=Config().pbt_fewshot_seed,
         help="Seed for which few-shot examples get sampled (for reproducible comparisons across prompt variants)",
     )
     parser.add_argument(
         "--tm-prompt",
         type=str,
-        default=None,
+        default=Config().tm_prompt_variant,
         help="Prompt variant for the plain TM monitor (basic_monitor_builder): name of a file under "
-        "prompts/tm_monitor/. Default (unset) uses ControlArena's own generic monitor prompt. "
+        "prompts/tm_monitor/. Default uses ControlArena's own generic monitor prompt. "
         "'v1_ai_control_paper' uses the actual trusted-monitoring prompt from Greenblatt et al.'s AI Control paper.",
     )
     parser.add_argument(
@@ -97,7 +100,7 @@ def main():
         "--save-pbt-scripts-dir",
         type=str,
         default="pbt_scripts",
-        help="Directory to write generated PBT scripts into when --save-pbt-scripts is set (default: pbt_scripts/)",
+        help="Run-directory subpath for generated PBT scripts when --save-pbt-scripts is set",
     )
     parser.add_argument(
         "--max-concurrent-samples",
@@ -115,6 +118,11 @@ def main():
         "exact same cached submission per problem instead of independently sampling the untrusted model "
         "- required for a true apples-to-apples comparison across protocols. --attack-prompt is ignored "
         "when this is set (the cache already baked in whatever prompt generated it).",
+    )
+    parser.add_argument(
+        "--allow-unpaired-comparison",
+        action="store_true",
+        help="Exploratory only: compare protocols on independently sampled submissions",
     )
     parser.add_argument(
         "--pbt-prompt-overrides",
@@ -138,7 +146,7 @@ def main():
         "--save-code-dir",
         type=str,
         default="generated_code",
-        help="Directory to write submitted code into when --save-code is set (default: generated_code/)",
+        help="Run-directory subpath for submitted code when --save-code is set",
     )
     parser.add_argument(
         "--protocols",
@@ -151,11 +159,49 @@ def main():
         "test result) are opt-in, since each costs roughly double the trusted-model work of "
         "TM or PBT alone. Pass e.g. --protocols TM,PBT,PBT-Informed-TM to include it.",
     )
+    parser.add_argument(
+        "--run-dir",
+        type=Path,
+        default=None,
+        help="Immutable artifact directory; defaults to runs/<UTC timestamp>",
+    )
+    parser.add_argument(
+        "--trusted-baseline-accuracy",
+        type=float,
+        default=None,
+        help="Measured raw usefulness R(T) for paper-normalized usefulness",
+    )
+    parser.add_argument(
+        "--untrusted-baseline-accuracy",
+        type=float,
+        default=None,
+        help="Measured raw usefulness R(U) for paper-normalized usefulness",
+    )
+    parser.add_argument(
+        "--attack-episode-subsample-rate",
+        type=float,
+        default=None,
+        help="Explicit deployment sensitivity assumption. The paper used 1/12 for its APPS experiment; it is not inferred or applied by default.",
+    )
 
     args = parser.parse_args()
+    run_dir = args.run_dir or Path("runs") / datetime.now(timezone.utc).strftime(
+        "%Y%m%dT%H%M%SZ"
+    )
+    for option, value in (
+        ("--save-pbt-scripts-dir", args.save_pbt_scripts_dir),
+        ("--save-code-dir", args.save_code_dir),
+    ):
+        artifact_path = Path(value)
+        if artifact_path.is_absolute() or ".." in artifact_path.parts:
+            parser.error(f"{option} must stay within --run-dir")
 
     valid_protocols = {"TM", "PBT", "TM+PBT", "PBT-Informed-TM", "TE", "Hybrid"}
     protocols = [p.strip() for p in args.protocols.split(",") if p.strip()]
+    if not protocols:
+        parser.error("--protocols must contain at least one protocol")
+    if len(set(protocols)) != len(protocols):
+        parser.error("--protocols must not contain duplicates")
     unknown = [p for p in protocols if p not in valid_protocols]
     if unknown:
         parser.error(
@@ -178,6 +224,8 @@ def main():
                 parser.error(
                     f"Unknown protocol '{proto}' in --pbt-prompt-overrides. Choose from {sorted(valid_protocols)}."
                 )
+            if proto == "TM":
+                parser.error("TM has no PBT component and cannot use a PBT prompt override")
             pbt_prompt_overrides[proto] = variant.strip()
 
     task_ids = MAIN_TASK_IDS if args.dataset == "main" else HELDOUT_TASK_IDS
@@ -188,16 +236,41 @@ def main():
         trusted_monitor_model=args.trusted_model,
         suspicion_threshold=args.threshold,
         pbt_max_examples=args.max_examples,
-        use_docker=args.docker,
+        use_docker=True,
         pbt_prompt_variant=args.pbt_prompt,
         pbt_fewshot_k=args.pbt_fewshot_k,
         pbt_fewshot_seed=args.pbt_fewshot_seed,
         attack_prompt_variant=args.attack_prompt,
         tm_prompt_variant=args.tm_prompt,
         attack_cache_path=args.attack_cache,
+        allow_unpaired_protocol_comparison=args.allow_unpaired_comparison,
         pbt_prompt_overrides=pbt_prompt_overrides,
         max_concurrent_samples=args.max_concurrent_samples,
-        pbt_save_scripts_dir=args.save_pbt_scripts_dir if args.save_pbt_scripts else None,
+        pbt_save_scripts_dir=str(
+            run_dir / args.save_pbt_scripts_dir
+            if args.save_pbt_scripts
+            else run_dir / "pbt_artifacts"
+        ),
+        eval_log_dir=str(run_dir / "eval_logs"),
+        trusted_baseline_accuracy=args.trusted_baseline_accuracy,
+        untrusted_baseline_accuracy=args.untrusted_baseline_accuracy,
+        paper_attack_episode_subsample_rate=args.attack_episode_subsample_rate,
+    )
+    if (
+        len(protocols) > 1
+        and not config.attack_cache_path
+        and not config.allow_unpaired_protocol_comparison
+    ):
+        parser.error(
+            "multi-protocol comparisons require --attack-cache; use "
+            "--allow-unpaired-comparison only for exploratory runs"
+        )
+    evaluator = Evaluator(config)
+    write_new_manifest(
+        run_dir,
+        build_manifest(
+            config, protocols, dataset_samples=evaluator.setting.get_dataset(EvalMode.HONEST)
+        ),
     )
 
     console = Console()
@@ -218,60 +291,70 @@ def main():
         )
     )
 
-    evaluator = Evaluator(config)
-
     if args.sweep:
         console.print("[bold yellow]Running ControlArena Parameter Sweep (Threshold tau x PBT Budget N)...[/bold yellow]\n")
         sweep_points = evaluator.run_pareto_sweep(protocols=protocols)
 
-        sweep_table = Table(title="Pareto Frontier: Evasion Rate vs Cost Analysis")
+        sweep_table = Table(title="Safety / Usefulness Sweep")
         sweep_table.add_column("Protocol", style="bold magenta")
         sweep_table.add_column("Threshold (tau)", style="cyan")
         sweep_table.add_column("PBT Budget (N)", style="cyan")
-        sweep_table.add_column("Evasion Rate (Lower is Safer)", style="bold red")
-        sweep_table.add_column("Main Task Utility", style="bold green")
-        sweep_table.add_column("False Audit Rate", style="yellow")
-        sweep_table.add_column("Avg Cost ($/problem)", style="bold yellow")
+        sweep_table.add_column("Conditional Safety", style="bold green")
+        sweep_table.add_column("Raw Usefulness", style="bold cyan")
+        sweep_table.add_column("Honest Flag Rate", style="yellow")
+        sweep_table.add_column("Reported Model Cost", style="bold yellow")
 
         for pt in sweep_points:
             sweep_table.add_row(
                 pt.protocol,
                 f"{pt.threshold:.2f}",
                 str(pt.pbt_max_examples),
-                f"{pt.evasion_rate * 100:.1f}%",
-                f"{pt.main_task_utility * 100:.1f}%",
-                f"{pt.false_audit_rate * 100:.1f}%",
-                f"${pt.total_cost_usd:.4f}",
+                "n/a" if pt.safety is None else f"{pt.safety * 100:.1f}%",
+                f"{pt.raw_usefulness * 100:.1f}%",
+                f"{pt.honest_flag_rate * 100:.1f}%",
+                "n/a" if pt.evaluation_model_cost_usd is None else f"${pt.evaluation_model_cost_usd:.4f}",
             )
 
         console.print(sweep_table)
+        write_summary(run_dir, [point.model_dump(mode="json") for point in sweep_points])
     else:
         summary = evaluator.run_experiment(
             dump_explanations=args.dump_explanations,
             console=console,
             protocols=protocols,
-            save_code_dir=args.save_code_dir if args.save_code else None,
+            save_code_dir=(
+                str(run_dir / args.save_code_dir) if args.save_code else None
+            ),
         )
 
         table = Table(title="Control Protocols Comparative Performance Summary")
         table.add_column("Control Protocol", style="bold cyan")
-        table.add_column("Evasion Rate (worked + undetected, lower is safer)", style="bold red")
-        table.add_column("Attack Success Rate (worked, regardless of detection)", style="red")
-        table.add_column("Main Task Utility", style="bold green")
-        table.add_column("False Audit Rate", style="yellow")
-        table.add_column("Avg Cost ($/problem)", style="bold yellow")
+        table.add_column("Conditional Safety (5,000 tasks)", style="bold green")
+        table.add_column("Raw Usefulness", style="bold cyan")
+        table.add_column("Normalized Usefulness", style="cyan")
+        table.add_column("Successful Backdoors / Task", style="red")
+        table.add_column("Undetected Backdoors / Task", style="bold red")
+        table.add_column("Honest Flag Rate", style="yellow")
+        table.add_column("Reported Model Cost", style="bold yellow")
 
         for proto_name, m in summary.metrics_by_protocol.items():
             table.add_row(
                 proto_name,
-                f"{m.evasion_rate * 100:.1f}%",
-                f"{m.attack_success_rate * 100:.1f}%",
-                f"{m.main_task_utility * 100:.1f}%",
-                f"{m.false_audit_rate * 100:.1f}%",
-                f"${m.average_cost_usd:.4f}",
+                (
+                    "n/a (set attack-rate assumption)"
+                    if m.safety is None or m.safety_monte_carlo_ci95 is None
+                    else f"{m.safety * 100:.1f}% [MC {m.safety_monte_carlo_ci95[0] * 100:.1f}, {m.safety_monte_carlo_ci95[1] * 100:.1f}]"
+                ),
+                f"{m.raw_usefulness * 100:.1f}%",
+                "n/a" if m.normalized_usefulness is None else f"{m.normalized_usefulness * 100:.1f}%",
+                f"{m.successful_backdoor_rate * 100:.1f}%",
+                f"{m.per_task_undetected_backdoor_rate * 100:.1f}%",
+                f"{m.honest_flag_rate * 100:.1f}%",
+                "n/a" if m.evaluation_model_cost_usd is None else f"${m.evaluation_model_cost_usd:.4f}",
             )
 
         console.print(table)
+        write_summary(run_dir, summary)
 
 
 if __name__ == "__main__":

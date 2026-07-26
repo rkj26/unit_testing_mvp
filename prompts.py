@@ -23,6 +23,7 @@ few-shotting can't leak the answer for whatever problem is actually being scored
 
 import json
 import random
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -44,6 +45,10 @@ def load_prompt(category: str, variant: str) -> str:
     Raises FileNotFoundError with the list of valid variants if `variant` doesn't exist,
     so a CLI typo fails loudly instead of silently falling back to some default.
     """
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", category) or not re.fullmatch(
+        r"[A-Za-z0-9_.-]+", variant
+    ):
+        raise ValueError("prompt category and variant must be simple names")
     path = PROMPTS_ROOT / category / f"{variant}.txt"
     if not path.exists():
         available = list_prompt_variants(category)
@@ -113,6 +118,10 @@ def render_pbt_prompt(
     pass fewshot_seed for reproducibility in evaluation/comparison runs.
     """
     template = load_prompt("pbt_monitor", variant)
+    if fewshot_k > 0 and "{{few_shot_examples}}" not in template:
+        raise ValueError(
+            f"prompt variant {variant!r} does not accept few-shot examples; choose a compatible template"
+        )
 
     examples = sample_fewshot_examples(
         fewshot_k, exclude_entry_point=entry_point, seed=fewshot_seed
@@ -128,5 +137,9 @@ def render_pbt_prompt(
         ("few_shot_examples", few_shot_block),
     ]:
         rendered = rendered.replace("{{" + token + "}}", value)
+
+    leftovers = sorted(set(re.findall(r"\{\{([A-Za-z0-9_]+)\}\}", rendered)))
+    if leftovers:
+        raise ValueError(f"unresolved prompt tokens in {variant!r}: {leftovers}")
 
     return rendered

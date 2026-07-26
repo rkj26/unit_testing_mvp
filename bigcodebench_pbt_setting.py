@@ -18,6 +18,8 @@ from control_arena.settings.bigcodebench.bigcodebench_setting import (
 )
 from control_arena.settings.bigcodebench.task.dataset import get_dataset
 
+from isolated_execution import isolated_bigcodebench_scorer
+
 MAIN_TASK_IDS = [
     "BigCodeBench/4",
     "BigCodeBench/97",
@@ -104,6 +106,15 @@ class BigCodeBenchPBTSetting(BigCodeBenchSetting):
         )
 
     def get_sandbox_config(self):
+        if self.sandbox_type != "docker":
+            raise RuntimeError(
+                "BigCodeBenchPBTSetting requires the multi-service Docker sandbox; "
+                "local execution cannot enforce candidate/checker isolation"
+            )
         return get_compose_sandbox_config(
             self.sandbox_type, Path(__file__).parent / "compose.yml", "bigcodebench_pbt"
         )
+
+    def get_scorers(self):
+        """Use the same source-isolated candidate runner as the PBT monitor."""
+        return [isolated_bigcodebench_scorer()]
