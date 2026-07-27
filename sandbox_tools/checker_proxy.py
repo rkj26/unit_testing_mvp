@@ -16,6 +16,13 @@ ALLOWED_EXCEPTIONS = {
     for name, value in vars(builtins).items()
     if isinstance(value, type) and issubclass(value, Exception)
 }
+_CANDIDATE_CALL_COUNT = 0
+
+
+def candidate_call_count() -> int:
+    """Return well-formed candidate RPC responses received by this process."""
+
+    return _CANDIDATE_CALL_COUNT
 
 
 def _recv_exact(connection: socket.socket, size: int) -> bytes:
@@ -42,6 +49,7 @@ def _sync_mutable(original, updated) -> None:
 
 
 def call_candidate(*args, **kwargs):
+    global _CANDIDATE_CALL_COUNT
     request = json.dumps(
         {"args": encode_value(tuple(args)), "kwargs": encode_value(dict(kwargs))},
         separators=(",", ":"),
@@ -62,6 +70,7 @@ def call_candidate(*args, **kwargs):
     response = json.loads(body)
     if not isinstance(response, dict) or not isinstance(response.get("ok"), bool):
         raise RuntimeError("candidate RPC returned an invalid response")
+    _CANDIDATE_CALL_COUNT += 1
     if not response["ok"]:
         exception = ALLOWED_EXCEPTIONS.get(response.get("exception"), RuntimeError)
         raise exception(response.get("message", "candidate call failed"))

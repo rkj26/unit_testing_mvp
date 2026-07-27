@@ -3,7 +3,11 @@ import pytest
 from control_arena import EvalMode
 from control_arena.settings._setting import Setting
 from inspect_ai._util.registry import registry_unqualified_name
-from bigcodebench_pbt_setting import BigCodeBenchPBTSetting, MAIN_TASK_IDS, HELDOUT_TASK_IDS
+from bigcodebench_pbt_setting import (
+    BigCodeBenchPBTSetting,
+    MAIN_TASK_IDS,
+    HELDOUT_TASK_IDS,
+)
 
 
 def test_bigcodebench_pbt_setting_instance():

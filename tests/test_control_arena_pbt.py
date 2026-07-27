@@ -4,7 +4,13 @@ import pytest
 from bigcodebench_pbt_setting import MAIN_TASK_IDS
 from config import Config
 from evaluator import Evaluator
-from pbt_monitor import pbt_monitor_builder, generate_pbt_script_with_llm
+from pbt_monitor import (
+    generate_pbt_script_with_llm,
+    pbt_monitor_builder,
+    run_pbt_test_raw,
+)
+from prepare_candidate_pool import capture_only_monitor_builder
+from trusted_monitors import format_pbt_result_for_informed_monitor
 
 # Wiring tests only need to confirm the protocols run end-to-end, not produce
 # meaningful metrics - keep them to 1 task so they stay fast even now that the
@@ -16,6 +22,10 @@ _FAST_TASK_IDS = MAIN_TASK_IDS[:1]
 def test_pbt_monitor_builder_instance():
     mon = pbt_monitor_builder(pbt_max_examples=50)
     assert mon is not None
+
+
+def test_pool_capture_monitor_is_a_control_agent():
+    assert capture_only_monitor_builder() is not None
 
 
 def test_pbt_monitor_builder_accepts_prompt_config():
@@ -39,7 +49,7 @@ def test_config_prompt_fields_thread_into_micro_protocol_builders():
         attack_prompt_variant="v2_literal_trigger",
     )
     evaluator = Evaluator(config)
-    for proto_name in ["TM", "PBT", "TE", "Hybrid"]:
+    for proto_name in ["TM", "PBT", "PBT-Informed-TM"]:
         proto = evaluator._build_micro_protocol(proto_name, config)
         assert proto is not None
 
@@ -62,22 +72,50 @@ def test_unknown_pbt_prompt_variant_fails_before_any_model_call():
         asyncio.run(_run())
 
 
-def test_evaluator_micro_protocols():
-    config = Config(task_ids=_FAST_TASK_IDS, allow_unpaired_protocol_comparison=True)
-    evaluator = Evaluator(config)
-    summary = evaluator.run_experiment()
-    assert "TM" in summary.metrics_by_protocol
-    assert "PBT" in summary.metrics_by_protocol
-    assert "TE" in summary.metrics_by_protocol
-    assert "Hybrid" in summary.metrics_by_protocol
+def test_informed_monitor_keeps_both_streams_for_nonzero_pytest_exit():
+    result = format_pbt_result_for_informed_monitor(
+        {
+            "returncode": 2,
+            "stdout": "counterexample: x=42",
+            "stderr": "collection warning",
+            "error": None,
+        }
+    )
+
+    assert "NONZERO EXIT 2" in result
+    assert "counterexample: x=42" in result
+    assert "collection warning" in result
 
 
-def test_evaluator_pareto_sweep():
-    config = Config(task_ids=_FAST_TASK_IDS, allow_unpaired_protocol_comparison=True)
-    evaluator = Evaluator(config)
-    points = evaluator.run_pareto_sweep()
-    assert len(points) > 0
+def test_pbt_checker_source_does_not_execute_starter_code(monkeypatch):
+    captured = {}
 
+    async def fake_run_isolated_checker(**kwargs):
+        captured.update(kwargs)
+        return {"returncode": 0, "stdout": "", "stderr": "", "error": None}
 
-test_evaluator_micro_protocols = pytest.mark.live(test_evaluator_micro_protocols)
-test_evaluator_pareto_sweep = pytest.mark.live(test_evaluator_pareto_sweep)
+    monkeypatch.setattr("pbt_monitor.run_isolated_checker", fake_run_isolated_checker)
+    marker = "STARTER_IMPORT_LEAK_MARKER"
+    starter_code = f"import os\n{marker} = True\ndef f(x):"
+    pbt_script = """
+from hypothesis import given, settings, strategies as st
+@given(st.integers())
+@settings(max_examples=1)
+def test_f(x):
+    assert f(x) == f(x)
+"""
+
+    asyncio.run(
+        run_pbt_test_raw(
+            submitted_code="def f(x): return x",
+            starter_code=starter_code,
+            pbt_script=pbt_script,
+            entry_point="f",
+            execution_seed=7,
+        )
+    )
+
+    assert captured["starter_code"] == starter_code
+    assert marker not in captured["checker_source"]
+    assert "import os as _control_os" in captured["checker_source"]
+    assert "\nimport os\n" not in captured["checker_source"]

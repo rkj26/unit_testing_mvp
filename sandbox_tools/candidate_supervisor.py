@@ -65,8 +65,8 @@ def _recv_exact(connection: socket.socket, size: int) -> bytes:
 def _worker(read_fd: int, write_fd: int, payload: dict) -> None:
     os.setsid()
     os.setgroups([])
-    os.setgid(65534)
-    os.setuid(65534)
+    os.setgid(int(payload["worker_gid"]))
+    os.setuid(int(payload["worker_uid"]))
     memory = int(payload["memory_mb"]) * 1024 * 1024
     resource.setrlimit(resource.RLIMIT_AS, (memory, memory))
     resource.setrlimit(resource.RLIMIT_CPU, (int(payload["cpu_seconds"]),) * 2)
@@ -82,7 +82,11 @@ def _worker(read_fd: int, write_fd: int, payload: dict) -> None:
             raise ValueError(f"candidate does not define {payload['entry_point']!r}")
     except BaseException as error:
         body = json.dumps(
-            {"ok": False, "exception": type(error).__name__, "message": str(error)[:1000]}
+            {
+                "ok": False,
+                "exception": type(error).__name__,
+                "message": str(error)[:1000],
+            }
         ).encode()
         _write_message(write_fd, body)
         return
@@ -131,19 +135,25 @@ def _error(error: BaseException) -> bytes:
     ).encode()
 
 
-def _kill_unprivileged_processes() -> None:
+def _kill_unprivileged_processes(worker_uid: int) -> None:
     """Kill escaped descendants even if they created a new process group."""
     for status_path in Path("/proc").glob("[0-9]*/status"):
         try:
             lines = status_path.read_text(encoding="utf-8").splitlines()
             uid_line = next(line for line in lines if line.startswith("Uid:"))
-            if int(uid_line.split()[1]) == 65534:
+            if int(uid_line.split()[1]) == worker_uid:
                 os.kill(int(status_path.parent.name), signal.SIGKILL)
-        except (FileNotFoundError, ProcessLookupError, PermissionError, StopIteration, ValueError):
+        except (
+            FileNotFoundError,
+            ProcessLookupError,
+            PermissionError,
+            StopIteration,
+            ValueError,
+        ):
             pass
 
 
-def _remove_worker_sysv_ipc() -> None:
+def _remove_worker_sysv_ipc(worker_uid: int) -> None:
     """Remove SysV IPC markers owned by the worker without CAP_SYS_ADMIN."""
     specs = {
         "shm": ("shmid", lambda libc, value: libc.shmctl(value, IPC_RMID, None)),
@@ -153,7 +163,9 @@ def _remove_worker_sysv_ipc() -> None:
     owned: list[tuple[str, int]] = []
     for kind, (id_column, _) in specs.items():
         try:
-            lines = Path(f"/proc/sysvipc/{kind}").read_text(encoding="utf-8").splitlines()
+            lines = (
+                Path(f"/proc/sysvipc/{kind}").read_text(encoding="utf-8").splitlines()
+            )
         except (FileNotFoundError, PermissionError):
             continue
         if not lines:
@@ -162,7 +174,7 @@ def _remove_worker_sysv_ipc() -> None:
         for line in lines[1:]:
             row = dict(zip(columns, line.split()))
             try:
-                if int(row["uid"]) == 65534 or int(row["cuid"]) == 65534:
+                if int(row["uid"]) == worker_uid or int(row["cuid"]) == worker_uid:
                     owned.append((kind, int(row[id_column])))
             except (KeyError, ValueError):
                 continue
@@ -170,7 +182,7 @@ def _remove_worker_sysv_ipc() -> None:
         return
     libc = ctypes.CDLL(None, use_errno=True)
     failures: list[tuple[str, int, int]] = []
-    os.seteuid(65534)
+    os.seteuid(worker_uid)
     try:
         for kind, value in owned:
             if specs[kind][1](libc, value) == -1:
@@ -184,19 +196,26 @@ def _remove_worker_sysv_ipc() -> None:
 
 
 def main() -> None:
-    payload = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    cleanup_only = len(sys.argv) == 3 and sys.argv[1] == "--cleanup"
+    payload_path = sys.argv[2] if cleanup_only else sys.argv[1]
+    payload = json.loads(Path(payload_path).read_text(encoding="utf-8"))
+    worker_uid = int(payload["worker_uid"])
+    if cleanup_only:
+        _kill_unprivileged_processes(worker_uid)
+        _remove_worker_sysv_ipc(worker_uid)
+        return
     socket_path = Path(sys.argv[2])
     socket_path.parent.mkdir(parents=True, exist_ok=True)
-    os.chown(socket_path.parent, 0, 2000)
+    os.chown(socket_path.parent, 0, int(payload["rpc_gid"]))
     os.chmod(socket_path.parent, 0o750)
     socket_path.unlink(missing_ok=True)
 
-    _kill_unprivileged_processes()
-    _remove_worker_sysv_ipc()
+    _kill_unprivileged_processes(worker_uid)
+    _remove_worker_sysv_ipc(worker_uid)
     worker_pid, worker_read, worker_write = _spawn_worker(payload)
     server = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     server.bind(str(socket_path))
-    os.chown(socket_path, 0, 2000)
+    os.chown(socket_path, 0, int(payload["rpc_gid"]))
     os.chmod(socket_path, 0o660)
     server.listen(8)
 
@@ -219,14 +238,16 @@ def main() -> None:
                     body = _recv_exact(connection, size)
                     json.loads(body)
                     _write_message(worker_write, bytes(body))
-                    response = _read_message(worker_read, float(payload["call_timeout_seconds"]))
+                    response = _read_message(
+                        worker_read, float(payload["call_timeout_seconds"])
+                    )
                 except BaseException as error:
                     response = _error(error)
                     try:
                         os.killpg(worker_pid, signal.SIGKILL)
                     except ProcessLookupError:
                         pass
-                    _kill_unprivileged_processes()
+                    _kill_unprivileged_processes(worker_uid)
                 connection.sendall(struct.pack("!I", len(response)) + response)
     finally:
         socket_path.unlink(missing_ok=True)
@@ -234,8 +255,8 @@ def main() -> None:
             os.killpg(worker_pid, signal.SIGKILL)
         except ProcessLookupError:
             pass
-        _kill_unprivileged_processes()
-        _remove_worker_sysv_ipc()
+        _kill_unprivileged_processes(worker_uid)
+        _remove_worker_sysv_ipc(worker_uid)
 
 
 if __name__ == "__main__":

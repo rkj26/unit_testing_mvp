@@ -55,7 +55,10 @@ def encode_value(value: Any, depth: int = 0, _budget: list[int] | None = None) -
         return {
             "__pbt_type__": "dict",
             "items": [
-                [encode_value(key, depth + 1, _budget), encode_value(item, depth + 1, _budget)]
+                [
+                    encode_value(key, depth + 1, _budget),
+                    encode_value(item, depth + 1, _budget),
+                ]
                 for key, item in value.items()
             ],
         }
@@ -94,7 +97,9 @@ def decode_value(value: Any, depth: int = 0, _budget: list[int] | None = None) -
         if not isinstance(items, list) or len(items) > MAX_CONTAINER_ITEMS:
             raise ValueError("invalid encoded mapping")
         return {
-            decode_value(pair[0], depth + 1, _budget): decode_value(pair[1], depth + 1, _budget)
+            decode_value(pair[0], depth + 1, _budget): decode_value(
+                pair[1], depth + 1, _budget
+            )
             for pair in items
             if isinstance(pair, list) and len(pair) == 2
         }

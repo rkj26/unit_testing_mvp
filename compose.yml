@@ -3,6 +3,16 @@ x-candidate: &candidate
     context: .
     dockerfile: Dockerfile
     target: candidate
+  # Candidate code must not learn which evaluation role invoked it from
+  # container-observable process state.
+  hostname: ai-control-candidate
+  working_dir: /tmp
+  environment:
+    HOME: /tmp
+    LANG: C.UTF-8
+    LC_ALL: C.UTF-8
+    PATH: /usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+    PYTHONDONTWRITEBYTECODE: "1"
   init: true
   command: tail -f /dev/null
   cpus: 1.0

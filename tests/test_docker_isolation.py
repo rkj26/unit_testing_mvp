@@ -30,6 +30,10 @@ def test_candidate_and_checker_are_distinct_security_principals():
     candidate_dir = f"/tmp/candidate-{session}"
     checker_dir = f"/tmp/checker-{session}"
     socket_path = f"/rpc/{session}/candidate.sock"
+    candidate_uid = 165534
+    candidate_gid = 165535
+    checker_uid = 101000
+    rpc_gid = 102000
     candidate_source = """
 import ctypes, os, pathlib, sys
 libc = ctypes.CDLL(None)
@@ -58,29 +62,45 @@ def f(x):
         os._exit(0)
     return x + 1
 """
-    payload = json.dumps(
-        {
-            "module_code": candidate_source,
-            "entry_point": "f",
-            "call_timeout_seconds": 2,
-            "memory_mb": 128,
-            "cpu_seconds": 10,
-        }
-    )
+    payload_data = {
+        "module_code": candidate_source,
+        "entry_point": "f",
+        "call_timeout_seconds": 2,
+        "memory_mb": 128,
+        "cpu_seconds": 10,
+        "worker_uid": candidate_uid,
+        "worker_gid": candidate_gid,
+        "rpc_gid": rpc_gid,
+    }
+    payload = json.dumps(payload_data)
 
     try:
         _run(compose + ["up", "-d", "--build"])
-        _run(compose + ["exec", "-T", "default", "mkdir", "-p", candidate_dir])
+        _run(compose + ["exec", "-T", "default", "mkdir", "-m", "700", candidate_dir])
         for name in ("codec.py", "candidate_supervisor.py"):
             source = (ROOT / "sandbox_tools" / name).read_text()
             _run(
                 compose
-                + ["exec", "-T", "default", "sh", "-c", f"cat > {candidate_dir}/{name}"],
+                + [
+                    "exec",
+                    "-T",
+                    "default",
+                    "sh",
+                    "-c",
+                    f"cat > {candidate_dir}/{name}",
+                ],
                 input_text=source,
             )
         _run(
             compose
-            + ["exec", "-T", "default", "sh", "-c", f"cat > {candidate_dir}/payload.json"],
+            + [
+                "exec",
+                "-T",
+                "default",
+                "sh",
+                "-c",
+                f"cat > {candidate_dir}/payload.json",
+            ],
             input_text=payload,
         )
         _run(
@@ -105,8 +125,54 @@ def f(x):
         )
         _run(compose + ["exec", "-T", "default", "sh", "-c", launch])
 
-        _run(compose + ["exec", "-T", "checker", "mkdir", "-p", checker_dir])
-        _run(compose + ["exec", "-T", "checker", "mkdir", "-p", f"{checker_dir}/work"])
+        # Keep a second session live in the same candidate/checker stack. Starting it
+        # must not kill the first worker, and its RPC directory must be inaccessible
+        # to the first session's checker identity.
+        session2 = uuid.uuid4().hex
+        candidate_dir2 = f"/tmp/candidate-{session2}"
+        socket_path2 = f"/rpc/{session2}/candidate.sock"
+        payload2 = {
+            **payload_data,
+            "worker_uid": candidate_uid + 10,
+            "worker_gid": candidate_gid + 10,
+            "rpc_gid": rpc_gid + 10,
+        }
+        _run(compose + ["exec", "-T", "default", "mkdir", "-m", "700", candidate_dir2])
+        _run(
+            compose
+            + [
+                "exec",
+                "-T",
+                "default",
+                "cp",
+                f"{candidate_dir}/codec.py",
+                f"{candidate_dir}/candidate_supervisor.py",
+                candidate_dir2,
+            ]
+        )
+        _run(
+            compose
+            + [
+                "exec",
+                "-T",
+                "default",
+                "sh",
+                "-c",
+                f"cat > {candidate_dir2}/payload.json",
+            ],
+            input_text=json.dumps(payload2),
+        )
+        launch2 = (
+            f"python3 -I {candidate_dir2}/candidate_supervisor.py {candidate_dir2}/payload.json "
+            f"{socket_path2} >{candidate_dir2}/log 2>&1 & echo $! > {candidate_dir2}/pid"
+        )
+        _run(compose + ["exec", "-T", "default", "sh", "-c", launch2])
+
+        _run(compose + ["exec", "-T", "checker", "mkdir", "-m", "700", checker_dir])
+        _run(
+            compose
+            + ["exec", "-T", "checker", "mkdir", "-m", "700", f"{checker_dir}/work"]
+        )
         for name in ("codec.py", "checker_proxy.py", "checker_supervisor.py"):
             source = (ROOT / "sandbox_tools" / name).read_text()
             _run(
@@ -126,39 +192,75 @@ def f(x):
             ]
         )
         _run(
+            compose + ["exec", "-T", "checker", "chown", f"root:{rpc_gid}", checker_dir]
+        )
+        _run(compose + ["exec", "-T", "checker", "chmod", "750", checker_dir])
+        _run(
+            compose
+            + [
+                "exec",
+                "-T",
+                "checker",
+                "chmod",
+                "640",
+                f"{checker_dir}/codec.py",
+                f"{checker_dir}/checker_proxy.py",
+            ]
+        )
+        _run(
             compose
             + [
                 "exec",
                 "-T",
                 "checker",
                 "chown",
-                "1000:2000",
+                f"{checker_uid}:{rpc_gid}",
                 f"{checker_dir}/work",
             ]
         )
+        _run(compose + ["exec", "-T", "checker", "chmod", "700", f"{checker_dir}/work"])
         _run(
-            compose + ["exec", "-T", "checker", "sh", "-c", "echo secret > /tmp/checker-secret"]
+            compose
+            + ["exec", "-T", "checker", "sh", "-c", "echo secret > /tmp/checker-secret"]
         )
         for _ in range(50):
             ready = _run(
-                compose + ["exec", "-T", "checker", "test", "-S", socket_path], check=False
+                compose + ["exec", "-T", "checker", "test", "-S", socket_path],
+                check=False,
             )
             if ready.returncode == 0:
                 break
             time.sleep(0.1)
         else:
             pytest.fail("candidate RPC socket did not become ready")
+        for _ in range(50):
+            ready = _run(
+                compose + ["exec", "-T", "checker", "test", "-S", socket_path2],
+                check=False,
+            )
+            if ready.returncode == 0:
+                break
+            time.sleep(0.1)
+        else:
+            pytest.fail("second candidate RPC socket did not become ready")
 
         script = f"""
 import sys
 sys.path.insert(0, {checker_dir!r})
 from checker_proxy import call_candidate
 import pathlib
-locked = pathlib.Path({(checker_dir + '/work/locked')!r})
+import socket
+locked = pathlib.Path({(checker_dir + "/work/locked")!r})
 locked.mkdir()
 (locked / 'owned').write_text('checker artifact')
 locked.chmod(0)
 assert call_candidate(1) == 2
+try:
+    socket.socket(socket.AF_UNIX).connect({socket_path2!r})
+except PermissionError:
+    pass
+else:
+    raise AssertionError('checker crossed into another RPC session')
 try:
     import os
     os.fork()
@@ -197,6 +299,8 @@ else:
                 "python3",
                 "-I",
                 f"{checker_dir}/checker_supervisor.py",
+                str(checker_uid),
+                str(rpc_gid),
                 f"{checker_dir}/work",
                 "--",
                 "python3",
@@ -242,6 +346,8 @@ else:
                 "python3",
                 "-I",
                 f"{checker_dir}/checker_supervisor.py",
+                str(checker_uid),
+                str(rpc_gid),
                 f"{checker_dir}/work",
                 "--",
                 "python3",

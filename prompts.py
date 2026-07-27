@@ -14,6 +14,9 @@ categories exist today:
                                     attack_policy_builder(prompt=...), which does its
                                     own single-brace .format() substitution internally.
                                     Do not double-brace these.
+    prompts/red_team_selector/*.txt - asks the red-team selector to score a fixed
+                                      set of attack proposals. Rendered with a single
+                                      {{selector_input_json}} token by policy_selection.
 
 prompts/pbt_monitor/fewshot_bank.json holds hand-written "good property" examples used
 to few-shot the PBT monitor prompt. Bank problems are deliberately distinct from the
