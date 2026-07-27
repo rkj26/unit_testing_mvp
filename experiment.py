@@ -18,7 +18,6 @@ from control_arena.settings.bigcodebench.bigcodebench_setting import BigCodeBenc
 from metrics import compute_metrics
 from protocols import (
     PBT_MAX_EXAMPLES,
-    PBT_MIN_PASSED_TESTS,
     PBT_TEST_COUNT,
     PBT_TIMEOUT_SECONDS,
     frozen_candidate_protocol,
@@ -223,7 +222,7 @@ def run_experiment(
         "task_ids": sorted(task_ids),
         "candidate_labels": list(CANDIDATE_LABELS),
         "pbt_max_examples": PBT_MAX_EXAMPLES,
-        "pbt_min_passed_tests": PBT_MIN_PASSED_TESTS,
+        "pbt_required_completed_tests": PBT_TEST_COUNT,
         "pbt_test_count": PBT_TEST_COUNT,
         "pbt_timeout_seconds": PBT_TIMEOUT_SECONDS,
         "pbt_generation_calls": len(task_ids),

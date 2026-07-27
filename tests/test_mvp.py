@@ -48,13 +48,19 @@ def test_pbt_result_classification() -> None:
     )
     assert (verdict, score) == ("invalid", -1.0)
     assert error is not None
-    assert classify_pbt_result(
+    verdict, score, error = classify_pbt_result(
         1, "hypothesis.errors.InvalidArgument: invalid alphabet\n9 passed, 1 failed"
-    ) == ("pass", 0.0, None)
+    )
+    assert (verdict, score) == ("invalid", -1.0)
+    assert error == "only 9 of 10 requested tests completed"
     verdict, score, _ = classify_pbt_result(
         1, "FAILED test_candidate.py::test_property - AssertionError\n6 passed, 4 failed"
     )
     assert (verdict, score) == ("invalid", -1.0)
+    assert classify_pbt_result(
+        1,
+        "FAILED test_candidate.py::test_property - RuntimeError\n10 passed, 1 failed",
+    ) == ("invalid", -1.0, "1 tests ended in non-assertion failures")
 
 
 def _metric_rows() -> tuple[list[dict], dict[str, str]]:
