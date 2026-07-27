@@ -1,0 +1,178 @@
+STDOUT:
+F.....F..F                                                               [100%]
+=================================== FAILURES ===================================
+_____________________ test_valid_ip_is_returned_correctly ______________________
+
+    @given(ip_str=permissive_valid_ip_st)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ip_str = '0.0.0.0'
+
+    @given(ip_str=permissive_valid_ip_st)
+    @settings(max_examples=50, deadline=None)
+    def test_valid_ip_is_returned_correctly(ip_str):
+        """
+        Property: A valid IP address (matching IP_REGEX) embedded in a simple JSON
+        should be returned exactly as is.
+        """
+        json_input = json.dumps({"ip": ip_str})
+        result = task_func(json_input)
+>       assert result == ip_str, f"Expected {ip_str}, but got {result} for input {json_input}"
+E       AssertionError: Expected 0.0.0.0, but got Invalid IP address received for input {"ip": "0.0.0.0"}
+E       assert 'Invalid IP address received' == '0.0.0.0'
+E         
+E         - 0.0.0.0
+E         + Invalid IP address received
+E       Falsifying example: test_valid_ip_is_returned_correctly(
+E           ip_str='0.0.0.0',  # or any other generated value
+E       )
+
+test_candidate.py:50: AssertionError
+________________ test_json_with_extra_fields_still_extracts_ip _________________
+
+    @given(ip_str=permissive_valid_ip_st)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:1474: in _raise_to_user
+    raise the_error_hypothesis_found
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:1024: in execute_once
+    result = self.test_runner(data, run)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:729: in default_executor
+    return function(data)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:996: in run
+    return test(*args, **kwargs)
+test_candidate.py:124: in test_json_with_extra_fields_still_extracts_ip
+    @settings(max_examples=50, deadline=None)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:894: in test
+    return self.test(*args, **kwargs)
+test_candidate.py:134: in test_json_with_extra_fields_still_extracts_ip
+    ).example() # Use example to get a concrete dictionary for merging
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = dictionaries(keys=text(min_size=1, max_size=5).filter(lambda s: s != "ip"), values=recursive(one_of(none(), booleans()...e=5) | st.dictionaries(st.text(min_size=1, max_size=5), children, max_size=5), max_leaves=100), min_size=1, max_size=5)
+
+    def example(self) -> Ex:  # FIXME
+        """Provide an example of the sort of value that this strategy generates.
+    
+        This method is designed for use in a REPL, and will raise an error if
+        called from inside |@given| or a strategy definition.  For serious use,
+        see |@composite| or |st.data|.
+        """
+        if getattr(sys, "ps1", None) is None:  # pragma: no branch
+            # The other branch *is* covered in cover/test_examples.py; but as that
+            # uses `pexpect` for an interactive session `coverage` doesn't see it.
+            warnings.warn(
+                "The `.example()` method is good for exploring strategies, but should "
+                "only be used interactively.  We recommend using `@given` for tests - "
+                "it performs better, saves and replays failures to avoid flakiness, "
+                "and reports minimal examples. (strategy: %r)" % (self,),
+                NonInteractiveExampleWarning,
+                stacklevel=2,
+            )
+    
+        context = _current_build_context.value
+        if context is not None:
+            if context.data is not None and context.data.depth > 0:
+                raise HypothesisException(
+                    "Using example() inside a strategy definition is a bad "
+                    "idea. Instead consider using hypothesis.strategies.builds() "
+                    "or @hypothesis.strategies.composite to define your strategy."
+                    " See https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#hypothesis.strategies.builds or "
+                    "https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#composite-strategies for more details."
+                )
+            else:
+>               raise HypothesisException(
+                    "Using example() inside a test function is a bad "
+                    "idea. Instead consider using hypothesis.strategies.data() "
+                    "to draw more examples during testing. See "
+                    "https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#drawing-interactively-in-tests for more details."
+                )
+E               hypothesis.errors.HypothesisException: Using example() inside a test function is a bad idea. Instead consider using hypothesis.strategies.data() to draw more examples during testing. See https://hypothesis.readthedocs.io/en/latest/data.html#drawing-interactively-in-tests for more details.
+E               Falsifying example: test_json_with_extra_fields_still_extracts_ip(
+E                   ip_str='0.0.0.0',  # or any other generated value
+E               )
+
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:320: HypothesisException
+____________________ test_whitespace_around_json_is_handled ____________________
+
+    @given(ip_str=permissive_valid_ip_st)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:1474: in _raise_to_user
+    raise the_error_hypothesis_found
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:1024: in execute_once
+    result = self.test_runner(data, run)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:729: in default_executor
+    return function(data)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:996: in run
+    return test(*args, **kwargs)
+test_candidate.py:166: in test_whitespace_around_json_is_handled
+    @settings(max_examples=50, deadline=None)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:894: in test
+    return self.test(*args, **kwargs)
+test_candidate.py:173: in test_whitespace_around_json_is_handled
+    whitespace_prefix = st.text(st.just(' '), min_size=1, max_size=5).example()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = text(alphabet=just(' '), min_size=1, max_size=5)
+
+    def example(self) -> Ex:  # FIXME
+        """Provide an example of the sort of value that this strategy generates.
+    
+        This method is designed for use in a REPL, and will raise an error if
+        called from inside |@given| or a strategy definition.  For serious use,
+        see |@composite| or |st.data|.
+        """
+        if getattr(sys, "ps1", None) is None:  # pragma: no branch
+            # The other branch *is* covered in cover/test_examples.py; but as that
+            # uses `pexpect` for an interactive session `coverage` doesn't see it.
+            warnings.warn(
+                "The `.example()` method is good for exploring strategies, but should "
+                "only be used interactively.  We recommend using `@given` for tests - "
+                "it performs better, saves and replays failures to avoid flakiness, "
+                "and reports minimal examples. (strategy: %r)" % (self,),
+                NonInteractiveExampleWarning,
+                stacklevel=2,
+            )
+    
+        context = _current_build_context.value
+        if context is not None:
+            if context.data is not None and context.data.depth > 0:
+                raise HypothesisException(
+                    "Using example() inside a strategy definition is a bad "
+                    "idea. Instead consider using hypothesis.strategies.builds() "
+                    "or @hypothesis.strategies.composite to define your strategy."
+                    " See https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#hypothesis.strategies.builds or "
+                    "https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#composite-strategies for more details."
+                )
+            else:
+>               raise HypothesisException(
+                    "Using example() inside a test function is a bad "
+                    "idea. Instead consider using hypothesis.strategies.data() "
+                    "to draw more examples during testing. See "
+                    "https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#drawing-interactively-in-tests for more details."
+                )
+E               hypothesis.errors.HypothesisException: Using example() inside a test function is a bad idea. Instead consider using hypothesis.strategies.data() to draw more examples during testing. See https://hypothesis.readthedocs.io/en/latest/data.html#drawing-interactively-in-tests for more details.
+E               Falsifying example: test_whitespace_around_json_is_handled(
+E                   ip_str='0.0.0.0',  # or any other generated value
+E               )
+
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:320: HypothesisException
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_valid_ip_is_returned_correctly - AssertionErro...
+FAILED test_candidate.py::test_json_with_extra_fields_still_extracts_ip - hyp...
+FAILED test_candidate.py::test_whitespace_around_json_is_handled - hypothesis...
+3 failed, 7 passed, 224 warnings in 9.04s
