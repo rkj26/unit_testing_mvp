@@ -1,0 +1,292 @@
+import math
+import itertools
+from functools import reduce
+from hypothesis import given, settings, strategies as st
+from candidate import task_func
+
+# Strategy for generating lists of positive integers
+# Max size 12 to keep computation bounded.
+# Values are positive to avoid math.log(0) or math.log(negative) errors.
+# Smallest value 1 to avoid log(1) = 0 issues if that's not intended.
+# Max value 100 to prevent excessively large products that might lead to overflow or precision issues.
+positive_integers = st.lists(
+    st.integers(min_value=1, max_value=100),
+    min_size=0,
+    max_size=12
+)
+
+# Strategy for generating lists of positive floats (for specific tests)
+positive_floats = st.lists(
+    st.floats(min_value=1e-5, max_value=100.0, allow_nan=False, allow_infinity=False),
+    min_size=0,
+    max_size=12
+)
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=positive_integers)
+def test_return_type_is_float(numbers):
+    """
+    Verifies that the function always returns a float.
+    """
+    result = task_func(numbers)
+    assert isinstance(result, float), f"Expected float, got {type(result)} for input {numbers}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=1, max_value=100), min_size=0, max_size=1))
+def test_empty_or_single_element_list(numbers):
+    """
+    Tests the behavior for an empty list or a list with a single element.
+    - For an empty list, the sum of logarithms should be 0.0.
+    - For a single element [x], the result should be log(x).
+    """
+    if not numbers:
+        assert task_func(numbers) == 0.0, f"Expected 0.0 for empty list, got {task_func(numbers)}"
+    else:
+        x = numbers[0]
+        expected = math.log(x)
+        assert math.isclose(task_func(numbers), expected, rel_tol=1e-9), \
+            f"Expected {expected} for [{x}], got {task_func(numbers)}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=positive_integers)
+def test_non_negative_result_for_numbers_greater_than_one(numbers):
+    """
+    If all numbers are >= 1, all products will be >= 1, and their logarithms will be >= 0.
+    Thus, the sum of logarithms should be non-negative.
+    """
+    # Filter out cases where all numbers are 1, as log(1) = 0, leading to 0.0
+    # This test is more about ensuring positive results when numbers > 1 are present.
+    if any(n > 1 for n in numbers):
+        result = task_func(numbers)
+        assert result >= 0.0, f"Expected non-negative result for {numbers}, got {result}"
+    else: # All numbers are 1 or list is empty
+        assert math.isclose(task_func(numbers), 0.0, rel_tol=1e-9)
+
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=1, max_value=100), min_size=1, max_size=12))
+def test_log_product_identity(numbers):
+    """
+    Tests the identity: log(a*b) = log(a) + log(b).
+    This implies that for a combination [a, b, c], log(a*b*c) = log(a) + log(b) + log(c).
+    The function computes log(product(combination)).
+    We can verify this by comparing with sum(log(element) for element in combination).
+    This is a metamorphic property.
+    """
+    # Re-implement the core logic using the identity for comparison
+    expected_sum = 0.0
+    for i in range(1, len(numbers) + 1):
+        for combination in itertools.combinations(numbers, i):
+            # Using the identity: log(product(c)) = sum(log(x) for x in c)
+            # This is valid only if all x > 0. Our strategy ensures x >= 1.
+            if combination: # Ensure combination is not empty before summing logs
+                expected_sum += sum(math.log(x) for x in combination)
+
+    result = task_func(numbers)
+    assert math.isclose(result, expected_sum, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Log-product identity failed for {numbers}. Expected {expected_sum}, got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=positive_integers)
+def test_order_invariance(numbers):
+    """
+    The order of numbers in the input list should not affect the result,
+    as combinations are unordered.
+    """
+    if not numbers:
+        assert task_func([]) == 0.0
+        return
+
+    shuffled_numbers = list(numbers)
+    st.randoms().shuffle(shuffled_numbers) # Use Hypothesis's randoms for shuffling
+
+    result_original = task_func(numbers)
+    result_shuffled = task_func(shuffled_numbers)
+
+    assert math.isclose(result_original, result_shuffled, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Order invariance failed. Original: {numbers}, Shuffled: {shuffled_numbers}. " \
+        f"Results: {result_original} vs {result_shuffled}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=1, max_value=100), min_size=1, max_size=10))
+def test_adding_one_to_all_elements_metamorphic(numbers):
+    """
+    Metamorphic relation: If we add 1 to all numbers, the result should change predictably.
+    This is a complex relation, so we'll test a simpler one:
+    If all numbers are 1, the result should be 0.
+    If we add a 1 to the list, how does it change?
+    Let S(N) be task_func(N).
+    S(N + [1]) = S(N) + sum(log(product(c)) for c in combinations of N)
+    This is because adding 1 creates new combinations that include 1.
+    For any combination `c` from `numbers`, `c + (1,)` is a new combination.
+    `log(product(c + (1,))) = log(product(c) * 1) = log(product(c))`.
+    So, each existing combination's product logarithm is effectively added again.
+    Additionally, the combination `(1,)` itself is added, contributing `log(1) = 0`.
+    So, S(N + [1]) = S(N) + S(N) + log(1) = 2 * S(N).
+    This holds if the original S(N) calculation includes combinations of all lengths.
+    """
+    original_result = task_func(numbers)
+    numbers_with_one = numbers + [1]
+    result_with_one = task_func(numbers_with_one)
+
+    # The sum of logarithms of products of all combinations of N is S(N).
+    # When we add '1' to N:
+    # 1. All combinations from N are still present, contributing S(N).
+    # 2. New combinations are formed by taking existing combinations from N and adding '1'.
+    #    For a combination `c` from N, `c + (1,)` has product `product(c) * 1`.
+    #    So `log(product(c + (1,))) = log(product(c))`.
+    #    The sum of these new terms is exactly S(N).
+    # 3. The combination `(1,)` itself is added, contributing `log(1) = 0`.
+    # So, the total sum should be S(N) + S(N) + 0 = 2 * S(N).
+    expected_result = 2 * original_result
+
+    assert math.isclose(result_with_one, expected_result, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Adding '1' metamorphic relation failed for {numbers}. " \
+        f"Expected {expected_result}, got {result_with_one}. Original: {original_result}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=1, max_value=100), min_size=1, max_size=10))
+def test_scaling_all_elements_by_power_of_e(numbers):
+    """
+    Metamorphic relation: If we scale each number x by e^k (e.g., x * e),
+    then log(x * e) = log(x) + log(e) = log(x) + 1.
+    So, for each element in a combination, its log increases by 1.
+    For a combination of length L, its product's log increases by L.
+    The total sum should increase by sum(L * (number of combinations of length L)).
+    This is a complex relation. Let's simplify.
+    If all numbers are 1, result is 0.
+    If all numbers are e, result is sum(L * (num_combinations_of_length_L)).
+    Let's test a simpler scaling: if all numbers are `x`, then `task_func([x])` is `log(x)`.
+    `task_func([x, x])` is `log(x) + log(x) + log(x*x) = 2*log(x) + 2*log(x) = 4*log(x)`.
+    This is not a simple scaling.
+
+    Let's use the log-product identity: `task_func(numbers) = sum_{c in all_combinations} sum_{x in c} log(x)`.
+    If we scale each `n` in `numbers` to `n * factor`:
+    `log(n * factor) = log(n) + log(factor)`.
+    So, `sum_{x in c} log(x * factor) = sum_{x in c} (log(x) + log(factor)) = sum_{x in c} log(x) + len(c) * log(factor)`.
+    The new total sum will be:
+    `sum_{c in all_combinations} (sum_{x in c} log(x) + len(c) * log(factor))`
+    `= task_func(numbers) + sum_{c in all_combinations} (len(c) * log(factor))`
+    `= task_func(numbers) + log(factor) * sum_{c in all_combinations} len(c)`.
+    `sum_{c in all_combinations} len(c)` is the total number of elements across all combinations.
+    This is `sum_{k=1 to N} k * C(N, k) = N * 2^(N-1)`.
+    Let's test this.
+    """
+    N = len(numbers)
+    if N == 0:
+        assert math.isclose(task_func([]), 0.0)
+        return
+
+    original_result = task_func(numbers)
+
+    # Choose a factor, e.g., 2
+    factor = 2
+    scaled_numbers = [n * factor for n in numbers]
+
+    # Calculate expected change
+    # sum_{k=1 to N} k * C(N, k) = N * 2^(N-1)
+    total_elements_in_combinations = N * (2**(N - 1))
+    expected_increase = math.log(factor) * total_elements_in_combinations
+    expected_result = original_result + expected_increase
+
+    result_scaled = task_func(scaled_numbers)
+
+    assert math.isclose(result_scaled, expected_result, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Scaling metamorphic relation failed for {numbers} with factor {factor}. " \
+        f"Expected {expected_result}, got {result_scaled}. Original: {original_result}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=1, max_value=100), min_size=1, max_size=10))
+def test_adding_a_new_number_zero_metamorphic(numbers):
+    """
+    If we add a number `x` to the list, the new result `S(N + [x])` should be:
+    `S(N) + S(N_x_combinations) + log(x)`
+    where `S(N_x_combinations)` is the sum of `log(product(c * x))` for all combinations `c` from `N`.
+    `log(product(c * x)) = log(product(c)) + log(x)`.
+    So `S(N_x_combinations) = S(N) + log(x) * (2^N - 1)` (since there are 2^N - 1 non-empty combinations from N).
+    Thus, `S(N + [x]) = S(N) + (S(N) + log(x) * (2^N - 1)) + log(x)`
+    `S(N + [x]) = 2 * S(N) + log(x) * (2^N - 1 + 1)`
+    `S(N + [x]) = 2 * S(N) + log(x) * 2^N`.
+    This is a powerful metamorphic relation.
+    """
+    N = len(numbers)
+    original_result = task_func(numbers)
+
+    # Add a new number, ensuring it's positive
+    new_num = st.integers(min_value=1, max_value=100).example()
+    numbers_with_new = numbers + [new_num]
+
+    expected_result = 2 * original_result + math.log(new_num) * (2**N)
+    result_with_new = task_func(numbers_with_new)
+
+    assert math.isclose(result_with_new, expected_result, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Adding new number metamorphic relation failed for {numbers} with new number {new_num}. " \
+        f"Expected {expected_result}, got {result_with_new}. Original: {original_result}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.just(1), min_size=0, max_size=12))
+def test_all_ones_input(numbers):
+    """
+    If all numbers in the list are 1, then every product of any combination will be 1.
+    log(1) is 0. Therefore, the sum of logarithms should be 0.0.
+    """
+    result = task_func(numbers)
+    assert math.isclose(result, 0.0, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Expected 0.0 for list of ones {numbers}, got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=2, max_value=2), min_size=0, max_size=12))
+def test_all_twos_input(numbers):
+    """
+    If all numbers are 2, we can calculate the expected result.
+    For a list of N twos: [2, 2, ..., 2]
+    Number of combinations of length k is C(N, k).
+    Each such combination has product 2^k.
+    log(2^k) = k * log(2).
+    Total sum = sum_{k=1 to N} C(N, k) * k * log(2)
+              = log(2) * sum_{k=1 to N} k * C(N, k)
+              = log(2) * N * 2^(N-1)
+    """
+    N = len(numbers)
+    if N == 0:
+        assert math.isclose(task_func(numbers), 0.0)
+        return
+
+    expected_result = math.log(2) * N * (2**(N - 1))
+    result = task_func(numbers)
+    assert math.isclose(result, expected_result, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Expected {expected_result} for list of twos {numbers}, got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(numbers=st.lists(st.integers(min_value=1, max_value=100), min_size=0, max_size=12))
+def test_result_stability_with_small_perturbation(numbers):
+    """
+    A small perturbation in the input numbers (e.g., adding a very small number)
+    should result in a small perturbation in the output, assuming the function is continuous.
+    This is hard to quantify precisely due to the combinatorial nature.
+    Instead, let's test that adding a very large number significantly increases the result.
+    This is a boundary test for magnitude.
+    """
+    if not numbers:
+        # For an empty list, adding a large number should result in log(large_num)
+        large_num = 10**6
+        result_empty = task_func([])
+        result_large = task_func([large_num])
+        assert math.isclose(result_empty, 0.0)
+        assert math.isclose(result_large, math.log(large_num))
+        return
+
+    original_result = task_func(numbers)
+    
+    # Add a very large number to the list
+    large_num = 10**6
+    numbers_with_large = numbers + [large_num]
+    result_with_large = task_func(numbers_with_large)
+
+    # Using the metamorphic relation from test_adding_a_new_number_zero_metamorphic
+    N = len(numbers)
+    expected_result_with_large = 2 * original_result + math.log(large_num) * (2**N)
+
+    assert math.isclose(result_with_large, expected_result_with_large, rel_tol=1e-9, abs_tol=1e-12), \
+        f"Adding a large number did not follow expected metamorphic relation for {numbers} with {large_num}. " \
+        f"Expected {expected_result_with_large}, got {result_with_large}. Original: {original_result}"

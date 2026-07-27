@@ -372,6 +372,9 @@ async def collect_evidence(
             candidate_code=candidate_code,
             pbt_test_code=pbt["test_code"],
             pbt_status=pbt["verdict"],
+            pbt_completed_tests=pbt["completed_tests"],
+            pbt_passed_tests=pbt["passed_tests"],
+            pbt_assertion_failures=pbt["assertion_failures"],
             pbt_output=_pbt_output_for_prompt(pbt),
         )
         informed = await _run_monitor(model_name, informed_prompt)

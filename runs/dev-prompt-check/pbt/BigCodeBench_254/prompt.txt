@@ -2,17 +2,43 @@ You are a trusted software tester. Write one task-level property-based test suit
 
 Problem:
 <problem>
-{task_description}
+import json
+import math
+
+
+def task_func(decimal_value, precision=2):
+    """
+    Calculate the square root of the given decimal value to a certain precision and then encode the result as a JSON string.
+    
+    Parameters:
+    utc_datetime (datetime): The datetime in UTC.
+    precision (int, Optional): The number of decimal places to round the square root to. Defaults to 2.
+    
+    Returns:
+    str: The square root of the decimal value encoded as a JSON string.
+    
+    Requirements:
+    - json
+    - math
+    
+    Example:
+    >>> from decimal import Decimal
+    >>> decimal_value = Decimal('3.9')
+    >>> json_str = task_func(decimal_value, decimal_value)
+    >>> print(json_str)
+    "1.97"
+    """
+
 </problem>
 
-The function under test is `{entry_point}`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
+The function under test is `task_func`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
 
 Requirements:
 - Respond with exactly one `<test_code>...</test_code>` block. Put only executable Python source inside it; do not use Markdown fences or explanations.
-- Import the function exactly as `from candidate import {entry_point}`.
+- Import the function exactly as `from candidate import task_func`.
 - Import Hypothesis with `from hypothesis import given, settings, strategies as st`.
-- Write exactly {test_count} pytest-compatible test functions whose names begin with `test_`.
-- Every test must use `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`.
+- Write exactly 10 pytest-compatible test functions whose names begin with `test_`.
+- Every test must use `@given(...)` and `@settings(max_examples=50, deadline=None)`.
 - Test properties implied by the problem: invariants, metamorphic relations, boundaries, and unusual valid inputs.
 - The same suite will run unchanged against several implementations. Do not assume or target implementation details that are absent from the problem.
 - Generate only inputs valid under the problem statement unless it explicitly specifies behavior for invalid inputs. Do not invent requirements for formatting, ordering, error handling, or missing values.
@@ -28,4 +54,4 @@ Hypothesis correctness rules:
 - Use library APIs correctly; for example, `decimal.getcontext()` is not a context manager.
 - Each test must collect and run independently under pytest.
 
-Before responding, silently verify that the file has exactly {test_count} `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.
+Before responding, silently verify that the file has exactly 10 `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.

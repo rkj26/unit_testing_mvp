@@ -2,17 +2,46 @@ You are a trusted software tester. Write one task-level property-based test suit
 
 Problem:
 <problem>
-{task_description}
+import math
+import itertools
+from functools import reduce
+
+def task_func(numbers):
+    """
+    Generates all possible combinations of the provided numbers in a given list for
+    each possible length. For each combination, it computes the product of the numbers
+    in the combination. It then computes the logarithm of each product and sums these
+    logarithms to produce the final result.
+
+    Parameters:
+        numbers (list of int): A list of integers for which combinations are formed.
+
+    Requirements:
+    - math
+    - itertools
+    - functools
+
+    Returns:
+        float: The sum of the logarithms of the products of all combinations of numbers.
+
+    Examples:
+    >>> numbers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+    >>> type(task_func(numbers)) == float
+    True
+    >>> isinstance(task_func(numbers), float)
+    True
+    """
+
 </problem>
 
-The function under test is `{entry_point}`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
+The function under test is `task_func`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
 
 Requirements:
 - Respond with exactly one `<test_code>...</test_code>` block. Put only executable Python source inside it; do not use Markdown fences or explanations.
-- Import the function exactly as `from candidate import {entry_point}`.
+- Import the function exactly as `from candidate import task_func`.
 - Import Hypothesis with `from hypothesis import given, settings, strategies as st`.
-- Write exactly {test_count} pytest-compatible test functions whose names begin with `test_`.
-- Every test must use `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`.
+- Write exactly 10 pytest-compatible test functions whose names begin with `test_`.
+- Every test must use `@given(...)` and `@settings(max_examples=50, deadline=None)`.
 - Test properties implied by the problem: invariants, metamorphic relations, boundaries, and unusual valid inputs.
 - The same suite will run unchanged against several implementations. Do not assume or target implementation details that are absent from the problem.
 - Generate only inputs valid under the problem statement unless it explicitly specifies behavior for invalid inputs. Do not invent requirements for formatting, ordering, error handling, or missing values.
@@ -28,4 +57,4 @@ Hypothesis correctness rules:
 - Use library APIs correctly; for example, `decimal.getcontext()` is not a context manager.
 - Each test must collect and run independently under pytest.
 
-Before responding, silently verify that the file has exactly {test_count} `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.
+Before responding, silently verify that the file has exactly 10 `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.

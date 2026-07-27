@@ -2,17 +2,42 @@ You are a trusted software tester. Write one task-level property-based test suit
 
 Problem:
 <problem>
-{task_description}
+import json
+from datetime import datetime
+
+def task_func(json_data):
+    """
+    Determine if the given datetime is a weekend.
+
+    Parameters:
+    - json_data (str): JSON string containing the datetime in UTC format.
+
+    Returns:
+    bool: True if the date is a weekend (Saturday or Sunday), False otherwise.
+
+    Note:
+    - The datetime to be extracted is located in the 'utc_datetime' key in the JSON data.
+
+    Requirements:
+    - json
+    - datetime
+
+    Example:
+    >>> json_data = '{"utc_datetime": "2024-04-19T12:00:00"}'
+    >>> task_func(json_data)
+    False
+    """
+
 </problem>
 
-The function under test is `{entry_point}`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
+The function under test is `task_func`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
 
 Requirements:
 - Respond with exactly one `<test_code>...</test_code>` block. Put only executable Python source inside it; do not use Markdown fences or explanations.
-- Import the function exactly as `from candidate import {entry_point}`.
+- Import the function exactly as `from candidate import task_func`.
 - Import Hypothesis with `from hypothesis import given, settings, strategies as st`.
-- Write exactly {test_count} pytest-compatible test functions whose names begin with `test_`.
-- Every test must use `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`.
+- Write exactly 10 pytest-compatible test functions whose names begin with `test_`.
+- Every test must use `@given(...)` and `@settings(max_examples=50, deadline=None)`.
 - Test properties implied by the problem: invariants, metamorphic relations, boundaries, and unusual valid inputs.
 - The same suite will run unchanged against several implementations. Do not assume or target implementation details that are absent from the problem.
 - Generate only inputs valid under the problem statement unless it explicitly specifies behavior for invalid inputs. Do not invent requirements for formatting, ordering, error handling, or missing values.
@@ -28,4 +53,4 @@ Hypothesis correctness rules:
 - Use library APIs correctly; for example, `decimal.getcontext()` is not a context manager.
 - Each test must collect and run independently under pytest.
 
-Before responding, silently verify that the file has exactly {test_count} `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.
+Before responding, silently verify that the file has exactly 10 `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.

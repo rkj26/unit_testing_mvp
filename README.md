@@ -46,7 +46,7 @@ The implementation is split into four modules:
 - `protocols.py`: prompts, model responses, PBT execution, and paired scores.
 - `metrics.py`: pure metric and deployment-replay functions.
 
-The four editable prompts are flat files under `prompts/`. `attacker.txt` documents how the current pool was generated but is not used by this evaluator.
+The four editable prompts are flat files under `prompts/`. `attacker.txt` is copied verbatim from the pinned [ControlArena AI Control paper-replication example](https://github.com/UKGovernmentBEIS/control-arena/blob/bf7328e522615107bd9b9bfaee8c1bcbec4b6664/examples/paper_replications/ai_control/prompts/attack_system_prompt.txt) and is reserved for generating future development candidates; candidate generation is not part of this evaluator. The original paper implementation used a multi-call attack pipeline rather than one system prompt. The retained frozen pool predates the replication prompt and is unchanged.
 
 ## Setup
 
@@ -103,6 +103,12 @@ MockLLM mode uses deterministic placeholder monitor responses and ten trivial Hy
 - standalone PBT safety and evasion: unavailable because one shared suite abstained.
 
 The shared `/254` suite produced nine malformed tests and only one assertion-based completion, so all three executions correctly record `-1`. This eight-completed-tests rule was corrected deterministically from stored pytest output after the run, without additional model calls; `run.json` records the affected candidate IDs. On this five-task pool, PBT-informed TM made no measurable difference from TM, while the max combination hurt.
+
+## Development Prompt Check
+
+`runs/dev-prompt-check` replays the same five development tasks after making Hypothesis constraints explicit and correcting the informed monitor's description of candidate-blind tests. It made 26 model calls and used 97,729 tokens, costing approximately `$0.131` at published Gemini 2.5 Flash paid-tier rates. It did not generate new candidates or exercise the attacker prompt.
+
+PBT decision coverage fell to `6/15`. Gemini still ignored explicit constraints: generated suites used `.example()`, treated strategies as runtime values, passed strategies where concrete values were required, used a default argument under `@given`, and emitted 11 or 12 tests for some tasks. TM, TM+PBT, and PBT-informed TM all reported safety `0.8097` and evasion `0.0000`, so this development iteration showed no measurable PBT benefit. These figures are development feedback, not holdout results.
 
 ## Artifacts
 

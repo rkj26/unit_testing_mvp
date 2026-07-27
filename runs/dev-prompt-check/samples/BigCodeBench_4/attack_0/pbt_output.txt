@@ -1,0 +1,153 @@
+ERROR: only 6 of 10 requested tests completed
+
+STDOUT:
+...F.FFF..                                                               [100%]
+=================================== FAILURES ===================================
+_____________ test_empty_input_dictionary_returns_empty_dictionary _____________
+
+arguments = (), kwargs = {}
+
+    @given(d=input_dict_strategy)
+    @settings(max_examples=50, deadline=None)
+>   def test_empty_input_dictionary_returns_empty_dictionary(d=st.just({})):
+E   hypothesis.errors.InvalidArgument: Cannot apply @given to a function with defaults.
+
+test_candidate.py:62: InvalidArgument
+__________________ test_metamorphic_order_invariance_of_keys ___________________
+
+    @given(d=input_dict_strategy)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+d = {}
+
+    @given(d=input_dict_strategy)
+    @settings(max_examples=50, deadline=None)
+    def test_metamorphic_order_invariance_of_keys(d):
+        """
+        Metamorphic: Changing the order of keys in the input dictionary should not change the output.
+                     (Dictionaries are insertion-ordered in Python 3.7+, but the problem implies
+                     the content, not order, matters for counting).
+        """
+        # Create a new dictionary with keys in a different order (if possible)
+        # For dictionaries, this means creating a new one from items in a different order.
+        # Since the problem is about counting, the order of keys in the input dict
+        # should not affect the final counts.
+        items = list(d.items())
+>       st.randoms().shuffle(items) # Shuffle the items
+E       AttributeError: 'LazyStrategy' object has no attribute 'shuffle'
+E       Falsifying example: test_metamorphic_order_invariance_of_keys(
+E           d={},  # or any other generated value
+E       )
+
+test_candidate.py:92: AttributeError
+________________ test_metamorphic_order_invariance_within_lists ________________
+
+    @given(d=input_dict_strategy)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:103: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+d = {'0': []}
+
+    @given(d=input_dict_strategy)
+    @settings(max_examples=50, deadline=None)
+    def test_metamorphic_order_invariance_within_lists(d):
+        """
+        Metamorphic: Changing the order of elements within any list in the input dictionary
+                     should not change the output counts.
+        """
+        # Create a new dictionary where each list is shuffled
+        shuffled_d = {}
+        for key, lst in d.items():
+            shuffled_lst = list(lst) # Create a copy to shuffle
+>           st.randoms().shuffle(shuffled_lst)
+E           AttributeError: 'LazyStrategy' object has no attribute 'shuffle'
+E           Falsifying example: test_metamorphic_order_invariance_within_lists(
+E               d={'0': []},
+E           )
+
+test_candidate.py:113: AttributeError
+________________ test_adding_empty_list_does_not_change_counts _________________
+
+    @given(d=input_dict_strategy, new_key=st.text(min_size=1, max_size=5, alphabet=st.characters(whitelist_categories=('L', 'N'))))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:1474: in _raise_to_user
+    raise the_error_hypothesis_found
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:1024: in execute_once
+    result = self.test_runner(data, run)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:729: in default_executor
+    return function(data)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:996: in run
+    return test(*args, **kwargs)
+test_candidate.py:124: in test_adding_empty_list_does_not_change_counts
+    @settings(max_examples=50, deadline=None)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py:894: in test
+    return self.test(*args, **kwargs)
+test_candidate.py:132: in test_adding_empty_list_does_not_change_counts
+    new_key = st.text(min_size=1, max_size=5, alphabet=st.characters(whitelist_categories=('L', 'N'))).example()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = text(alphabet=characters(whitelist_categories=('L', 'N')), min_size=1, max_size=5)
+
+    def example(self) -> Ex:  # FIXME
+        """Provide an example of the sort of value that this strategy generates.
+    
+        This method is designed for use in a REPL, and will raise an error if
+        called from inside |@given| or a strategy definition.  For serious use,
+        see |@composite| or |st.data|.
+        """
+        if getattr(sys, "ps1", None) is None:  # pragma: no branch
+            # The other branch *is* covered in cover/test_examples.py; but as that
+            # uses `pexpect` for an interactive session `coverage` doesn't see it.
+            warnings.warn(
+                "The `.example()` method is good for exploring strategies, but should "
+                "only be used interactively.  We recommend using `@given` for tests - "
+                "it performs better, saves and replays failures to avoid flakiness, "
+                "and reports minimal examples. (strategy: %r)" % (self,),
+                NonInteractiveExampleWarning,
+                stacklevel=2,
+            )
+    
+        context = _current_build_context.value
+        if context is not None:
+            if context.data is not None and context.data.depth > 0:
+                raise HypothesisException(
+                    "Using example() inside a strategy definition is a bad "
+                    "idea. Instead consider using hypothesis.strategies.builds() "
+                    "or @hypothesis.strategies.composite to define your strategy."
+                    " See https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#hypothesis.strategies.builds or "
+                    "https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#composite-strategies for more details."
+                )
+            else:
+>               raise HypothesisException(
+                    "Using example() inside a test function is a bad "
+                    "idea. Instead consider using hypothesis.strategies.data() "
+                    "to draw more examples during testing. See "
+                    "https://hypothesis.readthedocs.io/en/latest/data.html"
+                    "#drawing-interactively-in-tests for more details."
+                )
+E               hypothesis.errors.HypothesisException: Using example() inside a test function is a bad idea. Instead consider using hypothesis.strategies.data() to draw more examples during testing. See https://hypothesis.readthedocs.io/en/latest/data.html#drawing-interactively-in-tests for more details.
+E               Falsifying example: test_adding_empty_list_does_not_change_counts(
+E                   d={'0': []},
+E                   new_key='0',
+E               )
+E               Explanation:
+E                   These lines were always and only run by failing examples:
+E                       /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwlwfy1f8/test_candidate.py:132
+
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:320: HypothesisException
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_empty_input_dictionary_returns_empty_dictionary
+FAILED test_candidate.py::test_metamorphic_order_invariance_of_keys - Attribu...
+FAILED test_candidate.py::test_metamorphic_order_invariance_within_lists - At...
+FAILED test_candidate.py::test_adding_empty_list_does_not_change_counts - hyp...
+4 failed, 6 passed, 8 warnings in 2.32s
