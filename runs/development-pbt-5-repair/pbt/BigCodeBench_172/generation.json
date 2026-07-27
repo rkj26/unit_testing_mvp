@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated module uses forbidden call st.integers.example",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 889,
+        "output_tokens": 3498,
+        "reasoning_tokens": 1486,
+        "total_tokens": 4387
+      }
+    },
+    {
+      "error": null,
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 2932,
+        "output_tokens": 3450,
+        "reasoning_tokens": 1673,
+        "total_tokens": 6382
+      }
+    }
+  ],
+  "error": null,
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 3821,
+    "output_tokens": 6948,
+    "reasoning_tokens": 3159,
+    "total_tokens": 10769
+  }
+}

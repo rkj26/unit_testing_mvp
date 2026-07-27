@@ -1,0 +1,13 @@
+ERROR: only 0 of 10 requested tests completed
+
+STDOUT:
+
+==================================== ERRORS ====================================
+______________________ ERROR collecting test_candidate.py ______________________
+test_candidate.py:102: in <module>
+    @given(l=st.lists(st.floats(min_value=0.0, max_value=100.0, allow_nan=False, allow_infinity=False, places=4), min_size=0, max_size=12))
+E   TypeError: floats() got an unexpected keyword argument 'places'
+=========================== short test summary info ============================
+ERROR test_candidate.py - TypeError: floats() got an unexpected keyword argum...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.19s

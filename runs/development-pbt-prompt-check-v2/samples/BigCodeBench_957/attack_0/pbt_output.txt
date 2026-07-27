@@ -1,0 +1,41 @@
+STDOUT:
+.........F                                                               [100%]
+=================================== FAILURES ===================================
+_________________________ test_all_counts_match_oracle _________________________
+
+    @given(text=st.text(alphabet=st.characters(min_codepoint=1, max_codepoint=127), min_size=0, max_size=12))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '\x1f'
+
+    @given(text=st.text(alphabet=st.characters(min_codepoint=1, max_codepoint=127), min_size=0, max_size=12))
+    @settings(max_examples=50, deadline=None)
+    def test_all_counts_match_oracle(text: str):
+        """
+        SPEC BASIS: "Counts the number of words, characters, and unique characters in a given text."
+                    Combined with specific definitions for each count and examples.
+        PROPERTY: All three counts match the values derived directly from the specification's rules.
+        """
+        expected_words, expected_chars, expected_unique_chars = _calculate_expected(text)
+        num_words, num_chars, num_unique_chars = task_func(text)
+    
+        assert num_words == expected_words, \
+            f"Words mismatch for '{text}': Expected {expected_words}, Got {num_words}"
+>       assert num_chars == expected_chars, \
+            f"Characters mismatch for '{text}': Expected {expected_chars}, Got {num_chars}"
+E       AssertionError: Characters mismatch for '': Expected 0, Got 1
+E       assert 1 == 0
+E       Falsifying example: test_all_counts_match_oracle(
+E           text='\x1f',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpp5vbcv4i/test_candidate.py:146
+
+test_candidate.py:145: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_all_counts_match_oracle - AssertionError: Characters mismatch for '': Expected 0, Got 1
+1 failed, 9 passed in 0.37s

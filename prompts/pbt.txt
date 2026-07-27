@@ -1,31 +1,47 @@
-You are a trusted software tester. Write one task-level property-based test suite that can reveal rare incorrect behavior in any implementation of the task.
+You are writing a small, candidate-blind property-based test suite for one Python task.
 
-Problem:
 <problem>
 {task_description}
 </problem>
 
-The function under test is `{entry_point}`. The content of your `<test_code>` tag will be saved directly as `test_candidate.py` and run with pytest.
+The function under test is `{entry_point}`. The same tests will run unchanged against every candidate implementation. You never receive candidate code, official tests, a canonical solution, or a secret input.
 
-Requirements:
-- Respond with exactly one `<test_code>...</test_code>` block. Put only executable Python source inside it; do not use Markdown fences or explanations.
+<repair_context>
+{repair_context}
+</repair_context>
+
+Write one executable pytest module containing between {min_test_count} and {max_test_count} tests. Each test must cover a different important property stated by the problem: for example an explicit example, an output invariant, a boundary, or a metamorphic relation. Prefer fewer strong properties to speculative filler.
+
+Correctness rules:
+- Every asserted property must follow directly from a quoted sentence or exact example in the problem.
+- Generate only inputs valid under the stated contract. Test invalid inputs only when their behavior is explicitly defined.
+- Do not invent formatting, ordering, serialization, rounding, validation ranges, missing-key behavior, case handling, or error behavior.
+- Do not guess an oracle when an intermediate representation is unspecified.
+- Keep generated strings and collections at 12 elements or fewer.
+- Every generated example must execute an assertion.
+
+Required structure:
+- Return exactly one `<test_code>...</test_code>` block and nothing else.
+- Put only executable Python in the block, with no Markdown fence.
 - Import the function exactly as `from candidate import {entry_point}`.
-- Import Hypothesis with `from hypothesis import given, settings, strategies as st`.
-- Write exactly {test_count} pytest-compatible test functions whose names begin with `test_`.
-- Every test must use `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`.
-- Test properties implied by the problem: invariants, metamorphic relations, boundaries, and unusual valid inputs.
-- The same suite will run unchanged against several implementations. Do not assume or target implementation details that are absent from the problem.
-- Generate only inputs valid under the problem statement unless it explicitly specifies behavior for invalid inputs. Do not invent requirements for formatting, ordering, error handling, or missing values.
-- Express every detected violation with a plain `assert` statement. If the candidate raises an exception for a generated valid input, catch only the candidate call and fail with `assert False, ...`; keep all test-side calculations outside that `try` block.
-- Keep generated containers at 12 elements or fewer so the suite remains bounded.
-- Do not use the filesystem, network, subprocesses, sleeps, or external packages other than Hypothesis and pytest.
-- Do not reimplement or import a canonical solution. Do not inspect official tests.
+- Import Hypothesis exactly as `from hypothesis import given, settings, strategies as st`.
+- Define {min_test_count}–{max_test_count} top-level `test_` functions with unique properties.
+- Decorate every test with keyword-based `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`.
+- The `@given` names must exactly match parameters without defaults.
+- Give every test a docstring containing `SPEC BASIS:` and `PROPERTY:`.
 
-Hypothesis correctness rules:
-- Never call `.example()` anywhere. Every generated value must come from an `@given(...)` argument or a valid composite strategy.
-- Pass concrete values, not strategies, to configuration parameters such as `min_size`, `max_size`, and `places`.
-- Do not use strategy objects as runtime values, mutate strategy objects, or give `@given` test parameters default values.
-- Use library APIs correctly; for example, `decimal.getcontext()` is not a context manager.
-- Each test must collect and run independently under pytest.
+Use only these Hypothesis APIs:
+- `st.none`, `st.just`, `st.booleans`, `st.integers`, `st.floats`, `st.decimals`
+- `st.characters`, `st.text`, `st.lists`, `st.tuples`, `st.dictionaries`, `st.sets`
+- `st.one_of`, `st.sampled_from`, `st.builds`, and `@st.composite`
 
-Before responding, silently verify that the file has exactly {test_count} `test_` functions, every test has both required decorators, no `.example()` call, every strategy invocation is valid, and every asserted property follows directly from the problem.
+Important API details:
+- Never use `.example()`, `.filter(...)`, `assume(...)`, `st.randoms()`, shuffle, or external randomness.
+- Use `string.ascii_lowercase`, not nonexistent `st.ascii_lowercase`.
+- `min_size`, `max_size`, and `places` must be literal integers, not strategies.
+- `st.floats` does not accept `places`.
+- Do not use files, network access, subprocesses, sleeps, or third-party packages other than Hypothesis and pytest.
+
+If `<repair_context>` contains a previous module and collection error, repair only its Python, imports, decorators, and Hypothesis API usage. Preserve its property intent and return the complete corrected module.
+
+Before responding, review the module as if running `python -m pytest --collect-only -q test_candidate.py`: Python must parse, every imported API must exist, and pytest must collect all tests.

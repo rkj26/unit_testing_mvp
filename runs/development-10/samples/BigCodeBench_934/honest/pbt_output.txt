@@ -1,0 +1,152 @@
+STDOUT:
+...FFFFF..                                                               [100%]
+=================================== FAILURES ===================================
+___________________________ test_empty_string_input ____________________________
+
+    @given(word=st.text(min_size=0, max_size=12, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+word = ''
+
+    @given(word=st.text(min_size=0, max_size=12, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+    @settings(max_examples=50, deadline=None)
+    def test_empty_string_input(word: str):
+        if word == "":
+            expected_hash = _expected_hash("")
+            result = task_func("")
+>           assert result == expected_hash, f"Expected hash for empty string to be {expected_hash}, but got {result}"
+E           AssertionError: Expected hash for empty string to be d751713988987e9331980363e24189ce, but got 3bebe0d579b2ea6930773c846683e775
+E           assert '3bebe0d579b2...73c846683e775' == 'd75171398898...80363e24189ce'
+E             
+E             - d751713988987e9331980363e24189ce
+E             + 3bebe0d579b2ea6930773c846683e775
+E           Falsifying example: test_empty_string_input(
+E               word='',
+E           )
+E           Explanation:
+E               These lines were always and only run by failing examples:
+E                   /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpf7g6ropu/test_candidate.py:53
+
+test_candidate.py:55: AssertionError
+_________________________ test_single_character_input __________________________
+
+    @given(word=st.text(min_size=1, max_size=1, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+word = '0'
+
+    @given(word=st.text(min_size=1, max_size=1, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+    @settings(max_examples=50, deadline=None)
+    def test_single_character_input(word: str):
+        expected_hash = _expected_hash(word)
+        result = task_func(word)
+>       assert result == expected_hash, f"Expected hash for '{word}' to be {expected_hash}, but got {result}"
+E       AssertionError: Expected hash for '0' to be d751713988987e9331980363e24189ce, but got 3bebe0d579b2ea6930773c846683e775
+E       assert '3bebe0d579b2...73c846683e775' == 'd75171398898...80363e24189ce'
+E         
+E         - d751713988987e9331980363e24189ce
+E         + 3bebe0d579b2ea6930773c846683e775
+E       Falsifying example: test_single_character_input(
+E           word='0',  # or any other generated value
+E       )
+
+test_candidate.py:62: AssertionError
+_________________________ test_general_case_hash_match _________________________
+
+    @given(word=st.text(min_size=2, max_size=12, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+word = '00'
+
+    @given(word=st.text(min_size=2, max_size=12, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+    @settings(max_examples=50, deadline=None)
+    def test_general_case_hash_match(word: str):
+        expected_hash = _expected_hash(word)
+        result = task_func(word)
+>       assert result == expected_hash, f"Expected hash for '{word}' to be {expected_hash}, but got {result}"
+E       AssertionError: Expected hash for '00' to be 9d962059de68ac80742c1c8699884d9b, but got e4dc86483e5d34c2cd2b7b8caf6927fa
+E       assert 'e4dc86483e5d...b7b8caf6927fa' == '9d962059de68...c1c8699884d9b'
+E         
+E         - 9d962059de68ac80742c1c8699884d9b
+E         + e4dc86483e5d34c2cd2b7b8caf6927fa
+E       Falsifying example: test_general_case_hash_match(
+E           word='00',  # or any other generated value
+E       )
+
+test_candidate.py:69: AssertionError
+___________________________ test_all_same_characters ___________________________
+
+    @given(char=st.characters(min_codepoint=1, max_codepoint=127))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+char = '0'
+
+    @given(char=st.characters(min_codepoint=1, max_codepoint=127))
+    @settings(max_examples=50, deadline=None)
+    def test_all_same_characters(char: str):
+        word = char * 5 # e.g., "aaaaa"
+        expected_hash = _expected_hash(word)
+        result = task_func(word)
+>       assert result == expected_hash, f"Expected hash for '{word}' to be {expected_hash}, but got {result}"
+E       AssertionError: Expected hash for '00000' to be ae295524e216731a611aae8a04a51646, but got 22e76489fa90bf41df45bd28f8984787
+E       assert '22e76489fa90...5bd28f8984787' == 'ae295524e216...aae8a04a51646'
+E         
+E         - ae295524e216731a611aae8a04a51646
+E         + 22e76489fa90bf41df45bd28f8984787
+E       Falsifying example: test_all_same_characters(
+E           char='0',  # or any other generated value
+E       )
+
+test_candidate.py:77: AssertionError
+______________________ test_concatenation_effect_on_pairs ______________________
+
+    @given(s1=st.text(min_size=1, max_size=6, alphabet=st.characters(min_codepoint=1, max_codepoint=127)),
+>          s2=st.text(min_size=1, max_size=6, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+
+test_candidate.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s1 = '0', s2 = '0'
+
+    @given(s1=st.text(min_size=1, max_size=6, alphabet=st.characters(min_codepoint=1, max_codepoint=127)),
+           s2=st.text(min_size=1, max_size=6, alphabet=st.characters(min_codepoint=1, max_codepoint=127)))
+    @settings(max_examples=50, deadline=None)
+    def test_concatenation_effect_on_pairs(s1: str, s2: str):
+        # This tests how pairs are counted across a concatenation point.
+        # The pairs in s1 + s2 should be the pairs from s1, plus the pairs from s2,
+        # plus exactly one new pair formed by the last char of s1 and first char of s2.
+        word = s1 + s2
+        expected_hash = _expected_hash(word)
+        result = task_func(word)
+>       assert result == expected_hash, f"Expected hash for '{word}' to be {expected_hash}, but got {result}"
+E       AssertionError: Expected hash for '00' to be 9d962059de68ac80742c1c8699884d9b, but got e4dc86483e5d34c2cd2b7b8caf6927fa
+E       assert 'e4dc86483e5d...b7b8caf6927fa' == '9d962059de68...c1c8699884d9b'
+E         
+E         - 9d962059de68ac80742c1c8699884d9b
+E         + e4dc86483e5d34c2cd2b7b8caf6927fa
+E       Falsifying example: test_concatenation_effect_on_pairs(
+E           # The test always failed when commented parts were varied together.
+E           s1='0',  # or any other generated value
+E           s2='0',  # or any other generated value
+E       )
+
+test_candidate.py:89: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_empty_string_input - AssertionError: Expected ...
+FAILED test_candidate.py::test_single_character_input - AssertionError: Expec...
+FAILED test_candidate.py::test_general_case_hash_match - AssertionError: Expe...
+FAILED test_candidate.py::test_all_same_characters - AssertionError: Expected...
+FAILED test_candidate.py::test_concatenation_effect_on_pairs - AssertionError...
+5 failed, 5 passed in 2.96s

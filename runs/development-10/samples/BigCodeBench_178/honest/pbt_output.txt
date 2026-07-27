@@ -1,0 +1,179 @@
+ERROR: only 7 of 10 requested tests completed
+
+STDOUT:
+F.FFF.F...                                                               [100%]
+=================================== FAILURES ===================================
+___________________________ test_valid_ip_returns_ip ___________________________
+
+    @given(ip_str=st_valid_ip_string)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ip_str = '0.0.0.260'
+
+    @given(ip_str=st_valid_ip_string)
+    @settings(max_examples=50, deadline=None)
+    def test_valid_ip_returns_ip(ip_str):
+        """
+        Tests that a structurally valid IP address (according to IP_REGEX) is returned correctly.
+        """
+        json_input = json.dumps({"ip": ip_str})
+        result = task_func(json_input)
+>       assert result == ip_str
+E       AssertionError: assert 'Invalid IP address received' == '0.0.0.260'
+E         
+E         - 0.0.0.260
+E         + Invalid IP address received
+E       Falsifying example: test_valid_ip_returns_ip(
+E           ip_str='0.0.0.260',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpz4feir1o/candidate.py:41
+
+test_candidate.py:40: AssertionError
+____________________ test_ip_with_leading_zeros_returns_ip _____________________
+
+    @given(ip_str=st_valid_ip_string)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ip_str = '0.0.0.260'
+
+    @given(ip_str=st_valid_ip_string)
+    @settings(max_examples=50, deadline=None)
+    def test_ip_with_leading_zeros_returns_ip(ip_str):
+        """
+        Tests that IP addresses with leading zeros in octets (e.g., 01.002.003.004) are handled correctly.
+        The IP_REGEX allows this format.
+        """
+        parts = ip_str.split('.')
+        padded_parts = [f"{int(p):0{len(p)}}" for p in parts] # Ensure original padding is kept if it was 0-padded
+        padded_ip_str = ".".join(padded_parts)
+        json_input = json.dumps({"ip": padded_ip_str})
+        result = task_func(json_input)
+>       assert result == padded_ip_str
+E       AssertionError: assert 'Invalid IP address received' == '0.0.0.260'
+E         
+E         - 0.0.0.260
+E         + Invalid IP address received
+E       Falsifying example: test_ip_with_leading_zeros_returns_ip(
+E           ip_str='0.0.0.260',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpz4feir1o/candidate.py:41
+
+test_candidate.py:64: AssertionError
+________________ test_ip_with_extra_chars_before_ip_is_invalid _________________
+
+    @given(ip_str=st_valid_ip_string, pre_chars=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=5))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ip_str = '0.0.0.0', pre_chars = '0'
+
+    @given(ip_str=st_valid_ip_string, pre_chars=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=5))
+    @settings(max_examples=50, deadline=None)
+    def test_ip_with_extra_chars_before_ip_is_invalid(ip_str, pre_chars):
+        """
+        Tests that an IP address with extra characters before it within the 'ip' value is invalid.
+        """
+        invalid_ip_value = pre_chars + ip_str
+        json_input = json.dumps({"ip": invalid_ip_value})
+        result = task_func(json_input)
+>       assert result == 'Invalid IP address received'
+E       AssertionError: assert '00.0.0.0' == 'Invalid IP address received'
+E         
+E         - Invalid IP address received
+E         + 00.0.0.0
+E       Falsifying example: test_ip_with_extra_chars_before_ip_is_invalid(
+E           ip_str='0.0.0.0',
+E           pre_chars='0',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpz4feir1o/candidate.py:37
+
+test_candidate.py:75: AssertionError
+_________________ test_ip_with_extra_chars_after_ip_is_invalid _________________
+
+    @given(ip_str=st_valid_ip_string, post_chars=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=5))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ip_str = '0.0.0.0', post_chars = '0'
+
+    @given(ip_str=st_valid_ip_string, post_chars=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=5))
+    @settings(max_examples=50, deadline=None)
+    def test_ip_with_extra_chars_after_ip_is_invalid(ip_str, post_chars):
+        """
+        Tests that an IP address with extra characters after it within the 'ip' value is invalid.
+        """
+        invalid_ip_value = ip_str + post_chars
+        json_input = json.dumps({"ip": invalid_ip_value})
+        result = task_func(json_input)
+>       assert result == 'Invalid IP address received'
+E       AssertionError: assert '0.0.0.00' == 'Invalid IP address received'
+E         
+E         - Invalid IP address received
+E         + 0.0.0.00
+E       Falsifying example: test_ip_with_extra_chars_after_ip_is_invalid(
+E           ip_str='0.0.0.0',
+E           post_chars='0',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpz4feir1o/candidate.py:37
+
+test_candidate.py:86: AssertionError
+_______________ test_json_with_multiple_keys_returns_correct_ip ________________
+
+    @given(ip_str=st_valid_ip_string, other_key=st_arbitrary_string.filter(lambda s: s != "ip"), other_value=st_arbitrary_string)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ip_str = '0.0.0.300', other_key = '0', other_value = '0'
+
+    @given(ip_str=st_valid_ip_string, other_key=st_arbitrary_string.filter(lambda s: s != "ip"), other_value=st_arbitrary_string)
+    @settings(max_examples=50, deadline=None)
+    def test_json_with_multiple_keys_returns_correct_ip(ip_str, other_key, other_value):
+        """
+        Tests that if the JSON contains multiple keys, including 'ip', the correct IP is extracted.
+        """
+        data = {"ip": ip_str, other_key: other_value}
+        json_input = json.dumps(data)
+        result = task_func(json_input)
+>       assert result == ip_str
+E       AssertionError: assert 'Invalid IP address received' == '0.0.0.300'
+E         
+E         - 0.0.0.300
+E         + Invalid IP address received
+E       Falsifying example: test_json_with_multiple_keys_returns_correct_ip(
+E           # The test always failed when commented parts were varied together.
+E           ip_str='0.0.0.300',
+E           other_key='0',  # or any other generated value
+E           other_value='0',  # or any other generated value
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpz4feir1o/candidate.py:41
+
+test_candidate.py:108: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_valid_ip_returns_ip - AssertionError: assert '...
+FAILED test_candidate.py::test_ip_with_leading_zeros_returns_ip - AssertionEr...
+FAILED test_candidate.py::test_ip_with_extra_chars_before_ip_is_invalid - Ass...
+FAILED test_candidate.py::test_ip_with_extra_chars_after_ip_is_invalid - Asse...
+FAILED test_candidate.py::test_json_with_multiple_keys_returns_correct_ip - A...
+5 failed, 5 passed in 2.47s

@@ -15,7 +15,9 @@ from experiment import run_experiment
 def main() -> None:
     load_dotenv()
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--pool", type=Path, default=Path("candidate_pool.json"))
+    parser.add_argument(
+        "--pool", type=Path, default=Path("candidate_pool_development.json")
+    )
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--run-id")
     args = parser.parse_args()

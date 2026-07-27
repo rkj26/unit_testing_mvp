@@ -1,0 +1,349 @@
+ERROR: only 7 of 10 requested tests completed
+
+STDOUT:
+FFF..F.FFF                                                               [100%]
+=================================== FAILURES ===================================
+_____________________ test_output_type_and_keys_lowercase ______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(s=st.text(
+        alphabet=string.ascii_letters + string.digits + string.punctuation + string.whitespace,
+        min_size=0, max_size=12
+    ))
+
+test_candidate.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '_'
+
+    @settings(max_examples=50, deadline=None)
+    @given(s=st.text(
+        alphabet=string.ascii_letters + string.digits + string.punctuation + string.whitespace,
+        min_size=0, max_size=12
+    ))
+    def test_output_type_and_keys_lowercase(s):
+        """
+        Tests that the output is a dictionary and all keys are lowercase alphanumeric characters.
+        """
+        result = task_func(s)
+        assert isinstance(result, dict), "Output must be a dictionary."
+        for char, count in result.items():
+            assert isinstance(char, str), "Keys must be strings."
+            assert len(char) == 1, "Keys must be single characters."
+>           assert char.islower() or char.isdigit(), "Keys must be lowercase letters or digits."
+E           AssertionError: Keys must be lowercase letters or digits.
+E           assert (False or False)
+E            +  where False = <built-in method islower of str object at 0x105263e78>()
+E            +    where <built-in method islower of str object at 0x105263e78> = '_'.islower
+E            +  and   False = <built-in method isdigit of str object at 0x105263e78>()
+E            +    where <built-in method isdigit of str object at 0x105263e78> = '_'.isdigit
+E           Falsifying example: test_output_type_and_keys_lowercase(
+E               s='_',
+E           )
+
+test_candidate.py:20: AssertionError
+_______________________ test_counts_match_expected_logic _______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(s=st.text(
+        alphabet=string.ascii_letters + string.digits + string.punctuation + string.whitespace,
+        min_size=0, max_size=12
+    ))
+
+test_candidate.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '_'
+
+    @settings(max_examples=50, deadline=None)
+    @given(s=st.text(
+        alphabet=string.ascii_letters + string.digits + string.punctuation + string.whitespace,
+        min_size=0, max_size=12
+    ))
+    def test_counts_match_expected_logic(s):
+        """
+        Tests that the counts for each character are correct based on the problem logic.
+        This is the core correctness test.
+        """
+        expected_counts = collections.Counter()
+        for char in s:
+            if char.isalnum():
+                expected_counts[char.lower()] += 1
+    
+        result = task_func(s)
+>       assert result == dict(expected_counts), \
+            f"Counts mismatch for input '{s}'. Expected: {dict(expected_counts)}, Got: {result}"
+E       AssertionError: Counts mismatch for input '_'. Expected: {}, Got: Counter({'_': 1})
+E       assert Counter({'_': 1}) == {}
+E         
+E         Left contains 1 more item:
+E         {'_': 1}
+E         Use -v to get more diff
+E       Falsifying example: test_counts_match_expected_logic(
+E           s='_',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py:42
+
+test_candidate.py:41: AssertionError
+__________________ test_mixed_alphanumeric_and_special_chars ___________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        letters=st.text(alphabet=string.ascii_letters, min_size=0, max_size=6),
+        digits=st.text(alphabet=string.digits, min_size=0, max_size=6),
+        specials=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=6)
+    )
+
+test_candidate.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:57: in test_mixed_alphanumeric_and_special_chars
+    shuffled_input = ''.join(sorted(input_str, key=lambda x: st.randoms().random()))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = ':'
+
+>   shuffled_input = ''.join(sorted(input_str, key=lambda x: st.randoms().random()))
+E   AttributeError: 'LazyStrategy' object has no attribute 'random'
+E   Falsifying example: test_mixed_alphanumeric_and_special_chars(
+E       letters='',  # or any other generated value
+E       digits='',  # or any other generated value
+E       specials=':',
+E   )
+
+test_candidate.py:57: AttributeError
+_______________________ test_only_non_alphanumeric_chars _______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(s=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=12))
+
+test_candidate.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '_'
+
+    @settings(max_examples=50, deadline=None)
+    @given(s=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=12))
+    def test_only_non_alphanumeric_chars(s):
+        """
+        Tests an input string consisting only of non-alphanumeric characters.
+        The output dictionary should be empty.
+        """
+        result = task_func(s)
+>       assert result == {}, f"Expected empty dict for non-alphanumeric input '{s}', got {result}."
+E       AssertionError: Expected empty dict for non-alphanumeric input '_', got Counter({'_': 1}).
+E       assert Counter({'_': 1}) == {}
+E         
+E         Left contains 1 more item:
+E         {'_': 1}
+E         Use -v to get more diff
+E       Falsifying example: test_only_non_alphanumeric_chars(
+E           s='_',
+E       )
+
+test_candidate.py:102: AssertionError
+__________________ test_single_character_repeated_with_filler __________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        char_strategy=st.sampled_from(string.ascii_letters + string.digits),
+        num_repetitions=st.integers(min_value=1, max_value=12),
+        filler_chars=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=6)
+    )
+
+test_candidate.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:130: in test_single_character_repeated_with_filler
+    input_str = ''.join(sorted(input_parts, key=lambda x: st.randoms().random()))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = 'a'
+
+>   input_str = ''.join(sorted(input_parts, key=lambda x: st.randoms().random()))
+E   AttributeError: 'LazyStrategy' object has no attribute 'random'
+E   Falsifying example: test_single_character_repeated_with_filler(
+E       # The test always failed when commented parts were varied together.
+E       char_strategy='a',  # or any other generated value
+E       num_repetitions=1,  # or any other generated value
+E       filler_chars='',  # or any other generated value
+E   )
+
+test_candidate.py:130: AttributeError
+_________________________ test_concatenation_property __________________________
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 341, in from_call
+  |     result: TResult | None = func()
+  |                              ^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 242, in <lambda>
+  |     lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 92, in pytest_runtest_call
+  |     yield from thread_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 68, in thread_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 95, in pytest_runtest_call
+  |     yield from unraisable_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 70, in unraisable_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 846, in pytest_runtest_call
+  |     yield from self._runtest_for(item, "call")
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 829, in _runtest_for
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/capture.py", line 898, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/skipping.py", line 257, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+  |     item.runtest()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1627, in runtest
+  |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 159, in pytest_pyfunc_call
+  |     result = testfunction(**testargs)
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py", line 140, in test_concatenation_property
+  |     @given(
+  |             
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py", line 1839, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py", line 152, in test_concatenation_property
+    |     s2_mixed = ''.join(sorted(s2 + non_alpha, key=lambda x: st.randoms().random()))
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py", line 152, in <lambda>
+    |     s2_mixed = ''.join(sorted(s2 + non_alpha, key=lambda x: st.randoms().random()))
+    |                                                             ^^^^^^^^^^^^^^^^^^^
+    | AttributeError: 'LazyStrategy' object has no attribute 'random'
+    | Falsifying example: test_concatenation_property(
+    |     s1='',
+    |     s2='0',
+    |     non_alpha='',
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py", line 151, in test_concatenation_property
+    |     s1_mixed = ''.join(sorted(s1 + non_alpha, key=lambda x: st.randoms().random()))
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py", line 151, in <lambda>
+    |     s1_mixed = ''.join(sorted(s1 + non_alpha, key=lambda x: st.randoms().random()))
+    |                                                             ^^^^^^^^^^^^^^^^^^^
+    | AttributeError: 'LazyStrategy' object has no attribute 'random'
+    | Falsifying example: test_concatenation_property(
+    |     s1='',  # or any other generated value
+    |     s2='',  # or any other generated value
+    |     non_alpha=':',
+    | )
+    +------------------------------------
+___________________ test_non_alphanumeric_prefix_and_suffix ____________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        s=st.text(alphabet=string.ascii_letters + string.digits, min_size=0, max_size=12),
+        non_alpha_prefix=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=6),
+        non_alpha_suffix=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=6)
+    )
+
+test_candidate.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '', non_alpha_prefix = '', non_alpha_suffix = '_'
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        s=st.text(alphabet=string.ascii_letters + string.digits, min_size=0, max_size=12),
+        non_alpha_prefix=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=6),
+        non_alpha_suffix=st.text(alphabet=string.punctuation + string.whitespace, min_size=0, max_size=6)
+    )
+    def test_non_alphanumeric_prefix_and_suffix(s, non_alpha_prefix, non_alpha_suffix):
+        """
+        Tests that leading and trailing non-alphanumeric characters do not affect the counts
+        of the alphanumeric characters in the middle.
+        """
+        input_str = non_alpha_prefix + s + non_alpha_suffix
+    
+        expected_counts = collections.Counter(c.lower() for c in s if c.isalnum())
+        result = task_func(input_str)
+    
+>       assert result == dict(expected_counts), \
+            f"Prefix/suffix test failed for input '{input_str}'. Expected: {dict(expected_counts)}, Got: {result}"
+E       AssertionError: Prefix/suffix test failed for input '_'. Expected: {}, Got: Counter({'_': 1})
+E       assert Counter({'_': 1}) == {}
+E         
+E         Left contains 1 more item:
+E         {'_': 1}
+E         Use -v to get more diff
+E       Falsifying example: test_non_alphanumeric_prefix_and_suffix(
+E           s='',  # or any other generated value
+E           non_alpha_prefix='',  # or any other generated value
+E           non_alpha_suffix='_',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpirymezhk/test_candidate.py:182
+
+test_candidate.py:181: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_output_type_and_keys_lowercase - AssertionErro...
+FAILED test_candidate.py::test_counts_match_expected_logic - AssertionError: ...
+FAILED test_candidate.py::test_mixed_alphanumeric_and_special_chars - Attribu...
+FAILED test_candidate.py::test_only_non_alphanumeric_chars - AssertionError: ...
+FAILED test_candidate.py::test_single_character_repeated_with_filler - Attrib...
+FAILED test_candidate.py::test_concatenation_property - ExceptionGroup: Hypot...
+FAILED test_candidate.py::test_non_alphanumeric_prefix_and_suffix - Assertion...
+7 failed, 3 passed in 7.38s

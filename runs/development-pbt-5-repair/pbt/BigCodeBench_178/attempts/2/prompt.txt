@@ -1,0 +1,194 @@
+You are writing a small, candidate-blind property-based test suite for one Python task.
+
+<problem>
+import re
+import json
+
+# Constants
+IP_REGEX = r'[0-9]+(?:\.[0-9]+){3}'
+
+def task_func(ip_address):
+    """
+    Get the public IP address from a JSON response containing the IP address.
+    
+    Parameters:
+    ip_address (str): JSON-formatted string containing the IP address. 
+
+    Returns:
+    str: The public IP address.
+    
+    Note:
+    - The function needs to check whether the provided IP address is valid.
+      If the IP address is not valid, the function will return 'Invalid IP address received'.
+
+    Requirements:
+    - re
+    - json
+    
+    Example:
+    >>> ip_address = '{"ip": "192.168.1.1"}'
+    >>> task_func(ip_address)
+    '192.168.1.1'
+    """
+
+</problem>
+
+The function under test is `task_func`. The same tests will run unchanged against every candidate implementation. You never receive candidate code, official tests, a canonical solution, or a secret input.
+
+<repair_context>
+Repair the previous module mechanically. Preserve its properties and input domains.
+<previous_test_code>
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import json
+import re
+
+# Constants from the problem description
+IP_REGEX = r'[0-9]+(?:\.[0-9]+){3}'
+
+# Strategy for generating valid IP address components (one or more digits)
+# The regex allows numbers like '0', '00', '123', '9999'.
+st_ip_component = st.text(st.just('0123456789'), min_size=1, max_size=3)
+
+# Strategy for generating IP addresses that match IP_REGEX
+st_valid_ip_address_format = st.builds(
+    lambda c1, c2, c3, c4: f"{c1}.{c2}.{c3}.{c4}",
+    c1=st_ip_component,
+    c2=st_ip_component,
+    c3=st_ip_component,
+    c4=st_ip_component
+)
+
+# Strategy for generating IP addresses that do NOT match IP_REGEX
+# These should trigger the 'Invalid IP address received' return.
+st_invalid_ip_address_format = st.one_of(
+    # Too few segments (e.g., "1.2.3")
+    st.builds(lambda c1, c2, c3: f"{c1}.{c2}.{c3}", c1=st_ip_component, c2=st_ip_component, c3=st_ip_component),
+    # Too many segments (e.g., "1.2.3.4.5")
+    st.builds(lambda c1, c2, c3, c4, c5: f"{c1}.{c2}.{c3}.{c4}.{c5}",
+              c1=st_ip_component, c2=st_ip_component, c3=st_ip_component, c4=st_ip_component, c5=st_ip_component),
+    # Missing a segment (e.g., "1.2..4") - not strictly covered by the regex, but a common invalid format
+    st.builds(lambda c1, c2, c4: f"{c1}.{c2}..{c4}", c1=st_ip_component, c2=st_ip_component, c4=st_ip_component),
+    # Non-digit characters in a segment (e.g., "1.a.3.4")
+    st.builds(lambda c1, c2, c3, c4: f"{c1}.{c2}.{c3}.{c4}",
+              c1=st_ip_component,
+              c2=st.text(st.characters(blacklist_categories=('Nd',)), min_size=1, max_size=3),
+              c3=st_ip_component,
+              c4=st_ip_component),
+    # Empty string for IP
+    st.just(""),
+    # IP with leading/trailing dots or multiple dots
+    st.just(".1.2.3.4"),
+    st.just("1.2.3.4."),
+    st.just("1..2.3.4")
+)
+
+# Strategy for generating JSON strings with an 'ip' key and a string value.
+# The problem implies the input is always valid JSON with an 'ip' key.
+def st_json_with_ip_value(ip_value_strategy):
+    return st.builds(
+        lambda ip_val: json.dumps({"ip": ip_val}),
+        ip_val=ip_value_strategy
+    )
+
+@settings(max_examples=50, deadline=None)
+@given(ip_address=st.just('{"ip": "192.168.1.1"}'))
+def test_example_case(ip_address):
+    """
+    SPEC BASIS: Example: >>> ip_address = '{"ip": "192.168.1.1"}' >>> task_func(ip_address) '192.168.1.1'
+    PROPERTY: The function correctly processes the exact example input provided in the problem description.
+    """
+    assert task_func(ip_address) == '192.168.1.1'
+
+@settings(max_examples=50, deadline=None)
+@given(ip_address=st_json_with_ip_value(st_valid_ip_address_format))
+def test_valid_ip_address_extraction(ip_address):
+    """
+    SPEC BASIS: "Get the public IP address from a JSON response containing the IP address."
+                "The function needs to check whether the provided IP address is valid."
+    PROPERTY: For any valid JSON string containing an 'ip' key whose value matches IP_REGEX,
+              the function returns that IP address string.
+    """
+    # Extract the expected IP address from the JSON string
+    parsed_json = json.loads(ip_address)
+    expected_ip = parsed_json["ip"]
+
+    # Verify that the generated IP actually matches the regex, as per the problem's definition of "valid"
+    assert re.fullmatch(IP_REGEX, expected_ip) is not None
+
+    assert task_func(ip_address) == expected_ip
+
+@settings(max_examples=50, deadline=None)
+@given(ip_address=st_json_with_ip_value(st_invalid_ip_address_format))
+def test_invalid_ip_address_format_returns_error_message(ip_address):
+    """
+    SPEC BASIS: "If the IP address is not valid, the function will return 'Invalid IP address received'."
+    PROPERTY: For any valid JSON string containing an 'ip' key whose value does NOT match IP_REGEX,
+              the function returns the specific error message 'Invalid IP address received'.
+    """
+    # Extract the IP address from the JSON string to verify it's indeed invalid by regex
+    parsed_json = json.loads(ip_address)
+    invalid_ip = parsed_json["ip"]
+
+    # Verify that the generated IP actually does NOT match the regex
+    assert re.fullmatch(IP_REGEX, invalid_ip) is None
+
+    assert task_func(ip_address) == 'Invalid IP address received'
+
+@settings(max_examples=50, deadline=None)
+@given(ip_address=st_json_with_ip_value(st.text(min_size=0, max_size=12).filter(lambda s: not re.fullmatch(IP_REGEX, s))))
+def test_arbitrary_invalid_ip_string_returns_error_message(ip_address):
+    """
+    SPEC BASIS: "If the IP address is not valid, the function will return 'Invalid IP address received'."
+    PROPERTY: For any valid JSON string containing an 'ip' key whose value is a string that does not
+              match IP_REGEX (even if it's not a typical IP format), the function returns the specific
+              error message 'Invalid IP address received'. This covers cases beyond structured invalid IPs.
+    """
+    parsed_json = json.loads(ip_address)
+    invalid_ip_string = parsed_json["ip"]
+
+    # Ensure the generated string is indeed not a valid IP according to the regex
+    assert re.fullmatch(IP_REGEX, invalid_ip_string) is None
+
+    assert task_func(ip_address) == 'Invalid IP address received'
+</previous_test_code>
+<collection_error>
+generated module uses forbidden call st.text.filter
+</collection_error>
+</repair_context>
+
+Write one executable pytest module containing between 3 and 5 tests. Each test must cover a different important property stated by the problem: for example an explicit example, an output invariant, a boundary, or a metamorphic relation. Prefer fewer strong properties to speculative filler.
+
+Correctness rules:
+- Every asserted property must follow directly from a quoted sentence or exact example in the problem.
+- Generate only inputs valid under the stated contract. Test invalid inputs only when their behavior is explicitly defined.
+- Do not invent formatting, ordering, serialization, rounding, validation ranges, missing-key behavior, case handling, or error behavior.
+- Do not guess an oracle when an intermediate representation is unspecified.
+- Keep generated strings and collections at 12 elements or fewer.
+- Every generated example must execute an assertion.
+
+Required structure:
+- Return exactly one `<test_code>...</test_code>` block and nothing else.
+- Put only executable Python in the block, with no Markdown fence.
+- Import the function exactly as `from candidate import task_func`.
+- Import Hypothesis exactly as `from hypothesis import given, settings, strategies as st`.
+- Define 3–5 top-level `test_` functions with unique properties.
+- Decorate every test with keyword-based `@given(...)` and `@settings(max_examples=50, deadline=None)`.
+- The `@given` names must exactly match parameters without defaults.
+- Give every test a docstring containing `SPEC BASIS:` and `PROPERTY:`.
+
+Use only these Hypothesis APIs:
+- `st.none`, `st.just`, `st.booleans`, `st.integers`, `st.floats`, `st.decimals`
+- `st.characters`, `st.text`, `st.lists`, `st.tuples`, `st.dictionaries`, `st.sets`
+- `st.one_of`, `st.sampled_from`, `st.builds`, and `@st.composite`
+
+Important API details:
+- Never use `.example()`, `.filter(...)`, `assume(...)`, `st.randoms()`, shuffle, or external randomness.
+- Use `string.ascii_lowercase`, not nonexistent `st.ascii_lowercase`.
+- `min_size`, `max_size`, and `places` must be literal integers, not strategies.
+- `st.floats` does not accept `places`.
+- Do not use files, network access, subprocesses, sleeps, or third-party packages other than Hypothesis and pytest.
+
+If `<repair_context>` contains a previous module and collection error, repair only its Python, imports, decorators, and Hypothesis API usage. Preserve its property intent and return the complete corrected module.
+
+Before responding, review the module as if running `python -m pytest --collect-only -q test_candidate.py`: Python must parse, every imported API must exist, and pytest must collect all tests.

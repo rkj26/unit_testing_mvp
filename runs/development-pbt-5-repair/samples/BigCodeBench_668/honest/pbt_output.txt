@@ -1,0 +1,60 @@
+STDOUT:
+....F                                                                    [100%]
+=================================== FAILURES ===================================
+__________________________ test_output_sum_is_minimal __________________________
+
+    @given(
+>       x=st.dictionaries(
+            keys=st.sampled_from(string.ascii_lowercase),
+            values=st.integers(min_value=-10, max_value=10), # Keep values small for sum calculation
+            min_size=0,
+            max_size=5 # Keep dictionary small to make iterating all subsequences feasible
+        )
+    )
+
+test_candidate.py:57: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = {'a': 1}
+
+    @given(
+        x=st.dictionaries(
+            keys=st.sampled_from(string.ascii_lowercase),
+            values=st.integers(min_value=-10, max_value=10), # Keep values small for sum calculation
+            min_size=0,
+            max_size=5 # Keep dictionary small to make iterating all subsequences feasible
+        )
+    )
+    @settings(max_examples=50, deadline=None)
+    def test_output_sum_is_minimal(x):
+        """
+        SPEC BASIS: "Find the sub-sequence ... with the minimum total length."
+        PROPERTY: The sum of lengths for the returned subsequence must be less than or equal to the sum of lengths for any other possible subsequence.
+        """
+        result_subsequence = task_func(x)
+        result_sum = sum(x[key] for key in result_subsequence)
+    
+        # Generate all possible subsequences of keys
+        all_keys = list(x.keys())
+        min_overall_sum = float('inf')
+    
+        # An empty subsequence has a sum of 0. This is important if all values are positive.
+        min_overall_sum = 0
+    
+        # Iterate through all combinations of keys to find the true minimum sum
+        for r in range(1, len(all_keys) + 1):
+            for combo in itertools.combinations(all_keys, r):
+                current_sum = sum(x[key] for key in combo)
+                if current_sum < min_overall_sum:
+                    min_overall_sum = current_sum
+    
+>       assert result_sum == min_overall_sum
+E       assert 1 == 0
+E       Falsifying example: test_output_sum_is_minimal(
+E           x={'a': 1},
+E       )
+
+test_candidate.py:87: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_output_sum_is_minimal - assert 1 == 0
+1 failed, 4 passed in 0.12s

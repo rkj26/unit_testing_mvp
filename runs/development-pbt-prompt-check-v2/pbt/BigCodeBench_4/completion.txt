@@ -1,0 +1,142 @@
+<test_code>
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+from collections import Counter
+import itertools
+
+# Strategy for dictionary keys (strings)
+string_keys = st.text(min_size=1, max_size=5, alphabet=st.characters(min_codepoint=97, max_codepoint=122))
+
+# Strategy for list elements (integers)
+list_elements = st.integers(min_value=-100, max_value=100)
+
+# Strategy for dictionary values (lists of integers)
+list_values = st.lists(list_elements, min_size=0, max_size=5)
+
+# Strategy for the input dictionary 'd'
+input_dict_strategy = st.dictionaries(keys=string_keys, values=list_values, min_size=0, max_size=5)
+
+@given(d=st.just({'a': [1, 2, 3, 1], 'b': [3, 4, 5], 'c': [1, 2]}))
+@settings(max_examples=50, deadline=None)
+def test_example_verification(d):
+    """
+    SPEC BASIS: Example: d = {'a': [1, 2, 3, 1], 'b': [3, 4, 5], 'c': [1, 2]} -> {1: 3, 2: 2, 3: 2, 4: 1, 5: 1}
+    PROPERTY: The function returns the exact expected output for the given example.
+    """
+    expected_output = {1: 3, 2: 2, 3: 2, 4: 1, 5: 1}
+    assert task_func(d) == expected_output
+
+@given(d=input_dict_strategy)
+@settings(max_examples=50, deadline=None)
+def test_return_type_is_dict(d):
+    """
+    SPEC BASIS: Returns: dict: A dictionary...
+    PROPERTY: The return value is a dictionary.
+    """
+    result = task_func(d)
+    assert isinstance(result, dict)
+
+@given(d=input_dict_strategy)
+@settings(max_examples=50, deadline=None)
+def test_output_keys_are_integers(d):
+    """
+    SPEC BASIS: ...where each key is an integer from any of the input lists...
+    PROPERTY: All keys in the output dictionary are integers.
+    """
+    result = task_func(d)
+    for key in result.keys():
+        assert isinstance(key, int)
+
+@given(d=input_dict_strategy)
+@settings(max_examples=50, deadline=None)
+def test_output_values_are_non_negative_integers(d):
+    """
+    SPEC BASIS: ...and the value is the count of how often that integer appears...
+    PROPERTY: All values in the output dictionary are non-negative integers.
+    """
+    result = task_func(d)
+    for value in result.values():
+        assert isinstance(value, int)
+        assert value >= 0
+
+@given(d=input_dict_strategy)
+@settings(max_examples=50, deadline=None)
+def test_correct_counts_general(d):
+    """
+    SPEC BASIS: Count the occurrence of each integer in the values of the input dictionary... and return a dictionary with these counts.
+    PROPERTY: The count for each integer in the output matches its total occurrences across all input lists.
+    """
+    # Oracle: Flatten all lists and use Counter
+    all_integers = list(itertools.chain.from_iterable(d.values()))
+    expected_counts = Counter(all_integers)
+    
+    result = task_func(d)
+    assert result == expected_counts
+
+@given(d=st.just({}))
+@settings(max_examples=50, deadline=None)
+def test_empty_input_dict(d):
+    """
+    SPEC BASIS: Count the occurrence of each integer in the values of the input dictionary... (If no integers, count should be empty).
+    PROPERTY: An empty input dictionary results in an empty output dictionary.
+    """
+    result = task_func(d)
+    assert result == {}
+
+@given(d=st.dictionaries(keys=string_keys, values=st.just([]), min_size=1, max_size=5))
+@settings(max_examples=50, deadline=None)
+def test_input_dict_with_empty_lists(d):
+    """
+    SPEC BASIS: Count the occurrence of each integer in the values of the input dictionary... (If lists are empty, no integers to count).
+    PROPERTY: An input dictionary containing only empty lists results in an empty output dictionary.
+    """
+    result = task_func(d)
+    assert result == {}
+
+@given(d=st.dictionaries(keys=string_keys, values=list_values, min_size=0, max_size=5))
+@settings(max_examples=50, deadline=None)
+def test_output_contains_only_integers_from_input(d):
+    """
+    SPEC BASIS: ...where each key is an integer from any of the input lists...
+    PROPERTY: All keys in the output dictionary must be present in the input lists.
+    """
+    result = task_func(d)
+    all_input_integers = set(itertools.chain.from_iterable(d.values()))
+    for key in result.keys():
+        assert key in all_input_integers
+
+@given(d=st.dictionaries(keys=string_keys, values=list_values, min_size=0, max_size=5))
+@settings(max_examples=50, deadline=None)
+def test_output_does_not_contain_integers_not_in_input(d):
+    """
+    SPEC BASIS: Count the occurrence of each integer in the values of the input dictionary...
+    PROPERTY: The output dictionary does not contain keys for integers that are not present in any input list.
+    """
+    result = task_func(d)
+    all_input_integers = set(itertools.chain.from_iterable(d.values()))
+    # If an integer is in the output, it must be in the input.
+    # This is implicitly covered by test_output_contains_only_integers_from_input
+    # A more direct way to state this property:
+    # If an integer is NOT in the input, it must NOT be in the output.
+    # This is harder to test exhaustively without filtering, so we rely on the oracle in test_correct_counts_general.
+    # For a conservative test, we can check that if an integer is in the input, it's in the output (if count > 0).
+    # And if it's in the output, it must be in the input.
+    # The `test_correct_counts_general` already ensures exact equality with the oracle, which covers this.
+    # Let's make this a determinism test, as it's a safe property.
+    # Re-running the function with the same input should yield the same output.
+    # This is a fundamental property of pure functions.
+    first_run = task_func(d)
+    second_run = task_func(d)
+    assert first_run == second_run
+
+@given(d=st.just({'a': [1, 1, 1], 'b': [1, 1], 'c': [1]}))
+@settings(max_examples=50, deadline=None)
+def test_single_integer_multiple_occurrences(d):
+    """
+    SPEC BASIS: Example: d = {'a': [1, 2, 3, 1], 'b': [3, 4, 5], 'c': [1, 2]} -> {1: 3, 2: 2, 3: 2, 4: 1, 5: 1} (shows 1:3)
+    PROPERTY: Correctly counts a single integer appearing many times across different lists.
+    """
+    expected_output = {1: 6}
+    assert task_func(d) == expected_output
+
+</test_code>

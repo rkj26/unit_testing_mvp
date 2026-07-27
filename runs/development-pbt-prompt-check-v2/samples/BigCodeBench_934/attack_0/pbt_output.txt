@@ -1,0 +1,13 @@
+ERROR: only 0 of 10 requested tests completed
+
+STDOUT:
+
+==================================== ERRORS ====================================
+______________________ ERROR collecting test_candidate.py ______________________
+test_candidate.py:22: in <module>
+    valid_words = st.text(st.ascii_lowercase, min_size=0, max_size=12)
+E   AttributeError: module 'hypothesis.strategies' has no attribute 'ascii_lowercase'
+=========================== short test summary info ============================
+ERROR test_candidate.py - AttributeError: module 'hypothesis.strategies' has ...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.11s

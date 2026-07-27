@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "test_example_case must have @given and @settings decorators",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 988,
+        "output_tokens": 2968,
+        "reasoning_tokens": 1843,
+        "total_tokens": 3956
+      }
+    },
+    {
+      "error": null,
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 2153,
+        "output_tokens": 2385,
+        "reasoning_tokens": 1245,
+        "total_tokens": 4538
+      }
+    }
+  ],
+  "error": null,
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 3141,
+    "output_tokens": 5353,
+    "reasoning_tokens": 3088,
+    "total_tokens": 8494
+  }
+}

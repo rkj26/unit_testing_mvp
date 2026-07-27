@@ -1,0 +1,178 @@
+import json
+import math
+from decimal import Decimal
+
+from hypothesis import given, settings, strategies as st
+
+from candidate import task_func
+
+
+# Helper function for the oracle, based on the specification's example and description.
+# This helper is not a test function and does not start with 'test_'.
+def _calculate_expected_json_string(decimal_value, precision):
+    # "Calculate the square root of the given decimal value"
+    # math.sqrt expects a float, so convert Decimal to float.
+    sqrt_val = math.sqrt(float(decimal_value))
+
+    # "to a certain precision"
+    # The example "1.97" for sqrt(3.9) with precision 2 implies standard rounding.
+    # Python's round() function handles this.
+    rounded_val = round(sqrt_val, precision)
+
+    # "and then encode the result as a JSON string."
+    # The example output '"1.97"' (with outer quotes) indicates that the
+    # string representation of the rounded number is JSON-encoded, not the number itself.
+    return json.dumps(str(rounded_val))
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.integers(min_value=0, max_value=10)
+)
+@settings(max_examples=50, deadline=None)
+def test_output_matches_oracle_general(decimal_value, precision):
+    """
+    SPEC BASIS: "Calculate the square root of the given decimal value to a certain precision and then encode the result as a JSON string."
+    PROPERTY: The function's output matches the oracle's calculation for various valid inputs.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.just(Decimal('3.9')),
+    precision=st.just(2) # Inferred from example output "1.97"
+)
+@settings(max_examples=50, deadline=None)
+def test_example_value(decimal_value, precision):
+    """
+    SPEC BASIS: Example: >>> decimal_value = Decimal('3.9') ... print(json_str) "1.97"
+    PROPERTY: The function produces the exact output specified in the example.
+    """
+    # Note: The example call `task_func(decimal_value, decimal_value)` is assumed to be a typo
+    # and interpreted as `task_func(decimal_value, 2)` based on the output "1.97" and
+    # the `precision` parameter's description as an `int`.
+    expected = '"1.97"'
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0'), max_value=Decimal('0'), places=0),
+    precision=st.integers(min_value=0, max_value=10)
+)
+@settings(max_examples=50, deadline=None)
+def test_zero_decimal_value(decimal_value, precision):
+    """
+    SPEC BASIS: "Calculate the square root of the given decimal value" (implies sqrt(0) is 0)
+    PROPERTY: When decimal_value is 0, the square root is 0, rounded to any precision, and JSON encoded.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('1'), max_value=Decimal('1'), places=0),
+    precision=st.integers(min_value=0, max_value=10)
+)
+@settings(max_examples=50, deadline=None)
+def test_one_decimal_value(decimal_value, precision):
+    """
+    SPEC BASIS: "Calculate the square root of the given decimal value" (implies sqrt(1) is 1)
+    PROPERTY: When decimal_value is 1, the square root is 1, rounded to any precision, and JSON encoded.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0.000001'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.just(0)
+)
+@settings(max_examples=50, deadline=None)
+def test_precision_zero(decimal_value, precision):
+    """
+    SPEC BASIS: "precision (int, Optional): The number of decimal places to round the square root to." (0 is a valid number of decimal places)
+    PROPERTY: The function correctly rounds to a whole number when precision is 0.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0.000001'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.just(1)
+)
+@settings(max_examples=50, deadline=None)
+def test_precision_one(decimal_value, precision):
+    """
+    SPEC BASIS: "precision (int, Optional): The number of decimal places to round the square root to." (1 is a valid number of decimal places)
+    PROPERTY: The function correctly rounds to one decimal place when precision is 1.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0.000001'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.just(2)
+)
+@settings(max_examples=50, deadline=None)
+def test_precision_two(decimal_value, precision):
+    """
+    SPEC BASIS: "precision (int, Optional): The number of decimal places to round the square root to. Defaults to 2." (2 is a valid number of decimal places, and the default)
+    PROPERTY: The function correctly rounds to two decimal places when precision is 2.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0.000001'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.just(10)
+)
+@settings(max_examples=50, deadline=None)
+def test_high_precision(decimal_value, precision):
+    """
+    SPEC BASIS: "precision (int, Optional): The number of decimal places to round the square root to." (10 is a valid number of decimal places)
+    PROPERTY: The function correctly handles higher precision values.
+    """
+    expected = _calculate_expected_json_string(decimal_value, precision)
+    actual = task_func(decimal_value, precision)
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.none() # Placeholder for default precision
+)
+@settings(max_examples=50, deadline=None)
+def test_default_precision(decimal_value, precision):
+    """
+    SPEC BASIS: "precision (int, Optional): ... Defaults to 2."
+    PROPERTY: When precision is not provided, it defaults to 2.
+    """
+    # The oracle needs the actual default value for precision
+    expected = _calculate_expected_json_string(decimal_value, 2)
+    actual = task_func(decimal_value) # Call without precision argument
+    assert actual == expected
+
+
+@given(
+    decimal_value=st.decimals(min_value=Decimal('0'), max_value=Decimal('1000'), places=st.integers(min_value=0, max_value=6)),
+    precision=st.integers(min_value=0, max_value=10)
+)
+@settings(max_examples=50, deadline=None)
+def test_return_type_is_string(decimal_value, precision):
+    """
+    SPEC BASIS: "Returns: str: The square root of the decimal value encoded as a JSON string."
+    PROPERTY: The function always returns a string.
+    """
+    actual = task_func(decimal_value, precision)
+    assert isinstance(actual, str)

@@ -1,0 +1,110 @@
+STDOUT:
+.FF.                                                                     [100%]
+=================================== FAILURES ===================================
+____________________ test_alphanumeric_and_case_invariance _____________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        alphanum_chars=st.lists(
+            st.one_of(st.characters(whitelist_categories=('Lu', 'Ll', 'Nd')), st.just('')),
+            min_size=0, max_size=10
+        ),
+        special_chars=st.lists(
+            st.characters(blacklist_categories=('Lu', 'Ll', 'Nd'), min_codepoint=32, max_codepoint=126),
+            min_size=0, max_size=10
+        )
+    )
+
+test_candidate.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+alphanum_chars = [], special_chars = ['_']
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        alphanum_chars=st.lists(
+            st.one_of(st.characters(whitelist_categories=('Lu', 'Ll', 'Nd')), st.just('')),
+            min_size=0, max_size=10
+        ),
+        special_chars=st.lists(
+            st.characters(blacklist_categories=('Lu', 'Ll', 'Nd'), min_codepoint=32, max_codepoint=126),
+            min_size=0, max_size=10
+        )
+    )
+    def test_alphanumeric_and_case_invariance(alphanum_chars, special_chars):
+        """
+        SPEC BASIS: "Count the frequency of each alphanumeric character in a given string after removing all non-alphanumeric characters, treating uppercase and lowercase letters as the same."
+        PROPERTY: Adding non-alphanumeric characters or changing case of alphanumeric characters does not alter the final lowercase character counts.
+        """
+        # Build an input string by interleaving alphanumeric and special characters
+        input_parts = []
+        for i in range(max(len(alphanum_chars), len(special_chars))):
+            if i < len(alphanum_chars):
+                input_parts.append(alphanum_chars[i])
+            if i < len(special_chars):
+                input_parts.append(special_chars[i])
+        input_str = "".join(input_parts)
+    
+        # Manually calculate the expected output
+        expected_counter = Counter()
+        for char_str in alphanum_chars:
+            if char_str.isalnum(): # Ensure it's actually alphanumeric, as st.just('') might be in alphanum_chars
+                expected_counter[char_str.lower()] += 1
+    
+>       assert task_func(input_str) == expected_counter
+E       AssertionError: assert Counter({'_': 1}) == Counter()
+E         
+E         Left contains 1 more item:
+E         {'_': 1}
+E         Use -v to get more diff
+E       Falsifying example: test_alphanumeric_and_case_invariance(
+E           alphanum_chars=[],  # or any other generated value
+E           special_chars=['_'],
+E       )
+
+test_candidate.py:49: AssertionError
+_______________________ test_empty_or_special_char_input _______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        input_str=st.text(
+            alphabet=st.characters(blacklist_categories=('Lu', 'Ll', 'Nd'), min_codepoint=32, max_codepoint=126),
+            min_size=0, max_size=12
+        )
+    )
+
+test_candidate.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_str = '_'
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        input_str=st.text(
+            alphabet=st.characters(blacklist_categories=('Lu', 'Ll', 'Nd'), min_codepoint=32, max_codepoint=126),
+            min_size=0, max_size=12
+        )
+    )
+    def test_empty_or_special_char_input(input_str):
+        """
+        SPEC BASIS: "Count the frequency of each alphanumeric character in a given string after removing all non-alphanumeric characters..." (implies no alphanumeric chars means empty count).
+        PROPERTY: If the input string contains no alphanumeric characters, the result is an empty dictionary.
+        """
+>       assert task_func(input_str) == Counter()
+E       AssertionError: assert Counter({'_': 1}) == Counter()
+E         
+E         Left contains 1 more item:
+E         {'_': 1}
+E         Use -v to get more diff
+E       Falsifying example: test_empty_or_special_char_input(
+E           input_str='_',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/collections/__init__.py:612
+
+test_candidate.py:63: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_alphanumeric_and_case_invariance - AssertionEr...
+FAILED test_candidate.py::test_empty_or_special_char_input - AssertionError: ...
+2 failed, 2 passed in 0.33s

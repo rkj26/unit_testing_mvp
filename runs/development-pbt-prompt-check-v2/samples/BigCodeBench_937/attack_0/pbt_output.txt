@@ -1,0 +1,113 @@
+STDOUT:
+.F.FF.....                                                               [100%]
+=================================== FAILURES ===================================
+_________________________ test_all_keys_are_lowercase __________________________
+
+    @given(input_str=st.text(
+>       alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+        min_size=0, max_size=12
+    ))
+
+test_candidate.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_str = '0'
+
+    @given(input_str=st.text(
+        alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+        min_size=0, max_size=12
+    ))
+    @settings(max_examples=50, deadline=None)
+    def test_all_keys_are_lowercase(input_str: str):
+        """
+        SPEC BASIS: "characters as keys (all lowercase)"
+        PROPERTY: All keys in the returned dictionary must be lowercase strings.
+        """
+        result = task_func(input_str)
+        for key in result.keys():
+            assert isinstance(key, str)
+>           assert key.islower() or not key # Empty string key is not expected for alphanumeric chars, but handles edge cases.
+E           AssertionError: assert (False or not '0')
+E            +  where False = <built-in method islower of str object at 0x100a8b5a8>()
+E            +    where <built-in method islower of str object at 0x100a8b5a8> = '0'.islower
+E           Falsifying example: test_all_keys_are_lowercase(
+E               input_str='0',
+E           )
+
+test_candidate.py:53: AssertionError
+_____________________ test_only_alphanumeric_keys_present ______________________
+
+    @given(input_str=st.text(
+>       alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+        min_size=0, max_size=12
+    ))
+
+test_candidate.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_str = '_'
+
+    @given(input_str=st.text(
+        alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+        min_size=0, max_size=12
+    ))
+    @settings(max_examples=50, deadline=None)
+    def test_only_alphanumeric_keys_present(input_str: str):
+        """
+        SPEC BASIS: "after removing all non-alphanumeric characters"
+        PROPERTY: All keys in the returned dictionary must be alphanumeric characters.
+        """
+        result = task_func(input_str)
+        for key in result.keys():
+>           assert key.isalnum()
+E           AssertionError: assert False
+E            +  where False = <built-in method isalnum of str object at 0x100a8be78>()
+E            +    where <built-in method isalnum of str object at 0x100a8be78> = '_'.isalnum
+E           Falsifying example: test_only_alphanumeric_keys_present(
+E               input_str='_',
+E           )
+
+test_candidate.py:82: AssertionError
+_____________________ test_output_matches_reference_oracle _____________________
+
+    @given(input_str=st.text(
+>       alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+        min_size=0, max_size=12
+    ))
+
+test_candidate.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input_str = '_'
+
+    @given(input_str=st.text(
+        alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+        min_size=0, max_size=12
+    ))
+    @settings(max_examples=50, deadline=None)
+    def test_output_matches_reference_oracle(input_str: str):
+        """
+        SPEC BASIS: "Count the frequency of each alphanumeric character in a given string after removing all non-alphanumeric characters, treating uppercase and lowercase letters as the same."
+        PROPERTY: The output dictionary must exactly match the result of the unambiguous reference oracle.
+        """
+        expected = _reference_oracle(input_str)
+        actual = task_func(input_str)
+>       assert actual == expected
+E       AssertionError: assert Counter({'_': 1}) == Counter()
+E         
+E         Left contains 1 more item:
+E         {'_': 1}
+E         Use -v to get more diff
+E       Falsifying example: test_output_matches_reference_oracle(
+E           input_str='_',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/collections/__init__.py:612
+
+test_candidate.py:96: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_all_keys_are_lowercase - AssertionError: asser...
+FAILED test_candidate.py::test_only_alphanumeric_keys_present - AssertionErro...
+FAILED test_candidate.py::test_output_matches_reference_oracle - AssertionErr...
+3 failed, 7 passed in 0.41s

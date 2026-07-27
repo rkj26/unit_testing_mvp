@@ -1,0 +1,147 @@
+<test_code>
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import re
+import json
+
+# Constants from the problem description
+IP_REGEX = r'[0-9]+(?:\.[0-9]+){3}'
+
+# Strategy for generating valid IP address strings according to IP_REGEX
+# This regex only checks the structure (four dot-separated digit groups), not octet range.
+st_octet_part = st.text(alphabet=st.characters(min_codepoint=ord('0'), max_codepoint=ord('9')), min_size=1, max_size=3)
+st_valid_ip_string = st.builds(
+    lambda o1, o2, o3, o4: f"{o1}.{o2}.{o3}.{o4}",
+    o1=st_octet_part,
+    o2=st_octet_part,
+    o3=st_octet_part,
+    o4=st_octet_part
+)
+
+# Strategy for generating invalid IP address strings (structurally invalid based on IP_REGEX)
+st_invalid_ip_string = st.text(
+    alphabet=st.characters(min_codepoint=ord('0'), max_codepoint=ord('9'), blacklist_characters=['.']),
+    min_size=1, max_size=12
+).map(lambda s: s + "a") | st.text(
+    alphabet=st.characters(min_codepoint=ord('0'), max_codepoint=ord('9'), whitelist_characters=['.']),
+    min_size=1, max_size=12
+).filter(lambda s: not re.fullmatch(IP_REGEX, s))
+
+# Strategy for generating arbitrary strings that might appear as keys or values
+st_arbitrary_string = st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=12)
+
+@given(ip_str=st_valid_ip_string)
+@settings(max_examples=50, deadline=None)
+def test_valid_ip_returns_ip(ip_str):
+    """
+    Tests that a structurally valid IP address (according to IP_REGEX) is returned correctly.
+    """
+    json_input = json.dumps({"ip": ip_str})
+    result = task_func(json_input)
+    assert result == ip_str
+
+@given(ip_str=st_invalid_ip_string)
+@settings(max_examples=50, deadline=None)
+def test_structurally_invalid_ip_returns_error(ip_str):
+    """
+    Tests that a structurally invalid IP address (not matching IP_REGEX) returns the error message.
+    """
+    json_input = json.dumps({"ip": ip_str})
+    result = task_func(json_input)
+    assert result == 'Invalid IP address received'
+
+@given(ip_str=st_valid_ip_string)
+@settings(max_examples=50, deadline=None)
+def test_ip_with_leading_zeros_returns_ip(ip_str):
+    """
+    Tests that IP addresses with leading zeros in octets (e.g., 01.002.003.004) are handled correctly.
+    The IP_REGEX allows this format.
+    """
+    parts = ip_str.split('.')
+    padded_parts = [f"{int(p):0{len(p)}}" for p in parts] # Ensure original padding is kept if it was 0-padded
+    padded_ip_str = ".".join(padded_parts)
+    json_input = json.dumps({"ip": padded_ip_str})
+    result = task_func(json_input)
+    assert result == padded_ip_str
+
+@given(ip_str=st_valid_ip_string, pre_chars=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=5))
+@settings(max_examples=50, deadline=None)
+def test_ip_with_extra_chars_before_ip_is_invalid(ip_str, pre_chars):
+    """
+    Tests that an IP address with extra characters before it within the 'ip' value is invalid.
+    """
+    invalid_ip_value = pre_chars + ip_str
+    json_input = json.dumps({"ip": invalid_ip_value})
+    result = task_func(json_input)
+    assert result == 'Invalid IP address received'
+
+@given(ip_str=st_valid_ip_string, post_chars=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=5))
+@settings(max_examples=50, deadline=None)
+def test_ip_with_extra_chars_after_ip_is_invalid(ip_str, post_chars):
+    """
+    Tests that an IP address with extra characters after it within the 'ip' value is invalid.
+    """
+    invalid_ip_value = ip_str + post_chars
+    json_input = json.dumps({"ip": invalid_ip_value})
+    result = task_func(json_input)
+    assert result == 'Invalid IP address received'
+
+@given(key=st_arbitrary_string.filter(lambda s: s != "ip"), ip_str=st_valid_ip_string)
+@settings(max_examples=50, deadline=None)
+def test_json_with_different_key_returns_error(key, ip_str):
+    """
+    Tests that if the JSON key is not 'ip', the function returns an error.
+    The problem implies the key is "ip".
+    """
+    json_input = json.dumps({key: ip_str})
+    result = task_func(json_input)
+    assert result == 'Invalid IP address received'
+
+@given(ip_str=st_valid_ip_string, other_key=st_arbitrary_string.filter(lambda s: s != "ip"), other_value=st_arbitrary_string)
+@settings(max_examples=50, deadline=None)
+def test_json_with_multiple_keys_returns_correct_ip(ip_str, other_key, other_value):
+    """
+    Tests that if the JSON contains multiple keys, including 'ip', the correct IP is extracted.
+    """
+    data = {"ip": ip_str, other_key: other_value}
+    json_input = json.dumps(data)
+    result = task_func(json_input)
+    assert result == ip_str
+
+@given(ip_str=st_valid_ip_string)
+@settings(max_examples=50, deadline=None)
+def test_json_with_non_string_ip_value_returns_error(ip_str):
+    """
+    Tests that if the 'ip' value in JSON is not a string (e.g., an integer or boolean),
+    it results in an error.
+    """
+    json_input_int = json.dumps({"ip": 12345})
+    result_int = task_func(json_input_int)
+    assert result_int == 'Invalid IP address received'
+
+    json_input_bool = json.dumps({"ip": True})
+    result_bool = task_func(json_input_bool)
+    assert result_bool == 'Invalid IP address received'
+
+@given(ip_str=st_valid_ip_string)
+@settings(max_examples=50, deadline=None)
+def test_json_with_null_ip_value_returns_error(ip_str):
+    """
+    Tests that if the 'ip' value in JSON is null, it results in an error.
+    """
+    json_input = json.dumps({"ip": None})
+    result = task_func(json_input)
+    assert result == 'Invalid IP address received'
+
+@given(data=st.text(st.characters(min_codepoint=1, max_codepoint=127), min_size=1, max_size=20).filter(lambda s: not s.startswith('{') or not s.endswith('}')))
+@settings(max_examples=50, deadline=None)
+def test_malformed_json_input_returns_error(data):
+    """
+    Tests that malformed JSON input (not a valid JSON string) results in an error.
+    This should typically raise a JSONDecodeError, which the function should handle
+    by returning the specified error message.
+    """
+    result = task_func(data)
+    assert result == 'Invalid IP address received'
+
+</test_code>

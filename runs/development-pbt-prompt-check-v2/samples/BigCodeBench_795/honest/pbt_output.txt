@@ -1,0 +1,247 @@
+ERROR: only 6 of 10 requested tests completed
+
+STDOUT:
+FFFF......                                                               [100%]
+=================================== FAILURES ===================================
+__________________________ test_return_type_is_deque ___________________________
+
+    @given(l=list_strategy)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:34: in test_return_type_is_deque
+    result = task_func(l)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [-1]
+
+    def task_func(l):
+        """
+        Create a deque from a list, rotate it to the right by 3 positions, and return the deque.
+        Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+        if there are any, and prints it.
+    
+        Parameters:
+        - l (list): A list of elements to be converted into a deque and rotated.
+    
+        Returns:
+        - dq (collections.deque): A deque obtained from the input list after performing a right rotation by 3 positions.
+    
+        Requirements:
+        - collections
+        - math
+    
+        Example:
+        >>> task_func(['A', 'B', 'C', 'D', 'E'])
+        deque(['C', 'D', 'E', 'A', 'B'])
+    
+        >>> task_func([1, 2, 3, 4, 5])
+        The square root of the sum of numeric elements: 3.872983346207417
+        deque([3, 4, 5, 1, 2])
+        """
+        dq = deque(l)
+        dq.rotate(3)
+    
+        numeric_elements = [x for x in dq if isinstance(x, (int, float)) and not isinstance(x, bool)]
+        if numeric_elements:
+            numeric_sum = sum(numeric_elements)
+>           print(f"The square root of the sum of numeric elements: {math.sqrt(numeric_sum)}")
+E           ValueError: math domain error
+E           Falsifying example: test_return_type_is_deque(
+E               l=[-1],
+E           )
+
+candidate.py:34: ValueError
+----------------------------- Captured stdout call -----------------------------
+The square root of the sum of numeric elements: 0.0
+The square root of the sum of numeric elements: 15.362291495737216
+The square root of the sum of numeric elements: 10.246950765959598
+The square root of the sum of numeric elements: 1.0
+The square root of the sum of numeric elements: 6.4031242374328485
+The square root of the sum of numeric elements: 7.211102550927978
+The square root of the sum of numeric elements: 10.14889156509222
+The square root of the sum of numeric elements: 10.198039027185569
+________________________ test_deque_length_is_preserved ________________________
+
+    @given(l=list_strategy)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:44: in test_deque_length_is_preserved
+    result = task_func(l)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [-1]
+
+    def task_func(l):
+        """
+        Create a deque from a list, rotate it to the right by 3 positions, and return the deque.
+        Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+        if there are any, and prints it.
+    
+        Parameters:
+        - l (list): A list of elements to be converted into a deque and rotated.
+    
+        Returns:
+        - dq (collections.deque): A deque obtained from the input list after performing a right rotation by 3 positions.
+    
+        Requirements:
+        - collections
+        - math
+    
+        Example:
+        >>> task_func(['A', 'B', 'C', 'D', 'E'])
+        deque(['C', 'D', 'E', 'A', 'B'])
+    
+        >>> task_func([1, 2, 3, 4, 5])
+        The square root of the sum of numeric elements: 3.872983346207417
+        deque([3, 4, 5, 1, 2])
+        """
+        dq = deque(l)
+        dq.rotate(3)
+    
+        numeric_elements = [x for x in dq if isinstance(x, (int, float)) and not isinstance(x, bool)]
+        if numeric_elements:
+            numeric_sum = sum(numeric_elements)
+>           print(f"The square root of the sum of numeric elements: {math.sqrt(numeric_sum)}")
+E           ValueError: math domain error
+E           Falsifying example: test_deque_length_is_preserved(
+E               l=[-1],
+E           )
+
+candidate.py:34: ValueError
+----------------------------- Captured stdout call -----------------------------
+The square root of the sum of numeric elements: 0.0
+The square root of the sum of numeric elements: 15.362291495737216
+The square root of the sum of numeric elements: 10.246950765959598
+The square root of the sum of numeric elements: 1.0
+The square root of the sum of numeric elements: 6.4031242374328485
+The square root of the sum of numeric elements: 7.211102550927978
+The square root of the sum of numeric elements: 10.14889156509222
+The square root of the sum of numeric elements: 10.198039027185569
+______________________ test_deque_elements_are_preserved _______________________
+
+    @given(l=list_strategy)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:54: in test_deque_elements_are_preserved
+    result = task_func(l)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [-1]
+
+    def task_func(l):
+        """
+        Create a deque from a list, rotate it to the right by 3 positions, and return the deque.
+        Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+        if there are any, and prints it.
+    
+        Parameters:
+        - l (list): A list of elements to be converted into a deque and rotated.
+    
+        Returns:
+        - dq (collections.deque): A deque obtained from the input list after performing a right rotation by 3 positions.
+    
+        Requirements:
+        - collections
+        - math
+    
+        Example:
+        >>> task_func(['A', 'B', 'C', 'D', 'E'])
+        deque(['C', 'D', 'E', 'A', 'B'])
+    
+        >>> task_func([1, 2, 3, 4, 5])
+        The square root of the sum of numeric elements: 3.872983346207417
+        deque([3, 4, 5, 1, 2])
+        """
+        dq = deque(l)
+        dq.rotate(3)
+    
+        numeric_elements = [x for x in dq if isinstance(x, (int, float)) and not isinstance(x, bool)]
+        if numeric_elements:
+            numeric_sum = sum(numeric_elements)
+>           print(f"The square root of the sum of numeric elements: {math.sqrt(numeric_sum)}")
+E           ValueError: math domain error
+E           Falsifying example: test_deque_elements_are_preserved(
+E               l=[-1],
+E           )
+
+candidate.py:34: ValueError
+----------------------------- Captured stdout call -----------------------------
+The square root of the sum of numeric elements: 0.0
+The square root of the sum of numeric elements: 15.362291495737216
+The square root of the sum of numeric elements: 10.246950765959598
+The square root of the sum of numeric elements: 1.0
+The square root of the sum of numeric elements: 6.4031242374328485
+The square root of the sum of numeric elements: 7.211102550927978
+The square root of the sum of numeric elements: 10.14889156509222
+The square root of the sum of numeric elements: 10.198039027185569
+__________________________ test_deque_rotation_logic ___________________________
+
+    @given(l=list_strategy)
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:66: in test_deque_rotation_logic
+    result = task_func(l)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [-1]
+
+    def task_func(l):
+        """
+        Create a deque from a list, rotate it to the right by 3 positions, and return the deque.
+        Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+        if there are any, and prints it.
+    
+        Parameters:
+        - l (list): A list of elements to be converted into a deque and rotated.
+    
+        Returns:
+        - dq (collections.deque): A deque obtained from the input list after performing a right rotation by 3 positions.
+    
+        Requirements:
+        - collections
+        - math
+    
+        Example:
+        >>> task_func(['A', 'B', 'C', 'D', 'E'])
+        deque(['C', 'D', 'E', 'A', 'B'])
+    
+        >>> task_func([1, 2, 3, 4, 5])
+        The square root of the sum of numeric elements: 3.872983346207417
+        deque([3, 4, 5, 1, 2])
+        """
+        dq = deque(l)
+        dq.rotate(3)
+    
+        numeric_elements = [x for x in dq if isinstance(x, (int, float)) and not isinstance(x, bool)]
+        if numeric_elements:
+            numeric_sum = sum(numeric_elements)
+>           print(f"The square root of the sum of numeric elements: {math.sqrt(numeric_sum)}")
+E           ValueError: math domain error
+E           Falsifying example: test_deque_rotation_logic(
+E               l=[-1],
+E           )
+
+candidate.py:34: ValueError
+----------------------------- Captured stdout call -----------------------------
+The square root of the sum of numeric elements: 0.0
+The square root of the sum of numeric elements: 15.362291495737216
+The square root of the sum of numeric elements: 10.246950765959598
+The square root of the sum of numeric elements: 1.0
+The square root of the sum of numeric elements: 6.4031242374328485
+The square root of the sum of numeric elements: 7.211102550927978
+The square root of the sum of numeric elements: 10.14889156509222
+The square root of the sum of numeric elements: 10.198039027185569
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_return_type_is_deque - ValueError: math domain...
+FAILED test_candidate.py::test_deque_length_is_preserved - ValueError: math d...
+FAILED test_candidate.py::test_deque_elements_are_preserved - ValueError: mat...
+FAILED test_candidate.py::test_deque_rotation_logic - ValueError: math domain...
+4 failed, 6 passed in 1.21s

@@ -1,0 +1,206 @@
+ERROR: only 3 of 4 requested tests completed
+
+STDOUT:
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_________________ test_rotation_property_and_length_invariance _________________
+
+    @given(l=st.lists(st.one_of(st.characters(min_codepoint=65, max_codepoint=90), st.integers(), st.floats(allow_nan=False, allow_infinity=False)), min_size=0, max_size=12))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:20: in test_rotation_property_and_length_invariance
+    result_deque = task_func(l)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [-1]
+
+    def task_func(l):
+        """
+        Create a deque from a list, rotate it to the right by 3 positions, and return the deque.
+        Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+        if there are any, and prints it.
+    
+        Parameters:
+        - l (list): A list of elements to be converted into a deque and rotated.
+    
+        Returns:
+        - dq (collections.deque): A deque obtained from the input list after performing a right rotation by 3 positions.
+    
+        Requirements:
+        - collections
+        - math
+    
+        Example:
+        >>> task_func(['A', 'B', 'C', 'D', 'E'])
+        deque(['C', 'D', 'E', 'A', 'B'])
+    
+        >>> task_func([1, 2, 3, 4, 5])
+        The square root of the sum of numeric elements: 3.872983346207417
+        deque([3, 4, 5, 1, 2])
+        """
+        dq = deque(l)
+        dq.rotate(3)
+        numeric_elements = [x for x in dq if isinstance(x, (int, float))]
+        if numeric_elements:
+>           print(f"The square root of the sum of numeric elements: {math.sqrt(sum(numeric_elements))}")
+E           ValueError: math domain error
+E           Falsifying example: test_rotation_property_and_length_invariance(
+E               l=[-1],
+E           )
+
+candidate.py:32: ValueError
+____________________ test_numeric_sum_and_sqrt_calculation _____________________
+
+    @given(l=st.lists(st.integers(min_value=0, max_value=10), min_size=1, max_size=12))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [0, 1]
+
+    @given(l=st.lists(st.integers(min_value=0, max_value=10), min_size=1, max_size=12))
+    @settings(max_examples=50, deadline=None)
+    def test_numeric_sum_and_sqrt_calculation(l):
+        """
+        SPEC BASIS: "Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+                     if there are any, and prints it."
+                    "Example: ... The square root of the sum of numeric elements: 3.872983346207417"
+        PROPERTY: When the input list contains numeric elements, the function correctly calculates and prints
+                  the square root of their sum.
+        """
+        original_stdout = sys.stdout
+        sys.stdout = io.StringIO()
+    
+        result_deque = task_func(l)
+    
+        printed_output = sys.stdout.getvalue()
+        sys.stdout = original_stdout
+    
+        numeric_sum = sum(x for x in l if isinstance(x, (int, float)))
+        expected_sqrt = math.sqrt(numeric_sum)
+        expected_print_line = f"The square root of the sum of numeric elements: {expected_sqrt}\n"
+    
+        assert expected_print_line in printed_output
+    
+        # Also check the rotation for numeric lists
+        expected_list = l[-3:] + l[:-3]
+>       assert list(result_deque) == expected_list
+E       assert [1, 0] == [0, 1]
+E         
+E         At index 0 diff: 1 != 0
+E         Use -v to get more diff
+E       Falsifying example: test_numeric_sum_and_sqrt_calculation(
+E           l=[0, 1],
+E       )
+
+test_candidate.py:70: AssertionError
+_____________________ test_non_numeric_list_no_sqrt_output _____________________
+
+    @given(l=st.lists(st.text(st.characters(min_codepoint=65, max_codepoint=90), min_size=1, max_size=1), min_size=0, max_size=12))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = ['A', 'B']
+
+    @given(l=st.lists(st.text(st.characters(min_codepoint=65, max_codepoint=90), min_size=1, max_size=1), min_size=0, max_size=12))
+    @settings(max_examples=50, deadline=None)
+    def test_non_numeric_list_no_sqrt_output(l):
+        """
+        SPEC BASIS: "Also, for demonstration, calculates the square root of the sum of numeric elements in the deque,
+                     if there are any, and prints it."
+                    "Example: >>> task_func(['A', 'B', 'C', 'D', 'E']) ... deque(['C', 'D', 'E', 'A', 'B'])"
+        PROPERTY: If the input list contains no numeric elements, no square root message is printed.
+                  The rotation still occurs correctly.
+        """
+        original_stdout = sys.stdout
+        sys.stdout = io.StringIO()
+    
+        result_deque = task_func(l)
+    
+        printed_output = sys.stdout.getvalue()
+        sys.stdout = original_stdout
+    
+        assert "The square root of the sum of numeric elements:" not in printed_output
+    
+        # Check rotation for non-numeric lists
+        if not l:
+            assert result_deque == collections.deque([])
+        else:
+            expected_list = l[-3:] + l[:-3]
+>           assert list(result_deque) == expected_list
+E           AssertionError: assert ['B', 'A'] == ['A', 'B']
+E             
+E             At index 0 diff: 'B' != 'A'
+E             Use -v to get more diff
+E           Falsifying example: test_non_numeric_list_no_sqrt_output(
+E               l=['A', 'B'],
+E           )
+
+test_candidate.py:98: AssertionError
+___________________ test_short_lists_and_empty_list_rotation ___________________
+
+    @given(l=st.lists(st.one_of(st.just(None), st.booleans(), st.text(min_size=1, max_size=5)), min_size=0, max_size=2))
+>   @settings(max_examples=50, deadline=None)
+
+test_candidate.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+l = [False]
+
+    @given(l=st.lists(st.one_of(st.just(None), st.booleans(), st.text(min_size=1, max_size=5)), min_size=0, max_size=2))
+    @settings(max_examples=50, deadline=None)
+    def test_short_lists_and_empty_list_rotation(l):
+        """
+        SPEC BASIS: "Create a deque from a list, rotate it to the right by 3 positions, and return the deque."
+                    "Returns: - dq (collections.deque): A deque obtained from the input list after performing a right rotation by 3 positions."
+        PROPERTY: The function correctly handles rotation for empty lists and lists with fewer than 3 elements.
+                  The rotation amount should effectively be `3 % len(l)` for non-empty lists.
+        """
+        original_stdout = sys.stdout
+        sys.stdout = io.StringIO()
+    
+        result_deque = task_func(l)
+    
+        printed_output = sys.stdout.getvalue()
+        sys.stdout = original_stdout
+    
+        assert isinstance(result_deque, collections.deque)
+        assert len(result_deque) == len(l)
+    
+        if not l:
+            assert result_deque == collections.deque([])
+        else:
+            # For a deque, rotate(n) shifts elements to the right by n.
+            # If n is positive, it's a right rotation.
+            # If len(l) is 1 or 2, rotating by 3 is equivalent to rotating by 3 % len(l).
+            # E.g., for [A], rotate by 3 is rotate by 0.
+            # For [A, B], rotate by 3 is rotate by 1.
+            expected_deque = collections.deque(l)
+            expected_deque.rotate(3)
+            assert result_deque == expected_deque
+    
+        # Ensure no numeric output for these non-numeric elements
+>       assert "The square root of the sum of numeric elements:" not in printed_output
+E       AssertionError: assert 'The square ...ic elements:' not in 'The square ...ments: 0.0\n'
+E         
+E         'The square root of...f numeric elements:' is contained here:
+E           The square root of the sum of numeric elements: 0.0
+E       Falsifying example: test_short_lists_and_empty_list_rotation(
+E           l=[False],
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpuibgvd67/candidate.py:32
+
+test_candidate.py:134: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_rotation_property_and_length_invariance - Valu...
+FAILED test_candidate.py::test_numeric_sum_and_sqrt_calculation - assert [1, ...
+FAILED test_candidate.py::test_non_numeric_list_no_sqrt_output - AssertionErr...
+FAILED test_candidate.py::test_short_lists_and_empty_list_rotation - Assertio...
+4 failed in 0.76s

@@ -1,0 +1,150 @@
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import json
+
+# Strategy for a valid IP address as per the example
+# The specification only explicitly guarantees '192.168.1.1' as a valid IP.
+# We cannot infer a general rule for IP validity from the problem statement or the regex.
+# Therefore, we only generate this specific IP for "valid" cases.
+st_valid_ip_string = st.just("192.168.1.1")
+
+# Strategy for a valid JSON string containing a valid IP
+st_valid_json_ip_input = st.builds(
+    lambda ip: json.dumps({"ip": ip}),
+    ip=st_valid_ip_string
+)
+
+# Strategy for an invalid IP address string within valid JSON structure.
+# The specification does not define what makes an IP invalid beyond not being the example.
+# We can only safely generate strings that are clearly not IP addresses.
+st_invalid_ip_string = st.text(
+    alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+    min_size=1, max_size=12
+).filter(lambda s: not s.replace('.', '').isdigit() or '.' not in s) # Ensure it's not just digits and dots, or lacks dots.
+# Further filter to avoid accidentally generating something that *could* be interpreted as an IP by some parsers
+.filter(lambda s: not any(c.isdigit() for c in s) or not any(c == '.' for c in s) or len(s) > 15)
+# The above filter is still too broad and might accidentally generate something that *looks* like an IP.
+# A safer approach is to generate strings that are clearly not IPs, e.g., words.
+st_clearly_not_ip_string = st.text(
+    alphabet=st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')),
+    min_size=1, max_size=12
+)
+
+st_invalid_ip_in_json_input = st.builds(
+    lambda ip: json.dumps({"ip": ip}),
+    ip=st_clearly_not_ip_string
+)
+
+# Strategy for malformed JSON strings (not valid JSON at all)
+st_malformed_json_input = st.text(
+    alphabet=st.characters(min_codepoint=1, max_codepoint=127, blacklist_categories=('Cs',)),
+    min_size=1, max_size=20
+).filter(lambda s: not s.startswith('{') or not s.endswith('}') or 'ip' not in s) # Simple filter to avoid valid JSON
+
+# Strategy for valid JSON but with a different key than "ip"
+st_json_wrong_key = st.builds(
+    lambda key, value: json.dumps({key: value}),
+    key=st.text(alphabet=st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=5).filter(lambda k: k != "ip"),
+    value=st.text(min_size=1, max_size=10)
+)
+
+# Strategy for valid JSON but with a non-string value for "ip"
+st_json_ip_non_string = st.builds(
+    lambda value: json.dumps({"ip": value}),
+    value=st.sampled_from([123, True, None, [1,2], {"a":1}])
+)
+
+@given(ip_address=st_valid_json_ip_input)
+@settings(max_examples=50, deadline=None)
+def test_example_valid_ip_returns_correct_ip(ip_address):
+    """
+    SPEC BASIS: Example: >>> ip_address = '{"ip": "192.168.1.1"}' >>> task_func(ip_address) '192.168.1.1'
+    PROPERTY: For the explicitly provided valid example, the function returns the exact IP address string.
+    """
+    assert task_func(ip_address) == "192.168.1.1"
+
+@given(ip_address=st_valid_json_ip_input)
+@settings(max_examples=50, deadline=None)
+def test_valid_ip_return_type_is_string(ip_address):
+    """
+    SPEC BASIS: Returns: str: The public IP address.
+    PROPERTY: When a valid IP address is provided, the function returns a string.
+    """
+    result = task_func(ip_address)
+    assert isinstance(result, str)
+
+@given(ip_address=st_invalid_ip_in_json_input)
+@settings(max_examples=50, deadline=None)
+def test_invalid_ip_in_json_returns_error_message(ip_address):
+    """
+    SPEC BASIS: If the IP address is not valid, the function will return 'Invalid IP address received'.
+    PROPERTY: When the JSON contains a string that is clearly not an IP address, the function returns the specified error message.
+    """
+    assert task_func(ip_address) == 'Invalid IP address received'
+
+@given(ip_address=st_invalid_ip_in_json_input)
+@settings(max_examples=50, deadline=None)
+def test_invalid_ip_in_json_return_type_is_string(ip_address):
+    """
+    SPEC BASIS: If the IP address is not valid, the function will return 'Invalid IP address received'.
+    PROPERTY: When an invalid IP address is provided, the function returns a string (the error message).
+    """
+    result = task_func(ip_address)
+    assert isinstance(result, str)
+
+@given(ip_address=st_malformed_json_input)
+@settings(max_examples=50, deadline=None)
+def test_malformed_json_input_returns_error_message(ip_address):
+    """
+    SPEC BASIS: If the IP address is not valid, the function will return 'Invalid IP address received'.
+    PROPERTY: If the input string is not valid JSON, it cannot contain a valid IP address, so the function should return the specified error message.
+    """
+    assert task_func(ip_address) == 'Invalid IP address received'
+
+@given(ip_address=st_malformed_json_input)
+@settings(max_examples=50, deadline=None)
+def test_malformed_json_input_return_type_is_string(ip_address):
+    """
+    SPEC BASIS: If the IP address is not valid, the function will return 'Invalid IP address received'.
+    PROPERTY: If the input string is not valid JSON, the function returns a string (the error message).
+    """
+    result = task_func(ip_address)
+    assert isinstance(result, str)
+
+@given(ip_address=st_json_wrong_key)
+@settings(max_examples=50, deadline=None)
+def test_json_with_wrong_key_returns_error_message(ip_address):
+    """
+    SPEC BASIS: ip_address (str): JSON-formatted string containing the IP address.
+    PROPERTY: If the JSON is valid but does not contain the "ip" key as implied by the example, it does not contain the IP address, and thus should return the error message.
+    """
+    assert task_func(ip_address) == 'Invalid IP address received'
+
+@given(ip_address=st_json_wrong_key)
+@settings(max_examples=50, deadline=None)
+def test_json_with_wrong_key_return_type_is_string(ip_address):
+    """
+    SPEC BASIS: If the IP address is not valid, the function will return 'Invalid IP address received'.
+    PROPERTY: If the JSON is valid but does not contain the "ip" key, the function returns a string (the error message).
+    """
+    result = task_func(ip_address)
+    assert isinstance(result, str)
+
+@given(ip_address=st_json_ip_non_string)
+@settings(max_examples=50, deadline=None)
+def test_json_ip_non_string_value_returns_error_message(ip_address):
+    """
+    SPEC BASIS: ip_address (str): JSON-formatted string containing the IP address.
+    PROPERTY: If the JSON is valid but the value associated with the "ip" key is not a string, it cannot be a valid IP address, and thus should return the error message.
+    """
+    assert task_func(ip_address) == 'Invalid IP address received'
+
+@given(ip_address=st_json_ip_non_string)
+@settings(max_examples=50, deadline=None)
+def test_json_ip_non_string_value_return_type_is_string(ip_address):
+    """
+    SPEC BASIS: If the IP address is not valid, the function will return 'Invalid IP address received'.
+    PROPERTY: If the JSON is valid but the value associated with the "ip" key is not a string, the function returns a string (the error message).
+    """
+    result = task_func(ip_address)
+    assert isinstance(result, str)
