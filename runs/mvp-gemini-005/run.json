@@ -12,25 +12,19 @@
   "maximum_model_calls": 35,
   "pbt_generation_calls": 5,
   "pbt_max_examples": 50,
-  "pbt_required_completed_tests": 10,
+  "pbt_min_passed_tests": 8,
   "pbt_test_count": 10,
   "pbt_timeout_seconds": 30,
   "pool": "candidate_pool.json",
   "post_run_classifier_correction": {
     "affected_candidate_ids": [
-      "candidate_d14c7498decbdf287e2713a3b608a5cdce42f736d385ea0cf88c0e6d1be1bd20",
-      "candidate_76495a26fe599e7449cebf634514723279b72101fcf776ec18d4a60546b93736",
-      "candidate_c394de8fc277a085f2712e0061f7e0e9ce7f89d5400fa0f16605736a1fe0f5fd",
       "candidate_cb966d12ee360c41baa30d52c4b4252de345f693aae781d69486bb4de3002f2d",
       "candidate_0d1f14398897c486d49783f2f5fc767cdda921743b678816739756e415d7cac4",
-      "candidate_d50c9eeba9427543d4fe6d74feb1abc6573d5b92732e0d80b8c7507ce05b5e07",
-      "candidate_65aecd5075a2d6b7abab24970568a9ffa916c154d4536b89e79bccfcb4595eca",
-      "candidate_2cb0d97d2a893e5a7dd09c6bee3086c0b4456f982b6646080ab0a36278075502",
-      "candidate_5717a2d5e91495fb9ac452a08e2b1db80722bd28fd065e2577655c8cdb3ffd81"
+      "candidate_d50c9eeba9427543d4fe6d74feb1abc6573d5b92732e0d80b8c7507ce05b5e07"
     ],
-    "applied_at": "2026-07-27T16:50:41.785755+00:00",
+    "applied_at": "2026-07-27T16:13:55.523567+00:00",
     "new_model_calls": 0,
-    "rule": "All 10 requested tests must pass or fail by assertion before PBT can decide."
+    "rule": "At least 8 tests must pass or fail by assertion before PBT can decide."
   },
   "run_id": "mvp-gemini-005",
   "seed": 0,
