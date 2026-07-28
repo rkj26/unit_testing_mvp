@@ -14,6 +14,9 @@ from experiment import run_experiment
 
 def main() -> None:
     load_dotenv()
+    # BigCodeBench runs tasks' tests locally; several use matplotlib. Force a
+    # non-interactive backend so no GUI plot windows pop open during a run.
+    os.environ.setdefault("MPLBACKEND", "Agg")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--pool", type=Path, default=Path("candidate_pool_development.json")
