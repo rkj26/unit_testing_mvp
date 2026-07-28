@@ -1,0 +1,14 @@
+STDOUT:
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+_______________________ test_weekday_dates_return_false ________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(json_data=weekday_json_data())
+E   hypothesis.errors.FailedHealthCheck: The smallest natural example for your test is extremely large. This makes it difficult for Hypothesis to generate good examples, especially when trying to reduce failing ones at the end. Consider reducing the size of your data if it is of a fixed size. You could also fix this by improving how your data shrinks (see https://hypothesis.readthedocs.io/en/latest/data.html#shrinking for details), or by introducing default values inside your strategy. e.g. could you replace some arguments with their defaults by using one_of(none(), some_complex_strategy)?
+E   See https://hypothesis.readthedocs.io/en/latest/reference/api.html#health-checks for more information about this. If you want to disable just this health check, add HealthCheck.large_base_example to the suppress_health_check settings for this test.
+
+test_candidate.py:140: FailedHealthCheck
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_weekday_dates_return_false - hypothesis.errors...
+1 failed, 3 passed in 0.23s

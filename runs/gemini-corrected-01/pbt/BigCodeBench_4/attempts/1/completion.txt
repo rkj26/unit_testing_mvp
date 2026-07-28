@@ -1,0 +1,93 @@
+```python
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+from collections import Counter
+import itertools
+
+# Strategy for generating valid input dictionaries for task_func
+# Keys are strings, values are lists of integers.
+# Keeping sizes small as per instructions (max_size=5 for lists and dicts, max_value=10 for integers).
+input_dict_strategy = st.dictionaries(
+    keys=st.text(st.characters(min_codepoint=97, max_codepoint=122), min_size=1, max_size=5),  # 'a' through 'z'
+    values=st.lists(st.integers(min_value=-10, max_value=10), max_size=5),
+    max_size=5
+)
+
+@settings(max_examples=50, deadline=None)
+@given(d=st.just({'a': [1, 2, 3, 1], 'b': [3, 4, 5], 'c': [1, 2]}))
+def test_example_case(d):
+    """
+    SPEC BASIS: "Example: >>> d = {'a': [1, 2, 3, 1], 'b': [3, 4, 5], 'c': [1, 2]} >>> count_dict = task_func(d) >>> print(count_dict) {1: 3, 2: 2, 3: 2, 4: 1, 5: 1}"
+    PROPERTY: The function returns the exact dictionary specified in the example.
+    """
+    try:
+        result = task_func(d)
+    except Exception:
+        result = None
+    
+    assert result is not None, "task_func raised an exception for the example input."
+    expected_output = {1: 3, 2: 2, 3: 2, 4: 1, 5: 1}
+    assert result == expected_output, f"For input {d}, expected {expected_output}, got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(d=st.just({}))
+def test_empty_input_dictionary(d):
+    """
+    SPEC BASIS: Implied by the problem description of counting occurrences. If there are no lists, there are no integers to count.
+    PROPERTY: If the input dictionary `d` is empty, the output dictionary is also empty.
+    """
+    try:
+        result = task_func(d)
+    except Exception:
+        result = None
+    
+    assert result is not None, "task_func raised an exception for an empty input dictionary."
+    assert result == {}, f"For empty input dictionary, expected {{}}, got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(d=input_dict_strategy)
+def test_total_count_invariant(d):
+    """
+    SPEC BASIS: "Count the occurrence of each integer in the values of the input dictionary... The resulting dictionary's keys are the integers, and the values are their respective counts..." This implies that every integer in the input contributes exactly one to some count in the output.
+    PROPERTY: The sum of all values (counts) in the output dictionary must equal the total number of integers across all lists in the input dictionary.
+    """
+    try:
+        result = task_func(d)
+    except Exception:
+        result = None
+    
+    assert result is not None, f"task_func raised an exception for input {d}."
+
+    # Calculate the total number of integers in the input
+    total_input_integers = sum(len(lst) for lst in d.values())
+    
+    # Calculate the sum of counts in the output dictionary
+    sum_of_output_counts = sum(result.values())
+
+    assert sum_of_output_counts == total_input_integers, \
+        f"For input {d}, sum of output counts ({sum_of_output_counts}) does not match total input integers ({total_input_integers}). Output: {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(d=input_dict_strategy)
+def test_correctness_with_arbitrary_data(d):
+    """
+    SPEC BASIS: "Count the occurrence of each integer... and return a dictionary with these counts." This is the core requirement.
+    PROPERTY: For any valid input, the output dictionary matches the result of collections.Counter applied to a flattened list of all integers from the input dictionary's values.
+    """
+    try:
+        result = task_func(d)
+    except Exception:
+        result = None
+    
+    assert result is not None, f"task_func raised an exception for input {d}."
+
+    # Create a flattened list of all integers from the input dictionary's values
+    all_integers = list(itertools.chain.from_iterable(d.values()))
+    
+    # Use collections.Counter as an oracle
+    expected_output = Counter(all_integers)
+
+    assert result == expected_output, \
+        f"For input {d}, expected {expected_output}, got {result}"
+
+```

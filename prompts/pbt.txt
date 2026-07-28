@@ -16,6 +16,7 @@ Correctness rules:
 - Every asserted property must follow directly from a quoted sentence or exact example in the problem.
 - Generate only inputs valid under the stated contract. Test invalid inputs only when their behavior is explicitly defined.
 - Do not invent formatting, ordering, serialization, rounding, validation ranges, missing-key behavior, case handling, or error behavior.
+- Compare outputs by the invariant the problem actually guarantees, not by brittle exact equality. For a collection whose element order the problem does not fix, compare element counts with `collections.Counter` (or compare size/membership); use exact `==` only when the problem fixes the exact output.
 - Do not guess an oracle when an intermediate representation is unspecified.
 - Keep generated strings and collections at 12 elements or fewer.
 - Every generated example must execute an assertion.
@@ -26,7 +27,7 @@ Required structure:
 - Import the function exactly as `from candidate import {entry_point}`.
 - Import Hypothesis exactly as `from hypothesis import given, settings, strategies as st`.
 - Define {min_test_count}–{max_test_count} top-level `test_` functions with unique properties.
-- Decorate every test with keyword-based `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`.
+- Decorate every test with keyword-based `@given(...)` and `@settings(max_examples={max_examples}, deadline=None)`, and no other decorators.
 - The `@given` names must exactly match parameters without defaults.
 - Give every test a docstring containing `SPEC BASIS:` and `PROPERTY:`.
 
@@ -40,7 +41,8 @@ Important API details:
 - Use `string.ascii_lowercase`, not nonexistent `st.ascii_lowercase`.
 - `min_size`, `max_size`, and `places` must be literal integers, not strategies.
 - `st.floats` does not accept `places`.
-- Do not use files, network access, subprocesses, sleeps, or third-party packages other than Hypothesis and pytest.
+- Do not import `pytest`, `random`, `secrets`, or any third-party package other than Hypothesis; do not use files, network access, subprocesses, sleeps, or any uncontrolled randomness (all input must come from Hypothesis strategies so runs are reproducible).
+- Call `{entry_point}` inside `try`/`except`; on any exception, set the result to `None`, then assert on that result. A correct implementation must not raise on valid inputs, so this turns a crash into a failed `assert` (a real catch) instead of an untracked error. Every property violation must surface as a failed `assert` (do not rely on `pytest.raises`).
 
 If `<repair_context>` contains a previous module and collection error, repair only its Python, imports, decorators, and Hypothesis API usage. Preserve its property intent and return the complete corrected module.
 

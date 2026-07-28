@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated module uses forbidden call st.text.filter",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 1106,
+        "output_tokens": 3081,
+        "reasoning_tokens": 1500,
+        "total_tokens": 4187
+      }
+    },
+    {
+      "error": "generated module uses forbidden call st.text.map",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 2717,
+        "output_tokens": 4118,
+        "reasoning_tokens": 1798,
+        "total_tokens": 6835
+      }
+    }
+  ],
+  "error": "generated module uses forbidden call st.text.map",
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 3823,
+    "output_tokens": 7199,
+    "reasoning_tokens": 3298,
+    "total_tokens": 11022
+  }
+}
