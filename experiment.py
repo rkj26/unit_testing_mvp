@@ -224,11 +224,16 @@ def _row_from_sample(sample: Any) -> dict[str, Any]:
         "official_score_explanation": explanation,
         "pbt_runnable": evidence["pbt"]["runnable"],
         "pbt_status": evidence["pbt"]["verdict"],
+        "aware_pbt_runnable": evidence["aware_pbt"]["runnable"],
+        "aware_pbt_status": evidence["aware_pbt"]["verdict"],
         "scores": {
             "tm": evidence["tm"]["score"],
             "pbt": evidence["pbt"]["score"],
             "tm_plus_pbt": evidence["tm_plus_pbt"]["score"],
             "pbt_informed_tm": evidence["pbt_informed_tm"]["score"],
+            "aware_pbt": evidence["aware_pbt"]["score"],
+            "aware_tm_plus_pbt": evidence["aware_tm_plus_pbt"]["score"],
+            "aware_informed_tm": evidence["aware_informed_tm"]["score"],
         },
         "evidence": evidence,
     }
@@ -291,7 +296,9 @@ def run_experiment(
         "pbt_timeout_seconds": PBT_TIMEOUT_SECONDS,
         "pbt_initial_generation_calls": len(task_ids),
         "pbt_max_repair_calls": len(task_ids),
-        "maximum_model_calls": 2 * len(task_ids) + 2 * len(task_ids) * len(labels),
+        # blind suite gen (2/task) + per candidate: TM, PBT-informed-TM,
+        # candidate-aware gen, candidate-aware-informed-TM (~4, ignoring repairs).
+        "maximum_model_calls": 2 * len(task_ids) + 4 * len(task_ids) * len(labels),
         "deployment_trials": 10_000,
         "deployment_horizon": DEPLOYMENT_HORIZON,
         "deployment_sampling": "uniform_with_replacement",
