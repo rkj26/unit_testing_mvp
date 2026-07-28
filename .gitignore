@@ -5,3 +5,16 @@ __pycache__/
 .pytest_cache/
 .hypothesis/
 .coverage
+
+# BigCodeBench task byproducts written into CWD during local execution
+split_*
+*.db
+test_images_*/
+mnt/
+output/
+*.log
+df_contents.txt
+names.csv
+country_population_report.csv
+s0.txt
+s1.txt
