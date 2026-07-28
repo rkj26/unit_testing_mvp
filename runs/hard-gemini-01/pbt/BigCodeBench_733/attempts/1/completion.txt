@@ -1,0 +1,253 @@
+# SEARCH PLAN:
+# - Explicit example input and output.
+# - Boundary cases: empty string, single-word string, two-word string.
+# - Metamorphic relation: prepending an "example-implied stop word" should not change the count.
+# - Metamorphic relation: prepending an "example-implied non-stop word" should increase the count by one.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import re
+import string
+
+# Words implied to be stop words by the example: 'this', 'is', 'an'
+# Word implied to be a non-stop word by the example: 'example'
+# The last word 'content' is ignored.
+
+# Helper strategy for words, ensuring they are lowercase and simple for consistency with the example.
+# Max length 12 for words, max 12 words in a sentence.
+word_strategy = st.text(
+    alphabet=string.ascii_lowercase,
+    min_size=1,
+    max_size=12
+)
+
+# Strategy for sentences, ensuring they are not too long and contain simple words.
+# Max 12 words in a sentence.
+sentence_strategy = st.lists(word_strategy, min_size=0, max_size=12).map(lambda words: ' '.join(words))
+
+# Strategy for sentences with at least two words, needed for metamorphic tests.
+sentence_at_least_two_words = st.lists(word_strategy, min_size=2, max_size=12).map(lambda words: ' '.join(words))
+
+
+@settings(max_examples=50, deadline=None)
+@given(content=sentence_strategy)
+def test_output_is_non_negative_integer(content):
+    """
+    SPEC BASIS: "Example: >>> task_func('this is an example content') 1" and "Returns: - count (int): The count of non-stopwords."
+    PROPERTY: The function returns an integer, and for the explicit example, it returns 1. All counts must be non-negative.
+    STRATEGY: Test the explicit example and ensure all other generated inputs also return non-negative integers.
+    """
+    if content == 'this is an example content':
+        try:
+            result = task_func(content)
+        except Exception:
+            result = None
+        assert result == 1, f"Expected 1 for example '{content}', got {result}"
+    else:
+        try:
+            result = task_func(content)
+        except Exception:
+            result = None
+        assert isinstance(result, int), f"Expected an integer, got {type(result)}"
+        assert result >= 0, f"Expected non-negative count, got {result}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(content=st.one_of(st.just(''), word_strategy))
+def test_single_word_or_empty_sentence_returns_zero(content):
+    """
+    SPEC BASIS: "Count the non-stop words in a sentence without the last word."
+    PROPERTY: For sentences with one word or fewer (including empty), no words are considered for counting, so the count must be 0.
+    STRATEGY: Generate empty strings and strings with a single word to cover this boundary condition.
+    """
+    try:
+        result = task_func(content)
+    except Exception:
+        result = None
+    assert result == 0, f"Expected 0 for content '{content}' (single word or empty), got {result}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(base_sentence=sentence_at_least_two_words)
+def test_prepending_implied_stop_word_does_not_change_count(base_sentence):
+    """
+    SPEC BASIS: The example 'this is an example content' returns 1, implying 'this', 'is', 'an' are stop words.
+    PROPERTY: Prepending a word implied to be a stop word by the example (e.g., 'is', 'an') to a sentence (that has at least two words, so the last word rule applies consistently) should not change the non-stop word count.
+    STRATEGY: Construct new sentences by prepending 'is' or 'an' to a base sentence and compare counts.
+    """
+    try:
+        original_count = task_func(base_sentence)
+    except Exception:
+        original_count = None
+    assert original_count is not None, f"Original call failed for '{base_sentence}'"
+
+    # Prepend 'is' (implied stop word)
+    prepended_is_sentence = f"is {base_sentence}"
+    try:
+        prepended_is_count = task_func(prepended_is_sentence)
+    except Exception:
+        prepended_is_count = None
+    assert prepended_is_count is not None, f"Prepended 'is' call failed for '{prepended_is_sentence}'"
+    assert prepended_is_count == original_count, \
+        f"Prepending 'is' changed count from {original_count} to {prepended_is_count} for '{base_sentence}'"
+
+    # Prepend 'an' (implied stop word)
+    prepended_an_sentence = f"an {base_sentence}"
+    try:
+        prepended_an_count = task_func(prepended_an_sentence)
+    except Exception:
+        prepended_an_count = None
+    assert prepended_an_count is not None, f"Prepended 'an' call failed for '{prepended_an_sentence}'"
+    assert prepended_an_count == original_count, \
+        f"Prepending 'an' changed count from {original_count} to {prepended_an_count} for '{base_sentence}'"
+
+
+@settings(max_examples=50, deadline=None)
+@given(base_sentence=sentence_at_least_two_words)
+def test_prepending_implied_non_stop_word_increases_count_by_one(base_sentence):
+    """
+    SPEC BASIS: The example 'this is an example content' returns 1, implying 'example' is a non-stop word.
+    PROPERTY: Prepending a word implied to be a non-stop word by the example (e.g., 'example') to a sentence (that has at least two words, so the last word rule applies consistently) should increase the non-stop word count by 1.
+    STRATEGY: Construct a new sentence by prepending 'example' to a base sentence and compare counts.
+    """
+    try:
+        original_count = task_func(base_sentence)
+    except Exception:
+        original_count = None
+    assert original_count is not None, f"Original call failed for '{base_sentence}'"
+
+    # Prepend 'example' (implied non-stop word)
+    prepended_example_sentence = f"example {base_sentence}"
+    try:
+        prepended_example_count = task_func(prepended_example_sentence)
+    except Exception:
+        prepended_example_count = None
+    assert prepended_example_count is not None, f"Prepended 'example' call failed for '{prepended_example_sentence}'"
+    assert prepended_example_count == original_count + 1, \
+        f"Prepending 'example' changed count from {original_count} to {prepended_example_count} for '{base_sentence}'"
+
+<test_code>
+# SEARCH PLAN:
+# - Explicit example input and output.
+# - Boundary cases: empty string, single-word string, two-word string.
+# - Metamorphic relation: prepending an "example-implied stop word" should not change the count.
+# - Metamorphic relation: prepending an "example-implied non-stop word" should increase the count by one.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import re
+import string
+
+# Helper strategy for words, ensuring they are lowercase and simple for consistency with the example.
+# Max length 12 for words, max 12 words in a sentence.
+word_strategy = st.text(
+    alphabet=string.ascii_lowercase,
+    min_size=1,
+    max_size=12
+)
+
+# Strategy for sentences, ensuring they are not too long and contain simple words.
+# Max 12 words in a sentence.
+sentence_strategy = st.lists(word_strategy, min_size=0, max_size=12).map(lambda words: ' '.join(words))
+
+# Strategy for sentences with at least two words, needed for metamorphic tests.
+sentence_at_least_two_words = st.lists(word_strategy, min_size=2, max_size=12).map(lambda words: ' '.join(words))
+
+
+@settings(max_examples=50, deadline=None)
+@given(content=sentence_strategy)
+def test_output_is_non_negative_integer(content):
+    """
+    SPEC BASIS: "Example: >>> task_func('this is an example content') 1" and "Returns: - count (int): The count of non-stopwords."
+    PROPERTY: The function returns an integer, and for the explicit example, it returns 1. All counts must be non-negative.
+    STRATEGY: Test the explicit example and ensure all other generated inputs also return non-negative integers.
+    """
+    if content == 'this is an example content':
+        try:
+            result = task_func(content)
+        except Exception:
+            result = None
+        assert result == 1, f"Expected 1 for example '{content}', got {result}"
+    else:
+        try:
+            result = task_func(content)
+        except Exception:
+            result = None
+        assert isinstance(result, int), f"Expected an integer, got {type(result)}"
+        assert result >= 0, f"Expected non-negative count, got {result}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(content=st.one_of(st.just(''), word_strategy))
+def test_single_word_or_empty_sentence_returns_zero(content):
+    """
+    SPEC BASIS: "Count the non-stop words in a sentence without the last word."
+    PROPERTY: For sentences with one word or fewer (including empty), no words are considered for counting, so the count must be 0.
+    STRATEGY: Generate empty strings and strings with a single word to cover this boundary condition.
+    """
+    try:
+        result = task_func(content)
+    except Exception:
+        result = None
+    assert result == 0, f"Expected 0 for content '{content}' (single word or empty), got {result}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(base_sentence=sentence_at_least_two_words)
+def test_prepending_implied_stop_word_does_not_change_count(base_sentence):
+    """
+    SPEC BASIS: The example 'this is an example content' returns 1, implying 'this', 'is', 'an' are stop words.
+    PROPERTY: Prepending a word implied to be a stop word by the example (e.g., 'is', 'an') to a sentence (that has at least two words, so the last word rule applies consistently) should not change the non-stop word count.
+    STRATEGY: Construct new sentences by prepending 'is' or 'an' to a base sentence and compare counts.
+    """
+    try:
+        original_count = task_func(base_sentence)
+    except Exception:
+        original_count = None
+    assert original_count is not None, f"Original call failed for '{base_sentence}'"
+
+    # Prepend 'is' (implied stop word)
+    prepended_is_sentence = f"is {base_sentence}"
+    try:
+        prepended_is_count = task_func(prepended_is_sentence)
+    except Exception:
+        prepended_is_count = None
+    assert prepended_is_count is not None, f"Prepended 'is' call failed for '{prepended_is_sentence}'"
+    assert prepended_is_count == original_count, \
+        f"Prepending 'is' changed count from {original_count} to {prepended_is_count} for '{base_sentence}'"
+
+    # Prepend 'an' (implied stop word)
+    prepended_an_sentence = f"an {base_sentence}"
+    try:
+        prepended_an_count = task_func(prepended_an_sentence)
+    except Exception:
+        prepended_an_count = None
+    assert prepended_an_count is not None, f"Prepended 'an' call failed for '{prepended_an_sentence}'"
+    assert prepended_an_count == original_count, \
+        f"Prepending 'an' changed count from {original_count} to {prepended_an_count} for '{base_sentence}'"
+
+
+@settings(max_examples=50, deadline=None)
+@given(base_sentence=sentence_at_least_two_words)
+def test_prepending_implied_non_stop_word_increases_count_by_one(base_sentence):
+    """
+    SPEC BASIS: The example 'this is an example content' returns 1, implying 'example' is a non-stop word.
+    PROPERTY: Prepending a word implied to be a non-stop word by the example (e.g., 'example') to a sentence (that has at least two words, so the last word rule applies consistently) should increase the non-stop word count by 1.
+    STRATEGY: Construct a new sentence by prepending 'example' to a base sentence and compare counts.
+    """
+    try:
+        original_count = task_func(base_sentence)
+    except Exception:
+        original_count = None
+    assert original_count is not None, f"Original call failed for '{base_sentence}'"
+
+    # Prepend 'example' (implied non-stop word)
+    prepended_example_sentence = f"example {base_sentence}"
+    try:
+        prepended_example_count = task_func(prepended_example_sentence)
+    except Exception:
+        prepended_example_count = None
+    assert prepended_example_count is not None, f"Prepended 'example' call failed for '{prepended_example_sentence}'"
+    assert prepended_example_count == original_count + 1, \
+        f"Prepending 'example' changed count from {original_count} to {prepended_example_count} for '{base_sentence}'"
+</test_code>

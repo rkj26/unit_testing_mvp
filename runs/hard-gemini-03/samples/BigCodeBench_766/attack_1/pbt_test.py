@@ -1,0 +1,203 @@
+# SEARCH PLAN:
+# 1. Empty/Boundary Inputs: Test with empty string, empty patterns list, and patterns not present.
+# 2. Independent Counting: Verify each pattern's count is independent, even with overlapping patterns or substrings.
+# 3. Default Patterns: Ensure the function works correctly when the `patterns` argument is omitted.
+# 4. Type Errors: Confirm `TypeError` is raised for invalid `string` or `patterns` types.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import re
+import collections
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.text(st.sampled_from('abcdefg'), min_size=0, max_size=12),
+    patterns=st.lists(st.text(st.sampled_from('abcdefg'), min_size=1, max_size=4), min_size=0, max_size=5)
+)
+def test_empty_and_no_match_conditions(string, patterns):
+    """
+    SPEC BASIS: "Counts the occurrence of specific patterns in a string." (implies 0 if not found).
+    PROPERTY: If a pattern is not found, its count is 0. If the string is empty, all counts are 0.
+              If the patterns list is empty, the result is an empty dictionary.
+    STRATEGY: Generate empty strings, strings with no matching patterns, and empty pattern lists.
+              Also include patterns that are longer than the string.
+    """
+    try:
+        result = task_func(string, patterns)
+    except Exception:
+        result = None
+    
+    assert result is not None, "Function raised an unexpected exception for valid input."
+    assert isinstance(result, dict), "Result must be a dictionary."
+
+    if not patterns:
+        assert result == {}, "Expected an empty dictionary when patterns list is empty."
+    else:
+        for pattern in patterns:
+            if pattern not in result:
+                # If a pattern is not found, it might not be in the dict or its count is 0.
+                # The problem example implies all patterns are keys, even if count is 0.
+                # ">>> task_func("nnnaaaasssdddeeefffggg") {'nnn': 1, 'aaa': 1, 'sss': 1, 'ddd': 1, 'fff': 1}"
+                # This example doesn't show patterns with 0 count. Let's assume patterns with 0 count
+                # might be absent or present with 0. The most robust check is that if it's present, it's correct.
+                # If it's absent, its count is effectively 0.
+                expected_count = len(re.findall(re.escape(pattern), string))
+                assert expected_count == 0, f"Pattern '{pattern}' expected to be in result with count {expected_count}, but was missing."
+            else:
+                assert result[pattern] >= 0, f"Count for pattern '{pattern}' should be non-negative."
+                expected_count = len(re.findall(re.escape(pattern), string))
+                assert result[pattern] == expected_count, \
+                    f"Incorrect count for pattern '{pattern}' in string '{string}'. Expected {expected_count}, got {result[pattern]}."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.text(st.sampled_from('12345abc'), min_size=1, max_size=12),
+    patterns=st.lists(st.text(st.sampled_from('12345abc'), min_size=1, max_size=5), min_size=1, max_size=5)
+)
+def test_independent_and_overlapping_pattern_counts(string, patterns):
+    """
+    SPEC BASIS: `>>> task_func('asdfasdfasdfasdaaaaf', patterns=['a', 'asdf']) {'a': 8, 'asdf': 3}`
+                `>>> task_func('123kajhdlkfah12345k,jk123', patterns=['123', '1234']) {'123': 3, '1234': 1}`
+    PROPERTY: Each pattern's count is independent of other patterns. For a single pattern, `re.findall`
+              behavior (non-overlapping matches of that specific pattern) is expected.
+    STRATEGY: Generate strings and patterns that include self-overlapping patterns (e.g., 'aaa' in 'aaaaa')
+              and patterns that are substrings of others (e.g., 'ab' and 'abc' in 'abcabc').
+              Compare the result with `re.findall` for each pattern independently.
+    """
+    try:
+        result = task_func(string, patterns)
+    except Exception:
+        result = None
+    
+    assert result is not None, "Function raised an unexpected exception for valid input."
+    assert isinstance(result, dict), "Result must be a dictionary."
+    
+    expected_counts = {}
+    for pattern in patterns:
+        # re.escape is important for patterns that might contain regex special characters
+        expected_counts[pattern] = len(re.findall(re.escape(pattern), string))
+    
+    # Use Counter for robust dictionary comparison, as order doesn't matter and missing keys imply 0.
+    assert collections.Counter(result) == collections.Counter(expected_counts), \
+        f"Incorrect counts for string '{string}' and patterns {patterns}. Expected {expected_counts}, got {result}."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.text(st.sampled_from('nnnaaasssdddfff'), min_size=0, max_size=12)
+)
+def test_default_patterns_behavior(string):
+    """
+    SPEC BASIS: "patterns (list[str], optional): List of patterns to search for. Defaults to ['nnn', 'aaa', 'sss', 'ddd', 'fff']."
+    PROPERTY: When `patterns` is not provided, the function uses the default list and counts correctly.
+    STRATEGY: Generate strings that may or may not contain the default patterns, and call `task_func` without `patterns`.
+    """
+    default_patterns = ['nnn', 'aaa', 'sss', 'ddd', 'fff']
+    
+    try:
+        result = task_func(string) # Call without patterns argument
+    except Exception:
+        result = None
+    
+    assert result is not None, "Function raised an unexpected exception for valid input with default patterns."
+    assert isinstance(result, dict), "Result must be a dictionary."
+    
+    expected_counts = {}
+    for pattern in default_patterns:
+        expected_counts[pattern] = len(re.findall(re.escape(pattern), string))
+    
+    assert collections.Counter(result) == collections.Counter(expected_counts), \
+        f"Incorrect counts for string '{string}' with default patterns. Expected {expected_counts}, got {result}."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    invalid_string=st.one_of(st.integers(), st.lists(st.text()), st.booleans(), st.none()),
+    invalid_patterns=st.one_of(
+        st.text(),
+        st.lists(st.integers()),
+        st.lists(st.one_of(st.text(), st.integers()), min_size=1, max_size=5).filter(lambda x: any(not isinstance(p, str) for p in x)),
+        st.integers(),
+        st.none()
+    )
+)
+def test_type_errors_for_invalid_inputs(invalid_string, invalid_patterns):
+    """
+    SPEC BASIS: "Raises: - TypeError: If string is not a str. - TypeError: If patterns is not a list of str."
+    PROPERTY: The function raises `TypeError` for invalid input types for `string` and `patterns`.
+    STRATEGY: Provide non-string for `string` and non-list-of-str for `patterns`.
+    """
+    # Test invalid string type
+    if not isinstance(invalid_string, str):
+        try:
+            task_func(invalid_string, patterns=['a'])
+            assert False, f"TypeError not raised for invalid string type: {type(invalid_string)}"
+        except TypeError:
+            pass # Expected
+        except Exception as e:
+            assert False, f"Expected TypeError for invalid string, but got {type(e).__name__}: {e}"
+
+    # Test invalid patterns type (must be a list of strings)
+    if not (isinstance(invalid_patterns, list) and all(isinstance(p, str) for p in invalid_patterns)):
+        try:
+            task_func("test", patterns=invalid_patterns)
+            assert False, f"TypeError not raised for invalid patterns type: {type(invalid_patterns)}"
+        except TypeError:
+            pass # Expected
+        except Exception as e:
+            assert False, f"Expected TypeError for invalid patterns, but got {type(e).__name__}: {e}"
+
+    # Test both invalid (if they are distinct invalid types)
+    if not isinstance(invalid_string, str) and not (isinstance(invalid_patterns, list) and all(isinstance(p, str) for p in invalid_patterns)):
+        try:
+            task_func(invalid_string, patterns=invalid_patterns)
+            assert False, f"TypeError not raised for both invalid string ({type(invalid_string)}) and patterns ({type(invalid_patterns)})"
+        except TypeError:
+            pass # Expected
+        except Exception as e:
+            assert False, f"Expected TypeError for both invalid inputs, but got {type(e).__name__}: {e}"
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.text(st.sampled_from('abc'), min_size=1, max_size=12),
+    pattern_base=st.text(st.sampled_from('abc'), min_size=1, max_size=3)
+)
+def test_metamorphic_relation_pattern_repetition(string, pattern_base):
+    """
+    SPEC BASIS: "Counts the occurrence of specific patterns in a string."
+    PROPERTY: If a pattern `P` occurs `N` times, then `P + P` (concatenated pattern) should occur
+              at most `N/2` times, and `P` should still occur `N` times. This checks consistency
+              when patterns are related by repetition.
+    STRATEGY: Generate a base pattern and then a repeated version of it (e.g., 'ab' and 'abab').
+              Verify that the counts are consistent with independent `re.findall` behavior.
+    """
+    pattern_single = pattern_base
+    pattern_double = pattern_base + pattern_base
+
+    # Ensure pattern_double is not empty if pattern_base is empty (though min_size=1 prevents this)
+    if not pattern_single:
+        return
+
+    patterns = [pattern_single, pattern_double]
+
+    try:
+        result = task_func(string, patterns)
+    except Exception:
+        result = None
+    
+    assert result is not None, "Function raised an unexpected exception for valid input."
+    assert isinstance(result, dict), "Result must be a dictionary."
+
+    expected_single_count = len(re.findall(re.escape(pattern_single), string))
+    expected_double_count = len(re.findall(re.escape(pattern_double), string))
+
+    assert result.get(pattern_single, 0) == expected_single_count, \
+        f"Incorrect count for '{pattern_single}' in '{string}'. Expected {expected_single_count}, got {result.get(pattern_single, 0)}."
+    assert result.get(pattern_double, 0) == expected_double_count, \
+        f"Incorrect count for '{pattern_double}' in '{string}'. Expected {expected_double_count}, got {result.get(pattern_double, 0)}."
+
+    # Metamorphic check: The count of pattern_double should not exceed half the count of pattern_single
+    # (approximately, due to non-overlapping nature of re.findall).
+    # This is a weaker check, but still useful. The primary check is against re.findall.
+    if pattern_double in result and pattern_single in result:
+        assert result[pattern_double] * 2 <= result[pattern_single] + len(pattern_single) - 1, \
+            f"Metamorphic relation violated for '{pattern_single}' and '{pattern_double}' in '{string}'." \
+            f" Double count ({result[pattern_double]}) * 2 should be <= single count ({result[pattern_single]})."

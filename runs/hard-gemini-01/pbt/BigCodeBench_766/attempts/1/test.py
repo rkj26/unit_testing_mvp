@@ -1,0 +1,161 @@
+# SEARCH PLAN:
+# - Empty string and empty patterns list (boundary conditions).
+# - Overlapping patterns and patterns that are substrings of others (structural edge cases for counting).
+# - Cases where no patterns match (boundary).
+# - Explicit examples from the problem description.
+# - Type error conditions for `string` and `patterns` arguments.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import collections
+import re
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.text(st.characters(min_codepoint=97, max_codepoint=100), min_size=0, max_size=12),
+    patterns=st.lists(st.text(st.characters(min_codepoint=97, max_codepoint=100), min_size=1, max_size=3), min_size=0, max_size=5)
+)
+def test_counts_non_negative_and_zero_for_empty_string(string, patterns):
+    """
+    SPEC BASIS: "Counts the occurrence of specific patterns in a string."
+    PROPERTY: All counts in the output dictionary must be non-negative. If the input string is empty,
+              all counts must be zero.
+    STRATEGY: Generate strings including empty, and patterns including those that match and don't match.
+              Patterns are restricted to non-empty to avoid edge cases with empty pattern matching.
+    """
+    try:
+        result = task_func(string, patterns)
+    except Exception:
+        result = None
+
+    assert result is not None, "task_func raised an unexpected exception for valid input."
+    assert isinstance(result, dict), "Return value must be a dictionary."
+
+    for pattern, count in result.items():
+        assert count >= 0, f"Count for pattern '{pattern}' should be non-negative, but got {count}."
+
+    if not string:  # If the input string is empty
+        for pattern, count in result.items():
+            assert count == 0, f"For an empty string, count for '{pattern}' should be 0, but got {count}."
+    
+    # Ensure all input patterns are present in the result dictionary, even if count is 0
+    for p in patterns:
+        assert p in result, f"Pattern '{p}' missing from result dictionary."
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.sampled_from([
+        "nnnaaaasssdddeeefffggg",
+        'asdfasdfasdfasdaaaaf',
+        '123kajhdlkfah12345k,jk123',
+        "aaaaa", # For overlapping test
+        "ababab", # For overlapping test
+        "xyz" # No match test
+    ]),
+    patterns=st.sampled_from([
+        ['nnn', 'aaa', 'sss', 'ddd', 'fff'],
+        ['a', 'asdf'],
+        ['123', '1234'],
+        ['aa'], # Overlapping pattern
+        ['ab', 'ba'], # Overlapping pattern
+        ['pqr', 'xyz'] # No match test
+    ])
+)
+def test_example_and_edge_case_outputs(string, patterns):
+    """
+    SPEC BASIS: The provided examples and the general requirement to count occurrences.
+    PROPERTY: The function should produce the exact expected output for the given examples.
+              Also, test specific edge cases like overlapping patterns or no matches.
+    STRATEGY: Use `st.sampled_from` to pick the exact example inputs and a few hand-crafted
+              edge cases for overlapping patterns or no matches.
+    """
+    expected_outputs = {
+        ("nnnaaaasssdddeeefffggg", ('nnn', 'aaa', 'sss', 'ddd', 'fff')): {'nnn': 1, 'aaa': 1, 'sss': 1, 'ddd': 1, 'fff': 1},
+        ('asdfasdfasdfasdaaaaf', ('a', 'asdf')): {'a': 8, 'asdf': 3},
+        ('123kajhdlkfah12345k,jk123', ('123', '1234')): {'123': 3, '1234': 1},
+        ("aaaaa", ('aa',)): {'aa': 2}, # 'aa' in 'aaaaa' should be 2 non-overlapping matches
+        ("ababab", ('ab', 'ba')): {'ab': 3, 'ba': 0}, # 'ab' in 'ababab' is 3, 'ba' is 0
+        ("xyz", ('pqr', 'xyz')): {'pqr': 0, 'xyz': 1} # No match for 'pqr', one for 'xyz'
+    }
+    
+    # Convert patterns list to tuple for dictionary key lookup
+    patterns_tuple = tuple(patterns)
+
+    try:
+        result = task_func(string, patterns)
+    except Exception:
+        result = None
+
+    assert result is not None, f"task_func raised an unexpected exception for input string='{string}', patterns={patterns}."
+
+    if (string, patterns_tuple) in expected_outputs:
+        assert result == expected_outputs[(string, patterns_tuple)], \
+            f"Mismatch for input string='{string}', patterns={patterns}. Expected {expected_outputs[(string, patterns_tuple)]}, got {result}."
+    else:
+        # For other sampled cases, we can't assert exact equality without re-implementing.
+        # Instead, we can check a weaker property: all patterns are keys and counts are non-negative.
+        for p in patterns:
+            assert p in result, f"Pattern '{p}' missing from result for string='{string}', patterns={patterns}."
+            assert result[p] >= 0, f"Count for '{p}' is negative for string='{string}', patterns={patterns}."
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.text(st.characters(min_codepoint=97, max_codepoint=100), min_size=1, max_size=12),
+    patterns=st.lists(st.text(st.characters(min_codepoint=97, max_codepoint=100), min_size=1, max_size=3), min_size=1, max_size=5)
+)
+def test_default_patterns_behavior(string, patterns):
+    """
+    SPEC BASIS: "patterns (list[str], optional): List of patterns to search for. Defaults to ['nnn', 'aaa', 'sss', 'ddd', 'fff']."
+    PROPERTY: When the 'patterns' argument is omitted, the function should use the default patterns.
+              The counts for the default patterns should be consistent with direct invocation.
+    STRATEGY: Call task_func once with explicit default patterns, and once without. Compare results.
+    """
+    default_patterns = ['nnn', 'aaa', 'sss', 'ddd', 'fff']
+
+    try:
+        result_with_default_arg = task_func(string, default_patterns)
+    except Exception:
+        result_with_default_arg = None
+    
+    try:
+        result_without_arg = task_func(string) # Omit patterns argument
+    except Exception:
+        result_without_arg = None
+
+    assert result_with_default_arg is not None, "task_func with explicit default patterns raised an exception."
+    assert result_without_arg is not None, "task_func without patterns argument raised an exception."
+    
+    assert result_with_default_arg == result_without_arg, \
+        f"Results differ when using default patterns explicitly vs. omitting argument for string='{string}'.\n" \
+        f"Explicit: {result_with_default_arg}\nOmitted: {result_without_arg}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    string=st.one_of(st.integers(), st.lists(st.text()), st.booleans(), st.none()),
+    patterns=st.one_of(st.integers(), st.text(), st.booleans(), st.none(), st.lists(st.integers()))
+)
+def test_type_errors(string, patterns):
+    """
+    SPEC BASIS: "Raises: - TypeError: If string is not a str. - TypeError: If patterns is not a list of str."
+    PROPERTY: The function must raise a TypeError for invalid types of 'string' or 'patterns'.
+    STRATEGY: Generate inputs where 'string' is not a str, or 'patterns' is not a list of str (or not a list at all).
+    """
+    is_string_invalid = not isinstance(string, str)
+    is_patterns_invalid = not (isinstance(patterns, list) and all(isinstance(p, str) for p in patterns))
+
+    # If both are valid, this test should not run or should not expect an error.
+    # We only care about cases where at least one is invalid.
+    if not is_string_invalid and not is_patterns_invalid:
+        return # Skip if inputs are valid, as this test specifically targets TypeErrors.
+
+    try:
+        task_func(string, patterns)
+        assert False, f"TypeError was not raised for invalid input: string={string} (type {type(string)}), patterns={patterns} (type {type(patterns)})."
+    except TypeError:
+        # Expected behavior: TypeError was raised.
+        pass
+    except Exception as e:
+        assert False, f"Expected TypeError but got {type(e).__name__}: {e} for string={string}, patterns={patterns}."

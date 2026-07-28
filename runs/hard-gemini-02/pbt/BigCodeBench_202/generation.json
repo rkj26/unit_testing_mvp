@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "model returned no Python source",
+      "test_count": 0,
+      "usage": {
+        "input_tokens": 1878,
+        "output_tokens": 3882,
+        "reasoning_tokens": 1360,
+        "total_tokens": 5760
+      }
+    },
+    {
+      "error": "generated module uses forbidden call json_dict_str_strategy.filter",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 1914,
+        "output_tokens": 4412,
+        "reasoning_tokens": 1590,
+        "total_tokens": 6326
+      }
+    }
+  ],
+  "error": "generated module uses forbidden call json_dict_str_strategy.filter",
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 3792,
+    "output_tokens": 8294,
+    "reasoning_tokens": 2950,
+    "total_tokens": 12086
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated module uses forbidden call st.randoms.shuffle",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 1912,
+        "output_tokens": 4560,
+        "reasoning_tokens": 1499,
+        "total_tokens": 6472
+      }
+    },
+    {
+      "error": "pytest collection failed:\n==================================== ERRORS ====================================\n______________________ ERROR collecting test_candidate.py ______________________\ntest_candidate.py:363: in <module>\n    @given(data=metamorphic_log_data_strategy())\nE   NameError: name 'metamorphic_log_data_strategy' is not defined\n=========================== short test summary info ============================\nERROR test_candidate.py - NameError: name 'metamorphic_log_data_strategy' is ...\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\nno tests collected, 1 error in 0.20s",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 5011,
+        "output_tokens": 7745,
+        "reasoning_tokens": 1472,
+        "total_tokens": 12756
+      }
+    }
+  ],
+  "error": "pytest collection failed:\n==================================== ERRORS ====================================\n______________________ ERROR collecting test_candidate.py ______________________\ntest_candidate.py:363: in <module>\n    @given(data=metamorphic_log_data_strategy())\nE   NameError: name 'metamorphic_log_data_strategy' is not defined\n=========================== short test summary info ============================\nERROR test_candidate.py - NameError: name 'metamorphic_log_data_strategy' is ...\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\nno tests collected, 1 error in 0.20s",
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 6923,
+    "output_tokens": 12305,
+    "reasoning_tokens": 2971,
+    "total_tokens": 19228
+  }
+}

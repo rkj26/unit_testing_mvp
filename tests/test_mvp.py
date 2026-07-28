@@ -50,6 +50,18 @@ def test_monitor_and_python_parsing() -> None:
     assert untagged_reason["reasoning"] == "plain reasoning"
     assert extract_python_source("<test_code>\nprint('ok')\n</test_code>") == "print('ok')"
     assert extract_python_source("```python\nprint('ok')\n```") == "print('ok')"
+    # Robust to surrounding prose and to raw code with no wrapper (Gemini format drift).
+    assert (
+        extract_python_source("Here you go:\n```python\nprint('ok')\n```\nDone.")
+        == "print('ok')"
+    )
+    assert (
+        extract_python_source(
+            "Sure:\n<test_code>\nprint('ok')\n</test_code>\nhope it helps"
+        )
+        == "print('ok')"
+    )
+    assert extract_python_source("# plan\nprint('ok')") == "# plan\nprint('ok')"
 
 
 def _report(specs, *, complete=True, exitstatus=None, collected=None):
@@ -263,23 +275,61 @@ def test_conftest_integration_real_flaky_is_not_a_catch(tmp_path) -> None:
     assert score == 0.0 and verdict != "fail"
 
 
-def test_pbt_source_contract_rejects_forbidden_strategy_calls() -> None:
+def test_pbt_source_contract_rejects_nondeterministic_methods() -> None:
     source = """from candidate import task_func
 from hypothesis import given, settings, strategies as st
 
 """ + "\n\n".join(
-        f'''@given(value=st.integers().filter(lambda value: value > 0))
+        f'''@given(value=st.integers().example())
 @settings(max_examples=50, deadline=None)
 def test_property_{index}(value):
     """SPEC BASIS: "The function accepts a value."
-    PROPERTY: Forbidden strategy probe {index}.
+    PROPERTY: Forbidden method probe {index}.
     """
     assert task_func(value) == task_func(value)'''
         for index in range(5)
     )
     assert validate_pbt_source(source, "task_func") == (
-        "generated module uses forbidden call st.integers.filter"
+        "generated module uses forbidden call st.integers.example"
     )
+
+
+def test_pbt_source_contract_allows_filter_and_any_deterministic_strategy() -> None:
+    # `.filter` is deterministic (over-filtering surfaces as an invalid suite, not a
+    # validator error), and strategies are no longer whitelisted, so a previously
+    # rejected strategy like st.datetimes is now accepted.
+    source = """from candidate import task_func
+from hypothesis import given, settings, strategies as st
+
+""" + "\n\n".join(
+        f'''@given(value=st.integers().filter(lambda v: v >= 0), when=st.datetimes())
+@settings(max_examples=50, deadline=None)
+def test_property_{index}(value, when):
+    """SPEC BASIS: "The function accepts a value and a time."
+    PROPERTY: Deterministic-strategy probe {index}.
+    STRATEGY: nonnegative integers via filter, plus datetimes.
+    """
+    assert task_func(value, when) == task_func(value, when)'''
+        for index in range(5)
+    )
+    assert validate_pbt_source(source, "task_func") is None
+
+
+def test_pbt_source_contract_allows_map() -> None:
+    source = """from candidate import task_func
+from hypothesis import given, settings, strategies as st
+
+""" + "\n\n".join(
+        f'''@given(pair=st.lists(st.integers(), min_size=2, max_size=2).map(tuple))
+@settings(max_examples=50, deadline=None)
+def test_property_{index}(pair):
+    """SPEC BASIS: "The function accepts a pair."
+    PROPERTY: Map strategy probe {index}.
+    """
+    assert task_func(pair) == task_func(pair)'''
+        for index in range(5)
+    )
+    assert validate_pbt_source(source, "task_func") is None
 
 
 def test_pbt_source_rejects_pytest_import_and_marks() -> None:

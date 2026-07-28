@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "model returned no Python source",
+      "test_count": 0,
+      "usage": {
+        "input_tokens": 1784,
+        "output_tokens": 3892,
+        "reasoning_tokens": 1496,
+        "total_tokens": 5676
+      }
+    },
+    {
+      "error": "model returned no Python source",
+      "test_count": 0,
+      "usage": {
+        "input_tokens": 1820,
+        "output_tokens": 3594,
+        "reasoning_tokens": 1774,
+        "total_tokens": 5414
+      }
+    }
+  ],
+  "error": "model returned no Python source",
+  "repair_attempted": true,
+  "test_count": 0,
+  "usage": {
+    "input_tokens": 3604,
+    "output_tokens": 7486,
+    "reasoning_tokens": 3270,
+    "total_tokens": 11090
+  }
+}

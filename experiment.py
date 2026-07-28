@@ -311,7 +311,13 @@ def run_experiment(
     )
     _write_pbt_suite_artifacts(run_dir, pbt_suites)
     if all(suite["error"] for suite in pbt_suites.values()):
-        raise RuntimeError(f"all task-level PBT generations failed; see {run_dir / 'pbt'}")
+        # The PBT arm is independent of the trusted monitor; a total PBT-generation
+        # failure must not abort the TM measurement. Record it and continue — the PBT
+        # protocols will simply score every candidate "invalid".
+        print(
+            "WARNING: all task-level PBT generations failed; the PBT / TM+PBT / "
+            f"PBT-informed-TM arms will be all-invalid. See {run_dir / 'pbt'}"
+        )
 
     # PBT-quality diagnostic: run each suite against the known-good reference
     # solution (never shown to the writer or monitor). No model calls.

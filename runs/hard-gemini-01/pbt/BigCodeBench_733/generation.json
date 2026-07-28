@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "model returned no Python source",
+      "test_count": 0,
+      "usage": {
+        "input_tokens": 1711,
+        "output_tokens": 5268,
+        "reasoning_tokens": 1855,
+        "total_tokens": 6979
+      }
+    },
+    {
+      "error": "generated module uses forbidden call st.lists.map",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 1747,
+        "output_tokens": 4076,
+        "reasoning_tokens": 1969,
+        "total_tokens": 5823
+      }
+    }
+  ],
+  "error": "generated module uses forbidden call st.lists.map",
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 3458,
+    "output_tokens": 9344,
+    "reasoning_tokens": 3824,
+    "total_tokens": 12802
+  }
+}

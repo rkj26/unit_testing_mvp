@@ -111,15 +111,23 @@ def render_prompt(name: str, **values: Any) -> str:
 
 
 def extract_python_source(completion: str) -> str:
-    """Extract the requested tag, tolerating Gemini's Python-fence fallback."""
+    """Extract the test module, tolerating output-format drift.
 
-    tagged = re.fullmatch(
-        r"\s*<test_code>\s*(.*?)\s*</test_code>\s*", completion, re.DOTALL
-    )
+    Gemini is asked for a single ``<test_code>...</test_code>`` block, but it does not
+    reliably comply: it may add prose around the block, wrap the code in a ```python
+    fence, or emit the module raw. Search (not fullmatch) for the wrapper anywhere; if
+    neither is present, fall back to the whole completion and let ``ast.parse`` reject
+    it if it is not Python. This keeps one stray fence or preamble from discarding a
+    usable suite.
+    """
+
+    tagged = re.search(r"<test_code>\s*(.*?)\s*</test_code>", completion, re.DOTALL)
     if tagged:
         return tagged.group(1).strip()
-    fenced = re.fullmatch(r"\s*```(?:python)?\s*(.*?)\s*```\s*", completion, re.DOTALL)
-    return fenced.group(1).strip() if fenced else ""
+    fenced = re.search(r"```(?:python)?\s*(.*?)```", completion, re.DOTALL)
+    if fenced:
+        return fenced.group(1).strip()
+    return completion.strip()
 
 
 def _dotted_name(node: ast.expr) -> str:
@@ -248,24 +256,15 @@ def validate_pbt_source(source: str, entry_point: str) -> str | None:
         "st.randoms",
         "time.sleep",
     }
-    blocked_methods = {"example", "filter", "map", "random", "shuffle"}
-    allowed_strategies = {
-        "st.booleans",
-        "st.builds",
-        "st.characters",
-        "st.decimals",
-        "st.dictionaries",
-        "st.floats",
-        "st.integers",
-        "st.just",
-        "st.lists",
-        "st.none",
-        "st.one_of",
-        "st.sampled_from",
-        "st.sets",
-        "st.text",
-        "st.tuples",
-    }
+    # Only NON-DETERMINISM breaks reproducibility, so only that is blocked. `.map`,
+    # `.filter`, `.flatmap`, `st.builds`, and `@st.composite` are all pure/deterministic
+    # strategy combinators and are allowed (heavy `.filter` use just surfaces as an
+    # invalid suite via FailedHealthCheck, which the coverage/soundness diagnostics
+    # already measure). `.example` (draws outside the seeded engine), `.random`, and
+    # `.shuffle` stay blocked, as does `st.randoms` (in blocked_calls). Any other
+    # deterministic `st.*` strategy is allowed; a hallucinated one fails at pytest
+    # collection (surfacing as an invalid suite), not here.
+    blocked_methods = {"example", "random", "shuffle"}
     literal_keywords = {"min_size", "max_size", "places"}
     for node in ast.walk(tree):
         if isinstance(node, ast.Import) and any(
@@ -282,8 +281,6 @@ def validate_pbt_source(source: str, entry_point: str) -> str | None:
         name = _dotted_name(node.func)
         if name in blocked_calls or name.rsplit(".", 1)[-1] in blocked_methods:
             return f"generated module uses forbidden call {name}"
-        if name.startswith("st.") and name not in allowed_strategies:
-            return f"generated module uses unsupported strategy {name}"
         if name == "st.floats" and any(item.arg == "places" for item in node.keywords):
             return "st.floats does not accept places"
         for keyword in node.keywords:

@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated module uses forbidden call st.randoms.shuffle",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 1839,
+        "output_tokens": 4965,
+        "reasoning_tokens": 1824,
+        "total_tokens": 6804
+      }
+    },
+    {
+      "error": "generated module uses forbidden call error_log_line_strategy.map",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 5018,
+        "output_tokens": 4687,
+        "reasoning_tokens": 1762,
+        "total_tokens": 9705
+      }
+    }
+  ],
+  "error": "generated module uses forbidden call error_log_line_strategy.map",
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 6857,
+    "output_tokens": 9652,
+    "reasoning_tokens": 3586,
+    "total_tokens": 16509
+  }
+}

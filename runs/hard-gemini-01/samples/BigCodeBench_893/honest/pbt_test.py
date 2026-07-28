@@ -1,0 +1,207 @@
+import re
+from datetime import time, datetime, timedelta
+from hypothesis import given, settings, strategies as st
+
+from candidate import task_func
+
+# SEARCH PLAN:
+# - Empty input or no error logs: check for empty list and None average.
+# - Single error log: verify the example behavior and direct mapping, with random placement.
+# - Multiple error logs: check average time falls within min/max bounds (metamorphic).
+# - Order preservation: ensure the list of error times maintains input order.
+# - Edge case: logs with valid format but no "ERROR" keyword.
+
+
+# Helper strategy for generating valid log lines
+@st.composite
+def log_line_strategy(draw):
+    year = draw(st.integers(2000, 2023))
+    month = draw(st.integers(1, 12))
+    day = draw(st.integers(1, 28))  # Avoid month-end complexities
+    hour = draw(st.integers(0, 23))
+    minute = draw(st.integers(0, 59))
+    second = draw(st.integers(0, 59))
+
+    timestamp = f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+
+    level = draw(st.sampled_from(["INFO", "WARNING", "ERROR", "DEBUG"]))
+    message = draw(st.text(st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=10))
+
+    return f"{timestamp} {level}: {message}"
+
+# Strategy for generating log lines specifically with an ERROR level
+@st.composite
+def error_log_line_strategy(draw):
+    year = draw(st.integers(2000, 2023))
+    month = draw(st.integers(1, 12))
+    day = draw(st.integers(1, 28))
+    hour = draw(st.integers(0, 23))
+    minute = draw(st.integers(0, 59))
+    second = draw(st.integers(0, 59))
+
+    timestamp = f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+    message = draw(st.text(st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=10))
+
+    return f"{timestamp} ERROR: {message}", time(hour, minute, second)
+
+# Strategy for generating log lines specifically with a non-ERROR level
+@st.composite
+def non_error_log_line_strategy(draw):
+    year = draw(st.integers(2000, 2023))
+    month = draw(st.integers(1, 12))
+    day = draw(st.integers(1, 28))
+    hour = draw(st.integers(0, 23))
+    minute = draw(st.integers(0, 59))
+    second = draw(st.integers(0, 59))
+
+    timestamp = f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+    level = draw(st.sampled_from(["INFO", "WARNING", "DEBUG"]))
+    message = draw(st.text(st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=10))
+
+    return f"{timestamp} {level}: {message}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(logs=st.one_of(
+    st.just([]),
+    st.lists(non_error_log_line_strategy(), min_size=1, max_size=12)
+))
+def test_no_errors_returns_empty_list_and_none_average(logs):
+    """
+    SPEC BASIS: Implicit. What happens when no errors are found?
+    PROPERTY: If no "ERROR" logs are present, the first return value (list of error times) must be empty.
+              The second return value (average time) must be `None`.
+    STRATEGY: Generate lists of logs that are empty, or contain only "INFO", "WARNING", or other non-"ERROR" levels.
+    """
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+
+    assert error_times is not None, "Function raised an exception or returned None for error_times"
+    assert avg_time is not None, "Function raised an exception or returned None for avg_time"
+
+    assert error_times == [], "Expected an empty list of error times when no errors are present"
+    assert avg_time is None, "Expected average time to be None when no errors are present"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    error_log_data=error_log_line_strategy(),
+    non_error_logs=st.lists(non_error_log_line_strategy(), min_size=0, max_size=11),
+    insertion_index=st.integers(min_value=0, max_value=11) # Max index for a list of 12 elements
+)
+def test_single_error_log_matches_example_behavior(error_log_data, non_error_logs, insertion_index):
+    """
+    SPEC BASIS: "Example: ([datetime.time(9, 45)], datetime.time(9, 45))"
+    PROPERTY: If there is exactly one "ERROR" log, the list of error times should contain only that time,
+              and the average time should be exactly that time.
+    STRATEGY: Generate lists with exactly one "ERROR" log, potentially mixed with other non-error logs.
+              The error log is inserted at a random position to ensure robustness against order assumptions.
+    """
+    error_log_str, expected_time = error_log_data
+    
+    # Construct the list by inserting the error log at a random position
+    all_logs = list(non_error_logs) # Create a mutable copy
+    
+    # Ensure insertion_index is valid for the current list size
+    actual_insertion_index = min(insertion_index, len(all_logs))
+    all_logs.insert(actual_insertion_index, error_log_str)
+
+    # Ensure the total list size is within limits (max_size=11 for non_error_logs + 1 error log = 12)
+    if len(all_logs) > 12:
+        all_logs = all_logs[:12]
+
+    try:
+        error_times, avg_time = task_func(all_logs)
+    except Exception:
+        error_times, avg_time = None, None
+
+    assert error_times is not None, "Function raised an exception or returned None for error_times"
+    assert avg_time is not None, "Function raised an exception or returned None for avg_time"
+
+    assert len(error_times) == 1, f"Expected 1 error time, got {len(error_times)}"
+    assert error_times[0] == expected_time, f"Expected error time {expected_time}, got {error_times[0]}"
+    assert avg_time == expected_time, f"Expected average time {expected_time}, got {avg_time}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    # Strategy to generate a list of mixed log entries, each tagged with its type and time if error
+    mixed_log_entries=st.lists(
+        st.one_of(
+            error_log_line_strategy().map(lambda x: (x[0], x[1], True)), # (log_str, time_obj, is_error)
+            non_error_log_line_strategy().map(lambda x: (x, None, False)) # (log_str, None, is_error)
+        ),
+        min_size=1, max_size=12
+    )
+)
+def test_average_time_is_within_min_max_bounds(mixed_log_entries):
+    """
+    SPEC BASIS: "calculate the average time of occurrence of errors."
+    PROPERTY: If errors occur, the calculated average time must be between the minimum and maximum error times (inclusive).
+              This is a metamorphic property that checks the correctness of the average calculation without re-implementing it.
+    STRATEGY: Generate lists with multiple "ERROR" logs at various times, mixed with non-error logs,
+              ensuring at least one error log is present.
+    """
+    input_logs = [entry[0] for entry in mixed_log_entries]
+    processed_error_times = [entry[1] for entry in mixed_log_entries if entry[2]] # Filter for error times
+
+    if not processed_error_times:
+        # If no errors are present after generation, this test is not applicable.
+        # It's covered by test_no_errors_returns_empty_list_and_none_average.
+        # Hypothesis will try other examples.
+        return
+
+    min_expected_time = min(processed_error_times)
+    max_expected_time = max(processed_error_times)
+
+    try:
+        error_times_result, avg_time = task_func(input_logs)
+    except Exception:
+        error_times_result, avg_time = None, None
+
+    assert error_times_result is not None, "Function raised an exception or returned None for error_times_result"
+    assert avg_time is not None, "Function raised an exception or returned None for avg_time"
+
+    assert min_expected_time <= avg_time <= max_expected_time, \
+        f"Average time {avg_time} not within expected range [{min_expected_time}, {max_expected_time}]"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    # Strategy to generate a list of mixed log entries, each tagged with its type and time if error
+    mixed_log_entries=st.lists(
+        st.one_of(
+            error_log_line_strategy().map(lambda x: (x[0], x[1], True)), # (log_str, time_obj, is_error)
+            non_error_log_line_strategy().map(lambda x: (x, None, False)) # (log_str, None, is_error)
+        ),
+        min_size=1, max_size=12
+    )
+)
+def test_error_times_list_preserves_order(mixed_log_entries):
+    """
+    SPEC BASIS: The example shows the error time `datetime.time(9, 45)` appearing in the output list
+                `[datetime.time(9, 45)]` in the order it appeared in the input. This is a standard expectation
+                for log processing.
+    PROPERTY: The list of error times returned must preserve the original order of occurrence of "ERROR" logs
+              in the input list.
+    STRATEGY: Generate lists with multiple "ERROR" logs at different times, mixed with non-error logs,
+              and verify the order of the extracted error times.
+    """
+    input_logs = [entry[0] for entry in mixed_log_entries]
+    expected_ordered_error_times = [entry[1] for entry in mixed_log_entries if entry[2]] # Filter for error times
+
+    if not expected_ordered_error_times:
+        # If no errors are present after generation, this test is not applicable.
+        # It's covered by test_no_errors_returns_empty_list_and_none_average.
+        return
+
+    try:
+        actual_error_times, _ = task_func(input_logs)
+    except Exception:
+        actual_error_times = None
+
+    assert actual_error_times is not None, "Function raised an exception or returned None for actual_error_times"
+    assert actual_error_times == expected_ordered_error_times, \
+        f"Order of error times not preserved. Expected {expected_ordered_error_times}, got {actual_error_times}"

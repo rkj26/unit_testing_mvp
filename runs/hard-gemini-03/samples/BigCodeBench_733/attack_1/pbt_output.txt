@@ -1,0 +1,26 @@
+STDOUT:
+.F..                                                                     [100%]
+=================================== FAILURES ===================================
+______________________ test_last_word_ignored_metamorphic ______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        words_before_last=st.lists(_mixed_word_strategy, min_size=1, max_size=10),
+        original_last_word=_mixed_word_strategy,
+        new_last_word=_mixed_word_strategy.filter(lambda w: w != original_last_word)
+    )
+
+test_candidate.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+w = 'an'
+
+>       new_last_word=_mixed_word_strategy.filter(lambda w: w != original_last_word)
+    )
+E   NameError: name 'original_last_word' is not defined
+E   while generating 'new_last_word' from one_of(sampled_from(['an', 'this', 'is']).filter(lambda w: w != original_last_word), text(alphabet='abcdefghijklmnopqrstuvwxyz', min_size=1, max_size=7).filter(lambda w: w not in _STOPWORDS).filter(lambda w: w != original_last_word), text(alphabet='abcdefghijklmnopqrstuvwxyz', min_size=1, max_size=7).filter(lambda w: w != original_last_word))
+
+test_candidate.py:51: NameError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_last_word_ignored_metamorphic - NameError: nam...
+1 failed, 3 passed in 0.79s
