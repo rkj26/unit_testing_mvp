@@ -79,8 +79,8 @@ def validate_pbt_source(source: str, entry_point: str) -> str | None:
     hypothesis_import = any(
         isinstance(node, ast.ImportFrom)
         and node.module == "hypothesis"
-        and [(item.name, item.asname) for item in node.names]
-        == [("given", None), ("settings", None), ("strategies", "st")]
+        and {(item.name, item.asname) for item in node.names}
+        == {("given", None), ("settings", None), ("strategies", "st")}
         for node in tree.body
     )
     if not candidate_import or not hypothesis_import:
@@ -129,7 +129,7 @@ def validate_pbt_source(source: str, entry_point: str) -> str | None:
             return f"{test.name} must have @given and @settings decorators"
         if given.args or any(item.arg is None for item in given.keywords):
             return f"{test.name} must supply @given arguments by keyword"
-        if [item.arg for item in given.keywords] != parameters:
+        if {item.arg for item in given.keywords} != set(parameters):
             return f"{test.name} parameters must exactly match its @given arguments"
         settings_values = {item.arg: item.value for item in settings.keywords}
         if not (
