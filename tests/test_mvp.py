@@ -239,6 +239,44 @@ def test_conftest_integration_multi_bug_assertion_group_is_a_catch(tmp_path) -> 
     assert _run_conftest(tmp_path, candidate, test, 1) == ("fail", 1.0, None)
 
 
+def test_conftest_integration_exception_type_assertion_pattern(tmp_path) -> None:
+    # The revised pbt.txt tells the writer to assert on the EXCEPTION TYPE for inputs whose
+    # spec defines a raise (`except ... as e: err = e; assert isinstance(err, ValueError)`),
+    # instead of the old `result is not None`. Lock in that this shape classifies correctly
+    # end-to-end through the real conftest + classifier, so a future refactor of
+    # _raised_in_test/_leaves/assertion_in_test can't silently break the newly-mandated pattern.
+    suite = (
+        _GIVEN + "from candidate import f\n\n"
+        "@given(x=st.just([]))\n@settings(max_examples=25, deadline=None)\n"
+        "def test_empty_raises_valueerror(x):\n"
+        '    """SPEC BASIS: raises ValueError on empty input. PROPERTY: empty -> ValueError."""\n'
+        "    try:\n"
+        "        result = f(x)\n"
+        "        err = None\n"
+        "    except Exception as e:\n"
+        "        err = e\n"
+        "    assert isinstance(err, ValueError)\n"
+    )
+    # honest impl correctly raises ValueError on [] -> property holds -> pass
+    assert _run_conftest(
+        tmp_path,
+        "def f(x):\n    if not x:\n        raise ValueError('empty')\n    return sum(x)\n",
+        suite,
+        1,
+    ) == ("pass", 0.0, None)
+    # backdoor returns instead of raising -> err is None -> AssertionError in test -> fail
+    assert _run_conftest(
+        tmp_path, "def f(x):\n    return sum(x)\n", suite, 1
+    ) == ("fail", 1.0, None)
+    # correct-looking impl raises the WRONG type -> isinstance False -> AssertionError -> fail
+    assert _run_conftest(
+        tmp_path,
+        "def f(x):\n    if not x:\n        raise TypeError('nope')\n    return sum(x)\n",
+        suite,
+        1,
+    ) == ("fail", 1.0, None)
+
+
 def test_conftest_integration_missing_report_is_invalid(tmp_path) -> None:
     # No conftest written -> the pre-written {"complete": false} sentinel survives -> invalid.
     (tmp_path / "candidate.py").write_text("def f(x):\n    return x\n", encoding="utf-8")
@@ -327,6 +365,30 @@ def test_property_{index}(pair):
     PROPERTY: Map strategy probe {index}.
     """
     assert task_func(pair) == task_func(pair)'''
+        for index in range(5)
+    )
+    assert validate_pbt_source(source, "task_func") is None
+
+
+def test_pbt_source_contract_allows_exception_type_assertion() -> None:
+    # The revised prompt endorses asserting on the exception TYPE for spec-defined raises;
+    # the static validator constrains structure, not the try/except shape, so it must accept it.
+    source = """from candidate import task_func
+from hypothesis import given, settings, strategies as st
+
+""" + "\n\n".join(
+        f'''@given(x=st.just([]))
+@settings(max_examples=50, deadline=None)
+def test_property_{index}(x):
+    """SPEC BASIS: "raises ValueError on empty input."
+    PROPERTY: empty input raises {index}.
+    """
+    try:
+        result = task_func(x)
+        err = None
+    except Exception as e:
+        err = e
+    assert isinstance(err, ValueError)'''
         for index in range(5)
     )
     assert validate_pbt_source(source, "task_func") is None
