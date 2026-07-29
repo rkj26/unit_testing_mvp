@@ -107,7 +107,15 @@ def load_prompt(name: str) -> str:
 
 
 def render_prompt(name: str, **values: Any) -> str:
-    return load_prompt(name).format(**values)
+    # Substitute only the known {placeholder} keys, in a single pass, so literal braces
+    # in the template (e.g. dict/set literals inside illustrative code examples) are left
+    # untouched — unlike str.format, which would raise on them. Behaviour is identical to
+    # .format for the existing prompts (none rely on {{ }} escaping).
+    text = load_prompt(name)
+    if not values:
+        return text
+    pattern = re.compile("|".join(re.escape("{" + key + "}") for key in values))
+    return pattern.sub(lambda m: str(values[m.group()[1:-1]]), text)
 
 
 def extract_python_source(completion: str) -> str:
