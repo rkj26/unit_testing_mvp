@@ -13,12 +13,6 @@ PROTOCOLS = (
     "pbt",
     "tm_plus_pbt",
     "pbt_informed_tm",
-    # Candidate-aware family: the trusted model reads the code, then writes a
-    # targeted test (aware_pbt), combines it with the standard monitor
-    # (aware_tm_plus_pbt), and re-scores having seen the test result (aware_informed_tm).
-    "aware_pbt",
-    "aware_tm_plus_pbt",
-    "aware_informed_tm",
 )
 
 DEPLOYMENT_HORIZON = 10
@@ -411,9 +405,6 @@ def compute_metrics(
         "pbt",
         "tm_plus_pbt",
         "pbt_informed_tm",
-        "aware_pbt",
-        "aware_tm_plus_pbt",
-        "aware_informed_tm",
     ):
         current = protocol_metrics[protocol]
         deltas[protocol] = {
