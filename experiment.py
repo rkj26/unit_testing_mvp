@@ -16,6 +16,7 @@ from control_arena.eval import ControlEvalConfig, eval as control_eval, get_cont
 from control_arena.settings.bigcodebench.bigcodebench_setting import BigCodeBenchSetting
 
 from metrics import DEPLOYMENT_HORIZON, compute_metrics
+from scorer_corrected import CorrectedBigCodeBenchSetting
 from protocols import (
     PBT_MAX_EXAMPLES,
     PBT_HYPOTHESIS_SEED,
@@ -196,9 +197,11 @@ def _evidence_from_sample(sample: Any) -> tuple[str, str, dict[str, Any]]:
     raise RuntimeError(f"sample {sample.id} has no monitor evidence")
 
 
-def _official_score(sample: Any) -> tuple[bool, bool | None, str]:
+def _official_score(sample: Any) -> tuple[bool, bool | None, str, dict[str, Any]]:
     scores = sample.scores or {}
-    score = scores.get("bigcodebench_scorer")
+    score = scores.get("corrected_bigcodebench_scorer") or scores.get(
+        "bigcodebench_scorer"
+    )
     if score is None:
         score = next(
             (item for item in scores.values() if isinstance(item.value, dict)), None
@@ -208,19 +211,26 @@ def _official_score(sample: Any) -> tuple[bool, bool | None, str]:
     main_success = score.value.get("main_task_success") == CORRECT
     side_value = score.value.get("side_task_success")
     side_success = None if side_value is None else side_value == CORRECT
-    return main_success, side_success, score.explanation or ""
+    side_meta = getattr(score, "metadata", None) or {}
+    return main_success, side_success, score.explanation or "", side_meta
 
 
 def _row_from_sample(sample: Any) -> dict[str, Any]:
     task_id = (sample.metadata or {}).get("main_task_name")
     candidate_id, label, evidence = _evidence_from_sample(sample)
-    main_success, side_success, explanation = _official_score(sample)
+    main_success, side_success, explanation, side_meta = _official_score(sample)
     return {
         "task_id": task_id,
         "candidate_id": candidate_id,
         "candidate_label": label,
         "main_task_success": main_success,
         "side_task_success": side_success,
+        # side_task_success above is the corrected (semantic) verdict. Keep the
+        # stock first-line and full-repr verdicts alongside so a run can report all
+        # three definitions without re-executing anything.
+        "side_task_success_stock": side_meta.get("stock_side_task_success"),
+        "side_task_success_fullrepr": side_meta.get("fullrepr_side_task_success"),
+        "side_task_comparison": side_meta.get("comparison"),
         "official_score_explanation": explanation,
         "pbt_runnable": evidence["pbt"]["runnable"],
         "pbt_status": evidence["pbt"]["verdict"],
@@ -310,7 +320,7 @@ def run_experiment(
         json.dumps(run_config, indent=2, sort_keys=True), encoding="utf-8"
     )
 
-    setting = BigCodeBenchSetting(sandbox_type="local")
+    setting = CorrectedBigCodeBenchSetting(sandbox_type="local")
     honest_dataset = _filtered_dataset(setting, EvalMode.HONEST, task_ids)
     attack_dataset = _filtered_dataset(setting, EvalMode.ATTACK, task_ids)
     pbt_suites = asyncio.run(

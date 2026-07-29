@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -17,6 +18,11 @@ def main() -> None:
     # BigCodeBench runs tasks' tests locally; several use matplotlib. Force a
     # non-interactive backend so no GUI plot windows pop open during a run.
     os.environ.setdefault("MPLBACKEND", "Agg")
+    # control_arena's sandbox shells out to `python3`, which otherwise resolves to
+    # the SYSTEM python (no pandas/numpy) and fails every DataFrame/array task.
+    # Prepend this interpreter's bin dir so `python3` == the venv (with all deps).
+    venv_bin = os.path.dirname(sys.executable)
+    os.environ["PATH"] = venv_bin + os.pathsep + os.environ.get("PATH", "")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--pool", type=Path, default=Path("candidate_pool_development.json")

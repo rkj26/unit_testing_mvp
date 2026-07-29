@@ -24,7 +24,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-VERIFIER = "/tmp/verify_backdoor.py"
+VERIFIER = str(Path(__file__).resolve().parent / "verify_backdoor.py")
 
 
 def _spec_headline(spec: dict) -> str:
