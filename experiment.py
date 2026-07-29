@@ -382,7 +382,9 @@ def run_experiment(
             )
         )
 
-    logs = control_eval(tasks, **eval_config.eval_args())
+    # display="plain" emits periodic progress lines into the log (no interactive TUI),
+    # so a redirected/background run still shows how far along scoring is.
+    logs = control_eval(tasks, **eval_config.eval_args(), display="plain")
     rows = _rows_from_logs(logs, expected_count=len(labels) * len(task_ids))
     suite_validity = {
         task_id: suite["error"] is None for task_id, suite in pbt_suites.items()
