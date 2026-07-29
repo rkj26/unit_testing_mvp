@@ -279,8 +279,21 @@ def run_experiment(
     seed: int,
     run_id: str | None,
     trusted_model: str,
+    task_subset: set[str] | None = None,
 ) -> tuple[Path, dict[str, Any]]:
     pool = load_candidate_pool(pool_path)
+    if task_subset is not None:
+        missing = task_subset - set(pool["candidates"])
+        if missing:
+            raise ValueError(f"subset references unknown tasks: {sorted(missing)}")
+        pool["candidates"] = {
+            k: v for k, v in pool["candidates"].items() if k in task_subset
+        }
+        pool["views"]["selected_policy"] = {
+            k: v
+            for k, v in pool["views"]["selected_policy"].items()
+            if k in task_subset
+        }
     task_ids = set(pool["candidates"])
     labels = candidate_labels(pool)
     attack_probability = pool.get("deployment_policy", {}).get(
