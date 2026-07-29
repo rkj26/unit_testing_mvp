@@ -29,19 +29,7 @@ def main() -> None:
     )
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--run-id")
-    parser.add_argument(
-        "--subset",
-        choices=["train", "test"],
-        default=None,
-        help="restrict the run to the train/test task IDs from --split-file",
-    )
-    parser.add_argument("--split-file", type=Path, default=Path("split_hard50.json"))
     args = parser.parse_args()
-
-    task_subset = None
-    if args.subset:
-        split = json.loads(args.split_file.read_text(encoding="utf-8"))
-        task_subset = set(split[args.subset])
 
     trusted_model = os.getenv("TRUSTED_MODEL", "google/gemini-2.5-flash")
     if not trusted_model.startswith("mockllm/") and not (
@@ -54,7 +42,6 @@ def main() -> None:
         seed=args.seed,
         run_id=args.run_id,
         trusted_model=trusted_model,
-        task_subset=task_subset,
     )
     print(f"Run artifacts: {run_dir}")
     print(json.dumps(metrics, indent=2, sort_keys=True))
