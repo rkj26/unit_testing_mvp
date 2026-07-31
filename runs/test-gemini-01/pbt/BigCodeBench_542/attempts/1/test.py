@@ -1,0 +1,169 @@
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import hashlib
+import struct
+import random # Required for local oracle, not for generation
+
+# Helper function to replicate the expected logic for oracle purposes
+# This is NOT the candidate function, but a reference implementation for testing.
+# It's crucial this oracle is derived directly from the problem description's
+# requirements and the example's implied behavior, not from guessing.
+def _oracle_task_func(hex_keys, seed):
+    if not hex_keys:
+        raise ValueError("hex_keys cannot be empty")
+
+    # Use a local random instance to avoid interfering with global random state
+    # and to ensure deterministic behavior for the oracle.
+    local_random = random.Random(seed)
+    selected_key = local_random.choice(hex_keys)
+
+    try:
+        # Convert hex string to integer
+        int_val = int(selected_key, 16)
+    except ValueError:
+        raise ValueError(f"Invalid hexadecimal string: {selected_key}")
+
+    # Pack integer into 4 bytes (unsigned int, big-endian)
+    packed_bytes = struct.pack('>I', int_val)
+
+    # Unpack bytes as a 4-byte float (big-endian)
+    float_val = struct.unpack('>f', packed_bytes)[0]
+
+    # Convert float to string, encode to bytes, then hash
+    md5_hash = hashlib.md5(str(float_val).encode('utf-8')).hexdigest()
+    return md5_hash
+
+
+@settings(max_examples=50, deadline=None)
+@given(seed=st.integers(min_value=0, max_value=1000))
+def test_empty_keys_raises_value_error(seed):
+    """
+    SPEC BASIS: "Raises: ValueError: If contains invalid hexadecimal strings."
+                (Implicitly, an empty list is an invalid state for random.choice,
+                which should be handled or result in an error consistent with invalid input.)
+    PROPERTY: Calling task_func with an empty list of keys raises a ValueError.
+    STRATEGY: Provide an empty list for `hex_keys`. This tests boundary conditions
+              where `random.choice` would fail, and ensures robust error handling.
+    """
+    with pytest.raises(ValueError): # Using pytest.raises for expected exceptions
+        task_func(hex_keys=[], seed=seed)
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    hex_key=st.text(st.sampled_from('0123456789abcdefABCDEF'), min_size=1, max_size=8),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_single_key_produces_correct_hash(hex_key, seed):
+    """
+    SPEC BASIS: "Given a list of hexadecimal string keys, this function selects one at random,
+                 converts it into a floating-point number, and then computes its MD5 hash."
+    PROPERTY: For a single-element list, the output hash matches the oracle's hash for that key.
+    STRATEGY: Test with a list containing only one valid hexadecimal string. This ensures
+              the core logic works for the simplest valid input and that the random choice
+              (which is trivial here) doesn't interfere.
+    """
+    hex_keys = [hex_key]
+    try:
+        result = task_func(hex_keys=hex_keys, seed=seed)
+    except Exception as e:
+        result = None
+        # If the candidate raises an unexpected error for valid input, fail the test
+        assert False, f"task_func raised an unexpected exception for valid input: {e}"
+
+    assert result is not None, "task_func returned None or raised an exception for valid input"
+    expected_hash = _oracle_task_func(hex_keys=hex_keys, seed=seed)
+    assert result == expected_hash, f"Hash mismatch for single key '{hex_key}' with seed {seed}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    hex_keys=st.lists(
+        st.text(st.sampled_from('0123456789abcdefABCDEF'), min_size=1, max_size=8),
+        min_size=1, max_size=12
+    ),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_deterministic_output_with_seed(hex_keys, seed):
+    """
+    SPEC BASIS: "An optional seed parameter allows for deterministic random choices for testing purposes."
+    PROPERTY: For the same `hex_keys` and `seed`, `task_func` always returns the same MD5 hash.
+    STRATEGY: Call `task_func` twice with identical inputs and assert their outputs are equal.
+              This directly verifies the determinism guaranteed by the `seed` parameter.
+    """
+    try:
+        result1 = task_func(hex_keys=hex_keys, seed=seed)
+        result2 = task_func(hex_keys=hex_keys, seed=seed)
+    except Exception as e:
+        result1 = None
+        result2 = None
+        assert False, f"task_func raised an unexpected exception for valid input: {e}"
+
+    assert result1 is not None and result2 is not None, "task_func returned None or raised an exception for valid input"
+    assert result1 == result2, "task_func is not deterministic for the same seed and keys"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    invalid_hex_key=st.text(
+        st.sampled_from('ghijklmnopqrstuvwxyzGHIJKLMNOPQRSTUVWXYZ'), min_size=1, max_size=8
+    ).map(lambda s: '123' + s + 'abc'), # Ensure invalid chars are mixed with valid ones
+    valid_hex_keys=st.lists(
+        st.text(st.sampled_from('0123456789abcdefABCDEF'), min_size=1, max_size=8),
+        min_size=0, max_size=11
+    ),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_invalid_hex_string_raises_value_error(invalid_hex_key, valid_hex_keys, seed):
+    """
+    SPEC BASIS: "Raises: ValueError: If contains invalid hexadecimal strings."
+    PROPERTY: If any key in `hex_keys` contains non-hexadecimal characters, a ValueError is raised.
+    STRATEGY: Construct `hex_keys` lists that are guaranteed to contain at least one invalid
+              hexadecimal string. This directly targets the specified error handling.
+    """
+    # Ensure the invalid key is always present in the list
+    hex_keys = valid_hex_keys + [invalid_hex_key]
+    # Shuffle to ensure the invalid key isn't always at the end/beginning
+    random.seed(seed) # Use seed for deterministic shuffling for test reproducibility
+    random.shuffle(hex_keys)
+
+    with pytest.raises(ValueError):
+        task_func(hex_keys=hex_keys, seed=seed)
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    hex_keys=st.lists(
+        st.one_of(
+            st.just('00000000'), # Represents 0.0f
+            st.just('80000000'), # Represents -0.0f
+            st.just('7f800000'), # Represents positive infinity
+            st.just('ff800000'), # Represents negative infinity
+            st.just('7fc00000'), # Represents NaN
+            st.just('00000001'), # Smallest positive denormalized float
+            st.just('7f7fffff'), # Largest finite float
+            st.text(st.sampled_from('0123456789abcdefABCDEF'), min_size=8, max_size=8) # General 8-char hex
+        ),
+        min_size=1, max_size=12
+    ),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_boundary_float_values_produce_correct_hash(hex_keys, seed):
+    """
+    SPEC BASIS: "converts it into a floating-point number, and then computes its MD5 hash."
+    PROPERTY: The MD5 hash produced for hex keys representing boundary float values (0, Inf, NaN, etc.)
+              matches the hash produced by the oracle.
+    STRATEGY: Generate `hex_keys` lists that include specific 8-character hex strings known to
+              convert to IEEE 754 single-precision float boundary values (zero, infinity, NaN,
+              min/max normal/denormal). This targets potential issues in the hex-to-float
+              conversion logic for these critical values.
+    """
+    try:
+        result = task_func(hex_keys=hex_keys, seed=seed)
+    except Exception as e:
+        result = None
+        assert False, f"task_func raised an unexpected exception for valid input: {e}"
+
+    assert result is not None, "task_func returned None or raised an exception for valid input"
+    expected_hash = _oracle_task_func(hex_keys=hex_keys, seed=seed)
+    assert result == expected_hash, f"Hash mismatch for boundary float values with keys {hex_keys} and seed {seed}"

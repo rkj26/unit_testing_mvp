@@ -1,0 +1,307 @@
+# SEARCH PLAN:
+# 1. URL Pattern Edge Cases: Generate URLs with diverse valid components (schemes, domains, paths, queries, fragments) and non-URL strings to ensure the specific URL pattern is correctly applied.
+# 2. `top_n` Boundary: Test `top_n` values at boundaries (0, 1) and around the default (10), including values larger than the total unique URLs.
+# 3. Duplicate URLs & Counts: Generate JSON with many duplicate URLs to verify correct counting and `top_n` selection based on frequency.
+# 4. JSON Structure & Nesting: Embed URLs in various JSON structures (nested objects, arrays, different keys/values) to ensure comprehensive extraction.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import re
+import json
+from collections import Counter
+
+# A robust URL regex for generating and validating URLs.
+# This pattern is designed to cover common URL structures including schemes, domains, paths, queries, and fragments.
+# It's a common pattern, but not exhaustive for all possible URLs, focusing on typical web URLs.
+URL_REGEX = r'https?://(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(?:/?|[/?]\S+)'
+
+# Strategy for generating valid URL components
+st_scheme = st.sampled_from(['http', 'https'])
+st_domain_part = st.text(st.sampled_from('abcdefghijklmnopqrstuvwxyz0123456789-'), min_size=1, max_size=5).map(lambda s: s.strip('-'))
+st_tld = st.sampled_from(['com', 'org', 'net', 'io', 'co.uk', 'info'])
+st_path_segment = st.text(st.sampled_from('abcdefghijklmnopqrstuvwxyz0123456789-_/'), min_size=0, max_size=5)
+st_query_param = st.text(st.sampled_from('abcdefghijklmnopqrstuvwxyz0123456789-_='), min_size=1, max_size=5)
+st_fragment = st.text(st.sampled_from('abcdefghijklmnopqrstuvwxyz0123456789-_'), min_size=1, max_size=5)
+
+@st.composite
+def st_url(draw):
+    scheme = draw(st_scheme)
+    subdomains = draw(st.lists(st_domain_part, min_size=0, max_size=2))
+    domain = ".".join(subdomains + [draw(st_domain_part)]) if subdomains else draw(st_domain_part)
+    tld = draw(st_tld)
+    path = draw(st.lists(st_path_segment, min_size=0, max_size=2)).map(lambda segments: "/" + "/".join(segments) if segments else "")
+    query = draw(st.one_of(st.just(""), st.builds(lambda p: "?" + p, st_query_param)))
+    fragment = draw(st.one_of(st.just(""), st.builds(lambda f: "#" + f, st_fragment)))
+    
+    # Ensure domain is not empty and ends with a valid TLD
+    full_domain = f"{domain}.{tld}"
+    if not re.match(r'^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$', full_domain):
+        # Fallback to a simpler, guaranteed valid domain if complex generation fails
+        full_domain = f"example-{draw(st.text(st.characters(min_codepoint=97, max_codepoint=122), min_size=1, max_size=3))}.com"
+
+    url = f"{scheme}://{full_domain}{path}{query}{fragment}"
+    # Basic filtering to ensure the generated URL matches the oracle regex
+    # This helps prevent generating URLs that the oracle itself wouldn't recognize,
+    # which could lead to false positives if the candidate's regex is slightly different but still valid.
+    if not re.fullmatch(URL_REGEX, url):
+        # If the complex generation fails, return a simple, guaranteed valid URL
+        return f"{scheme}://www.test.com/path"
+    return url
+
+# Strategy for generating non-URL strings
+st_non_url_text = st.text(st.characters(blacklist_categories=('Cs',), min_codepoint=32, max_codepoint=126), min_size=0, max_size=12).filter(lambda s: not re.search(URL_REGEX, s))
+
+# Strategy for generating JSON values that can contain URLs or non-URLs
+@st.composite
+def st_json_value(draw, max_depth=2):
+    if max_depth <= 0:
+        return draw(st.one_of(st_url(), st_non_url_text, st.integers(), st.booleans(), st.just(None)))
+
+    return draw(st.one_of(
+        st_url(),
+        st_non_url_text,
+        st.integers(),
+        st.booleans(),
+        st.just(None),
+        st.lists(st_json_value(max_depth=max_depth - 1), min_size=0, max_size=3),
+        st.dictionaries(st.text(st.sampled_from('abc'), min_size=1, max_size=3), st_json_value(max_depth=max_depth - 1), min_size=0, max_size=3)
+    ))
+
+# Strategy for generating the full JSON string
+st_json_str = st.dictionaries(
+    st.text(st.sampled_from('abc'), min_size=1, max_size=3),
+    st_json_value(),
+    min_size=0, max_size=5
+).map(json.dumps)
+
+# Strategy for top_n, including boundary values
+st_top_n = st.one_of(
+    st.just(0),
+    st.just(1),
+    st.just(10), # Default value
+    st.integers(min_value=2, max_value=15) # Values around default and slightly larger
+)
+
+
+@settings(max_examples=50, deadline=None)
+@given(json_str=st_json_str, top_n=st_top_n)
+def test_output_contains_top_n_urls_by_count(json_str, top_n):
+    """
+    SPEC BASIS: "Extract all URLs from a string-serialized JSON dict using a specific URL pattern and return a dict
+                with the URLs as keys and the number of times they appear as values."
+                "top_n (int, Optional): The number of URLs to return. Defaults to 10."
+    PROPERTY: The output dictionary should contain at most `top_n` entries. If there are more unique URLs than `top_n`,
+              the returned URLs must be the ones with the highest counts.
+    STRATEGY: Generate JSON strings with varying numbers of URLs and duplicates. Test `top_n` values including 0, 1,
+              and values larger than the number of unique URLs to ensure the limit is respected and correct URLs are chosen.
+    """
+    try:
+        result = task_func(json_str, top_n)
+    except Exception:
+        result = None
+
+    assert result is not None, f"task_func raised an exception for input: {json_str}, top_n={top_n}"
+    assert isinstance(result, dict), f"Expected dict, got {type(result)}"
+
+    # Oracle: Extract all URLs and count them
+    all_extracted_urls = re.findall(URL_REGEX, json_str)
+    oracle_counts = Counter(all_extracted_urls)
+
+    # Sort oracle counts to determine expected top_n
+    sorted_oracle_urls = sorted(oracle_counts.items(), key=lambda item: (-item[1], item[0])) # Sort by count (desc), then URL (asc) for tie-breaking consistency
+
+    # Expected result based on top_n
+    expected_top_urls = dict(sorted_oracle_urls[:top_n])
+
+    assert len(result) <= top_n, f"Output has {len(result)} URLs, expected at most {top_n}. Input: {json_str}, top_n={top_n}"
+
+    # Check if all URLs in the result are present in the oracle's top_n
+    for url, count in result.items():
+        assert url in expected_top_urls, f"URL '{url}' in result but not in expected top {top_n} URLs. Input: {json_str}, top_n={top_n}"
+        assert expected_top_urls[url] == count, f"Count for URL '{url}' is {count}, expected {expected_top_urls[url]}. Input: {json_str}, top_n={top_n}"
+
+    # If the number of unique URLs is less than or equal to top_n, the result should match the oracle exactly.
+    if len(oracle_counts) <= top_n:
+        assert Counter(result) == Counter(oracle_counts), f"Result does not match oracle counts when unique URLs <= top_n. Input: {json_str}, top_n={top_n}"
+    else:
+        # If more unique URLs than top_n, ensure the result contains exactly the top_n highest-counted URLs.
+        # This check is more complex due to potential tie-breaking.
+        # We check that all URLs in the result are among the top_n from the oracle.
+        # And that the counts match.
+        for url, count in expected_top_urls.items():
+            assert url in result, f"Expected URL '{url}' (count {count}) not found in result. Input: {json_str}, top_n={top_n}"
+            assert result[url] == count, f"Count mismatch for URL '{url}'. Expected {count}, got {result[url]}. Input: {json_str}, top_n={top_n}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(json_str=st_json_str)
+def test_sum_of_counts_equals_total_extracted_urls(json_str):
+    """
+    SPEC BASIS: "Extract all URLs from a string-serialized JSON dict using a specific URL pattern and return a dict
+                with the URLs as keys and the number of times they appear as values."
+    PROPERTY: The sum of counts in the output dictionary (before `top_n` truncation) should equal the total number
+              of URLs *actually present* in the input JSON string, as identified by a robust oracle regex.
+              This tests the correctness of the counting mechanism.
+    STRATEGY: Generate JSON strings with various URLs, including duplicates. Independently extract all URLs from
+              the raw string using a known-good regex and compare the sum of counts.
+    """
+    try:
+        # Call with a very large top_n to ensure all URLs are returned for counting
+        result = task_func(json_str, top_n=1000)
+    except Exception:
+        result = None
+
+    assert result is not None, f"task_func raised an exception for input: {json_str}"
+    assert isinstance(result, dict), f"Expected dict, got {type(result)}"
+
+    # Oracle: Extract all URLs from the raw string using the same regex
+    oracle_all_urls = re.findall(URL_REGEX, json_str)
+    
+    # Sum of counts from task_func
+    task_func_total_count = sum(result.values())
+
+    # Total count from oracle
+    oracle_total_count = len(oracle_all_urls)
+
+    assert task_func_total_count == oracle_total_count, \
+        f"Sum of counts ({task_func_total_count}) does not match total URLs found by oracle ({oracle_total_count}). Input: {json_str}"
+    
+    # Additionally, ensure all URLs in the result are valid according to the oracle regex
+    for url in result.keys():
+        assert re.fullmatch(URL_REGEX, url), f"Result contains an invalid URL: '{url}'. Input: {json_str}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(json_str=st.one_of(
+    st.just('{}'),
+    st.just('[]'),
+    st.just('{"key": "no url here"}'),
+    st.just('{"data": [1, 2, "plain text", {"nested": false}]}')
+), top_n=st_top_n)
+def test_no_urls_returns_empty_dict(json_str, top_n):
+    """
+    SPEC BASIS: "Extract all URLs from a string-serialized JSON dict..." (implies if no URLs, dict is empty).
+    PROPERTY: If the JSON string is valid but contains no URLs matching the pattern, the function should return an empty dictionary.
+    STRATEGY: Generate JSON strings that are valid but explicitly contain no URLs, including empty objects/arrays.
+              This targets the boundary case where no matches are found.
+    """
+    try:
+        result = task_func(json_str, top_n)
+    except Exception:
+        result = None
+
+    assert result is not None, f"task_func raised an exception for input: {json_str}, top_n={top_n}"
+    assert isinstance(result, dict), f"Expected dict, got {type(result)}"
+    assert result == {}, f"Expected empty dict for JSON with no URLs, got {result}. Input: {json_str}, top_n={top_n}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(url_count=st.integers(min_value=1, max_value=5), top_n=st_top_n)
+def test_url_pattern_robustness_and_uniqueness(url_count, top_n):
+    """
+    SPEC BASIS: "Extract all URLs from a string-serialized JSON dict using a specific URL pattern"
+    PROPERTY: The function should correctly identify and count URLs with various valid components (different schemes,
+              subdomains, paths, query parameters, fragments) and distinguish them from non-URL strings.
+              All unique URLs generated should be present in the result (up to top_n).
+    STRATEGY: Generate JSON strings containing a mix of unique and duplicate URLs with diverse structures,
+              alongside non-URL strings. This targets the robustness of the internal URL pattern.
+    """
+    # Generate a list of unique URLs and some duplicates
+    unique_urls = st.lists(st_url(), min_size=url_count, max_size=url_count, unique=True).example()
+    all_urls_in_json = []
+    json_data = {}
+    
+    for i, url in enumerate(unique_urls):
+        json_data[f"url_{i}"] = url
+        all_urls_in_json.append(url)
+        # Add a duplicate for some URLs
+        if i % 2 == 0 and len(unique_urls) > 1:
+            json_data[f"dup_url_{i}"] = url
+            all_urls_in_json.append(url)
+        # Add some non-URL text
+        json_data[f"text_{i}"] = st_non_url_text.example()
+        
+    json_str = json.dumps(json_data)
+
+    try:
+        result = task_func(json_str, top_n)
+    except Exception:
+        result = None
+
+    assert result is not None, f"task_func raised an exception for input: {json_str}, top_n={top_n}"
+    assert isinstance(result, dict), f"Expected dict, got {type(result)}"
+
+    # Oracle: Count all URLs from the generated list
+    oracle_counts = Counter(all_urls_in_json)
+    
+    # Check that all URLs in the result are valid and their counts are correct (up to top_n)
+    for url, count in result.items():
+        assert re.fullmatch(URL_REGEX, url), f"Result contains an invalid URL: '{url}'. Input: {json_str}"
+        assert oracle_counts[url] == count, f"Count mismatch for URL '{url}'. Expected {oracle_counts[url]}, got {count}. Input: {json_str}"
+
+    # Check that the number of items is correct
+    assert len(result) <= top_n, f"Output has {len(result)} URLs, expected at most {top_n}. Input: {json_str}"
+
+    # If top_n is large enough to cover all unique URLs, ensure all unique URLs are present with correct counts
+    if len(oracle_counts) <= top_n:
+        assert Counter(result) == Counter(oracle_counts), f"Result does not match oracle counts when unique URLs <= top_n. Input: {json_str}"
+    else:
+        # If top_n is smaller, ensure the result contains the highest-counted URLs
+        sorted_oracle_urls = sorted(oracle_counts.items(), key=lambda item: (-item[1], item[0]))
+        expected_top_urls = dict(sorted_oracle_urls[:top_n])
+        
+        for url, count in expected_top_urls.items():
+            assert url in result, f"Expected URL '{url}' (count {count}) not found in result. Input: {json_str}"
+            assert result[url] == count, f"Count mismatch for URL '{url}'. Expected {count}, got {result[url]}. Input: {json_str}"
+
+# Test for URLs embedded in different JSON structures (e.g., arrays, nested objects)
+@settings(max_examples=50, deadline=None)
+@given(url1=st_url(), url2=st_url(), url3=st_url(), top_n=st_top_n)
+def test_urls_in_nested_structures(url1, url2, url3, top_n):
+    """
+    SPEC BASIS: "Extract all URLs from a string-serialized JSON dict"
+    PROPERTY: URLs embedded in various JSON structures (e.g., nested objects, arrays) should be correctly extracted and counted.
+    STRATEGY: Construct a JSON string with URLs placed in different nesting levels and types of JSON values.
+              This targets the parsing and traversal logic of the implementation.
+    """
+    json_data = {
+        "main_url": url1,
+        "list_of_urls": [url2, "some_text", url1, url3],
+        "nested_object": {
+            "sub_url": url2,
+            "another_key": "no_url_here"
+        },
+        "empty_list": [],
+        "null_value": None,
+        "duplicate_url": url1 # Ensure duplicates are handled across structures
+    }
+    json_str = json.dumps(json_data)
+
+    try:
+        result = task_func(json_str, top_n)
+    except Exception:
+        result = None
+
+    assert result is not None, f"task_func raised an exception for input: {json_str}, top_n={top_n}"
+    assert isinstance(result, dict), f"Expected dict, got {type(result)}"
+
+    # Oracle: Manually collect all URLs from the constructed data
+    all_urls_in_json = [url1, url2, url1, url3, url2, url1] # Based on the structure above
+    oracle_counts = Counter(all_urls_in_json)
+
+    # Sort oracle counts to determine expected top_n
+    sorted_oracle_urls = sorted(oracle_counts.items(), key=lambda item: (-item[1], item[0]))
+    expected_top_urls = dict(sorted_oracle_urls[:top_n])
+
+    assert len(result) <= top_n, f"Output has {len(result)} URLs, expected at most {top_n}. Input: {json_str}, top_n={top_n}"
+
+    for url, count in result.items():
+        assert url in expected_top_urls, f"URL '{url}' in result but not in expected top {top_n} URLs. Input: {json_str}, top_n={top_n}"
+        assert expected_top_urls[url] == count, f"Count for URL '{url}' is {count}, expected {expected_top_urls[url]}. Input: {json_str}, top_n={top_n}"
+
+    if len(oracle_counts) <= top_n:
+        assert Counter(result) == Counter(oracle_counts), f"Result does not match oracle counts when unique URLs <= top_n. Input: {json_str}, top_n={top_n}"
+    else:
+        for url, count in expected_top_urls.items():
+            assert url in result, f"Expected URL '{url}' (count {count}) not found in result. Input: {json_str}, top_n={top_n}"
+            assert result[url] == count, f"Count mismatch for URL '{url}'. Expected {count}, got {result[url]}. Input: {json_str}, top_n={top_n}"

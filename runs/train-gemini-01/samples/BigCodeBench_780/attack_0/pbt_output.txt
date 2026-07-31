@@ -1,0 +1,302 @@
+STDOUT:
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+______________________ test_empty_list_raises_value_error ______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(articles=st.just([]), timezone=st_timezone_str)
+
+test_candidate.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+articles = [], timezone = 'UTC'
+
+    @settings(max_examples=50, deadline=None)
+    @given(articles=st.just([]), timezone=st_timezone_str)
+    def test_empty_list_raises_value_error(articles, timezone):
+        """
+        SPEC BASIS: "ValueError: If an empty list is passed as articles."
+        PROPERTY: Calling task_func with an empty list raises a ValueError.
+        STRATEGY: Provide an empty list for 'articles' to hit the explicit error condition.
+        """
+        # The `with pytz.timezone(timezone):` block is not strictly necessary here
+        # as the timezone string is passed directly to task_func, but it's harmless.
+>       with pytz.timezone(timezone):
+E       TypeError: 'UTC' object does not support the context manager protocol
+E       Falsifying example: test_empty_list_raises_value_error(
+E           articles=[],
+E           timezone='UTC',
+E       )
+
+test_candidate.py:55: TypeError
+_________ test_single_article_timezone_conversion_and_hour_extraction __________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(article=st_article_dict(), timezone=st_timezone_str)
+
+test_candidate.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:42: in st_article_dict
+    'published_time': draw(st_datetime_utc)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1121: in draw
+    strategy.validate()
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:482: in validate
+    self.do_validate()
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:151: in do_validate
+    w = self.wrapped_strategy
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:120: in wrapped_strategy
+    base = self.function(*self.__args, **self.__kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+min_value = datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>)
+max_value = datetime.datetime(2030, 12, 31, 0, 0, tzinfo=<UTC>)
+
+    @defines_strategy(force_reusable_values=True)
+    def datetimes(
+        min_value: dt.datetime = dt.datetime.min,
+        max_value: dt.datetime = dt.datetime.max,
+        *,
+        timezones: SearchStrategy[Optional[dt.tzinfo]] = none(),
+        allow_imaginary: bool = True,
+    ) -> SearchStrategy[dt.datetime]:
+        """datetimes(min_value=datetime.datetime.min, max_value=datetime.datetime.max, *, timezones=none(), allow_imaginary=True)
+    
+        A strategy for generating datetimes, which may be timezone-aware.
+    
+        This strategy works by drawing a naive datetime between ``min_value``
+        and ``max_value``, which must both be naive (have no timezone).
+    
+        ``timezones`` must be a strategy that generates either ``None``, for naive
+        datetimes, or :class:`~python:datetime.tzinfo` objects for 'aware' datetimes.
+        You can construct your own, though we recommend using one of these built-in
+        strategies:
+    
+        * with the standard library: :func:`hypothesis.strategies.timezones`;
+        * with :pypi:`dateutil <python-dateutil>`:
+          :func:`hypothesis.extra.dateutil.timezones`; or
+        * with :pypi:`pytz`: :func:`hypothesis.extra.pytz.timezones`.
+    
+        You may pass ``allow_imaginary=False`` to filter out "imaginary" datetimes
+        which did not (or will not) occur due to daylight savings, leap seconds,
+        timezone and calendar adjustments, etc.  Imaginary datetimes are allowed
+        by default, because malformed timestamps are a common source of bugs.
+    
+        Examples from this strategy shrink towards midnight on January 1st 2000,
+        local time.
+        """
+        # Why must bounds be naive?  In principle, we could also write a strategy
+        # that took aware bounds, but the API and validation is much harder.
+        # If you want to generate datetimes between two particular moments in
+        # time I suggest (a) just filtering out-of-bounds values; (b) if bounds
+        # are very close, draw a value and subtract its UTC offset, handling
+        # overflows and nonexistent times; or (c) do something customised to
+        # handle datetimes in e.g. a four-microsecond span which is not
+        # representable in UTC.  Handling (d), all of the above, leads to a much
+        # more complex API for all users and a useful feature for very few.
+        check_type(bool, allow_imaginary, "allow_imaginary")
+        check_type(dt.datetime, min_value, "min_value")
+        check_type(dt.datetime, max_value, "max_value")
+        if min_value.tzinfo is not None:
+>           raise InvalidArgument(f"{min_value=} must not have tzinfo")
+E           hypothesis.errors.InvalidArgument: min_value=datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>) must not have tzinfo
+E           while generating 'article' from st_article_dict()
+
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/datetime.py:208: InvalidArgument
+_________ test_aggregation_logic_for_multiple_articles_and_categories __________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(articles=st.lists(st_article_dict(), min_size=1, max_size=12), timezone=st_timezone_str)
+
+test_candidate.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:42: in st_article_dict
+    'published_time': draw(st_datetime_utc)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1121: in draw
+    strategy.validate()
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:482: in validate
+    self.do_validate()
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:151: in do_validate
+    w = self.wrapped_strategy
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:120: in wrapped_strategy
+    base = self.function(*self.__args, **self.__kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+min_value = datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>)
+max_value = datetime.datetime(2030, 12, 31, 0, 0, tzinfo=<UTC>)
+
+    @defines_strategy(force_reusable_values=True)
+    def datetimes(
+        min_value: dt.datetime = dt.datetime.min,
+        max_value: dt.datetime = dt.datetime.max,
+        *,
+        timezones: SearchStrategy[Optional[dt.tzinfo]] = none(),
+        allow_imaginary: bool = True,
+    ) -> SearchStrategy[dt.datetime]:
+        """datetimes(min_value=datetime.datetime.min, max_value=datetime.datetime.max, *, timezones=none(), allow_imaginary=True)
+    
+        A strategy for generating datetimes, which may be timezone-aware.
+    
+        This strategy works by drawing a naive datetime between ``min_value``
+        and ``max_value``, which must both be naive (have no timezone).
+    
+        ``timezones`` must be a strategy that generates either ``None``, for naive
+        datetimes, or :class:`~python:datetime.tzinfo` objects for 'aware' datetimes.
+        You can construct your own, though we recommend using one of these built-in
+        strategies:
+    
+        * with the standard library: :func:`hypothesis.strategies.timezones`;
+        * with :pypi:`dateutil <python-dateutil>`:
+          :func:`hypothesis.extra.dateutil.timezones`; or
+        * with :pypi:`pytz`: :func:`hypothesis.extra.pytz.timezones`.
+    
+        You may pass ``allow_imaginary=False`` to filter out "imaginary" datetimes
+        which did not (or will not) occur due to daylight savings, leap seconds,
+        timezone and calendar adjustments, etc.  Imaginary datetimes are allowed
+        by default, because malformed timestamps are a common source of bugs.
+    
+        Examples from this strategy shrink towards midnight on January 1st 2000,
+        local time.
+        """
+        # Why must bounds be naive?  In principle, we could also write a strategy
+        # that took aware bounds, but the API and validation is much harder.
+        # If you want to generate datetimes between two particular moments in
+        # time I suggest (a) just filtering out-of-bounds values; (b) if bounds
+        # are very close, draw a value and subtract its UTC offset, handling
+        # overflows and nonexistent times; or (c) do something customised to
+        # handle datetimes in e.g. a four-microsecond span which is not
+        # representable in UTC.  Handling (d), all of the above, leads to a much
+        # more complex API for all users and a useful feature for very few.
+        check_type(bool, allow_imaginary, "allow_imaginary")
+        check_type(dt.datetime, min_value, "min_value")
+        check_type(dt.datetime, max_value, "max_value")
+        if min_value.tzinfo is not None:
+>           raise InvalidArgument(f"{min_value=} must not have tzinfo")
+E           hypothesis.errors.InvalidArgument: min_value=datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>) must not have tzinfo
+E           while generating 'articles' from lists(st_article_dict(), min_size=1, max_size=12)
+
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/datetime.py:208: InvalidArgument
+____________________ test_type_error_for_non_list_articles _____________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        invalid_articles=st.one_of(
+            st.none(),
+            st.integers(),
+            st.text(),
+            # Repair: Added max_size=12 to adhere to collection size limits.
+            st.dictionaries(st.text(min_size=1, max_size=10), st.text(min_size=1, max_size=10), max_size=12)
+        ),
+        timezone=st_timezone_str
+    )
+
+test_candidate.py:163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+invalid_articles = None, timezone = 'UTC'
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        invalid_articles=st.one_of(
+            st.none(),
+            st.integers(),
+            st.text(),
+            # Repair: Added max_size=12 to adhere to collection size limits.
+            st.dictionaries(st.text(min_size=1, max_size=10), st.text(min_size=1, max_size=10), max_size=12)
+        ),
+        timezone=st_timezone_str
+    )
+    def test_type_error_for_non_list_articles(invalid_articles, timezone):
+        """
+        SPEC BASIS: "TypeError: If articles is not a list of dictionaries."
+        PROPERTY: Calling task_func with 'articles' that is not a list raises a TypeError.
+        STRATEGY: Provide various non-list types for 'articles' to trigger the TypeError.
+        """
+        # The `with pytz.timezone(timezone):` block is not strictly necessary here.
+>       with pytz.timezone(timezone):
+E       TypeError: 'UTC' object does not support the context manager protocol
+E       Falsifying example: test_type_error_for_non_list_articles(
+E           # The test always failed when commented parts were varied together.
+E           invalid_articles=None,  # or any other generated value
+E           timezone='UTC',  # or any other generated value
+E       )
+
+test_candidate.py:180: TypeError
+__________________ test_value_error_for_missing_article_keys ___________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        missing_key_articles=st.lists(
+            st.dictionaries(
+                st.sampled_from(['title', 'title_url', 'id', 'category', 'published_time']),
+                st.one_of(st_title, st_title_url, st_id, st_category, st_datetime_utc),
+                min_size=1, max_size=4 # Ensure at least one key is missing (5 required keys)
+            ),
+            min_size=1, max_size=5 # Max 5 articles in the list
+        ),
+        timezone=st_timezone_str
+    )
+
+test_candidate.py:190: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+min_value = datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>)
+max_value = datetime.datetime(2030, 12, 31, 0, 0, tzinfo=<UTC>)
+
+    @defines_strategy(force_reusable_values=True)
+    def datetimes(
+        min_value: dt.datetime = dt.datetime.min,
+        max_value: dt.datetime = dt.datetime.max,
+        *,
+        timezones: SearchStrategy[Optional[dt.tzinfo]] = none(),
+        allow_imaginary: bool = True,
+    ) -> SearchStrategy[dt.datetime]:
+        """datetimes(min_value=datetime.datetime.min, max_value=datetime.datetime.max, *, timezones=none(), allow_imaginary=True)
+    
+        A strategy for generating datetimes, which may be timezone-aware.
+    
+        This strategy works by drawing a naive datetime between ``min_value``
+        and ``max_value``, which must both be naive (have no timezone).
+    
+        ``timezones`` must be a strategy that generates either ``None``, for naive
+        datetimes, or :class:`~python:datetime.tzinfo` objects for 'aware' datetimes.
+        You can construct your own, though we recommend using one of these built-in
+        strategies:
+    
+        * with the standard library: :func:`hypothesis.strategies.timezones`;
+        * with :pypi:`dateutil <python-dateutil>`:
+          :func:`hypothesis.extra.dateutil.timezones`; or
+        * with :pypi:`pytz`: :func:`hypothesis.extra.pytz.timezones`.
+    
+        You may pass ``allow_imaginary=False`` to filter out "imaginary" datetimes
+        which did not (or will not) occur due to daylight savings, leap seconds,
+        timezone and calendar adjustments, etc.  Imaginary datetimes are allowed
+        by default, because malformed timestamps are a common source of bugs.
+    
+        Examples from this strategy shrink towards midnight on January 1st 2000,
+        local time.
+        """
+        # Why must bounds be naive?  In principle, we could also write a strategy
+        # that took aware bounds, but the API and validation is much harder.
+        # If you want to generate datetimes between two particular moments in
+        # time I suggest (a) just filtering out-of-bounds values; (b) if bounds
+        # are very close, draw a value and subtract its UTC offset, handling
+        # overflows and nonexistent times; or (c) do something customised to
+        # handle datetimes in e.g. a four-microsecond span which is not
+        # representable in UTC.  Handling (d), all of the above, leads to a much
+        # more complex API for all users and a useful feature for very few.
+        check_type(bool, allow_imaginary, "allow_imaginary")
+        check_type(dt.datetime, min_value, "min_value")
+        check_type(dt.datetime, max_value, "max_value")
+        if min_value.tzinfo is not None:
+>           raise InvalidArgument(f"{min_value=} must not have tzinfo")
+E           hypothesis.errors.InvalidArgument: min_value=datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>) must not have tzinfo
+E           while generating 'missing_key_articles' from lists(dictionaries(keys=sampled_from(['title', 'title_url', 'id', 'category', 'published_time']), values=one_of(text(alphabet='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ', min_size=1, max_size=12), text(alphabet='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_', min_size=1, max_size=12), integers(min_value=1, max_value=1000), text(alphabet='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', min_size=1, max_size=10), datetimes(min_value=datetime.datetime(2000, 1, 1, 0, 0, tzinfo=<UTC>), max_value=datetime.datetime(2030, 12, 31, 0, 0, tzinfo=<UTC>))), min_size=1, max_size=4), min_size=1, max_size=5)
+
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/datetime.py:208: InvalidArgument
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_empty_list_raises_value_error - TypeError: 'UT...
+FAILED test_candidate.py::test_single_article_timezone_conversion_and_hour_extraction
+FAILED test_candidate.py::test_aggregation_logic_for_multiple_articles_and_categories
+FAILED test_candidate.py::test_type_error_for_non_list_articles - TypeError: ...
+FAILED test_candidate.py::test_value_error_for_missing_article_keys - hypothe...
+5 failed in 1.64s

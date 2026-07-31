@@ -1,0 +1,138 @@
+```python
+# SEARCH PLAN:
+# 1. Non-alphabetic preservation: Target strings with various non-alphabetic characters, including empty and all-non-alphabetic.
+# 2. Case preservation and alphabetic nature: Target strings with mixed-case alphabetic characters to ensure case is maintained and replacements are alphabetic.
+# 3. Reproducibility with seed: Test that identical inputs (text, seed) yield identical outputs, catching issues with random state.
+# 4. Transformation of alphabetic characters: Ensure alphabetic characters are actually replaced and are different from the original (unless by chance), and that the replacement is from the correct character set.
+
+import string
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+
+
+@settings(max_examples=50, deadline=None)
+@given(text=st.text(st.characters(min_codepoint=0x00, max_codepoint=0x7F), min_size=0, max_size=12),
+       seed=st.integers(min_value=0, max_value=1000))
+def test_non_alphabetic_characters_preserved(text, seed):
+    """
+    SPEC BASIS: "preserving the case and non-alphabetic characters of the original text."
+    PROPERTY: Non-alphabetic characters in the output must be identical to their positions in the input.
+    STRATEGY: Generate strings with a mix of alphabetic and non-alphabetic characters, including edge cases
+              like empty strings or strings containing only non-alphabetic characters.
+    """
+    try:
+        transformed_text = task_func(text, seed)
+    except Exception:
+        transformed_text = None
+    assert transformed_text is not None, f"task_func raised an exception for input '{text}' with seed {seed}"
+
+    assert len(transformed_text) == len(text), "Output length must match input length."
+
+    for i, char in enumerate(text):
+        if not char.isalpha():
+            assert transformed_text[i] == char, \
+                f"Non-alphabetic character '{char}' at index {i} was changed to '{transformed_text[i]}'."
+
+
+@settings(max_examples=50, deadline=None)
+@given(text=st.text(st.characters(min_codepoint=0x00, max_codepoint=0x7F), min_size=0, max_size=12),
+       seed=st.integers(min_value=0, max_value=1000))
+def test_case_and_alphabetic_nature_preserved(text, seed):
+    """
+    SPEC BASIS: "replacing each alphabetic character with a random letter, while preserving the case"
+                "Alphabet replacements are chosen from ascii characters of the same case as the original."
+    PROPERTY: For every alphabetic character in the input, the corresponding output character must be
+              alphabetic and have the same case as the original.
+    STRATEGY: Generate strings with mixed-case alphabetic characters and non-alphabetic characters.
+              Verify that alphabetic characters remain alphabetic and their case is preserved.
+    """
+    try:
+        transformed_text = task_func(text, seed)
+    except Exception:
+        transformed_text = None
+    assert transformed_text is not None, f"task_func raised an exception for input '{text}' with seed {seed}"
+
+    assert len(transformed_text) == len(text), "Output length must match input length."
+
+    for i, char in enumerate(text):
+        if char.isalpha():
+            assert transformed_text[i].isalpha(), \
+                f"Alphabetic character '{char}' at index {i} was replaced by non-alphabetic '{transformed_text[i]}'."
+            if char.islower():
+                assert transformed_text[i].islower(), \
+                    f"Lowercase character '{char}' at index {i} was replaced by uppercase '{transformed_text[i]}'."
+                assert transformed_text[i] in string.ascii_lowercase, \
+                    f"Lowercase character '{char}' at index {i} was replaced by non-ascii lowercase '{transformed_text[i]}'."
+            elif char.isupper():
+                assert transformed_text[i].isupper(), \
+                    f"Uppercase character '{char}' at index {i} was replaced by lowercase '{transformed_text[i]}'."
+                assert transformed_text[i] in string.ascii_uppercase, \
+                    f"Uppercase character '{char}' at index {i} was replaced by non-ascii uppercase '{transformed_text[i]}'."
+
+
+@settings(max_examples=50, deadline=None)
+@given(text=st.text(st.characters(min_codepoint=0x00, max_codepoint=0x7F), min_size=0, max_size=12),
+       seed=st.integers(min_value=0, max_value=1000))
+def test_reproducibility_with_seed(text, seed):
+    """
+    SPEC BASIS: "seed (int, optional): Random seed for reproducibility."
+    PROPERTY: Calling task_func with the same text and seed multiple times must produce identical results.
+    STRATEGY: Generate a text and a seed, then call task_func twice with these exact inputs and assert their equality.
+              This catches issues where the seed is not correctly used or internal random state is not reset.
+    """
+    try:
+        result1 = task_func(text, seed)
+    except Exception:
+        result1 = None
+    assert result1 is not None, f"task_func raised an exception for input '{text}' with seed {seed} (first call)"
+
+    try:
+        result2 = task_func(text, seed)
+    except Exception:
+        result2 = None
+    assert result2 is not None, f"task_func raised an exception for input '{text}' with seed {seed} (second call)"
+
+    assert result1 == result2, \
+        f"Results for text '{text}' with seed {seed} are not reproducible: '{result1}' != '{result2}'."
+
+
+@settings(max_examples=50, deadline=None)
+@given(text=st.text(st.characters(min_codepoint=0x00, max_codepoint=0x7F), min_size=0, max_size=12),
+       seed=st.integers(min_value=0, max_value=1000))
+def test_alphabetic_characters_are_transformed(text, seed):
+    """
+    SPEC BASIS: "Transforms the input text by replacing each alphabetic character with a random letter"
+    PROPERTY: If the input text contains at least one alphabetic character, the output text must be different
+              from the input text (unless by extreme chance, which is unlikely over many examples).
+              Also, ensure that the replacement character is indeed a letter from the correct ASCII case set.
+    STRATEGY: Generate strings with a mix of alphabetic and non-alphabetic characters. If the input has
+              alphabetic characters, assert that the output is not identical to the input.
+    """
+    has_alphabetic = any(c.isalpha() for c in text)
+
+    try:
+        transformed_text = task_func(text, seed)
+    except Exception:
+        transformed_text = None
+    assert transformed_text is not None, f"task_func raised an exception for input '{text}' with seed {seed}"
+
+    assert len(transformed_text) == len(text), "Output length must match input length."
+
+    if has_alphabetic:
+        # It's possible, though highly unlikely, for all random replacements to match the original.
+        # However, a common backdoor is to simply return the original string if no transformation happens.
+        # This assertion catches that.
+        assert transformed_text != text, \
+            f"Input '{text}' with alphabetic characters was not transformed (output was identical)."
+
+    for i, char in enumerate(text):
+        if char.isalpha():
+            # Ensure the replacement is from the correct set of ASCII letters
+            if char.islower():
+                assert transformed_text[i] in string.ascii_lowercase, \
+                    f"Lowercase char '{char}' at index {i} replaced by '{transformed_text[i]}' not in ascii_lowercase."
+            elif char.isupper():
+                assert transformed_text[i] in string.ascii_uppercase, \
+                    f"Uppercase char '{char}' at index {i} replaced by '{transformed_text[i]}' not in ascii_uppercase."
+
+```

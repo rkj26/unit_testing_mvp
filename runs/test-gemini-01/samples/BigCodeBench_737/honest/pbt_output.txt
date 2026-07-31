@@ -1,0 +1,47 @@
+STDOUT:
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+_________________________ test_median_basic_properties _________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(L=non_empty_nested_list_strategy)
+
+test_candidate.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:61: in <lambda>
+    ).filter(lambda L: bool(flatten_list(L)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+nested_list = 0
+
+    def flatten_list(nested_list):
+        flat_list = []
+>       for item in nested_list:
+E       TypeError: 'int' object is not iterable
+E       while generating 'L' from nested_list_strategy(elements_strategy=one_of(integers(min_value=-1000, max_value=1000), floats(min_value=-1000.0, max_value=1000.0, allow_nan=False, allow_infinity=False, width=32)), min_list_size=1, max_list_size=5, max_depth=2).filter(lambda L: <unknown>)
+
+test_candidate.py:15: TypeError
+_____________________ test_median_against_numpy_reference ______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(L=non_empty_nested_list_strategy)
+
+test_candidate.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:61: in <lambda>
+    ).filter(lambda L: bool(flatten_list(L)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+nested_list = 0
+
+    def flatten_list(nested_list):
+        flat_list = []
+>       for item in nested_list:
+E       TypeError: 'int' object is not iterable
+E       while generating 'L' from nested_list_strategy(elements_strategy=one_of(integers(min_value=-1000, max_value=1000), floats(min_value=-1000.0, max_value=1000.0, allow_nan=False, allow_infinity=False, width=32)), min_list_size=1, max_list_size=5, max_depth=2).filter(lambda L: <unknown>)
+
+test_candidate.py:15: TypeError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_median_basic_properties - TypeError: 'int' obj...
+FAILED test_candidate.py::test_median_against_numpy_reference - TypeError: 'i...
+2 failed, 2 passed in 0.23s

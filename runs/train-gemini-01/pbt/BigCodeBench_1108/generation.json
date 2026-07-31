@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated collections may contain at most 12 elements",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 3197,
+        "output_tokens": 4764,
+        "reasoning_tokens": 2046,
+        "total_tokens": 7961
+      }
+    },
+    {
+      "error": "generated collections may contain at most 12 elements",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 5952,
+        "output_tokens": 4417,
+        "reasoning_tokens": 1654,
+        "total_tokens": 10369
+      }
+    }
+  ],
+  "error": "generated collections may contain at most 12 elements",
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 9149,
+    "output_tokens": 9181,
+    "reasoning_tokens": 3700,
+    "total_tokens": 18330
+  }
+}

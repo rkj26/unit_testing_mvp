@@ -1,0 +1,185 @@
+# SEARCH PLAN:
+# 1. Empty/No Errors: Test the boundary case of no error logs, ensuring empty list and None average.
+# 2. Single Error: Test the base case of a single error log, verifying correct parsing and average.
+# 3. Multiple Errors & Average: Test parsing multiple error logs and the arithmetic correctness of the average time, including time boundaries (00:00:00, 23:59:59).
+# 4. Mixed/Malformed Logs: Test robustness against various log types (valid error, valid non-error, malformed), ensuring only correctly formatted "ERROR" logs are processed.
+
+import datetime
+import re
+from collections import Counter
+from hypothesis import given, settings, strategies as st
+from candidate import task_func
+
+# Helper to generate a log string
+@st.composite
+def _log_strategy(draw, level_strategy=st.sampled_from(["INFO", "WARNING", "ERROR", "DEBUG"]),
+                 message_strategy=st.text(st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=12)): # max_size=12 for string length
+    year = draw(st.integers(min_value=2000, max_value=2023))
+    month = draw(st.integers(min_value=1, max_value=12))
+    day = draw(st.integers(min_value=1, max_value=28)) # Avoid issues with month-end days
+    hour = draw(st.integers(min_value=0, max_value=23))
+    minute = draw(st.integers(min_value=0, max_value=59))
+    second = draw(st.integers(min_value=0, max_value=59))
+    level = draw(level_strategy)
+    message = draw(message_strategy)
+    
+    dt_str = f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+    return f"{dt_str} {level}: {message}"
+
+# Helper to generate an ERROR log and return its time
+@st.composite
+def _error_log_with_time_strategy(draw):
+    year = draw(st.integers(min_value=2000, max_value=2023))
+    month = draw(st.integers(min_value=1, max_value=12))
+    day = draw(st.integers(min_value=1, max_value=28))
+    hour = draw(st.integers(min_value=0, max_value=23))
+    minute = draw(st.integers(min_value=0, max_value=59))
+    second = draw(st.integers(min_value=0, max_value=59))
+    message = draw(st.text(st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=12)) # max_size=12 for string length
+    
+    dt_str = f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+    log_line = f"{dt_str} ERROR: {message}"
+    return log_line, datetime.time(hour, minute, second)
+
+# Helper to calculate average time (oracle)
+def _calculate_average_time_oracle(times: list[datetime.time]) -> datetime.time | None:
+    if not times:
+        return None
+    
+    total_seconds = 0
+    for t in times:
+        total_seconds += t.hour * 3600 + t.minute * 60 + t.second
+    
+    avg_seconds = total_seconds // len(times) # Integer division for seconds
+    
+    avg_hour = avg_seconds // 3600
+    remaining_seconds = avg_seconds % 3600
+    avg_minute = remaining_seconds // 60
+    avg_second = remaining_seconds % 60
+    
+    return datetime.time(avg_hour, avg_minute, avg_second)
+
+@settings(max_examples=50, deadline=None)
+@given(logs=st.one_of(
+    st.just([]), # Empty list
+    st.lists(_log_strategy(level_strategy=st.sampled_from(["INFO", "WARNING", "DEBUG"])), min_size=1, max_size=12) # No error logs
+))
+def test_empty_or_no_error_logs(logs):
+    """
+    SPEC BASIS: "Analyze the given list of logs for the occurrence of errors and calculate the average time of occurrence of errors."
+                The example implies an empty list of times if no errors, and the average time would then be undefined.
+    PROPERTY: If no error logs are present, the list of error times should be empty, and the average time should be None.
+    STRATEGY: Generate an empty list of logs or a list containing only non-ERROR logs. This targets the boundary case where no errors are found.
+    """
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+    assert avg_time is not None or (not error_times and avg_time is None), "Average time should be None if no errors, otherwise a time object."
+    
+    assert error_times == []
+    assert avg_time is None
+
+@settings(max_examples=50, deadline=None)
+@given(
+    hour=st.integers(min_value=0, max_value=23),
+    minute=st.integers(min_value=0, max_value=59),
+    second=st.integers(min_value=0, max_value=59)
+)
+def test_single_error_log(hour, minute, second):
+    """
+    SPEC BASIS: Example: `([datetime.time(9, 45)], datetime.time(9, 45))` for a single error.
+    PROPERTY: For a single error log, the returned list of times should contain exactly that time, and the average time should be that same time.
+    STRATEGY: Generate a single log string with an "ERROR" level and a specific time. This covers the base case and matches the example.
+    """
+    expected_time = datetime.time(hour, minute, second)
+    log_line = f"2023-01-01 {hour:02d}:{minute:02d}:{second:02d} ERROR: Test message"
+    
+    try:
+        error_times, avg_time = task_func([log_line])
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+    assert avg_time is not None, "Average time should not be None for a single error."
+    
+    assert error_times == [expected_time]
+    assert avg_time == expected_time
+
+@settings(max_examples=50, deadline=None)
+@given(
+    times=st.lists(
+        st.one_of(
+            st.just(datetime.time(0, 0, 0)), # Boundary: start of day
+            st.just(datetime.time(23, 59, 59)), # Boundary: end of day
+            st.just(datetime.time(12, 0, 0)), # Mid-day
+            st.times() # Random times
+        ),
+        min_size=2, max_size=12 # At least two times for averaging, max_size=12
+    )
+)
+def test_multiple_errors_and_average_calculation(times):
+    """
+    SPEC BASIS: "calculate the average time of occurrence of these errors."
+    PROPERTY: The returned list of error times should match the parsed times from error logs, and the calculated average time should be arithmetically correct.
+    STRATEGY: Generate multiple error logs with diverse times, including boundary values (00:00:00, 23:59:59), to thoroughly test time parsing and average calculation.
+              The oracle for average time is recomputed using the same logic.
+    """
+    logs = [f"2023-01-01 {t.hour:02d}:{t.minute:02d}:{t.second:02d} ERROR: Message {i}" for i, t in enumerate(times)]
+    
+    expected_error_times = sorted(times) # Order is not specified, so sort for comparison
+    expected_avg_time = _calculate_average_time_oracle(times)
+    
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+    assert avg_time is not None, "Average time should not be None for multiple errors."
+    
+    assert sorted(error_times) == expected_error_times
+    assert avg_time == expected_avg_time
+
+@settings(max_examples=50, deadline=None)
+@given(
+    log_data=st.lists(
+        st.one_of(
+            _error_log_with_time_strategy(),
+            _log_strategy(level_strategy=st.sampled_from(["INFO", "WARNING", "DEBUG"])).map(lambda s: (s, None)), # Non-error logs, map to (log_str, None)
+            st.one_of( # Malformed logs, map to (log_str, None)
+                st.text(min_size=1, max_size=12).filter(lambda s: not re.match(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (ERROR|INFO|WARNING|DEBUG): .*', s)), # max_size=12 for string length
+                st.just("This is not a log line"),
+                st.just("2023-01-01 10:00:00 ERROR No colon after level"),
+                st.just("2023-01-01 10:00:00 ERROR: message with error in it"), # "ERROR" in message, not level
+                st.just("2023-01-01 10:00:00 error: lowercase level") # lowercase "error"
+            )
+        ),
+        min_size=1, max_size=12 # At least one log, max_size=12
+    )
+)
+def test_malformed_and_non_error_logs_are_ignored(log_data):
+    """
+    SPEC BASIS: "Analyze the given list of logs for the occurrence of errors". The example shows "ERROR" as the level.
+    PROPERTY: Only logs matching the expected "ERROR" format contribute to the results. Malformed logs or logs with other levels are ignored.
+    STRATEGY: Construct a log list with a mix of valid "ERROR" logs, valid non-ERROR logs, and various malformed log strings.
+              Hypothesis handles the mixing and order. This tests the robustness of the log parsing and filtering logic against unexpected inputs.
+    """
+    logs = [item[0] if isinstance(item, tuple) else item for item in log_data]
+    valid_error_times = [item[1] for item in log_data if isinstance(item, tuple) and item[1] is not None]
+    
+    expected_error_times = sorted(valid_error_times)
+    expected_avg_time = _calculate_average_time_oracle(valid_error_times)
+    
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+    assert avg_time is not None or (not expected_error_times and avg_time is None), "Average time should be None if no errors, otherwise a time object."
+    
+    assert sorted(error_times) == expected_error_times
+    assert avg_time == expected_avg_time

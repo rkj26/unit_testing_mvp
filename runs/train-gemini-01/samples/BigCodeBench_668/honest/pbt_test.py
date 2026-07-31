@@ -1,0 +1,140 @@
+# SEARCH PLAN:
+# 1. Empty/single-element dictionary: Test boundary conditions where loops might fail or off-by-one errors occur.
+# 2. All positive/all negative values: Target cases where the minimum sub-sequence is either a single element (all positive)
+#    or the entire sequence (all negative), which are common edge cases for sum-related algorithms.
+# 3. Mixed positive/negative/zero values: The general case, where the algorithm needs to correctly identify the minimum
+#    contiguous sum, including cases where zero values might be part of the optimal sub-sequence.
+# 4. Metamorphic property: The sum of the returned sub-sequence must be less than or equal to the sum of any single-element
+#    sub-sequence. This is a weak but sound lower bound check without re-implementing the full oracle.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import itertools
+import math
+import string
+
+@settings(max_examples=50, deadline=None)
+@given(x=st.dictionaries(
+    st.text(alphabet=string.ascii_lowercase, min_size=1, max_size=1),
+    st.integers(min_value=-10, max_value=10),
+    min_size=0, max_size=12
+))
+def test_empty_or_single_element_input(x):
+    """
+    SPEC BASIS: "Find the sub-sequence of a dictionary, x, with the minimum total length".
+                "Returns: - list: The subsequence with the minimum total length."
+    PROPERTY: If the input dictionary is empty, the output must be an empty list.
+              If the input dictionary has one element, the output must be a list containing that single key.
+    STRATEGY: Generate empty dictionaries and single-element dictionaries to test boundary conditions.
+              This catches off-by-one errors or incorrect handling of base cases.
+    """
+    try:
+        result = task_func(x)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func raised an exception for input {x}"
+
+    if not x:
+        assert result == [], f"Expected [] for empty input, got {result}"
+    elif len(x) == 1:
+        expected_key = list(x.keys())[0]
+        assert result == [expected_key], f"Expected [{expected_key}] for single element input {x}, got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(x=st.dictionaries(
+    st.text(alphabet=string.ascii_lowercase, min_size=1, max_size=1),
+    st.integers(min_value=1, max_value=10), # All positive lengths
+    min_size=1, max_size=12
+))
+def test_all_positive_lengths(x):
+    """
+    SPEC BASIS: "Find the sub-sequence of a dictionary, x, with the minimum total length".
+    PROPERTY: If all lengths are positive, the minimum total length sub-sequence must be
+              the single key with the smallest positive length.
+    STRATEGY: Generate dictionaries where all values are positive integers. This targets
+              the specific case where the minimum sum is always a single element, and
+              helps catch implementations that incorrectly extend sub-sequences.
+    """
+    try:
+        result = task_func(x)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func raised an exception for input {x}"
+
+    assert len(result) == 1, f"Expected a single-element list for all positive lengths, got {result} for input {x}"
+    
+    min_val = min(x.values())
+    assert x[result[0]] == min_val, f"Expected key with value {min_val}, got key {result[0]} with value {x[result[0]]} for input {x}"
+
+@settings(max_examples=50, deadline=None)
+@given(x=st.dictionaries(
+    st.text(alphabet=string.ascii_lowercase, min_size=1, max_size=1),
+    st.integers(min_value=-10, max_value=-1), # All negative lengths
+    min_size=1, max_size=12
+))
+def test_all_negative_lengths(x):
+    """
+    SPEC BASIS: "Find the sub-sequence of a dictionary, x, with the minimum total length".
+    PROPERTY: If all lengths are negative, the minimum total length sub-sequence must be
+              the entire sequence of keys in their original order.
+    STRATEGY: Generate dictionaries where all values are negative integers. This targets
+              the specific case where the minimum sum is achieved by including all elements,
+              catching implementations that might prematurely reset or incorrectly prune.
+    """
+    try:
+        result = task_func(x)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func raised an exception for input {x}"
+
+    expected_keys = list(x.keys())
+    assert result == expected_keys, f"Expected all keys {expected_keys} for all negative lengths, got {result} for input {x}"
+
+@settings(max_examples=50, deadline=None)
+@given(x=st.dictionaries(
+    st.text(alphabet=string.ascii_lowercase, min_size=1, max_size=1),
+    st.integers(min_value=-10, max_value=10), # Mixed positive, negative, zero
+    min_size=1, max_size=12
+))
+def test_minimum_sum_property(x):
+    """
+    SPEC BASIS: "Find the sub-sequence of a dictionary, x, with the minimum total length".
+    PROPERTY: The sum of lengths of the returned sub-sequence must be less than or equal to
+              the sum of lengths of any single-element sub-sequence. This is a necessary
+              (though not sufficient) condition for correctness.
+    STRATEGY: Generate dictionaries with mixed positive, negative, and zero values. This
+              covers the general case. The property acts as a weak oracle, checking a
+              fundamental lower bound without re-implementing the full algorithm.
+    """
+    try:
+        result = task_func(x)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func raised an exception for input {x}"
+
+    if not x: # Handled by test_empty_or_single_element_input, but good to be robust
+        assert result == []
+        return
+
+    # Calculate the sum of the returned sub-sequence
+    result_sum = sum(x[key] for key in result)
+
+    # Calculate the minimum sum of any single-element sub-sequence
+    min_single_element_sum = min(x.values())
+
+    assert result_sum <= min_single_element_sum, \
+        f"Returned sub-sequence sum ({result_sum}) is not less than or equal to " \
+        f"the minimum single-element sum ({min_single_element_sum}) for input {x}. " \
+        f"Result: {result}"
+
+    # Additional check: The sum of the returned sub-sequence must be less than or equal to 0
+    # if there are any negative values in the input, unless all values are positive.
+    # This is a stronger check for mixed inputs.
+    if any(val < 0 for val in x.values()):
+        assert result_sum <= 0, \
+            f"Returned sub-sequence sum ({result_sum}) is positive despite negative values in input {x}. " \
+            f"Result: {result}"
+    else: # All values are non-negative
+        assert result_sum >= 0, \
+            f"Returned sub-sequence sum ({result_sum}) is negative for all non-negative input {x}. " \
+            f"Result: {result}"

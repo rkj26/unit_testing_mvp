@@ -1,0 +1,197 @@
+STDOUT:
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+____________________ test_pattern_counts_match_string_count ____________________
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 341, in from_call
+  |     result: TResult | None = func()
+  |                              ^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 242, in <lambda>
+  |     lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 92, in pytest_runtest_call
+  |     yield from thread_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 68, in thread_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 95, in pytest_runtest_call
+  |     yield from unraisable_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 70, in unraisable_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 846, in pytest_runtest_call
+  |     yield from self._runtest_for(item, "call")
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 829, in _runtest_for
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/capture.py", line 898, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/skipping.py", line 257, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+  |     item.runtest()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1627, in runtest
+  |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 159, in pytest_pyfunc_call
+  |     result = testfunction(**testargs)
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp2jm2g0ut/test_candidate.py", line 14, in test_pattern_counts_match_string_count
+  |     @given(
+  |             
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py", line 1839, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp2jm2g0ut/test_candidate.py", line 43, in test_pattern_counts_match_string_count
+    |     assert result == expected_counts, f"Mismatch for string='{s}', patterns={patterns}. Expected {expected_counts}, got {result}"
+    | AssertionError: Mismatch for string='0', patterns=['.']. Expected {'.': 0}, got {'.': 1}
+    | assert {'.': 1} == {'.': 0}
+    |   
+    |   Differing items:
+    |   {'.': 1} != {'.': 0}
+    |   Use -v to get more diff
+    | Falsifying example: test_pattern_counts_match_string_count(
+    |     s='0',
+    |     patterns=['.'],
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp2jm2g0ut/test_candidate.py", line 39, in test_pattern_counts_match_string_count
+    |     assert result is not None, f"task_func raised an unexpected exception for string='{s}', patterns={patterns}"
+    | AssertionError: task_func raised an unexpected exception for string='', patterns=['?']
+    | assert None is not None
+    | Falsifying example: test_pattern_counts_match_string_count(
+    |     s='',  # or any other generated value
+    |     patterns=['?'],
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing examples:
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp2jm2g0ut/test_candidate.py:36
+    |         /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_constants.py:38
+    +------------------------------------
+________________________ test_empty_and_boundary_inputs ________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        s=st.one_of(
+            st.just(""),
+            st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=12)
+        ),
+        patterns=st.one_of(
+            st.just([]),
+            st.lists(
+                st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=5),
+                min_size=0, max_size=5
+            )
+        )
+    )
+
+test_candidate.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '', patterns = ['[']
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        s=st.one_of(
+            st.just(""),
+            st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=12)
+        ),
+        patterns=st.one_of(
+            st.just([]),
+            st.lists(
+                st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=5),
+                min_size=0, max_size=5
+            )
+        )
+    )
+    def test_empty_and_boundary_inputs(s, patterns):
+        """
+        SPEC BASIS: "Counts the occurrence of specific patterns in a string." The examples
+                    don't explicitly cover empty inputs, but a correct implementation should
+                    handle them gracefully.
+        PROPERTY: An empty input string should result in all pattern counts being zero.
+                  An empty list of patterns should result in an empty dictionary.
+        STRATEGY: Specifically target empty string, empty patterns list, and patterns that
+                  are single characters. This probes boundary conditions where loop invariants
+                  or base cases might be incorrectly handled.
+        """
+        # The problem examples imply non-empty patterns. `str.count('')` has specific behavior
+        # (returns len(s) + 1) which is not typically what "counting occurrences" means for patterns.
+        # We filter out empty patterns to align with common interpretation and examples.
+        valid_patterns = [p for p in patterns if p != ""]
+    
+        try:
+            result = task_func(s, valid_patterns)
+        except Exception:
+            result = None
+    
+>       assert result is not None, f"task_func raised an unexpected exception for string='{s}', patterns={valid_patterns}"
+E       AssertionError: task_func raised an unexpected exception for string='', patterns=['[']
+E       assert None is not None
+E       Falsifying example: test_empty_and_boundary_inputs(
+E           s='',  # or any other generated value
+E           patterns=['['],
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp2jm2g0ut/test_candidate.py:78
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_constants.py:38
+
+test_candidate.py:81: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_pattern_counts_match_string_count - ExceptionG...
+FAILED test_candidate.py::test_empty_and_boundary_inputs - AssertionError: ta...
+2 failed, 2 passed in 1.11s

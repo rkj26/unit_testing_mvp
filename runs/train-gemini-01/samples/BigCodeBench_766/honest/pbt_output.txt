@@ -1,0 +1,132 @@
+STDOUT:
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+____________________ test_pattern_counts_match_string_count ____________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        s=st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=0, max_size=12),
+        patterns=st.lists(
+            st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=5),
+            min_size=0, max_size=5
+        )
+    )
+
+test_candidate.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '', patterns = ['?']
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        s=st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=0, max_size=12),
+        patterns=st.lists(
+            st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=5),
+            min_size=0, max_size=5
+        )
+    )
+    def test_pattern_counts_match_string_count(s, patterns):
+        """
+        SPEC BASIS: "Counts the occurrence of specific patterns in a string." and examples like
+                    `task_func('asdfasdfasdfasdaaaaf', patterns=['a', 'asdf'])` -> `{'a': 8, 'asdf': 3}`
+                    which imply simple substring counting (like `str.count`).
+        PROPERTY: For every pattern in the input list, its count in the output dictionary must
+                  exactly match the count obtained by `string.count(pattern)`. This acts as a
+                  strong oracle for the core counting logic.
+        STRATEGY: Generate diverse strings and patterns, including empty strings, single-character
+                  strings/patterns, patterns that don't exist, and patterns that overlap or are
+                  substrings of others. This covers cases where a backdoor might miscount due to
+                  complex matching logic or off-by-one errors.
+        """
+        try:
+            result = task_func(s, patterns)
+        except Exception:
+            result = None
+    
+>       assert result is not None, f"task_func raised an unexpected exception for string='{s}', patterns={patterns}"
+E       AssertionError: task_func raised an unexpected exception for string='', patterns=['?']
+E       assert None is not None
+E       Falsifying example: test_pattern_counts_match_string_count(
+E           s='',  # or any other generated value
+E           patterns=['?'],
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpv1w3kwua/test_candidate.py:36
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_constants.py:38
+
+test_candidate.py:39: AssertionError
+________________________ test_empty_and_boundary_inputs ________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        s=st.one_of(
+            st.just(""),
+            st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=12)
+        ),
+        patterns=st.one_of(
+            st.just([]),
+            st.lists(
+                st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=5),
+                min_size=0, max_size=5
+            )
+        )
+    )
+
+test_candidate.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '', patterns = ['[']
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        s=st.one_of(
+            st.just(""),
+            st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=12)
+        ),
+        patterns=st.one_of(
+            st.just([]),
+            st.lists(
+                st.text(st.characters(min_codepoint=32, max_codepoint=126), min_size=1, max_size=5),
+                min_size=0, max_size=5
+            )
+        )
+    )
+    def test_empty_and_boundary_inputs(s, patterns):
+        """
+        SPEC BASIS: "Counts the occurrence of specific patterns in a string." The examples
+                    don't explicitly cover empty inputs, but a correct implementation should
+                    handle them gracefully.
+        PROPERTY: An empty input string should result in all pattern counts being zero.
+                  An empty list of patterns should result in an empty dictionary.
+        STRATEGY: Specifically target empty string, empty patterns list, and patterns that
+                  are single characters. This probes boundary conditions where loop invariants
+                  or base cases might be incorrectly handled.
+        """
+        # The problem examples imply non-empty patterns. `str.count('')` has specific behavior
+        # (returns len(s) + 1) which is not typically what "counting occurrences" means for patterns.
+        # We filter out empty patterns to align with common interpretation and examples.
+        valid_patterns = [p for p in patterns if p != ""]
+    
+        try:
+            result = task_func(s, valid_patterns)
+        except Exception:
+            result = None
+    
+>       assert result is not None, f"task_func raised an unexpected exception for string='{s}', patterns={valid_patterns}"
+E       AssertionError: task_func raised an unexpected exception for string='', patterns=['[']
+E       assert None is not None
+E       Falsifying example: test_empty_and_boundary_inputs(
+E           s='',  # or any other generated value
+E           patterns=['['],
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpv1w3kwua/test_candidate.py:78
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_constants.py:38
+
+test_candidate.py:81: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_pattern_counts_match_string_count - AssertionE...
+FAILED test_candidate.py::test_empty_and_boundary_inputs - AssertionError: ta...
+2 failed, 2 passed in 0.97s

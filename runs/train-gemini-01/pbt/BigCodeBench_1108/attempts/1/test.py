@@ -1,0 +1,192 @@
+# SEARCH PLAN:
+# 1. Empty/No URL Keys: Target inputs where the list is empty, or contains dictionaries with no URL keys, or URL keys with None values. This checks boundary conditions and graceful handling of no relevant data.
+# 2. Tie-breaking for Most Common: Generate inputs where multiple values share the highest frequency. The output must include all such values and their counts, as implied by "most common values" (plural).
+# 3. Value Type and Edge Values: Use diverse value types (integers, strings, booleans, None) and edge integer values (0, 1, -1) to ensure the counting mechanism is robust and doesn't have magic value triggers.
+# 4. URL Key Identification: Generate dictionaries with keys that are clearly URLs, non-URLs, and "almost" URLs to test the regex logic for identifying URL keys.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+from collections import Counter
+import re
+import string
+
+# Strategy for generating valid-looking URL keys
+domain_part = st.text(string.ascii_lowercase + string.digits + "-", min_size=1, max_size=8)
+tld_part = st.sampled_from(["com", "org", "net", "io", "nl"])
+path_part = st.text(string.ascii_lowercase + string.digits + "/-", min_size=0, max_size=5)
+url_key_strategy = st.builds(lambda scheme, domain, tld, path: f"{scheme}://{domain}.{tld}{path}",
+                             scheme=st.sampled_from(["http", "https"]),
+                             domain=domain_part,
+                             tld=tld_part,
+                             path=path_part)
+
+# Strategy for generating non-URL keys
+non_url_key_strategy = st.text(string.ascii_lowercase + string.digits, min_size=1, max_size=10).filter(
+    lambda s: not (s.startswith("http") or s.startswith("https")) # Ensure it doesn't accidentally look like a URL
+)
+
+# Strategy for generating values
+value_strategy = st.one_of(
+    st.integers(min_value=-100, max_value=100),
+    st.text(string.ascii_lowercase, min_size=1, max_size=5),
+    st.booleans(),
+    st.none()
+)
+
+# Strategy for generating dictionaries with mixed key types
+dict_strategy = st.dictionaries(
+    st.one_of(url_key_strategy, non_url_key_strategy),
+    value_strategy,
+    min_size=1,
+    max_size=5
+)
+
+# Main strategy for the 'result' list
+result_strategy = st.lists(dict_strategy, min_size=0, max_size=12)
+
+@settings(max_examples=50, deadline=None)
+@given(result=st.one_of(
+    st.just([]), # Empty list
+    st.lists(st.dictionaries(non_url_key_strategy, value_strategy, min_size=1, max_size=5), min_size=1, max_size=12), # List of dicts with no URL keys
+    st.lists(st.dictionaries(url_key_strategy, st.just(None), min_size=1, max_size=5), min_size=1, max_size=12) # List of dicts with URL keys but None values
+))
+def test_empty_or_no_url_keys_returns_empty_dict(result):
+    """
+    SPEC BASIS: "Get the most common values associated with the url key... Returns: dict: A dictionary with the most common values and their counts."
+                The example implies an empty dict if no common values are found.
+    PROPERTY: If no URL keys are present, or all URL key values are None, the function should return an empty dictionary.
+    STRATEGY: Generate inputs that are empty, contain no URL keys, or contain URL keys whose values are all None. This targets boundary conditions where no countable "most common" value exists.
+    """
+    try:
+        output = task_func(result)
+    except Exception:
+        output = None
+    assert output is not None, "task_func should not raise an exception for valid inputs."
+    assert output == {}, f"Expected empty dict for input with no countable URL values, got {output}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(result=st.lists(
+    st.dictionaries(
+        st.one_of(url_key_strategy, non_url_key_strategy),
+        st.sampled_from([0, 1, 2, "a", "b"]), # Limited values to increase chances of ties
+        min_size=1, max_size=5
+    ),
+    min_size=1, max_size=12
+))
+def test_multiple_most_common_values_are_returned(result):
+    """
+    SPEC BASIS: "Returns: dict: A dictionary with the most common values and their counts." (plural "values")
+    PROPERTY: If multiple values share the highest frequency among URL keys, all such values and their counts should be present in the output.
+    STRATEGY: Generate inputs with a small, sampled set of values to increase the likelihood of ties for the most common value. This targets implementations that might arbitrarily pick one value in a tie.
+    """
+    # Manually extract all values associated with URL keys
+    all_url_values = []
+    url_pattern = re.compile(r"^https?://")
+    for d in result:
+        for k, v in d.items():
+            if url_pattern.match(k) and v is not None:
+                all_url_values.append(v)
+
+    expected_output = {}
+    if all_url_values:
+        counts = Counter(all_url_values)
+        max_count = 0
+        if counts: # Check if counts is not empty
+            max_count = max(counts.values())
+        for value, count in counts.items():
+            if count == max_count:
+                expected_output[value] = count
+
+    try:
+        output = task_func(result)
+    except Exception:
+        output = None
+    assert output is not None, "task_func should not raise an exception for valid inputs."
+    assert output == expected_output, f"Expected {expected_output} for input, got {output}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(result=result_strategy)
+def test_output_values_are_correct_counts(result):
+    """
+    SPEC BASIS: "Get the most common values associated with the url key... Returns: dict: A dictionary with the most common values and their counts."
+    PROPERTY: The values in the output dictionary must be positive integers representing counts, and the keys must be the actual values from the input.
+    STRATEGY: Use a general strategy for `result` to cover various inputs. This checks the basic integrity of the output format and ensures counts are positive.
+    """
+    try:
+        output = task_func(result)
+    except Exception:
+        output = None
+    assert output is not None, "task_func should not raise an exception for valid inputs."
+
+    # All values in the output dict must be positive integers (counts)
+    for count in output.values():
+        assert isinstance(count, int) and count > 0, f"Output count {count} is not a positive integer."
+
+    # If output is not empty, its keys must be present in the original URL-associated values
+    if output:
+        url_pattern = re.compile(r"^https?://")
+        all_url_values = []
+        for d in result:
+            for k, v in d.items():
+                if url_pattern.match(k) and v is not None:
+                    all_url_values.append(v)
+        
+        # Check that all keys in the output are indeed values that appeared
+        for key_in_output in output.keys():
+            assert key_in_output in all_url_values, f"Output key {key_in_output} was not found in any URL-associated values."
+
+        # Check that the counts are consistent with the most common values
+        if all_url_values:
+            actual_counts = Counter(all_url_values)
+            max_actual_count = max(actual_counts.values())
+            for value, count in output.items():
+                assert count == max_actual_count, f"Output count for {value} is {count}, but max actual count is {max_actual_count}."
+                assert actual_counts[value] == max_actual_count, f"Value {value} in output does not have the max count in actual data."
+        else: # If all_url_values is empty, output should be empty
+            assert output == {}, f"Output should be empty if no URL values, but got {output}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(result=st.lists(
+    st.dictionaries(
+        st.one_of(
+            url_key_strategy,
+            st.text(string.ascii_lowercase + string.digits + "/.", min_size=5, max_size=15).map(lambda s: f"ftp://{s}.com"), # Non-HTTP/HTTPS URL-like
+            st.text(string.ascii_lowercase + string.digits + "/.", min_size=5, max_size=15).map(lambda s: f"www.{s}.com"), # Missing scheme
+            non_url_key_strategy
+        ),
+        value_strategy,
+        min_size=1, max_size=5
+    ),
+    min_size=1, max_size=12
+))
+def test_only_http_https_keys_are_considered(result):
+    """
+    SPEC BASIS: The example keys `http://google.com`, `https://google.com`, `http://www.cwi.nl` strongly imply that "url key" refers to keys starting with "http://" or "https://". The `re` requirement suggests this is handled via regex.
+    PROPERTY: Only values associated with keys starting with "http://" or "https://" should be considered for counting. Other URL-like keys (e.g., "ftp://", "www.example.com") or non-URL keys should be ignored.
+    STRATEGY: Generate dictionaries with a mix of `http(s)://` keys, other URL-scheme keys (like `ftp://`), keys missing a scheme (`www.example.com`), and clearly non-URL keys. This targets the specific regex logic for identifying "url keys".
+    """
+    # Manually extract values from keys matching the expected URL pattern
+    expected_url_values = []
+    http_https_pattern = re.compile(r"^https?://")
+    for d in result:
+        for k, v in d.items():
+            if http_https_pattern.match(k) and v is not None:
+                expected_url_values.append(v)
+
+    expected_output = {}
+    if expected_url_values:
+        counts = Counter(expected_url_values)
+        max_count = max(counts.values())
+        for value, count in counts.items():
+            if count == max_count:
+                expected_output[value] = count
+
+    try:
+        output = task_func(result)
+    except Exception:
+        output = None
+    assert output is not None, "task_func should not raise an exception for valid inputs."
+    assert output == expected_output, f"Expected {expected_output} by considering only http/https keys, got {output}"

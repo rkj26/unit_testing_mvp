@@ -1,0 +1,44 @@
+STDOUT:
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+___________________ test_empty_input_returns_empty_dataframe ___________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(fruit_data=st.just([]))
+
+test_candidate.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fruit_data = []
+
+    @settings(max_examples=50, deadline=None)
+    @given(fruit_data=st.just([]))
+    def test_empty_input_returns_empty_dataframe(fruit_data):
+        """
+        SPEC BASIS: "If fruit_data is an empty list, an empty dataFrame is returned."
+        PROPERTY: The function returns an empty pandas DataFrame with the specified columns.
+        STRATEGY: Provide an empty list as input, directly testing the specified edge case.
+        """
+        try:
+            result = task_func(fruit_data)
+        except Exception:
+            result = None
+    
+        assert result is not None, "Function should not raise an exception for an empty list."
+        assert isinstance(result, pd.DataFrame), "Result should be a pandas DataFrame."
+        assert result.empty, "DataFrame should be empty for empty input."
+>       assert list(result.columns) == ['Total Count', 'Average Count'], \
+            f"Columns should be ['Total Count', 'Average Count'], but got {list(result.columns)}"
+E       AssertionError: Columns should be ['Total Count', 'Average Count'], but got []
+E       assert [] == ['Total Count...verage Count']
+E         
+E         Right contains 2 more items, first extra item: 'Total Count'
+E         Use -v to get more diff
+E       Falsifying example: test_empty_input_returns_empty_dataframe(
+E           fruit_data=[],
+E       )
+
+test_candidate.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_empty_input_returns_empty_dataframe - Assertio...
+1 failed, 3 passed in 0.39s

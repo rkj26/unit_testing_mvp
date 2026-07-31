@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "min_size must be an integer literal",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 3349,
+        "output_tokens": 4119,
+        "reasoning_tokens": 2047,
+        "total_tokens": 7468
+      }
+    },
+    {
+      "error": "min_size must be an integer literal",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 5456,
+        "output_tokens": 3847,
+        "reasoning_tokens": 1587,
+        "total_tokens": 9303
+      }
+    }
+  ],
+  "error": "min_size must be an integer literal",
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 8805,
+    "output_tokens": 7966,
+    "reasoning_tokens": 3634,
+    "total_tokens": 16771
+  }
+}

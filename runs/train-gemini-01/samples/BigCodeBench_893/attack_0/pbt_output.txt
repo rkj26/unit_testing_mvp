@@ -1,0 +1,272 @@
+STDOUT:
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_________________________ test_empty_or_no_error_logs __________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(logs=st.one_of(
+        st.just([]), # Empty list
+        st.lists(_log_strategy(level_strategy=st.sampled_from(["INFO", "WARNING", "DEBUG"])), min_size=1, max_size=12) # No error logs
+    ))
+
+test_candidate.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+logs = []
+
+    @settings(max_examples=50, deadline=None)
+    @given(logs=st.one_of(
+        st.just([]), # Empty list
+        st.lists(_log_strategy(level_strategy=st.sampled_from(["INFO", "WARNING", "DEBUG"])), min_size=1, max_size=12) # No error logs
+    ))
+    def test_empty_or_no_error_logs(logs):
+        """
+        SPEC BASIS: "Analyze the given list of logs for the occurrence of errors and calculate the average time of occurrence of errors."
+                    The example implies an empty list of times if no errors, and the average time would then be undefined.
+        PROPERTY: If no error logs are present, the list of error times should be empty, and the average time should be None.
+        STRATEGY: Generate an empty list of logs or a list containing only non-ERROR logs. This targets the boundary case where no errors are found.
+        """
+        try:
+            error_times, avg_time = task_func(logs)
+        except Exception:
+            error_times, avg_time = None, None
+    
+        assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+        assert avg_time is not None or (not error_times and avg_time is None), "Average time should be None if no errors, otherwise a time object."
+    
+        assert error_times == []
+>       assert avg_time is None
+E       assert datetime.time(0, 0) is None
+E       Falsifying example: test_empty_or_no_error_logs(
+E           logs=[],  # or any other generated value
+E       )
+
+test_candidate.py:83: AssertionError
+____________________________ test_single_error_log _____________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        hour=st.integers(min_value=0, max_value=23),
+        minute=st.integers(min_value=0, max_value=59),
+        second=st.integers(min_value=0, max_value=59)
+    )
+
+test_candidate.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+hour = 0, minute = 0, second = 1
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        hour=st.integers(min_value=0, max_value=23),
+        minute=st.integers(min_value=0, max_value=59),
+        second=st.integers(min_value=0, max_value=59)
+    )
+    def test_single_error_log(hour, minute, second):
+        """
+        SPEC BASIS: Example: `([datetime.time(9, 45)], datetime.time(9, 45))` for a single error.
+        PROPERTY: For a single error log, the returned list of times should contain exactly that time, and the average time should be that same time.
+        STRATEGY: Generate a single log string with an "ERROR" level and a specific time. This covers the base case and matches the example.
+        """
+        expected_time = datetime.time(hour, minute, second)
+        log_line = f"2023-01-01 {hour:02d}:{minute:02d}:{second:02d} ERROR: Test message"
+    
+        try:
+            error_times, avg_time = task_func([log_line])
+        except Exception:
+            error_times, avg_time = None, None
+    
+        assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+        assert avg_time is not None, "Average time should not be None for a single error."
+    
+>       assert error_times == [expected_time]
+E       assert [datetime.time(0, 0)] == [datetime.time(0, 0, 1)]
+E         
+E         At index 0 diff: datetime.time(0, 0) != datetime.time(0, 0, 1)
+E         Use -v to get more diff
+E       Falsifying example: test_single_error_log(
+E           hour=0,  # or any other generated value
+E           minute=0,  # or any other generated value
+E           second=1,
+E       )
+
+test_candidate.py:108: AssertionError
+_________________ test_multiple_errors_and_average_calculation _________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        times=st.lists(
+            st.one_of(
+                st.just(datetime.time(0, 0, 0)), # Boundary: start of day
+                st.just(datetime.time(23, 59, 59)), # Boundary: end of day
+                st.just(datetime.time(12, 0, 0)), # Mid-day
+                st.times() # Random times
+            ),
+            min_size=2, max_size=12 # At least two times for averaging, max_size=12
+        )
+    )
+
+test_candidate.py:112: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+times = [datetime.time(0, 0), datetime.time(23, 59, 59)]
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        times=st.lists(
+            st.one_of(
+                st.just(datetime.time(0, 0, 0)), # Boundary: start of day
+                st.just(datetime.time(23, 59, 59)), # Boundary: end of day
+                st.just(datetime.time(12, 0, 0)), # Mid-day
+                st.times() # Random times
+            ),
+            min_size=2, max_size=12 # At least two times for averaging, max_size=12
+        )
+    )
+    def test_multiple_errors_and_average_calculation(times):
+        """
+        SPEC BASIS: "calculate the average time of occurrence of these errors."
+        PROPERTY: The returned list of error times should match the parsed times from error logs, and the calculated average time should be arithmetically correct.
+        STRATEGY: Generate multiple error logs with diverse times, including boundary values (00:00:00, 23:59:59), to thoroughly test time parsing and average calculation.
+                  The oracle for average time is recomputed using the same logic.
+        """
+        logs = [f"2023-01-01 {t.hour:02d}:{t.minute:02d}:{t.second:02d} ERROR: Message {i}" for i, t in enumerate(times)]
+    
+        expected_error_times = sorted(times) # Order is not specified, so sort for comparison
+        expected_avg_time = _calculate_average_time_oracle(times)
+    
+        try:
+            error_times, avg_time = task_func(logs)
+        except Exception:
+            error_times, avg_time = None, None
+    
+        assert error_times is not None, "task_func should return a list of times, not raise an exception for valid input."
+        assert avg_time is not None, "Average time should not be None for multiple errors."
+    
+>       assert sorted(error_times) == expected_error_times
+E       assert [datetime.tim....time(23, 59)] == [datetime.tim...e(23, 59, 59)]
+E         
+E         At index 1 diff: datetime.time(23, 59) != datetime.time(23, 59, 59)
+E         Use -v to get more diff
+E       Falsifying example: test_multiple_errors_and_average_calculation(
+E           times=[datetime.time(0, 0), datetime.time(23, 59, 59)],
+E       )
+
+test_candidate.py:143: AssertionError
+________________ test_malformed_and_non_error_logs_are_ignored _________________
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 341, in from_call
+  |     result: TResult | None = func()
+  |                              ^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 242, in <lambda>
+  |     lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 92, in pytest_runtest_call
+  |     yield from thread_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 68, in thread_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 95, in pytest_runtest_call
+  |     yield from unraisable_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 70, in unraisable_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 846, in pytest_runtest_call
+  |     yield from self._runtest_for(item, "call")
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 829, in _runtest_for
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/capture.py", line 898, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/skipping.py", line 257, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+  |     item.runtest()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1627, in runtest
+  |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 159, in pytest_pyfunc_call
+  |     result = testfunction(**testargs)
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpohu0z1os/test_candidate.py", line 147, in test_malformed_and_non_error_logs_are_ignored
+  |     @given(
+  |             
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py", line 1839, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpohu0z1os/test_candidate.py", line 184, in test_malformed_and_non_error_logs_are_ignored
+    |     assert sorted(error_times) == expected_error_times
+    | AssertionError: assert [datetime.time(10, 0)] == []
+    |   
+    |   Left contains one more item: datetime.time(10, 0)
+    |   Use -v to get more diff
+    | Falsifying example: test_malformed_and_non_error_logs_are_ignored(
+    |     log_data=['2023-01-01 10:00:00 ERROR No colon after level'],
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpohu0z1os/test_candidate.py", line 185, in test_malformed_and_non_error_logs_are_ignored
+    |     assert avg_time == expected_avg_time
+    | AssertionError: assert datetime.time(0, 0) == None
+    | Falsifying example: test_malformed_and_non_error_logs_are_ignored(
+    |     log_data=['This is not a log line'],
+    | )
+    +------------------------------------
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_empty_or_no_error_logs - assert datetime.time(...
+FAILED test_candidate.py::test_single_error_log - assert [datetime.time(0, 0)...
+FAILED test_candidate.py::test_multiple_errors_and_average_calculation - asse...
+FAILED test_candidate.py::test_malformed_and_non_error_logs_are_ignored - Exc...
+4 failed in 1.33s

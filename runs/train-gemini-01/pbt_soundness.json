@@ -1,0 +1,175 @@
+{
+  "BigCodeBench/1045": {
+    "failures_on_reference": 2,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/1072": {
+    "failures_on_reference": 0,
+    "reason": null,
+    "sound": true,
+    "verdict": "pass"
+  },
+  "BigCodeBench/1108": {
+    "reason": "generated collections may contain at most 12 elements",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/193": {
+    "failures_on_reference": 2,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/202": {
+    "failures_on_reference": 3,
+    "reason": null,
+    "sound": false,
+    "verdict": "pass"
+  },
+  "BigCodeBench/271": {
+    "reason": "pytest collection failed:\n==================================== ERRORS ====================================\n______________________ ERROR collecting test_candidate.py ______________________\ntest_candidate.py:15: in <module>\n    key_strategy = st.text(st.ascii_letters, min_size=1, max_size=5)\nE   AttributeError: module 'hypothesis.strategies' has no attribute 'ascii_letters'\n=========================== short test summary info ============================\nERROR test_candidate.py - AttributeError: module 'hypothesis.strategies' has ...\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\nno tests collected, 1 error in 0.13s",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/273": {
+    "failures_on_reference": 4,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/335": {
+    "reason": "SyntaxError: invalid syntax (test_candidate.py, line 198)",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/342": {
+    "failures_on_reference": 2,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/420": {
+    "failures_on_reference": 3,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/458": {
+    "failures_on_reference": 4,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/483": {
+    "reason": "min_size must be an integer literal",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/533": {
+    "reason": "generated module uses forbidden call st.integers.example",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/576": {
+    "failures_on_reference": 2,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/668": {
+    "failures_on_reference": 0,
+    "reason": null,
+    "sound": true,
+    "verdict": "pass"
+  },
+  "BigCodeBench/733": {
+    "failures_on_reference": 1,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/766": {
+    "failures_on_reference": 2,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/780": {
+    "failures_on_reference": 5,
+    "reason": null,
+    "sound": false,
+    "verdict": "pass"
+  },
+  "BigCodeBench/787": {
+    "reason": "min_size must be an integer literal",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/791": {
+    "reason": "test_example_from_problem_description has incorrect Hypothesis settings",
+    "sound": false,
+    "verdict": "invalid"
+  },
+  "BigCodeBench/795": {
+    "failures_on_reference": 0,
+    "reason": null,
+    "sound": true,
+    "verdict": "pass"
+  },
+  "BigCodeBench/811": {
+    "failures_on_reference": 4,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/822": {
+    "failures_on_reference": 0,
+    "reason": null,
+    "sound": true,
+    "verdict": "pass"
+  },
+  "BigCodeBench/824": {
+    "failures_on_reference": 1,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/833": {
+    "failures_on_reference": 0,
+    "reason": null,
+    "sound": true,
+    "verdict": "pass"
+  },
+  "BigCodeBench/860": {
+    "failures_on_reference": 1,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/893": {
+    "failures_on_reference": 4,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  },
+  "BigCodeBench/959": {
+    "failures_on_reference": 0,
+    "reason": null,
+    "sound": true,
+    "verdict": "pass"
+  },
+  "BigCodeBench/960": {
+    "failures_on_reference": 1,
+    "reason": null,
+    "sound": false,
+    "verdict": "pass"
+  },
+  "BigCodeBench/989": {
+    "failures_on_reference": 1,
+    "reason": null,
+    "sound": false,
+    "verdict": "fail"
+  }
+}

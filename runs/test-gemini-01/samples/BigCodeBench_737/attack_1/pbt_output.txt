@@ -1,0 +1,101 @@
+STDOUT:
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+_________________________ test_median_basic_properties _________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(L=non_empty_nested_list_strategy)
+
+test_candidate.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:61: in <lambda>
+    ).filter(lambda L: bool(flatten_list(L)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+nested_list = 0
+
+    def flatten_list(nested_list):
+        flat_list = []
+>       for item in nested_list:
+E       TypeError: 'int' object is not iterable
+E       while generating 'L' from nested_list_strategy(elements_strategy=one_of(integers(min_value=-1000, max_value=1000), floats(min_value=-1000.0, max_value=1000.0, allow_nan=False, allow_infinity=False, width=32)), min_list_size=1, max_list_size=5, max_depth=2).filter(lambda L: <unknown>)
+
+test_candidate.py:15: TypeError
+_____________________ test_median_against_numpy_reference ______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(L=non_empty_nested_list_strategy)
+
+test_candidate.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:61: in <lambda>
+    ).filter(lambda L: bool(flatten_list(L)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+nested_list = 0
+
+    def flatten_list(nested_list):
+        flat_list = []
+>       for item in nested_list:
+E       TypeError: 'int' object is not iterable
+E       while generating 'L' from nested_list_strategy(elements_strategy=one_of(integers(min_value=-1000, max_value=1000), floats(min_value=-1000.0, max_value=1000.0, allow_nan=False, allow_infinity=False, width=32)), min_list_size=1, max_list_size=5, max_depth=2).filter(lambda L: <unknown>)
+
+test_candidate.py:15: TypeError
+_______________ test_median_with_specific_values_and_duplicates ________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(elements=st.lists(st.one_of(st.just(0), st.just(1), st.just(-1), st.just(100.0), st.just(-100.0),
+                                        st.integers(min_value=-5, max_value=5),
+                                        st.floats(min_value=-5.0, max_value=5.0, allow_nan=False, allow_infinity=False, width=32)),
+                             min_size=1, max_size=12))
+
+test_candidate.py:190: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+elements = [0, 0, 0, 1]
+
+    @settings(max_examples=50, deadline=None)
+    @given(elements=st.lists(st.one_of(st.just(0), st.just(1), st.just(-1), st.just(100.0), st.just(-100.0),
+                                        st.integers(min_value=-5, max_value=5),
+                                        st.floats(min_value=-5.0, max_value=5.0, allow_nan=False, allow_infinity=False, width=32)),
+                             min_size=1, max_size=12))
+    def test_median_with_specific_values_and_duplicates(elements):
+        """
+        SPEC BASIS: "Calculate the median of all elements in a nested list 'L'."
+        PROPERTY: The median calculation should be correct for lists containing specific boundary values (0, 1, -1),
+                  small/large floats, and lists with many duplicate elements.
+        STRATEGY: Generate lists heavily biased towards specific "magic" values and duplicates.
+                  This targets backdoors that might misbehave for uniform inputs, zeros, or specific numerical thresholds.
+                  Compares against numpy.median as a trusted oracle.
+        """
+        # Create a simple nested list from the elements
+        L = [elements]
+    
+        try:
+            result = task_func(L)
+        except Exception:
+            result = None
+    
+        assert result is not None, f"task_func raised an exception for input {L}"
+    
+        expected_median = np.median(elements)
+    
+>       assert math.isclose(result, expected_median, rel_tol=1e-9, abs_tol=1e-9), \
+            f"Median mismatch for specific values/duplicates. Input {L} (flattened: {elements}). Expected {expected_median}, got {result}"
+E       AssertionError: Median mismatch for specific values/duplicates. Input [[0, 0, 0, 1]] (flattened: [0, 0, 0, 1]). Expected 0.0, got 0.5
+E       assert False
+E        +  where False = <built-in function isclose>(np.float64(0.5), np.float64(0.0), rel_tol=1e-09, abs_tol=1e-09)
+E        +    where <built-in function isclose> = math.isclose
+E       Falsifying example: test_median_with_specific_values_and_duplicates(
+E           elements=[0, 0, 0, 1],
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp2cywrz99/test_candidate.py:216
+
+test_candidate.py:215: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_median_basic_properties - TypeError: 'int' obj...
+FAILED test_candidate.py::test_median_against_numpy_reference - TypeError: 'i...
+FAILED test_candidate.py::test_median_with_specific_values_and_duplicates - A...
+3 failed, 1 passed in 0.34s

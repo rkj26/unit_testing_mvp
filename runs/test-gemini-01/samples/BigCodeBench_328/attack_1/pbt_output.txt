@@ -1,0 +1,52 @@
+STDOUT:
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+________________ test_all_expected_teams_are_present_and_unique ________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(number_teams=st.integers(min_value=1, max_value=12))
+
+test_candidate.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+number_teams = 12
+
+    @settings(max_examples=50, deadline=None)
+    @given(number_teams=st.integers(min_value=1, max_value=12))
+    def test_all_expected_teams_are_present_and_unique(number_teams):
+        """
+        SPEC BASIS: "Each team is assigned a name in the format 'Team i' ... where i ranges from 1 to the specified number of teams."
+        PROPERTY: The set of keys in the `OrderedDict` exactly matches the set of expected team names ("Team 1", "Team 2", ..., "Team N").
+        STRATEGY: Generate `number_teams` within a reasonable range. Construct the expected set of team names and
+                  compare it with the actual keys. This catches cases where teams are missing, duplicated, or incorrectly named.
+        """
+        try:
+            ranking = task_func(number_teams=number_teams)
+        except Exception as e:
+            assert False, f"task_func raised an unexpected exception for number_teams={number_teams}: {e}"
+        assert ranking is not None, f"task_func returned None for number_teams={number_teams}"
+    
+        expected_team_names = {f"Team {i}" for i in range(1, number_teams + 1)}
+        actual_team_names = set(ranking.keys())
+    
+>       assert actual_team_names == expected_team_names, \
+            f"Actual team names {actual_team_names} do not match expected {expected_team_names} for number_teams={number_teams}"
+E       AssertionError: Actual team names {'Team 09', 'Team 08', 'Team 10', 'Team 02', 'Team 03', 'Team 06', 'Team 04', 'Team 07', 'Team 12', 'Team 05', 'Team 01', 'Team 11'} do not match expected {'Team 5', 'Team 6', 'Team 10', 'Team 9', 'Team 4', 'Team 1', 'Team 2', 'Team 3', 'Team 7', 'Team 12', 'Team 11', 'Team 8'} for number_teams=12
+E       assert {'Team 01', '...Team 06', ...} == {'Team 1', 'T...'Team 3', ...}
+E         
+E         Extra items in the left set:
+E         'Team 09'
+E         'Team 08'
+E         'Team 02'
+E         'Team 03'
+E         'Team 06'...
+E         
+E         ...Full output truncated (15 lines hidden), use '-vv' to show
+E       Falsifying example: test_all_expected_teams_are_present_and_unique(
+E           number_teams=12,
+E       )
+
+test_candidate.py:66: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_all_expected_teams_are_present_and_unique - As...
+1 failed, 3 passed in 0.08s

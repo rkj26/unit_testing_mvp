@@ -1,0 +1,114 @@
+<test_code>
+# SEARCH PLAN:
+# 1. Boundary lengths (1, max_size=12) and digit counts (0, length).
+# 2. Character set validity: ensuring only allowed characters are present.
+# 3. Exact count of digits and letters.
+# 4. Specific edge case for length=1, num_digits=0 or 1.
+
+import string
+from hypothesis import given, settings, strategies as st
+
+# Import the function under test
+from candidate import task_func
+
+# Constants from the problem description
+LETTERS = string.ascii_letters
+DIGITS = string.digits
+ALL_ALLOWED_CHARS = LETTERS + DIGITS
+
+@st.composite
+def password_length_and_digits(draw):
+    """
+    Generates valid (length, num_digits) pairs, biasing towards boundary values.
+    Targets boundary values for length (1, 12) and num_digits (0, length).
+    """
+    length = draw(st.integers(min_value=1, max_value=12))
+    if length == 1:
+        # If length is 1, num_digits can only be 0 or 1.
+        num_digits = draw(st.sampled_from([0, 1]))
+    else:
+        # For length > 1, bias num_digits towards boundaries (0, length) and intermediate values.
+        num_digits = draw(st.one_of(
+            st.just(0),
+            st.just(length),
+            st.integers(min_value=1, max_value=length - 1)
+        ))
+    return length, num_digits
+
+@settings(max_examples=50, deadline=None)
+@given(params=password_length_and_digits())
+def test_password_length_and_character_set(params):
+    """
+    SPEC BASIS: "Generate a random password with a specified length", "consisting of letters and digits."
+    PROPERTY: The returned password's length matches the specified `length`, and all its characters
+              are exclusively from the allowed set (letters or digits).
+    STRATEGY: Generates `length` and `num_digits` including boundary values (length=1, num_digits=0,
+              num_digits=length) to catch off-by-one errors or incorrect character generation.
+    """
+    length, num_digits = params
+    try:
+        password = task_func(length, num_digits)
+    except Exception:
+        password = None
+
+    assert password is not None, f"task_func({length}, {num_digits}) raised an unexpected exception."
+    assert isinstance(password, str), f"Expected a string, got {type(password)}"
+    assert len(password) == length, \
+        f"Password length mismatch for length={length}, num_digits={num_digits}. Got '{password}' (len {len(password)})"
+    assert all(c in ALL_ALLOWED_CHARS for c in password), \
+        f"Password contains disallowed characters for length={length}, num_digits={num_digits}. Got '{password}'"
+
+@settings(max_examples=50, deadline=None)
+@given(params=password_length_and_digits())
+def test_password_digit_and_letter_counts(params):
+    """
+    SPEC BASIS: "the number of digits in it are specified by the user."
+    PROPERTY: The returned password contains exactly `num_digits` digits and `length - num_digits` letters.
+    STRATEGY: Focuses on the exact count of digits and letters, especially for boundary cases like
+              `num_digits=0` (all letters) and `num_digits=length` (all digits), where an adversary
+              might simplify logic and fail to meet the exact count.
+    """
+    length, num_digits = params
+    try:
+        password = task_func(length, num_digits)
+    except Exception:
+        password = None
+
+    assert password is not None, f"task_func({length}, {num_digits}) raised an unexpected exception."
+
+    actual_digits = sum(1 for char in password if char in DIGITS)
+    actual_letters = sum(1 for char in password if char in LETTERS)
+
+    assert actual_digits == num_digits, \
+        f"Digit count mismatch for length={length}, num_digits={num_digits}. Expected {num_digits}, got {actual_digits} in '{password}'"
+    assert actual_letters == (length - num_digits), \
+        f"Letter count mismatch for length={length}, num_digits={num_digits}. Expected {length - num_digits}, got {actual_letters} in '{password}'"
+
+@settings(max_examples=50, deadline=None)
+@given(length=st.just(1), num_digits=st.sampled_from([0, 1]))
+def test_single_character_password_edge_case(length, num_digits):
+    """
+    SPEC BASIS: "The total length of the password. Must be a positive integer." (implies length=1 is valid)
+                "The number of digits... Must be a non-negative integer and less than or equal to the total length."
+    PROPERTY: For length=1, the password is a single character, which is a digit if num_digits=1,
+              or a letter if num_digits=0.
+    STRATEGY: Explicitly targets the smallest possible valid length (1) and its corresponding
+              digit counts (0 or 1). This is a critical boundary where off-by-one or
+              simplification errors often hide.
+    """
+    try:
+        password = task_func(length, num_digits)
+    except Exception:
+        password = None
+
+    assert password is not None, f"task_func({length}, {num_digits}) raised an unexpected exception."
+    assert isinstance(password, str), f"Expected a string, got {type(password)}"
+    assert len(password) == 1, f"Expected length 1, got {len(password)} for '{password}'"
+
+    if num_digits == 1:
+        assert password[0] in DIGITS, \
+            f"Expected a digit for num_digits=1, got '{password[0]}' for length={length}, num_digits={num_digits}"
+    else: # num_digits == 0
+        assert password[0] in LETTERS, \
+            f"Expected a letter for num_digits=0, got '{password[0]}' for length={length}, num_digits={num_digits}"
+</test_code>

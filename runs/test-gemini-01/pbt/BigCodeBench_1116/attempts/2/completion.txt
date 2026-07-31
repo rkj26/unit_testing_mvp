@@ -1,0 +1,187 @@
+```python
+# SEARCH PLAN:
+# 1. Empty/Missing 'EMP$$' department: Target boundary condition where no ages can be generated, expecting StatisticsError.
+# 2. Single employee in 'EMP$$': Target boundary condition of one element, where mean, median, and mode must be equal.
+# 3. Output type and age range invariant: Verify return types and that all calculated values (mean, median, modes) are within the specified age range.
+# 4. Consistency of statistics with "modes" list: Leverage the example's unusual definition of "modes" (all ages) to verify mean/median calculations.
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import statistics
+import math
+from collections import Counter
+
+# Constants from the problem
+AGE_RANGE = (22, 60)
+
+# Helper strategy for department names, excluding "EMP$$"
+other_dept_names = st.text(
+    st.sampled_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
+    min_size=1, max_size=5
+).filter(lambda s: s != 'EMP$$')
+
+# Strategy for employee counts in other departments
+other_employee_counts = st.integers(min_value=0, max_value=10)
+
+@settings(max_examples=50, deadline=None)
+@given(
+    num_other_depts=st.integers(min_value=0, max_value=5),
+    employee_counts=st.lists(other_employee_counts, min_size=0, max_size=5),
+    dept_names=st.lists(other_dept_names, min_size=0, max_size=5, unique=True),
+    include_emp_zero=st.booleans() # Strategy to decide whether to include 'EMP$$': 0 or omit it
+)
+def test_empty_or_missing_emp_department_raises_error(num_other_depts, employee_counts, dept_names, include_emp_zero):
+    """
+    SPEC BASIS: "Calculate the mean, the median, and the mode(s) of the age of the employees in the department 'EMP$$'."
+                The `statistics` module functions raise `StatisticsError` for empty data.
+    PROPERTY: If the 'EMP$$' department has zero employees or is not present, the function should raise
+              `statistics.StatisticsError` because no ages can be generated for an empty set.
+    STRATEGY: Generate dictionaries where 'EMP$$' is either explicitly set to 0 employees or is entirely absent.
+              Other departments may or may not be present with various employee counts. This targets the empty-input boundary.
+    """
+    d = {}
+    # Populate with other departments
+    for i in range(min(num_other_depts, len(dept_names), len(employee_counts))):
+        d[dept_names[i]] = employee_counts[i]
+
+    # Decide whether to include 'EMP$$' with 0 employees or omit it
+    if include_emp_zero:
+        d['EMP$$'] = 0
+    # Else, 'EMP$$' is simply not in the dictionary
+
+    try:
+        task_func(d)
+        # If no exception, it's a failure for this test
+        assert False, "task_func did not raise StatisticsError for empty 'EMP$$' department"
+    except statistics.StatisticsError:
+        # This is the expected behavior
+        pass
+    except Exception as e:
+        assert False, f"task_func raised unexpected exception {type(e).__name__} for empty 'EMP$$' department"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    num_other_depts=st.integers(min_value=0, max_value=5),
+    employee_counts=st.lists(other_employee_counts, min_size=0, max_size=5),
+    dept_names=st.lists(other_dept_names, min_size=0, max_size=5, unique=True)
+)
+def test_single_employee_emp_department(num_other_depts, employee_counts, dept_names):
+    """
+    SPEC BASIS: "Calculate the mean, the median, and the mode(s) of the age of the employees in the department 'EMP$$'."
+    PROPERTY: If 'EMP$$' has exactly one employee, the mean, median, and the single mode must all be equal to that employee's age.
+              The age must also be within the specified AGE_RANGE.
+    STRATEGY: Generate dictionaries where 'EMP$$' has exactly 1 employee. Other departments are optional.
+              This targets the single-element boundary condition.
+    """
+    d = {'EMP$$': 1}
+    for i in range(min(num_other_depts, len(dept_names), len(employee_counts))):
+        d[dept_names[i]] = employee_counts[i]
+
+    try:
+        mean, median, modes = task_func(d)
+    except Exception:
+        mean, median, modes = None, None, None
+
+    assert mean is not None, "task_func raised an exception for single employee"
+    assert isinstance(mean, float)
+    assert isinstance(median, float)
+    assert isinstance(modes, list)
+    assert len(modes) == 1, f"Expected exactly one mode for a single employee, got {len(modes)}"
+
+    # For a single element, mean, median, and mode are all equal to that element.
+    assert math.isclose(mean, median), f"Mean ({mean}) and Median ({median}) are not equal for single employee"
+    assert math.isclose(mean, float(modes[0])), f"Mean ({mean}) and Mode ({modes[0]}) are not equal for single employee"
+
+    # Also check that the age is within the specified range
+    assert AGE_RANGE[0] <= mean <= AGE_RANGE[1], f"Single employee age ({mean}) out of range {AGE_RANGE}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    emp_count=st.integers(min_value=1, max_value=10), # Small number of employees for controlled mode testing
+    other_depts_dict=st.dictionaries(
+        other_dept_names,
+        other_employee_counts,
+        min_size=0, max_size=5
+    )
+)
+def test_output_type_and_age_range_invariant(emp_count, other_depts_dict):
+    """
+    SPEC BASIS: "Returns: tuple: A tuple of mean, median, and a list of mode(s) of employee ages."
+                "Generate random ages for each employee within the range [22, 60]."
+    PROPERTY: The output is a tuple of (float, float, list). All ages in the mode list must be integers
+              within the specified AGE_RANGE [22, 60]. Mean and median must also be within this range.
+    STRATEGY: Generate dictionaries with 'EMP$$' having a small number of employees (1-10) to ensure
+              the mode list is manageable. Other departments are also included. This checks general output invariants.
+    """
+    d = other_depts_dict.copy()
+    d['EMP$$'] = emp_count
+
+    try:
+        mean, median, modes = task_func(d)
+    except Exception:
+        mean, median, modes = None, None, None
+
+    assert mean is not None, "task_func raised an exception"
+    assert isinstance(mean, float), f"Mean is not a float: {type(mean)}"
+    assert isinstance(median, float), f"Median is not a float: {type(median)}"
+    assert isinstance(modes, list), f"Modes is not a list: {type(modes)}"
+
+    # Check that mean and median are within the age range
+    assert AGE_RANGE[0] <= mean <= AGE_RANGE[1], f"Mean ({mean}) out of expected age range {AGE_RANGE}"
+    assert AGE_RANGE[0] <= median <= AGE_RANGE[1], f"Median ({median}) out of expected age range {AGE_RANGE}"
+
+    # Check that all modes are integers within the age range
+    assert len(modes) == emp_count, f"Modes list length ({len(modes)}) does not match employee count ({emp_count})"
+    for mode_val in modes:
+        assert isinstance(mode_val, int), f"Mode value {mode_val} is not an integer"
+        assert AGE_RANGE[0] <= mode_val <= AGE_RANGE[1], f"Mode value ({mode_val}) out of expected age range {AGE_RANGE}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    emp_count=st.integers(min_value=1, max_value=10), # At least one employee for valid stats
+    other_depts_dict=st.dictionaries(
+        other_dept_names,
+        other_employee_counts,
+        min_size=0, max_size=5
+    )
+)
+def test_mean_median_consistency_with_modes_list(emp_count, other_depts_dict):
+    """
+    SPEC BASIS: "Calculate the mean, the median, and the mode(s) of the age of the employees in the department 'EMP$$'."
+                Example: `(44.7, 46.5, [46, 48, 24, 38, 54, 53, 47, 41, 52, 44])` implies the "modes" list is
+                the actual list of generated ages.
+    PROPERTY: The "mode(s)" output is exactly the list of generated ages for "EMP$$".
+              The mean and median are correctly calculated from this list.
+    STRATEGY: Generate inputs with a small number of employees. Since the "modes" list is interpreted as
+              the raw ages, we can re-calculate the mean and median from this list and compare them
+              to the returned mean and median. This is a strong metamorphic property.
+    """
+    d = other_depts_dict.copy()
+    d['EMP$$'] = emp_count
+
+    try:
+        mean, median, modes = task_func(d)
+    except Exception:
+        mean, median, modes = None, None, None
+
+    assert mean is not None, "task_func raised an exception"
+    assert isinstance(modes, list)
+    assert len(modes) == emp_count, f"Modes list length ({len(modes)}) does not match employee count ({emp_count})"
+
+    # Verify mean and median against the "modes" list (which is interpreted as the actual ages)
+    if modes:
+        expected_mean = statistics.mean(modes)
+        expected_median = statistics.median(modes)
+        assert math.isclose(mean, expected_mean), \
+            f"Calculated mean ({mean}) does not match expected mean ({expected_mean}) from modes list"
+        assert math.isclose(median, expected_median), \
+            f"Calculated median ({median}) does not match expected median ({expected_median}) from modes list"
+    else:
+        # This case should be caught by test_empty_or_missing_emp_department_raises_error
+        # but as a safeguard, if it somehow returns without error, ensure stats are consistent.
+        assert mean is None and median is None and modes is None, \
+            "Expected None for empty list if no error, but got values"
+
+```

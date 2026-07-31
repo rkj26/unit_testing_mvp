@@ -1,0 +1,55 @@
+STDOUT:
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+____________________ test_valid_pair_structure_and_content _____________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(word=st.text(string.ascii_lowercase, min_size=2, max_size=12))
+
+test_candidate.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+word = 'aa'
+
+    @settings(max_examples=50, deadline=None)
+    @given(word=st.text(string.ascii_lowercase, min_size=2, max_size=12))
+    def test_valid_pair_structure_and_content(word):
+        """
+        SPEC BASIS: "Generates a list of random pairs of adjacent letters from the given word."
+        PROPERTY: For words with 2 or more letters, each element in the output list is a two-character
+                  string, and that string must be a valid adjacent pair from the input word.
+        STRATEGY: Generate words of length 2 to 12, ensuring they are long enough to form pairs.
+                  Check that each output element is a 2-char string and is a valid adjacent substring
+                  of the input word. This catches implementations returning non-pairs, single letters,
+                  or non-adjacent/invalid characters.
+        """
+        try:
+            result = task_func(word)
+        except Exception:
+            result = None
+        assert result is not None, f"task_func('{word}') raised an unexpected exception."
+        assert isinstance(result, list), f"Expected a list, got {type(result)}"
+        assert len(result) == EXPECTED_OUTPUT_LENGTH, \
+            f"Output list length mismatch for '{word}': expected {EXPECTED_OUTPUT_LENGTH}, got {len(result)}"
+    
+        valid_pairs = {word[i:i+2] for i in range(len(word) - 1)}
+    
+        for i, pair in enumerate(result):
+            assert isinstance(pair, str), \
+                f"Element {i} in result for '{word}' is not a string: {pair}"
+>           assert len(pair) == 2, \
+                f"Element {i} in result for '{word}' is not a two-character string: '{pair}'"
+E           AssertionError: Element 0 in result for 'aa' is not a two-character string: 'a'
+E           assert 1 == 2
+E            +  where 1 = len('a')
+E           Falsifying example: test_valid_pair_structure_and_content(
+E               word='aa',
+E           )
+E           Explanation:
+E               These lines were always and only run by failing examples:
+E                   /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptxqg3oy4/candidate.py:22
+
+test_candidate.py:76: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_valid_pair_structure_and_content - AssertionEr...
+1 failed, 3 passed in 0.16s

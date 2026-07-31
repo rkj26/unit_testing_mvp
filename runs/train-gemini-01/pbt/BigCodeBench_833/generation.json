@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated module imports a forbidden module",
+      "test_count": 3,
+      "usage": {
+        "input_tokens": 3595,
+        "output_tokens": 4038,
+        "reasoning_tokens": 1710,
+        "total_tokens": 7633
+      }
+    },
+    {
+      "error": null,
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 5961,
+        "output_tokens": 4175,
+        "reasoning_tokens": 1560,
+        "total_tokens": 10136
+      }
+    }
+  ],
+  "error": null,
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 9556,
+    "output_tokens": 8213,
+    "reasoning_tokens": 3270,
+    "total_tokens": 17769
+  }
+}

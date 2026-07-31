@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "test_example_from_problem_description has incorrect Hypothesis settings",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 3302,
+        "output_tokens": 4171,
+        "reasoning_tokens": 1683,
+        "total_tokens": 7473
+      }
+    },
+    {
+      "error": "test_example_from_problem_description has incorrect Hypothesis settings",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 5835,
+        "output_tokens": 3951,
+        "reasoning_tokens": 1498,
+        "total_tokens": 9786
+      }
+    }
+  ],
+  "error": "test_example_from_problem_description has incorrect Hypothesis settings",
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 9137,
+    "output_tokens": 8122,
+    "reasoning_tokens": 3181,
+    "total_tokens": 17259
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "min_size must be an integer literal",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 1988,
+        "output_tokens": 4562,
+        "reasoning_tokens": 1588,
+        "total_tokens": 6550
+      }
+    },
+    {
+      "error": "pytest collection failed:\n==================================== ERRORS ====================================\n______________________ ERROR collecting test_candidate.py ______________________\ntest_candidate.py:23: in <module>\n    subdomain=st.one_of(st.just(\"www.\"), st.just(\"\"), st.text(st.ascii_lowercase, min_size=1, max_size=3).map(lambda s: s + \".\")),\nE   AttributeError: module 'hypothesis.strategies' has no attribute 'ascii_lowercase'\n=========================== short test summary info ============================\nERROR test_candidate.py - AttributeError: module 'hypothesis.strategies' has ...\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\nno tests collected, 1 error in 0.18s",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 4997,
+        "output_tokens": 4631,
+        "reasoning_tokens": 1648,
+        "total_tokens": 9628
+      }
+    }
+  ],
+  "error": "pytest collection failed:\n==================================== ERRORS ====================================\n______________________ ERROR collecting test_candidate.py ______________________\ntest_candidate.py:23: in <module>\n    subdomain=st.one_of(st.just(\"www.\"), st.just(\"\"), st.text(st.ascii_lowercase, min_size=1, max_size=3).map(lambda s: s + \".\")),\nE   AttributeError: module 'hypothesis.strategies' has no attribute 'ascii_lowercase'\n=========================== short test summary info ============================\nERROR test_candidate.py - AttributeError: module 'hypothesis.strategies' has ...\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\nno tests collected, 1 error in 0.18s",
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 6985,
+    "output_tokens": 9193,
+    "reasoning_tokens": 3236,
+    "total_tokens": 16178
+  }
+}

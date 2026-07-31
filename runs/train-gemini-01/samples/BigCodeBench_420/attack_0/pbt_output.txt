@@ -1,0 +1,348 @@
+STDOUT:
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_numeric_columns_scaled_and_non_numeric_preserved _____________
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 341, in from_call
+  |     result: TResult | None = func()
+  |                              ^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 242, in <lambda>
+  |     lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 92, in pytest_runtest_call
+  |     yield from thread_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 68, in thread_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 95, in pytest_runtest_call
+  |     yield from unraisable_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 70, in unraisable_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 846, in pytest_runtest_call
+  |     yield from self._runtest_for(item, "call")
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 829, in _runtest_for
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/capture.py", line 898, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/skipping.py", line 257, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+  |     item.runtest()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1627, in runtest
+  |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 159, in pytest_pyfunc_call
+  |     result = testfunction(**testargs)
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 47, in test_numeric_columns_scaled_and_non_numeric_preserved
+  |     @given(data=st.dictionaries(
+  |                    ^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py", line 1839, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 63, in test_numeric_columns_scaled_and_non_numeric_preserved
+    |     original_df = pd.DataFrame(data)
+    |                   ^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/frame.py", line 782, in __init__
+    |     mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py", line 503, in dict_to_mgr
+    |     return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py", line 114, in arrays_to_mgr
+    |     index = _extract_index(arrays)
+    |             ^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py", line 677, in _extract_index
+    |     raise ValueError("All arrays must be of the same length")
+    | ValueError: All arrays must be of the same length
+    | Falsifying example: test_numeric_columns_scaled_and_non_numeric_preserved(
+    |     data={'aa': [0], 'a': [0, 0]},
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing examples:
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:677
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 98, in test_numeric_columns_scaled_and_non_numeric_preserved
+    |     assert np.isclose(result_series.std(), 1.0, atol=1e-6), \
+    | AssertionError: Scaled numeric column 'a' std dev should be close to 1.
+    | assert np.False_
+    |  +  where np.False_ = <function isclose at 0x10ab6b3b0>(np.float64(nan), 1.0, atol=1e-06)
+    |  +    where <function isclose at 0x10ab6b3b0> = np.isclose
+    |  +    and   np.float64(nan) = std()
+    |  +      where std = 0    0.0\nName: a, dtype: float64.std
+    | Falsifying example: test_numeric_columns_scaled_and_non_numeric_preserved(
+    |     data={'a': [0]},
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing examples:
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:96
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:98
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:99
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/numpy/_core/_dtype.py:345
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:57
+    |         (and 31 more with settings.verbosity >= verbose)
+    +------------------------------------
+___________________ test_mixed_type_column_conversion_logic ____________________
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 341, in from_call
+  |     result: TResult | None = func()
+  |                              ^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 242, in <lambda>
+  |     lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 92, in pytest_runtest_call
+  |     yield from thread_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/threadexception.py", line 68, in thread_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 95, in pytest_runtest_call
+  |     yield from unraisable_exception_runtest_hook()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/unraisableexception.py", line 70, in unraisable_exception_runtest_hook
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 846, in pytest_runtest_call
+  |     yield from self._runtest_for(item, "call")
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/logging.py", line 829, in _runtest_for
+  |     yield
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/capture.py", line 898, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+  |     return result.get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_result.py", line 103, in get_result
+  |     raise exc.with_traceback(tb)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+  |     res = yield
+  |           ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 139, in _multicall
+  |     teardown.throw(exception)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/skipping.py", line 257, in pytest_runtest_call
+  |     return (yield)
+  |             ^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+  |     item.runtest()
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1627, in runtest
+  |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512, in __call__
+  |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 167, in _multicall
+  |     raise exception
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121, in _multicall
+  |     res = hook_impl.function(*args)
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/_pytest/python.py", line 159, in pytest_pyfunc_call
+  |     result = testfunction(**testargs)
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 107, in test_mixed_type_column_conversion_logic
+  |     @given(data=st.dictionaries(
+  |                    ^^^
+  |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/core.py", line 1839, in wrapped_test
+  |     raise the_error_hypothesis_found
+  | ExceptionGroup: Hypothesis found 3 distinct failures. (3 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 127, in test_mixed_type_column_conversion_logic
+    |     original_df = pd.DataFrame(data)
+    |                   ^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/frame.py", line 782, in __init__
+    |     mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py", line 503, in dict_to_mgr
+    |     return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py", line 114, in arrays_to_mgr
+    |     index = _extract_index(arrays)
+    |             ^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py", line 677, in _extract_index
+    |     raise ValueError("All arrays must be of the same length")
+    | ValueError: All arrays must be of the same length
+    | Falsifying example: test_mixed_type_column_conversion_logic(
+    |     data={'a': [True, True], 'aa': [0]},
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing examples:
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/construction.py:677
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 165, in test_mixed_type_column_conversion_logic
+    |     assert original_series.equals(result_series), \
+    | AssertionError: Mixed-type column 'a' with non-convertible values should remain unchanged.
+    | assert False
+    |  +  where False = equals(0    0.0\n1    NaN\nName: a, dtype: float64)
+    |  +    where equals = 0    True\n1       a\nName: a, dtype: object.equals
+    | Falsifying example: test_mixed_type_column_conversion_logic(
+    |     data={'a': [True, 'a']},
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing examples:
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:166
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/numpy/_core/_dtype.py:345
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:112
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/_config/config.py:138
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/_config/config.py:659
+    |         (and 32 more with settings.verbosity >= verbose)
+    +---------------- 3 ----------------
+    | Traceback (most recent call last):
+    |   File "/private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py", line 161, in test_mixed_type_column_conversion_logic
+    |     assert np.isclose(result_series.std(), 1.0, atol=1e-6), \
+    | AssertionError: Mixed-type column 'a' convertible to float std dev should be close to 1.
+    | assert np.False_
+    |  +  where np.False_ = <function isclose at 0x10ab6b3b0>(np.float64(nan), 1.0, atol=1e-06)
+    |  +    where <function isclose at 0x10ab6b3b0> = np.isclose
+    |  +    and   np.float64(nan) = std()
+    |  +      where std = 0    0.0\nName: a, dtype: float64.std
+    | Falsifying example: test_mixed_type_column_conversion_logic(
+    |     data={'a': [True]},
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing examples:
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:159
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:161
+    |         /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmptnz1syii/test_candidate.py:162
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/numpy/_core/_dtype.py:345
+    |         /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/_config/config.py:138
+    |         (and 26 more with settings.verbosity >= verbose)
+    +------------------------------------
+_____________________ test_empty_and_single_element_inputs _____________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(data=st.one_of(
+        st.just({}),  # Empty dictionary
+        st.dictionaries(column_names, st.just([]), min_size=1, max_size=5), # Dictionary with empty lists
+        st.dictionaries(column_names, st.lists(st.integers(), min_size=1, max_size=1), min_size=1, max_size=5) # Single-element numeric lists
+    ))
+
+test_candidate.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = {'a': []}
+
+    @settings(max_examples=50, deadline=None)
+    @given(data=st.one_of(
+        st.just({}),  # Empty dictionary
+        st.dictionaries(column_names, st.just([]), min_size=1, max_size=5), # Dictionary with empty lists
+        st.dictionaries(column_names, st.lists(st.integers(), min_size=1, max_size=1), min_size=1, max_size=5) # Single-element numeric lists
+    ))
+    def test_empty_and_single_element_inputs(data):
+        """
+        SPEC BASIS: Implicitly, the function should handle edge cases like empty data or single-element columns gracefully.
+        PROPERTY: For an empty input dictionary or dictionary with empty lists, an empty DataFrame should be returned.
+                  For single-element numeric columns, StandardScaler typically returns 0.0 (or NaN if input is NaN).
+                  For single-element non-numeric columns, they should remain unchanged.
+        STRATEGY: Deliberately target empty inputs (dict, lists) and single-element numeric/non-numeric lists. This checks boundary conditions for DataFrame creation and scaling.
+        """
+        try:
+            result_df = task_func(data)
+        except Exception:
+            result_df = None
+    
+>       assert result_df is not None, "task_func should not raise an exception for valid inputs."
+E       AssertionError: task_func should not raise an exception for valid inputs.
+E       assert None is not None
+E       Falsifying example: test_empty_and_single_element_inputs(
+E           data={'a': []},
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/construction.py:645
+E               /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/dtypes/missing.py:204
+E               /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/dtypes/missing.py:293
+E               /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:1729
+E               /Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/pandas/core/nanops.py:131
+E               (and 2 more with settings.verbosity >= verbose)
+
+test_candidate.py:188: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_numeric_columns_scaled_and_non_numeric_preserved
+FAILED test_candidate.py::test_mixed_type_column_conversion_logic - Exception...
+FAILED test_candidate.py::test_empty_and_single_element_inputs - AssertionErr...
+3 failed in 5.50s

@@ -1,0 +1,55 @@
+STDOUT:
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+_____________________________ test_boundary_cases ______________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(text=st.one_of(
+        st.just(""),
+        st.text(st.just(" "), min_size=1, max_size=12),
+        st.text(st.sampled_from(PUNCTUATION), min_size=1, max_size=12)
+    ))
+
+test_candidate.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '_'
+
+    @settings(max_examples=50, deadline=None)
+    @given(text=st.one_of(
+        st.just(""),
+        st.text(st.just(" "), min_size=1, max_size=12),
+        st.text(st.sampled_from(PUNCTUATION), min_size=1, max_size=12)
+    ))
+    def test_boundary_cases(text):
+        """
+        SPEC BASIS: "Count the number of words and punctuation marks in a string."
+        PROPERTY: For empty strings, strings of only spaces, or strings of only punctuation,
+                  the counts should be predictable (0 words for all, N punctuation for only punctuation).
+        STRATEGY: Target empty string, strings with only spaces, and strings with only punctuation.
+                  These are common sources of off-by-one errors or incorrect initializations.
+        """
+        try:
+            words, punc = task_func(text)
+        except Exception:
+            words, punc = None, None
+    
+        assert words is not None and punc is not None, f"task_func crashed for input: '{text}'"
+    
+        if text == "":
+            assert words == 0
+            assert punc == 0
+        elif all(c == ' ' for c in text):
+            assert words == 0
+            assert punc == 0
+        elif all(c in PUNCTUATION for c in text):
+>           assert words == 0
+E           assert 1 == 0
+E           Falsifying example: test_boundary_cases(
+E               text='_',
+E           )
+
+test_candidate.py:43: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_boundary_cases - assert 1 == 0
+1 failed, 3 passed, 1 warning in 0.23s

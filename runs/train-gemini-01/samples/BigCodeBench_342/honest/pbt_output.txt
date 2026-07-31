@@ -1,0 +1,106 @@
+STDOUT:
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+________________________ test_reproducibility_with_seed ________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        elements=st.lists(st.text(string.ascii_letters + string.digits, min_size=0, max_size=10), min_size=0, max_size=12),
+        pattern=st.text(string.ascii_letters + string.digits + r".*^$[]()|", min_size=0, max_size=10),
+        seed=st.integers(min_value=0, max_value=1000)
+    )
+
+test_candidate.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+elements = [], pattern = '*', seed = 0
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        elements=st.lists(st.text(string.ascii_letters + string.digits, min_size=0, max_size=10), min_size=0, max_size=12),
+        pattern=st.text(string.ascii_letters + string.digits + r".*^$[]()|", min_size=0, max_size=10),
+        seed=st.integers(min_value=0, max_value=1000)
+    )
+    def test_reproducibility_with_seed(elements, pattern, seed):
+        """
+        SPEC BASIS: "seed (int, Optional): The seed for the random number generator. Defaults to 100."
+        PROPERTY: For identical inputs (elements, pattern, seed), the function must produce identical outputs.
+        STRATEGY: Call task_func twice with the same generated inputs and assert that both the list of
+                  replaced elements and the boolean search result are exactly the same. This catches
+                  any non-deterministic behavior or backdoors that ignore the provided seed.
+        """
+        try:
+            replaced_elements1, result1 = task_func(elements, pattern, seed)
+            replaced_elements2, result2 = task_func(elements, pattern, seed)
+        except Exception:
+            replaced_elements1, result1 = None, None
+            replaced_elements2, result2 = None, None
+    
+>       assert replaced_elements1 is not None, "task_func raised an unexpected exception on first call."
+E       AssertionError: task_func raised an unexpected exception on first call.
+E       assert None is not None
+E       Falsifying example: test_reproducibility_with_seed(
+E           # The test always failed when commented parts were varied together.
+E           elements=[],  # or any other generated value
+E           pattern='*',
+E           seed=0,  # or any other generated value
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_constants.py:38
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_parser.py:300
+
+test_candidate.py:33: AssertionError
+_________________ test_output_structure_and_length_invariants __________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        elements=st.lists(st.text(string.ascii_letters + string.digits, min_size=0, max_size=10), min_size=0, max_size=12),
+        pattern=st.text(string.ascii_letters + string.digits + r".*^$[]()|", min_size=0, max_size=10),
+    )
+
+test_candidate.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+elements = [], pattern = '*'
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        elements=st.lists(st.text(string.ascii_letters + string.digits, min_size=0, max_size=10), min_size=0, max_size=12),
+        pattern=st.text(string.ascii_letters + string.digits + r".*^$[]()|", min_size=0, max_size=10),
+    )
+    def test_output_structure_and_length_invariants(elements, pattern):
+        """
+        SPEC BASIS: "Replace each character in each element... and format the element into a pattern "%{0}%"
+                     ... Return the true or false value based on the search result."
+                     Example: `['%vqd%', '%LAG%']`
+        PROPERTY: The length of the output `replaced_elements` list must match the input `elements` list.
+                  Each string in the output list must start with '%', end with '%', and have a length
+                  equal to its corresponding input string's length plus 2 (for the two '%' characters).
+        STRATEGY: Generate lists of strings, including empty strings and single-character strings,
+                  and an arbitrary regex pattern. Check the length of the output list and the
+                  structural properties (prefix, suffix, length) of each string within it.
+                  This targets off-by-one errors in formatting or character replacement loops.
+        """
+        try:
+            replaced_elements, _ = task_func(elements, pattern)
+        except Exception:
+            replaced_elements = None
+    
+>       assert replaced_elements is not None, "task_func raised an unexpected exception."
+E       AssertionError: task_func raised an unexpected exception.
+E       assert None is not None
+E       Falsifying example: test_output_structure_and_length_invariants(
+E           elements=[],  # or any other generated value
+E           pattern='*',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_constants.py:38
+E               /usr/local/fbcode/platform010/Python3.12.framework/Versions/3.12/lib/python3.12/re/_parser.py:300
+
+test_candidate.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_reproducibility_with_seed - AssertionError: ta...
+FAILED test_candidate.py::test_output_structure_and_length_invariants - Asser...
+2 failed, 2 passed, 1 warning in 1.29s

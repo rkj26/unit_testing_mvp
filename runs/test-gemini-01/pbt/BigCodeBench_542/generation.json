@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "test_empty_keys_raises_value_error contains no assertion",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 3337,
+        "output_tokens": 4280,
+        "reasoning_tokens": 1847,
+        "total_tokens": 7617
+      }
+    },
+    {
+      "error": "generated module imports a forbidden module",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 5634,
+        "output_tokens": 4293,
+        "reasoning_tokens": 1510,
+        "total_tokens": 9927
+      }
+    }
+  ],
+  "error": "generated module imports a forbidden module",
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 8971,
+    "output_tokens": 8573,
+    "reasoning_tokens": 3357,
+    "total_tokens": 17544
+  }
+}

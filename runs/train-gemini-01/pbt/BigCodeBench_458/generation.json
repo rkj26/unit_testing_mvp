@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "pytest collection failed:\n==================================== ERRORS ====================================\n______________________ ERROR collecting test_candidate.py ______________________\ntest_candidate.py:36: in <module>\n    keys=st.text(st.ascii_lowercase, min_size=1, max_size=5),\nE   AttributeError: module 'hypothesis.strategies' has no attribute 'ascii_lowercase'\n=========================== short test summary info ============================\nERROR test_candidate.py - AttributeError: module 'hypothesis.strategies' has ...\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\nno tests collected, 1 error in 0.51s",
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 3439,
+        "output_tokens": 5447,
+        "reasoning_tokens": 2001,
+        "total_tokens": 8886
+      }
+    },
+    {
+      "error": null,
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 7056,
+        "output_tokens": 5305,
+        "reasoning_tokens": 1683,
+        "total_tokens": 12361
+      }
+    }
+  ],
+  "error": null,
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 10495,
+    "output_tokens": 10752,
+    "reasoning_tokens": 3684,
+    "total_tokens": 21247
+  }
+}

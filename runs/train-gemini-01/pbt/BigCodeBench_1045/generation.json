@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "generated module must define 3-5 top-level tests",
+      "test_count": 0,
+      "usage": {
+        "input_tokens": 3481,
+        "output_tokens": 7220,
+        "reasoning_tokens": 1529,
+        "total_tokens": 10701
+      }
+    },
+    {
+      "error": null,
+      "test_count": 4,
+      "usage": {
+        "input_tokens": 9211,
+        "output_tokens": 5059,
+        "reasoning_tokens": 1613,
+        "total_tokens": 14270
+      }
+    }
+  ],
+  "error": null,
+  "repair_attempted": true,
+  "test_count": 4,
+  "usage": {
+    "input_tokens": 12692,
+    "output_tokens": 12279,
+    "reasoning_tokens": 3142,
+    "total_tokens": 24971
+  }
+}

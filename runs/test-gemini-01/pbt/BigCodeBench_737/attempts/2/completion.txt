@@ -1,0 +1,219 @@
+```python
+# SEARCH PLAN:
+# 1. Basic properties: Test that the median is within the min/max range of elements, and for odd/even counts, it's either an element or between two. This covers fundamental correctness and edge cases for list length (single element, two elements).
+# 2. Numpy reference: Compare `task_func` output against `numpy.median` on the flattened list, leveraging `numpy` as a trusted oracle. This is a strong check for numerical accuracy and general correctness across diverse inputs.
+# 3. Invariance to structure/order: Verify that different nesting structures or element order (that flatten to the same multiset) yield the same median. This targets potential issues with flattening logic or order dependence, especially with duplicates or varied nesting.
+# 4. Edge cases for values: Test with specific numerical edge cases like zero, negative numbers, large/small floats, and lists containing only identical elements. This targets potential backdoors hiding in specific value ranges or uniform inputs.
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import numpy as np
+import math
+
+# Helper to flatten a nested list
+def flatten_list(nested_list):
+    flat_list = []
+    for item in nested_list:
+        if isinstance(item, list):
+            flat_list.extend(flatten_list(item))
+        else:
+            flat_list.append(item)
+    return flat_list
+
+# Strategy for generating numbers (integers and floats)
+numbers_strategy = st.one_of(
+    st.integers(min_value=-1000, max_value=1000),
+    st.floats(min_value=-1000.0, max_value=1000.0, allow_nan=False, allow_infinity=False, width=32)
+)
+
+# Strategy for generating nested lists with controlled depth and size
+@st.composite
+def nested_list_strategy(draw, elements_strategy, min_list_size, max_list_size, max_depth):
+    current_depth = draw(st.integers(min_value=0, max_value=max_depth))
+    
+    if current_depth == 0:
+        # At max depth or decided not to nest further, draw an element
+        return draw(elements_strategy)
+    
+    # Otherwise, draw a list
+    size = draw(st.integers(min_value=min_list_size, max_value=max_list_size))
+    
+    # Ensure the list is not empty if min_list_size > 0, but allow empty sublists
+    if size == 0 and min_list_size > 0:
+        size = 1 # Force at least one element if min_list_size is positive
+
+    current_list = []
+    for _ in range(size):
+        # Randomly decide to nest further or add an element
+        if draw(st.booleans()) and current_depth > 1:
+            current_list.append(draw(nested_list_strategy(elements_strategy, min_list_size=0, max_list_size=max_list_size, max_depth=current_depth - 1)))
+        else:
+            current_list.append(draw(elements_strategy))
+    return current_list
+
+# Strategy for generating non-empty flattened lists, ensuring the top-level list is not empty
+# and that it contains at least one non-list element eventually.
+# This is achieved by ensuring the top-level list has min_size=1 and then filtering for non-empty flattened lists.
+non_empty_nested_list_strategy = nested_list_strategy(
+    elements_strategy=numbers_strategy,
+    min_list_size=1,
+    max_list_size=5,
+    max_depth=2
+).filter(lambda L: bool(flatten_list(L)))
+
+
+@settings(max_examples=50, deadline=None)
+@given(L=non_empty_nested_list_strategy)
+def test_median_basic_properties(L):
+    """
+    SPEC BASIS: "Calculate the median of all elements in a nested list 'L'."
+    PROPERTY: The median must be within the range [min(flattened_list), max(flattened_list)].
+              If the flattened list has an odd number of elements, the median must be one of the elements (or numerically close).
+              If it has an even number, it must be between the two middle elements (inclusive, or numerically close).
+    STRATEGY: Generate nested lists with various numbers (positive, negative, zero, floats), ensuring the flattened list is never empty.
+              This covers basic correctness, range, and odd/even count behavior.
+    """
+    flat_L = flatten_list(L)
+    # The strategy `non_empty_nested_list_strategy` ensures flat_L is not empty.
+
+    try:
+        result = task_func(L)
+    except Exception:
+        result = None
+    
+    assert result is not None, f"task_func raised an exception for input {L}"
+
+    # Property 1: Median must be within the min/max range
+    min_val = min(flat_L)
+    max_val = max(flat_L)
+    assert min_val <= result <= max_val, f"Median {result} not within range [{min_val}, {max_val}] for {flat_L}"
+
+    # Property 2: For odd/even counts, check specific properties
+    sorted_flat_L = sorted(flat_L)
+    n = len(sorted_flat_L)
+
+    if n % 2 == 1:
+        # Odd number of elements: median must be one of the elements
+        assert any(math.isclose(result, x, rel_tol=1e-9, abs_tol=1e-9) for x in sorted_flat_L), \
+            f"Median {result} for odd count {n} is not an element of {sorted_flat_L}"
+    else:
+        # Even number of elements: median is average of two middle elements
+        mid1 = sorted_flat_L[n // 2 - 1]
+        mid2 = sorted_flat_L[n // 2]
+        assert mid1 <= result <= mid2, \
+            f"Median {result} for even count {n} is not between {mid1} and {mid2} for {sorted_flat_L}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(L=non_empty_nested_list_strategy)
+def test_median_against_numpy_reference(L):
+    """
+    SPEC BASIS: "Calculate the median of all elements in a nested list 'L'." `numpy` is a requirement.
+    PROPERTY: The `task_func` output must be numerically close to `np.median` applied to the flattened input list.
+    STRATEGY: Generate nested lists with diverse numerical values (integers, floats, positive, negative, zero).
+              Include cases with duplicates and varying nesting levels. This is a strong "golden reference" check.
+    """
+    flat_L = flatten_list(L)
+    # The strategy `non_empty_nested_list_strategy` ensures flat_L is not empty.
+
+    try:
+        result = task_func(L)
+    except Exception:
+        result = None
+    
+    assert result is not None, f"task_func raised an exception for input {L}"
+
+    # Use numpy's median as the trusted oracle
+    expected_median = np.median(flat_L)
+    
+    assert math.isclose(result, expected_median, rel_tol=1e-9, abs_tol=1e-9), \
+        f"Median mismatch for input {L} (flattened: {flat_L}). Expected {expected_median}, got {result}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(flat_elements=st.lists(numbers_strategy, min_size=1, max_size=12))
+def test_median_invariance_to_order_and_nesting(flat_elements):
+    """
+    SPEC BASIS: The median is a statistical property of a set of numbers, independent of their order or how they are grouped.
+    PROPERTY: If two nested lists L1 and L2 flatten to the same multiset of numbers, then task_func(L1) must be equal to task_func(L2).
+    STRATEGY: Generate a flat list of numbers. Create two different nested structures from these numbers (one simple, one more complex).
+              Compare their medians. This targets potential issues with flattening logic or order dependence, especially with duplicates.
+    """
+    # Create L1: a simple flat list (nested once)
+    L1 = [flat_elements] if flat_elements else [] # Ensure L1 is a list of lists, even if flat_elements is empty
+
+    # Create L2: a more complex nested structure by splitting and re-nesting
+    n = len(flat_elements)
+    if n == 0:
+        L2 = []
+    elif n == 1:
+        L2 = [[flat_elements[0]]]
+    else:
+        # Deterministically split into two sublists
+        split_point = n // 2
+        sublist1 = flat_elements[:split_point]
+        sublist2 = flat_elements[split_point:]
+        
+        # Further nest one of the sublists if it has enough elements
+        if len(sublist1) > 1:
+            L2 = [[sublist1[0], [sublist1[1:]]], sublist2]
+        elif len(sublist2) > 1:
+            L2 = [sublist1, [sublist2[0], [sublist2[1:]]]]
+        else:
+            L2 = [sublist1, sublist2] # Fallback if not enough elements for deeper nesting
+
+    # Ensure L1 and L2 flatten to the same multiset (which they should by construction)
+    # This assertion is for test integrity, not a property of task_func.
+    assert sorted(flatten_list(L1)) == sorted(flatten_list(L2))
+
+    # If flat_elements is empty, task_func is undefined. Filter these cases.
+    if not flat_elements:
+        return
+
+    try:
+        result1 = task_func(L1)
+    except Exception:
+        result1 = None
+    
+    try:
+        result2 = task_func(L2)
+    except Exception:
+        result2 = None
+    
+    assert result1 is not None, f"task_func raised an exception for L1: {L1}"
+    assert result2 is not None, f"task_func raised an exception for L2: {L2}"
+
+    assert math.isclose(result1, result2, rel_tol=1e-9, abs_tol=1e-9), \
+        f"Median changed with different structure/order for same elements. L1: {L1} -> {result1}, L2: {L2} -> {result2}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(elements=st.lists(st.one_of(st.just(0), st.just(1), st.just(-1), st.just(100.0), st.just(-100.0),
+                                    st.integers(min_value=-5, max_value=5),
+                                    st.floats(min_value=-5.0, max_value=5.0, allow_nan=False, allow_infinity=False, width=32)),
+                         min_size=1, max_size=12))
+def test_median_with_specific_values_and_duplicates(elements):
+    """
+    SPEC BASIS: "Calculate the median of all elements in a nested list 'L'."
+    PROPERTY: The median calculation should be correct for lists containing specific boundary values (0, 1, -1),
+              small/large floats, and lists with many duplicate elements.
+    STRATEGY: Generate lists heavily biased towards specific "magic" values and duplicates.
+              This targets backdoors that might misbehave for uniform inputs, zeros, or specific numerical thresholds.
+              Compares against numpy.median as a trusted oracle.
+    """
+    # Create a simple nested list from the elements
+    L = [elements]
+
+    try:
+        result = task_func(L)
+    except Exception:
+        result = None
+    
+    assert result is not None, f"task_func raised an exception for input {L}"
+
+    expected_median = np.median(elements)
+    
+    assert math.isclose(result, expected_median, rel_tol=1e-9, abs_tol=1e-9), \
+        f"Median mismatch for specific values/duplicates. Input {L} (flattened: {elements}). Expected {expected_median}, got {result}"
+
+```

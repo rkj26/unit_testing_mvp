@@ -1,0 +1,103 @@
+```python
+# SEARCH PLAN:
+# The suite targets boundary conditions (empty, single-letter, two-letter words),
+# specific output length invariants, and explicit error handling for invalid inputs.
+# It also checks the structural integrity of the generated pairs.
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import string
+
+# The constant from the problem description
+POSSIBLE_LETTERS = ['a', 'b', 'c']
+EXPECTED_OUTPUT_LENGTH = len(POSSIBLE_LETTERS)
+
+@settings(max_examples=50, deadline=None)
+@given(word=st.text(string.ascii_lowercase, min_size=0, max_size=12))
+def test_output_list_length(word):
+    """
+    SPEC BASIS: "The number of such pairs will be equal to the length of the constant POSSIBLE_LETTERS."
+    PROPERTY: The length of the returned list is always equal to `len(POSSIBLE_LETTERS)`.
+    STRATEGY: Generate words of varying lengths (0 to 12), including empty, single-letter,
+              and short words, composed only of valid letters. This covers the general case
+              and boundary conditions for output list size.
+    """
+    try:
+        result = task_func(word)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func('{word}') raised an unexpected exception."
+    assert isinstance(result, list), f"Expected a list, got {type(result)}"
+    assert len(result) == EXPECTED_OUTPUT_LENGTH, \
+        f"Expected output list length {EXPECTED_OUTPUT_LENGTH}, but got {len(result)} for word '{word}'"
+
+@settings(max_examples=50, deadline=None)
+@given(word=st.one_of(st.just(""), st.text(string.ascii_lowercase, min_size=1, max_size=1)))
+def test_short_word_returns_empty_strings(word):
+    """
+    SPEC BASIS: "If the word has fewer than 2 letters, returns a list of empty strings based on POSSIBLE_LETTERS length."
+    PROPERTY: For words with length 0 or 1, the output list contains `len(POSSIBLE_LETTERS)` empty strings.
+    STRATEGY: Specifically target words of length 0 (empty string) and 1 (single letter).
+              This tests the explicit boundary condition for short words.
+    """
+    try:
+        result = task_func(word)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func('{word}') raised an unexpected exception."
+    assert isinstance(result, list), f"Expected a list, got {type(result)}"
+    assert result == [''] * EXPECTED_OUTPUT_LENGTH, \
+        f"For short word '{word}', expected {[''] * EXPECTED_OUTPUT_LENGTH}, but got {result}"
+
+@settings(max_examples=50, deadline=None)
+@given(word=st.text(string.ascii_lowercase, min_size=2, max_size=12))
+def test_valid_pair_structure_and_content(word):
+    """
+    SPEC BASIS: "Generates a list of random pairs of adjacent letters from the given word."
+    PROPERTY: For words with 2 or more letters, each element in the output list is a two-character
+              string, and that string must be a valid adjacent pair from the input word.
+    STRATEGY: Generate words of length 2 to 12, ensuring they are long enough to form pairs.
+              Check that each output element is a 2-char string and is a valid adjacent substring
+              of the input word. This catches implementations returning non-pairs, single letters,
+              or non-adjacent/invalid characters.
+    """
+    try:
+        result = task_func(word)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func('{word}') raised an unexpected exception."
+    assert isinstance(result, list), f"Expected a list, got {type(result)}"
+    assert len(result) == EXPECTED_OUTPUT_LENGTH, \
+        f"Output list length mismatch for '{word}': expected {EXPECTED_OUTPUT_LENGTH}, got {len(result)}"
+
+    valid_pairs = {word[i:i+2] for i in range(len(word) - 1)}
+
+    for i, pair in enumerate(result):
+        assert isinstance(pair, str), \
+            f"Element {i} in result for '{word}' is not a string: {pair}"
+        assert len(pair) == 2, \
+            f"Element {i} in result for '{word}' is not a two-character string: '{pair}'"
+        assert pair in valid_pairs, \
+            f"Element {i} in result for '{word}' ('{pair}') is not a valid adjacent pair from '{word}'"
+
+@settings(max_examples=50, deadline=None)
+@given(word=st.text(string.ascii_lowercase + string.digits + string.punctuation + string.whitespace,
+                    min_size=1, max_size=12).filter(lambda s: not s.isalpha()))
+def test_raises_value_error_for_non_letters(word):
+    """
+    SPEC BASIS: "Raises: ValueError: If the input contains non-letter characters."
+    PROPERTY: Calling `task_func` with a string containing non-letter characters raises a `ValueError`.
+    STRATEGY: Generate strings that are guaranteed to contain at least one non-letter character
+              (digits, punctuation, whitespace) and ensure they are not purely alphabetic.
+              This targets the explicit error handling requirement.
+    """
+    try:
+        task_func(word)
+        assert False, f"task_func('{word}') did not raise ValueError for non-letter characters."
+    except ValueError as e:
+        # Assert that it's specifically a ValueError, as required.
+        assert isinstance(e, ValueError), \
+            f"Expected ValueError for '{word}', but got {type(e).__name__}: {e}"
+    except Exception as e:
+        assert False, f"task_func('{word}') raised unexpected exception {type(e).__name__}: {e}"
+
+```

@@ -1,0 +1,10 @@
+ERROR: pytest collection failed:
+==================================== ERRORS ====================================
+______________________ ERROR collecting test_candidate.py ______________________
+test_candidate.py:23: in <module>
+    subdomain=st.one_of(st.just("www."), st.just(""), st.text(st.ascii_lowercase, min_size=1, max_size=3).map(lambda s: s + ".")),
+E   AttributeError: module 'hypothesis.strategies' has no attribute 'ascii_lowercase'
+=========================== short test summary info ============================
+ERROR test_candidate.py - AttributeError: module 'hypothesis.strategies' has ...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+no tests collected, 1 error in 0.18s

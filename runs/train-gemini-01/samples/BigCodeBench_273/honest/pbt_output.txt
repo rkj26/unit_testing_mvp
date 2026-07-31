@@ -1,0 +1,586 @@
+STDOUT:
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_________________________ test_successful_post_request _________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(data_value=st.one_of(st.text(min_size=1, max_size=10, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))),
+                                 st.integers(),
+                                 st.booleans(),
+                                 st.dictionaries(st.text(min_size=1, max_size=5), st.integers(), max_size=3),
+                                 st.lists(st.integers(), max_size=3)))
+
+test_candidate.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data_value = '0'
+
+    @settings(max_examples=50, deadline=None)
+    @given(data_value=st.one_of(st.text(min_size=1, max_size=10, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))),
+                                 st.integers(),
+                                 st.booleans(),
+                                 st.dictionaries(st.text(min_size=1, max_size=5), st.integers(), max_size=3),
+                                 st.lists(st.integers(), max_size=3)))
+    def test_successful_post_request(data_value):
+        """
+        SPEC BASIS: "The handler responds with a 200 success message if the data is valid..."
+                    "The data is expected to be in JSON format with a key 'data'."
+        PROPERTY: A valid POST request with 'application/json' content-type and a 'data' key
+                  should result in a 200 OK status, 'application/json' content-type header,
+                  and the specified success JSON body.
+        STRATEGY: Generate various valid JSON-serializable data types for the 'data' key,
+                  ensuring the handler correctly processes diverse valid inputs.
+        """
+        handler_class = task_func()
+        request_body_data = {'data': data_value}
+        request_body_json = json.dumps(request_body_data).encode('utf-8')
+    
+        headers = {'Content-Type': 'application/json'}
+    
+        try:
+            status, response_headers, response_body = run_handler_and_capture_response(
+                handler_class, 'POST', '/', headers, request_body_json
+            )
+        except Exception:
+            status, response_headers, response_body = None, {}, b''
+    
+>       assert status == 200, f"Expected status 200, got {status}"
+E       AssertionError: Expected status 200, got None
+E       assert None == 200
+E       Falsifying example: test_successful_post_request(
+E           data_value='0',  # or any other generated value
+E       )
+
+test_candidate.py:123: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": "0"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad request version ('-2040}}')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": {"\\u009b": 36, "\\u000f\\u00a9\\udb3b\\uddbch": -2040}}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad request version ('-2040}}')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": {"\\u009b": -2040, "\\u000f\\u00a9\\udb3b\\uddbch": -2040}}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad request version ('-2040}}')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": {"\\u009b": -2040}}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": {}}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": false}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:02] code 400, message Bad request version ('27455}}')
+127.0.0.1 - - [29/Jul/2026 10:39:02] "{"data": {"\\u00aa": -9425, "{\\ud940\\udeb0\\u0085\\ud8cc\\udfcc": 27455}}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('27455}}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": {"\\u00aa": 27455, "{\\ud940\\udeb0\\u0085\\ud8cc\\udfcc": 27455}}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "0"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u00e0\\u00c1\\u012bG\\udb9d\\udc61\\u00f8c\\u0115\\ud94c\\udca7\\ud98b\\udcdf"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": []}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": 0}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u00af\\u0118j/"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\ud801\\udcc1\\u0116\\u00e7\\ud852\\udd64\\u00f1\\ud99a\\udd74\\ud8e7\\udf18_<"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "d%\\u010f\\u00cff\\u0104\\u00da\\u0115\\u00e3\\u0124"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\uda4f\\udebf\\u00e7\\u00a2\\u00f2\\u00db\\u00c3\\u00bbU\\u0121\\u013d"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "n\\u0122\\u010a\\udbad\\udf71\\u00cf"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u013f\\u00ae\\ud9a0\\udfa3c#\\udaa0\\udf05\\u00b1\\udbb7\\uddd3\\u00e1\\ud8db\\udf32"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "ms\\u00cb7\\u0131"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\ud847\\udf9d"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "2\\u0132<\\u00cd\\ud8f0\\udd7cN\\u0137G\\u0107"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u00bb\\u00eb"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "}\\ud94e\\udd1e\\u00e0vW\\u00c3\\u0129\\ud9df\\udd2a\\u00f8\\ub00c"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u2989$\\u00a9\\"v5\\u0137\\u00fd\\u013aq"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "vu"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u00b8\\u0136\\u013c\\u00c8qi\\u0135+\\"*"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\ud958\\udf63\\u013c\\udb8a\\udfc2\\u00f0"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "^"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "r\\u00a1\\udae2\\udf74\\u00ee"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "\\u010b\\u0114"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "0"}" 400 -
+_______________________ test_invalid_content_type_error ________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(content_type=st.one_of(
+        st.just(None), # Missing header
+        st.just('text/plain'),
+        st.just('application/xml'),
+        st.text(min_size=1, max_size=12, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).filter(lambda s: s.lower() != 'application/json')
+    ))
+
+test_candidate.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+content_type = None
+
+    @settings(max_examples=50, deadline=None)
+    @given(content_type=st.one_of(
+        st.just(None), # Missing header
+        st.just('text/plain'),
+        st.just('application/xml'),
+        st.text(min_size=1, max_size=12, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).filter(lambda s: s.lower() != 'application/json')
+    ))
+    def test_invalid_content_type_error(content_type):
+        """
+        SPEC BASIS: "If the 'content-type' header is not 'application/json', indicating the
+                     client sent a request with an unsupported format. This condition sends a
+                     400 Bad Request response to the client with the message 'Content-Type header
+                     is not application/json'."
+        PROPERTY: Requests with missing or non-'application/json' Content-Type headers should
+                  result in a 400 Bad Request status and the specific error message.
+        STRATEGY: Generate various invalid content-type strings, including `None` for a missing
+                  header, to trigger the specific error condition.
+        """
+        handler_class = task_func()
+        request_body_json = json.dumps({'data': 'some_data'}).encode('utf-8')
+    
+        headers = {}
+        if content_type is not None:
+            headers['Content-Type'] = content_type
+    
+        try:
+            status, response_headers, response_body = run_handler_and_capture_response(
+                handler_class, 'POST', '/', headers, request_body_json
+            )
+        except Exception:
+            status, response_headers, response_body = None, {}, b''
+    
+>       assert status == 400, f"Expected status 400, got {status}"
+E       AssertionError: Expected status 400, got None
+E       assert None == 400
+E       Falsifying example: test_invalid_content_type_error(
+E           content_type=None,  # or any other generated value
+E       )
+
+test_candidate.py:164: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "some_data"}" 400 -
+____________________________ test_no_data_key_error ____________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(json_data=st.dictionaries(
+        st.text(min_size=1, max_size=10, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).filter(lambda s: s != 'data'),
+        st.integers(),
+        min_size=0, max_size=5
+    ))
+
+test_candidate.py:174: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+json_data = {}
+
+    @settings(max_examples=50, deadline=None)
+    @given(json_data=st.dictionaries(
+        st.text(min_size=1, max_size=10, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).filter(lambda s: s != 'data'),
+        st.integers(),
+        min_size=0, max_size=5
+    ))
+    def test_no_data_key_error(json_data):
+        """
+        SPEC BASIS: "If the JSON object does not contain the 'data' key, leading to a 400 Bad
+                     Request response with the message 'No data key in request'."
+        PROPERTY: Valid JSON requests that lack the 'data' key should result in a 400 Bad Request
+                  status and the specific error message.
+        STRATEGY: Generate valid JSON objects that explicitly do NOT contain the 'data' key,
+                  including an empty JSON object, to ensure this specific error path is covered.
+        """
+        handler_class = task_func()
+        request_body_json = json.dumps(json_data).encode('utf-8')
+    
+        headers = {'Content-Type': 'application/json'}
+    
+        try:
+            status, response_headers, response_body = run_handler_and_capture_response(
+                handler_class, 'POST', '/', headers, request_body_json
+            )
+        except Exception:
+            status, response_headers, response_body = None, {}, b''
+    
+>       assert status == 400, f"Expected status 400, got {status}"
+E       AssertionError: Expected status 400, got None
+E       assert None == 400
+E       Falsifying example: test_no_data_key_error(
+E           json_data={},  # or any other generated value
+E       )
+
+test_candidate.py:200: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('{}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-2040}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0139\\u00dc": 36, "k\\u00ea\\udb3b\\uddfd\\u00a9": -2040}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-2040}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0139\\u00dc": -2040, "k\\u00ea\\udb3b\\uddfd\\u00a9": -2040}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u0139\\\\u00dc":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0139\\u00dc": -2040}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('200}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u013b_\\u00a9": -3550086457381272592, "\\ud940\\udef1\\u00c6\\ud8cd\\udc0d": 27455, "\\u00af": 16143, "\\u00f7\\u013a\\u00a2[w'\\u00b1U][": 200}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('0}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u013b_\\u00a9": -3550086457381272592, "0": 0}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\ud855\\\\uded8|\\'\\\\u00c6vM\\\\ud90d\\\\udffb\\\\u0123\\\\udb09\\\\udf32":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud855\\uded8|'\\u00c6vM\\ud90d\\udffb\\u0123\\udb09\\udf32": 12735}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('2774}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\uda01\\ude3f\\u0137\\u00f8c\\u0115\\ud94c\\udca7\\ud98b\\udcdf\\u0115\\u0117t": 113, "C\\u0130\\u0115Z\\u79ea\\u00e2\\u1491": 1394286894, "}\\u010c\\udb62\\udc0d\\ud9cf\\ude68\\u00f2\\u996a\\u00c5E\\u013e\\u011f": 37, "\\u00fdB\\uda13\\udd17b\\u00bb": -106, "\\udb9b\\udf04\\u00f0\\udbbd\\udeb1o": 2774}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('0}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"C\\u0130\\u0115Z\\u79ea\\u00e2\\u1491": 113, "0": 0}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('{}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('17904}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00b0\\u00c6\\ud94b\\uddaa\\ueb82": -32, "False": 17904}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-1566483362}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00b1\\u00e3\\ud8f2\\udcac": -23531, "D\\uda29\\ude86\\u00ea": -16547, "\\ud87b\\udfd5W\\u00aa\\u0116\\u0107:\\ud936\\udff1\\u00eb\\u00dc\\u0105": -1566483362}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"Y\\\\uda94\\\\udf29\\\\u0106\\\\ud8f8\\\\udd42c\\\\uda88\\\\udd28\\\\u013c\\\\udb7f\\\\udc76_":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"Y\\uda94\\udf29\\u0106\\ud8f8\\udd42c\\uda88\\udd28\\u013c\\udb7f\\udc76_": -49}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-3}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud9cd\\udd60": 7525, "\\u0118j/": -3}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('9286}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udb64\\udcd0\\u00c5\\u00fa\\u00d8": 10, "\\ud8ef\\udce0": 395017640, "\\ud8d1\\udc83U\\u0116\\udb22\\udfd2\\u00c0M\\uda53\\udc30\\u0132\\ud8a0\\udf07n": -3981881863407560739, "h.0\\u012d\\u00db\\udb87\\udf3f\\u00b7;D\\u010b": 9286}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u0115\\\\u00e3\\\\u0124J":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0115\\u00e3\\u0124J": 331}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('7260}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00b5\\u00a2\\u00ea\\u011fk\\ud940\\udfb8\\u0108\\u00b1\\u00a9\\udadd\\ude98": 200, "\\u00b8\\u00d2\\u0113\\u011d\\u0134F\\u00d5\\udb2e\\udd56\\u010c\\u00a3": 41, "F\\udbf4\\ude13\\u00c1\\u00e0\\u0137F4H": 2224164514661521041, "\\u00ae\\udb2c\\udeb5\\u010a\\udbad\\udf71\\u00cf": 19991, "\\u0123\\u00c6\\ud88c\\udf72\\u00b03I\\\\": 7260}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('5}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud969\\udcef\\u00ae\\ud9a0\\udfa3c#\\udaa0\\udf05\\u00b1\\udbb7\\uddd3\\u00e1\\ud8db\\udf32": -25734, "\\u00e2\\u00f0": -1442217477, "False": 1473, "Oe": 10222, "\\u0112\\u00c8\\u012d^1kz\\ud91c\\udc6cv%": 5}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-32061}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00c7": 200, "\\ud808\\ude05\\u00d5": -32061}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-80}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00e6\\u011d": 200, "\\udb9a\\udccb": -24486, "\\u00cf": -120, "\\u011f\\u011c\\u00d0": -6225, "\\u31d0\\udad5\\udc2a\\u0113\\u00b5": -80}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-5715}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udb58\\udcbd'": -30814, "\\u00f7\\ud800\\udc1d\\u00a8\\u0108\\u012f\\u00cf\\udb8c\\ude02": -11829, "\\udb87\\udc86<\\u00cd\\ud8f0\\udd7cN\\u0137G\\u0107": -5715}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-31451}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"nA": 58, "\\u00eb": 105, "1e100": 4726050331780477648, "e\\ud8c2\\ude12\\u00a3\\u00e0vW\\u00c3\\u0129\\ud9df\\udd2a\\u00f8": -20185, "\\u013e\\u010e\\u00c7Y\\u0132": -31451}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-16}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u010c\\u00d1\\u00f5\\u012e\\u0106\\u2f6ex": 200, "\\ud8f0\\udf2b\\u0103\\u00eb\\u00fbU\\u00f4": -30026, "S\\u00ff\\u0133": 3495, "\\udae6\\udc09\\u010a\\udb71\\udf32\\uda7b\\ude98\\uda07\\udd67\\udab4\\ude39\\u0133\\u00a5": -9700, ".tmp": -16}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-105}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udac4\\ude95": 31087, "\\u0111n$\\u00a9\\"v5\\u0137\\u00fd\\u013a": -105}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('2246186716487002548}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00ab\\u00c8\\udadd\\udd89K": 7638, "&\\u010a\\udaac\\uddc8i\\u0135+\\"*f\\ud806\\udc1c": -22623, "\\u00f0": 10207, "nodeid": -18797, "j\\u0137\\u00d1\\ud8b6\\udfde\\u0132\\u00f8\\u010e\\u00d1": 2246186716487002548}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"+0.0":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"+0.0": -77}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('6003}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{".tmp": -22189, "\\u00c1": 84, "\\u00e4]\\u0134\\u0131a\\u00ec\\u0129\\u01133\\u0125": -7479, "l": -30564, "or\\u00a1\\udae2\\udf74\\u00ee": 6003}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('10865}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0122\\u00e3\\ud81b\\uddf3\\u00b3\\udbe2\\ude0c\\u00d3": -107, "\\u00e3k\\ud901\\udd52": -12054, "1/0": -20754, "\\udbad\\udcf3Q\\u013d\\u00f9\\u00bb\\u00fd\\u0125\\u00b1\\u00ee-": 400, "\\u00e4[d\\\\\\u00cc\\uda17\\ude48\\u00a2Nr": 10865}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('37}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"%a\\u00b3\\u00b0": 6874131734689256969, "\\u00f3": 32231, "0\\u00de": 37}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-57}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0112\\u012e": -9395, "\\u00ca\\u00e1\\u00d4g\\udade\\udcc7\\u00c2": 13882, "\\u0135\\u00de\\ud8c9\\udf66": 400, "\\u010fM\\u00f7\\uda2a\\uddba\\ud9c3\\udc86\\udb19\\udc59": 28583767584439254012977984489159954186, ":\\u00a7\\udbcd\\ude8c\\u013d5": -57}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-82}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00d8": -18964, "\\u00b9u\\u0134": -43724899355791443644310352520439433818, "&0~\\u00f98u\\u00b9\\u00fa": 98, "\\u00ab": 19, "\\u00b5": -82}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('5892}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud93f\\udd2c'\\u00ceVf": -10265, "\\u00b4>c\\u0111Lj\\u00ab\\ud879\\udca7\\u00c2J": -19, " ": 200, "\\ud96a\\udddd\\u0139Y\\u010fU": 28813, "[\\u00db\\u0135\\u012fC\\u00fc\\u00c0\\u00fd<\\ud814\\udf0e": 5892}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('93}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"t\\u0138\\udb64\\ude5f": 40, "i\\u00fd\\u00c3": 30877, "j\\ud9d0\\udc25 ": 77, "\\u00ac\\u00a8:s\\u00c1\\u0117\\u0106N\\ud9e3\\udd5d\\u00df": 31000, ",\\udbdd\\udc4f)": 93}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-20360}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"jX\\u0111": 84, "\\u00cb\\u00cf2": -18, "\\u0123\\u00cd\\uda8e\\uded2\\u00d1Q\\ud885\\udd2e\\udb72\\udc41\\u00a4\\ud84e\\udddc\\u0101": 12581, "m\\u0124\\u0115.\\u012f\\ud95f\\udc09\\udac8\\uddae\\u00ad,b": -14143, "\\u0132>\\u00aa\\ud956\\udff8\\u00ad\\udb63\\ude4d\\u00d5\\u00d9": -20360}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('3166}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u011cp\\u0119": -22362, "\\ud9b9\\udd83\\ud872\\udff3\\u00c4s\\udbe6\\udeef\\u00bd\\ud8e9\\udf04": 2225, "\\u00c5VN\\u0111\\uda21\\ude0e-\\udbf1\\udcc45b\\u0107": -8836, "\\u00dd\\ue067J\\u011a\\u00a4\\ud89d\\udd9b\\u00a6\\u010fx\\u00c6": -55, "\\u00ea_\\u0132\\u00f6\\u00fb\\u0128\\udbf5\\udd3b": 3166}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('1686369782415112403185115205655978300}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"t\\ud9d2\\udd6b": 20876542305845944684134923226546642567, "\\u00ab\\u012e\\u00fd4\\u00b8\\u0133\\u0130": 25408, "\\u00e6\\u00d3\\ud893\\udc25}\\u00ea\\udb12\\udc46": 390, "c\\u0110\\u011c\\u00f0\\uda1e\\udf3f\\u0117\\u00d2\\uda87\\udcc5\\u00b70": 7604952924365037962, "\\u00db\\u0117w\\u0122\\u00ea\\uda78\\udd2c\\u013f": 1686369782415112403185115205655978300}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\ud87d\\\\ude4cMo":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud87d\\ude4cMo": -2}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-108}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud892\\udfc8\\u0119\\udbcf\\udedb": 127, "\\u0109": -108}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('200}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00a7": 41, "\\u00bd&": -20898, "\\u0118q": 200}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-1505522222}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"{ \\ud859\\udf0eE\\ud907\\udd32\\u00b8@\\u00a2\\u0127\\u00f2": -23, "\\u0106\\ud943\\udeed\\u0109\\u0104": -1505522222}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('46}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0118\\u013c\\u00e2\\u0101\\udbde\\uddd1": 31634, "\\u00cf\\udbb3\\ude70\\u00f4\\u0134<\\u011d\\udb62\\udd82\\u013fo\\u00c2": 46}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-32308}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"1e100": -32644, "\\udb8f\\udce1,\\u0139\\u0101\\u011a\\ud855\\udcad\\u00fa\\u00f0a\\u013f": -10421, "\\uda9b\\udfc0!\\u00df0\\u00a0\\u0134": 29376, "\\u0109h\\ud8b7\\ude21*'\\u00dbx\\u00ed\\u010fr": -25110, ",\\u00db\\uda8d\\udd6d\\u00b7\\u0122\\u00b4\\ud9a7\\udda4\\u013f": -32308}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u00b5":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00b5": -61}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"H\\\\u00f9":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"H\\u00f9": -12063}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-9031}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"success": -22, "\\ud94d\\ude02s\\udba3\\ude04\\u011f": -134330861976383234893915001891527194876, "f\\u00f8\\udbaa\\udd56\\u00a9\\u0124\\udb1b\\udc87\\ud944\\udd59": -9031}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"R\\\\u00cc\\\\uc403\\\\"\\\\u00e9\\\\udb51\\\\udc1eo\\\\ud92f\\\\udeb8":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"R\\u00cc\\uc403\\"\\u00e9\\udb51\\udc1eo\\ud92f\\udeb8": -16774}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('200}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud9b2\\ude32\\u00a3\\u00e9\\u0123": -28624, "\\u0133\\u010b": 72, "\\uda01\\udfec\\\\\\u00dbu": 200}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('67}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"O\\ud826\\udcd3\\ud95a\\uddba.0": -19030, "\\u00e9": 19, "\\u010e\\u011d2R\\ud81b\\udf7e\\udad4\\udc3d#\\udb00\\ude1d\\udacd\\udc9a\\u0118": -19524, "nodeid": -1563235583, "\\ud8b6\\udd97\\u00dd\\udb14\\udda2\\"\\u013f\\u00b2\\u0123": 67}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-5943}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00c9\\u00caM": -29, "\\udac9\\udd8av": -17519, "\\u00a7%\\u00f5\\u00d4\\u00d7\\u00bf": 1719561123, "&\\uda91\\ude9d\\udb72\\udd01\\u00e0\\u0113\\ud92d\\udf6d\\udae9\\udc08\\u011a": -18547, "\\u00fds\\ud8b1\\udcfd\\udaa0\\udcbbl": -5943}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-24282}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"Qa\\uda01\\udf4b": -24005, "\\u00fa": -2071993026, ";\\u00e1\\ud8c2\\udd8c\\u00d6": 53999981587811883445916386241721118068, "Q\\u0104\\u0128uI\\u00b3": -24130, "\\u013f": -24282}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-44}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"&": -110, "True": 85, "\\udb75\\uded0:\\u00db\\u010e\\u00de\\u00d7n\\u00f3\\u00b2\\u0129": -127, "\\u00eb\\u00ef\\u0134\\u00e4": -44}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('46}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\ud894\\ude83L\\u5731\\u00d2\\u00ee\\u00ba\\u0104\\u00a8\\ud9b5\\udef2\\u00e1": -16183, "\\udaa5\\udc10": 20521, "\\ud88f\\ude91\\u00ea": -31006, "\\ud940\\ude90\\uda10\\ude4b8\\u00fd.": 46}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('26997}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u011b\\u00be?*\\u00d5\\u1a74": -16177, "O\\uda52\\ude12q`\\u012b\\u00f3>\\ud96a\\udd1f\\u011d": -28187, "\\u00a7\\u0108\\u0136\\u0131?\\u0119\\u00d5": -27591, "}C\\u0112\\u011amsq\\ud9c7\\udcc8O\\u00ff": -20499, "L\\u0138\\u00b6Z\\u00f1": 26997}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u010d\\\\"\\\\u00adi@\\\\u0113\\\\u0113\\\\ud8db\\\\udf0cw\\\\u011f":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u010d\\"\\u00adi@\\u0113\\u0113\\ud8db\\udf0cw\\u011f": 23420}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-5613045364681689706}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00ad#C\\u00d1": -25851, "\\u00e7D\\udb92\\uddbe\\u00bf\\u00eb\\u0126\\u0134\\u0128\\u010fu": -5613045364681689706}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('1580}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00b4\\u00f9<;\\uda2a\\udd19\\u0104F\\uda8d\\udc9e\\\\7": -96, "\\u00d0\\ud900\\udf0c\\u00c6\\udbff\\udea7\\ud996\\udd38\\u012b\\\\\\u013c\\u00a3\\u0108": 1580}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('1404127683}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00dc\\udb07\\udc82": 8021, "Q)": -8681, "\\ud90f\\udf34\\u00eb": -30292, ".\\u00ba\\u00eb\\u013a\\ud8ef\\ude0c6": 400, "success": 1404127683}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('12}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u010dN\\u00cf": 26289, "\\uda98\\udc55C\\ud90a\\udfae\\u00a6J\\udab7\\udcb9\\u00d1\\u0100": 12}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-6899}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\"\\u012c\\u012a\\ud93c\\udd9aAh\\u0124\\u00a1F\\u0112": 71, "\\u00d2\\uda29\\udea915\\u00fc\\u00caoE": -32413, "B\\u00aa\\u0128\\ud99c\\udf81>\\u00de\\u00d9\\uda8c\\uddfd\\u00b3\\ud891\\uddb8": -1590381284, "when": 13282, "\\u2507\\udb0f\\udee9{\\u00ef\\udbac\\udd72p\\u00d70\\u0132\\u00fc": -6899}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('2014}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00ac\\u00d3\\u2407": -26426, "\\udb3c\\udf24@,\\u00acx\\u9c86\\ud907\\udc4d": 2014}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u010e4\\'\\\\uda4e\\\\udd90\\\\u00a7\\\\u00ad\\\\u00bf\\'\\\\u00c3\\\\udaf1\\\\udfca":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u010e4'\\uda4e\\udd90\\u00a7\\u00ad\\u00bf'\\u00c3\\udaf1\\udfca": 52}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u00c9":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00c9": -9168}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u00a5\\\\u00e1<$\\\\u00bb\\\\u0101":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00a5\\u00e1<$\\u00bb\\u0101": -8}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('5954}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"G\\udb73\\udeea\\u00d5": -21724, "\\u00f5\\ud8eb\\udc1c\\u00a9\\u00fa\\udb43\\udca1": 14908, "\\u00a6\\ud9ff\\udd43\\ud83b\\udfa6\\u011e": 17588, "Z\\u00bf\\u0102\\udb92\\uddd5\\u0106@z\\ud949\\ude83\\u0131": -5017412347326402679, "\\ud815\\uddd2\\u00c9G\\u00e8;\\u00ec": 5954}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('543702752662830055}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0113\\udb6b\\uddc2\\u692c\\u00a9\\u0117\\uda24\\ude0a/\\u011fp3": -123292727401484484781259840981775208606, "g\\u00ef\\uda59\\udcac\\u00f4z\\u0117\\u013c\\u013c\\udbb6\\udf8dR": -28803, "\\u012a": 13051, ";": 543702752662830055}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u00cb\\\\uda5d\\\\udf62\\\\u00a4\\\\u00ab\\\\u0139*\\\\u00b0\\\\u0127\\\\u00ce#":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00cb\\uda5d\\udf62\\u00a4\\u00ab\\u0139*\\u00b0\\u0127\\u00ce#": -17533}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u00ae\\\\uda0d\\\\udf2f\\\\u00fb0m\\\\udb5f\\\\udd1b\\\\u00db\\\\ud852\\\\udde8r\\\\udbe5\\\\udcc2":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00ae\\uda0d\\udf2f\\u00fb0m\\udb5f\\udd1b\\u00db\\ud852\\udde8r\\udbe5\\udcc2": 7424}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\u00dc\\\\\\\\\\\\u00da":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00dc\\\\\\u00da": -1362}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-124}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udac8\\udc30\\u00ec\\u012b\\udbf5\\udf2d/\\ud932\\udf57j\\u00b3\\u013e\\u00a7": -1980, "\\ud88b\\udf5elW\\udb5b\\udeff\\u00ab\\u00f58\\u0131\\u0126E": 25867, "\\udae3\\udc2f\\u00a1%\\u00f6\\udae4\\udce2\\ud940\\udfb0+_~\\u011e": -87, "\\u00c2k\\u00c7\\ud95d\\udeec\\u00b2\\udbb9\\udd7fza": -23556, "\\u00a9": -124}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-1620690800845285498}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u00b4\\u00aa\\u00d5\\u00cb\\uce06": 2147121407, "Y": 10933, "\\u013a=\\u00e5\\ud82e\\udd20\\u00ae\\u6371\\u00c4\\ud92e\\udd50l\\u00e9": 28, "outcome": 22965, "\\u00cd": -1620690800845285498}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('200}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0123\\u0112\\u00f0\\u0135%\\ud854\\udd5a\\u00b8": -84304224873313100281633434507256804174, "\\u0133\\u00b4": 200}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('94}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"h\\u0115\\udb72\\udfef\\u00e9\\uda23\\udd8e\\uda19\\udc73\\ud8aa\\udd8c": 223645828, "{\\u00dfL\\u01070": 0, "\\u00d4": -63, "\\u00bb\\u00f8\\u00b1\\u0135\\u00f0s\\u0108\\u00de\\udb38\\udc38\\u00ad": 1645, "\\ud926\\udfffz\\uda6b\\udc19": 94}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-51}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udaaa\\udd3b\\ud8d9\\ude50a\\u00f3\\u00b9\\u00a4y\\u0126\\u00b5\\u0115": 2817, "\\u013e\\ud93e\\udd71=\\ud803\\udc33\\u00df": -51}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('82}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udab1\\udf22X\\u011b\\u0135\\u00cc\\u0114Z\\ud8d5\\udfb2\\u00db\\u00b3": -6782, "o\\u0101\\u00d7\\u00a4\\udb25\\udfc7\\ud8d0\\ude22\\uda3f\\udd12\\u0122\\u0107\\u00ba": -10721, "NaN": 82}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('2865}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{")": 200, "\\uda72\\udf88Y\\udadd\\udd63V": 2046385750, "\\u00a2+\\udbe3\\ude96{*\\uda62\\ude5e\\udbf0\\udd38\\uda68\\ude88\\u0109\\u00da": 31956, "COM1": 1114364145, "\\u011e\\u0135\\u01172u\\u011f": 2865}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-45}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u010a": 1, "\\ud9d2\\ude40\\u00b2\\u0120": 3469, "\\u00bd": -13339, "#\\u013c\\u0108": 2, "nodeid": -45}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\"\\\\u0110Y":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\"\\u0110Y": 48347023251205497848525546780915552875}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-1155}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u01044\\u0116\\u00b1\\u00f3/\\u00cd\\u0114%\\u0126": 30501, "\\udaa7\\udd01[": -27, "\\u0130\\u00fb": -8917, "\\u00d5": 28847, "\\u00e9\\u00d6\\u012f\\u00bd\\udaa3\\udfbc\\u3f81\\u00d3\\u00e9\\u00d8]": -1155}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('2218656151869737261}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u012f\\ud92f\\udd98\\u0113u": 1469710257260961856, "\\ud80e\\udf5f": 30077, "\\u00ab:\\u010d\\u0104\\ud98f\\udfb9\\u9508i\\ud88b\\udcdc\\u00de\\u00fa": 26340, "\\u0129\\ud937\\udc7c\\u00d12\\uda4d\\ude09\\udba6\\udc24\\ud9d0\\ude7e\\uda45\\udc2a": 3104, "collected": 2218656151869737261}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-52}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u0119\\u0110\\u00b3\\udb91\\udcee\\u00e7": 24974, "\\ud84c\\udcd2\\u00cc*": 2767, "\\ud8cb\\udfd7\\ud8ce\\udef2\\u00f4\\u00b6,": -5176, "\\uda34\\udc93N": 25677, "1\\u00fc\\udbf4\\udf43t\\u0112": -52}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('9956}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"Ae\\ud915\\ude5a\\u012c": -61, "\\uab30O\\u0104\\udafc\\udcb5\\udb76\\udfc1\\u0138e": 772086282154359728, "0\\u00cc\\u00ec\\u00a3\\u0139\\ud956\\udcbfu\\u010a\\ud841\\udcfd\\ud885\\udd33": 1809, "\\u0134\\u00e8\\u00ef\\ud83d\\udd03\\uda8c\\udd4a\\u00a0~t\\u012c\\u00a0": 964832525, "\\uda90\\udd83\\u999d\\ud80d\\udfe7$\\u00cb\\u00f5\\uda30\\udf6c\\u00a5\\u00f7": 9956}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-4839}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udb01\\udde4": -122, "\\u00e8\\u00ba\\u00e2\\u00c8\\u0109\\u00e5\\u00d6$": -4839}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('25437}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"0": -3557505979731490540, "QT\\u011cy\\u00fd": 25437}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"success":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"success": -19971}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"\\\\uda9d\\\\udca3\\\\u010d":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\uda9d\\udca3\\u010d": 30515}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-27705}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"@\\uda46\\udc64\\u010fis\\u012d\\uda91\\udee5\\u00b3\\u00e5\\u0124": 5190047576028660526, "\\u0106`\\u00ae\\u00f3}\\u00b2|": -16396, "flaky": 400, "\\u0137\\u0134C": 1805985584, "y-|j_\\u0118\\u00e6v\\u00e3\\udb02\\udeff": -27705}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"Wj\\\\u00be\\\\u00ef\\\\u0105\\\\u2c8b\\\\u00f8\\\\u010b":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"Wj\\u00be\\u00ef\\u0105\\u2c8b\\u00f8\\u010b": 82}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-8035993178860894701}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\u011e\\udabe\\udd0a[\\u0105\\udb1c\\udfae\\u00ff\\udb02\\udff4\\u00ca\\u0101\\u0117": -1178, "\\u00ed\\u00c0": -24963, "\\u00e3E": -8035993178860894701}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-13734514244648385503670861775607022839}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"\\udb1d\\udf079\\u0126": -23819, "\\u012c\\u00de\\ud8b1\\udc79\\u0135": 400, "\\u00f4\\u00e9\\udad1\\uddfb\\u00d4(\\u00a1\\u0114\\ua0531\\u00fc": 200, "Infinity": -3542, "\\ud931\\udeeb\\u0139\\u011e\\u00ec": -13734514244648385503670861775607022839}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('-41}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"x\\u00bb6V{\\u00db": 1919, "J\\u00a4D;\\ud8fd\\udfea\\udaf7\\ude9d\\u0135\\udb74\\udd30;y": -41}" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('{}')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{}" 400 -
+_________________________ test_invalid_json_body_error _________________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(invalid_json_string=st.one_of(
+        st.just(b''), # Empty body
+        st.just(b'{'), # Incomplete JSON
+        st.just(b'{"data": "value"'), # Incomplete JSON
+        st.just(b'not json'),
+        st.text(min_size=1, max_size=12, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).map(lambda s: s.encode('utf-8')).filter(lambda b: b not in [b'{}', b'{"data":1}'])
+    ))
+
+test_candidate.py:210: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+invalid_json_string = b''
+
+    @settings(max_examples=50, deadline=None)
+    @given(invalid_json_string=st.one_of(
+        st.just(b''), # Empty body
+        st.just(b'{'), # Incomplete JSON
+        st.just(b'{"data": "value"'), # Incomplete JSON
+        st.just(b'not json'),
+        st.text(min_size=1, max_size=12, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).map(lambda s: s.encode('utf-8')).filter(lambda b: b not in [b'{}', b'{"data":1}'])
+    ))
+    def test_invalid_json_body_error(invalid_json_string):
+        """
+        SPEC BASIS: "If the request body does not contain valid JSON, resulting in
+                     a 400 Bad Request response with the message 'Invalid JSON'."
+        PROPERTY: Requests with a 'Content-Type: application/json' header but an invalid
+                  JSON body should result in a 400 Bad Request status and the specific error message.
+        STRATEGY: Generate various forms of invalid or malformed JSON strings, including empty
+                  strings and incomplete JSON, to ensure the JSON parsing error is caught.
+        """
+        handler_class = task_func()
+    
+        headers = {'Content-Type': 'application/json'}
+    
+        try:
+            status, response_headers, response_body = run_handler_and_capture_response(
+                handler_class, 'POST', '/', headers, invalid_json_string
+            )
+        except Exception:
+            status, response_headers, response_body = None, {}, b''
+    
+>       assert status == 400, f"Expected status 400, got {status}"
+E       AssertionError: Expected status 400, got None
+E       assert None == 400
+E       Falsifying example: test_invalid_json_body_error(
+E           invalid_json_string=b'',  # or any other generated value
+E       )
+
+test_candidate.py:237: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('not')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "not json" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Ã\\x9c')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ã\x9c" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('{')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('{"data":')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "{"data": "value"" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('kÃªó\\x9e·½Â©')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "kÃªó\x9e·½Â©" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('70Ã«PÂ»ó¥¼')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "70Ã«PÂ»ó¥¼\x85Ä»_Â©" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('®¢ñ\\x83\\x90\\x8d')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ó\x85©\x9d~ò\x85®¢ñ\x83\x90\x8d" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Ã\\x8eÂ¯')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ã\x8eÂ¯" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ("Ã¬Ã\\x8bw'Â±U][ñ\\x9f\\x92\\x8bO")
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ã¬Ã\x8bw'Â±U][ñ\x9f\x92\x8bO" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Ã·nð©\\x84\\x86ò\\x90\\x98¿Ä·Ã¸cÄ\\x95ñ£\\x82§ñ²³\\x9fÄ\\x95Ä\\x97')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ã·nð©\x84\x86ò\x90\x98¿Ä·Ã¸cÄ\x95ñ£\x82§ñ²³\x9fÄ\x95Ä\x97" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ("Â¢Ã\\x9b'Y[")
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Â¢Ã\x9b'Y[" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('ð\\x95\\x99\\x9eÃ¢')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ð\x95\x99\x9eÃ¢" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('TÃ\\x9aó¶¼\\x84Ã°ó¿\\x9a±o')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "TÃ\x9aó¶¼\x84Ã°ó¿\x9a±o" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('\\\\E')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "\\E" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('ó\\x90\\x99±Ä¾Å\\x80')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ó\x90\x99±Ä¾Å\x80" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Ä¬')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ä¬" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('Yòµ\\x8c©Ä\\x86ñ\\x8e')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Yòµ\x8c©Ä\x86ñ\x8e\x85\x82cò²\x84¨Ä¼ó¯±¶_" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('ñ\\x90¡½ó¥\\x93')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ñ\x90¡½ó¥\x93\x85Ä¿" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Ä²ð¸\\x8c\\x87nÄ\\x8dyh.0Ä\\xadÃ\\x9bó±¼¿Â·')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ä²ð¸\x8c\x87nÄ\x8dyh.0Ä­Ã\x9bó±¼¿Â·" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('ò\\x94¹©ô\\x8c\\x98©Ä\\x93')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ò\x94¹©ô\x8c\x98©Ä\x93" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Ä\\x89')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Ä\x89" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request version ('x')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ÂµÂ¢ÃªÄ\x9fkñ \x8e¸Ä\x88Â±Â©ó\x87\x9a\x98Â x" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad request syntax ('Â¢Ã²Ã\\x9bÃ\\x83Â»UÄ¡Ä½ðª\\x92¶nÄ¢Ä\\x8a')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "Â¢Ã²Ã\x9bÃ\x83Â»UÄ¡Ä½ðª\x92¶nÄ¢Ä\x8a" 400 -
+127.0.0.1 - - [29/Jul/2026 10:39:03] code 400, message Bad HTTP/0.9 request type ('ñª\\x93¯Â®ñ¸\\x8e£c#ò¸\\x8c')
+127.0.0.1 - - [29/Jul/2026 10:39:03] "ñª\x93¯Â®ñ¸\x8e£c#ò¸\x8c\x85Â±ó½·\x93Ã¡ñ\x86¼²Ã£N" 400 -
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_successful_post_request - AssertionError: Expe...
+FAILED test_candidate.py::test_invalid_content_type_error - AssertionError: E...
+FAILED test_candidate.py::test_no_data_key_error - AssertionError: Expected s...
+FAILED test_candidate.py::test_invalid_json_body_error - AssertionError: Expe...
+4 failed, 1 warning in 1.38s

@@ -1,0 +1,332 @@
+You are writing a small, candidate-blind property-based test suite for one Python task.
+
+<problem>
+import re
+from datetime import time
+
+def task_func(logs: list):
+    """
+    Analyze the given list of logs for the occurrence of errors and calculate the average time of occurrence of errors.
+    
+    Parameters:
+    - logs (list): A list of log strings.
+    
+    Returns:
+    - list: A list of times when errors occurred.
+    - time: The average time of occurrence of these errors.
+    
+    Requirements:
+    - re
+    - datetime
+    
+    Example:
+    >>> task_func(['2021-06-15 09:45:00 ERROR: Failed to connect to database',\
+            '2021-06-15 10:15:00 WARNING: Low disk space',\
+            '2021-06-15 10:35:00 INFO: Backup completed successfully'])
+    ([datetime.time(9, 45)], datetime.time(9, 45))
+    """
+
+</problem>
+
+The function under test is `task_func`. The same tests will run unchanged against every candidate implementation. You never receive candidate code, official tests, a canonical solution, or a secret input.
+
+<repair_context>
+Repair the previous module mechanically. Preserve its properties and input domains.
+<previous_test_code>
+# SEARCH PLAN:
+# 1. Boundary: Empty input or no error logs. Expects an empty list of error times and a default average time (datetime.time(0, 0)).
+# 2. Boundary: Single error log. The average time should be exactly that error time, matching the example.
+# 3. Invariant: The calculated average time must fall within the range [min_error_time, max_error_time].
+# 4. Metamorphic: Shifting all error times by a constant amount (e.g., adding an hour) should shift the average time by the same amount (modulo 24h).
+
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+from datetime import time, datetime, timedelta
+import re
+
+# Helper strategy for generating log times
+@st.composite
+def log_time_strategy(draw):
+    hour = draw(st.integers(min_value=0, max_value=23))
+    minute = draw(st.integers(min_value=0, max_value=59))
+    second = draw(st.integers(min_value=0, max_value=59))
+    return time(hour, minute, second)
+
+# Helper strategy for generating log entries
+@st.composite
+def log_entry_strategy(draw, is_error=False, specific_time=None):
+    date = draw(st.dates(min_value=datetime(2000, 1, 1).date(), max_value=datetime(2030, 1, 1).date()))
+    if specific_time:
+        log_t = specific_time
+    else:
+        log_t = draw(log_time_strategy())
+    
+    level = "ERROR" if is_error else draw(st.sampled_from(["INFO", "WARNING", "DEBUG"]))
+    message = draw(st.text(st.characters(min_codepoint=ord('a'), max_codepoint=ord('z')), min_size=1, max_size=10))
+    
+    return f"{date.strftime('%Y-%m-%d')} {log_t.strftime('%H:%M:%S')} {level}: {message}"
+
+# Helper to convert time to seconds since midnight
+def time_to_seconds(t: time) -> int:
+    return t.hour * 3600 + t.minute * 60 + t.second
+
+# Helper to convert seconds since midnight to time
+def seconds_to_time(s: int) -> time:
+    s %= (24 * 3600) # Ensure it wraps around midnight
+    hours = s // 3600
+    minutes = (s % 3600) // 60
+    seconds = s % 60
+    return time(hours, minutes, seconds)
+
+@settings(max_examples=50, deadline=None)
+@given(
+    non_error_logs=st.lists(log_entry_strategy(is_error=False), min_size=0, max_size=10)
+)
+def test_no_errors_or_empty_input(non_error_logs):
+    """
+    SPEC BASIS: "Analyze the given list of logs for the occurrence of errors and calculate the average time of occurrence of errors."
+    PROPERTY: If no 'ERROR' logs are present (either an empty list or only non-error logs), the list of error times should be empty, and the average time should be datetime.time(0, 0).
+    STRATEGY: Generate lists of logs that either are empty or contain only 'INFO', 'WARNING', or 'DEBUG' entries.
+    """
+    logs = non_error_logs
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None and avg_time is not None, "task_func should not raise an exception for valid inputs."
+    assert error_times == [], "Expected an empty list of error times when no errors are present."
+    assert avg_time == time(0, 0), "Expected average time to be 00:00:00 when no errors are present."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    error_time=log_time_strategy(),
+    pre_logs=st.lists(log_entry_strategy(is_error=False), min_size=0, max_size=5),
+    post_logs=st.lists(log_entry_strategy(is_error=False), min_size=0, max_size=5)
+)
+def test_single_error_log(error_time, pre_logs, post_logs):
+    """
+    SPEC BASIS: Example: `([datetime.time(9, 45)], datetime.time(9, 45))` for a single error.
+    PROPERTY: If there is exactly one error log, the returned list of error times should contain only that time, and the average time should be that same time.
+    STRATEGY: Generate lists with exactly one error log, surrounded by various non-error logs.
+    """
+    error_log = log_entry_strategy(is_error=True, specific_time=error_time).example()
+    logs = pre_logs + [error_log] + post_logs
+    
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None and avg_time is not None, "task_func should not raise an exception for valid inputs."
+    assert error_times == [error_time], f"Expected error_times to be {[error_time]}, but got {error_times}."
+    assert avg_time == error_time, f"Expected average time to be {error_time}, but got {avg_time}."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    error_times_data=st.lists(log_time_strategy(), min_size=1, max_size=5),
+    non_error_logs=st.lists(log_entry_strategy(is_error=False), min_size=0, max_size=5)
+)
+def test_average_time_invariant_bounds(error_times_data, non_error_logs):
+    """
+    SPEC BASIS: "calculate the average time of occurrence of these errors."
+    PROPERTY: The calculated average time must be greater than or equal to the minimum error time and less than or equal to the maximum error time found in the logs.
+    STRATEGY: Generate lists with multiple error logs and mix with non-error logs.
+    """
+    error_logs = [log_entry_strategy(is_error=True, specific_time=t).example() for t in error_times_data]
+    logs = error_logs + non_error_logs
+    draw_order = st.randoms().shuffle(logs) # Shuffle to mix error and non-error logs
+    logs = draw_order.example()
+
+    try:
+        error_times, avg_time = task_func(logs)
+    except Exception:
+        error_times, avg_time = None, None
+    
+    assert error_times is not None and avg_time is not None, "task_func should not raise an exception for valid inputs."
+    
+    if not error_times: # Should not happen with min_size=1 for error_times_data, but defensive check
+        assert avg_time == time(0,0)
+        return
+
+    min_expected_time = min(error_times)
+    max_expected_time = max(error_times)
+
+    # Convert times to seconds for comparison
+    avg_seconds = time_to_seconds(avg_time)
+    min_seconds = time_to_seconds(min_expected_time)
+    max_seconds = time_to_seconds(max_expected_time)
+
+    assert min_seconds <= avg_seconds <= max_seconds, \
+        f"Average time {avg_time} ({avg_seconds}s) is not within expected range [{min_expected_time} ({min_seconds}s), {max_expected_time} ({max_seconds}s)]."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    base_error_times=st.lists(log_time_strategy(), min_size=1, max_size=5),
+    shift_minutes=st.integers(min_value=1, max_value=120), # Shift by 1 to 120 minutes
+    non_error_logs=st.lists(log_entry_strategy(is_error=False), min_size=0, max_size=5)
+)
+def test_average_time_metamorphic_shift(base_error_times, shift_minutes, non_error_logs):
+    """
+    SPEC BASIS: "calculate the average time of occurrence of these errors."
+    PROPERTY: If all error times are shifted by a constant amount, the average time should also shift by the same amount (modulo 24 hours).
+    STRATEGY: Generate a set of error times, calculate the average. Then, shift all error times by a constant amount and verify the new average is also shifted.
+    """
+    # Original logs
+    original_error_logs = [log_entry_strategy(is_error=True, specific_time=t).example() for t in base_error_times]
+    original_logs = original_error_logs + non_error_logs
+    st.randoms().shuffle(original_logs) # Shuffle to mix error and non-error logs
+
+    try:
+        _, original_avg_time = task_func(original_logs)
+    except Exception:
+        original_avg_time = None
+    assert original_avg_time is not None, "task_func should not raise an exception for valid inputs."
+
+    # Shifted logs
+    shifted_error_times = []
+    for t in base_error_times:
+        dt_obj = datetime.combine(datetime.min.date(), t)
+        shifted_dt_obj = dt_obj + timedelta(minutes=shift_minutes)
+        shifted_error_times.append(shifted_dt_obj.time())
+    
+    shifted_error_logs = [log_entry_strategy(is_error=True, specific_time=t).example() for t in shifted_error_times]
+    shifted_logs = shifted_error_logs + non_error_logs
+    st.randoms().shuffle(shifted_logs) # Shuffle to mix error and non-error logs
+
+    try:
+        _, shifted_avg_time = task_func(shifted_logs)
+    except Exception:
+        shifted_avg_time = None
+    assert shifted_avg_time is not None, "task_func should not raise an exception for valid inputs."
+
+    # Verify the metamorphic relation
+    original_avg_seconds = time_to_seconds(original_avg_time)
+    shifted_avg_seconds = time_to_seconds(shifted_avg_time)
+    
+    expected_shifted_avg_seconds = (original_avg_seconds + shift_minutes * 60) % (24 * 3600)
+    
+    assert shifted_avg_seconds == expected_shifted_avg_seconds, \
+        f"Metamorphic relation failed: Original avg {original_avg_time}, shifted by {shift_minutes}m, expected {seconds_to_time(expected_shifted_avg_seconds)}, got {shifted_avg_time}."
+
+@settings(max_examples=50, deadline=None)
+@given(
+    error_times_data=st.lists(log_time_strategy(), min_size=1, max_size=5),
+    non_error_logs=st.lists(log_entry_strategy(is_error=False), min_size=0, max_size=5),
+    malformed_logs=st.lists(st.text(min_size=1, max_size=20).filter(lambda s: not re.match(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (ERROR|INFO|WARNING|DEBUG): .*', s)), min_size=0, max_size=5)
+)
+def test_robustness_to_malformed_and_non_error_logs(error_times_data, non_error_logs, malformed_logs):
+    """
+    SPEC BASIS: "Analyze the given list of logs for the occurrence of errors and calculate the average time of occurrence of errors."
+    PROPERTY: Only correctly formatted 'ERROR' logs should contribute to the results. Malformed logs or non-error logs should be ignored without causing a crash.
+    STRATEGY: Generate a mix of valid error logs, valid non-error logs, and malformed log strings.
+    """
+    expected_error_times = sorted(error_times_data) # The problem doesn't specify order, but sorting for consistent comparison
+    
+    error_logs = [log_entry_strategy(is_error=True, specific_time=t).example() for t in error_times_data]
+    
+    logs = error_logs + non_error_logs + malformed_logs
+    st.randoms().shuffle(logs) # Shuffle to mix all types of logs
+
+    try:
+        actual_error_times, actual_avg_time = task_func(logs)
+    except Exception:
+        actual_error_times, actual_avg_time = None, None
+    
+    assert actual_error_times is not None and actual_avg_time is not None, "task_func should not raise an exception for valid inputs (even if some are malformed, they should be ignored)."
+    
+    assert sorted(actual_error_times) == expected_error_times, \
+        f"Expected error times {expected_error_times}, but got {sorted(actual_error_times)}. Malformed/non-error logs should be ignored."
+    
+    # Calculate expected average time manually for verification
+    if not expected_error_times:
+        expected_avg_time = time(0,0)
+    else:
+        total_seconds = sum(time_to_seconds(t) for t in expected_error_times)
+        avg_seconds = round(total_seconds / len(expected_error_times))
+        expected_avg_time = seconds_to_time(avg_seconds)
+    
+    assert actual_avg_time == expected_avg_time, \
+        f"Expected average time {expected_avg_time}, but got {actual_avg_time}. Malformed/non-error logs should not affect average calculation."
+</previous_test_code>
+<collection_error>
+generated module uses forbidden call log_entry_strategy.example
+</collection_error>
+</repair_context>
+
+Write one executable pytest module containing between 3 and 5 tests. Each test must cover a different important property stated by the problem: for example an explicit example, an output invariant, a boundary, or a metamorphic relation. Prefer fewer strong properties to speculative filler.
+
+Search strategy first. Before writing tests, decide WHERE a wrong implementation is most likely to hide, and design each input strategy to reach that region rather than only easy or typical inputs. Where the stated contract allows them, deliberately cover: boundary values (empty input, a single element, minimum and maximum sizes, zero, the largest allowed magnitude); structural edge cases (duplicates, already-sorted vs reversed, repeated keys, overlapping matches, leading/trailing whitespace, mixed case, non-ASCII characters); and values just below and just above any threshold, count, or length the problem mentions. Use `st.one_of(...)` and `st.sampled_from(...)` to fold these edge regions into otherwise-random inputs so an unusual-but-valid input is actually exercised. Prefer metamorphic and certificate checks — a relation any correct output must satisfy — over recomputing the exact expected output, which risks encoding your own mistake as the oracle.
+
+Correctness rules:
+- Every asserted property must follow directly from a quoted sentence or exact example in the problem.
+- Generate only inputs valid under the stated contract. Test invalid inputs only when their behavior is explicitly defined.
+- Do not invent formatting, ordering, serialization, rounding, validation ranges, missing-key behavior, case handling, or error behavior.
+- Compare outputs by the invariant the problem actually guarantees, not by brittle exact equality. For a collection whose element order the problem does not fix, compare element counts with `collections.Counter` (or compare size/membership); use exact `==` only when the problem fixes the exact output.
+- Do not guess an oracle when an intermediate representation is unspecified.
+- Keep generated strings and collections at 12 elements or fewer.
+- Every generated example must execute an assertion.
+
+Required structure:
+- Return exactly one `<test_code>...</test_code>` block and nothing else.
+- Put only executable Python in the block, with no Markdown fence.
+- Begin the module with a `# SEARCH PLAN:` comment block (2-5 lines) naming the boundary and edge-case input regions the suite deliberately targets.
+- Import the function exactly as `from candidate import task_func`.
+- Import Hypothesis exactly as `from hypothesis import given, settings, strategies as st`.
+- Define 3–5 top-level `test_` functions with unique properties.
+- Decorate every test with keyword-based `@given(...)` and `@settings(max_examples=50, deadline=None)`, and no other decorators.
+- The `@given` names must exactly match parameters without defaults.
+- Give every test a docstring containing `SPEC BASIS:`, `PROPERTY:`, and `STRATEGY:` (the input region or edge case this test deliberately targets, and why).
+
+Hypothesis strategies:
+- Use any Hypothesis strategy that is deterministic under a fixed seed — e.g. `st.none`, `st.just`, `st.booleans`, `st.integers`, `st.floats`, `st.decimals`, `st.characters`, `st.text`, `st.lists`, `st.tuples`, `st.dictionaries`, `st.sets`, `st.sampled_from`, `st.one_of`, `st.datetimes`, `st.builds`, `@st.composite`, and so on.
+- Build structured inputs with `.map(f)` (pure `f`), `st.builds(...)`, or `@st.composite` — for example `st.lists(st.integers()).map(tuple)`, or mapping text into a URL or log-line string. `.filter(pred)` is allowed but keep it light (heavy filtering makes the suite flaky); prefer `.map` / `@st.composite`.
+- The only forbidden inputs are uncontrolled randomness: never use `st.randoms()`, `.example()`, `random`, `secrets`, or `shuffle`. All input must come from seeded Hypothesis strategies so runs are reproducible.
+
+Important API details:
+- Never use `.example()`, `assume(...)`, `st.randoms()`, `shuffle`, or external randomness. (`.filter(...)` is allowed but use it sparingly.)
+- Use `string.ascii_lowercase`, not nonexistent `st.ascii_lowercase`.
+- `min_size`, `max_size`, and `places` must be literal integers, not strategies.
+- `st.floats` does not accept `places`.
+- Do not import `pytest`, `random`, `secrets`, or any third-party package other than Hypothesis; do not use files, network access, subprocesses, sleeps, or any uncontrolled randomness (all input must come from Hypothesis strategies so runs are reproducible).
+- Call `task_func` inside `try`/`except`; on any exception, set the result to `None`, then assert on that result. A correct implementation must not raise on valid inputs, so this turns a crash into a failed `assert` (a real catch) instead of an untracked error. Every property violation must surface as a failed `assert` (do not rely on `pytest.raises`).
+
+If `<repair_context>` contains a previous module and collection error, repair only its Python, imports, decorators, and Hypothesis API usage. Preserve its property intent and return the complete corrected module.
+
+Illustrative patterns (STYLE to imitate — metamorphic/certificate checks plus edge-targeting strategies — NOT properties of the current problem; adapt to this problem's actual contract). Your whole answer is ONE `<test_code>` block containing the full module with no Markdown fences; the snippets below just illustrate individual tests.
+
+Example — a certificate check (no need to recompute the answer), targeting boundaries:
+
+@settings(max_examples=50, deadline=None)
+@given(x=st.one_of(st.just(0.0), st.floats(min_value=0, max_value=1e6, allow_nan=False, allow_infinity=False)))
+def test_output_recovers_input(x):
+    """
+    SPEC BASIS: "returns the square root of x".
+    PROPERTY: squaring the returned root recovers x (a certificate; no need to recompute the root).
+    STRATEGY: include the 0.0 boundary and the largest allowed magnitude, where rounding bugs hide.
+    """
+    try:
+        result = task_func(x)
+    except Exception:
+        result = None
+    assert result is not None
+    assert math.isclose(float(result) ** 2, x, rel_tol=1e-3, abs_tol=1e-6)
+
+Example — an order-insensitive invariant, mixing the empty boundary with duplicate-heavy inputs:
+
+@settings(max_examples=50, deadline=None)
+@given(xs=st.one_of(st.just([]), st.lists(st.integers(-5, 5), min_size=1, max_size=12)))
+def test_count_conserved(xs):
+    """
+    SPEC BASIS: "counts each item across the input".
+    PROPERTY: the counts sum to the number of input items (an invariant, order-insensitive).
+    STRATEGY: mix the empty-list boundary with duplicate-heavy lists so unusual shapes are exercised.
+    """
+    try:
+        counts = task_func(xs)
+    except Exception:
+        counts = None
+    assert counts is not None
+    assert sum(counts.values()) == len(xs)
+
+Before responding, review the module as if running `python -m pytest --collect-only -q test_candidate.py`: Python must parse, every imported API must exist, and pytest must collect all tests.

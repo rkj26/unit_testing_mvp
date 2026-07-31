@@ -1,0 +1,105 @@
+from candidate import task_func
+from hypothesis import given, settings, strategies as st
+import string
+
+@settings(max_examples=50, deadline=None)
+@given(seed=st.integers(min_value=0, max_value=1000))
+def test_empty_text_raises_value_error(seed):
+    """
+    SPEC BASIS: "Raises: ValueError: If the input text is empty."
+    PROPERTY: Calling `task_func` with an empty string must raise a ValueError.
+    STRATEGY: Provide an empty string as input, ensuring this specific boundary condition is hit.
+    """
+    with st.suppress_health_check(st.HealthCheck.filter_too_much):
+        text = "" # Explicitly test the empty string
+        try:
+            # A correct implementation must raise ValueError here.
+            # If it returns a value or raises a different error, the test fails.
+            task_func(text, seed=seed)
+            assert False, "task_func did not raise ValueError for empty text"
+        except ValueError as e:
+            assert "empty" in str(e).lower(), "ValueError message should indicate empty text"
+        except Exception as e:
+            assert False, f"task_func raised unexpected exception {type(e).__name__} for empty text, expected ValueError"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    text=st.text(
+        alphabet=string.ascii_letters + string.digits + " " + string.punctuation,
+        min_size=1,
+        max_size=12
+    ),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_output_length_is_preserved(text, seed):
+    """
+    SPEC BASIS: Implicit in the transformation rules and examples (replacements, no additions/deletions).
+    PROPERTY: The length of the generated password must be exactly equal to the length of the input text.
+    STRATEGY: Generate diverse strings (alphabetic, digits, spaces, symbols, mixed) of small lengths (1-12)
+              to cover various character types and length boundaries.
+    """
+    try:
+        result = task_func(text, seed=seed)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func raised an unexpected exception for input: '{text}'"
+    assert len(result) == len(text), f"Output length mismatch for '{text}'. Expected {len(text)}, got {len(result)}. Output: '{result}'"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    text=st.text(
+        alphabet=string.ascii_letters + string.digits + " " + string.punctuation,
+        min_size=1,
+        max_size=12
+    ),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_unchanged_characters_remain_unchanged(text, seed):
+    """
+    SPEC BASIS: "leaving other characters unchanged."
+    PROPERTY: Any character in the input that is not an alphabetic character, a digit, or a space,
+              must appear at the same position in the output password.
+    STRATEGY: Generate strings with a mix of all character types, focusing on ensuring "other" characters
+              (punctuation, symbols) are correctly preserved at their original positions.
+    """
+    try:
+        result = task_func(text, seed=seed)
+    except Exception:
+        result = None
+    assert result is not None, f"task_func raised an unexpected exception for input: '{text}'"
+
+    for i, char in enumerate(text):
+        if not (char.isalpha() or char.isdigit() or char == ' '):
+            assert result[i] == char, \
+                f"Character '{char}' at index {i} was changed to '{result[i]}' in output '{result}' for input '{text}'"
+
+
+@settings(max_examples=50, deadline=None)
+@given(
+    text=st.text(
+        alphabet=string.ascii_letters + string.digits + " " + string.punctuation,
+        min_size=1,
+        max_size=12
+    ),
+    seed=st.integers(min_value=0, max_value=1000)
+)
+def test_seeded_output_is_deterministic(text, seed):
+    """
+    SPEC BASIS: "seed (int, optional): Seed for the random number generator." This implies deterministic output.
+    PROPERTY: For the same input text and seed, `task_func` must always produce the exact same output.
+    STRATEGY: Call `task_func` twice with identical text and seed inputs and assert that the outputs are identical.
+              This catches any non-deterministic behavior or incorrect seeding.
+    """
+    try:
+        result1 = task_func(text, seed=seed)
+        result2 = task_func(text, seed=seed)
+    except Exception:
+        result1 = None
+        result2 = None
+
+    assert result1 is not None, f"First call to task_func raised an unexpected exception for input: '{text}', seed: {seed}"
+    assert result2 is not None, f"Second call to task_func raised an unexpected exception for input: '{text}', seed: {seed}"
+    assert result1 == result2, \
+        f"Non-deterministic output for text='{text}', seed={seed}. Got '{result1}' and then '{result2}'"

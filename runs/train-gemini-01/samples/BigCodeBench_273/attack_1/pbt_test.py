@@ -1,0 +1,243 @@
+# SEARCH PLAN:
+# 1. Test successful POST request: Ensure 200 OK, correct JSON response, and proper headers.
+# 2. Test 'Content-Type header is not application/json' error: Vary content-type header, including missing.
+# 3. Test 'No data key in request' error: Send valid JSON but without the 'data' key.
+# 4. Test 'Invalid JSON' error: Send malformed JSON in the request body.
+# 5. Test 'Content-Length' header accuracy: Verify the Content-Length header matches the actual response body length for various valid/invalid cases.
+
+import io
+import json
+import http.server
+from unittest.mock import MagicMock
+from http.client import HTTPMessage
+
+from hypothesis import given, settings, strategies as st
+from candidate import task_func
+
+# Helper to simulate a request handler environment and capture output
+class MockSocket:
+    def __init__(self, input_data=b''):
+        self._input_buffer = io.BytesIO(input_data)
+        self._output_buffer = io.BytesIO()
+
+    def makefile(self, mode, *args, **kwargs):
+        if 'r' in mode:
+            return self._input_buffer
+        if 'w' in mode:
+            return self._output_buffer
+        raise ValueError(f"Unsupported mode: {mode}")
+
+    def get_output(self):
+        return self._output_buffer.getvalue()
+
+def run_handler_and_capture_response(handler_class, method, path, headers, body=None):
+    mock_socket = MockSocket(body if body is not None else b'')
+    
+    # BaseHTTPRequestHandler expects (request, client_address, server)
+    handler_instance = handler_class(
+        mock_socket, ('127.0.0.1', 8080), MagicMock() # client_address, server
+    )
+    handler_instance.command = method
+    handler_instance.path = path
+    
+    # Set headers directly on the handler instance, as BaseHTTPRequestHandler would parse them
+    handler_instance.headers = HTTPMessage()
+    for k, v in headers.items():
+        handler_instance.headers[k] = v
+
+    # Mock the methods that write to wfile to capture their arguments
+    # We need to capture the status code and headers sent by the handler
+    handler_instance.send_response = MagicMock()
+    handler_instance.send_header = MagicMock()
+    handler_instance.end_headers = MagicMock()
+
+    # Call the appropriate do_ method
+    if method == 'POST':
+        handler_instance.do_POST()
+    else:
+        raise ValueError(f"Unsupported method: {method}")
+
+    # Extract captured response details
+    status_code = handler_instance.send_response.call_args[0][0] if handler_instance.send_response.called else None
+    
+    response_headers = {}
+    for call in handler_instance.send_header.call_args_list:
+        header_name, header_value = call[0]
+        response_headers[header_name.lower()] = header_value
+
+    response_body = mock_socket.get_output() # This captures the actual body written to wfile
+
+    return status_code, response_headers, response_body
+
+# Define the expected success and error responses
+SUCCESS_RESPONSE = {
+    'status': 'success',
+    'message': 'Data received successfully.'
+}
+
+ERROR_RESPONSE_INVALID_CONTENT_TYPE = {
+    'status': 'error',
+    'message': 'Content-Type header is not application/json'
+}
+
+ERROR_RESPONSE_NO_DATA_KEY = {
+    'status': 'error',
+    'message': 'No data key in request'
+}
+
+ERROR_RESPONSE_INVALID_JSON = {
+    'status': 'error',
+    'message': 'Invalid JSON'
+}
+
+
+@settings(max_examples=50, deadline=None)
+@given(data_value=st.one_of(st.text(min_size=1, max_size=10, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))),
+                             st.integers(),
+                             st.booleans(),
+                             st.dictionaries(st.text(min_size=1, max_size=5), st.integers(), max_size=3),
+                             st.lists(st.integers(), max_size=3)))
+def test_successful_post_request(data_value):
+    """
+    SPEC BASIS: "The handler responds with a 200 success message if the data is valid..."
+                "The data is expected to be in JSON format with a key 'data'."
+    PROPERTY: A valid POST request with 'application/json' content-type and a 'data' key
+              should result in a 200 OK status, 'application/json' content-type header,
+              and the specified success JSON body.
+    STRATEGY: Generate various valid JSON-serializable data types for the 'data' key,
+              ensuring the handler correctly processes diverse valid inputs.
+    """
+    handler_class = task_func()
+    request_body_data = {'data': data_value}
+    request_body_json = json.dumps(request_body_data).encode('utf-8')
+    
+    headers = {'Content-Type': 'application/json'}
+
+    try:
+        status, response_headers, response_body = run_handler_and_capture_response(
+            handler_class, 'POST', '/', headers, request_body_json
+        )
+    except Exception:
+        status, response_headers, response_body = None, {}, b''
+
+    assert status == 200, f"Expected status 200, got {status}"
+    assert response_headers.get('content-type') == 'application/json', \
+        f"Expected Content-Type 'application/json', got {response_headers.get('content-type')}"
+    assert json.loads(response_body) == SUCCESS_RESPONSE, \
+        f"Expected success response body {SUCCESS_RESPONSE}, got {json.loads(response_body)}"
+    assert int(response_headers.get('content-length')) == len(response_body), \
+        f"Content-Length mismatch: expected {len(response_body)}, got {response_headers.get('content-length')}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(content_type=st.one_of(
+    st.just(None), # Missing header
+    st.just('text/plain'),
+    st.just('application/xml'),
+    st.text(min_size=1, max_size=12, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).filter(lambda s: s.lower() != 'application/json')
+))
+def test_invalid_content_type_error(content_type):
+    """
+    SPEC BASIS: "If the 'content-type' header is not 'application/json', indicating the
+                 client sent a request with an unsupported format. This condition sends a
+                 400 Bad Request response to the client with the message 'Content-Type header
+                 is not application/json'."
+    PROPERTY: Requests with missing or non-'application/json' Content-Type headers should
+              result in a 400 Bad Request status and the specific error message.
+    STRATEGY: Generate various invalid content-type strings, including `None` for a missing
+              header, to trigger the specific error condition.
+    """
+    handler_class = task_func()
+    request_body_json = json.dumps({'data': 'some_data'}).encode('utf-8')
+    
+    headers = {}
+    if content_type is not None:
+        headers['Content-Type'] = content_type
+
+    try:
+        status, response_headers, response_body = run_handler_and_capture_response(
+            handler_class, 'POST', '/', headers, request_body_json
+        )
+    except Exception:
+        status, response_headers, response_body = None, {}, b''
+
+    assert status == 400, f"Expected status 400, got {status}"
+    assert response_headers.get('content-type') == 'application/json', \
+        f"Expected Content-Type 'application/json', got {response_headers.get('content-type')}"
+    assert json.loads(response_body) == ERROR_RESPONSE_INVALID_CONTENT_TYPE, \
+        f"Expected error response body {ERROR_RESPONSE_INVALID_CONTENT_TYPE}, got {json.loads(response_body)}"
+    assert int(response_headers.get('content-length')) == len(response_body), \
+        f"Content-Length mismatch: expected {len(response_body)}, got {response_headers.get('content-length')}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(json_data=st.dictionaries(
+    st.text(min_size=1, max_size=10, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).filter(lambda s: s != 'data'),
+    st.integers(),
+    min_size=0, max_size=5
+))
+def test_no_data_key_error(json_data):
+    """
+    SPEC BASIS: "If the JSON object does not contain the 'data' key, leading to a 400 Bad
+                 Request response with the message 'No data key in request'."
+    PROPERTY: Valid JSON requests that lack the 'data' key should result in a 400 Bad Request
+              status and the specific error message.
+    STRATEGY: Generate valid JSON objects that explicitly do NOT contain the 'data' key,
+              including an empty JSON object, to ensure this specific error path is covered.
+    """
+    handler_class = task_func()
+    request_body_json = json.dumps(json_data).encode('utf-8')
+    
+    headers = {'Content-Type': 'application/json'}
+
+    try:
+        status, response_headers, response_body = run_handler_and_capture_response(
+            handler_class, 'POST', '/', headers, request_body_json
+        )
+    except Exception:
+        status, response_headers, response_body = None, {}, b''
+
+    assert status == 400, f"Expected status 400, got {status}"
+    assert response_headers.get('content-type') == 'application/json', \
+        f"Expected Content-Type 'application/json', got {response_headers.get('content-type')}"
+    assert json.loads(response_body) == ERROR_RESPONSE_NO_DATA_KEY, \
+        f"Expected error response body {ERROR_RESPONSE_NO_DATA_KEY}, got {json.loads(response_body)}"
+    assert int(response_headers.get('content-length')) == len(response_body), \
+        f"Content-Length mismatch: expected {len(response_body)}, got {response_headers.get('content-length')}"
+
+
+@settings(max_examples=50, deadline=None)
+@given(invalid_json_string=st.one_of(
+    st.just(b''), # Empty body
+    st.just(b'{'), # Incomplete JSON
+    st.just(b'{"data": "value"'), # Incomplete JSON
+    st.just(b'not json'),
+    st.text(min_size=1, max_size=12, alphabet=st.characters(blacklist_categories=('Cs', 'Cc'))).map(lambda s: s.encode('utf-8')).filter(lambda b: b not in [b'{}', b'{"data":1}'])
+))
+def test_invalid_json_body_error(invalid_json_string):
+    """
+    SPEC BASIS: "If the request body does not contain valid JSON, resulting in
+                 a 400 Bad Request response with the message 'Invalid JSON'."
+    PROPERTY: Requests with a 'Content-Type: application/json' header but an invalid
+              JSON body should result in a 400 Bad Request status and the specific error message.
+    STRATEGY: Generate various forms of invalid or malformed JSON strings, including empty
+              strings and incomplete JSON, to ensure the JSON parsing error is caught.
+    """
+    handler_class = task_func()
+    
+    headers = {'Content-Type': 'application/json'}
+
+    try:
+        status, response_headers, response_body = run_handler_and_capture_response(
+            handler_class, 'POST', '/', headers, invalid_json_string
+        )
+    except Exception:
+        status, response_headers, response_body = None, {}, b''
+
+    assert status == 400, f"Expected status 400, got {status}"
+    assert response_headers.get('content-type') == 'application/json', \
+        f"Expected Content-Type 'application/json', got {response_headers.get('content-type')}"
+    assert json.loads(response_body) == ERROR_RESPONSE_INVALID_JSON, \
+        f"Expected error response body {ERROR_RESPONSE_INVALID_JSON}, got {json.loads(response_body)}"
+    assert int(response_headers.get('content-length')) == len(response_body), \
+        f"Content-Length mismatch: expected {len(response_body)}, got {response_headers.get('content-length')}"

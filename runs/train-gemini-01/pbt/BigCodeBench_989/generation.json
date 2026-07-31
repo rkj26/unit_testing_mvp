@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "error": "max_size must be an integer literal",
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 3379,
+        "output_tokens": 4403,
+        "reasoning_tokens": 2044,
+        "total_tokens": 7782
+      }
+    },
+    {
+      "error": null,
+      "test_count": 5,
+      "usage": {
+        "input_tokens": 5773,
+        "output_tokens": 4065,
+        "reasoning_tokens": 1728,
+        "total_tokens": 9838
+      }
+    }
+  ],
+  "error": null,
+  "repair_attempted": true,
+  "test_count": 5,
+  "usage": {
+    "input_tokens": 9152,
+    "output_tokens": 8468,
+    "reasoning_tokens": 3772,
+    "total_tokens": 17620
+  }
+}

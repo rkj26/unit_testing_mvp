@@ -1,0 +1,62 @@
+STDOUT:
+....F                                                                    [100%]
+=================================== FAILURES ===================================
+___________________ test_empty_prefix_results_in_zero_counts ___________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(
+        # Generate strings that might result in an empty prefix
+        s=st.one_of(
+            st.just('-'), # Single hyphen
+            st.text(st.sampled_from(char_pool), min_size=0, max_size=5).map(lambda x: f"-{x}"), # Hyphen at start
+            st.lists(string_part_strategy, min_size=1, max_size=3).map(lambda parts: '-'.join([''] + parts)) # Multiple hyphens, first part empty
+        )
+    )
+
+test_candidate.py:194: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '--'
+
+    @settings(max_examples=50, deadline=None)
+    @given(
+        # Generate strings that might result in an empty prefix
+        s=st.one_of(
+            st.just('-'), # Single hyphen
+            st.text(st.sampled_from(char_pool), min_size=0, max_size=5).map(lambda x: f"-{x}"), # Hyphen at start
+            st.lists(string_part_strategy, min_size=1, max_size=3).map(lambda parts: '-'.join([''] + parts)) # Multiple hyphens, first part empty
+        )
+    )
+    def test_empty_prefix_results_in_zero_counts(s):
+        """
+        SPEC BASIS: "count the frequency of each lowercase letter in the prefix of the string."
+        PROPERTY: If the identified prefix is empty, all letter counts in the output dictionary must be zero.
+        STRATEGY: Generate inputs specifically designed to produce an empty prefix (e.g., strings starting with a hyphen, or just a hyphen).
+                  This checks that the counting logic correctly handles an empty input string for counting.
+        """
+        input_string = s
+    
+        # Oracle: Determine the expected prefix and counts
+        last_hyphen_index = input_string.rfind('-')
+        expected_prefix = input_string[:last_hyphen_index]
+    
+        # If the prefix is empty, all counts should be zero
+        expected_counts = {char: 0 for char in ascii_lowercase}
+    
+        # Sanity check for the strategy: ensure the prefix is indeed empty
+>       assert expected_prefix == "", f"Strategy failed to produce an empty prefix for input: '{input_string}'. Actual prefix: '{expected_prefix}'"
+E       AssertionError: Strategy failed to produce an empty prefix for input: '--'. Actual prefix: '-'
+E       assert '-' == ''
+E         
+E         + -
+E       Falsifying example: test_empty_prefix_results_in_zero_counts(
+E           s='--',
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmp5iijmy2w/test_candidate.py:199
+
+test_candidate.py:219: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_empty_prefix_results_in_zero_counts - Assertio...
+1 failed, 4 passed in 0.20s

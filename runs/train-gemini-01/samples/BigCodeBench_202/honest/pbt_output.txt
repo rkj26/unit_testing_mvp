@@ -1,0 +1,138 @@
+STDOUT:
+FF.F                                                                     [100%]
+=================================== FAILURES ===================================
+___________________ test_output_contains_top_n_urls_by_count ___________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(json_str=st_json_str, top_n=st_top_n)
+
+test_candidate.py:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:57: in st_json_value
+    return draw(st.one_of(
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:799: in do_draw
+    return data.draw(strategy)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:181: in do_draw
+    return data.draw(self.wrapped_strategy)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/core.py:1822: in do_draw
+    return self.definition(data.draw, *self.args, **self.kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+draw = <bound method ConjectureData.draw of ConjectureData(VALID, 8 choices, frozen)>
+
+    @st.composite
+    def st_url(draw):
+        scheme = draw(st_scheme)
+        subdomains = draw(st.lists(st_domain_part, min_size=0, max_size=1)) # Reduced max_size for smaller domains
+        domain = ".".join(subdomains + [draw(st_domain_part)]) if subdomains else draw(st_domain_part)
+        tld = draw(st_tld)
+>       path = draw(st.lists(st_path_segment, min_size=0, max_size=1)).map(lambda segments: "/" + "/".join(segments) if segments else "")
+E       AttributeError: 'list' object has no attribute 'map'
+E       while generating 'json_str' from dictionaries(keys=text(alphabet=sampled_from('abc'), min_size=1, max_size=3), values=st_json_value(), max_size=5).map(dumps)
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:20
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:28
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:29
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:30
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:32
+
+test_candidate.py:32: AttributeError
+________________ test_sum_of_counts_equals_total_extracted_urls ________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(json_str=st_json_str)
+
+test_candidate.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:57: in st_json_value
+    return draw(st.one_of(
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:799: in do_draw
+    return data.draw(strategy)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:181: in do_draw
+    return data.draw(self.wrapped_strategy)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/core.py:1822: in do_draw
+    return self.definition(data.draw, *self.args, **self.kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+draw = <bound method ConjectureData.draw of ConjectureData(VALID, 8 choices, frozen)>
+
+    @st.composite
+    def st_url(draw):
+        scheme = draw(st_scheme)
+        subdomains = draw(st.lists(st_domain_part, min_size=0, max_size=1)) # Reduced max_size for smaller domains
+        domain = ".".join(subdomains + [draw(st_domain_part)]) if subdomains else draw(st_domain_part)
+        tld = draw(st_tld)
+>       path = draw(st.lists(st_path_segment, min_size=0, max_size=1)).map(lambda segments: "/" + "/".join(segments) if segments else "")
+E       AttributeError: 'list' object has no attribute 'map'
+E       while generating 'json_str' from dictionaries(keys=text(alphabet=sampled_from('abc'), min_size=1, max_size=3), values=st_json_value(), max_size=5).map(dumps)
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:20
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:28
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:29
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:30
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:31
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:32
+
+test_candidate.py:32: AttributeError
+______________________ test_all_extracted_urls_are_valid _______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(json_str=st_json_str, top_n=st_top_n)
+
+test_candidate.py:193: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_candidate.py:57: in st_json_value
+    return draw(st.one_of(
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/strategies.py:799: in do_draw
+    return data.draw(strategy)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/lazy.py:181: in do_draw
+    return data.draw(self.wrapped_strategy)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/internal/conjecture/data.py:1135: in draw
+    return strategy.do_draw(self)
+/Users/rakshitjha/Public/claude_local/unit_testing_mvp/.venv/lib/python3.12/site-packages/hypothesis/strategies/_internal/core.py:1822: in do_draw
+    return self.definition(data.draw, *self.args, **self.kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+draw = <bound method ConjectureData.draw of ConjectureData(VALID, 8 choices, frozen)>
+
+    @st.composite
+    def st_url(draw):
+        scheme = draw(st_scheme)
+        subdomains = draw(st.lists(st_domain_part, min_size=0, max_size=1)) # Reduced max_size for smaller domains
+        domain = ".".join(subdomains + [draw(st_domain_part)]) if subdomains else draw(st_domain_part)
+        tld = draw(st_tld)
+>       path = draw(st.lists(st_path_segment, min_size=0, max_size=1)).map(lambda segments: "/" + "/".join(segments) if segments else "")
+E       AttributeError: 'list' object has no attribute 'map'
+E       while generating 'json_str' from dictionaries(keys=text(alphabet=sampled_from('abc'), min_size=1, max_size=3), values=st_json_value(), max_size=5).map(dumps)
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:20
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:28
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:29
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:30
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmpwbu7uji9/test_candidate.py:32
+
+test_candidate.py:32: AttributeError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_output_contains_top_n_urls_by_count - Attribut...
+FAILED test_candidate.py::test_sum_of_counts_equals_total_extracted_urls - At...
+FAILED test_candidate.py::test_all_extracted_urls_are_valid - AttributeError:...
+3 failed, 1 passed in 1.31s

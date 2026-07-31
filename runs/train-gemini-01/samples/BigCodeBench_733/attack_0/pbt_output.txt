@@ -1,0 +1,61 @@
+STDOUT:
+.F..                                                                     [100%]
+=================================== FAILURES ===================================
+______________________ test_last_word_exclusion_invariant ______________________
+
+    @settings(max_examples=50, deadline=None)
+>   @given(words=st.lists(_WORD_STRATEGY, min_size=1, max_size=12),
+           new_last_word=_WORD_STRATEGY)
+
+test_candidate.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+words = ['a'], new_last_word = 'yours'
+
+    @settings(max_examples=50, deadline=None)
+    @given(words=st.lists(_WORD_STRATEGY, min_size=1, max_size=12),
+           new_last_word=_WORD_STRATEGY)
+    def test_last_word_exclusion_invariant(words, new_last_word):
+        """
+        SPEC BASIS: "Count the non-stop words in a sentence without the last word."
+        PROPERTY: Appending a new word to a sentence should not change the count if the new word
+                  becomes the *last* word (and thus is excluded).
+        STRATEGY: Generate a sentence, compute its count. Then append a new word to make it the
+                  new last word. The count should remain the same because the new word is excluded.
+                  This tests the "without the last word" rule robustly, independent of stop word definitions.
+        """
+        # `words` is guaranteed to have min_size=1, so base_sentence will not be empty.
+        base_sentence = ' '.join(words)
+    
+        # Construct the modified sentence where new_last_word is the last word
+        modified_sentence = base_sentence + ' ' + new_last_word
+    
+        try:
+            original_count = task_func(base_sentence)
+            modified_count = task_func(modified_sentence)
+        except Exception:
+            original_count = None
+            modified_count = None
+    
+        assert original_count is not None, f"task_func raised for '{base_sentence}'"
+        assert modified_count is not None, f"task_func raised for '{modified_sentence}'"
+    
+        # The count should be the same because the newly added word is the last word
+        # and thus excluded from counting.
+>       assert modified_count == original_count, \
+            f"Appending '{new_last_word}' to '{base_sentence}' (resulting in '{modified_sentence}') " \
+            f"changed count from {original_count} to {modified_count}. Last word should be excluded."
+E       AssertionError: Appending 'yours' to 'a' (resulting in 'a yours') changed count from 0 to 1. Last word should be excluded.
+E       assert 1 == 0
+E       Falsifying example: test_last_word_exclusion_invariant(
+E           words=['a'],
+E           new_last_word='yours',  # or any other generated value
+E       )
+E       Explanation:
+E           These lines were always and only run by failing examples:
+E               /private/var/folders/6d/fq6k6mzd0xz66xjr05xlzc3w0000gn/T/tmphqvrttek/test_candidate.py:84
+
+test_candidate.py:82: AssertionError
+=========================== short test summary info ============================
+FAILED test_candidate.py::test_last_word_exclusion_invariant - AssertionError...
+1 failed, 3 passed in 0.29s
