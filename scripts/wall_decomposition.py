@@ -64,6 +64,8 @@ import math
 import re
 import string as _string
 import sys
+import warnings
+from contextlib import contextmanager
 from datetime import time as _dtime  # noqa: F401  (candidates import it themselves)
 from pathlib import Path
 from typing import Any, Callable
@@ -96,9 +98,26 @@ BUDGET_LARGE = 2000
 # --------------------------------------------------------------------------
 
 
+@contextmanager
+def _quiet_candidate_syntax():
+    """Silence SyntaxWarning raised while compiling pool code.
+
+    The pool is frozen data: BigCodeBench/841's honest solution writes a regex
+    as a non-raw ``'[^\\sa-zA-Z0-9]'``, which Python 3.12+ flags as an invalid
+    escape. The string is byte-identical to its raw form, so this is cosmetic -
+    and every candidate gets compiled several times per run, so the noise
+    drowns the diagnostic's own output. Editing the frozen pool to fix it would
+    be worse than muting it here.
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", SyntaxWarning)
+        yield
+
+
 def entry_point_name(code: str) -> str:
     """Return the name of the single top-level ``def`` in ``code``."""
-    tree = ast.parse(code)
+    with _quiet_candidate_syntax():
+        tree = ast.parse(code)
     funcs = [n.name for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
     if len(funcs) != 1:
         raise ValueError(f"expected exactly one top-level def, found {funcs!r}")
@@ -111,7 +130,9 @@ def load_callable(code: str) -> Callable[..., Any]:
     Unsandboxed by design - see the trust-boundary note in the module docstring.
     """
     ns: dict[str, Any] = {"__name__": "candidate"}
-    exec(compile(code, "<candidate>", "exec"), ns)  # noqa: S102 - trusted pool only
+    with _quiet_candidate_syntax():
+        compiled = compile(code, "<candidate>", "exec")
+    exec(compiled, ns)  # noqa: S102 - trusted pool only
     return ns[entry_point_name(code)]
 
 
