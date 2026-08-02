@@ -20,10 +20,9 @@ from .schema import Backend, Problem, ScoreResult, make_row
 
 import os
 
-# Concurrent model calls. Serial by default: personal/dev Azure Foundry deployments throttle
-# concurrency hard (a fast ~18s call balloons past 120s at just 2-in-flight). Raise it once your
-# deployment quota allows: MAX_CONN=4 .venv/bin/python run.py ...
-MAX_CONN = int(os.getenv("MAX_CONN", "1"))
+# Concurrent model calls. 4 is safe under a 500 RPM / 500K TPM quota (verified: concurrent calls
+# return in seconds). Tune per deployment via MAX_CONN=N.
+MAX_CONN = int(os.getenv("MAX_CONN", "4"))
 EXEC_WORKERS = int(os.getenv("EXEC_WORKERS", "8"))  # local subprocess jobs (not rate-limited)
 CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "240"))  # per-call backstop
 

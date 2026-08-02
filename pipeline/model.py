@@ -54,6 +54,7 @@ class TrustedModel:
             "temperature": self.temperature,
             "timeout": 180,
             "max_retries": 2,
+            "max_connections": 16,  # let inspect issue concurrent requests (our MAX_CONN is the real cap)
         }
         if self.seed is not None:
             cfg["seed"] = self.seed
