@@ -30,8 +30,9 @@ from typing import Any
 from .schema import Problem
 
 PROMPTS = Path(__file__).resolve().parent.parent / "prompts"
-PBT_TIMEOUT_SECONDS = 30  # whole property-runner subprocess (all props x inputs) for one candidate
+PBT_TIMEOUT_SECONDS = int(os.getenv("PBT_TIMEOUT", "60"))  # whole property-runner subprocess per candidate
 CAND_TIMEOUT_SECONDS = 6  # one stdio candidate program run
+MAX_SEARCH_SPACE = int(os.getenv("MAX_SEARCH_SPACE", "60"))  # cap inputs so property eval stays under the timeout
 
 # Per-io contract text spliced into the prompts so the model writes a runnable `run(x)` client.
 _INVOKE_CONTRACT = {
@@ -306,6 +307,7 @@ def evaluate(
                 "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
+    space = list(space)[:MAX_SEARCH_SPACE]  # bound eval time regardless of how many the model produced
     ref = run_raw(problem, problem.reference_code, props_src, space)
     if not ref["ok"]:
         reason = f"reference run failed: {ref['error']}"

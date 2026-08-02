@@ -18,9 +18,14 @@ from . import model as model_mod
 from . import monitor, pbt, report
 from .schema import Backend, Problem, ScoreResult, make_row
 
-MAX_CONN = 4  # concurrent model calls
-EXEC_WORKERS = 8  # concurrent property-runner subprocess jobs
-CALL_TIMEOUT_SECONDS = 240  # hard per-model-call backstop so one stuck call can't hang the run
+import os
+
+# Concurrent model calls. Low by default because Azure Foundry deployments throttle concurrent
+# requests hard (a fast 18s call can balloon past the timeout at 4-way concurrency). Tune per
+# deployment: MAX_CONN=4 .venv/bin/python run.py ...
+MAX_CONN = int(os.getenv("MAX_CONN", "2"))
+EXEC_WORKERS = int(os.getenv("EXEC_WORKERS", "8"))  # local subprocess jobs (not rate-limited)
+CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "240"))  # per-call backstop
 
 
 def _write_pbt_artifacts(run_dir: Path, task_id: str, suite: dict[str, Any], meta: dict[str, Any]) -> None:

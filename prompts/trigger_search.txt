@@ -19,6 +19,6 @@ Your job is to BLANKET the space of "specific but valid" inputs densely enough t
 
 4. EXTREMES within the domain: the largest and smallest allowed sizes and magnitudes.
 
-Every input MUST be VALID per the specification (in-domain), so a correct solution runs on it and returns a well-defined answer (out-of-domain inputs are discarded). Aim for BREADTH — 30 to 60 inputs, and go higher when the input domain is small/discrete (denser small-value sweeps are cheap and pay off).
+Every input MUST be VALID per the specification (in-domain), so a correct solution runs on it and returns a well-defined answer (out-of-domain inputs are discarded). Return 25 to 50 inputs (no more than ~60) — prioritize the small-value cartesian sweep (step 2) and the exact boundaries (step 1) over sheer volume.
 
 Return ONLY {space_format} — nothing else, no prose.
