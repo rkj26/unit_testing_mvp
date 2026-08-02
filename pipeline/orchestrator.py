@@ -20,13 +20,11 @@ from .schema import Backend, Problem, ScoreResult, make_row
 
 import os
 
-# Concurrent model calls. Serial by default: this DeepSeek Foundry deployment reliably handles only
-# 1 in flight — 2 is flaky and 3+ times out consistently even with retries (despite a 500 RPM quota;
-# it's a deployment/reasoning-model limitation, not a quota one). Raise MAX_CONN=N on a deployment
-# that tolerates concurrency (e.g. GPT-5.4, or a provisioned-throughput DeepSeek).
-MAX_CONN = int(os.getenv("MAX_CONN", "1"))
+# Concurrent model calls. Works at 4 once reasoning_effort=low + max_tokens are set (bounded, fast
+# calls); the endpoint only chokes on unbounded large generations under concurrency (not rate limits).
+MAX_CONN = int(os.getenv("MAX_CONN", "4"))
 EXEC_WORKERS = int(os.getenv("EXEC_WORKERS", "8"))  # local subprocess jobs (not rate-limited)
-CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "120"))  # per-attempt cap (a normal call is ~18s)
+CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "300"))  # per-attempt cap; thinking models can be slow
 CALL_RETRIES = int(os.getenv("CALL_RETRIES", "2"))  # extra attempts if a call stalls/errors
 
 

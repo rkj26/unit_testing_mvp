@@ -52,12 +52,21 @@ class TrustedModel:
 
         cfg: dict[str, Any] = {
             "temperature": self.temperature,
-            "timeout": 180,
+            "timeout": 300,
             "max_retries": 2,
             "max_connections": 16,  # let inspect issue concurrent requests (our MAX_CONN is the real cap)
+            # Bounding output is what makes CONCURRENCY work on this endpoint: unbounded large
+            # generations hang under concurrency, but capped ones run fine (verified). Plenty for
+            # ~60 search-space inputs or 5 property functions; env-tunable via MAX_TOKENS.
+            "max_tokens": int(os.getenv("MAX_TOKENS", "4000")),
         }
         if self.seed is not None:
             cfg["seed"] = self.seed
+        # Reasoning effort matters a LOT for thinking models here: DeepSeek-V3.2 is ~10s at "low"
+        # vs ~117s at "medium" (the default was stalling the pipeline). Set REASONING_EFFORT=none to omit.
+        effort = os.getenv("REASONING_EFFORT", "low")
+        if effort and effort.lower() != "none":
+            cfg["reasoning_effort"] = effort
         # NOTE: no `max_tokens` cap and no gemini-specific `reasoning_tokens` — capping output
         # is what truncated suites before, and reasoning_tokens is not an Azure/OpenAI param.
         self._model = get_model(self.name, config=GenerateConfig(**cfg))
