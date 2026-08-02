@@ -115,19 +115,41 @@ def parse_properties(completion: str) -> tuple[str | None, str | None]:
     return src, None
 
 
+def _salvage_json_array(blob: str) -> list[Any] | None:
+    """Parse the leading complete elements of a (possibly truncated) JSON array."""
+    blob = blob.strip()
+    if not blob.startswith("["):
+        return None
+    decoder = json.JSONDecoder()
+    items: list[Any] = []
+    i, n = 1, len(blob)
+    while i < n:
+        while i < n and blob[i] in " \t\r\n,":
+            i += 1
+        if i >= n or blob[i] == "]":
+            break
+        try:
+            obj, i = decoder.raw_decode(blob, i)
+        except json.JSONDecodeError:
+            break  # first incomplete element (truncation point) -> stop, keep what we have
+        items.append(obj)
+    return items or None
+
+
 def parse_search_space(completion: str) -> tuple[list[Any] | None, str | None]:
     text = (completion or "").strip()
-    match = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, re.DOTALL)
-    blob = match.group(1) if match else None
-    if blob is None:
-        start, end = text.find("["), text.rfind("]")
-        blob = text[start : end + 1] if 0 <= start < end else None
+    # Take from the first '[' onward (a fenced ```json block may be unclosed if truncated).
+    fence = re.search(r"```(?:json)?\s*(\[.*)", text, re.DOTALL)
+    blob = fence.group(1) if fence else (text[text.find("[") :] if "[" in text else None)
     if blob is None:
         return None, "no JSON array found"
+    blob = blob.strip().rstrip("`").strip()
     try:
         arr = json.loads(blob)
-    except Exception as error:
-        return None, f"JSON parse error: {error}"
+    except Exception:
+        arr = _salvage_json_array(blob)  # truncated output -> keep the complete leading elements
+        if arr is None:
+            return None, "JSON parse error (unsalvageable)"
     if not isinstance(arr, list) or not arr:
         return None, "search space is not a non-empty list"
     return arr, None

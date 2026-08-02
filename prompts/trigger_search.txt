@@ -17,7 +17,7 @@ Your job is to BLANKET the space of "specific but valid" inputs densely enough t
 
 3. STRUCTURAL / degenerate cases: empty, single element, all-equal, duplicates, already-sorted, reversed, all at one point, collinear/overlapping, disconnected, self-referential — whatever the domain allows.
 
-4. EXTREMES within the domain: the largest and smallest allowed sizes and magnitudes.
+4. EXTREMES — the largest and smallest values EXPLICITLY ALLOWED by the spec's stated bounds (e.g. exactly the stated maximum, and one below it). Never invent numbers with more digits than the constraints permit: out-of-domain giants are useless, get discarded, and waste the budget.
 
 Every input MUST be VALID per the specification (in-domain), so a correct solution runs on it and returns a well-defined answer (out-of-domain inputs are discarded). Return 25 to 50 inputs (no more than ~60) — prioritize the small-value cartesian sweep (step 2) and the exact boundaries (step 1) over sheer volume.
 
