@@ -20,11 +20,12 @@ from .schema import Backend, Problem, ScoreResult, make_row
 
 import os
 
-# Concurrent model calls. 4 is safe under a 500 RPM / 500K TPM quota (verified: concurrent calls
-# return in seconds). Tune per deployment via MAX_CONN=N.
-MAX_CONN = int(os.getenv("MAX_CONN", "4"))
+# Concurrent model calls. DeepSeek reasoning calls occasionally stall, and concurrency raises the
+# odds, so we keep concurrency modest AND retry a stalled call (below). Tune via MAX_CONN=N.
+MAX_CONN = int(os.getenv("MAX_CONN", "3"))
 EXEC_WORKERS = int(os.getenv("EXEC_WORKERS", "8"))  # local subprocess jobs (not rate-limited)
-CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "240"))  # per-call backstop
+CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "120"))  # per-attempt cap (a normal call is ~18s)
+CALL_RETRIES = int(os.getenv("CALL_RETRIES", "2"))  # extra attempts if a call stalls/errors
 
 
 def _write_pbt_artifacts(run_dir: Path, task_id: str, suite: dict[str, Any], meta: dict[str, Any]) -> None:
@@ -33,6 +34,11 @@ def _write_pbt_artifacts(run_dir: Path, task_id: str, suite: dict[str, Any], met
     (d / "properties.py").write_text(suite.get("props_src") or f"# no valid properties\n# {suite.get('prop_err')}\n", encoding="utf-8")
     (d / "search_space.json").write_text(json.dumps(suite.get("space") or [], indent=2), encoding="utf-8")
     (d / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8")
+    # raw model completions — kept so parse failures (0 inputs / no props) are debuggable
+    if suite.get("props_src") is None:
+        (d / "prop_completion_raw.txt").write_text(suite.get("prop_raw") or "", encoding="utf-8")
+    if suite.get("space") is None:
+        (d / "search_completion_raw.txt").write_text(suite.get("space_raw") or "", encoding="utf-8")
 
 
 async def _one_run(
@@ -47,11 +53,16 @@ async def _one_run(
 
     async def call(prompt: str, kind: str) -> str:
         async with sem:
-            try:
-                return await asyncio.wait_for(model.complete(prompt, kind), timeout=CALL_TIMEOUT_SECONDS)
-            except Exception as error:  # a failed/timed-out call -> "" -> invalid suite / abstention
-                print(f"  [warn] {kind} call failed: {type(error).__name__}: {str(error)[:200]}", flush=True)
-                return ""
+            for attempt in range(1 + CALL_RETRIES):
+                try:
+                    return await asyncio.wait_for(model.complete(prompt, kind), timeout=CALL_TIMEOUT_SECONDS)
+                except Exception as error:  # stall/timeout/API error -> retry (stalls are intermittent)
+                    print(
+                        f"  [warn] {kind} attempt {attempt + 1}/{1 + CALL_RETRIES} failed: "
+                        f"{type(error).__name__}: {str(error)[:120]}",
+                        flush=True,
+                    )
+            return ""  # exhausted retries -> invalid suite / abstention
 
     # Steps 3 + 4: blind property + trigger-search generation, per problem.
     print(f"  generating PBT properties + trigger search spaces for {len(problems)} problems "
@@ -69,7 +80,8 @@ async def _one_run(
     for p, (prop_c, space_c) in zip(problems, gens):
         props_src, prop_err = pbt.parse_properties(prop_c)
         space, space_err = pbt.parse_search_space(space_c)
-        suites[p.task_id] = {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err}
+        suites[p.task_id] = {"props_src": props_src, "space": space, "prop_err": prop_err,
+                             "space_err": space_err, "prop_raw": prop_c, "space_raw": space_c}
 
     valid = sum(1 for s in suites.values() if s["props_src"] and s["space"])
     print(f"  suites: {valid}/{len(problems)} valid; scoring PBT over search spaces "
