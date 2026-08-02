@@ -1,6 +1,8 @@
 inspect-ai @ git+https://github.com/UKGovernmentBEIS/inspect_ai.git@3e9a18f4e7e17d7cf6aaa14b13026774ca747597
 control-arena @ git+https://github.com/UKGovernmentBEIS/control-arena.git@bf7328e522615107bd9b9bfaee8c1bcbec4b6664
-hypothesis==6.131.9
 pytest==8.3.5
 python-dotenv==1.2.2
 textual==6.2.1
+# Azure AI Foundry provider for inspect_ai (trusted model: --model azureai/<deployment>)
+azure-ai-inference==1.0.0b9
+azure-core==1.32.0
