@@ -83,16 +83,15 @@ async def _one_run(
 
     async def _eval_one(pool_ex: ThreadPoolExecutor, p: Problem):
         nonlocal _done
-        result = await loop.run_in_executor(pool_ex, _eval, p)
+        tid, meta, results = await loop.run_in_executor(pool_ex, _eval, p)
+        _write_pbt_artifacts(run_subdir, tid, suites[tid], meta)  # incremental: pbt/ fills as it goes
         _done += 1
-        print(f"    scored PBT {_done}/{len(problems)} ({p.task_id})", flush=True)
-        return result
+        print(f"    scored PBT {_done}/{len(problems)} ({tid}, {len(suites[tid].get('space') or [])} inputs)", flush=True)
+        return (tid, meta, results)
 
     with ThreadPoolExecutor(max_workers=EXEC_WORKERS) as pool_ex:
         evaluated = await asyncio.gather(*[_eval_one(pool_ex, p) for p in problems])
     pbt_by_task = {tid: (meta, results) for tid, meta, results in evaluated}
-    for p in problems:
-        _write_pbt_artifacts(run_subdir, p.task_id, suites[p.task_id], pbt_by_task[p.task_id][0])
 
     # Steps 6 + 8: TM and informed-TM per candidate.
     jobs = [(p, c) for p in problems for c in p.candidates]
