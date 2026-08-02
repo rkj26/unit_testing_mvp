@@ -20,6 +20,7 @@ from .schema import Backend, Problem, ScoreResult, make_row
 
 MAX_CONN = 4  # concurrent model calls
 EXEC_WORKERS = 8  # concurrent property-runner subprocess jobs
+CALL_TIMEOUT_SECONDS = 240  # hard per-model-call backstop so one stuck call can't hang the run
 
 
 def _write_pbt_artifacts(run_dir: Path, task_id: str, suite: dict[str, Any], meta: dict[str, Any]) -> None:
@@ -43,12 +44,14 @@ async def _one_run(
     async def call(prompt: str, kind: str) -> str:
         async with sem:
             try:
-                return await model.complete(prompt, kind)
-            except Exception as error:  # a failed call -> "" -> invalid suite / abstention
+                return await asyncio.wait_for(model.complete(prompt, kind), timeout=CALL_TIMEOUT_SECONDS)
+            except Exception as error:  # a failed/timed-out call -> "" -> invalid suite / abstention
                 print(f"  [warn] {kind} call failed: {type(error).__name__}: {str(error)[:200]}", flush=True)
                 return ""
 
     # Steps 3 + 4: blind property + trigger-search generation, per problem.
+    print(f"  generating PBT properties + trigger search spaces for {len(problems)} problems "
+          f"({MAX_CONN} concurrent model calls)...", flush=True)
     gens = await asyncio.gather(
         *[
             asyncio.gather(
@@ -64,6 +67,10 @@ async def _one_run(
         space, space_err = pbt.parse_search_space(space_c)
         suites[p.task_id] = {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err}
 
+    valid = sum(1 for s in suites.values() if s["props_src"] and s["space"])
+    print(f"  suites: {valid}/{len(problems)} valid; scoring PBT over search spaces "
+          f"(subprocess, compute-heavy)...", flush=True)
+
     # Step 5: run properties over the search space (soundness gate + per-candidate scoring). CPU/subprocess
     # bound -> thread pool across problems.
     loop = asyncio.get_event_loop()
@@ -72,16 +79,28 @@ async def _one_run(
         s = suites[p.task_id]
         return (p.task_id, *pbt.evaluate(p, s["props_src"], s["space"]))
 
+    _done = 0
+
+    async def _eval_one(pool_ex: ThreadPoolExecutor, p: Problem):
+        nonlocal _done
+        result = await loop.run_in_executor(pool_ex, _eval, p)
+        _done += 1
+        print(f"    scored PBT {_done}/{len(problems)} ({p.task_id})", flush=True)
+        return result
+
     with ThreadPoolExecutor(max_workers=EXEC_WORKERS) as pool_ex:
-        evaluated = await asyncio.gather(*[loop.run_in_executor(pool_ex, _eval, p) for p in problems])
+        evaluated = await asyncio.gather(*[_eval_one(pool_ex, p) for p in problems])
     pbt_by_task = {tid: (meta, results) for tid, meta, results in evaluated}
     for p in problems:
         _write_pbt_artifacts(run_subdir, p.task_id, suites[p.task_id], pbt_by_task[p.task_id][0])
 
     # Steps 6 + 8: TM and informed-TM per candidate.
     jobs = [(p, c) for p in problems for c in p.candidates]
+    print(f"  monitoring {len(jobs)} candidates (TM + informed-TM)...", flush=True)
+    _mdone = 0
 
     async def score_candidate(p: Problem, c) -> dict[str, Any]:
+        nonlocal _mdone
         _meta, results = pbt_by_task[p.task_id]
         pbt_res = results[c.candidate_id]  # {"pbt": deployable, "pbt_ceiling": gated}
         s = suites[p.task_id]
@@ -89,7 +108,7 @@ async def _one_run(
         inf_txt = await call(
             monitor.informed_prompt(p, c, pbt_res["pbt"], s["props_src"], s["space"]), "informed"
         )
-        return make_row(
+        row = make_row(
             task_id=p.task_id,
             candidate=c,
             score=scores[(p.task_id, c.candidate_id)],
@@ -97,6 +116,10 @@ async def _one_run(
             tm=monitor.parse_suspicion(tm_txt),
             informed=monitor.parse_suspicion(inf_txt),
         )
+        _mdone += 1
+        if _mdone % 5 == 0 or _mdone == len(jobs):
+            print(f"    monitored {_mdone}/{len(jobs)}", flush=True)
+        return row
 
     rows = await asyncio.gather(*[score_candidate(p, c) for p, c in jobs])
     rows = sorted(rows, key=lambda r: (r["task_id"], r["candidate_label"]))
