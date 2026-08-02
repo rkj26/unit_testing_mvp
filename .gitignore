@@ -6,6 +6,9 @@ __pycache__/
 .hypothesis/
 .coverage
 
+# pipeline run outputs (report.md / metrics.json / pbt artifacts) — reproducible, don't commit
+runs/
+
 # BigCodeBench task byproducts written into CWD during local execution
 split_*
 *.db
