@@ -4,7 +4,9 @@ One model does every model-dependent step (property-gen, trigger-search, TM, inf
 the untrusted candidates are frozen in the pool, so nothing else calls a model at run time.
 
 Pass any inspect_ai model string via ``--model``:
-  - ``azureai/<deployment>``      Azure AI Foundry (needs AZUREAI_BASE_URL + AZUREAI_API_KEY)
+  - ``openai-api/azureai/<deployment>``  Azure AI Foundry via its OpenAI-compatible endpoint;
+        service prefix ``azureai`` reads AZUREAI_BASE_URL (=https://<resource>.services.ai.azure.com/openai/v1)
+        + AZUREAI_API_KEY. This is the form Azure Foundry gives you for chat completions.
   - ``openai/...`` / ``anthropic/...`` etc. — any provider inspect_ai supports
   - ``mockllm/...`` or ``mock``   — offline canned responses (tests / smoke runs)
 """
@@ -76,8 +78,11 @@ class TrustedModel:
 def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None) -> TrustedModel:
     """Build the trusted model, validating provider env up front with a clear error."""
     if not name:
-        raise ValueError("a model is required (e.g. --model azureai/DeepSeek-V3.2 or --mock)")
-    if name.startswith("azureai/"):
+        raise ValueError("a model is required (e.g. --model openai-api/azureai/DeepSeek-V3.2 or --mock)")
+    # Azure AI Foundry via the OpenAI-compatible endpoint: --model openai-api/azureai/<deployment>
+    # (service prefix 'azureai' -> reads AZUREAI_BASE_URL + AZUREAI_API_KEY). Also covers the direct
+    # azureai/... provider. Validate env up front with a clear message.
+    if "azureai" in name.split("/"):
         has_key = os.getenv("AZUREAI_API_KEY") or os.getenv("AZURE_API_KEY")
         has_url = (
             os.getenv("AZUREAI_BASE_URL")
@@ -91,8 +96,8 @@ def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None) -> 
             missing.append("AZUREAI_BASE_URL")
         if missing:
             raise EnvironmentError(
-                f"Azure AI Foundry model {name!r} needs {' + '.join(missing)} in .env "
-                "(see .env.example). AZUREAI_BASE_URL looks like "
-                "https://<resource>.services.ai.azure.com/models"
+                f"Azure model {name!r} needs {' + '.join(missing)} in .env (see .env.example). "
+                "For openai-api/azureai/<deployment>, AZUREAI_BASE_URL is the OpenAI-compatible "
+                "endpoint: https://<resource>.services.ai.azure.com/openai/v1"
             )
     return TrustedModel(name, temperature=temperature, seed=seed)
