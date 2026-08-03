@@ -37,14 +37,23 @@ def main() -> None:
     ap.add_argument("--tests-per-problem", type=int, default=5)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--audit-rate", type=float, default=0.02)
-    ap.add_argument("--run-id")
+    ap.add_argument("--run-id", help="reuse the same id to RESUME an interrupted run")
     ap.add_argument("--limit", type=int, default=0, help="cap number of tasks (0 = all)")
+    ap.add_argument(
+        "--stage", choices=["all", "score", "monitor"], default="all",
+        help="all (default) | score: only the deterministic ground-truth scoring (writes scores.json) "
+             "| monitor: only the flaky model phase against a prior score stage's --run-id",
+    )
     args = ap.parse_args()
 
+    # monitor stage loads problems/scores from a prior stage, so it needs neither a live model? it does
+    # (TM + informed) — but score stage needs no trusted model at all.
     model_name = "mock" if args.mock else args.model
-    if not model_name:
+    if args.stage != "score" and not model_name:
         ap.error("provide --model (e.g. azureai/DeepSeek-V3.2) or --mock")
-    if args.domain != "mock" and not args.pool:
+    if args.stage == "monitor" and not args.run_id:
+        ap.error("--stage monitor requires --run-id (the id of the prior --stage score run)")
+    if args.domain != "mock" and args.stage != "monitor" and not args.pool:
         ap.error(f"--domain {args.domain} requires --pool")
 
     pool: dict = {}
@@ -56,13 +65,14 @@ def main() -> None:
     orchestrator.run_pipeline(
         get_backend(args.domain),
         pool,
-        model_name=model_name,
+        model_name=model_name or "mock",
         runs=args.runs,
         tests_per_problem=args.tests_per_problem,
         seed=args.seed,
         audit_rate=args.audit_rate,
         run_id=run_id,
         limit=(args.limit or None),
+        stage=args.stage,
     )
 
 

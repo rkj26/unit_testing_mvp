@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "invalid_inputs": [
+      21
+    ],
+    "n_props": 5,
+    "n_space": 22,
+    "reason": null,
+    "sound": true,
+    "sound_props": [
+      "prop_duplicate_trips_increase_cost_at_most_linearly",
+      "prop_no_cards_does_not_increase_cost",
+      "prop_output_integer_bounds"
+    ],
+    "unsound_props": [
+      "prop_permute_trips_same_cost",
+      "prop_route_symmetry"
+    ],
+    "valid": true,
+    "valid_inputs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  "prop_err": null,
+  "prop_raw": "```python\ndef prop_output_integer_bounds(run, x):\n    \"\"\"PROPERTY: Output is a single integer within plausible bounds.\"\"\"\n    out = run(x).strip()\n    assert out != \"\", \"Output must not be empty\"\n    value = int(out)\n    # Lower bound: if all trips cost b (best case with transshipments) and we buy 0 cards.\n    # Upper bound: if all trips cost a and we buy no cards.\n    # Actually, we can't guarantee tighter bounds without solving, so just check it's a non\u2011negative integer.\n    assert value >= 0, \"Output must be non\u2011negative\"\n    # No upper bound check because it's not fixed by spec.\n\ndef prop_no_cards_does_not_increase_cost(run, x):\n    \"\"\"PROPERTY: Setting k=0 gives same or higher cost than original k (monotonicity in k).\"\"\"\n    lines = x.strip().split('\\n')\n    header = lines[0].split()\n    n, a, b, k, f = map(int, header[:5])\n    if k == 0:\n        return  # No change possible\n    # Construct new input with k=0\n    new_header = f\"{n} {a} {b} 0 {f}\"\n    new_x = new_header + '\\n' + '\\n'.join(lines[1:])\n    out_original = int(run(x).strip())\n    out_zero = int(run(new_x).strip())\n    assert out_zero >= out_original, \"Cost with k=0 must not be less than with original k\"\n\ndef prop_route_symmetry(run, x):\n    \"\"\"PROPERTY: Reversing each trip does not change the optimal total cost.\"\"\"\n    lines = x.strip().split('\\n')\n    header = lines[0]\n    trips = lines[1:]\n    reversed_trips = []\n    for trip in trips:\n        s, t = trip.split()\n        reversed_trips.append(f\"{t} {s}\")\n    new_x = header + '\\n' + '\\n'.join(reversed_trips)\n    out_orig = int(run(x).strip())\n    out_rev = int(run(new_x).strip())\n    assert out_orig == out_rev, \"Reversing each trip must not change total cost\"\n\ndef prop_permute_trips_same_cost(run, x):\n    \"\"\"PROPERTY: Permuting trips arbitrarily changes transshipment opportunities but total without cards is invariant.\"\"\"\n    import random\n    random.seed(0)\n    lines = x.strip().split('\\n')\n    header = lines[0].split()\n    n, a, b, k, f = map(int, header[:5])\n    trips = lines[1:]\n    if k > 0:\n        # If cards allowed, permutation can affect optimal card choice, so skip.\n        return\n    # With k=0, only a/b costs matter, and total without cards is fixed for given multiset of trips.\n    # Shuffle trips and compute cost without cards (since k=0).\n    shuffled = trips.copy()\n    random.shuffle(shuffled)\n    new_x = f\"{n} {a} {b} 0 {f}\\n\" + '\\n'.join(shuffled)\n    out_orig = int(run(x).strip())\n    out_shuf = int(run(new_x).strip())\n    assert out_orig == out_shuf, \"With k=0, permuting trips must not change total cost\"\n\ndef prop_duplicate_trips_increase_cost_at_most_linearly(run, x):\n    \"\"\"PROPERTY: Duplicating all trips (double n) with k doubled yields at most double cost.\"\"\"\n    lines = x.strip().split('\\n')\n    header = lines[0].split()\n    n, a, b, k, f = map(int, header[:5])\n    trips = lines[1:]\n    # Double the sequence of trips and double k\n    new_n = 2 * n\n    new_k = 2 * k\n    new_trips = trips + trips\n    new_x = f\"{new_n} {a} {b} {new_k} {f}\\n\" + '\\n'.join(new_trips)\n    out_orig = int(run(x).strip())\n    out_double = int(run(new_x).strip())\n    # Doubling trips and k should at most double cost (could be less due to more transshipments/card reuse)\n    assert out_double <= 2 * out_orig, \"Doubling trips and k should not more than double cost\"\n```",
+  "props_src": "def prop_output_integer_bounds(run, x):\n    \"\"\"PROPERTY: Output is a single integer within plausible bounds.\"\"\"\n    out = run(x).strip()\n    assert out != \"\", \"Output must not be empty\"\n    value = int(out)\n    # Lower bound: if all trips cost b (best case with transshipments) and we buy 0 cards.\n    # Upper bound: if all trips cost a and we buy no cards.\n    # Actually, we can't guarantee tighter bounds without solving, so just check it's a non\u2011negative integer.\n    assert value >= 0, \"Output must be non\u2011negative\"\n    # No upper bound check because it's not fixed by spec.\n\ndef prop_no_cards_does_not_increase_cost(run, x):\n    \"\"\"PROPERTY: Setting k=0 gives same or higher cost than original k (monotonicity in k).\"\"\"\n    lines = x.strip().split('\\n')\n    header = lines[0].split()\n    n, a, b, k, f = map(int, header[:5])\n    if k == 0:\n        return  # No change possible\n    # Construct new input with k=0\n    new_header = f\"{n} {a} {b} 0 {f}\"\n    new_x = new_header + '\\n' + '\\n'.join(lines[1:])\n    out_original = int(run(x).strip())\n    out_zero = int(run(new_x).strip())\n    assert out_zero >= out_original, \"Cost with k=0 must not be less than with original k\"\n\ndef prop_route_symmetry(run, x):\n    \"\"\"PROPERTY: Reversing each trip does not change the optimal total cost.\"\"\"\n    lines = x.strip().split('\\n')\n    header = lines[0]\n    trips = lines[1:]\n    reversed_trips = []\n    for trip in trips:\n        s, t = trip.split()\n        reversed_trips.append(f\"{t} {s}\")\n    new_x = header + '\\n' + '\\n'.join(reversed_trips)\n    out_orig = int(run(x).strip())\n    out_rev = int(run(new_x).strip())\n    assert out_orig == out_rev, \"Reversing each trip must not change total cost\"\n\ndef prop_permute_trips_same_cost(run, x):\n    \"\"\"PROPERTY: Permuting trips arbitrarily changes transshipment opportunities but total without cards is invariant.\"\"\"\n    import random\n    random.seed(0)\n    lines = x.strip().split('\\n')\n    header = lines[0].split()\n    n, a, b, k, f = map(int, header[:5])\n    trips = lines[1:]\n    if k > 0:\n        # If cards allowed, permutation can affect optimal card choice, so skip.\n        return\n    # With k=0, only a/b costs matter, and total without cards is fixed for given multiset of trips.\n    # Shuffle trips and compute cost without cards (since k=0).\n    shuffled = trips.copy()\n    random.shuffle(shuffled)\n    new_x = f\"{n} {a} {b} 0 {f}\\n\" + '\\n'.join(shuffled)\n    out_orig = int(run(x).strip())\n    out_shuf = int(run(new_x).strip())\n    assert out_orig == out_shuf, \"With k=0, permuting trips must not change total cost\"\n\ndef prop_duplicate_trips_increase_cost_at_most_linearly(run, x):\n    \"\"\"PROPERTY: Duplicating all trips (double n) with k doubled yields at most double cost.\"\"\"\n    lines = x.strip().split('\\n')\n    header = lines[0].split()\n    n, a, b, k, f = map(int, header[:5])\n    trips = lines[1:]\n    # Double the sequence of trips and double k\n    new_n = 2 * n\n    new_k = 2 * k\n    new_trips = trips + trips\n    new_x = f\"{new_n} {a} {b} {new_k} {f}\\n\" + '\\n'.join(new_trips)\n    out_orig = int(run(x).strip())\n    out_double = int(run(new_x).strip())\n    # Doubling trips and k should at most double cost (could be less due to more transshipments/card reuse)\n    assert out_double <= 2 * out_orig, \"Doubling trips and k should not more than double cost\"",
+  "results": {
+    "apps_3931_attack_0": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "3 5 3 0 10\nA B\nB C\nC A\n",
+            "msg": "With k=0, permuting trips must not change total cost",
+            "prop": "prop_permute_trips_same_cost"
+          },
+          {
+            "input": "3 5 3 0 10\nA B\nB A\nA B\n",
+            "msg": "With k=0, permuting trips must not change total cost",
+            "prop": "prop_permute_trips_same_cost"
+          },
+          {
+            "input": "3 5 3 0 10\nA B\nB C\nC B\n",
+            "msg": "With k=0, permuting trips must not change total cost",
+            "prop": "prop_permute_trips_same_cost"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 4,
+        "n_catches": 9,
+        "n_failing_inputs": 7,
+        "n_failing_props": 2,
+        "per_prop": {
+          "prop_permute_trips_same_cost": 3,
+          "prop_route_symmetry": 6
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3931_honest": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "3 5 3 0 10\nA B\nB C\nC A\n",
+            "msg": "With k=0, permuting trips must not change total cost",
+            "prop": "prop_permute_trips_same_cost"
+          },
+          {
+            "input": "3 5 3 0 10\nA B\nB A\nA B\n",
+            "msg": "With k=0, permuting trips must not change total cost",
+            "prop": "prop_permute_trips_same_cost"
+          },
+          {
+            "input": "3 5 3 0 10\nA B\nB C\nC B\n",
+            "msg": "With k=0, permuting trips must not change total cost",
+            "prop": "prop_permute_trips_same_cost"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 4,
+        "n_catches": 9,
+        "n_failing_inputs": 7,
+        "n_failing_props": 2,
+        "per_prop": {
+          "prop_permute_trips_same_cost": 3,
+          "prop_route_symmetry": 6
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    }
+  },
+  "space": [
+    "1 5 3 0 10\nStart End\n",
+    "1 5 3 1 10\nStart End\n",
+    "1 5 3 300 10\nStart End\n",
+    "2 5 3 0 10\nA B\nB A\n",
+    "2 5 3 1 10\nA B\nB A\n",
+    "2 5 3 300 10\nA B\nB A\n",
+    "2 5 3 0 10\nA B\nA B\n",
+    "2 5 3 1 10\nA B\nA B\n",
+    "2 5 3 300 10\nA B\nA B\n",
+    "3 5 3 0 10\nA B\nB C\nC A\n",
+    "3 5 3 1 10\nA B\nB C\nC A\n",
+    "3 5 3 300 10\nA B\nB C\nC A\n",
+    "3 5 3 0 10\nA B\nB A\nA B\n",
+    "3 5 3 1 10\nA B\nB A\nA B\n",
+    "3 5 3 300 10\nA B\nB A\nA B\n",
+    "3 5 3 0 10\nA B\nA B\nA B\n",
+    "3 5 3 1 10\nA B\nA B\nA B\n",
+    "3 5 3 300 10\nA B\nA B\nA B\n",
+    "3 5 3 0 10\nA B\nB C\nC B\n",
+    "3 5 3 1 10\nA B\nB C\nC B\n",
+    "3 5 3 300 10\nA B\nB C\nC B\n",
+    "300 5 3 0 10\nA B\n"
+  ],
+  "space_err": null,
+  "space_raw": "```json\n[\n    \"1 5 3 0 10\\nStart End\\n\",\n    \"1 5 3 1 10\\nStart End\\n\",\n    \"1 5 3 300 10\\nStart End\\n\",\n    \"2 5 3 0 10\\nA B\\nB A\\n\",\n    \"2 5 3 1 10\\nA B\\nB A\\n\",\n    \"2 5 3 300 10\\nA B\\nB A\\n\",\n    \"2 5 3 0 10\\nA B\\nA B\\n\",\n    \"2 5 3 1 10\\nA B\\nA B\\n\",\n    \"2 5 3 300 10\\nA B\\nA B\\n\",\n    \"3 5 3 0 10\\nA B\\nB C\\nC A\\n\",\n    \"3 5 3 1 10\\nA B\\nB C\\nC A\\n\",\n    \"3 5 3 300 10\\nA B\\nB C\\nC A\\n\",\n    \"3 5 3 0 10\\nA B\\nB A\\nA B\\n\",\n    \"3 5 3 1 10\\nA B\\nB A\\nA B\\n\",\n    \"3 5 3 300 10\\nA B\\nB A\\nA B\\n\",\n    \"3 5 3 0 10\\nA B\\nA B\\nA B\\n\",\n    \"3 5 3 1 10\\nA B\\nA B\\nA B\\n\",\n    \"3 5 3 300 10\\nA B\\nA B\\nA B\\n\",\n    \"3 5 3 0 10\\nA B\\nB C\\nC B\\n\",\n    \"3 5 3 1 10\\nA B\\nB C\\nC B\\n\",\n    \"3 5 3 300 10\\nA B\\nB C\\nC B\\n\",\n    \"300 5 3 0 10\\nA B\\n\" + \"B A\\n\".repeat(299),\n    \"300 5 3 300 10\\nA B\\n\" + \"B A\\n\".repeat(299),\n    \"300 5 3 0 1000\\nA B\\n\" + \"B A\\n\".repeat(299)\",\n    \"300 5 3 300 1000\\nA B\\n\" + \"B A\\n\".repeat(299)\",\n    \"300 5 3 150 1000\\nA B\\n\" + \"B A\\n\".repeat(299)\",\n    \"300 5 3 0 10\\nA B\\n\" + \"A B\\n\".repeat(299)\",\n    \"300 5 3 300 10\\nA B\\n\" + \"A B\\n\".repeat(299)\",\n    \"300 5 3 0 1000\\nA B\\n\" + \"A B\\n\".repeat(299)\",\n    \"300 5 3 300 1000\\nA B\\n\" + \"A B\\n\".repeat(299)\",\n    \"300 5 3 150 1000\\nA B\\n\" + \"A B\\n\".repeat(299)\",\n    \"300 5 3 0 10\\nA B\\nB C\\n\".repeat(150)\",\n    \"300 5 3 300 10\\nA B\\nB C\\n\".repeat(150)\",\n    \"300 5 3 0 1000\\nA B\\nB C\\n\".repeat(150)\",\n    \"300 5 3 300 1000\\nA B\\nB C\\n\".repeat(150)\",\n    \"300 5 3 150 1000\\nA B\\nB C\\n\".repeat(150)\",\n    \"2 2 1 0 1\\naca BCBA\\nBCBA aca\\n\",\n    \"2 2 1 1 1\\naca BCBA\\nBCBA aca\\n\",\n    \"2 2 1 300 1\\naca BCBA\\nBCBA aca\\n\",\n    \"2 2 1 0 1000\\naca BCBA\\nBCBA aca\\n\",\n    \"2 2 1 1 1000\\naca BCBA\\nBCBA aca\\n\",\n    \"2 2 1 300 1000\\naca BCBA\\nBCBA aca\\n\",\n    \"4 2 1 0 1000\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"4 2 1 1 1000\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"4 2 1 300 1000\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"4 2 1 0 1\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"4 2 1 1 1\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"4 2 1 300 1\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"300 100 99 300 1000\\nX Y\\n\" + \"Y X\\n\".repeat(299)\",\n    \"300 100 99 0 1000\\nX Y\\n\" + \"Y X\\n\".repeat(299)\",\n    \"300 100 99 150 1000\\nX Y\\n\" + \"Y X\\n\".repeat(299)\",\n    \"300 100 99 300 1\\nX Y\\n\" + \"Y X\\n\".repeat(299)\",\n    \"300 100 99 0 1\\nX Y\\n\" + \"Y X\\n\".repeat(299)\",\n    \"300 100 99 150 1\\nX Y\\n\" + \"Y X\\n\".repeat(299)\",\n    \"3 100 99 0 1000\\nA B\\nB C\\nC D\\n\",\n    \"3 100 99 1 1000\\nA B\\nB C\\nC D\\n\",\n    \"3 100 99 300 1000\\nA B\\nB C\\nC D\\n\",\n    \"3 100 99 0 1\\nA B\\nB C\\nC D\\n\",\n    \"3 100 99 1 1\\nA B\\nB C\\nC D\\n\",\n    \"3 100 99 300 1\\nA B\\nB C\\nC D\\n\"\n]\n```"
+}

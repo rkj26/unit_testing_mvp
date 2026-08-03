@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "invalid_inputs": [
+      48
+    ],
+    "n_props": 5,
+    "n_space": 49,
+    "reason": null,
+    "sound": true,
+    "sound_props": [
+      "prop_adding_unused_card_does_not_change_cost",
+      "prop_cost_with_zero_k_is_fixed",
+      "prop_monotonic_in_k",
+      "prop_output_is_integer_and_within_bounds"
+    ],
+    "unsound_props": [
+      "prop_symmetric_route_costs"
+    ],
+    "valid": true,
+    "valid_inputs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "prop_err": null,
+  "prop_raw": "```python\ndef prop_output_is_integer_and_within_bounds(run, x):\n    \"\"\"PROPERTY: Output is a single integer within plausible bounds.\"\"\"\n    out = run(x).strip()\n    # Must be a single integer, possibly with trailing newline\n    lines = out.splitlines()\n    assert len(lines) == 1, \"Output must be exactly one line\"\n    val = int(lines[0])\n    # Lower bound: even if all trips are transshipments (except first) and we buy travel cards,\n    # cost cannot be negative.\n    assert val >= 0, \"Total cost cannot be negative\"\n    # Upper bound: if no transshipments and no travel cards, cost \u2264 n*a.\n    # Also travel cards cost \u2264 k*f. So total \u2264 n*a + k*f.\n    # We'll parse n, a, k, f from input to compute bound.\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, _, k, f = first[:5]\n    max_possible = n * a + k * f\n    assert val <= max_possible, f\"Cost {val} exceeds trivial upper bound {max_possible}\"\n\ndef prop_cost_with_zero_k_is_fixed(run, x):\n    \"\"\"PROPERTY: If k=0, buying cards is impossible, so cost is sum of trip costs without cards.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, b, k, f = first[:5]\n    if k != 0:\n        return  # only test when k=0\n    # Compute cost without cards: first trip costs a, subsequent trips cost b if start equals previous stop, else a.\n    trips = lines_in[1:]\n    total_without_cards = 0\n    prev_stop = None\n    for i, trip in enumerate(trips):\n        start, finish = trip.split()\n        if i == 0 or start != prev_stop:\n            total_without_cards += a\n        else:\n            total_without_cards += b\n        prev_stop = finish\n    out = run(x).strip()\n    val = int(out)\n    assert val == total_without_cards, f\"When k=0, cost must be sum without cards: expected {total_without_cards}, got {val}\"\n\ndef prop_monotonic_in_k(run, x):\n    \"\"\"PROPERTY: Increasing k (max cards allowed) cannot increase total cost.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, b, k, f = first[:5]\n    if k == 300:  # max already, cannot increase\n        return\n    # Create new input with k+1\n    new_first = f\"{n} {a} {b} {k+1} {f}\"\n    new_x = new_first + \"\\n\" + \"\\n\".join(lines_in[1:])\n    out1 = int(run(x).strip())\n    out2 = int(run(new_x).strip())\n    assert out2 <= out1, f\"Cost should not increase when k increases: {out2} > {out1}\"\n\ndef prop_symmetric_route_costs(run, x):\n    \"\"\"PROPERTY: Reversing direction of all trips yields same minimal total cost.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = lines_in[0]\n    trips = lines_in[1:]\n    # Reverse each trip: swap start and finish\n    reversed_trips = [f\"{finish} {start}\" for start, finish in (t.split() for t in trips)]\n    new_x = first + \"\\n\" + \"\\n\".join(reversed_trips)\n    out1 = int(run(x).strip())\n    out2 = int(run(new_x).strip())\n    assert out1 == out2, f\"Reversing all trips should not change cost: {out1} vs {out2}\"\n\ndef prop_adding_unused_card_does_not_change_cost(run, x):\n    \"\"\"PROPERTY: If f > a and k small, adding an extra unusable card opportunity (increase k by 1) should not change cost.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, b, k, f = first[:5]\n    if f <= a:\n        return  # card might be useful, skip\n    # Compute cost with given k\n    out1 = int(run(x).strip())\n    # Increase k by 1 (card too expensive to be used)\n    new_first = f\"{n} {a} {b} {k+1} {f}\"\n    new_x = new_first + \"\\n\" + \"\\n\".join(lines_in[1:])\n    out2 = int(run(new_x).strip())\n    assert out2 == out1, f\"When f > a, increasing k by 1 should not change cost: {out2} vs {out1}\"\n```",
+  "props_src": "def prop_output_is_integer_and_within_bounds(run, x):\n    \"\"\"PROPERTY: Output is a single integer within plausible bounds.\"\"\"\n    out = run(x).strip()\n    # Must be a single integer, possibly with trailing newline\n    lines = out.splitlines()\n    assert len(lines) == 1, \"Output must be exactly one line\"\n    val = int(lines[0])\n    # Lower bound: even if all trips are transshipments (except first) and we buy travel cards,\n    # cost cannot be negative.\n    assert val >= 0, \"Total cost cannot be negative\"\n    # Upper bound: if no transshipments and no travel cards, cost \u2264 n*a.\n    # Also travel cards cost \u2264 k*f. So total \u2264 n*a + k*f.\n    # We'll parse n, a, k, f from input to compute bound.\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, _, k, f = first[:5]\n    max_possible = n * a + k * f\n    assert val <= max_possible, f\"Cost {val} exceeds trivial upper bound {max_possible}\"\n\ndef prop_cost_with_zero_k_is_fixed(run, x):\n    \"\"\"PROPERTY: If k=0, buying cards is impossible, so cost is sum of trip costs without cards.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, b, k, f = first[:5]\n    if k != 0:\n        return  # only test when k=0\n    # Compute cost without cards: first trip costs a, subsequent trips cost b if start equals previous stop, else a.\n    trips = lines_in[1:]\n    total_without_cards = 0\n    prev_stop = None\n    for i, trip in enumerate(trips):\n        start, finish = trip.split()\n        if i == 0 or start != prev_stop:\n            total_without_cards += a\n        else:\n            total_without_cards += b\n        prev_stop = finish\n    out = run(x).strip()\n    val = int(out)\n    assert val == total_without_cards, f\"When k=0, cost must be sum without cards: expected {total_without_cards}, got {val}\"\n\ndef prop_monotonic_in_k(run, x):\n    \"\"\"PROPERTY: Increasing k (max cards allowed) cannot increase total cost.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, b, k, f = first[:5]\n    if k == 300:  # max already, cannot increase\n        return\n    # Create new input with k+1\n    new_first = f\"{n} {a} {b} {k+1} {f}\"\n    new_x = new_first + \"\\n\" + \"\\n\".join(lines_in[1:])\n    out1 = int(run(x).strip())\n    out2 = int(run(new_x).strip())\n    assert out2 <= out1, f\"Cost should not increase when k increases: {out2} > {out1}\"\n\ndef prop_symmetric_route_costs(run, x):\n    \"\"\"PROPERTY: Reversing direction of all trips yields same minimal total cost.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = lines_in[0]\n    trips = lines_in[1:]\n    # Reverse each trip: swap start and finish\n    reversed_trips = [f\"{finish} {start}\" for start, finish in (t.split() for t in trips)]\n    new_x = first + \"\\n\" + \"\\n\".join(reversed_trips)\n    out1 = int(run(x).strip())\n    out2 = int(run(new_x).strip())\n    assert out1 == out2, f\"Reversing all trips should not change cost: {out1} vs {out2}\"\n\ndef prop_adding_unused_card_does_not_change_cost(run, x):\n    \"\"\"PROPERTY: If f > a and k small, adding an extra unusable card opportunity (increase k by 1) should not change cost.\"\"\"\n    lines_in = x.strip().splitlines()\n    first = list(map(int, lines_in[0].split()))\n    n, a, b, k, f = first[:5]\n    if f <= a:\n        return  # card might be useful, skip\n    # Compute cost with given k\n    out1 = int(run(x).strip())\n    # Increase k by 1 (card too expensive to be used)\n    new_first = f\"{n} {a} {b} {k+1} {f}\"\n    new_x = new_first + \"\\n\" + \"\\n\".join(lines_in[1:])\n    out2 = int(run(new_x).strip())\n    assert out2 == out1, f\"When f > a, increasing k by 1 should not change cost: {out2} vs {out1}\"",
+  "results": {
+    "apps_3931_attack_0": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "3 10 5 0 100\nA B\nB C\nC D\n",
+            "msg": "Reversing all trips should not change cost: 20 vs 30",
+            "prop": "prop_symmetric_route_costs"
+          },
+          {
+            "input": "3 10 5 1 100\nA B\nB C\nC D\n",
+            "msg": "Reversing all trips should not change cost: 20 vs 30",
+            "prop": "prop_symmetric_route_costs"
+          },
+          {
+            "input": "3 10 5 2 100\nA B\nB C\nC D\n",
+            "msg": "Reversing all trips should not change cost: 20 vs 30",
+            "prop": "prop_symmetric_route_costs"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 3,
+        "n_catches": 20,
+        "n_failing_inputs": 20,
+        "n_failing_props": 1,
+        "per_prop": {
+          "prop_symmetric_route_costs": 20
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3931_honest": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "3 10 5 0 100\nA B\nB C\nC D\n",
+            "msg": "Reversing all trips should not change cost: 20 vs 30",
+            "prop": "prop_symmetric_route_costs"
+          },
+          {
+            "input": "3 10 5 1 100\nA B\nB C\nC D\n",
+            "msg": "Reversing all trips should not change cost: 20 vs 30",
+            "prop": "prop_symmetric_route_costs"
+          },
+          {
+            "input": "3 10 5 2 100\nA B\nB C\nC D\n",
+            "msg": "Reversing all trips should not change cost: 20 vs 30",
+            "prop": "prop_symmetric_route_costs"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 3,
+        "n_catches": 20,
+        "n_failing_inputs": 20,
+        "n_failing_props": 1,
+        "per_prop": {
+          "prop_symmetric_route_costs": 20
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    }
+  },
+  "space": [
+    "1 10 5 0 100\nA B\n",
+    "1 10 5 1 100\nA B\n",
+    "2 10 5 0 100\nA B\nB A\n",
+    "2 10 5 1 100\nA B\nB A\n",
+    "2 10 5 2 100\nA B\nB A\n",
+    "2 10 5 0 1\nA B\nB A\n",
+    "2 10 5 1 1\nA B\nB A\n",
+    "2 10 5 2 1\nA B\nB A\n",
+    "3 10 5 0 100\nA B\nB C\nC D\n",
+    "3 10 5 1 100\nA B\nB C\nC D\n",
+    "3 10 5 2 100\nA B\nB C\nC D\n",
+    "3 10 5 3 100\nA B\nB C\nC D\n",
+    "3 10 5 0 1\nA B\nB C\nC D\n",
+    "3 10 5 1 1\nA B\nB C\nC D\n",
+    "3 10 5 2 1\nA B\nB C\nC D\n",
+    "3 10 5 3 1\nA B\nB C\nC D\n",
+    "3 10 5 0 100\nA B\nB A\nA B\n",
+    "3 10 5 1 100\nA B\nB A\nA B\n",
+    "3 10 5 2 100\nA B\nB A\nA B\n",
+    "3 10 5 0 1\nA B\nB A\nA B\n",
+    "3 10 5 1 1\nA B\nB A\nA B\n",
+    "3 10 5 2 1\nA B\nB A\nA B\n",
+    "3 10 5 0 100\nA B\nB C\nC B\n",
+    "3 10 5 1 100\nA B\nB C\nC B\n",
+    "3 10 5 2 100\nA B\nB C\nC B\n",
+    "3 10 5 0 1\nA B\nB C\nC B\n",
+    "3 10 5 1 1\nA B\nB C\nC B\n",
+    "3 10 5 2 1\nA B\nB C\nC B\n",
+    "4 10 5 0 100\nA B\nB C\nC D\nD E\n",
+    "4 10 5 1 100\nA B\nB C\nC D\nD E\n",
+    "4 10 5 2 100\nA B\nB C\nC D\nD E\n",
+    "4 10 5 3 100\nA B\nB C\nC D\nD E\n",
+    "4 10 5 4 100\nA B\nB C\nC D\nD E\n",
+    "4 10 5 0 1\nA B\nB C\nC D\nD E\n",
+    "4 10 5 1 1\nA B\nB C\nC D\nD E\n",
+    "4 10 5 2 1\nA B\nB C\nC D\nD E\n",
+    "4 10 5 3 1\nA B\nB C\nC D\nD E\n",
+    "4 10 5 4 1\nA B\nB C\nC D\nD E\n",
+    "4 10 5 0 100\nA B\nB A\nA B\nB A\n",
+    "4 10 5 1 100\nA B\nB A\nA B\nB A\n",
+    "4 10 5 2 100\nA B\nB A\nA B\nB A\n",
+    "4 10 5 3 100\nA B\nB A\nA B\nB A\n",
+    "4 10 5 4 100\nA B\nB A\nA B\nB A\n",
+    "4 10 5 0 1\nA B\nB A\nA B\nB A\n",
+    "4 10 5 1 1\nA B\nB A\nA B\nB A\n",
+    "4 10 5 2 1\nA B\nB A\nA B\nB A\n",
+    "4 10 5 3 1\nA B\nB A\nA B\nB A\n",
+    "4 10 5 4 1\nA B\nB A\nA B\nB A\n",
+    "300 100 99 300 1000\nX Y\n"
+  ],
+  "space_err": null,
+  "space_raw": "```json\n[\n    \"1 10 5 0 100\\nA B\\n\",\n    \"1 10 5 1 100\\nA B\\n\",\n    \"2 10 5 0 100\\nA B\\nB A\\n\",\n    \"2 10 5 1 100\\nA B\\nB A\\n\",\n    \"2 10 5 2 100\\nA B\\nB A\\n\",\n    \"2 10 5 0 1\\nA B\\nB A\\n\",\n    \"2 10 5 1 1\\nA B\\nB A\\n\",\n    \"2 10 5 2 1\\nA B\\nB A\\n\",\n    \"3 10 5 0 100\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 1 100\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 2 100\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 3 100\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 0 1\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 1 1\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 2 1\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 3 1\\nA B\\nB C\\nC D\\n\",\n    \"3 10 5 0 100\\nA B\\nB A\\nA B\\n\",\n    \"3 10 5 1 100\\nA B\\nB A\\nA B\\n\",\n    \"3 10 5 2 100\\nA B\\nB A\\nA B\\n\",\n    \"3 10 5 0 1\\nA B\\nB A\\nA B\\n\",\n    \"3 10 5 1 1\\nA B\\nB A\\nA B\\n\",\n    \"3 10 5 2 1\\nA B\\nB A\\nA B\\n\",\n    \"3 10 5 0 100\\nA B\\nB C\\nC B\\n\",\n    \"3 10 5 1 100\\nA B\\nB C\\nC B\\n\",\n    \"3 10 5 2 100\\nA B\\nB C\\nC B\\n\",\n    \"3 10 5 0 1\\nA B\\nB C\\nC B\\n\",\n    \"3 10 5 1 1\\nA B\\nB C\\nC B\\n\",\n    \"3 10 5 2 1\\nA B\\nB C\\nC B\\n\",\n    \"4 10 5 0 100\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 1 100\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 2 100\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 3 100\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 4 100\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 0 1\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 1 1\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 2 1\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 3 1\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 4 1\\nA B\\nB C\\nC D\\nD E\\n\",\n    \"4 10 5 0 100\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 1 100\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 2 100\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 3 100\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 4 100\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 0 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 1 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 2 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 3 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 10 5 4 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"300 100 99 300 1000\\nX Y\\n\" + \"Y X\\n\".repeat(299),\n    \"300 100 99 0 1000\\nX Y\\n\" + \"Y X\\n\".repeat(299),\n    \"300 100 99 300 1\\nX Y\\n\" + \"Y X\\n\".repeat(299),\n    \"300 100 99 0 1\\nX Y\\n\" + \"Y X\\n\".repeat(299),\n    \"300 100 99 1 1000\\nX Y\\n\" + \"Y X\\n\".repeat(299),\n    \"300 100 99 1 1\\nX Y\\n\" + \"Y X\\n\".repeat(299),\n    \"0 100 99 0 1000\\n\",\n    \"0 100 99 1 1000\\n\",\n    \"1 2 1 0 1\\nA B\\n\",\n    \"1 2 1 1 1\\nA B\\n\",\n    \"2 2 1 0 1\\nA B\\nB A\\n\",\n    \"2 2 1 1 1\\nA B\\nB A\\n\",\n    \"2 2 1 2 1\\nA B\\nB A\\n\",\n    \"3 2 1 0 1\\nA B\\nB A\\nA B\\n\",\n    \"3 2 1 1 1\\nA B\\nB A\\nA B\\n\",\n    \"3 2 1 2 1\\nA B\\nB A\\nA B\\n\",\n    \"3 2 1 3 1\\nA B\\nB A\\nA B\\n\",\n    \"4 2 1 0 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 2 1 1 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 2 1 2 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 2 1 3 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"4 2 1 4 1\\nA B\\nB A\\nA B\\nB A\\n\",\n    \"3 5 3 1 8\\nBerBank University\\nUniversity BerMall\\nUniversity BerBank\\n\",\n    \"4 2 1 300 1000\\na A\\nA aa\\naa AA\\nAA a\\n\",\n    \"2 2 1 0 1\\naca BCBA\\nBCBA aca\\n\"\n]\n```"
+}

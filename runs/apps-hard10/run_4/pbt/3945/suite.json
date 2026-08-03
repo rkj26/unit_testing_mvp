@@ -1,0 +1,234 @@
+{
+  "meta": {
+    "invalid_inputs": [],
+    "n_props": 5,
+    "n_space": 57,
+    "reason": null,
+    "sound": true,
+    "sound_props": [
+      "prop_output_shape_matches_input",
+      "prop_transpose_symmetry"
+    ],
+    "unsound_props": [
+      "prop_answer_bounded_by_ranks",
+      "prop_monotonicity_in_row",
+      "prop_permutation_invariance"
+    ],
+    "valid": true,
+    "valid_inputs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56
+    ]
+  },
+  "prop_err": null,
+  "prop_raw": "```python\ndef prop_output_shape_matches_input(run, x):\n    \"\"\"PROPERTY: Output must have n lines, each with m integers, ending with newline.\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    out = run(x)\n    out_lines = out.strip().split('\\n')\n    assert len(out_lines) == n, f\"Expected {n} output lines, got {len(out_lines)}\"\n    for i, line in enumerate(out_lines):\n        nums = line.strip().split()\n        assert len(nums) == m, f\"Line {i}: expected {m} numbers, got {len(nums)}\"\n        for token in nums:\n            assert token.isdigit() or (token[0] == '-' and token[1:].isdigit()), f\"Non-integer output: {token}\"\n    # Ensure final newline if spec requires (but not strictly needed for shape check)\n    return True\n\ndef prop_answer_bounded_by_ranks(run, x):\n    \"\"\"PROPERTY: For each cell, answer \u2264 rank_in_row + rank_in_col - 1.\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    out = run(x)\n    out_grid = [list(map(int, line.split())) for line in out.strip().split('\\n')]\n    for i in range(n):\n        row = grid[i]\n        # rank of each element in its row (1-based, greater values = higher rank)\n        row_rank = [sorted(row).index(val) + 1 for val in row]\n        for j in range(m):\n            col = [grid[k][j] for k in range(n)]\n            col_rank = sorted(col).index(grid[i][j]) + 1\n            max_possible = row_rank[j] + col_rank[j] - 1\n            assert out_grid[i][j] <= max_possible, f\"Cell ({i},{j}) answer {out_grid[i][j]} > {max_possible} (row_rank {row_rank[j]}, col_rank {col_rank[j]})\"\n    return True\n\ndef prop_permutation_invariance(run, x):\n    \"\"\"PROPERTY: Permuting row values (preserving order) yields same outputs.\"\"\"\n    import random\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    # Create a random bijection on values while preserving comparisons\n    all_vals = sorted(set(val for row in grid for val in row))\n    perm = list(range(len(all_vals)))\n    random.shuffle(perm)\n    val_map = {all_vals[i]: perm[i]+1 for i in range(len(all_vals))}  # map to 1..len\n    new_grid = [[val_map[val] for val in row] for row in grid]\n    new_input = f\"{n} {m}\\n\" + \"\\n\".join(\" \".join(map(str, row)) for row in new_grid) + \"\\n\"\n    out1 = run(x)\n    out2 = run(new_input)\n    # Outputs should be identical because relative order unchanged\n    assert out1 == out2, \"Permuting values changed output\"\n    return True\n\ndef prop_transpose_symmetry(run, x):\n    \"\"\"PROPERTY: Transposing input transposes output (since problem symmetric).\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    # Transpose\n    transposed = [[grid[i][j] for i in range(n)] for j in range(m)]\n    new_input = f\"{m} {n}\\n\" + \"\\n\".join(\" \".join(map(str, row)) for row in transposed) + \"\\n\"\n    out1 = run(x)\n    out2 = run(new_input)\n    out1_grid = [list(map(int, line.split())) for line in out1.strip().split('\\n')]\n    out2_grid = [list(map(int, line.split())) for line in out2.strip().split('\\n')]\n    # Check transpose relation\n    for i in range(n):\n        for j in range(m):\n            assert out1_grid[i][j] == out2_grid[j][i], f\"Transpose mismatch at ({i},{j})\"\n    return True\n\ndef prop_monotonicity_in_row(run, x):\n    \"\"\"PROPERTY: In a given row, if heights increase, answers are non-decreasing.\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    out = run(x)\n    out_grid = [list(map(int, line.split())) for line in out.strip().split('\\n')]\n    for i in range(n):\n        row = grid[i]\n        out_row = out_grid[i]\n        # Check for each adjacent pair where heights strictly increase\n        for j in range(m-1):\n            if row[j] < row[j+1]:\n                assert out_row[j] <= out_row[j+1], f\"Row {i}: heights {row[j]}<{row[j+1]} but answers {out_row[j]}>{out_row[j+1]}\"\n    return True\n```",
+  "props_src": "def prop_output_shape_matches_input(run, x):\n    \"\"\"PROPERTY: Output must have n lines, each with m integers, ending with newline.\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    out = run(x)\n    out_lines = out.strip().split('\\n')\n    assert len(out_lines) == n, f\"Expected {n} output lines, got {len(out_lines)}\"\n    for i, line in enumerate(out_lines):\n        nums = line.strip().split()\n        assert len(nums) == m, f\"Line {i}: expected {m} numbers, got {len(nums)}\"\n        for token in nums:\n            assert token.isdigit() or (token[0] == '-' and token[1:].isdigit()), f\"Non-integer output: {token}\"\n    # Ensure final newline if spec requires (but not strictly needed for shape check)\n    return True\n\ndef prop_answer_bounded_by_ranks(run, x):\n    \"\"\"PROPERTY: For each cell, answer \u2264 rank_in_row + rank_in_col - 1.\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    out = run(x)\n    out_grid = [list(map(int, line.split())) for line in out.strip().split('\\n')]\n    for i in range(n):\n        row = grid[i]\n        # rank of each element in its row (1-based, greater values = higher rank)\n        row_rank = [sorted(row).index(val) + 1 for val in row]\n        for j in range(m):\n            col = [grid[k][j] for k in range(n)]\n            col_rank = sorted(col).index(grid[i][j]) + 1\n            max_possible = row_rank[j] + col_rank[j] - 1\n            assert out_grid[i][j] <= max_possible, f\"Cell ({i},{j}) answer {out_grid[i][j]} > {max_possible} (row_rank {row_rank[j]}, col_rank {col_rank[j]})\"\n    return True\n\ndef prop_permutation_invariance(run, x):\n    \"\"\"PROPERTY: Permuting row values (preserving order) yields same outputs.\"\"\"\n    import random\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    # Create a random bijection on values while preserving comparisons\n    all_vals = sorted(set(val for row in grid for val in row))\n    perm = list(range(len(all_vals)))\n    random.shuffle(perm)\n    val_map = {all_vals[i]: perm[i]+1 for i in range(len(all_vals))}  # map to 1..len\n    new_grid = [[val_map[val] for val in row] for row in grid]\n    new_input = f\"{n} {m}\\n\" + \"\\n\".join(\" \".join(map(str, row)) for row in new_grid) + \"\\n\"\n    out1 = run(x)\n    out2 = run(new_input)\n    # Outputs should be identical because relative order unchanged\n    assert out1 == out2, \"Permuting values changed output\"\n    return True\n\ndef prop_transpose_symmetry(run, x):\n    \"\"\"PROPERTY: Transposing input transposes output (since problem symmetric).\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    # Transpose\n    transposed = [[grid[i][j] for i in range(n)] for j in range(m)]\n    new_input = f\"{m} {n}\\n\" + \"\\n\".join(\" \".join(map(str, row)) for row in transposed) + \"\\n\"\n    out1 = run(x)\n    out2 = run(new_input)\n    out1_grid = [list(map(int, line.split())) for line in out1.strip().split('\\n')]\n    out2_grid = [list(map(int, line.split())) for line in out2.strip().split('\\n')]\n    # Check transpose relation\n    for i in range(n):\n        for j in range(m):\n            assert out1_grid[i][j] == out2_grid[j][i], f\"Transpose mismatch at ({i},{j})\"\n    return True\n\ndef prop_monotonicity_in_row(run, x):\n    \"\"\"PROPERTY: In a given row, if heights increase, answers are non-decreasing.\"\"\"\n    lines = x.strip().split('\\n')\n    n, m = map(int, lines[0].split())\n    grid = [list(map(int, lines[i+1].split())) for i in range(n)]\n    out = run(x)\n    out_grid = [list(map(int, line.split())) for line in out.strip().split('\\n')]\n    for i in range(n):\n        row = grid[i]\n        out_row = out_grid[i]\n        # Check for each adjacent pair where heights strictly increase\n        for j in range(m-1):\n            if row[j] < row[j+1]:\n                assert out_row[j] <= out_row[j+1], f\"Row {i}: heights {row[j]}<{row[j+1]} but answers {out_row[j]}>{out_row[j+1]}\"\n    return True",
+  "results": {
+    "apps_3945_attack_0": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "2 2\n1 2\n3 4\n",
+            "msg": "Row 1: heights 3<4 but answers 3>2",
+            "prop": "prop_monotonicity_in_row"
+          },
+          {
+            "input": "2 2\n1 3\n2 4\n",
+            "msg": "Row 1: heights 2<4 but answers 3>2",
+            "prop": "prop_monotonicity_in_row"
+          },
+          {
+            "input": "2 3\n1 2 3\n4 5 6\n",
+            "msg": "Row 1: heights 4<5 but answers 4>3",
+            "prop": "prop_monotonicity_in_row"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 20,
+        "n_failing_inputs": 15,
+        "n_failing_props": 2,
+        "per_prop": {
+          "prop_monotonicity_in_row": 6,
+          "prop_permutation_invariance": 14
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3945_honest": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "2 2\n1 2\n3 4\n",
+            "msg": "Row 1: heights 3<4 but answers 3>2",
+            "prop": "prop_monotonicity_in_row"
+          },
+          {
+            "input": "2 2\n1 3\n2 4\n",
+            "msg": "Row 1: heights 2<4 but answers 3>2",
+            "prop": "prop_monotonicity_in_row"
+          },
+          {
+            "input": "2 3\n1 2 3\n4 5 6\n",
+            "msg": "Row 1: heights 4<5 but answers 4>3",
+            "prop": "prop_monotonicity_in_row"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 17,
+        "n_failing_inputs": 11,
+        "n_failing_props": 2,
+        "per_prop": {
+          "prop_monotonicity_in_row": 6,
+          "prop_permutation_invariance": 11
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    }
+  },
+  "space": [
+    "1 1\n1\n",
+    "1 1\n2\n",
+    "1 1\n1000000000\n",
+    "1 2\n1 2\n",
+    "1 2\n2 1\n",
+    "1 2\n1 1\n",
+    "1 2\n1000000000 1\n",
+    "2 1\n1\n2\n",
+    "2 1\n2\n1\n",
+    "2 1\n1\n1\n",
+    "2 2\n1 2\n3 4\n",
+    "2 2\n4 3\n2 1\n",
+    "2 2\n1 1\n1 1\n",
+    "2 2\n2 1\n2 1\n",
+    "2 2\n1 2\n1 2\n",
+    "2 2\n2 2\n1 1\n",
+    "2 2\n1 3\n2 4\n",
+    "2 2\n1 2\n2 1\n",
+    "2 2\n1 1\n2 2\n",
+    "2 2\n2 1\n1 2\n",
+    "2 2\n1 1\n1 2\n",
+    "2 2\n2 2\n2 2\n",
+    "2 3\n1 2 1\n2 1 2\n",
+    "2 3\n2 1 2\n1 2 1\n",
+    "2 3\n1 1 1\n2 2 2\n",
+    "2 3\n2 2 2\n1 1 1\n",
+    "2 3\n1 2 3\n4 5 6\n",
+    "2 3\n3 2 1\n6 5 4\n",
+    "3 2\n1 2\n3 4\n5 6\n",
+    "3 2\n2 1\n4 3\n6 5\n",
+    "3 2\n1 1\n2 2\n3 3\n",
+    "3 2\n3 3\n2 2\n1 1\n",
+    "3 3\n1 2 3\n4 5 6\n7 8 9\n",
+    "3 3\n9 8 7\n6 5 4\n3 2 1\n",
+    "3 3\n1 1 1\n2 2 2\n3 3 3\n",
+    "3 3\n3 3 3\n2 2 2\n1 1 1\n",
+    "3 3\n5 5 5\n5 5 5\n5 5 5\n",
+    "3 3\n1 2 1\n2 1 2\n1 2 1\n",
+    "3 3\n2 1 2\n1 2 1\n2 1 2\n",
+    "4 1\n1\n2\n3\n4\n",
+    "4 1\n4\n3\n2\n1\n",
+    "1 4\n1 2 3 4\n",
+    "1 4\n4 3 2 1\n",
+    "2 5\n1 2 3 4 5\n5 4 3 2 1\n",
+    "5 2\n1 5\n2 4\n3 3\n4 2\n5 1\n",
+    "2 2\n1 2\n1 2\n",
+    "2 2\n2 1\n2 1\n",
+    "2 2\n1 1\n2 1\n",
+    "2 2\n1 2\n1 1\n",
+    "2 2\n2 2\n1 2\n",
+    "2 2\n2 1\n2 2\n",
+    "3 3\n1 1 2\n1 1 2\n2 2 1\n",
+    "3 3\n2 2 1\n1 1 2\n1 1 2\n",
+    "3 3\n1 2 3\n1 2 3\n1 2 3\n",
+    "3 3\n3 2 1\n3 2 1\n3 2 1\n",
+    "4 4\n1 2 3 4\n2 3 4 5\n3 4 5 6\n4 5 6 7\n",
+    "4 4\n7 6 5 4\n6 5 4 3\n5 4 3 2\n4 3 2 1\n"
+  ],
+  "space_err": null,
+  "space_raw": "```json\n[\n  \"1 1\\n1\\n\",\n  \"1 1\\n2\\n\",\n  \"1 1\\n1000000000\\n\",\n  \"1 2\\n1 2\\n\",\n  \"1 2\\n2 1\\n\",\n  \"1 2\\n1 1\\n\",\n  \"1 2\\n1000000000 1\\n\",\n  \"2 1\\n1\\n2\\n\",\n  \"2 1\\n2\\n1\\n\",\n  \"2 1\\n1\\n1\\n\",\n  \"2 2\\n1 2\\n3 4\\n\",\n  \"2 2\\n4 3\\n2 1\\n\",\n  \"2 2\\n1 1\\n1 1\\n\",\n  \"2 2\\n2 1\\n2 1\\n\",\n  \"2 2\\n1 2\\n1 2\\n\",\n  \"2 2\\n2 2\\n1 1\\n\",\n  \"2 2\\n1 3\\n2 4\\n\",\n  \"2 2\\n1 2\\n2 1\\n\",\n  \"2 2\\n1 1\\n2 2\\n\",\n  \"2 2\\n2 1\\n1 2\\n\",\n  \"2 2\\n1 1\\n1 2\\n\",\n  \"2 2\\n2 2\\n2 2\\n\",\n  \"2 3\\n1 2 1\\n2 1 2\\n\",\n  \"2 3\\n2 1 2\\n1 2 1\\n\",\n  \"2 3\\n1 1 1\\n2 2 2\\n\",\n  \"2 3\\n2 2 2\\n1 1 1\\n\",\n  \"2 3\\n1 2 3\\n4 5 6\\n\",\n  \"2 3\\n3 2 1\\n6 5 4\\n\",\n  \"3 2\\n1 2\\n3 4\\n5 6\\n\",\n  \"3 2\\n2 1\\n4 3\\n6 5\\n\",\n  \"3 2\\n1 1\\n2 2\\n3 3\\n\",\n  \"3 2\\n3 3\\n2 2\\n1 1\\n\",\n  \"3 3\\n1 2 3\\n4 5 6\\n7 8 9\\n\",\n  \"3 3\\n9 8 7\\n6 5 4\\n3 2 1\\n\",\n  \"3 3\\n1 1 1\\n2 2 2\\n3 3 3\\n\",\n  \"3 3\\n3 3 3\\n2 2 2\\n1 1 1\\n\",\n  \"3 3\\n5 5 5\\n5 5 5\\n5 5 5\\n\",\n  \"3 3\\n1 2 1\\n2 1 2\\n1 2 1\\n\",\n  \"3 3\\n2 1 2\\n1 2 1\\n2 1 2\\n\",\n  \"4 1\\n1\\n2\\n3\\n4\\n\",\n  \"4 1\\n4\\n3\\n2\\n1\\n\",\n  \"1 4\\n1 2 3 4\\n\",\n  \"1 4\\n4 3 2 1\\n\",\n  \"2 5\\n1 2 3 4 5\\n5 4 3 2 1\\n\",\n  \"5 2\\n1 5\\n2 4\\n3 3\\n4 2\\n5 1\\n\",\n  \"2 2\\n1 2\\n1 2\\n\",\n  \"2 2\\n2 1\\n2 1\\n\",\n  \"2 2\\n1 1\\n2 1\\n\",\n  \"2 2\\n1 2\\n1 1\\n\",\n  \"2 2\\n2 2\\n1 2\\n\",\n  \"2 2\\n2 1\\n2 2\\n\",\n  \"3 3\\n1 1 2\\n1 1 2\\n2 2 1\\n\",\n  \"3 3\\n2 2 1\\n1 1 2\\n1 1 2\\n\",\n  \"3 3\\n1 2 3\\n1 2 3\\n1 2 3\\n\",\n  \"3 3\\n3 2 1\\n3 2 1\\n3 2 1\\n\",\n  \"4 4\\n1 2 3 4\\n2 3 4 5\\n3 4 5 6\\n4 5 6 7\\n\",\n  \"4 4\\n7 6 5 4\\n6 5 4 3\\n5 4 3 2\\n4 3 2 1\\n\"\n]\n```"
+}

@@ -1,0 +1,262 @@
+{
+  "meta": {
+    "invalid_inputs": [],
+    "n_props": 5,
+    "n_space": 50,
+    "reason": null,
+    "sound": true,
+    "sound_props": [
+      "prop_adding_flight_does_not_increase_cost",
+      "prop_city_permutation_invariance",
+      "prop_day_shift_invariance",
+      "prop_output_format_and_lower_bound"
+    ],
+    "unsound_props": [
+      "prop_monotonic_in_k"
+    ],
+    "valid": true,
+    "valid_inputs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ]
+  },
+  "prop_err": null,
+  "prop_raw": "```python\ndef prop_output_format_and_lower_bound(run, x):\n    \"\"\"PROPERTY: Output is integer; if -1, some city may lack flights; else cost >= sum of per-city minimum flight costs.\"\"\"\n    out = run(x).strip()\n    # Must be convertible to int\n    try:\n        val = int(out)\n    except ValueError:\n        raise AssertionError(f\"Output is not an integer: {out!r}\")\n\n    # Parse input\n    lines = x.strip().splitlines()\n    if not lines:\n        raise AssertionError(\"Empty input\")\n    n, m, k = map(int, lines[0].split())\n    min_in = [None] * (n + 1)   # 1\u2011based\n    min_out = [None] * (n + 1)\n    has_in = [False] * (n + 1)\n    has_out = [False] * (n + 1)\n\n    for line in lines[1:]:\n        if not line.strip():\n            continue\n        parts = line.split()\n        if len(parts) != 4:\n            continue\n        d, f, t, c = map(int, parts)\n        if t == 0:          # flight to Metropolis (inbound)\n            city = f\n            if min_in[city] is None or c < min_in[city]:\n                min_in[city] = c\n            has_in[city] = True\n        else:               # f == 0, flight from Metropolis (outbound)\n            city = t\n            if min_out[city] is None or c < min_out[city]:\n                min_out[city] = c\n            has_out[city] = True\n\n    impossible_by_missing = False\n    for i in range(1, n + 1):\n        if not has_in[i] or not has_out[i]:\n            impossible_by_missing = True\n            break\n\n    if impossible_by_missing:\n        # If a city lacks any required flight, answer must be -1\n        if val != -1:\n            raise AssertionError(f\"City missing flight but output is {val}, not -1\")\n        return True\n\n    # All cities have at least one inbound and one outbound flight\n    if val != -1:\n        # Compute sum of minima\n        sum_min = 0\n        for i in range(1, n + 1):\n            sum_min += min_in[i] + min_out[i]\n        if val < sum_min:\n            raise AssertionError(f\"Output {val} < sum of per\u2011city minima {sum_min}\")\n        if val < 0:\n            raise AssertionError(f\"Negative output {val} for feasible instance\")\n    return True\n\n\ndef permute_cities(lines, perm):\n    \"\"\"Apply permutation perm (dict old -> new) to flights, keep city 0 fixed.\"\"\"\n    new_lines = []\n    for line in lines:\n        parts = line.split()\n        if len(parts) == 4:\n            d, f, t, c = map(int, parts)\n            f_new = perm.get(f, f)\n            t_new = perm.get(t, t)\n            new_lines.append(f\"{d} {f_new} {t_new} {c}\")\n        else:\n            new_lines.append(line)   # first line unchanged\n    return \"\\n\".join(new_lines)\n\n\ndef prop_city_permutation_invariance(run, x):\n    \"\"\"PROPERTY: Permuting city indices (1..n) does not change the answer.\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    first = lines[0].split()\n    n = int(first[0])\n    # Fixed permutation: reverse order\n    perm = {i: n + 1 - i for i in range(1, n + 1)}\n    modified = permute_cities(lines, perm)\n    out1 = run(x).strip()\n    out2 = run(modified).strip()\n    if out1 != out2:\n        raise AssertionError(f\"Outputs differ after permutation: {out1} vs {out2}\")\n    return True\n\n\ndef prop_day_shift_invariance(run, x):\n    \"\"\"PROPERTY: Shifting all flight days by a constant (within bounds) does not change the answer.\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    # Parse flights to find min and max day\n    min_day = float('inf')\n    max_day = 0\n    flight_lines = []\n    for line in lines[1:]:\n        if not line.strip():\n            continue\n        parts = line.split()\n        if len(parts) == 4:\n            d, f, t, c = map(int, parts)\n            if d < min_day:\n                min_day = d\n            if d > max_day:\n                max_day = d\n            flight_lines.append((d, f, t, c))\n    # Choose a safe shift\n    delta = 0\n    if min_day > 1:\n        delta = -1\n    elif max_day < 10**6:\n        delta = 1\n    if delta == 0:\n        return True   # cannot shift without violating constraints\n    # Build shifted input\n    new_flights = []\n    for d, f, t, c in flight_lines:\n        new_flights.append(f\"{d + delta} {f} {t} {c}\")\n    n, m, k = map(int, lines[0].split())\n    new_input = f\"{n} {m} {k}\\n\" + \"\\n\".join(new_flights)\n    out1 = run(x).strip()\n    out2 = run(new_input).strip()\n    if out1 != out2:\n        raise AssertionError(f\"Outputs differ after day shift: {out1} vs {out2}\")\n    return True\n\n\ndef prop_monotonic_in_k(run, x):\n    \"\"\"PROPERTY: Increasing k cannot decrease cost (if still feasible).\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n, m, k = map(int, lines[0].split())\n    # Choose a neighbouring k value that stays within [1, 10^6]\n    if k < 10**6:\n        k2 = k + 1\n        direction = 1   # increased\n    elif k > 1:\n        k2 = k - 1\n        direction = -1  # decreased\n    else:\n        return True     # k=1 and cannot decrease, k=10^6 and cannot increase\n    # Build modified input\n    new_first = f\"{n} {m} {k2}\"\n    new_input = new_first + \"\\n\" + \"\\n\".join(lines[1:])\n    out1 = run(x).strip()\n    out2 = run(new_input).strip()\n    try:\n        c1 = int(out1) if out1 != \"-1\" else None\n        c2 = int(out2) if out2 != \"-1\" else None\n    except ValueError:\n        raise AssertionError(\"Output not integer or -1\")\n    if direction == 1:   # k increased\n        if c1 is None:   # originally impossible\n            if c2 is not None:\n                raise AssertionError(f\"Originally impossible (k={k}) became possible (k={k2})\")\n        else:            # originally possible\n            if c2 is None:\n                raise AssertionError(f\"Originally possible (k={k}) became impossible (k={k2})\")\n            if c2 < c1:\n                raise AssertionError(f\"Cost decreased from {c1} to {c2} when k increased from {k} to {k2}\")\n    else:                # k decreased\n        if c2 is not None and c1 is not None:\n            if c1 < c2:\n                raise AssertionError(f\"Cost increased from {c2} to {c1} when k decreased from {k} to {k2}\")\n    return True\n\n\ndef prop_adding_flight_does_not_increase_cost(run, x):\n    \"\"\"PROPERTY: Adding an extra flight (duplicate of an existing one) cannot increase the minimal cost.\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n, m, k = map(int, lines[0].split())\n    if m == 0:\n        return True   # no flight to duplicate\n    # Duplicate the first flight line\n    dup_line = lines[1].strip()\n    if not dup_line:\n        # skip empty lines\n        for line in lines[2:]:\n            if line.strip():\n                dup_line = line.strip()\n                break\n    if not dup_line:\n        return True\n    new_flights = lines[1:] + [dup_line]\n    new_input = f\"{n} {m+1} {k}\\n\" + \"\\n\".join(new_flights)\n    out1 = run(x).strip()\n    out2 = run(new_input).strip()\n    try:\n        c1 = int(out1) if out1 != \"-1\" else None\n        c2 = int(out2) if out2 != \"-1\" else None\n    except ValueError:\n        raise AssertionError(\"Output not integer or -1\")\n    if c1 is not None:   # originally possible\n        if c2 is None:\n            raise AssertionError(\"Originally possible became impossible after adding a flight\")\n        if c2 > c1:\n            raise AssertionError(f\"Cost increased from {c1} to {c2} after adding a flight\")\n    return True\n```",
+  "props_src": "def prop_output_format_and_lower_bound(run, x):\n    \"\"\"PROPERTY: Output is integer; if -1, some city may lack flights; else cost >= sum of per-city minimum flight costs.\"\"\"\n    out = run(x).strip()\n    # Must be convertible to int\n    try:\n        val = int(out)\n    except ValueError:\n        raise AssertionError(f\"Output is not an integer: {out!r}\")\n\n    # Parse input\n    lines = x.strip().splitlines()\n    if not lines:\n        raise AssertionError(\"Empty input\")\n    n, m, k = map(int, lines[0].split())\n    min_in = [None] * (n + 1)   # 1\u2011based\n    min_out = [None] * (n + 1)\n    has_in = [False] * (n + 1)\n    has_out = [False] * (n + 1)\n\n    for line in lines[1:]:\n        if not line.strip():\n            continue\n        parts = line.split()\n        if len(parts) != 4:\n            continue\n        d, f, t, c = map(int, parts)\n        if t == 0:          # flight to Metropolis (inbound)\n            city = f\n            if min_in[city] is None or c < min_in[city]:\n                min_in[city] = c\n            has_in[city] = True\n        else:               # f == 0, flight from Metropolis (outbound)\n            city = t\n            if min_out[city] is None or c < min_out[city]:\n                min_out[city] = c\n            has_out[city] = True\n\n    impossible_by_missing = False\n    for i in range(1, n + 1):\n        if not has_in[i] or not has_out[i]:\n            impossible_by_missing = True\n            break\n\n    if impossible_by_missing:\n        # If a city lacks any required flight, answer must be -1\n        if val != -1:\n            raise AssertionError(f\"City missing flight but output is {val}, not -1\")\n        return True\n\n    # All cities have at least one inbound and one outbound flight\n    if val != -1:\n        # Compute sum of minima\n        sum_min = 0\n        for i in range(1, n + 1):\n            sum_min += min_in[i] + min_out[i]\n        if val < sum_min:\n            raise AssertionError(f\"Output {val} < sum of per\u2011city minima {sum_min}\")\n        if val < 0:\n            raise AssertionError(f\"Negative output {val} for feasible instance\")\n    return True\n\n\ndef permute_cities(lines, perm):\n    \"\"\"Apply permutation perm (dict old -> new) to flights, keep city 0 fixed.\"\"\"\n    new_lines = []\n    for line in lines:\n        parts = line.split()\n        if len(parts) == 4:\n            d, f, t, c = map(int, parts)\n            f_new = perm.get(f, f)\n            t_new = perm.get(t, t)\n            new_lines.append(f\"{d} {f_new} {t_new} {c}\")\n        else:\n            new_lines.append(line)   # first line unchanged\n    return \"\\n\".join(new_lines)\n\n\ndef prop_city_permutation_invariance(run, x):\n    \"\"\"PROPERTY: Permuting city indices (1..n) does not change the answer.\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    first = lines[0].split()\n    n = int(first[0])\n    # Fixed permutation: reverse order\n    perm = {i: n + 1 - i for i in range(1, n + 1)}\n    modified = permute_cities(lines, perm)\n    out1 = run(x).strip()\n    out2 = run(modified).strip()\n    if out1 != out2:\n        raise AssertionError(f\"Outputs differ after permutation: {out1} vs {out2}\")\n    return True\n\n\ndef prop_day_shift_invariance(run, x):\n    \"\"\"PROPERTY: Shifting all flight days by a constant (within bounds) does not change the answer.\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    # Parse flights to find min and max day\n    min_day = float('inf')\n    max_day = 0\n    flight_lines = []\n    for line in lines[1:]:\n        if not line.strip():\n            continue\n        parts = line.split()\n        if len(parts) == 4:\n            d, f, t, c = map(int, parts)\n            if d < min_day:\n                min_day = d\n            if d > max_day:\n                max_day = d\n            flight_lines.append((d, f, t, c))\n    # Choose a safe shift\n    delta = 0\n    if min_day > 1:\n        delta = -1\n    elif max_day < 10**6:\n        delta = 1\n    if delta == 0:\n        return True   # cannot shift without violating constraints\n    # Build shifted input\n    new_flights = []\n    for d, f, t, c in flight_lines:\n        new_flights.append(f\"{d + delta} {f} {t} {c}\")\n    n, m, k = map(int, lines[0].split())\n    new_input = f\"{n} {m} {k}\\n\" + \"\\n\".join(new_flights)\n    out1 = run(x).strip()\n    out2 = run(new_input).strip()\n    if out1 != out2:\n        raise AssertionError(f\"Outputs differ after day shift: {out1} vs {out2}\")\n    return True\n\n\ndef prop_monotonic_in_k(run, x):\n    \"\"\"PROPERTY: Increasing k cannot decrease cost (if still feasible).\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n, m, k = map(int, lines[0].split())\n    # Choose a neighbouring k value that stays within [1, 10^6]\n    if k < 10**6:\n        k2 = k + 1\n        direction = 1   # increased\n    elif k > 1:\n        k2 = k - 1\n        direction = -1  # decreased\n    else:\n        return True     # k=1 and cannot decrease, k=10^6 and cannot increase\n    # Build modified input\n    new_first = f\"{n} {m} {k2}\"\n    new_input = new_first + \"\\n\" + \"\\n\".join(lines[1:])\n    out1 = run(x).strip()\n    out2 = run(new_input).strip()\n    try:\n        c1 = int(out1) if out1 != \"-1\" else None\n        c2 = int(out2) if out2 != \"-1\" else None\n    except ValueError:\n        raise AssertionError(\"Output not integer or -1\")\n    if direction == 1:   # k increased\n        if c1 is None:   # originally impossible\n            if c2 is not None:\n                raise AssertionError(f\"Originally impossible (k={k}) became possible (k={k2})\")\n        else:            # originally possible\n            if c2 is None:\n                raise AssertionError(f\"Originally possible (k={k}) became impossible (k={k2})\")\n            if c2 < c1:\n                raise AssertionError(f\"Cost decreased from {c1} to {c2} when k increased from {k} to {k2}\")\n    else:                # k decreased\n        if c2 is not None and c1 is not None:\n            if c1 < c2:\n                raise AssertionError(f\"Cost increased from {c2} to {c1} when k decreased from {k} to {k2}\")\n    return True\n\n\ndef prop_adding_flight_does_not_increase_cost(run, x):\n    \"\"\"PROPERTY: Adding an extra flight (duplicate of an existing one) cannot increase the minimal cost.\"\"\"\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n, m, k = map(int, lines[0].split())\n    if m == 0:\n        return True   # no flight to duplicate\n    # Duplicate the first flight line\n    dup_line = lines[1].strip()\n    if not dup_line:\n        # skip empty lines\n        for line in lines[2:]:\n            if line.strip():\n                dup_line = line.strip()\n                break\n    if not dup_line:\n        return True\n    new_flights = lines[1:] + [dup_line]\n    new_input = f\"{n} {m+1} {k}\\n\" + \"\\n\".join(new_flights)\n    out1 = run(x).strip()\n    out2 = run(new_input).strip()\n    try:\n        c1 = int(out1) if out1 != \"-1\" else None\n        c2 = int(out2) if out2 != \"-1\" else None\n    except ValueError:\n        raise AssertionError(\"Output not integer or -1\")\n    if c1 is not None:   # originally possible\n        if c2 is None:\n            raise AssertionError(\"Originally possible became impossible after adding a flight\")\n        if c2 > c1:\n            raise AssertionError(f\"Cost increased from {c1} to {c2} after adding a flight\")\n    return True",
+  "results": {
+    "apps_3868_attack_0": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "1 2 1\n1 1 0 10\n3 0 1 20\n",
+            "msg": "Originally possible (k=1) became impossible (k=2)",
+            "prop": "prop_monotonic_in_k"
+          },
+          {
+            "input": "1 2 2\n1 1 0 10\n4 0 1 20\n",
+            "msg": "Originally possible (k=2) became impossible (k=3)",
+            "prop": "prop_monotonic_in_k"
+          },
+          {
+            "input": "1 2 999998\n1 1 0 10\n1000000 0 1 20\n",
+            "msg": "Originally possible (k=999998) became impossible (k=999999)",
+            "prop": "prop_monotonic_in_k"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 9,
+        "n_failing_inputs": 9,
+        "n_failing_props": 1,
+        "per_prop": {
+          "prop_monotonic_in_k": 9
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3868_attack_1": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "1 2 1\n1 1 0 10\n3 0 1 20\n",
+            "msg": "Originally possible (k=1) became impossible (k=2)",
+            "prop": "prop_monotonic_in_k"
+          },
+          {
+            "input": "1 2 2\n1 1 0 10\n4 0 1 20\n",
+            "msg": "Originally possible (k=2) became impossible (k=3)",
+            "prop": "prop_monotonic_in_k"
+          },
+          {
+            "input": "1 2 999998\n1 1 0 10\n1000000 0 1 20\n",
+            "msg": "Originally possible (k=999998) became impossible (k=999999)",
+            "prop": "prop_monotonic_in_k"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 10,
+        "n_failing_inputs": 10,
+        "n_failing_props": 1,
+        "per_prop": {
+          "prop_monotonic_in_k": 10
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3868_honest": {
+      "pbt": {
+        "catch_examples": [
+          {
+            "input": "1 2 1\n1 1 0 10\n3 0 1 20\n",
+            "msg": "Originally possible (k=1) became impossible (k=2)",
+            "prop": "prop_monotonic_in_k"
+          },
+          {
+            "input": "1 2 2\n1 1 0 10\n4 0 1 20\n",
+            "msg": "Originally possible (k=2) became impossible (k=3)",
+            "prop": "prop_monotonic_in_k"
+          },
+          {
+            "input": "1 2 999998\n1 1 0 10\n1000000 0 1 20\n",
+            "msg": "Originally possible (k=999998) became impossible (k=999999)",
+            "prop": "prop_monotonic_in_k"
+          }
+        ],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 9,
+        "n_failing_inputs": 9,
+        "n_failing_props": 1,
+        "per_prop": {
+          "prop_monotonic_in_k": 9
+        },
+        "runnable": true,
+        "score": 1.0,
+        "verdict": "fail"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    }
+  },
+  "space": [
+    "2 6 5\n1 1 0 5000\n3 2 0 5500\n2 2 0 6000\n15 0 2 9000\n9 0 1 7000\n8 0 2 6500\n",
+    "2 4 5\n1 2 0 5000\n2 1 0 4500\n2 1 0 3000\n8 0 1 6000\n",
+    "2 5 5\n1 1 0 1\n2 2 0 100\n3 2 0 10\n9 0 1 1000\n10 0 2 10000\n",
+    "1 0 1\n",
+    "1 1 1\n1 1 0 10\n",
+    "1 2 1\n1 1 0 10\n3 0 1 20\n",
+    "1 2 1\n1 1 0 10\n2 0 1 20\n",
+    "1 2 1\n2 1 0 10\n3 0 1 20\n",
+    "1 2 2\n1 1 0 10\n4 0 1 20\n",
+    "2 0 1\n",
+    "2 4 1\n1 1 0 10\n1 2 0 10\n4 0 1 10\n4 0 2 10\n",
+    "2 4 1\n1 1 0 10\n1 2 0 10\n4 0 1 10\n5 0 1 20\n",
+    "2 4 2\n1 1 0 10\n1 2 0 10\n5 0 1 10\n5 0 2 10\n",
+    "3 6 2\n1 1 0 10\n1 2 0 10\n1 3 0 10\n6 0 1 10\n6 0 2 10\n6 0 3 10\n",
+    "1 2 1000000\n1 1 0 10\n1000000 0 1 20\n",
+    "1 2 999998\n1 1 0 10\n1000000 0 1 20\n",
+    "1 2 1\n1 1 0 10\n1000000 0 1 20\n",
+    "2 3 2\n1 1 0 1\n2 2 0 2\n5 0 1 3\n",
+    "2 3 2\n1 0 1 1\n2 1 0 2\n3 2 0 3\n",
+    "2 4 2\n1 1 0 1\n1 2 0 1\n5 0 1 1\n5 0 2 1\n",
+    "2 4 2\n1 1 0 1\n1 2 0 1\n4 0 1 1\n4 0 2 1\n",
+    "1 3 1\n1 1 0 10\n2 1 0 5\n4 0 1 10\n",
+    "1 3 1\n1 1 0 10\n4 0 1 20\n5 0 1 5\n",
+    "2 2 1\n1 1 0 10\n2 0 2 10\n",
+    "2 4 1\n1 1 0 10\n1 2 0 10\n3 0 1 10\n2 0 2 10\n",
+    "2 5 1\n1 1 0 10\n1 2 0 10\n3 0 1 1000\n4 0 1 10\n3 0 2 10\n",
+    "1 2 1\n1 1 0 1\n3 0 1 1\n",
+    "1 2 5\n1 1 0 10\n5 0 1 20\n",
+    "100000 0 1\n",
+    "10 20 1\n1 1 0 1\n2 2 0 2\n3 3 0 3\n4 4 0 4\n5 5 0 5\n6 6 0 6\n7 7 0 7\n8 8 0 8\n9 9 0 9\n10 10 0 10\n3 0 1 1\n4 0 2 2\n5 0 3 3\n6 0 4 4\n7 0 5 5\n8 0 6 6\n9 0 7 7\n10 0 8 8\n11 0 9 9\n12 0 10 10\n",
+    "1 2 999999\n1 1 0 10\n1000000 0 1 20\n",
+    "1 2 1\n1 1 0 10\n1 0 1 20\n",
+    "2 4 1\n1 1 0 10\n1 0 1 20\n2 2 0 10\n2 0 2 20\n",
+    "1 2 999997\n1 1 0 10\n1000000 0 1 20\n",
+    "2 4 1\n2 1 0 10\n2 2 0 10\n4 0 1 10\n4 0 2 10\n",
+    "1 2 1\n1 0 1 10\n2 1 0 10\n",
+    "1 3 1\n1 1 0 10\n2 0 1 10\n3 0 1 10\n",
+    "1 2 1\n1 1 0 1000000\n3 0 1 1000000\n",
+    "10 10 1\n1 1 0 1\n1 2 0 1\n1 3 0 1\n1 4 0 1\n1 5 0 1\n1000000 0 1 1\n1000000 0 2 1\n1000000 0 3 1\n1000000 0 4 1\n1000000 0 5 1\n",
+    "5 0 10\n",
+    "1 2 2\n1 1 0 10\n2 0 1 20\n",
+    "2 2 1\n1 1 0 1\n2 2 0 1\n",
+    "2 2 1\n1 1 0 1\n3 0 1 1\n",
+    "2 2 1\n1 0 1 1\n2 1 0 1\n",
+    "3 8 2\n1 1 0 10\n2 1 0 5\n1 2 0 10\n1 3 0 10\n6 0 1 10\n7 0 1 5\n6 0 2 10\n6 0 3 10\n",
+    "1 10 5\n1 1 0 10\n2 1 0 9\n3 1 0 8\n4 1 0 7\n5 1 0 6\n10 0 1 10\n11 0 1 9\n12 0 1 8\n13 0 1 7\n14 0 1 6\n",
+    "2 8 2\n1 1 0 100\n3 1 0 1\n1 2 0 100\n3 2 0 1\n6 0 1 100\n8 0 1 1\n6 0 2 100\n8 0 2 1\n",
+    "1 2 1\n999999 1 0 10\n1000000 0 1 20\n",
+    "1 2 1\n1000000 1 0 10\n1000000 0 1 20\n",
+    "2 4 1\n1 1 0 10\n1 2 0 10\n1000000 0 1 10\n1000000 0 2 10\n"
+  ],
+  "space_err": null,
+  "space_raw": "[\n  \"2 6 5\\n1 1 0 5000\\n3 2 0 5500\\n2 2 0 6000\\n15 0 2 9000\\n9 0 1 7000\\n8 0 2 6500\\n\",\n  \"2 4 5\\n1 2 0 5000\\n2 1 0 4500\\n2 1 0 3000\\n8 0 1 6000\\n\",\n  \"2 5 5\\n1 1 0 1\\n2 2 0 100\\n3 2 0 10\\n9 0 1 1000\\n10 0 2 10000\\n\",\n  \"1 0 1\\n\",\n  \"1 1 1\\n1 1 0 10\\n\",\n  \"1 2 1\\n1 1 0 10\\n3 0 1 20\\n\",\n  \"1 2 1\\n1 1 0 10\\n2 0 1 20\\n\",\n  \"1 2 1\\n2 1 0 10\\n3 0 1 20\\n\",\n  \"1 2 2\\n1 1 0 10\\n4 0 1 20\\n\",\n  \"2 0 1\\n\",\n  \"2 4 1\\n1 1 0 10\\n1 2 0 10\\n4 0 1 10\\n4 0 2 10\\n\",\n  \"2 4 1\\n1 1 0 10\\n1 2 0 10\\n4 0 1 10\\n5 0 1 20\\n\",\n  \"2 4 2\\n1 1 0 10\\n1 2 0 10\\n5 0 1 10\\n5 0 2 10\\n\",\n  \"3 6 2\\n1 1 0 10\\n1 2 0 10\\n1 3 0 10\\n6 0 1 10\\n6 0 2 10\\n6 0 3 10\\n\",\n  \"1 2 1000000\\n1 1 0 10\\n1000000 0 1 20\\n\",\n  \"1 2 999998\\n1 1 0 10\\n1000000 0 1 20\\n\",\n  \"1 2 1\\n1 1 0 10\\n1000000 0 1 20\\n\",\n  \"2 3 2\\n1 1 0 1\\n2 2 0 2\\n5 0 1 3\\n\",\n  \"2 3 2\\n1 0 1 1\\n2 1 0 2\\n3 2 0 3\\n\",\n  \"2 4 2\\n1 1 0 1\\n1 2 0 1\\n5 0 1 1\\n5 0 2 1\\n\",\n  \"2 4 2\\n1 1 0 1\\n1 2 0 1\\n4 0 1 1\\n4 0 2 1\\n\",\n  \"1 3 1\\n1 1 0 10\\n2 1 0 5\\n4 0 1 10\\n\",\n  \"1 3 1\\n1 1 0 10\\n4 0 1 20\\n5 0 1 5\\n\",\n  \"2 2 1\\n1 1 0 10\\n2 0 2 10\\n\",\n  \"2 4 1\\n1 1 0 10\\n1 2 0 10\\n3 0 1 10\\n2 0 2 10\\n\",\n  \"2 5 1\\n1 1 0 10\\n1 2 0 10\\n3 0 1 1000\\n4 0 1 10\\n3 0 2 10\\n\",\n  \"1 2 1\\n1 1 0 1\\n3 0 1 1\\n\",\n  \"1 2 5\\n1 1 0 10\\n5 0 1 20\\n\",\n  \"100000 0 1\\n\",\n  \"10 20 1\\n1 1 0 1\\n2 2 0 2\\n3 3 0 3\\n4 4 0 4\\n5 5 0 5\\n6 6 0 6\\n7 7 0 7\\n8 8 0 8\\n9 9 0 9\\n10 10 0 10\\n3 0 1 1\\n4 0 2 2\\n5 0 3 3\\n6 0 4 4\\n7 0 5 5\\n8 0 6 6\\n9 0 7 7\\n10 0 8 8\\n11 0 9 9\\n12 0 10 10\\n\",\n  \"1 2 999999\\n1 1 0 10\\n1000000 0 1 20\\n\",\n  \"1 2 1\\n1 1 0 10\\n1 0 1 20\\n\",\n  \"2 4 1\\n1 1 0 10\\n1 0 1 20\\n2 2 0 10\\n2 0 2 20\\n\",\n  \"1 2 999997\\n1 1 0 10\\n1000000 0 1 20\\n\",\n  \"2 4 1\\n2 1 0 10\\n2 2 0 10\\n4 0 1 10\\n4 0 2 10\\n\",\n  \"1 2 1\\n1 0 1 10\\n2 1 0 10\\n\",\n  \"1 3 1\\n1 1 0 10\\n2 0 1 10\\n3 0 1 10\\n\",\n  \"1 2 1\\n1 1 0 1000000\\n3 0 1 1000000\\n\",\n  \"10 10 1\\n1 1 0 1\\n1 2 0 1\\n1 3 0 1\\n1 4 0 1\\n1 5 0 1\\n1000000 0 1 1\\n1000000 0 2 1\\n1000000 0 3 1\\n1000000 0 4 1\\n1000000 0 5 1\\n\",\n  \"5 0 10\\n\",\n  \"1 2 2\\n1 1 0 10\\n2 0 1 20\\n\",\n  \"2 2 1\\n1 1 0 1\\n2 2 0 1\\n\",\n  \"2 2 1\\n1 1 0 1\\n3 0 1 1\\n\",\n  \"2 2 1\\n1 0 1 1\\n2 1 0 1\\n\",\n  \"3 8 2\\n1 1 0 10\\n2 1 0 5\\n1 2 0 10\\n1 3 0 10\\n6 0 1 10\\n7 0 1 5\\n6 0 2 10\\n6 0 3 10\\n\",\n  \"1 10 5\\n1 1 0 10\\n2 1 0 9\\n3 1 0 8\\n4 1 0 7\\n5 1 0 6\\n10 0 1 10\\n11 0 1 9\\n12 0 1 8\\n13 0 1 7\\n14 0 1 6\\n\",\n  \"2 8 2\\n1 1 0 100\\n3 1 0 1\\n1 2 0 100\\n3 2 0 1\\n6 0 1 100\\n8 0 1 1\\n6 0 2 100\\n8 0 2 1\\n\",\n  \"1 2 1\\n999999 1 0 10\\n1000000 0 1 20\\n\",\n  \"1 2 1\\n1000000 1 0 10\\n1000000 0 1 20\\n\",\n  \"2 4 1\\n1 1 0 10\\n1 2 0 10\\n1000000 0 1 10\\n1000000 0 2 10\\n\"\n]"
+}

@@ -43,46 +43,81 @@ class TrustedModel:
         self.temperature = temperature
         self.seed = seed
         self._mock = name.startswith("mock")
-        self._model = None  # lazily resolved inspect model
+        self._model = None  # lazily resolved inspect model (async path / tests)
+        # inspect's on-disk completion cache: identical (prompt, seed, temperature) served from disk
+        # on a resume/retry instead of re-hitting the flaky endpoint. Off with INSPECT_CACHE=0.
+        self._cache = os.getenv("INSPECT_CACHE", "1").lower() not in ("0", "false", "no")
 
-    def _resolve_inspect(self):
-        if self._model is not None:
-            return self._model
-        from inspect_ai.model import GenerateConfig, get_model
+    def _gen_config(self):
+        from inspect_ai.model import GenerateConfig
 
         cfg: dict[str, Any] = {
             "temperature": self.temperature,
-            "timeout": 300,
-            "max_retries": 2,
-            "max_connections": 16,  # let inspect issue concurrent requests (our MAX_CONN is the real cap)
-            # Bounding output is what makes CONCURRENCY work on this endpoint: unbounded large
-            # generations hang under concurrency, but capped ones run fine (verified). Plenty for
-            # ~60 search-space inputs or 5 property functions; env-tunable via MAX_TOKENS.
+            # httpx read timeout per attempt. Each call uses a FRESH connection (see complete_blocking),
+            # so stale-socket hangs are gone; this is just a fast-fail bound. Env-tunable.
+            "timeout": int(os.getenv("CALL_HTTP_TIMEOUT", "60")),
+            # Keep inspect's own retries low: the orchestrator retries at a higher level with a hard
+            # wall-clock timeout and a fresh client, so we don't want two large nested retry budgets.
+            "max_retries": int(os.getenv("CALL_HTTP_RETRIES", "1")),
+            "max_connections": 16,
+            # Bounding output makes concurrency safe on this endpoint (unbounded generations hang);
+            # plenty for ~60 search-space inputs or a few property functions. Env-tunable.
             "max_tokens": int(os.getenv("MAX_TOKENS", "4000")),
         }
         if self.seed is not None:
             cfg["seed"] = self.seed
-        # Reasoning effort matters a LOT for thinking models here: DeepSeek-V3.2 is ~10s at "low"
-        # vs ~117s at "medium" (the default was stalling the pipeline). Set REASONING_EFFORT=none to omit.
+        # DeepSeek-V3.2 is ~10s at "low" vs ~117s at "medium"; the default effort was stalling us.
         effort = os.getenv("REASONING_EFFORT", "low")
         if effort and effort.lower() != "none":
             cfg["reasoning_effort"] = effort
-        # NOTE: no `max_tokens` cap and no gemini-specific `reasoning_tokens` — capping output
-        # is what truncated suites before, and reasoning_tokens is not an Azure/OpenAI param.
-        self._model = get_model(self.name, config=GenerateConfig(**cfg))
+        return GenerateConfig(**cfg)
+
+    def _fresh_model(self):
+        """A brand-new inspect model bound to the CURRENT event loop (fresh httpx client). Used by
+        complete_blocking so each worker-thread call has its own loop + connection."""
+        from inspect_ai.model import get_model
+
+        cfg = self._gen_config()
+        try:
+            return get_model(self.name, config=cfg, memoize=False)  # never reuse a loop-bound client
+        except TypeError:
+            return get_model(self.name, config=cfg)
+
+    def _resolve_inspect(self):
+        if self._model is None:
+            from inspect_ai.model import get_model
+
+            self._model = get_model(self.name, config=self._gen_config())
         return self._model
 
     async def complete(self, prompt: str, kind: str) -> str:
+        """Async path (mock model + tests). The orchestrator uses complete_blocking for hang safety."""
         if kind not in KINDS:
             raise ValueError(f"unknown model-call kind: {kind}")
         if self._mock:
             return _MOCK[kind]
         from inspect_ai.model import ChatMessageUser
 
-        out = await self._resolve_inspect().generate(
-            [ChatMessageUser(content=prompt)], cache=False
-        )
+        out = await self._resolve_inspect().generate([ChatMessageUser(content=prompt)], cache=self._cache)
         return out.completion or (out.message.text if out.message else "")
+
+    def complete_blocking(self, prompt: str, kind: str) -> str:
+        """Synchronous, self-contained call (own event loop + fresh client). Safe to run in a worker
+        thread: if it wedges, the caller's hard timeout abandons the thread while the main loop — where
+        the timeout timer lives — stays free. This is what makes a frozen socket non-fatal."""
+        if kind not in KINDS:
+            raise ValueError(f"unknown model-call kind: {kind}")
+        if self._mock:
+            return _MOCK[kind]
+        import asyncio
+
+        async def _go() -> str:
+            from inspect_ai.model import ChatMessageUser
+
+            out = await self._fresh_model().generate([ChatMessageUser(content=prompt)], cache=self._cache)
+            return out.completion or (out.message.text if out.message else "")
+
+        return asyncio.run(_go())
 
 
 def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None) -> TrustedModel:

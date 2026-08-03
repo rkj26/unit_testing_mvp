@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "invalid_inputs": [
+      28
+    ],
+    "n_props": 5,
+    "n_space": 29,
+    "reason": null,
+    "sound": true,
+    "sound_props": [
+      "prop_adding_useless_ciel_card_does_not_decrease_damage",
+      "prop_damage_nonnegative",
+      "prop_monotonic_in_ciel_strengths",
+      "prop_output_is_integer",
+      "prop_permuting_ciel_cards_unchanged"
+    ],
+    "unsound_props": [],
+    "valid": true,
+    "valid_inputs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ]
+  },
+  "prop_err": null,
+  "prop_raw": "```python\ndef prop_output_is_integer(run, x):\n    \"\"\"PROPERTY: Output must be a single integer.\"\"\"\n    out = run(x).strip()\n    # Must be able to parse as integer\n    int(out)  # raises ValueError if not\n    # No extra whitespace or newlines besides optional trailing newline\n    lines = out.splitlines()\n    assert len(lines) == 1\n    return True\n\ndef prop_damage_nonnegative(run, x):\n    \"\"\"PROPERTY: Maximal damage is nonnegative.\"\"\"\n    out = run(x).strip()\n    dmg = int(out)\n    assert dmg >= 0\n    return True\n\ndef prop_monotonic_in_ciel_strengths(run, x):\n    \"\"\"PROPERTY: Increasing a Ciel card's strength cannot decrease max damage.\"\"\"\n    # Parse input\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n_m = list(map(int, lines[0].split()))\n    n, m = n_m[0], n_m[1]\n    # Skip Jiro's cards\n    idx = 1\n    for _ in range(n):\n        idx += 1\n    # Ciel's strengths start at idx\n    strengths = []\n    for i in range(m):\n        strengths.append(int(lines[idx + i]))\n    # Modify: increase first Ciel strength by 1 (if possible)\n    if m > 0 and strengths[0] < 8000:\n        new_strengths = strengths.copy()\n        new_strengths[0] += 1\n        # Rebuild input\n        new_lines = lines[:idx] + [str(s) for s in new_strengths]\n        new_x = '\\n'.join(new_lines) + ('\\n' if x.endswith('\\n') else '')\n        out_orig = int(run(x).strip())\n        out_new = int(run(new_x).strip())\n        assert out_new >= out_orig\n    return True\n\ndef prop_adding_useless_ciel_card_does_not_decrease_damage(run, x):\n    \"\"\"PROPERTY: Adding a Ciel card with strength 0 cannot reduce max damage.\"\"\"\n    # Parse\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    parts = list(map(int, lines[0].split()))\n    n, m = parts[0], parts[1]\n    # Build new input: increase m by 1, append a 0 strength card\n    new_first_line = f\"{n} {m+1}\"\n    new_lines = [new_first_line] + lines[1:] + [\"0\"]\n    new_x = '\\n'.join(new_lines) + ('\\n' if x.endswith('\\n') else '')\n    out_orig = int(run(x).strip())\n    out_new = int(run(new_x).strip())\n    assert out_new >= out_orig\n    return True\n\ndef prop_permuting_ciel_cards_unchanged(run, x):\n    \"\"\"PROPERTY: Permuting Ciel's card strengths leaves max damage unchanged.\"\"\"\n    import random\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n_m = list(map(int, lines[0].split()))\n    n, m = n_m[0], n_m[1]\n    if m <= 1:\n        return True\n    idx = 1 + n  # after Jiro's cards\n    # Extract Ciel strengths\n    strengths = []\n    for i in range(m):\n        strengths.append(int(lines[idx + i]))\n    # Permute\n    permuted = strengths.copy()\n    random.shuffle(permuted)\n    # Build new input\n    new_lines = lines[:idx] + [str(s) for s in permuted]\n    new_x = '\\n'.join(new_lines) + ('\\n' if x.endswith('\\n') else '')\n    out_orig = int(run(x).strip())\n    out_new = int(run(new_x).strip())\n    assert out_orig == out_new\n    return True\n```",
+  "props_src": "def prop_output_is_integer(run, x):\n    \"\"\"PROPERTY: Output must be a single integer.\"\"\"\n    out = run(x).strip()\n    # Must be able to parse as integer\n    int(out)  # raises ValueError if not\n    # No extra whitespace or newlines besides optional trailing newline\n    lines = out.splitlines()\n    assert len(lines) == 1\n    return True\n\ndef prop_damage_nonnegative(run, x):\n    \"\"\"PROPERTY: Maximal damage is nonnegative.\"\"\"\n    out = run(x).strip()\n    dmg = int(out)\n    assert dmg >= 0\n    return True\n\ndef prop_monotonic_in_ciel_strengths(run, x):\n    \"\"\"PROPERTY: Increasing a Ciel card's strength cannot decrease max damage.\"\"\"\n    # Parse input\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n_m = list(map(int, lines[0].split()))\n    n, m = n_m[0], n_m[1]\n    # Skip Jiro's cards\n    idx = 1\n    for _ in range(n):\n        idx += 1\n    # Ciel's strengths start at idx\n    strengths = []\n    for i in range(m):\n        strengths.append(int(lines[idx + i]))\n    # Modify: increase first Ciel strength by 1 (if possible)\n    if m > 0 and strengths[0] < 8000:\n        new_strengths = strengths.copy()\n        new_strengths[0] += 1\n        # Rebuild input\n        new_lines = lines[:idx] + [str(s) for s in new_strengths]\n        new_x = '\\n'.join(new_lines) + ('\\n' if x.endswith('\\n') else '')\n        out_orig = int(run(x).strip())\n        out_new = int(run(new_x).strip())\n        assert out_new >= out_orig\n    return True\n\ndef prop_adding_useless_ciel_card_does_not_decrease_damage(run, x):\n    \"\"\"PROPERTY: Adding a Ciel card with strength 0 cannot reduce max damage.\"\"\"\n    # Parse\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    parts = list(map(int, lines[0].split()))\n    n, m = parts[0], parts[1]\n    # Build new input: increase m by 1, append a 0 strength card\n    new_first_line = f\"{n} {m+1}\"\n    new_lines = [new_first_line] + lines[1:] + [\"0\"]\n    new_x = '\\n'.join(new_lines) + ('\\n' if x.endswith('\\n') else '')\n    out_orig = int(run(x).strip())\n    out_new = int(run(new_x).strip())\n    assert out_new >= out_orig\n    return True\n\ndef prop_permuting_ciel_cards_unchanged(run, x):\n    \"\"\"PROPERTY: Permuting Ciel's card strengths leaves max damage unchanged.\"\"\"\n    import random\n    lines = x.strip().splitlines()\n    if not lines:\n        return True\n    n_m = list(map(int, lines[0].split()))\n    n, m = n_m[0], n_m[1]\n    if m <= 1:\n        return True\n    idx = 1 + n  # after Jiro's cards\n    # Extract Ciel strengths\n    strengths = []\n    for i in range(m):\n        strengths.append(int(lines[idx + i]))\n    # Permute\n    permuted = strengths.copy()\n    random.shuffle(permuted)\n    # Build new input\n    new_lines = lines[:idx] + [str(s) for s in permuted]\n    new_x = '\\n'.join(new_lines) + ('\\n' if x.endswith('\\n') else '')\n    out_orig = int(run(x).strip())\n    out_new = int(run(new_x).strip())\n    assert out_orig == out_new\n    return True",
+  "results": {
+    "apps_3870_attack_0": {
+      "pbt": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 3,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3870_attack_1": {
+      "pbt": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 3,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    },
+    "apps_3870_honest": {
+      "pbt": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 3,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": null,
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": true,
+        "score": 0.0,
+        "verdict": "pass"
+      }
+    }
+  },
+  "space": [
+    "1 1\nATK 0\n0\n",
+    "1 1\nATK 1\n0\n",
+    "1 1\nATK 0\n1\n",
+    "1 1\nATK 1\n1\n",
+    "1 1\nDEF 0\n0\n",
+    "1 1\nDEF 1\n0\n",
+    "1 1\nDEF 0\n1\n",
+    "1 1\nDEF 1\n1\n",
+    "1 2\nATK 0\n0\n0\n",
+    "1 2\nATK 1\n0\n0\n",
+    "1 2\nATK 0\n1\n1\n",
+    "1 2\nATK 1\n1\n1\n",
+    "2 1\nATK 0\nATK 0\n0\n",
+    "2 1\nATK 1\nATK 1\n0\n",
+    "2 1\nDEF 0\nDEF 0\n0\n",
+    "2 1\nDEF 1\nDEF 1\n0\n",
+    "2 1\nATK 0\nDEF 0\n0\n",
+    "2 1\nATK 1\nDEF 1\n0\n",
+    "2 2\nATK 0\nDEF 0\n0\n0\n",
+    "2 2\nATK 1\nDEF 1\n0\n0\n",
+    "2 2\nATK 0\nDEF 0\n1\n1\n",
+    "2 2\nATK 1\nDEF 1\n1\n1\n",
+    "3 3\nATK 0\nATK 1\nDEF 2\n0\n1\n2\n",
+    "3 3\nDEF 0\nDEF 1\nATK 2\n0\n1\n2\n",
+    "2 3\nATK 0\nDEF 0\n0\n0\n0\n",
+    "2 3\nATK 8000\nDEF 8000\n8000\n8000\n8000\n",
+    "1 1\nATK 8000\n8000\n",
+    "1 1\nDEF 8000\n8000\n",
+    "100 100\n"
+  ],
+  "space_err": null,
+  "space_raw": "```json\n[\n  \"1 1\\nATK 0\\n0\\n\",\n  \"1 1\\nATK 1\\n0\\n\",\n  \"1 1\\nATK 0\\n1\\n\",\n  \"1 1\\nATK 1\\n1\\n\",\n  \"1 1\\nDEF 0\\n0\\n\",\n  \"1 1\\nDEF 1\\n0\\n\",\n  \"1 1\\nDEF 0\\n1\\n\",\n  \"1 1\\nDEF 1\\n1\\n\",\n  \"1 2\\nATK 0\\n0\\n0\\n\",\n  \"1 2\\nATK 1\\n0\\n0\\n\",\n  \"1 2\\nATK 0\\n1\\n1\\n\",\n  \"1 2\\nATK 1\\n1\\n1\\n\",\n  \"2 1\\nATK 0\\nATK 0\\n0\\n\",\n  \"2 1\\nATK 1\\nATK 1\\n0\\n\",\n  \"2 1\\nDEF 0\\nDEF 0\\n0\\n\",\n  \"2 1\\nDEF 1\\nDEF 1\\n0\\n\",\n  \"2 1\\nATK 0\\nDEF 0\\n0\\n\",\n  \"2 1\\nATK 1\\nDEF 1\\n0\\n\",\n  \"2 2\\nATK 0\\nDEF 0\\n0\\n0\\n\",\n  \"2 2\\nATK 1\\nDEF 1\\n0\\n0\\n\",\n  \"2 2\\nATK 0\\nDEF 0\\n1\\n1\\n\",\n  \"2 2\\nATK 1\\nDEF 1\\n1\\n1\\n\",\n  \"3 3\\nATK 0\\nATK 1\\nDEF 2\\n0\\n1\\n2\\n\",\n  \"3 3\\nDEF 0\\nDEF 1\\nATK 2\\n0\\n1\\n2\\n\",\n  \"2 3\\nATK 0\\nDEF 0\\n0\\n0\\n0\\n\",\n  \"2 3\\nATK 8000\\nDEF 8000\\n8000\\n8000\\n8000\\n\",\n  \"1 1\\nATK 8000\\n8000\\n\",\n  \"1 1\\nDEF 8000\\n8000\\n\",\n  \"100 100\\n\" + \"ATK 0\\n\".repeat(100) + \"0\\n\".repeat(100),\n  \"100 100\\n\" + \"DEF 0\\n\".repeat(100) + \"8000\\n\".repeat(100),\n  \"100 100\\n\" + \"ATK 8000\\n\".repeat(100) + \"8000\\n\".repeat(100),\n  \"100 100\\n\" + \"DEF 8000\\n\".repeat(100) + \"0\\n\".repeat(100),\n  \"1 100\\nATK 4000\\n\" + \"4000\\n\".repeat(100),\n  \"1 100\\nDEF 4000\\n\" + \"4000\\n\".repeat(100),\n  \"100 1\\n\" + \"ATK 4000\\n\".repeat(100) + \"4000\\n\",\n  \"100 1\\n\" + \"DEF 4000\\n\".repeat(100) + \"4000\\n\",\n  \"2 2\\nATK 0\\nATK 0\\n1\\n1\\n\",\n  \"2 2\\nDEF 0\\nDEF 0\\n1\\n1\\n\",\n  \"2 2\\nATK 0\\nDEF 0\\n0\\n1\\n\",\n  \"2 2\\nATK 1\\nDEF 0\\n0\\n1\\n\",\n  \"2 2\\nATK 0\\nDEF 1\\n0\\n1\\n\",\n  \"2 2\\nATK 1\\nDEF 1\\n0\\n1\\n\",\n  \"3 2\\nATK 0\\nATK 1\\nDEF 2\\n0\\n1\\n\",\n  \"3 2\\nDEF 0\\nDEF 1\\nATK 2\\n0\\n1\\n\",\n  \"2 3\\nATK 1\\nDEF 2\\n1\\n2\\n3\\n\",\n  \"2 3\\nATK 2\\nDEF 1\\n1\\n2\\n3\\n\",\n  \"3 4\\nATK 0\\nATK 0\\nDEF 0\\n0\\n0\\n0\\n0\\n\",\n  \"3 4\\nDEF 0\\nDEF 0\\nATK 0\\n0\\n0\\n0\\n0\\n\",\n  \"2 3\\nATK 2000\\nDEF 1700\\n2500\\n2500\\n2500\\n\",\n  \"3 4\\nATK 10\\nATK 100\\nATK 1000\\n1\\n11\\n101\\n1001\\n\",\n  \"2 4\\nDEF 0\\nATK 0\\n0\\n0\\n1\\n1\\n\"\n]\n```"
+}

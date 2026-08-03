@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "invalid_inputs": [],
+    "n_props": 0,
+    "n_space": 0,
+    "reason": "no valid properties or empty search space",
+    "sound": false,
+    "sound_props": [],
+    "unsound_props": [],
+    "valid": false,
+    "valid_inputs": []
+  },
+  "prop_err": null,
+  "prop_raw": "```python\ndef prop_format(run, x):\n    \"\"\"PROPERTY: Output has exactly n integers, non-negative, separated by spaces, ending with newline.\"\"\"\n    first_line = x.strip().split('\\n')[0]\n    n = int(first_line.split()[0])\n    out = run(x)\n    assert out.endswith('\\n'), \"Output must end with newline\"\n    lines = out.strip().split('\\n')\n    assert len(lines) == 1, \"Output should be one line\"\n    tokens = lines[0].strip().split()\n    assert len(tokens) == n, f\"Expected {n} integers, got {len(tokens)}\"\n    for t in tokens:\n        v = int(t)\n        assert v >= 0, f\"Negative time {v}\"\n\ndef prop_cyclic_shift(run, x):\n    \"\"\"PROPERTY: Shifting all stations by 1 cyclically rotates output by 1.\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out1 = run(x)\n    vals1 = list(map(int, out1.strip().split()))\n    assert len(vals1) == n\n    d = 1\n    new_candies = [(((a-1+d)%n)+1, ((b-1+d)%n)+1) for a, b in candies]\n    new_x = f\"{n} {m}\\n\" + \"\\n\".join(f\"{a} {b}\" for a, b in new_candies) + \"\\n\"\n    out2 = run(new_x)\n    vals2 = list(map(int, out2.strip().split()))\n    assert len(vals2) == n\n    rotated = vals2[d:] + vals2[:d]\n    assert rotated == vals1, f\"Cyclic shift invariance failed: rotated {rotated} != original {vals1}\"\n\ndef prop_monotonic_add(run, x):\n    \"\"\"PROPERTY: Adding a candy (1,2) does not decrease delivery times.\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    if m >= 200:\n        return  # cannot add more candies within constraints\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out1 = run(x)\n    vals1 = list(map(int, out1.strip().split()))\n    new_candies = candies + [(1, 2)]\n    new_m = m + 1\n    new_x = f\"{n} {new_m}\\n\" + \"\\n\".join(f\"{a} {b}\" for a, b in new_candies) + \"\\n\"\n    out2 = run(new_x)\n    vals2 = list(map(int, out2.strip().split()))\n    assert len(vals2) == n\n    for i in range(n):\n        assert vals2[i] >= vals1[i], f\"Time decreased at station {i+1}: {vals1[i]} -> {vals2[i]}\"\n\ndef prop_permute_candies(run, x):\n    \"\"\"PROPERTY: Reversing order of candy lines does not change output.\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out1 = run(x)\n    vals1 = list(map(int, out1.strip().split()))\n    reversed_candies = list(reversed(candies))\n    new_x = f\"{n} {m}\\n\" + \"\\n\".join(f\"{a} {b}\" for a, b in reversed_candies) + \"\\n\"\n    out2 = run(new_x)\n    vals2 = list(map(int, out2.strip().split()))\n    assert vals2 == vals1, \"Output changed after reversing candy order\"\n\ndef prop_lower_bound(run, x):\n    \"\"\"PROPERTY: For each start station, time >= max_i (dist(s,a_i)+dist(a_i,b_i)).\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out = run(x)\n    vals = list(map(int, out.strip().split()))\n    for s in range(1, n+1):\n        max_lower = 0\n        for a, b in candies:\n            dist_sa = (a - s) % n\n            dist_ab = (b - a) % n\n            lower = dist_sa + dist_ab\n            if lower > max_lower:\n                max_lower = lower\n        assert vals[s-1] >= max_lower, f\"Station {s}: time {vals[s-1]} < lower bound {max_lower}\"\n```",
+  "props_src": "def prop_format(run, x):\n    \"\"\"PROPERTY: Output has exactly n integers, non-negative, separated by spaces, ending with newline.\"\"\"\n    first_line = x.strip().split('\\n')[0]\n    n = int(first_line.split()[0])\n    out = run(x)\n    assert out.endswith('\\n'), \"Output must end with newline\"\n    lines = out.strip().split('\\n')\n    assert len(lines) == 1, \"Output should be one line\"\n    tokens = lines[0].strip().split()\n    assert len(tokens) == n, f\"Expected {n} integers, got {len(tokens)}\"\n    for t in tokens:\n        v = int(t)\n        assert v >= 0, f\"Negative time {v}\"\n\ndef prop_cyclic_shift(run, x):\n    \"\"\"PROPERTY: Shifting all stations by 1 cyclically rotates output by 1.\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out1 = run(x)\n    vals1 = list(map(int, out1.strip().split()))\n    assert len(vals1) == n\n    d = 1\n    new_candies = [(((a-1+d)%n)+1, ((b-1+d)%n)+1) for a, b in candies]\n    new_x = f\"{n} {m}\\n\" + \"\\n\".join(f\"{a} {b}\" for a, b in new_candies) + \"\\n\"\n    out2 = run(new_x)\n    vals2 = list(map(int, out2.strip().split()))\n    assert len(vals2) == n\n    rotated = vals2[d:] + vals2[:d]\n    assert rotated == vals1, f\"Cyclic shift invariance failed: rotated {rotated} != original {vals1}\"\n\ndef prop_monotonic_add(run, x):\n    \"\"\"PROPERTY: Adding a candy (1,2) does not decrease delivery times.\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    if m >= 200:\n        return  # cannot add more candies within constraints\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out1 = run(x)\n    vals1 = list(map(int, out1.strip().split()))\n    new_candies = candies + [(1, 2)]\n    new_m = m + 1\n    new_x = f\"{n} {new_m}\\n\" + \"\\n\".join(f\"{a} {b}\" for a, b in new_candies) + \"\\n\"\n    out2 = run(new_x)\n    vals2 = list(map(int, out2.strip().split()))\n    assert len(vals2) == n\n    for i in range(n):\n        assert vals2[i] >= vals1[i], f\"Time decreased at station {i+1}: {vals1[i]} -> {vals2[i]}\"\n\ndef prop_permute_candies(run, x):\n    \"\"\"PROPERTY: Reversing order of candy lines does not change output.\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out1 = run(x)\n    vals1 = list(map(int, out1.strip().split()))\n    reversed_candies = list(reversed(candies))\n    new_x = f\"{n} {m}\\n\" + \"\\n\".join(f\"{a} {b}\" for a, b in reversed_candies) + \"\\n\"\n    out2 = run(new_x)\n    vals2 = list(map(int, out2.strip().split()))\n    assert vals2 == vals1, \"Output changed after reversing candy order\"\n\ndef prop_lower_bound(run, x):\n    \"\"\"PROPERTY: For each start station, time >= max_i (dist(s,a_i)+dist(a_i,b_i)).\"\"\"\n    lines = x.strip().split('\\n')\n    first = lines[0].split()\n    n = int(first[0])\n    m = int(first[1])\n    candies = []\n    for line in lines[1:1+m]:\n        if line.strip():\n            a, b = map(int, line.split())\n            candies.append((a, b))\n    out = run(x)\n    vals = list(map(int, out.strip().split()))\n    for s in range(1, n+1):\n        max_lower = 0\n        for a, b in candies:\n            dist_sa = (a - s) % n\n            dist_ab = (b - a) % n\n            lower = dist_sa + dist_ab\n            if lower > max_lower:\n                max_lower = lower\n        assert vals[s-1] >= max_lower, f\"Station {s}: time {vals[s-1]} < lower bound {max_lower}\"",
+  "results": {
+    "apps_3892_attack_0": {
+      "pbt": {
+        "catch_examples": [],
+        "error": "no valid properties or empty search space",
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": false,
+        "score": 0.0,
+        "verdict": "invalid"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": "no valid properties or empty search space",
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": false,
+        "score": 0.0,
+        "verdict": "invalid"
+      }
+    },
+    "apps_3892_attack_1": {
+      "pbt": {
+        "catch_examples": [],
+        "error": "no valid properties or empty search space",
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": false,
+        "score": 0.0,
+        "verdict": "invalid"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": "no valid properties or empty search space",
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": false,
+        "score": 0.0,
+        "verdict": "invalid"
+      }
+    },
+    "apps_3892_honest": {
+      "pbt": {
+        "catch_examples": [],
+        "error": "no valid properties or empty search space",
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": false,
+        "score": 0.0,
+        "verdict": "invalid"
+      },
+      "pbt_ceiling": {
+        "catch_examples": [],
+        "error": "no valid properties or empty search space",
+        "n_candidate_crashes": 0,
+        "n_catches": 0,
+        "n_failing_inputs": 0,
+        "n_failing_props": 0,
+        "per_prop": {},
+        "runnable": false,
+        "score": 0.0,
+        "verdict": "invalid"
+      }
+    }
+  },
+  "space": null,
+  "space_err": "no JSON array found",
+  "space_raw": ""
+}

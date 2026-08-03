@@ -84,6 +84,18 @@ def search_prompt(problem: Problem) -> str:
     )
 
 
+def critique_prompt(problem: Problem, properties_src: str) -> str:
+    """Turn-2 self-critique: spec-only soundness review of the draft properties (no candidate, no
+    reference) — prunes properties a correct solution could violate. Deployable soundness gate."""
+    return render(
+        "property_critique.txt",
+        main_task=problem.main_task,
+        provided_tests=problem.provided_tests_hint or "(none provided)",
+        properties=properties_src,
+        invoke_contract=_INVOKE_CONTRACT[problem.io_mode],
+    )
+
+
 # --------------------------------------------------------------------------- #
 # parsing model output
 # --------------------------------------------------------------------------- #
@@ -254,9 +266,11 @@ def run_raw(problem: Problem, code: str, props_src: str, space: list[Any]) -> di
             return {"ok": False, "error": "timeout", "records": [], "props": []}
         try:
             result = json.loads((Path(directory) / "pbt_result.json").read_text())
-        except Exception:
-            return {"ok": False, "error": (proc.stderr or "no result file")[:500], "records": [], "props": []}
-        return {"ok": True, "error": None, "records": result["records"], "props": result["props"]}
+            records, props = result["records"], result["props"]  # inside the guard: a valid-JSON
+        except Exception:                                          # but malformed/keyless file must
+            return {"ok": False, "error": (proc.stderr or "no result file")[:500],  # degrade, not raise
+                    "records": [], "props": []}
+        return {"ok": True, "error": None, "records": records, "props": props}
     finally:
         shutil.rmtree(directory, ignore_errors=True)
 
@@ -304,6 +318,19 @@ def _score_candidate(
         ],
         "error": None,
     }
+
+
+def _empty_meta(reason: str, n_space: int = 0) -> dict[str, Any]:
+    return {"valid": False, "sound": False, "reason": reason, "n_props": 0, "n_space": n_space,
+            "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
+
+
+def degraded(problem: Problem, reason: str) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
+    """A fully-abstaining suite result — used for per-problem failure isolation (a crash in one
+    problem's generation/eval must not take down the others)."""
+    inv = _invalid(reason)
+    return _empty_meta(reason), {c.candidate_id: {"pbt": inv, "pbt_ceiling": dict(inv)}
+                                 for c in problem.candidates}
 
 
 def evaluate(
