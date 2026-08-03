@@ -53,11 +53,17 @@ class TrustedModel:
         # on a resume/retry instead of re-hitting the flaky endpoint. Off with INSPECT_CACHE=0.
         self._cache = os.getenv("INSPECT_CACHE", "1").lower() not in ("0", "false", "no")
 
+    def _omits_temperature(self) -> bool:
+        """OpenAI reasoning models (gpt-5.x, o1/o3/o4) reject any temperature but the default (1);
+        sending temperature=0 to them is a 400. For those we omit it and let the API default stand.
+        DeepSeek and the like keep their configured temperature (needed for per-run variance)."""
+        base = self.name.lower().split("/")[-1]
+        return base.startswith(("gpt-5", "o1", "o3", "o4"))
+
     def _gen_config(self):
         from inspect_ai.model import GenerateConfig
 
         cfg: dict[str, Any] = {
-            "temperature": self.temperature,
             # httpx read timeout per attempt. Each call uses a FRESH connection (see complete_blocking),
             # so stale-socket hangs are gone; this is just a fast-fail bound. Env-tunable.
             "timeout": int(os.getenv("CALL_HTTP_TIMEOUT", "60")),
@@ -69,6 +75,8 @@ class TrustedModel:
             # plenty for ~60 search-space inputs or a few property functions. Env-tunable.
             "max_tokens": int(os.getenv("MAX_TOKENS", "4000")),
         }
+        if not self._omits_temperature():
+            cfg["temperature"] = self.temperature
         if self.seed is not None:
             cfg["seed"] = self.seed
         # DeepSeek-V3.2 is ~10s at "low" vs ~117s at "medium"; the default effort was stalling us.

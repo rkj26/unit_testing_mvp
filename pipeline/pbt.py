@@ -21,11 +21,25 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+
+
+def _kill_group(proc: "subprocess.Popen") -> None:
+    """SIGKILL the process's whole group (harness + any candidate_prog.py it spawned), then reap it,
+    so a timed-out eval can't leave orphaned candidate processes grinding the CPU."""
+    try:
+        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+    except (ProcessLookupError, PermissionError):
+        pass
+    try:
+        proc.wait(timeout=5)
+    except Exception:
+        pass
 
 from .schema import Problem
 
@@ -277,22 +291,29 @@ def run_raw(problem: Problem, code: str, props_src: str, space: list[Any]) -> di
     try:
         (Path(directory) / "harness.py").write_text(_build_harness(problem, code, props_src, space))
         env = {**os.environ, "PBT_RESULT": "pbt_result.json"}
+        # start_new_session=True puts the harness in its OWN process group; on timeout we kill the
+        # WHOLE group so the candidate_prog.py subprocess it spawned dies too. subprocess.run would kill
+        # only the harness, orphaning a slow/looping candidate that then runs uncapped and — many such
+        # orphans across a run — saturates the CPU and stalls every other eval.
+        proc = subprocess.Popen(
+            [sys.executable, "harness.py"],
+            cwd=directory,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            env=env,
+            start_new_session=True,
+        )
         try:
-            proc = subprocess.run(
-                [sys.executable, "harness.py"],
-                cwd=directory,
-                capture_output=True,
-                text=True,
-                timeout=PBT_TIMEOUT_SECONDS,
-                env=env,
-            )
+            _out, err = proc.communicate(timeout=PBT_TIMEOUT_SECONDS)
         except subprocess.TimeoutExpired:
+            _kill_group(proc)
             return {"ok": False, "error": "timeout", "records": [], "props": []}
         try:
             result = json.loads((Path(directory) / "pbt_result.json").read_text())
             records, props = result["records"], result["props"]  # inside the guard: a valid-JSON
         except Exception:                                          # but malformed/keyless file must
-            return {"ok": False, "error": (proc.stderr or "no result file")[:500],  # degrade, not raise
+            return {"ok": False, "error": (err or "no result file")[:500],  # degrade, not raise
                     "records": [], "props": []}
         return {"ok": True, "error": None, "records": records, "props": props}
     finally:

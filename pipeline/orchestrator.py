@@ -13,9 +13,9 @@ from __future__ import annotations
 import asyncio
 import os
 import random
+import signal
 import subprocess
 import sys
-import threading
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,6 +31,11 @@ EXEC_WORKERS = int(os.getenv("EXEC_WORKERS", "8"))    # local subprocess PBT job
 CALL_TIMEOUT_SECONDS = int(os.getenv("CALL_TIMEOUT", "120"))  # HARD wall-clock cap per attempt
 CALL_RETRIES = int(os.getenv("CALL_RETRIES", "2"))    # extra attempts (fresh client each time)
 RUN_DEADLINE_SECONDS = int(os.getenv("RUN_DEADLINE", "0"))  # 0 = off; abandon a wedged run past this
+# Each run executes in its OWN subprocess (pipeline.run_worker) so httpx/inspect/asyncio state can't
+# accumulate across runs and wedge a later one. The parent enforces a hard wall-clock timeout and
+# kills+resumes a run that overruns; partial progress (suite.json/rows.jsonl) survives the kill.
+RUN_SUBPROC_TIMEOUT = int(os.getenv("RUN_SUBPROC_TIMEOUT", "1200"))  # hard wall-clock per run process
+RUN_RETRIES = int(os.getenv("RUN_RETRIES", "2"))    # kill+resume attempts per run before skipping it
 HEARTBEAT_SECONDS = 10
 # 2-turn PBT gen: after drafting properties, a spec-only self-critique turn prunes unsound ones
 # (deployable soundness gate — no reference/candidate). Off by default.
@@ -66,24 +71,15 @@ def _score_in_subprocess(run_dir: Path, domain: str) -> None:
 
 
 async def _hard_call(model: model_mod.TrustedModel, prompt: str, kind: str, timeout: float) -> str:
-    """Run one model call in a daemon worker thread and await it with a hard timeout. On timeout the
-    thread is abandoned (it dies when its own httpx timeout fires) but the event loop stays free."""
-    loop = asyncio.get_running_loop()
-    fut: asyncio.Future[str] = loop.create_future()
+    """One model call on the CURRENT event loop with a hard timeout. Uses inspect's native async
+    generate (concurrency-safe via its shared connection pool); asyncio.wait_for cancels the underlying
+    httpx request if the call overruns.
 
-    def _settle(setter, value) -> None:
-        if not fut.done():
-            setter(value)
-
-    def _worker() -> None:
-        try:
-            result = model.complete_blocking(prompt, kind)
-            loop.call_soon_threadsafe(_settle, fut.set_result, result)
-        except BaseException as error:  # noqa: BLE001 — surface any failure to the awaiter
-            loop.call_soon_threadsafe(_settle, fut.set_exception, error)
-
-    threading.Thread(target=_worker, daemon=True, name=f"call-{kind}").start()
-    return await asyncio.wait_for(fut, timeout=timeout)
+    This replaces the previous thread-per-call design (each call ran its own asyncio.run() with a fresh
+    event loop + fresh httpx client). Four of those racing under MAX_CONN concurrency was what wedged —
+    a single task ran fine, ten-at-four hung. Because each run now executes in its own subprocess, there
+    is no control_eval asyncio poisoning to work around, so the native path is both simpler and robust."""
+    return await asyncio.wait_for(model.complete(prompt, kind), timeout=timeout)
 
 
 async def _one_run(
@@ -126,13 +122,18 @@ async def _one_run(
         log(f"run {r}: resumed {len(suites)}/{len(problems)} PBT suites from checkpoint")
 
     if todo:
+        # Gen and eval are FUSED per task so each task is a durable unit: the moment a task's
+        # properties are generated (network) and scored (local), its suite.json is written, and a
+        # resume skips it. A kill mid-phase loses only the in-flight tasks — matching how monitor
+        # rows are already per-candidate durable. Gen calls are MAX_CONN-bounded (the semaphore in
+        # `call`); eval runs in the EXEC_WORKERS thread pool as each gen finishes.
         status.set(phase="generate", run_index=r, gen_done=len(suites), gen_total=len(problems))
-        log(f"run {r}: generating PBT properties + trigger spaces for {len(todo)} problems "
-            f"({MAX_CONN} concurrent)...")
-        _gdone = len(suites)
+        log(f"run {r}: generating + scoring PBT for {len(todo)} problems "
+            f"({MAX_CONN} gen / {EXEC_WORKERS} eval concurrent)...")
+        loop = asyncio.get_running_loop()
+        _pdone = len(suites)
 
-        async def _gen_one(p: Problem) -> tuple[str, str, str, str]:
-            nonlocal _gdone
+        async def _gen_one(p: Problem) -> tuple[str, str, str]:
             plan = ""
             try:
                 # The trigger search space is always trusted-authored (never let U choose inputs).
@@ -167,53 +168,38 @@ async def _one_run(
                             prop_c = crit_c
                 except Exception as error:  # critique failure -> keep turn-1 properties
                     log(f"  [warn] critique failed for {p.task_id}: {type(error).__name__} (kept turn-1)")
-            _gdone += 1
-            status.beat(gen_done=_gdone)
-            log(f"    generated {_gdone}/{len(problems)} ({p.task_id})")
-            return p.task_id, prop_c, space_c, plan
+            return prop_c, space_c, plan
 
-        gen_results = await asyncio.gather(*[_gen_one(p) for p in todo], return_exceptions=True)
-        gen_by_task: dict[str, tuple[str, str, str]] = {}
-        for res in gen_results:
-            if isinstance(res, Exception):
-                continue  # already logged; that task simply has no suite and will degrade below
-            tid, prop_c, space_c, plan = res
-            gen_by_task[tid] = (prop_c, space_c, plan)
-
-        # Step 5: score properties over the search space (subprocess-bound -> thread pool), per task.
-        status.set(phase="evaluate", run_index=r, eval_done=0, eval_total=len(todo))
-        loop = asyncio.get_running_loop()
-        _edone = 0
-
-        def _eval(p: Problem) -> dict[str, Any]:
-            prop_c, space_c, plan = gen_by_task.get(p.task_id, ("", "", ""))
+        def _eval(p: Problem, prop_c: str, space_c: str, plan: str) -> dict[str, Any]:
             props_src, prop_err = pbt.parse_properties(prop_c)
             space, space_err = pbt.parse_search_space(space_c)
             try:
                 meta, results = pbt.evaluate(p, props_src, space)
-            except Exception as error:  # isolation: a bad suite must not abort the whole eval phase
+            except Exception as error:  # isolation: a bad suite must not abort the whole phase
                 meta, results = pbt.degraded(p, f"eval crashed: {type(error).__name__}: {error}")
             return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
                     "prop_raw": prop_c, "space_raw": space_c, "plan": plan, "gen_strategy": gen_strategy,
                     "meta": meta, "results": results}
 
-        async def _eval_one(pool_ex: ThreadPoolExecutor, p: Problem) -> tuple[str, dict[str, Any]]:
-            nonlocal _edone
-            suite = await loop.run_in_executor(pool_ex, _eval, p)
-            state.save_suite(run_dir, r, p.task_id, suite)              # resume checkpoint
-            state.write_pbt_readable(run_dir, r, p.task_id, suite)      # human-readable mirror
-            _edone += 1
-            status.beat(eval_done=_edone)
-            log(f"    scored PBT {_edone}/{len(todo)} ({p.task_id}, "
+        async def _process_one(pool_ex: ThreadPoolExecutor, p: Problem) -> tuple[str, dict[str, Any]]:
+            nonlocal _pdone
+            prop_c, space_c, plan = await _gen_one(p)                             # network (bounded)
+            suite = await loop.run_in_executor(pool_ex, _eval, p, prop_c, space_c, plan)  # local CPU
+            state.save_suite(run_dir, r, p.task_id, suite)                        # durable checkpoint
+            state.write_pbt_readable(run_dir, r, p.task_id, suite)                # human-readable mirror
+            _pdone += 1
+            status.beat(gen_done=_pdone)
+            log(f"    PBT {_pdone}/{len(problems)} ({p.task_id}: "
+                f"{'valid' if suite['meta'].get('valid') else 'invalid'}, "
                 f"{len(suite.get('space') or [])} inputs)")
             return p.task_id, suite
 
         with ThreadPoolExecutor(max_workers=EXEC_WORKERS) as pool_ex:
-            evaluated = await asyncio.gather(
-                *[_eval_one(pool_ex, p) for p in todo], return_exceptions=True)
-        for res in evaluated:
+            processed = await asyncio.gather(
+                *[_process_one(pool_ex, p) for p in todo], return_exceptions=True)
+        for res in processed:
             if isinstance(res, Exception):
-                continue
+                continue  # already logged; that task has no suite and will degrade below
             tid, suite = res
             suites[tid] = suite
 
@@ -290,64 +276,71 @@ async def _heartbeat(status: state.Status) -> None:
         status.beat()
 
 
-async def _run_all(
-    problems: list[Problem],
-    scores: dict[tuple[str, str], ScoreResult],
+def _run_one_subprocess(run_dir: Path, r: int) -> int:
+    """Run one run-index in a fresh process group under a hard wall-clock timeout. Returns the child's
+    exit code; on overrun kills the WHOLE group (worker + any eval grandchildren it spawned) and raises
+    subprocess.TimeoutExpired. Group-kill matters: killing only the worker would orphan candidate
+    processes that keep grinding the CPU."""
+    repo_root = Path(__file__).resolve().parent.parent
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "pipeline.run_worker", str(run_dir.resolve()), str(r)],
+        cwd=str(repo_root), start_new_session=True)
+    try:
+        return proc.wait(timeout=RUN_SUBPROC_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
+        try:
+            proc.wait(timeout=5)
+        except Exception:
+            pass
+        raise
+
+
+def _run_all(
     run_dir: Path,
     status: state.Status,
     *,
-    model_name: str,
-    elicit_model_name: str | None,
-    gen_strategy: str,
     runs: int,
-    tests_per_problem: int,
-    seed: int,
-    audit_rate: float,
 ) -> tuple[list[dict[str, Any]], list[list[dict[str, Any]]]]:
+    """Drive the per-run loop, each run in its own subprocess (pipeline.run_worker). A wedged or
+    crashed run is killed at the wall-clock timeout and resumed from its on-disk checkpoint; after
+    RUN_RETRIES it is skipped (resume later with the same --run-id). No model call runs in THIS
+    process, so nothing here can hang."""
     per_run_metrics: list[dict[str, Any]] = []
     rows_by_run: list[list[dict[str, Any]]] = []
-    beat = asyncio.create_task(_heartbeat(status))
-    try:
-        for r in range(runs):
-            if state.is_run_done(run_dir, r):
-                rows, m = state.load_run_complete(run_dir, r)
-                if rows is not None and m is not None:
-                    log(f"run {r}: already complete — loaded from checkpoint")
-                    per_run_metrics.append(m)
-                    rows_by_run.append(rows)
-                    continue
-            temperature = 0.0 if runs == 1 else 0.7  # >0 so K re-runs actually differ
-            t_model = model_mod.resolve(model_name, temperature=temperature, seed=seed + r)
-            # the "untrusted"/elicited model (u_plans_t_writes, u_writes); defaults to the trusted one.
-            u_model = (model_mod.resolve(elicit_model_name, temperature=temperature, seed=seed + r)
-                       if elicit_model_name else t_model)
-            log(f"--- run {r + 1}/{runs} (temp={temperature}, seed={seed + r}, strategy={gen_strategy}) ---")
-            coro = _one_run(problems, scores, t_model, u_model, gen_strategy,
-                            tests_per_problem, run_dir, r, status)
+    for r in range(runs):
+        if state.is_run_done(run_dir, r):
+            rows, m = state.load_run_complete(run_dir, r)
+            if rows is not None and m is not None:
+                log(f"run {r}: already complete — loaded from checkpoint")
+                per_run_metrics.append(m)
+                rows_by_run.append(rows)
+                continue
+        done = False
+        for attempt in range(1 + RUN_RETRIES):
+            log(f"--- run {r + 1}/{runs} (isolated subprocess, attempt {attempt + 1}/{1 + RUN_RETRIES}) ---")
+            status.set(phase="run_active", run_index=r, attempt=attempt + 1)
             try:
-                if RUN_DEADLINE_SECONDS > 0:
-                    rows, validity, soundness, selected = await asyncio.wait_for(
-                        coro, timeout=RUN_DEADLINE_SECONDS)
-                else:
-                    rows, validity, soundness, selected = await coro
-            except asyncio.TimeoutError:
-                log(f"run {r}: exceeded per-run deadline {RUN_DEADLINE_SECONDS}s — abandoned "
-                    f"(partial artifacts saved; resume to finish)")
-                status.set(phase="run_abandoned", run_index=r)
+                rc = _run_one_subprocess(run_dir, r)
+            except subprocess.TimeoutExpired:
+                log(f"run {r}: exceeded {RUN_SUBPROC_TIMEOUT}s — killed; resuming from checkpoint")
                 continue
-            except RuntimeError as error:
-                log(f"run {r}: {error}")
-                status.set(phase="run_incomplete", run_index=r)
-                continue
-            m = metrics_mod.compute_run_metrics(
-                rows, selected, seed=seed + r, suite_validity=validity,
-                suite_soundness=soundness, audit_rate=audit_rate)
-            state.save_run_complete(run_dir, r, rows, m)  # metrics.json presence == "run done"
-            log(f"run {r}: complete + checkpointed")
-            per_run_metrics.append(m)
-            rows_by_run.append(rows)
-    finally:
-        beat.cancel()
+            if rc == 0 and state.is_run_done(run_dir, r):
+                done = True
+                break
+            log(f"run {r}: worker exit={rc}, run_done={state.is_run_done(run_dir, r)} — "
+                f"{'retrying' if attempt < RUN_RETRIES else 'giving up'}")
+        if not done:
+            log(f"run {r}: incomplete after {1 + RUN_RETRIES} attempt(s) (partial progress saved; "
+                f"resume with the same --run-id)")
+            status.set(phase="run_incomplete", run_index=r)
+            continue
+        rows, m = state.load_run_complete(run_dir, r)
+        per_run_metrics.append(m)
+        rows_by_run.append(rows)
     return per_run_metrics, rows_by_run
 
 
@@ -440,10 +433,9 @@ def run_pipeline(
         log(f"stage=score complete. Resume the flaky half with: --stage monitor --run-id {run_id}")
         return run_dir, None
 
-    per_run_metrics, rows_by_run = asyncio.run(
-        _run_all(problems, scores, run_dir, status, model_name=model_name,
-                 elicit_model_name=elicit_model_name, gen_strategy=gen_strategy, runs=runs,
-                 tests_per_problem=tests_per_problem, seed=seed, audit_rate=audit_rate))
+    # Each run executes in its own subprocess (pipeline.run_worker), reading model/gen-strategy/seed
+    # from the run.json written above. Fresh process per run == no cross-run asyncio/httpx poisoning.
+    per_run_metrics, rows_by_run = _run_all(run_dir, status, runs=runs)
 
     if not per_run_metrics:
         status.set(phase="no_completed_runs")
