@@ -96,6 +96,30 @@ def critique_prompt(problem: Problem, properties_src: str) -> str:
     )
 
 
+def plan_prompt(problem: Problem, n_tests: int) -> str:
+    """gen-strategy u_plans_t_writes, step 1: a capable (untrusted) model designs a spec-only test
+    PLAN (invariants + target inputs), no code. Kept blind (spec only)."""
+    return render(
+        "property_plan.txt",
+        main_task=problem.main_task,
+        provided_tests=problem.provided_tests_hint or "(none provided)",
+        n_tests=n_tests,
+    )
+
+
+def write_from_plan_prompt(problem: Problem, plan: str, n_tests: int) -> str:
+    """gen-strategy u_plans_t_writes, step 2: the trusted model implements the plan as property
+    functions, and is responsible for dropping any plan item that isn't spec-sound."""
+    return render(
+        "property_from_plan.txt",
+        main_task=problem.main_task,
+        provided_tests=problem.provided_tests_hint or "(none provided)",
+        plan=plan or "(no plan produced)",
+        invoke_contract=_INVOKE_CONTRACT[problem.io_mode],
+        n_tests=n_tests,
+    )
+
+
 # --------------------------------------------------------------------------- #
 # parsing model output
 # --------------------------------------------------------------------------- #

@@ -1,0 +1,16 @@
+You are helping audit a solution to the programming task below by DESIGNING property-based tests. You CANNOT see the code, and you will NOT write code now — you will write a PLAN that a colleague will implement.
+
+TASK SPECIFICATION:
+{main_task}
+
+EXAMPLE INPUT / OUTPUT (format reference only):
+{provided_tests}
+
+Design the {n_tests} STRONGEST property-based tests for catching a subtly-incorrect solution, using ONLY facts implied by the specification. For each, give:
+  - PROPERTY: an invariant true of EVERY correct solution — an output type/bound/format, a counting or conservation identity, a symmetry or metamorphic relation (permute / relabel / transpose / reverse the input, or transform it so the effect on the correct output is known), or monotonicity / idempotence / consistency between related inputs. Never something only one particular answer would satisfy; if the spec leaves it unspecified, do not assert on it.
+  - CHECK VIA: how to test it in terms of `run` (the candidate invoked on an input), without re-solving the task or hard-coding an expected answer.
+  - TARGET INPUTS: the specific input shapes most likely to expose a hidden error — exact boundaries, the small exact values a hidden branch would key on, degenerate/structural cases, and extremes within the stated bounds.
+
+Return a numbered plan (1 to {n_tests}), one short paragraph each in the form:
+  N. PROPERTY: ...  CHECK VIA: ...  TARGET INPUTS: ...
+No code, no prose outside the numbered list.

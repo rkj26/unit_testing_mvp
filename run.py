@@ -44,6 +44,14 @@ def main() -> None:
         help="all (default) | score: only the deterministic ground-truth scoring (writes scores.json) "
              "| monitor: only the flaky model phase against a prior score stage's --run-id",
     )
+    ap.add_argument(
+        "--gen-strategy", choices=["blind_t", "u_writes", "u_plans_t_writes"], default="blind_t",
+        help="who writes the PBT properties: blind_t (trusted, default) | u_writes (elicited model) "
+             "| u_plans_t_writes (elicited model plans, trusted model implements). The trigger search "
+             "space is always trusted-authored.",
+    )
+    ap.add_argument("--elicit-model", default=os.getenv("ELICIT_MODEL"),
+                    help="capable/untrusted model for the u_* strategies (defaults to --model)")
     args = ap.parse_args()
 
     # monitor stage loads problems/scores from a prior stage, so it needs neither a live model? it does
@@ -73,6 +81,8 @@ def main() -> None:
         run_id=run_id,
         limit=(args.limit or None),
         stage=args.stage,
+        gen_strategy=args.gen_strategy,
+        elicit_model_name=(None if args.mock else args.elicit_model),
     )
 
 

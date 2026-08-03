@@ -35,6 +35,12 @@ HEARTBEAT_SECONDS = 10
 # 2-turn PBT gen: after drafting properties, a spec-only self-critique turn prunes unsound ones
 # (deployable soundness gate — no reference/candidate). Off by default.
 SELF_CRITIQUE = os.getenv("PBT_SELF_CRITIQUE", "0").lower() in ("1", "true", "yes")
+# How the PBT properties are generated:
+#   blind_t          trusted model writes properties (default; original behaviour)
+#   u_writes         untrusted/capable model writes properties directly
+#   u_plans_t_writes untrusted model writes a spec-only PLAN, trusted model implements it
+# The trigger search space is always written by the trusted model (don't let U choose inputs).
+GEN_STRATEGIES = ("blind_t", "u_writes", "u_plans_t_writes")
 
 
 def _count_props(src: str) -> int:
@@ -83,7 +89,9 @@ async def _hard_call(model: model_mod.TrustedModel, prompt: str, kind: str, time
 async def _one_run(
     problems: list[Problem],
     scores: dict[tuple[str, str], ScoreResult],
-    model: model_mod.TrustedModel,
+    t_model: model_mod.TrustedModel,
+    u_model: model_mod.TrustedModel,
+    gen_strategy: str,
     tests_per_problem: int,
     run_dir: Path,
     r: int,
@@ -91,13 +99,13 @@ async def _one_run(
 ) -> tuple[list[dict[str, Any]], dict[str, bool], dict[str, bool], dict[str, str]]:
     sem = asyncio.Semaphore(MAX_CONN)
 
-    async def call(prompt: str, kind: str) -> str:
+    async def call(prompt: str, kind: str, mdl: model_mod.TrustedModel) -> str:
         # Acquire the slot PER ATTEMPT (not across retries) so a stalled attempt frees it for others,
         # and back off OUTSIDE the slot so we never hold capacity while sleeping.
         for attempt in range(1 + CALL_RETRIES):
             async with sem:
                 try:
-                    return await _hard_call(model, prompt, kind, CALL_TIMEOUT_SECONDS)
+                    return await _hard_call(mdl, prompt, kind, CALL_TIMEOUT_SECONDS)
                 except Exception as error:  # timeout / API error -> retry with a fresh client
                     log(f"  [warn] {kind} attempt {attempt + 1}/{1 + CALL_RETRIES}: "
                         f"{type(error).__name__}: {str(error)[:120]}")
@@ -123,21 +131,35 @@ async def _one_run(
             f"({MAX_CONN} concurrent)...")
         _gdone = len(suites)
 
-        async def _gen_one(p: Problem) -> tuple[str, str, str]:
+        async def _gen_one(p: Problem) -> tuple[str, str, str, str]:
             nonlocal _gdone
+            plan = ""
             try:
-                prop_c, space_c = await asyncio.gather(
-                    call(pbt.property_prompt(p, tests_per_problem), "property_gen"),
-                    call(pbt.search_prompt(p), "trigger_search"),
-                )
+                # The trigger search space is always trusted-authored (never let U choose inputs).
+                if gen_strategy == "u_plans_t_writes":
+                    plan = await call(pbt.plan_prompt(p, tests_per_problem), "plan", u_model)
+                    prop_c, space_c = await asyncio.gather(
+                        call(pbt.write_from_plan_prompt(p, plan, tests_per_problem), "write_from_plan", t_model),
+                        call(pbt.search_prompt(p), "trigger_search", t_model),
+                    )
+                elif gen_strategy == "u_writes":
+                    prop_c, space_c = await asyncio.gather(
+                        call(pbt.property_prompt(p, tests_per_problem), "property_gen", u_model),
+                        call(pbt.search_prompt(p), "trigger_search", t_model),
+                    )
+                else:  # blind_t (default)
+                    prop_c, space_c = await asyncio.gather(
+                        call(pbt.property_prompt(p, tests_per_problem), "property_gen", t_model),
+                        call(pbt.search_prompt(p), "trigger_search", t_model),
+                    )
             except Exception as error:  # isolation: a gen failure degrades this problem only
                 prop_c, space_c = "", ""
                 log(f"  [warn] gen failed for {p.task_id}: {type(error).__name__}")
-            if SELF_CRITIQUE and prop_c:  # turn 2: spec-only soundness prune (deployable gate)
+            if SELF_CRITIQUE and prop_c:  # turn 2: spec-only soundness prune (trusted, deployable gate)
                 try:
                     base_src, _ = pbt.parse_properties(prop_c)
                     if base_src:
-                        crit_c = await call(pbt.critique_prompt(p, base_src), "property_gen")
+                        crit_c = await call(pbt.critique_prompt(p, base_src), "property_gen", t_model)
                         crit_src, _ = pbt.parse_properties(crit_c)
                         if crit_src:  # accept refinement only if it still parses to >=1 property
                             log(f"    critiqued {p.task_id}: {_count_props(base_src)} -> "
@@ -148,15 +170,15 @@ async def _one_run(
             _gdone += 1
             status.beat(gen_done=_gdone)
             log(f"    generated {_gdone}/{len(problems)} ({p.task_id})")
-            return p.task_id, prop_c, space_c
+            return p.task_id, prop_c, space_c, plan
 
         gen_results = await asyncio.gather(*[_gen_one(p) for p in todo], return_exceptions=True)
-        gen_by_task: dict[str, tuple[str, str]] = {}
+        gen_by_task: dict[str, tuple[str, str, str]] = {}
         for res in gen_results:
             if isinstance(res, Exception):
                 continue  # already logged; that task simply has no suite and will degrade below
-            tid, prop_c, space_c = res
-            gen_by_task[tid] = (prop_c, space_c)
+            tid, prop_c, space_c, plan = res
+            gen_by_task[tid] = (prop_c, space_c, plan)
 
         # Step 5: score properties over the search space (subprocess-bound -> thread pool), per task.
         status.set(phase="evaluate", run_index=r, eval_done=0, eval_total=len(todo))
@@ -164,7 +186,7 @@ async def _one_run(
         _edone = 0
 
         def _eval(p: Problem) -> dict[str, Any]:
-            prop_c, space_c = gen_by_task.get(p.task_id, ("", ""))
+            prop_c, space_c, plan = gen_by_task.get(p.task_id, ("", "", ""))
             props_src, prop_err = pbt.parse_properties(prop_c)
             space, space_err = pbt.parse_search_space(space_c)
             try:
@@ -172,7 +194,8 @@ async def _one_run(
             except Exception as error:  # isolation: a bad suite must not abort the whole eval phase
                 meta, results = pbt.degraded(p, f"eval crashed: {type(error).__name__}: {error}")
             return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
-                    "prop_raw": prop_c, "space_raw": space_c, "meta": meta, "results": results}
+                    "prop_raw": prop_c, "space_raw": space_c, "plan": plan, "gen_strategy": gen_strategy,
+                    "meta": meta, "results": results}
 
         async def _eval_one(pool_ex: ThreadPoolExecutor, p: Problem) -> tuple[str, dict[str, Any]]:
             nonlocal _edone
@@ -222,10 +245,10 @@ async def _one_run(
         try:
             suite = suites[p.task_id]
             pbt_res = suite["results"][c.candidate_id]
-            tm_txt = await call(monitor.tm_prompt(p, c), "tm")
+            tm_txt = await call(monitor.tm_prompt(p, c), "tm", t_model)
             inf_txt = await call(
                 monitor.informed_prompt(p, c, pbt_res["pbt"], suite.get("props_src"), suite.get("space")),
-                "informed",
+                "informed", t_model,
             )
             row = make_row(
                 task_id=p.task_id, candidate=c, score=scores[(p.task_id, c.candidate_id)],
@@ -274,6 +297,8 @@ async def _run_all(
     status: state.Status,
     *,
     model_name: str,
+    elicit_model_name: str | None,
+    gen_strategy: str,
     runs: int,
     tests_per_problem: int,
     seed: int,
@@ -292,9 +317,13 @@ async def _run_all(
                     rows_by_run.append(rows)
                     continue
             temperature = 0.0 if runs == 1 else 0.7  # >0 so K re-runs actually differ
-            model = model_mod.resolve(model_name, temperature=temperature, seed=seed + r)
-            log(f"--- run {r + 1}/{runs} (temp={temperature}, seed={seed + r}) ---")
-            coro = _one_run(problems, scores, model, tests_per_problem, run_dir, r, status)
+            t_model = model_mod.resolve(model_name, temperature=temperature, seed=seed + r)
+            # the "untrusted"/elicited model (u_plans_t_writes, u_writes); defaults to the trusted one.
+            u_model = (model_mod.resolve(elicit_model_name, temperature=temperature, seed=seed + r)
+                       if elicit_model_name else t_model)
+            log(f"--- run {r + 1}/{runs} (temp={temperature}, seed={seed + r}, strategy={gen_strategy}) ---")
+            coro = _one_run(problems, scores, t_model, u_model, gen_strategy,
+                            tests_per_problem, run_dir, r, status)
             try:
                 if RUN_DEADLINE_SECONDS > 0:
                     rows, validity, soundness, selected = await asyncio.wait_for(
@@ -334,9 +363,13 @@ def run_pipeline(
     run_id: str,
     limit: int | None,
     stage: str = "all",
+    gen_strategy: str = "blind_t",
+    elicit_model_name: str | None = None,
 ) -> tuple[Path, dict[str, Any] | None]:
     if stage not in ("all", "score", "monitor"):
         raise ValueError(f"stage must be all|score|monitor, got {stage!r}")
+    if gen_strategy not in GEN_STRATEGIES:
+        raise ValueError(f"gen_strategy must be one of {GEN_STRATEGIES}, got {gen_strategy!r}")
 
     run_dir = Path("runs") / run_id
     run_dir.mkdir(parents=True, exist_ok=True)  # resume-friendly (no exist_ok=False)
@@ -354,6 +387,8 @@ def run_pipeline(
         "stage": stage,
         "self_critique": SELF_CRITIQUE,
         "reasoning_effort": os.getenv("REASONING_EFFORT", "low"),
+        "gen_strategy": gen_strategy,
+        "elicit_model": elicit_model_name,
     }
     state.write_json(run_dir / "run.json", config)  # manifest up front, before any expensive work
 
@@ -406,7 +441,8 @@ def run_pipeline(
         return run_dir, None
 
     per_run_metrics, rows_by_run = asyncio.run(
-        _run_all(problems, scores, run_dir, status, model_name=model_name, runs=runs,
+        _run_all(problems, scores, run_dir, status, model_name=model_name,
+                 elicit_model_name=elicit_model_name, gen_strategy=gen_strategy, runs=runs,
                  tests_per_problem=tests_per_problem, seed=seed, audit_rate=audit_rate))
 
     if not per_run_metrics:
