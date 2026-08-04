@@ -8,6 +8,7 @@ separation AUC, and the small-sample confidence intervals.
 from __future__ import annotations
 
 import math
+from dataclasses import replace
 
 import pytest
 
@@ -244,3 +245,54 @@ class TestIntervals:
         assert noisy["ci95"][1] - noisy["ci95"][0] > steady["ci95"][1] - steady["ci95"][0]
         # df=3 needs |t| >= 3.182 to clear zero; this arm must fall short of that bar.
         assert 0 < noisy["t_stat"] < _t_critical_95(3)
+
+
+# --------------------------------------------------------------------------- #
+# per-model reasoning effort (elicitation arms must not perturb the monitor)
+# --------------------------------------------------------------------------- #
+class TestPerModelReasoningEffort:
+    """U's effort/token budget must be settable WITHOUT changing T, which also serves as the monitor."""
+
+    def _config(self, monkeypatch, **env):
+        import argparse
+
+        from pipeline.config import Config
+
+        for key in ("REASONING_EFFORT", "MAX_TOKENS", "U_REASONING_EFFORT", "U_MAX_TOKENS"):
+            monkeypatch.delenv(key, raising=False)
+        for key, value in env.items():
+            monkeypatch.setenv(key, value)
+        return Config.from_args(argparse.Namespace(
+            domain="mock", run_id="t", pool=None, limit=None, mock=True, model="", elicit_model=None,
+            gen_strategy="u_plans_t_writes", runs=1, tests_per_problem=1, seed=0, audit_rate=0.02,
+            stage="all", progress=False, exec_mode="inprocess", docker_image=None,
+        ))
+
+    def test_u_defaults_to_t(self, monkeypatch):
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", MAX_TOKENS="4000")
+        assert cfg.u_reasoning_effort == "low" and cfg.u_max_tokens == 4000
+
+    def test_u_can_be_raised_without_touching_t(self, monkeypatch):
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", MAX_TOKENS="4000",
+                           U_REASONING_EFFORT="high", U_MAX_TOKENS="32000")
+        assert cfg.reasoning_effort == "low" and cfg.max_tokens == 4000
+        assert cfg.u_reasoning_effort == "high" and cfg.u_max_tokens == 32000
+
+    def test_resolved_models_carry_their_own_effort(self, monkeypatch):
+        from pipeline.engine import _resolve_models
+
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", MAX_TOKENS="4000",
+                           U_REASONING_EFFORT="high", U_MAX_TOKENS="32000")
+        cfg = replace(cfg, mock=False, t_model="mockllm/t", u_model="mockllm/u")
+        t_model, u_model = _resolve_models(cfg, 0)
+        assert (t_model.reasoning_effort, t_model.max_tokens) == ("low", 4000)
+        assert (u_model.reasoning_effort, u_model.max_tokens) == ("high", 32000)
+
+    def test_config_round_trips_through_run_json(self, monkeypatch):
+        from pipeline.config import Config
+
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high",
+                           U_MAX_TOKENS="32000")
+        # Provenance: a paid run must be reconstructable from run.json alone.
+        assert Config.from_json(cfg.to_json()).u_reasoning_effort == "high"
+        assert Config.from_json(cfg.to_json()).u_max_tokens == 32000

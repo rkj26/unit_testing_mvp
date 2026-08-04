@@ -110,6 +110,13 @@ class Config:
     # --- model-call knobs (endpoint-facing) ---
     reasoning_effort: str
     max_tokens: int
+    # Same two knobs for the elicited (U) model only. They default to the T values, so behaviour is
+    # unchanged unless set. Split out because effort is NOT a neutral global: the trusted model also
+    # serves as the monitor, so raising a single global effort strengthens TM and erases the very
+    # headroom a PBT arm is being measured for. Raising U alone (e.g. a high-reasoning planner against
+    # a fixed cheap monitor + writer) keeps the TM column comparable to prior runs.
+    u_reasoning_effort: str
+    u_max_tokens: int
     max_conn: int
     call_timeout: int            # hard wall-clock per model attempt (s)
     call_retries: int
@@ -220,10 +227,17 @@ def _env_knobs() -> dict[str, Any]:
 
     Shared by `from_args` and `from_json` so the two constructors can never drift on defaults.
     """
+    effort = os.getenv("REASONING_EFFORT", "low")
+    max_tokens = _env_int("MAX_TOKENS", 4000)
     return {
         "self_critique": _env_bool("PBT_SELF_CRITIQUE", False),
-        "reasoning_effort": os.getenv("REASONING_EFFORT", "low"),
-        "max_tokens": _env_int("MAX_TOKENS", 4000),
+        "reasoning_effort": effort,
+        "max_tokens": max_tokens,
+        # U inherits T's effort/token budget unless explicitly raised. A high-effort U typically needs a
+        # much larger cap than T: reasoning tokens are billed against max_tokens, and a budget that only
+        # covers the reasoning leaves nothing for the answer (an 8k cap at medium returned empty output).
+        "u_reasoning_effort": os.getenv("U_REASONING_EFFORT") or effort,
+        "u_max_tokens": _env_int("U_MAX_TOKENS", max_tokens),
         "max_conn": _env_int("MAX_CONN", 4),
         "call_timeout": _env_int("CALL_TIMEOUT", 120),
         "call_retries": _env_int("CALL_RETRIES", 2),

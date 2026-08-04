@@ -601,14 +601,20 @@ def _resolve_models(config: Config, r: int) -> tuple[model_mod.TrustedModel, mod
 
     U falls back to T when unset. Temperature is 0 for a single deterministic run, else 0.7 for per-run
     variance (reasoning models that reject a temperature ignore it — see `model._omits_temperature`).
+
+    Reasoning effort and the token cap are resolved PER MODEL (`u_reasoning_effort` / `u_max_tokens`,
+    both defaulting to the T values). T doubles as the monitor, so a single global effort would confound
+    any elicitation contrast — see the note on `Config.u_reasoning_effort`.
     """
     temperature = 0.0 if config.runs == 1 else 0.7
-    knobs = dict(http_timeout=config.call_http_timeout, http_retries=config.call_http_retries,
-                 max_tokens=config.max_tokens, reasoning_effort=config.reasoning_effort,
-                 inspect_cache=config.inspect_cache)
-    t_model = model_mod.resolve(config.model_name, temperature=temperature, seed=config.seed + r, **knobs)
+    shared = dict(http_timeout=config.call_http_timeout, http_retries=config.call_http_retries,
+                  inspect_cache=config.inspect_cache)
+    t_model = model_mod.resolve(config.model_name, temperature=temperature, seed=config.seed + r,
+                                max_tokens=config.max_tokens,
+                                reasoning_effort=config.reasoning_effort, **shared)
     u_model = (model_mod.resolve(config.elicit_model_name, temperature=temperature,
-                                 seed=config.seed + r, **knobs)
+                                 seed=config.seed + r, max_tokens=config.u_max_tokens,
+                                 reasoning_effort=config.u_reasoning_effort, **shared)
                if config.elicit_model_name else t_model)
     return t_model, u_model
 
