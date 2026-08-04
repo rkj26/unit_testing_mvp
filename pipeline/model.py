@@ -41,17 +41,28 @@ _MOCK: dict[str, str] = {
 
 
 class TrustedModel:
-    """Thin async wrapper: ``await model.complete(prompt, kind) -> str``."""
+    """Thin async wrapper: ``await model.complete(prompt, kind) -> str``.
 
-    def __init__(self, name: str, *, temperature: float, seed: int | None):
+    All endpoint knobs (timeouts, retry budget, token cap, reasoning effort, cache) are passed in from
+    the run's `Config` via `resolve` — never re-read from the environment here — so the model behaves
+    identically wherever it is reconstructed (parent, subprocess, or Docker worker reading `run.json`).
+    """
+
+    def __init__(self, name: str, *, temperature: float, seed: int | None,
+                 http_timeout: int = 60, http_retries: int = 1, max_tokens: int = 4000,
+                 reasoning_effort: str = "low", inspect_cache: bool = True):
         self.name = name
         self.temperature = temperature
         self.seed = seed
         self._mock = name.startswith("mock")
-        self._model = None  # lazily resolved inspect model (async path / tests)
+        self._model = None  # lazily resolved inspect model
+        self.http_timeout = http_timeout
+        self.http_retries = http_retries
+        self.max_tokens = max_tokens
+        self.reasoning_effort = reasoning_effort
         # inspect's on-disk completion cache: identical (prompt, seed, temperature) served from disk
-        # on a resume/retry instead of re-hitting the flaky endpoint. Off with INSPECT_CACHE=0.
-        self._cache = os.getenv("INSPECT_CACHE", "1").lower() not in ("0", "false", "no")
+        # on a resume/retry instead of re-hitting the flaky endpoint.
+        self._cache = inspect_cache
 
     def _omits_temperature(self) -> bool:
         """OpenAI reasoning models (gpt-5.x, o1/o3/o4) reject any temperature but the default (1);
@@ -64,39 +75,26 @@ class TrustedModel:
         from inspect_ai.model import GenerateConfig
 
         cfg: dict[str, Any] = {
-            # httpx read timeout per attempt. Each call uses a FRESH connection (see complete_blocking),
-            # so stale-socket hangs are gone; this is just a fast-fail bound. Env-tunable.
-            "timeout": int(os.getenv("CALL_HTTP_TIMEOUT", "60")),
-            # Keep inspect's own retries low: the orchestrator retries at a higher level with a hard
-            # wall-clock timeout and a fresh client, so we don't want two large nested retry budgets.
-            "max_retries": int(os.getenv("CALL_HTTP_RETRIES", "1")),
+            "timeout": self.http_timeout,  # httpx read timeout per attempt — a fast-fail bound
+            # Keep inspect's own retries low: the engine's `with_retry` retries at a higher level with a
+            # hard wall-clock timeout, so we don't want two large nested retry budgets.
+            "max_retries": self.http_retries,
             "max_connections": 16,
             # Bounding output makes concurrency safe on this endpoint (unbounded generations hang);
-            # plenty for ~60 search-space inputs or a few property functions. Env-tunable.
-            "max_tokens": int(os.getenv("MAX_TOKENS", "4000")),
+            # plenty for ~60 search-space inputs or a few property functions.
+            "max_tokens": self.max_tokens,
         }
         if not self._omits_temperature():
             cfg["temperature"] = self.temperature
         if self.seed is not None:
             cfg["seed"] = self.seed
         # DeepSeek-V3.2 is ~10s at "low" vs ~117s at "medium"; the default effort was stalling us.
-        effort = os.getenv("REASONING_EFFORT", "low")
-        if effort and effort.lower() != "none":
-            cfg["reasoning_effort"] = effort
+        if self.reasoning_effort and self.reasoning_effort.lower() != "none":
+            cfg["reasoning_effort"] = self.reasoning_effort
         return GenerateConfig(**cfg)
 
-    def _fresh_model(self):
-        """A brand-new inspect model bound to the CURRENT event loop (fresh httpx client). Used by
-        complete_blocking so each worker-thread call has its own loop + connection."""
-        from inspect_ai.model import get_model
-
-        cfg = self._gen_config()
-        try:
-            return get_model(self.name, config=cfg, memoize=False)  # never reuse a loop-bound client
-        except TypeError:
-            return get_model(self.name, config=cfg)
-
     def _resolve_inspect(self):
+        """Lazily build + memoize the inspect model (one shared httpx pool for this model's lifetime)."""
         if self._model is None:
             from inspect_ai.model import get_model
 
@@ -104,7 +102,11 @@ class TrustedModel:
         return self._model
 
     async def complete(self, prompt: str, kind: str) -> str:
-        """Async path (mock model + tests). The orchestrator uses complete_blocking for hang safety."""
+        """The one model-call path: generate a completion for `prompt` (mock returns a canned response).
+
+        Hang safety lives one level up in the engine's `with_retry` (a hard `asyncio.wait_for` per
+        attempt); this just issues the request over the memoized inspect model + its shared pool.
+        """
         if kind not in KINDS:
             raise ValueError(f"unknown model-call kind: {kind}")
         if self._mock:
@@ -114,27 +116,11 @@ class TrustedModel:
         out = await self._resolve_inspect().generate([ChatMessageUser(content=prompt)], cache=self._cache)
         return out.completion or (out.message.text if out.message else "")
 
-    def complete_blocking(self, prompt: str, kind: str) -> str:
-        """Synchronous, self-contained call (own event loop + fresh client). Safe to run in a worker
-        thread: if it wedges, the caller's hard timeout abandons the thread while the main loop — where
-        the timeout timer lives — stays free. This is what makes a frozen socket non-fatal."""
-        if kind not in KINDS:
-            raise ValueError(f"unknown model-call kind: {kind}")
-        if self._mock:
-            return _MOCK[kind]
-        import asyncio
 
-        async def _go() -> str:
-            from inspect_ai.model import ChatMessageUser
-
-            out = await self._fresh_model().generate([ChatMessageUser(content=prompt)], cache=self._cache)
-            return out.completion or (out.message.text if out.message else "")
-
-        return asyncio.run(_go())
-
-
-def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None) -> TrustedModel:
-    """Build the trusted model, validating provider env up front with a clear error."""
+def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None,
+            http_timeout: int = 60, http_retries: int = 1, max_tokens: int = 4000,
+            reasoning_effort: str = "low", inspect_cache: bool = True) -> TrustedModel:
+    """Build the trusted model from explicit Config-sourced knobs, validating provider env up front."""
     if not name:
         raise ValueError("a model is required (e.g. --model openai-api/azureai/DeepSeek-V3.2 or --mock)")
     # Azure AI Foundry via the OpenAI-compatible endpoint: --model openai-api/azureai/<deployment>
@@ -158,4 +144,6 @@ def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None) -> 
                 "For openai-api/azureai/<deployment>, AZUREAI_BASE_URL is the OpenAI-compatible "
                 "endpoint: https://<resource>.services.ai.azure.com/openai/v1"
             )
-    return TrustedModel(name, temperature=temperature, seed=seed)
+    return TrustedModel(name, temperature=temperature, seed=seed, http_timeout=http_timeout,
+                        http_retries=http_retries, max_tokens=max_tokens,
+                        reasoning_effort=reasoning_effort, inspect_cache=inspect_cache)

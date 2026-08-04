@@ -29,24 +29,14 @@ from pathlib import Path
 from typing import Any
 
 
-def _kill_group(proc: "subprocess.Popen") -> None:
-    """SIGKILL the process's whole group (harness + any candidate_prog.py it spawned), then reap it,
-    so a timed-out eval can't leave orphaned candidate processes grinding the CPU."""
-    try:
-        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-    except (ProcessLookupError, PermissionError):
-        pass
-    try:
-        proc.wait(timeout=5)
-    except Exception:
-        pass
-
 from .schema import Problem
 
 PROMPTS = Path(__file__).resolve().parent.parent / "prompts"
-PBT_TIMEOUT_SECONDS = int(os.getenv("PBT_TIMEOUT", "60"))  # whole property-runner subprocess per candidate
-CAND_TIMEOUT_SECONDS = 6  # one stdio candidate program run
-MAX_SEARCH_SPACE = int(os.getenv("MAX_SEARCH_SPACE", "60"))  # cap inputs so property eval stays under the timeout
+CAND_TIMEOUT_SECONDS = 6  # one stdio candidate program run (fixed; not a run-level knob)
+# The per-candidate subprocess timeout and the search-space cap are threaded in from the run's Config
+# (see `evaluate`), so a run is reproducible from run.json alone rather than the ambient environment.
+DEFAULT_PBT_TIMEOUT = 60
+DEFAULT_MAX_SEARCH_SPACE = 60
 
 # Per-io contract text spliced into the prompts so the model writes a runnable `run(x)` client.
 _INVOKE_CONTRACT = {
@@ -79,9 +69,13 @@ def render(name: str, **kw: Any) -> str:
     return text
 
 
-def property_prompt(problem: Problem, n_tests: int) -> str:
+_PROPERTY_PROMPTS = {"default": "property_gen.txt", "precision": "property_gen_precision.txt"}
+_SEARCH_PROMPTS = {"default": "trigger_search.txt", "dense": "trigger_search_dense.txt"}
+
+
+def property_prompt(problem: Problem, n_tests: int, variant: str = "default") -> str:
     return render(
-        "property_gen.txt",
+        _PROPERTY_PROMPTS[variant],
         main_task=problem.main_task,
         provided_tests=problem.provided_tests_hint or "(none provided)",
         invoke_contract=_INVOKE_CONTRACT[problem.io_mode],
@@ -89,9 +83,9 @@ def property_prompt(problem: Problem, n_tests: int) -> str:
     )
 
 
-def search_prompt(problem: Problem) -> str:
+def search_prompt(problem: Problem, variant: str = "default") -> str:
     return render(
-        "trigger_search.txt",
+        _SEARCH_PROMPTS[variant],
         main_task=problem.main_task,
         provided_tests=problem.provided_tests_hint or "(none provided)",
         space_format=_SPACE_FORMAT[problem.io_mode],
@@ -244,28 +238,58 @@ with open(RESULT, "w") as _f:
 '''
 
 _ENTRY_FUNCTION = '''\
+import signal as _signal
 _g = {}
 exec(compile(__CANDIDATE_SRC__, "candidate.py", "exec"), _g)
 _ENTRY = _g[__ENTRY_NAME__]
+class _Timeout(Exception):
+    pass
+def _on_alarm(_s, _f):
+    raise _Timeout()
+_signal.signal(_signal.SIGALRM, _on_alarm)
 def run(x):
+    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)  # bound a looping candidate per call
     try:
         return _ENTRY(**x)
+    except _Timeout:
+        raise _CandidateError("timeout")
     except Exception as _e:
         raise _CandidateError(type(_e).__name__ + ": " + str(_e)[:200])
+    finally:
+        _signal.setitimer(_signal.ITIMER_REAL, 0)
 '''
 
+# stdio candidates run IN-PROCESS (redirected stdin/stdout) instead of spawning a fresh interpreter per
+# call. The old per-call `subprocess.run([python, candidate_prog.py])` cost ~33ms/spawn, so a property that
+# calls run() thousands of times blew past the reference timeout purely on spawn overhead (the confound
+# that sank the u_plans_u_writes arm). The harness process itself is the sandbox boundary (own process
+# group, killed on the overall pbt timeout); a per-call itimer bounds infinite loops.
 _ENTRY_STDIO = '''\
-with open("candidate_prog.py", "w") as _f:
-    _f.write(__CANDIDATE_SRC__)
+import io as _io, signal as _signal
+_CAND_CODE = compile(__CANDIDATE_SRC__, "candidate_prog.py", "exec")
+class _Timeout(Exception):
+    pass
+def _on_alarm(_s, _f):
+    raise _Timeout()
+_signal.signal(_signal.SIGALRM, _on_alarm)
 def run(x):
+    _old_in, _old_out, _old_argv = sys.stdin, sys.stdout, sys.argv
+    sys.stdin, sys.stdout, sys.argv = _io.StringIO(x), _io.StringIO(), ["candidate_prog.py"]
+    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)
     try:
-        _p = subprocess.run([sys.executable, "candidate_prog.py"], input=x,
-                            capture_output=True, text=True, timeout=__CAND_TIMEOUT__)
+        exec(_CAND_CODE, {"__name__": "__main__"})
+    except _Timeout:
+        raise _CandidateError("timeout")
+    except SystemExit as _e:  # nonzero exit == crash (matches the old subprocess returncode check)
+        if _e.code not in (0, None):
+            raise _CandidateError("exit %s" % _e.code)
     except Exception as _e:
-        raise _CandidateError("spawn: " + str(_e)[:200])
-    if _p.returncode != 0:
-        raise _CandidateError("exit %d: %s" % (_p.returncode, (_p.stderr or "")[:200]))
-    return _p.stdout
+        raise _CandidateError(type(_e).__name__ + ": " + str(_e)[:200])
+    finally:
+        _signal.setitimer(_signal.ITIMER_REAL, 0)
+        _result = sys.stdout.getvalue()
+        sys.stdin, sys.stdout, sys.argv = _old_in, _old_out, _old_argv
+    return _result
 '''
 
 
@@ -273,7 +297,7 @@ def _build_harness(problem: Problem, code: str, props_src: str, space: list[Any]
     if problem.io_mode == "function":
         setup = _ENTRY_FUNCTION.replace("__CANDIDATE_SRC__", repr(code)).replace(
             "__ENTRY_NAME__", repr(problem.entry_point)
-        )
+        ).replace("__CAND_TIMEOUT__", str(CAND_TIMEOUT_SECONDS))
     else:
         setup = _ENTRY_STDIO.replace("__CANDIDATE_SRC__", repr(code)).replace(
             "__CAND_TIMEOUT__", str(CAND_TIMEOUT_SECONDS)
@@ -285,7 +309,21 @@ def _build_harness(problem: Problem, code: str, props_src: str, space: list[Any]
     )
 
 
-def run_raw(problem: Problem, code: str, props_src: str, space: list[Any]) -> dict[str, Any]:
+def _kill_group(proc: "subprocess.Popen") -> None:
+    """SIGKILL the process's whole group (harness + any candidate_prog.py it spawned), then reap it,
+    so a timed-out eval can't leave orphaned candidate processes grinding the CPU."""
+    try:
+        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+    except (ProcessLookupError, PermissionError):
+        pass
+    try:
+        proc.wait(timeout=5)
+    except Exception:
+        pass
+
+
+def run_raw(problem: Problem, code: str, props_src: str, space: list[Any],
+            *, timeout_s: int = DEFAULT_PBT_TIMEOUT) -> dict[str, Any]:
     """Run every property over every search-space input against one implementation."""
     directory = tempfile.mkdtemp(prefix="pbt_")
     try:
@@ -305,7 +343,7 @@ def run_raw(problem: Problem, code: str, props_src: str, space: list[Any]) -> di
             start_new_session=True,
         )
         try:
-            _out, err = proc.communicate(timeout=PBT_TIMEOUT_SECONDS)
+            _out, err = proc.communicate(timeout=timeout_s)
         except subprocess.TimeoutExpired:
             _kill_group(proc)
             return {"ok": False, "error": "timeout", "records": [], "props": []}
@@ -379,7 +417,8 @@ def degraded(problem: Problem, reason: str) -> tuple[dict[str, Any], dict[str, d
 
 
 def evaluate(
-    problem: Problem, props_src: str | None, space: list[Any] | None
+    problem: Problem, props_src: str | None, space: list[Any] | None,
+    *, timeout_s: int = DEFAULT_PBT_TIMEOUT, max_search_space: int = DEFAULT_MAX_SEARCH_SPACE,
 ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
     """Return (suite_meta, {candidate_id: {"pbt": ungated, "pbt_ceiling": reference-gated}}).
 
@@ -401,8 +440,8 @@ def evaluate(
                 "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
-    space = list(space)[:MAX_SEARCH_SPACE]  # bound eval time regardless of how many the model produced
-    ref = run_raw(problem, problem.reference_code, props_src, space)
+    space = list(space)[:max_search_space]  # bound eval time regardless of how many the model produced
+    ref = run_raw(problem, problem.reference_code, props_src, space, timeout_s=timeout_s)
     if not ref["ok"]:
         reason = f"reference run failed: {ref['error']}"
         meta = {"valid": False, "sound": False, "reason": reason, "n_props": 0, "n_space": len(space),
@@ -435,7 +474,7 @@ def evaluate(
     sound_set, valid_set = set(sound_props), set(valid_inputs)
     results: dict[str, dict[str, dict[str, Any]]] = {}
     for cand in problem.candidates:
-        raw = run_raw(problem, cand.code, props_src, space)
+        raw = run_raw(problem, cand.code, props_src, space, timeout_s=timeout_s)
         ungated = _score_candidate(raw, all_props, all_inputs, space)
         if not sound_props:
             ceiling = _invalid("no sound property survived the reference gate")
