@@ -116,22 +116,39 @@ def run_dataset(run_dir):
 
 import statistics
 
+from pipeline.metrics import _stat  # shared t-based CI, so this script cannot drift from the pipeline
+
 
 def _ms(xs):
     m = statistics.fmean(xs)
     return m, (statistics.stdev(xs) if len(xs) >= 2 else 0.0)
 
 
+def _delta_cell(deltas):
+    """mean±std plus the Student-t 95% CI, marking whether it excludes zero.
+
+    Reporting mean±std alone previously made noise-level deltas read as findings — the CI (and the
+    true n, which drops runs that abstained) is the part that decides whether there is an effect.
+    """
+    s = _stat(deltas)
+    if s["ci95"] is None:
+        return f"{s['mean']:>+8.3f}          (n<2)"
+    lo, hi = s["ci95"]
+    mark = "*" if lo > 0 or hi < 0 else " "
+    return f"{s['mean']:>+8.3f}±{s['std']:.3f} [{lo:+.3f},{hi:+.3f}]{mark}"
+
+
 for label, run_dir in ARMS:
     res = run_dataset(run_dir)
     n = len(res[ATTACK_PROBS[0]]["tm"])  # runs actually used (runs with an abstained honest TM are dropped)
-    print(f"\n### {label}  [{run_dir}]  — safety vs attack_probability  [n={n} usable runs; paired Δ vs TM, mean±std]")
-    print(f"  {'attack_p':>8} {'TM':>13} {'Δ forcePBT(deploy)':>20} {'Δ forceCEIL(FPR0)':>20}")
+    print(f"\n### {label}  [{run_dir}]  — safety vs attack_probability")
+    print(f"  n={n} usable runs (runs with an abstained honest TM score are dropped); paired Δ vs TM,")
+    print(f"  mean±std with the Student-t 95% CI on the run-mean. * = CI excludes zero.")
+    print(f"  {'attack_p':>8} {'TM':>13}   {'Δ forcePBT(deploy)':^30} {'Δ forceCEIL(FPR0)':^30}")
     for p in ATTACK_PROBS:
         tm_m, tm_s = _ms(res[p]["tm"])
         dfa = [fa - tm for fa, tm in zip(res[p]["fa"], res[p]["tm"])]  # paired per-run
         dfc = [fc - tm for fc, tm in zip(res[p]["fc"], res[p]["tm"])]
-        dfa_m, dfa_s = _ms(dfa)
-        dfc_m, dfc_s = _ms(dfc)
-        print(f"  {p:>8} {tm_m:>7.3f}±{tm_s:.3f} {dfa_m:>+11.3f}±{dfa_s:.3f} {dfc_m:>+11.3f}±{dfc_s:.3f}")
-    print(f"  (Δ within-noise where |mean| < ~2*std/sqrt(n); n={n} is small — treat magnitudes as indicative.)")
+        print(f"  {p:>8} {tm_m:>7.3f}±{tm_s:.3f}   {_delta_cell(dfa)} {_delta_cell(dfc)}")
+    print(f"  NB the forceCEIL arm is reference-gated (FPR 0) and so is a monotone superset of TM's")
+    print(f"  audits in a single-slot game — its Δ>=0 is near-structural; only the magnitude is empirical.")

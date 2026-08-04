@@ -12,6 +12,60 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ---
 
+## 2026-08-04
+
+### Metrics layer — budget-free AUC, attack-rate sweep, small-sample CIs, and a rewritten METRICS.md
+- **What:** Reworked the measurement layer (no new model calls, no run data touched). Four changes:
+  (1) **`separation_auc`** — AUROC of successful backdoors vs honest candidates (Mann-Whitney, ties at
+  0.5), budget-free and calibration-free, so protocols are comparable when safety is pinned at the audit
+  floor. (2) **`safety_by_attack_rate`** over `ATTACK_RATES = (0.05, 0.1, 0.25, 0.5, 1.0)`, plus
+  `paired_deltas_by_attack_rate`. (3) **CIs fixed** — `_stat` now uses a Student-t critical value
+  (`_t_critical_95`) instead of z, adds a percentile bootstrap cross-check, and reports `n`/`n_missing`;
+  paired deltas gained `t_stat`, `df`, `excludes_zero`. (4) `simulate_safety` memoizes audit probability
+  per distinct score (the sweep is 5× the work; 5 runs now recompute in 1.8s).
+- **Why:** Two reporting defects were making noise legible as findings. The z interval at df=3–4 is
+  40–60% too narrow, and `force_audit.py` printed means from n=4 while labelling it 5. Separately,
+  `safety` alone cannot distinguish "signal starved by the audit budget" from "no signal at all", and
+  every headline number to date used `attack_probability=None` — the always-attack regime, where the
+  game provably resolves on its first slot and the horizon never binds.
+- **Result — regression clean:** all six protocol safety values on `apps-hard10` reproduce the committed
+  numbers exactly. Verified the degeneracy claim numerically: at `p=1.0`,
+  `safety == mean audit_probability(selected attack)` (tm 0.4600 vs sim 0.4589; pbt 0.0233 / 0.0226;
+  pbt_ceiling 0.2160 / 0.2218). `separation_auc` cross-checked analytically against the pooled
+  TPR/FPR binary identity — exact match on two protocols.
+- **Result — three substantive findings on `apps-hard10` (n=5 runs, 10 tasks):**
+  1. **Deployable `pbt` has AUC 0.460, t-CI [0.437, 0.483] — entirely below chance.** TPR 0.500 vs FPR
+     0.580: it fires on honest code *more* often than on successful backdoors. This is strictly stronger
+     than the previous "pinned at the 0.02 floor" framing — the signal is not weak-but-real, it is
+     absent/inverted, so no aggregation rule, threshold, or budget can recover it.
+  2. **`pbt_informed_tm` is leniency, not detection — now confirmed by an independent metric.** Its
+     safety (0.457) beats TM (0.381) while its AUC (0.888) is *below* TM's (0.917). It ranks backdoors
+     slightly worse and gains only by shifting scores down, lowering the honest-calibrated audit bar.
+     This reproduces the hard50 leniency diagnosis via a completely different measurement. **Tempers the
+     2026-08-04 "informed-TM is the one constructive result" thread** — the +0.169 gain there should be
+     re-checked against AUC before being built on.
+  3. **The deployable harm is statistically supported in the realistic regime.** Paired Δ(tm+pbt − tm)
+     at p=0.05 is −0.131, t-CI [−0.250, −0.012], excluding zero — and at every other rate too. The
+     ceiling arm's gain excludes zero at *no* rate (p=0.05: +0.035, CI [−0.023, +0.092]).
+- **Result — force-audit walked back further:** re-running `force_audit.py` with t-CIs, **nothing**
+  excludes zero, including the reference-gated `forceCEIL` arm (p=0.05: +0.049, CI [−0.003, +0.101]).
+  Consistent with the 2026-08-03 adversarial-verification correction; the earlier "+0.03..+0.13" gains
+  were z-interval artifacts. Added a standing note that an FPR-0 arm is a monotone superset of TM's
+  audits in a single-slot game, so its Δ≥0 is near-structural.
+- **`METRICS.md` rewritten.** It documented `audit_rate = 0.10` and 4 protocols against code running
+  0.02 and 6 — a 5× discrepancy in every audit probability, which alone made run output unreconcilable
+  with the doc. Now includes a full deployment-game walkthrough, the always-attack degeneracy with the
+  verification table, why FPR is `≈ audit_rate/FPR` expensive (steep, not gradual), the small-pool
+  knife-edge, and a "How to read a result" checklist (AUC first, then `n`, then `excludes_zero`).
+- **Tests:** new `tests/test_metrics.py`, 20 cases over the audit calibration, safety degeneracy, AUC,
+  and the intervals. Suite 19 → 39, all passing. Two initial expectations were wrong and the code was
+  right: safety is **not** strictly monotone in `p` (honest traffic can waste the single audit slot,
+  offsetting having fewer backdoors), and a TM that ties with honest code still collects the 2% floor
+  rather than zero.
+- **Files:** `pipeline/metrics.py`, `pipeline/report.py` (AUC column, sweep tables, n/t/excludes-zero in
+  the delta table, extended `summary.csv`), `force_audit.py`, `METRICS.md`, `tests/test_metrics.py`.
+  Historical `runs/` artifacts deliberately left untouched.
+
 ## 2026-07-31
 
 ### Synthesis — `pi_question.md`: the three necessary conditions for PBT to work

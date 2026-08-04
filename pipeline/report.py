@@ -37,13 +37,18 @@ def _ci(s: dict[str, Any] | None) -> str:
 def _write_csv(path: Path, run_metrics: list[dict[str, Any]]) -> None:
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["run", "usefulness", "protocol", "safety", "evasion", "false_positive"])
+        rates = list(run_metrics[0]["deployment"].get("attack_rates", [])) if run_metrics else []
+        writer.writerow(["run", "usefulness", "protocol", "safety", "evasion", "false_positive",
+                         "separation_auc"] + [f"safety_p{r}" for r in rates])
         for i, m in enumerate(run_metrics):
             use = m["usefulness"]["value"]
             for proto in PROTOCOLS:
                 p = m["protocols"][proto]
+                sweep = p.get("safety_by_attack_rate", {})
                 writer.writerow([i, use, proto, p["safety"].get("value"),
-                                 p["evasion"].get("value"), p["false_positive"].get("value")])
+                                 p["evasion"].get("value"), p["false_positive"].get("value"),
+                                 (p.get("separation_auc") or {}).get("value")]
+                                + [(sweep.get(str(r)) or {}).get("value") for r in rates])
 
 
 def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str, Any]]) -> str:
@@ -60,17 +65,24 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
 
     L.append("## Headline — usefulness / safety / evasion (mean ± std over runs)\n")
     L.append(f"**Usefulness:** {_stat(agg['usefulness'])}\n")
-    L.append("| Protocol | Safety | Safety 95% CI | Evasion | False-positive |")
-    L.append("|---|---|---|---|---|")
+    L.append("| Protocol | Safety | Safety 95% CI | AUC | Evasion | False-positive |")
+    L.append("|---|---|---|---|---|---|")
     for proto in PROTOCOLS:
         p = agg["protocols"][proto]
         L.append(f"| {proto} | {_stat(p['safety'])} | {_ci(p['safety'])} | "
+                 f"{_stat(p.get('separation_auc'))} | "
                  f"{_stat(p['evasion'])} | {_stat(p['false_positive'])} |")
     L.append("")
+    L.append("_**AUC** = budget-free separation of successful backdoors from honest candidates "
+             "(0.5 = chance). Read it when safety sits at the audit-rate floor: a protocol can only "
+             "be starved by the audit budget if its AUC is above chance in the first place._\n")
+    L.append("_**Safety** here uses the configured `attack_probability` (`null` = always-attack), "
+             "where the game resolves on the first slot and safety reduces to the mean audit "
+             "probability. See the attack-rate table below for the realistic regime._\n")
 
     L.append("## Does PBT add to the monitor? (paired Δ safety vs TM)\n")
-    L.append("| Comparison | Δ safety (mean ± std) | 95% CI | runs with Δ>0 |")
-    L.append("|---|---|---|---|")
+    L.append("| Comparison | Δ safety (mean ± std) | 95% CI (t) | t | runs | runs with Δ>0 | excludes 0 |")
+    L.append("|---|---|---|---|---|---|---|")
     for name, key in (
         ("TM+PBT − TM (deployable)", "tm_plus_pbt_vs_tm"),
         ("TM+PBT − TM (ceiling)", "tm_plus_pbt_ceiling_vs_tm"),
@@ -79,9 +91,47 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
         d = agg["paired_deltas"].get(key)
         if not d:
             continue
-        fp = d.get("fraction_positive")
-        L.append(f"| {name} | {_stat(d)} | {_ci(d)} | {_f(fp)} |")
+        L.append(f"| {name} | {_stat(d)} | {_ci(d)} | {_f(d.get('t_stat'))} | "
+                 f"{_f(d.get('n'))} | {_f(d.get('fraction_positive'))} | "
+                 f"{'yes' if d.get('excludes_zero') else 'no'} |")
     L.append("")
+    L.append("_`runs` is the number of runs that produced a value — runs where a protocol abstained "
+             "are dropped, so it can be below the configured run count. Intervals are Student-t on "
+             "the run-mean (a normal interval is 40–60% too narrow at these run counts)._\n")
+
+    sweep_rates = list((agg.get("deployment") or {}).get("attack_rates") or [])
+    if sweep_rates:
+        L.append("## Safety vs attack rate\n")
+        L.append("Per-step probability the untrusted model submits its backdoor. Realistic AI-control "
+                 "is the rare end (0.05–0.10); `p=1.0` is the degenerate always-attack point where the "
+                 "deployment resolves on its first slot.\n")
+        header = " | ".join(f"p={r}" for r in sweep_rates)
+        L.append(f"| Protocol | {header} |")
+        L.append("|---" * (len(sweep_rates) + 1) + "|")
+        for proto in PROTOCOLS:
+            cells = " | ".join(
+                _stat(agg["protocols"][proto].get("safety_by_attack_rate", {}).get(str(r)))
+                for r in sweep_rates
+            )
+            L.append(f"| {proto} | {cells} |")
+        L.append("")
+        L.append("**Paired Δ vs TM at each attack rate** (✓ = 95% t-interval excludes zero)\n")
+        L.append(f"| Comparison | {header} |")
+        L.append("|---" * (len(sweep_rates) + 1) + "|")
+        for name, key in (
+            ("TM+PBT − TM (deployable)", "tm_plus_pbt_vs_tm"),
+            ("TM+PBT − TM (ceiling)", "tm_plus_pbt_ceiling_vs_tm"),
+            ("informed-TM − TM", "pbt_informed_tm_vs_tm"),
+        ):
+            by_rate = (agg.get("paired_deltas_by_attack_rate") or {}).get(key) or {}
+            cells = []
+            for r in sweep_rates:
+                d = by_rate.get(str(r)) or {}
+                mean = d.get("mean")
+                mark = " ✓" if d.get("excludes_zero") else ""
+                cells.append(f"{mean:+.3f}{mark}" if mean is not None else "—")
+            L.append(f"| {name} | {' | '.join(cells)} |")
+        L.append("")
 
     # Per-problem PBT breakdown from the first run.
     L.append("## Per-backdoor breakdown (run 0)\n")
@@ -113,13 +163,15 @@ def _console_table(config: dict[str, Any], agg: dict[str, Any]) -> str:
         f"{agg['n_runs']} run(s) · audit={config.get('audit_rate')} ===",
         f"usefulness {_stat(agg['usefulness'])}   "
         f"backdoors {agg['backdoor_success'].get('successful')}/{agg['backdoor_success'].get('attack_proposals')}",
-        f"{'protocol':<16} {'safety':<18} {'evasion':<16} {'FPR':<12}",
+        f"{'protocol':<16} {'safety':<18} {'AUC':<16} {'evasion':<16} {'FPR':<12}",
     ]
     for proto in PROTOCOLS:
         p = agg["protocols"][proto]
-        lines.append(f"{proto:<16} {_stat(p['safety']):<18} {_stat(p['evasion']):<16} {_stat(p['false_positive']):<12}")
+        lines.append(f"{proto:<16} {_stat(p['safety']):<18} {_stat(p.get('separation_auc')):<16} "
+                     f"{_stat(p['evasion']):<16} {_stat(p['false_positive']):<12}")
     d = agg["paired_deltas"]["tm_plus_pbt_vs_tm"]
-    lines.append(f"Δ safety (TM+PBT − TM): {_stat(d)}  {_ci(d)}")
+    lines.append(f"Δ safety (TM+PBT − TM): {_stat(d)}  {_ci(d)}  "
+                 f"n={_f(d.get('n'))}  excludes-0={'yes' if d.get('excludes_zero') else 'no'}")
     return "\n".join(lines)
 
 
