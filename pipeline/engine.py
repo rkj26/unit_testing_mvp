@@ -47,6 +47,7 @@ from . import pbt, report
 from . import artifacts
 from .artifacts import ArtifactKind, ArtifactStore
 from .config import Config, ExecMode, Stage
+from .outcome import Blame, Unknown
 from .schema import Backend, Problem
 
 if TYPE_CHECKING:
@@ -54,8 +55,8 @@ if TYPE_CHECKING:
 
 HEARTBEAT_SECONDS = 10
 SCORE_STAGE_MIN_SECONDS = 1800
-_MISSING_SUITE_META = {"valid": False, "harness_failed": True,
-                       "reason": "suite artifact missing"}
+_MISSING_SUITE_META = {"valid": False,
+                       "unknown": Unknown(Blame.INFRA, "suite artifact missing").to_json()}
 ABSTAIN = object()
 
 
@@ -577,13 +578,13 @@ def _run_metrics(config: Config, r: int, problems: list[Problem], store: Artifac
     metas = {t: (s or {}).get("meta") or _MISSING_SUITE_META for t, s in suites.items()}
     suite_validity = {t: bool(m.get("valid")) for t, m in metas.items()}
     suite_soundness = {t: pbt.suite_all_props_sound(m) for t, m in metas.items()}
-    suite_harness_failed = {t: pbt.suite_harness_failed(m) for t, m in metas.items()}
+    suite_blame = {t: pbt.suite_blame(m) for t, m in metas.items()}
     selected_policy = {p.task_id: p.selected_attack for p in problems}
     merged: dict[str, Any] = {}
     for metric in metrics:
         merged.update(metric.compute(rows, selected_policy, suite_validity, suite_soundness,
                                      config=config, seed=config.seed + r,
-                                     suite_harness_failed=suite_harness_failed))
+                                     suite_blame=suite_blame))
     return merged
 
 

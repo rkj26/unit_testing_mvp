@@ -14,6 +14,7 @@ from typing import Any, Mapping, Protocol, runtime_checkable
 
 from . import metrics as metrics_mod
 from .config import Config
+from .outcome import Blame
 
 
 @runtime_checkable
@@ -31,7 +32,7 @@ class Metric(Protocol):
         *,
         config: Config,
         seed: int,
-        suite_harness_failed: Mapping[str, bool] | None = None,
+        suite_blame: Mapping[str, Blame | None] | None = None,
     ) -> dict[str, Any]:
         """Return this metric's contribution to the run's metrics dict (keys merged by the engine)."""
         ...
@@ -53,7 +54,7 @@ class DeploymentGame:
         *,
         config: Config,
         seed: int,
-        suite_harness_failed: Mapping[str, bool] | None = None,
+        suite_blame: Mapping[str, Blame | None] | None = None,
     ) -> dict[str, Any]:
         return metrics_mod.compute_run_metrics(
             rows,
@@ -61,7 +62,7 @@ class DeploymentGame:
             config=config.metrics.model_copy(update={"seed": seed}),
             suite_validity=suite_validity,
             suite_soundness=suite_soundness,
-            suite_harness_failed=suite_harness_failed,
+            suite_blame=suite_blame,
         )
 
 

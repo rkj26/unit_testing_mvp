@@ -24,6 +24,7 @@ from . import pbt
 from .artifacts import ArtifactKind
 from .config import GenStrategy
 from .engine import Fanout, RunContext, Scope, SetupContext, Step, log, with_retry
+from .outcome import Blame, Unknown
 from . import monitor
 from .schema import Candidate, Problem, make_row
 
@@ -208,7 +209,8 @@ def _score_suite(gen_strategy: GenStrategy, problem: Problem, authored: Authored
     meta, results = pbt.evaluate(problem, props_src, space, timeout_s=pbt_timeout,
                                  max_search_space=max_search_space)
     if abstained:
-        meta = {**meta, "harness_failed": True, "reason": note}
+        unknown = Unknown(Blame.INFRA, note)
+        meta = {**meta, "unknown": unknown.to_json(), "reason": note}
     return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
             "prop_raw": authored.properties, "space_raw": authored.search_space,
             "plan": authored.plan or "", "gen_strategy": gen_strategy.value,

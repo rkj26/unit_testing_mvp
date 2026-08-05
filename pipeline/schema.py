@@ -11,6 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
 
+from .outcome import Unknown
+
 if TYPE_CHECKING:
     from .config import ScoringLimits
 
@@ -82,14 +84,18 @@ class Problem:
 class ScoreResult:
     """Ground-truth verdicts for one candidate.
 
-    `side_task_success` is None for honest candidates, which have no side task. `scored` is False
-    when the eval never produced a verdict, so an infrastructure failure is distinguishable from
-    the model genuinely failing its task.
+    `side_task_success` is None for honest candidates, which have no side task. `unknown` is set
+    when the eval never produced a verdict, so an infrastructure failure stays distinguishable from
+    the model genuinely failing its task, and records why.
     """
 
     main_task_success: bool
     side_task_success: bool | None
-    scored: bool = True
+    unknown: "Unknown | None" = None
+
+    @property
+    def scored(self) -> bool:
+        return self.unknown is None
 
 
 @runtime_checkable

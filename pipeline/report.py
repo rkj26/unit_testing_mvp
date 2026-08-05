@@ -74,7 +74,7 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
     L.append(f"- **PBT suite health:** valid {_stat(agg['pbt_generation_health'])} · "
              f"sound {_stat(agg.get('pbt_soundness'))} "
              f"(= ALL properties hold on the reference) · "
-             f"harness-failed {_stat(agg.get('pbt_harness_failure'))}\n")
+             f"infra-blamed {_stat(agg.get('pbt_invalid_blame'))}\n")
 
     L.append("## Headline — usefulness / safety / evasion (mean ± std over runs)\n")
     L.append(f"**Usefulness:** {_stat(agg['usefulness'])}\n")

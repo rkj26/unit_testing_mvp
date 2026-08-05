@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any
 
 
+from .outcome import Blame, Unknown
 from .schema import Problem
 
 PROMPTS = Path(__file__).resolve().parent.parent / "prompts"
@@ -384,22 +385,22 @@ def _score_candidate(
     }
 
 
-def _empty_meta(reason: str, n_space: int = 0, *, harness_failed: bool = False) -> dict[str, Any]:
-    return {"valid": False, "sound": False, "reason": reason, "harness_failed": harness_failed,
-            "n_props": 0, "n_space": n_space,
+def _empty_meta(unknown: Unknown, n_space: int = 0) -> dict[str, Any]:
+    return {"valid": False, "sound": False, "reason": unknown.reason,
+            "unknown": unknown.to_json(), "n_props": 0, "n_space": n_space,
             "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
 
 
-def degraded(problem: Problem, reason: str, *, harness_failed: bool = True
+def degraded(problem: Problem, reason: str, blame: Blame = Blame.INFRA
              ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
     """A fully-abstaining suite result, used for per-problem failure isolation.
 
-    Defaults to `harness_failed=True`: this path is reached when an exception escaped the step, and
-    an exception is our code or the sandbox failing, not the model writing bad properties. Bad model
-    output never raises — it returns an invalid suite from `_score_suite` instead.
+    Blame defaults to INFRA: this path is reached when an exception escaped the step, and an
+    exception is our code or the sandbox failing. Bad model output never raises — it comes back as
+    an invalid suite from `evaluate` instead.
     """
     inv = _invalid(reason)
-    return (_empty_meta(reason, harness_failed=harness_failed),
+    return (_empty_meta(Unknown(blame, reason)),
             {c.candidate_id: {"pbt": inv, "pbt_ceiling": dict(inv)} for c in problem.candidates})
 
 
@@ -423,19 +424,19 @@ def evaluate(
 
     if not props_src or not space:
         reason = "no valid properties or empty search space"
-        meta = _empty_meta(reason, len(space or []), harness_failed=False)
+        meta = _empty_meta(Unknown(Blame.MODEL, reason), len(space or []))
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
     if not (problem.reference_code or "").strip():
         reason = "no reference solution in the pool; soundness cannot be measured"
-        return (_empty_meta(reason, len(space or []), harness_failed=True),
+        return (_empty_meta(Unknown(Blame.INFRA, reason), len(space or [])),
                 {c.candidate_id: _both(reason) for c in problem.candidates})
 
     space = list(space)[:max_search_space]
     ref = run_raw(problem, problem.reference_code, props_src, space, timeout_s=timeout_s)
     if not ref["ok"]:
         reason = f"reference run failed: {ref['error']}"
-        meta = _empty_meta(reason, len(space), harness_failed=True)
+        meta = _empty_meta(Unknown(Blame.INFRA, reason), len(space))
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
     props = ref["props"]
@@ -476,9 +477,6 @@ def evaluate(
     return meta, results
 
 
-_HARNESS_FAILURE_MARKERS = ("timeout", "reference run failed", "abstained")
-
-
 def suite_all_props_sound(meta: dict[str, Any] | None) -> bool:
     """True iff NO property false-alarms on the reference (the soundness that predicts honest FPR).
 
@@ -492,16 +490,14 @@ def suite_all_props_sound(meta: dict[str, Any] | None) -> bool:
     return not meta.get("unsound_props")
 
 
-def suite_harness_failed(meta: dict[str, Any] | None) -> bool:
-    """True iff the suite is invalid because our INFRASTRUCTURE failed, not the model.
+def suite_blame(meta: dict[str, Any] | None) -> Blame | None:
+    """Why this suite is invalid, or None if it is valid.
 
-    Prefers the explicit flag recorded at the point of failure. Falls back to matching the reason
-    string only for artifacts written before that flag existed; that heuristic was the original
-    mechanism and it silently blamed the model for every crash whose message lacked a marker.
+    `Blame.UNRECORDED` for artifacts written before blame was recorded. Those genuinely do not say,
+    and the string-matching heuristic that used to guess was wrong for every crash whose message
+    lacked a marker word.
     """
     if not meta or meta.get("valid"):
-        return False
-    if "harness_failed" in meta:
-        return bool(meta["harness_failed"])
-    reason = str(meta.get("reason") or "").lower()
-    return any(marker in reason for marker in _HARNESS_FAILURE_MARKERS)
+        return None
+    recorded = meta.get("unknown")
+    return Blame(recorded["blame"]) if recorded else Blame.UNRECORDED

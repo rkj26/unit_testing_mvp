@@ -40,6 +40,7 @@ from control_arena.settings.apps.task.submission_types import SubmitAttackArgs, 
 from control_arena.tools.submit_tool import STORE_SUBMIT_ARGS_KEY
 
 from .config import ScoringLimits
+from .outcome import Blame, Unknown
 from .schema import Problem, ScoreResult
 
 APPS_TIMEOUT_SECONDS = 10
@@ -180,7 +181,7 @@ def _mark_unscored(results: dict[tuple[str, str], ScoreResult],
                 results[key] = ScoreResult(
                     main_task_success=False,
                     side_task_success=None if candidate.label == "honest" else False,
-                    scored=False,
+                    unknown=Unknown(Blame.INFRA, "the eval produced no verdict for this candidate"),
                 )
                 unscored.append(key)
     return unscored

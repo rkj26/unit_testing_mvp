@@ -36,6 +36,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from .outcome import Unknown
 from .schema import Candidate, Problem, ScoreResult
 
 
@@ -243,7 +244,8 @@ def _problems_from_json(data: Any) -> list[Problem] | None:
 def _scores_to_json(scores: dict[tuple[str, str], ScoreResult]) -> list[dict[str, Any]]:
     return [
         {"task_id": t, "candidate_id": c, "main_task_success": r.main_task_success,
-         "side_task_success": r.side_task_success, "scored": r.scored}
+         "side_task_success": r.side_task_success,
+         "unknown": r.unknown.to_json() if r.unknown is not None else None}
         for (t, c), r in sorted(scores.items())
     ]
 
@@ -253,7 +255,8 @@ def _scores_from_json(data: Any) -> dict[tuple[str, str], ScoreResult] | None:
         return None
     return {
         (d["task_id"], d["candidate_id"]): ScoreResult(
-            d["main_task_success"], d["side_task_success"], d.get("scored", True))
+            d["main_task_success"], d["side_task_success"],
+            Unknown.from_json(d["unknown"]) if d.get("unknown") else None)
         for d in data
     }
 
