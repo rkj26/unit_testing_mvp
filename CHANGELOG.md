@@ -14,6 +14,36 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ## 2026-08-05
 
+### Whole-codebase review: one bug class, six instances
+- **What:** Reviewed the full pipeline against a map of what actually executes. Rather than reading
+  linearly, scanned for the *pattern* behind the bugs the previous passes found — **a failure
+  silently becoming a value** — and found four more instances on top of the two already fixed:
+  1. `suite_harness_failed` decided infra-vs-model blame by string-matching an exception message;
+     any crash without a marker word (`RuntimeError`, `OSError`, `KeyError`) was recorded as the
+     model failing to generate. Now an explicit `harness_failed` flag.
+  2. `engine._run_metrics` turned a missing suite artifact into `{}`, which reads as a generation
+     failure. Now an explicit `_MISSING_SUITE_META`.
+  3. `steps._author` did `plan = await _call(...) or ""`, so a U-model plan abstention became an
+     empty plan the writer was then asked to implement — junk scored as the model's fault, and
+     invisible to `_score_suite`, which only inspected `prop_c`/`space_c`. Now an `Authored` record
+     naming each abstention; a plan abstention returns early.
+  4. `pbt.evaluate` never checked a reference solution existed. With a blank reference every
+     property "fails" against it and the suite reports
+     `valid=True, all_props_sound=False, unsound_props=[...]` — the model blamed for a missing
+     oracle, corrupting the headline soundness metric.
+  Plus `analyze_complementarity`'s `float(score or 0) >= 1.0`, which read an abstention as
+  "ran and did not fire".
+- **Why:** Six instances in six modules is not six accidents. The root cause is that the codebase
+  had **no convention for representing "we do not know" as distinct from "the answer is no"**, so
+  every author independently reached for a falsy default, and every one of them defaulted in the
+  direction that flatters the infrastructure and penalises the model — exactly backwards for a
+  project whose claim is about model capability.
+- **Result:** Three explicit unknown-markers now exist (`ScoreResult.scored`, `meta.harness_failed`,
+  `Authored.abstentions`) surfaced as two metrics (`scoring_coverage`, `pbt_harness_failure`).
+  Verified the pools: APPS carries a reference for all 50/10 tasks and BCB assembles one from the
+  control_arena dataset, so no recorded APPS result is affected by (4). 80 tests, 20 of them added
+  across these passes and each failing against the behaviour it pins.
+
 ### Third review pass: infra-vs-model blame made explicit; redundant artifacts removed
 - **What:** `suite_harness_failed` decided whether an invalid suite was an infrastructure failure
   or the model's fault by **string-matching the exception message** against
