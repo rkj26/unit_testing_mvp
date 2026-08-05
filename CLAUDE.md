@@ -36,6 +36,32 @@ for a project whose claim is about model capability.
 - **No abstraction with one implementation.** A Protocol with a single implementation that forwards
   to a function is ceremony; we deleted one that was threaded through eight signatures.
 
+## Running an experiment
+
+**Write the entry before the run, not after.** Every experiment gets an entry in the current
+`reports/*-experiments.md` log, appended *before* the command is launched, with four fields:
+
+```
+### E<n> — <name>
+**Setup.**      pool, n tasks, models, seed, budget — everything needed to re-run it.
+**Change.**     the ONE thing different from the run above. If there is more than one, split it.
+**Hypothesis.** what we expect and *why*, stated so it can be wrong.
+**Prediction.** the number that decides it, with a threshold, written down first.
+**Observed.**   filled in after. Verified against the artifact, never from memory.
+```
+
+Reasons this is not optional:
+
+- A hypothesis written after seeing the number is not a hypothesis. A4's density correlation
+  (+0.574) was formed on data already inspected and came back **−0.142 on held-out tasks**.
+- Without a recorded **Change**, two runs cannot be compared. `apps-hard10` vs
+  `apps-hard10-densesearch` is only interpretable because the configs happened to differ in one
+  field, and the baseline's `run.json` predates `search_prompt` so even that is inferred.
+- A **Prediction** with a threshold is what stops a null result from being retold as a positive one.
+- One change per entry. Bundled changes cost us the ability to attribute anything.
+
+State the headline metric in the same units across entries so the log reads as a series.
+
 ## Before claiming a result
 
 - **Verify every number against the artifact.** Do not quote from memory or from a previous message.
