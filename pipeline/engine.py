@@ -419,7 +419,8 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step],
                 execute_run(config, r, pipeline, store.run_dir)
                 rc = 0
             else:
-                cmd = [sys.executable, "-m", "pipeline.worker", str(store.run_dir.resolve()), "run", str(r)]
+                cmd = [sys.executable, "-u", "-m", "pipeline.worker",
+                       str(store.run_dir.resolve()), "run", str(r)]
                 rc = run_isolated(cmd, timeout_s=config.timeouts.run, exec_mode=config.exec_mode,
                                   docker_image=config.docker_image, run_dir=store.run_dir,
                                   log_path=(store.run_dir / "pipeline.log") if config.progress else None)
@@ -440,7 +441,7 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step],
 
 def _run_once_isolated(config: Config, run_dir: Path, step_name: str) -> None:
     """Run one ONCE step in a plain subprocess (never Docker — control_arena has its own sandbox)."""
-    cmd = [sys.executable, "-m", "pipeline.worker", str(run_dir.resolve()), "once", step_name]
+    cmd = [sys.executable, "-u", "-m", "pipeline.worker", str(run_dir.resolve()), "once", step_name]
     rc = run_isolated(cmd, timeout_s=max(config.timeouts.run, SCORE_STAGE_MIN_SECONDS), exec_mode=ExecMode.SUBPROCESS,
                       docker_image=None, run_dir=run_dir,
                       log_path=(run_dir / "pipeline.log") if config.progress else None)
