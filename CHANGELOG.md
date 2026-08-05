@@ -14,6 +14,32 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ## 2026-08-05
 
+### Third review pass: infra-vs-model blame made explicit; redundant artifacts removed
+- **What:** `suite_harness_failed` decided whether an invalid suite was an infrastructure failure
+  or the model's fault by **string-matching the exception message** against
+  `("timeout", "reference run failed", "abstained")`. Any other crash — a `RuntimeError`, an
+  `OSError` from the sandbox, a `KeyError` from our own parsing — was recorded as the model failing
+  to generate properties. Blame is now an explicit `harness_failed` flag set where the failure is
+  known: `degraded()` defaults it True (an exception escaped the step, so it is our code),
+  `evaluate()` sets it False for genuine model junk, `_score_suite` sets it True on abstention. The
+  marker heuristic survives only as a fallback for pre-existing artifacts. `engine._run_metrics`
+  had the same hole for a *missing* suite artifact (`{}` reads as valid=False, harness_failed=False)
+  — now an explicit `_MISSING_SUITE_META`. Separately: `results.json` deleted (208K per run,
+  byte-identical to the concatenation of `run_*/rows.json`, zero readers), and `run.json` is now
+  owned solely by the engine.
+- **Why:** Same bug class as the previous two entries, found by scanning for the *pattern* — a
+  failure silently becoming a value — rather than reading linearly. Deciding blame from an
+  exception's text is fragile in a way that fails silently and in the direction that flatters the
+  infrastructure and penalises the model, which is exactly backwards for this project's claim.
+  The `run.json` case was worse than redundant: `report.py` rewrote it with a raw non-atomic
+  `write_text`, and that file is what workers read to resume, so a kill during the final rewrite
+  left the run unrecoverable — to correct one field the engine already knew.
+- **Result:** 7 new tests, parametrized over four exception types, that fail against the old
+  string-matching. `report.py` was assessed for deletion and kept: `metrics.json` feeds
+  `compare_gen_strategies.py` and `report.md` plus the console table are how results are read.
+  75 tests pass; mock parity bit-identical; both old- and new-schema runs still load in
+  `compare_gen_strategies.py`.
+
 ### Ground-truth scoring: stop laundering infra failures into capability results
 - **What:** `score_via_control_arena` filled every candidate the eval failed to score with
   `ScoreResult(False, False)` — indistinguishable from the model genuinely failing its task. A
