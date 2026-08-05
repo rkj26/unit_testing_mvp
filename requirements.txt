@@ -1,5 +1,6 @@
 inspect-ai @ git+https://github.com/UKGovernmentBEIS/inspect_ai.git@3e9a18f4e7e17d7cf6aaa14b13026774ca747597
 control-arena @ git+https://github.com/UKGovernmentBEIS/control-arena.git@bf7328e522615107bd9b9bfaee8c1bcbec4b6664
+pydantic-settings>=2.14
 numpy>=2.0
 scipy>=1.11
 scikit-learn>=1.4

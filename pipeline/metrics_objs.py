@@ -10,7 +10,6 @@ Public surface: `Metric`, the metric classes, and `METRICS`.
 
 from __future__ import annotations
 
-from dataclasses import replace
 from typing import Any, Mapping, Protocol, runtime_checkable
 
 from . import metrics as metrics_mod
@@ -59,7 +58,7 @@ class DeploymentGame:
         return metrics_mod.compute_run_metrics(
             rows,
             selected_policy,
-            config=replace(config.metrics, seed=seed),
+            config=config.metrics.model_copy(update={"seed": seed}),
             suite_validity=suite_validity,
             suite_soundness=suite_soundness,
             suite_harness_failed=suite_harness_failed,
