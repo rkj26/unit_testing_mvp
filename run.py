@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,6 +27,22 @@ from pipeline.config import Settings
 from pipeline.steps import PIPELINE
 
 
+def _prevent_system_sleep() -> None:
+    """Hold a macOS power assertion for this process's lifetime.
+
+    A run is resumable, so sleeping never loses work — but it stalls in-flight provider calls, and a
+    sleep longer than the unit deadline degrades a task that was fine. `-w <pid>` makes caffeinate
+    exit with us, so it cannot outlive the run.
+    """
+    if sys.platform != "darwin":
+        return
+    try:
+        subprocess.Popen(["caffeinate", "-dimsu", "-w", str(os.getpid())],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except OSError as error:
+        print(f"run.py: could not prevent sleep ({error}); a long sleep may degrade units")
+
+
 def main() -> None:
     load_dotenv()
     os.environ.setdefault("MPLBACKEND", "Agg")
@@ -35,6 +52,9 @@ def main() -> None:
         settings = Settings()
     except ValidationError as error:
         raise SystemExit(f"run.py: {error}")
+
+    if not settings.allow_sleep:
+        _prevent_system_sleep()
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     config = settings.to_config(settings.run_id or f"{settings.domain.value}-{stamp}")

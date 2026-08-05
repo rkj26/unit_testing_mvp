@@ -332,6 +332,8 @@ class Settings(BaseSettings):
     exec_mode: ExecMode = ExecMode.SUBPROCESS
     docker_image: str = ""
     progress: bool = Field(True, description="live progress display")
+    allow_sleep: bool = Field(
+        False, description="let the machine sleep during the run (macOS: skips caffeinate)")
 
     tests_per_problem: int = Field(TESTS_PER_PROBLEM, ge=1)
     self_critique: bool = False
