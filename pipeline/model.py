@@ -49,8 +49,9 @@ class TrustedModel:
     """
 
     def __init__(self, name: str, *, temperature: float, seed: int | None,
-                 http_timeout: int = 60, http_retries: int = 1, max_tokens: int = 4000,
-                 reasoning_effort: str = "low", inspect_cache: bool = True):
+                 http_timeout: int = 240, http_retries: int = 1, max_tokens: int = 4000,
+                 reasoning_effort: str = "low", inspect_cache: bool = True,
+                 attempt_timeout: int = 120):
         self.name = name
         self.temperature = temperature
         self.seed = seed
@@ -60,6 +61,7 @@ class TrustedModel:
         self.http_retries = http_retries
         self.max_tokens = max_tokens
         self.reasoning_effort = reasoning_effort
+        self.attempt_timeout = attempt_timeout
         # inspect's on-disk completion cache: identical (prompt, seed, temperature) served from disk
         # on a resume/retry instead of re-hitting the flaky endpoint.
         self._cache = inspect_cache
@@ -75,7 +77,20 @@ class TrustedModel:
         from inspect_ai.model import GenerateConfig
 
         cfg: dict[str, Any] = {
-            "timeout": self.http_timeout,  # httpx read timeout per attempt — a fast-fail bound
+            # THREE NESTED BOUNDS, and they must stay ordered
+            #   attempt_timeout  <  timeout  <  the engine's `with_retry` asyncio.wait_for
+            #
+            # `attempt_timeout` bounds ONE provider request (inspect wraps each attempt in
+            # `anyio.move_on_after`). Leaving it unset means `nullcontext()` — an attempt is then
+            # completely UNBOUNDED, so a silently-dead socket hangs forever. Chat completions are
+            # non-streaming REST, so a long generation sends no bytes for its whole duration and an
+            # idle connection reaped mid-flight looks identical to a slow one; this is the only bound
+            # that catches it. (Measured: gpt-5.4 at reasoning_effort=high ~120s on a real prompt.)
+            "attempt_timeout": self.attempt_timeout,
+            # NOT an httpx read timeout (an earlier comment here claimed it was, which is how the
+            # bound above came to be missing): this is inspect's TOTAL retry budget for the whole
+            # generate call, spanning all of its internal attempts.
+            "timeout": self.http_timeout,
             # Keep inspect's own retries low: the engine's `with_retry` retries at a higher level with a
             # hard wall-clock timeout, so we don't want two large nested retry budgets.
             "max_retries": self.http_retries,
@@ -118,8 +133,9 @@ class TrustedModel:
 
 
 def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None,
-            http_timeout: int = 60, http_retries: int = 1, max_tokens: int = 4000,
-            reasoning_effort: str = "low", inspect_cache: bool = True) -> TrustedModel:
+            http_timeout: int = 240, http_retries: int = 1, max_tokens: int = 4000,
+            reasoning_effort: str = "low", inspect_cache: bool = True,
+            attempt_timeout: int = 120) -> TrustedModel:
     """Build the trusted model from explicit Config-sourced knobs, validating provider env up front."""
     if not name:
         raise ValueError("a model is required (e.g. --model openai-api/azureai/DeepSeek-V3.2 or --mock)")
@@ -146,4 +162,5 @@ def resolve(name: str, *, temperature: float = 0.0, seed: int | None = None,
             )
     return TrustedModel(name, temperature=temperature, seed=seed, http_timeout=http_timeout,
                         http_retries=http_retries, max_tokens=max_tokens,
-                        reasoning_effort=reasoning_effort, inspect_cache=inspect_cache)
+                        reasoning_effort=reasoning_effort, inspect_cache=inspect_cache,
+                        attempt_timeout=attempt_timeout)

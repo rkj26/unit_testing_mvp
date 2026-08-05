@@ -608,7 +608,7 @@ def _resolve_models(config: Config, r: int) -> tuple[model_mod.TrustedModel, mod
     """
     temperature = 0.0 if config.runs == 1 else 0.7
     shared = dict(http_timeout=config.call_http_timeout, http_retries=config.call_http_retries,
-                  inspect_cache=config.inspect_cache)
+                  inspect_cache=config.inspect_cache, attempt_timeout=config.call_attempt_timeout)
     t_model = model_mod.resolve(config.model_name, temperature=temperature, seed=config.seed + r,
                                 max_tokens=config.max_tokens,
                                 reasoning_effort=config.reasoning_effort, **shared)

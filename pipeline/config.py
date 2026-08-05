@@ -118,9 +118,12 @@ class Config:
     u_reasoning_effort: str
     u_max_tokens: int
     max_conn: int
-    call_timeout: int            # hard wall-clock per model attempt (s)
+    # Three nested call bounds, which MUST stay ordered:
+    #   call_attempt_timeout  <  call_http_timeout  <  call_timeout
+    call_timeout: int            # outermost: engine `with_retry` asyncio.wait_for, per attempt (s)
     call_retries: int
-    call_http_timeout: int       # httpx read timeout per attempt (s)
+    call_attempt_timeout: int    # innermost: bounds ONE provider request (inspect `attempt_timeout`)
+    call_http_timeout: int       # middle: inspect's TOTAL retry budget per generate call (s)
     call_http_retries: int       # inspect's own low-level retry budget per attempt
     inspect_cache: bool
     # --- PBT eval knobs (local) ---
@@ -239,9 +242,12 @@ def _env_knobs() -> dict[str, Any]:
         "u_reasoning_effort": os.getenv("U_REASONING_EFFORT") or effort,
         "u_max_tokens": _env_int("U_MAX_TOKENS", max_tokens),
         "max_conn": _env_int("MAX_CONN", 4),
-        "call_timeout": _env_int("CALL_TIMEOUT", 120),
+        # Defaults keep the required ordering: 120 < 240 < 300. Raise all three together for a slow
+        # model (gpt-5.4 at effort=high measured ~120s), never just the outer one.
+        "call_timeout": _env_int("CALL_TIMEOUT", 300),
         "call_retries": _env_int("CALL_RETRIES", 2),
-        "call_http_timeout": _env_int("CALL_HTTP_TIMEOUT", 60),
+        "call_attempt_timeout": _env_int("CALL_ATTEMPT_TIMEOUT", 120),
+        "call_http_timeout": _env_int("CALL_HTTP_TIMEOUT", 240),
         "call_http_retries": _env_int("CALL_HTTP_RETRIES", 1),
         "inspect_cache": _env_bool("INSPECT_CACHE", True),
         "pbt_timeout": _env_int("PBT_TIMEOUT", 60),
