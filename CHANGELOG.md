@@ -12,6 +12,53 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ---
 
+## 2026-08-05
+
+### Reuse over hand-rolling: scipy/sklearn for statistics, pydantic-settings for config
+- **What:** Six commits, no new model calls and no run data touched.
+  (1) **Statistics delegated to libraries.** All five scientific packages were already installed
+  transitively; the "sklearn is not a dependency" justification for hand-rolling was simply wrong.
+  Deleted the hand-written ROC sweep, trapezoid integration, Mann-Whitney loop, 30-row t-critical
+  table, bootstrap resample loop, Wilson-interval algebra and manual paired-t in favour of
+  `sklearn.metrics.roc_auc_score`, `scipy.stats.t`, `scipy.stats.bootstrap`,
+  `binomtest(...).proportion_ci` and `ttest_1samp`. numpy/scipy/scikit-learn/matplotlib/
+  pydantic-settings now declared in `requirements.txt`.
+  (2) **`MetricConfig`** — one validated pydantic model owns all twelve metrics knobs, is serialized
+  into each run's `metrics.json`, and is read back by `aggregate_runs` and the report.
+  (3) **`Settings(BaseSettings)`** — the CLI flag, env var, default and constraint for each setting
+  are now one declaration. Deleted the argparse block, `_arg`, `_env_int`, `_env_bool` and the
+  hand-written validators. `run.py` is 52 lines, down from 93.
+  (4) **No `None` in the config layer.** Every optional got a real default; `untrusted` falls back to
+  the trusted model; `ALWAYS_ATTACK` went from `None` to `1.0`.
+  (5) **`state.py` deleted**, merged into `artifacts.py`; **`model.py`** takes one `ModelRuntime`.
+  (6) **Comments stripped** from every pipeline module; **`force_audit.py`** now calls
+  `simulate_safety` through a new `AuditRule` strategy instead of reimplementing the game.
+- **Why:** The codebase read as hot-patches rather than a designed system, and the cause was
+  duplication: the same fact stated in an argparse flag, a config read and an env fallback; the same
+  deployment game written twice; statistics reimplemented that scipy already ships. Every duplicate
+  is a place two copies can disagree, and two of them already had.
+- **Result:** Three real bugs surfaced and were fixed.
+  - **Partial AUC was normalized wrong.** Dividing by `max_fpr` puts chance at `max_fpr/2` — 0.05 at
+    `FPR <= 10%`, not the 0.5 its own docstring claimed. Every partial-AUC figure recorded on
+    2026-08-04 was read against the wrong reference point. Now McClish-standardized via sklearn.
+    Headline AUC is unchanged: verified bit-exact against the old Mann-Whitney over 300 tie-heavy
+    pools (max delta 1.1e-16).
+  - **`--protocols` never took effect.** It was parsed and validated, then ignored: `metrics.py` and
+    `report.py` both iterated the global `PROTOCOLS`, so `--protocols tm,pbt` silently computed and
+    reported all six. Now honoured end to end.
+  - **`audit_slots` was documented as a knob but hardcoded to 1** in the simulator. Now a real
+    counter; default unchanged, so no number moves.
+  - `ALWAYS_ATTACK = None` was bit-identical to `p = 1.0` (the attack roll is drawn from `[0,1)`),
+    verified over 200k draws — pure redundancy, removed.
+  - `force_audit.py` was still running at its own stale `AUDIT = 0.02`. At the real 0.10 budget the
+    finding holds and sharpens: force-auditing the **deployable** PBT suite *hurts* at realistic
+    attack rates (−0.10 to −0.17, CI excludes zero), while the reference-gated arm is weakly
+    positive. That gap is the false-positive cost, measured.
+  - Env var names now track field names: `REASONING_EFFORT` → `T_REASONING`, `U_REASONING_EFFORT`
+    → `U_REASONING`.
+  60 tests pass; mock parity bit-identical; inprocess/subprocess, resume, `--stage monitor` and the
+  new validation errors all exercised.
+
 ## 2026-08-04
 
 ### Metrics layer — budget-free AUC, attack-rate sweep, small-sample CIs, and a rewritten METRICS.md

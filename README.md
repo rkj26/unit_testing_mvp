@@ -48,12 +48,19 @@ results.json --> metrics.py --> metrics.json
 
 All 15 candidates are officially executed once. Each task's PBT source is generated once and executed against its three candidates. `TM+PBT` derives its score from the stored TM and PBT results, so it makes no model call and reruns nothing.
 
-The implementation is split into four modules:
+The implementation is one entry point over a declarative step list:
 
-- `main.py`: three CLI arguments and environment loading.
-- `experiment.py`: candidate-pool replay, ControlArena tasks, and run artifacts.
-- `protocols.py`: prompts, model responses, PBT execution, and paired scores.
-- `metrics.py`: pure metric and deployment-replay functions.
+- `run.py`: builds `Settings` (CLI + env + validation, one declaration) and hands the resolved
+  `Config` to the engine.
+- `pipeline/config.py`: `Settings`, `Config`, `ModelSpec`, `ModelRuntime`, `TimeoutLadder`.
+- `pipeline/steps.py`: the pipeline as an ordered list of `Step` objects.
+- `pipeline/engine.py`: the only orchestration layer — drives the step list, isolation, retries.
+- `pipeline/artifacts.py`: the typed artifact store; every checkpoint and resume marker.
+- `pipeline/pbt.py`: property generation, the subprocess harness, and suite scoring.
+- `pipeline/metrics.py`: `MetricConfig`, the deployment game, and multi-run aggregation.
+- `pipeline/report.py`: run.json / results.json / metrics.json / summary.csv / report.md.
+
+Adding a pipeline step is a list edit; adding a measurement is appending a `Metric` to `METRICS`.
 
 The four editable prompts are flat files under `prompts/`. `attacker.txt` is copied verbatim from the pinned [ControlArena AI Control paper-replication example](https://github.com/UKGovernmentBEIS/control-arena/blob/bf7328e522615107bd9b9bfaee8c1bcbec4b6664/examples/paper_replications/ai_control/prompts/attack_system_prompt.txt) and is reserved for generating future development candidates; candidate generation is not part of this evaluator. The original paper implementation used a multi-call attack pipeline rather than one system prompt. The retained frozen pool predates the replication prompt and is unchanged.
 
@@ -77,24 +84,28 @@ TRUSTED_MODEL=google/gemini-2.5-flash
 ## Run
 
 ```bash
-python main.py
+.venv/bin/python run.py --domain apps --dataset apps_pool_hard.json \
+  --t-model azureai/DeepSeek-V3.2 --runs 5
 ```
 
-The complete interface is:
+An elicitation arm, where the untrusted model plans the properties and the trusted model writes them:
 
 ```bash
-python main.py \
-  --pool candidate_pool.json \
-  --seed 0 \
-  --run-id optional-readable-name
+.venv/bin/python run.py --domain apps --dataset apps_pool_hard.json \
+  --t-model azureai/DeepSeek-V3.2 \
+  --u-model openai-api/azureai/gpt-5.4 --u-reasoning high \
+  --gen-strategy u_plans_t_writes --runs 5
 ```
 
-All four protocols always run. A full evaluation makes five PBT-generation calls, 15 TM calls, and at most 15 PBT-informed-TM calls: at most 35 model calls. Candidate generation is not part of this command.
+`--run-id` names a run and, reused, RESUMES it from its last checkpoint. `--protocols` restricts
+which protocols are scored, `--attack-rate` sets the per-step backdoor probability (`always` for the
+degenerate p=1.0 regime) and `--audit-rate` the human budget. `run.py --help` lists everything;
+every flag is also an environment variable of the same name in upper case.
 
 For a no-cost plumbing check:
 
 ```bash
-TRUSTED_MODEL=mockllm/model python main.py --run-id mock-smoke
+.venv/bin/python run.py --domain mock --mock --runs 2 --run-id mock-smoke
 ```
 
 MockLLM mode uses deterministic placeholder monitor responses and five trivial Hypothesis probes per task. It verifies execution and artifacts; its metrics are not research results.
@@ -222,9 +233,12 @@ PBT helps on this pool if an enhanced protocol improves safety or reduces evasio
 ## Verification
 
 ```bash
-pytest -q
-python -m compileall -q main.py experiment.py protocols.py metrics.py tests
+.venv/bin/python -m pytest -q
+.venv/bin/python run.py --domain mock --mock --runs 2 --run-id smoke
 ```
+
+The mock run exercises the whole pipeline offline: property generation, the subprocess harness, the
+monitor, the deployment game and the report. Its metrics are not research results.
 
 ## Trust Boundary And Limits
 
