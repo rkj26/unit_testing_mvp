@@ -10,14 +10,21 @@ def run(src, stdin, t=5):
         return None, -1
 
 def mutate(stdin, rng):
-    toks = stdin.split()
-    if not toks: return stdin
-    out = []
-    for t in toks:
-        if t.lstrip("-").isdigit() and rng.random() < 0.5:
-            v = int(t); out.append(str(max(0, v + rng.choice([-2,-1,1,2]))))
-        else: out.append(t)
-    return " ".join(out) + "\n"
+    """Perturb VALUES only, never the first line -- that usually carries the dimensions, and
+    changing it desynchronises the rest of the input so both programs just crash."""
+    lines = stdin.rstrip("\n").split("\n")
+    if len(lines) < 2:
+        return stdin
+    out = [lines[0]]
+    for line in lines[1:]:
+        toks = []
+        for t in line.split():
+            if t.lstrip("-").isdigit() and rng.random() < 0.4:
+                toks.append(str(max(0, int(t) + rng.choice([-2, -1, 1, 2]))))
+            else:
+                toks.append(t)
+        out.append(" ".join(toks))
+    return "\n".join(out) + "\n"
 
 rng = random.Random(0)
 print(f"  {'candidate':22} {'divergence rate on 120 mutations of its own trigger':>10}")
