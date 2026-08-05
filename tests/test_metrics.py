@@ -26,6 +26,30 @@ from pipeline.metrics import (
 )
 
 
+_ENV_KNOBS = ("REASONING_EFFORT", "U_REASONING_EFFORT", "MAX_TOKENS", "U_MAX_TOKENS",
+              "CALL_ATTEMPT_TIMEOUT", "U_CALL_ATTEMPT_TIMEOUT", "CALL_HTTP_TIMEOUT",
+              "CALL_TIMEOUT", "UNIT_TIMEOUT", "RUN_SUBPROC_TIMEOUT", "MAX_CONN", "EXEC_MODE")
+
+
+def _clear_env(monkeypatch):
+    for key in _ENV_KNOBS:
+        monkeypatch.delenv(key, raising=False)
+
+
+def _ns(**overrides):
+    """A parsed-CLI stand-in on the current argument surface."""
+    import argparse
+
+    base = dict(domain="mock", run_id="t", dataset=None, limit=None, mock=True,
+                t_model="", t_reasoning=None, t_timeout=0,
+                u_model="mockllm/u", u_reasoning=None, u_timeout=0,
+                protocols=None, gen_strategy="u_plans_t_writes",
+                attack_rate=None, audit_rate=0.1, runs=1, seed=0,
+                stage="all", exec_mode="inprocess", docker_image=None, progress=False)
+    base.update(overrides)
+    return argparse.Namespace(**base)
+
+
 def _row(task, label, score, *, main=True, side=True, protocols=("tm", "pbt")):
     return {
         "task_id": task,
@@ -258,36 +282,31 @@ class TestPerModelReasoningEffort:
     """U's effort/token budget must be settable WITHOUT changing T, which also serves as the monitor."""
 
     def _config(self, monkeypatch, **env):
-        import argparse
-
         from pipeline.config import Config
 
-        for key in ("REASONING_EFFORT", "MAX_TOKENS", "U_REASONING_EFFORT", "U_MAX_TOKENS"):
-            monkeypatch.delenv(key, raising=False)
+        _clear_env(monkeypatch)
         for key, value in env.items():
             monkeypatch.setenv(key, value)
-        return Config.from_args(argparse.Namespace(
-            domain="mock", run_id="t", pool=None, limit=None, mock=True, model="", elicit_model=None,
-            gen_strategy="u_plans_t_writes", runs=1, tests_per_problem=1, seed=0, audit_rate=0.02,
-            stage="all", progress=False, exec_mode="inprocess", docker_image=None,
-        ))
+        return Config.from_args(_ns())
 
     def test_u_defaults_to_t(self, monkeypatch):
-        cfg = self._config(monkeypatch, REASONING_EFFORT="low", MAX_TOKENS="4000")
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low")
         assert cfg.u_reasoning_effort == "low" and cfg.u_max_tokens == 4000
 
     def test_u_can_be_raised_without_touching_t(self, monkeypatch):
-        cfg = self._config(monkeypatch, REASONING_EFFORT="low", MAX_TOKENS="4000",
-                           U_REASONING_EFFORT="high", U_MAX_TOKENS="32000")
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high")
         assert cfg.reasoning_effort == "low" and cfg.max_tokens == 4000
         assert cfg.u_reasoning_effort == "high" and cfg.u_max_tokens == 32000
 
     def test_resolved_models_carry_their_own_effort(self, monkeypatch):
         from pipeline.engine import _resolve_models
 
-        cfg = self._config(monkeypatch, REASONING_EFFORT="low", MAX_TOKENS="4000",
-                           U_REASONING_EFFORT="high", U_MAX_TOKENS="32000")
-        cfg = replace(cfg, mock=False, t_model="mockllm/t", u_model="mockllm/u")
+        from pipeline.config import ModelSpec
+
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high")
+        cfg = replace(cfg, mock=False,
+                      trusted=ModelSpec("mockllm/t", "low"),
+                      untrusted=ModelSpec("mockllm/u", "high"))
         t_model, u_model = _resolve_models(cfg, 0)
         assert (t_model.reasoning_effort, t_model.max_tokens) == ("low", 4000)
         assert (u_model.reasoning_effort, u_model.max_tokens) == ("high", 32000)
@@ -295,8 +314,7 @@ class TestPerModelReasoningEffort:
     def test_config_round_trips_through_run_json(self, monkeypatch):
         from pipeline.config import Config
 
-        cfg = self._config(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high",
-                           U_MAX_TOKENS="32000")
+        cfg = self._config(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high")
         # Provenance: a paid run must be reconstructable from run.json alone.
         assert Config.from_json(cfg.to_json()).u_reasoning_effort == "high"
         assert Config.from_json(cfg.to_json()).u_max_tokens == 32000
@@ -411,18 +429,11 @@ class TestTimeoutLayering:
     """The bounds must stay ordered, and U must not inherit T's (too small) request bound."""
 
     def _cfg(self, monkeypatch, **env):
-        import argparse
         from pipeline.config import Config
-        for k in ("REASONING_EFFORT", "U_REASONING_EFFORT", "CALL_ATTEMPT_TIMEOUT",
-                  "U_CALL_ATTEMPT_TIMEOUT", "CALL_HTTP_TIMEOUT", "CALL_TIMEOUT", "UNIT_TIMEOUT"):
-            monkeypatch.delenv(k, raising=False)
+        _clear_env(monkeypatch)
         for k, v in env.items():
             monkeypatch.setenv(k, v)
-        return Config.from_args(argparse.Namespace(
-            domain="mock", run_id="t", pool=None, limit=None, mock=True, model="", elicit_model=None,
-            gen_strategy="u_plans_t_writes", runs=1, tests_per_problem=1, seed=0, audit_rate=0.1,
-            stage="all", progress=False, exec_mode="inprocess", docker_image=None,
-            attack_probability=None, attack_rates=None))
+        return Config.from_args(_ns())
 
     def test_bounds_are_strictly_ordered(self, monkeypatch):
         c = self._cfg(monkeypatch)
