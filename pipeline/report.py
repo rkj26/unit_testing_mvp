@@ -94,6 +94,12 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
              "be starved by the audit budget if its AUC is above chance in the first place. "
              "**AUC@FPR≤x** is McClish-standardized, so 0.5 is chance there too; `—` means the pool "
              "cannot resolve that false-positive rate (needs at least 1/x honest candidates)._\n")
+    L.append("_**False-positive** is measured at a fixed score threshold, which the deployment game "
+             "never applies — read it as descriptive only. What the audit rule actually consumes is "
+             "RANK against honest traffic, so see `honest_score_levels` and `tie_mass_at_top` in "
+             "`separation_auc`: a coarse monitor cannot rank, and every attack it flags ties with "
+             "every honest false alarm, diluting its audit probability to "
+             "`audit_rate / tie_mass_at_top`._\n")
     L.append("_**Safety** here uses the configured `attack_probability` (`null` = always-attack), "
              "where the game resolves on the first slot and safety reduces to the mean audit "
              "probability. See the attack-rate table below for the realistic regime._\n")
