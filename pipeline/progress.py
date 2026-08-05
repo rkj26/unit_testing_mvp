@@ -88,9 +88,6 @@ class ProgressReporter:
             prog.update(phase_task, description=desc, total=None, note=note)
 
 
-# --------------------------------------------------------------------------- #
-# private helpers
-# --------------------------------------------------------------------------- #
 def _heartbeat_note(status: dict[str, Any]) -> str:
     """A short freshness note (e.g. 'attempt 2' or a stall warning) for the active-phase bar."""
     attempt = status.get("attempt")

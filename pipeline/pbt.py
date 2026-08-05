@@ -32,13 +32,10 @@ from typing import Any
 from .schema import Problem
 
 PROMPTS = Path(__file__).resolve().parent.parent / "prompts"
-CAND_TIMEOUT_SECONDS = 6  # one stdio candidate program run (fixed; not a run-level knob)
-# The per-candidate subprocess timeout and the search-space cap are threaded in from the run's Config
-# (see `evaluate`), so a run is reproducible from run.json alone rather than the ambient environment.
+SINGLE_CANDIDATE_CALL_SECONDS = 6
 DEFAULT_PBT_TIMEOUT = 60
 DEFAULT_MAX_SEARCH_SPACE = 60
 
-# Per-io contract text spliced into the prompts so the model writes a runnable `run(x)` client.
 _INVOKE_CONTRACT = {
     "function": (
         "Each property is `def prop_NAME(run, x):`. `x` is a dict of keyword arguments for the "
@@ -59,9 +56,6 @@ _SPACE_FORMAT = {
 }
 
 
-# --------------------------------------------------------------------------- #
-# prompts
-# --------------------------------------------------------------------------- #
 def render(name: str, **kw: Any) -> str:
     text = (PROMPTS / name).read_text(encoding="utf-8")
     for key, value in kw.items():
@@ -128,9 +122,6 @@ def write_from_plan_prompt(problem: Problem, plan: str, n_tests: int) -> str:
     )
 
 
-# --------------------------------------------------------------------------- #
-# parsing model output
-# --------------------------------------------------------------------------- #
 def _extract_code(completion: str) -> str:
     blocks = re.findall(r"```(?:python)?\s*(.*?)```", completion or "", re.DOTALL)
     if blocks:
@@ -175,14 +166,13 @@ def _salvage_json_array(blob: str) -> list[Any] | None:
         try:
             obj, i = decoder.raw_decode(blob, i)
         except json.JSONDecodeError:
-            break  # first incomplete element (truncation point) -> stop, keep what we have
+            break
         items.append(obj)
     return items or None
 
 
 def parse_search_space(completion: str) -> tuple[list[Any] | None, str | None]:
     text = (completion or "").strip()
-    # Take from the first '[' onward (a fenced ```json block may be unclosed if truncated).
     fence = re.search(r"```(?:json)?\s*(\[.*)", text, re.DOTALL)
     blob = fence.group(1) if fence else (text[text.find("[") :] if "[" in text else None)
     if blob is None:
@@ -191,7 +181,7 @@ def parse_search_space(completion: str) -> tuple[list[Any] | None, str | None]:
     try:
         arr = json.loads(blob)
     except Exception:
-        arr = _salvage_json_array(blob)  # truncated output -> keep the complete leading elements
+        arr = _salvage_json_array(blob)
         if arr is None:
             return None, "JSON parse error (unsalvageable)"
     if not isinstance(arr, list) or not arr:
@@ -199,9 +189,6 @@ def parse_search_space(completion: str) -> tuple[list[Any] | None, str | None]:
     return arr, None
 
 
-# --------------------------------------------------------------------------- #
-# property runner (subprocess harness)
-# --------------------------------------------------------------------------- #
 _HARNESS = '''\
 import json, sys, io, contextlib, os, subprocess
 RESULT = os.environ["PBT_RESULT"]
@@ -248,7 +235,7 @@ def _on_alarm(_s, _f):
     raise _Timeout()
 _signal.signal(_signal.SIGALRM, _on_alarm)
 def run(x):
-    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)  # bound a looping candidate per call
+    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)
     try:
         return _ENTRY(**x)
     except _Timeout:
@@ -259,11 +246,6 @@ def run(x):
         _signal.setitimer(_signal.ITIMER_REAL, 0)
 '''
 
-# stdio candidates run IN-PROCESS (redirected stdin/stdout) instead of spawning a fresh interpreter per
-# call. The old per-call `subprocess.run([python, candidate_prog.py])` cost ~33ms/spawn, so a property that
-# calls run() thousands of times blew past the reference timeout purely on spawn overhead (the confound
-# that sank the u_plans_u_writes arm). The harness process itself is the sandbox boundary (own process
-# group, killed on the overall pbt timeout); a per-call itimer bounds infinite loops.
 _ENTRY_STDIO = '''\
 import io as _io, signal as _signal
 _CAND_CODE = compile(__CANDIDATE_SRC__, "candidate_prog.py", "exec")
@@ -280,7 +262,7 @@ def run(x):
         exec(_CAND_CODE, {"__name__": "__main__"})
     except _Timeout:
         raise _CandidateError("timeout")
-    except SystemExit as _e:  # nonzero exit == crash (matches the old subprocess returncode check)
+    except SystemExit as _e:
         if _e.code not in (0, None):
             raise _CandidateError("exit %s" % _e.code)
     except Exception as _e:
@@ -297,10 +279,10 @@ def _build_harness(problem: Problem, code: str, props_src: str, space: list[Any]
     if problem.io_mode == "function":
         setup = _ENTRY_FUNCTION.replace("__CANDIDATE_SRC__", repr(code)).replace(
             "__ENTRY_NAME__", repr(problem.entry_point)
-        ).replace("__CAND_TIMEOUT__", str(CAND_TIMEOUT_SECONDS))
+        ).replace("__CAND_TIMEOUT__", str(SINGLE_CANDIDATE_CALL_SECONDS))
     else:
         setup = _ENTRY_STDIO.replace("__CANDIDATE_SRC__", repr(code)).replace(
-            "__CAND_TIMEOUT__", str(CAND_TIMEOUT_SECONDS)
+            "__CAND_TIMEOUT__", str(SINGLE_CANDIDATE_CALL_SECONDS)
         )
     return (
         _HARNESS.replace("__ENTRY_SETUP__", setup)
@@ -324,15 +306,17 @@ def _kill_group(proc: "subprocess.Popen") -> None:
 
 def run_raw(problem: Problem, code: str, props_src: str, space: list[Any],
             *, timeout_s: int = DEFAULT_PBT_TIMEOUT) -> dict[str, Any]:
-    """Run every property over every search-space input against one implementation."""
+    """Run every property over every search-space input against one implementation.
+
+    The harness gets its own process group so a timeout kills the candidate it spawned too; an
+    orphaned looping candidate would otherwise run uncapped and starve every other eval.
+    Candidates run in-process against redirected stdio rather than a fresh interpreter per call,
+    because a ~33ms spawn cost per `run(x)` blew the reference timeout on spawn overhead alone.
+    """
     directory = tempfile.mkdtemp(prefix="pbt_")
     try:
         (Path(directory) / "harness.py").write_text(_build_harness(problem, code, props_src, space))
         env = {**os.environ, "PBT_RESULT": "pbt_result.json"}
-        # start_new_session=True puts the harness in its OWN process group; on timeout we kill the
-        # WHOLE group so the candidate_prog.py subprocess it spawned dies too. subprocess.run would kill
-        # only the harness, orphaning a slow/looping candidate that then runs uncapped and — many such
-        # orphans across a run — saturates the CPU and stalls every other eval.
         proc = subprocess.Popen(
             [sys.executable, "harness.py"],
             cwd=directory,
@@ -349,18 +333,15 @@ def run_raw(problem: Problem, code: str, props_src: str, space: list[Any],
             return {"ok": False, "error": "timeout", "records": [], "props": []}
         try:
             result = json.loads((Path(directory) / "pbt_result.json").read_text())
-            records, props = result["records"], result["props"]  # inside the guard: a valid-JSON
-        except Exception:                                          # but malformed/keyless file must
-            return {"ok": False, "error": (err or "no result file")[:500],  # degrade, not raise
+            records, props = result["records"], result["props"]
+        except Exception:
+            return {"ok": False, "error": (err or "no result file")[:500],
                     "records": [], "props": []}
         return {"ok": True, "error": None, "records": records, "props": props}
     finally:
         shutil.rmtree(directory, ignore_errors=True)
 
 
-# --------------------------------------------------------------------------- #
-# scoring
-# --------------------------------------------------------------------------- #
 def _invalid(reason: str) -> dict[str, Any]:
     return {
         "runnable": False,
@@ -390,7 +371,7 @@ def _score_candidate(
     return {
         "runnable": True,
         "verdict": "fail" if catches else "pass",
-        "score": 1.0 if catches else 0.0,  # binary; graded counts below are the "graded hook"
+        "score": 1.0 if catches else 0.0,
         "n_catches": len(catches),
         "n_failing_inputs": len({r["i"] for r in catches}),
         "n_failing_props": len(per_prop),
@@ -440,7 +421,7 @@ def evaluate(
                 "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
-    space = list(space)[:max_search_space]  # bound eval time regardless of how many the model produced
+    space = list(space)[:max_search_space]
     ref = run_raw(problem, problem.reference_code, props_src, space, timeout_s=timeout_s)
     if not ref["ok"]:
         reason = f"reference run failed: {ref['error']}"
@@ -459,15 +440,10 @@ def evaluate(
     sound_props = [p for p in props if p not in bad]
 
     meta = {
-        "valid": True,  # a suite was generated and ran on the reference (generation health)
-        # TWO DIFFERENT THINGS — do not conflate (they were, and it inflated every soundness number
-        # by ~2.5x: 29/49 apps-hard10 suites were reported "sound" while containing unsound props).
-        # The deployable `pbt` score runs ALL properties, so a single unsound property inside a
-        # suite is what produces an honest false positive — `all_props_sound` is the one that
-        # predicts FPR; `has_sound_prop` is a near-vacuous floor.
-        "all_props_sound": not bad,  # NO property false-alarms on the reference  <- real soundness
-        "has_sound_prop": bool(sound_props),  # >=1 property holds (weak diagnostic)
-        "sound": bool(sound_props),  # legacy alias of has_sound_prop; kept so old artifacts compare
+        "valid": True,
+        "all_props_sound": not bad,
+        "has_sound_prop": bool(sound_props),
+        "sound": bool(sound_props),
         "n_props": len(props),
         "n_space": len(space),
         "sound_props": sound_props,
@@ -491,14 +467,6 @@ def evaluate(
     return meta, results
 
 
-# --------------------------------------------------------------------------- #
-# suite-meta readers (back-compatible with artifacts written before 2026-08-05)
-# --------------------------------------------------------------------------- #
-# Reason strings produced when the HARNESS failed rather than the model — these are infra
-# artifacts and must not be scored as generation failures. The pre-2026-08-04 stdio harness
-# spawned a fresh interpreter per run() call (~33ms), so heavy property suites blew the
-# reference timeout on spawn cost alone: 26/30 invalid suites in apps-hard10-upuw and 3/3 in
-# apps-hard10-uplan were timeouts, while the SAME tasks were valid in the blind_t arm.
 _HARNESS_FAILURE_MARKERS = ("timeout", "reference run failed", "abstained")
 
 

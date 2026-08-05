@@ -53,12 +53,9 @@ if TYPE_CHECKING:
     from .metrics_objs import Metric
 
 HEARTBEAT_SECONDS = 10
-_ABSTAIN = object()  # a fanout on_fail sentinel meaning "record nothing" (the unit re-runs on resume)
+ABSTAIN = object()
 
 
-# --------------------------------------------------------------------------- #
-# step-graph types (declared by steps.py, interpreted here)
-# --------------------------------------------------------------------------- #
 class Scope(str, Enum):
     """When a step runs: ONCE per pipeline, or PER_RUN (repeated `config.runs` times)."""
 
@@ -99,14 +96,21 @@ class FanoutSpec:
 
     This table (see `FANOUTS`) is what makes `_run_step` a single generic code path instead of a
     per-granularity if/elif: the engine only ever calls these callables.
+
+        units       every unit this step must process
+        done_keys   keys of units already persisted, for resume
+        key         unit -> its resume key
+        label       unit -> a short id for logs
+        persist     (ctx, step, unit, value) -> write it
+        on_fail     (ctx, step, unit, error) -> replacement value, or ABSTAIN to record nothing
     """
 
-    units: Callable[["RunContext", Step], list[Any]]              # every unit for this step
-    done_keys: Callable[["RunContext", Step], set]               # keys of units already persisted (resume)
-    key: Callable[[Any], Any]                                    # unit -> its resume key
-    label: Callable[[Any], str]                                  # unit -> a short id for logs
-    persist: Callable[["RunContext", Step, Any, Any], None]      # (ctx, step, unit, value) -> write it
-    on_fail: Callable[["RunContext", Step, Any, Exception], Any]  # -> replacement value, or _ABSTAIN
+    units: Callable[["RunContext", Step], list[Any]]
+    done_keys: Callable[["RunContext", Step], set]
+    key: Callable[[Any], Any]
+    label: Callable[[Any], str]
+    persist: Callable[["RunContext", Step, Any, Any], None]
+    on_fail: Callable[["RunContext", Step, Any, Exception], Any]
 
 
 @dataclass(frozen=True)
@@ -168,7 +172,7 @@ async def with_retry(
         async with sem:
             try:
                 return await asyncio.wait_for(make_coro(), timeout=policy.timeout_s)
-            except Exception as error:  # timeout / API error -> retry with a fresh attempt
+            except Exception as error:
                 log(f"  [warn] {label} attempt {attempt + 1}/{policy.attempts}: "
                     f"{type(error).__name__}: {str(error)[:120]}")
         if attempt < policy.attempts - 1:
@@ -223,8 +227,6 @@ def run(config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[S
     global _LOG_FILE
     _LOG_FILE = run_dir / "pipeline.log" if config.progress else None
     try:
-        # The dashboard wraps only EXECUTION; aggregate+report run after it closes so the final results
-        # table prints to a clean terminal (never interleaved with the live bars).
         outcome = _execute_with_optional_dashboard(config, backend, pool, store, status, pipeline, metrics)
         return _finalize(config, store, status, outcome)
     finally:
@@ -263,9 +265,6 @@ def execute_once(config: Config, run_dir: Path, step_name: str, pipeline: list[S
     log(f"worker: {step_name} produced {step.produces.value}")
 
 
-# --------------------------------------------------------------------------- #
-# fan-out strategy table — the only place per-granularity behavior lives
-# --------------------------------------------------------------------------- #
 def _degraded_suite(problem: Problem, step: Step, error: Exception) -> dict[str, Any]:
     """The degraded SUITE a PER_TASK failure records so one task's crash never sinks the run."""
     meta, results = pbt.degraded(problem, f"{step.name} crashed: {type(error).__name__}: {error}")
@@ -289,7 +288,7 @@ FANOUTS: dict[Fanout, FanoutSpec] = {
         key=lambda u: (u[0].task_id, u[1].candidate_id),
         label=lambda u: f"{u[0].task_id}/{u[1].candidate_id}",
         persist=lambda ctx, step, u, v: ctx.store.append(step.produces, v, run=ctx.r),
-        on_fail=lambda ctx, step, u, e: _ABSTAIN,
+        on_fail=lambda ctx, step, u, e: ABSTAIN,
     ),
     Fanout.NONE: FanoutSpec(
         units=lambda ctx, step: [None],
@@ -297,17 +296,11 @@ FANOUTS: dict[Fanout, FanoutSpec] = {
         key=lambda u: None,
         label=lambda u: "-",
         persist=lambda ctx, step, u, v: ctx.store.put(step.produces, v, run=ctx.r),
-        on_fail=lambda ctx, step, u, e: _ABSTAIN,
+        on_fail=lambda ctx, step, u, e: ABSTAIN,
     ),
 }
 
 
-# --------------------------------------------------------------------------- #
-# private helpers — parent-side orchestration
-# --------------------------------------------------------------------------- #
-# When progress mode is on, the parent sets this so its log lines go to a file instead of the terminal
-# (which the rich dashboard owns). Worker processes leave it None and print to their stdout, which the
-# parent redirects to the same file via run_isolated's log_path.
 _LOG_FILE: Path | None = None
 
 
@@ -432,7 +425,7 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step], metrics:
         except subprocess.TimeoutExpired:
             log(f"run {r}: exceeded {config.run_timeout}s — killed; resuming from checkpoint")
             continue
-        except Exception:  # a crashed in-process run shouldn't abort the whole loop — log the trace
+        except Exception:
             log(f"run {r}: crashed:\n{traceback.format_exc()}")
             rc = 1
         if rc == 0 and store.has(ArtifactKind.RUN_METRICS, run=r):
@@ -459,7 +452,7 @@ def _finalize(config: Config, store: ArtifactStore, status: "Any",
     """Aggregate metrics + write the report (after the dashboard has closed). Returns (run_dir, agg|None)."""
     run_dir = store.run_dir
     problems, per_run_metrics, rows_by_run = outcome
-    if per_run_metrics is None:  # score-only stage
+    if per_run_metrics is None:
         return run_dir, None
     if not per_run_metrics:
         status.set(phase="no_completed_runs")
@@ -467,7 +460,7 @@ def _finalize(config: Config, store: ArtifactStore, status: "Any",
         return run_dir, None
 
     agg = metrics_mod.aggregate_runs(per_run_metrics)
-    manifest = {**config.to_json(), "n_tasks": len(problems)}  # + task count for the report header
+    manifest = {**config.to_json(), "n_tasks": len(problems)}
     report.compile_results(run_dir, config=manifest, run_metrics=per_run_metrics, agg=agg,
                            rows_by_run=rows_by_run)
     status.set(phase="done", completed_runs=len(per_run_metrics), requested_runs=config.runs)
@@ -486,9 +479,6 @@ def _require_inputs(store: ArtifactStore, step: Step) -> None:
             raise RuntimeError(f"step '{step.name}' needs {need.value}, which is missing")
 
 
-# --------------------------------------------------------------------------- #
-# private helpers — per-run execution (inside the isolation boundary)
-# --------------------------------------------------------------------------- #
 async def _execute_run_async(config: Config, r: int, per_run_steps: list[Step], metrics: list["Metric"],
                              store: ArtifactStore, problems: list[Problem],
                              scores: dict[tuple[str, str], Any]) -> None:
@@ -535,7 +525,7 @@ async def _run_step(ctx: RunContext, step: Step) -> None:
         f"({ctx.config.max_conn} gen / {ctx.config.exec_workers} eval concurrent)...")
     results = await asyncio.gather(*[_guard(ctx, step, spec, u) for u in todo], return_exceptions=True)
     for res in results:
-        if isinstance(res, Exception):  # a persist/status error escaped the guard — surface it, resume
+        if isinstance(res, Exception):
             log(f"  [warn] {step.name} persist error: {type(res).__name__}: {res}")
 
 
@@ -543,19 +533,15 @@ async def _guard(ctx: RunContext, step: Step, spec: FanoutSpec, unit: Any) -> No
     """Run one fan-out unit; on failure degrade it (or abstain) and continue — the per-unit boundary.
 
     This is why the step fns carry no try/except of their own: the one failure path for a unit lives
-    here. A degraded value is persisted (e.g. a degraded suite); an `_ABSTAIN` records nothing, leaving
+    here. A degraded value is persisted (e.g. a degraded suite); an `ABSTAIN` records nothing, leaving
     the run short of completeness so it resumes.
     """
     try:
-        # Per-unit deadline. Units already run concurrently and checkpoint independently, so bounding
-        # each one turns a pathological task into a single degraded unit instead of a whole-run kill:
-        # the other units keep going and the run's wall-clock stays ~max(unit) rather than sum(unit).
-        # `run_timeout` is now only a backstop for something this bound cannot see.
         value = await asyncio.wait_for(step.fn(ctx, unit), timeout=ctx.config.unit_timeout)
-    except Exception as error:  # isolation: one unit's failure never takes down the run
+    except Exception as error:
         log(f"  [warn] {step.name} failed for {spec.label(unit)}: {type(error).__name__}: {error}")
         value = spec.on_fail(ctx, step, unit, error)
-        if value is _ABSTAIN:
+        if value is ABSTAIN:
             return
     spec.persist(ctx, step, unit, value)
     ctx.store.status().beat()
@@ -569,7 +555,7 @@ def _incomplete_steps(ctx: RunContext | None, per_run_steps: list[Step]) -> list
     abstention does not, so it shows up here and triggers a resume).
     """
     if ctx is None:
-        return [(s.name, 0, 0) for s in per_run_steps]  # the run set-up itself failed before any step
+        return [(s.name, 0, 0) for s in per_run_steps]
     short: list[tuple[str, int, int]] = []
     for step in per_run_steps:
         spec = FANOUTS[step.fanout]
@@ -586,8 +572,6 @@ def _run_metrics(config: Config, r: int, problems: list[Problem], store: Artifac
     suites = {p.task_id: store.load(ArtifactKind.SUITE, run=r, task_id=p.task_id) for p in problems}
     metas = {t: (s or {}).get("meta", {}) for t, s in suites.items()}
     suite_validity = {t: bool(m.get("valid")) for t, m in metas.items()}
-    # `all_props_sound`, NOT the legacy `sound` flag (which only meant ">=1 property holds" and
-    # inflated reported soundness ~2.5x). The reader back-derives it for pre-2026-08-05 artifacts.
     suite_soundness = {t: pbt.suite_all_props_sound(m) for t, m in metas.items()}
     suite_harness_failed = {t: pbt.suite_harness_failed(m) for t, m in metas.items()}
     selected_policy = {p.task_id: p.selected_attack for p in problems}
@@ -636,9 +620,6 @@ def _write_run_manifest(run_dir: Path, config: Config) -> None:
     artifacts.write_json(run_dir / "run.json", config.to_json())
 
 
-# --------------------------------------------------------------------------- #
-# private helpers — isolation mechanics (Docker + process-tree kill)
-# --------------------------------------------------------------------------- #
 def _docker_wrap(cmd: list[str], image: str | None, run_dir: Path, container: str) -> list[str]:
     """Wrap a worker command as `docker run --name <container>`, mounting the repo + forwarding creds.
 
@@ -659,7 +640,6 @@ def _docker_wrap(cmd: list[str], image: str | None, run_dir: Path, container: st
                 "AZURE_ENDPOINT_URL", "OPENAI_API_KEY", "ANTHROPIC_API_KEY", "MPLBACKEND"):
         if os.getenv(key) is not None:
             env_flags += ["-e", key]
-    # cmd[0] is the host's venv python path, which doesn't exist in the image — use the container's.
     container_cmd = ["python", *cmd[1:]]
     return (["docker", "run", "--rm", "--name", container, *mounts, "-w", str(repo), *env_flags, image]
             + container_cmd)

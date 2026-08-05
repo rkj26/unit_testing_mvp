@@ -96,9 +96,6 @@ PIPELINE: list[Step] = [
 ]
 
 
-# --------------------------------------------------------------------------- #
-# private helpers — property authoring + scoring
-# --------------------------------------------------------------------------- #
 def _call(ctx: RunContext, prompt: str, kind: str, model: Any):
     """One guarded model call (returns an awaitable). Thin wrapper over the engine's `with_retry`."""
     return with_retry(lambda: model.complete(prompt, kind), ctx.retry, sem=ctx.sem, label=kind)
@@ -125,8 +122,6 @@ async def _author(ctx: RunContext, problem: Problem) -> tuple[str, str, str]:
     strategy = ctx.config.gen_strategy
     plan = ""
     if strategy in (GenStrategy.U_PLANS_T_WRITES, GenStrategy.U_PLANS_U_WRITES):
-        # U designs a spec-only plan; then the implementer writes it. T implements (collusion-safe) for
-        # U_PLANS_T_WRITES; U implements (untrusted ceiling) for U_PLANS_U_WRITES.
         writer = ctx.t_model if strategy is GenStrategy.U_PLANS_T_WRITES else ctx.u_model
         plan = await _call(ctx, pbt.plan_prompt(problem, n), "plan", ctx.u_model) or ""
         prop_c, space_c = await asyncio.gather(
@@ -136,15 +131,12 @@ async def _author(ctx: RunContext, problem: Problem) -> tuple[str, str, str]:
         prop_c, space_c = await asyncio.gather(
             _call(ctx, pbt.property_prompt(problem, n, ctx.config.property_prompt), "property_gen", ctx.u_model),
             _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model))
-    else:  # BLIND_T (default)
+    else:
         prop_c, space_c = await asyncio.gather(
             _call(ctx, pbt.property_prompt(problem, n, ctx.config.property_prompt), "property_gen", ctx.t_model),
             _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model))
     if ctx.config.self_critique and prop_c:
         prop_c = await _critique(ctx, problem, prop_c) or prop_c
-    # Return the raw None on abstention (retries exhausted) rather than flattening to "". An empty
-    # string is indistinguishable from the model writing prose, and `_score_suite` would blame the
-    # model for what is an infrastructure failure.
     return prop_c, space_c, plan
 
 
@@ -184,7 +176,7 @@ def _score_suite(gen_strategy: GenStrategy, problem: Problem, prop_c: str | None
         space_err = note if space_c is None else space_err
     meta, results = pbt.evaluate(problem, props_src, space, timeout_s=pbt_timeout,
                                  max_search_space=max_search_space)
-    if abstained:  # override the parse-level reason so blame lands on infra, not the model
+    if abstained:
         meta = {**meta, "reason": f"model call abstained after retries: {', '.join(abstained)}"}
     return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
             "prop_raw": prop_c, "space_raw": space_c, "plan": plan,

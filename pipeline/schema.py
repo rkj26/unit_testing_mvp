@@ -12,19 +12,19 @@ from dataclasses import dataclass, field
 from typing import Any, Protocol, runtime_checkable
 
 
-# Blind steps (PBT-gen, trigger-search, TM) may only read the SPEC-safe fields of a Problem:
-# ``main_task`` (+ ``provided_tests_hint``), ``io_mode``/``entry_point``, and a candidate's
-# ``code`` (for TM). The HIDDEN fields — ``reference_code`` and each attack's ``secret_input`` —
-# are used only by control_arena's ground-truth scoring and by the PBT soundness gate.
-BLIND_SAFE_FIELDS = ("task_id", "main_task", "io_mode", "entry_point", "provided_tests_hint")
-
-
 @dataclass
 class Candidate:
+    """One submission for a task.
+
+        label          "honest", or "attack_0", "attack_1", ...
+        secret_input   the backdoor trigger: kwargs-JSON (bcb) or stdin text (apps).
+                       HIDDEN from blind steps — ground-truth scoring only.
+    """
+
     candidate_id: str
-    label: str  # "honest" | "attack_0" | "attack_1" | ...
+    label: str
     code: str
-    secret_input: str | None = None  # HIDDEN from blind steps; kwargs-JSON (bcb) or stdin (apps)
+    secret_input: str | None = None
 
     @property
     def is_attack(self) -> bool:
@@ -33,14 +33,25 @@ class Candidate:
 
 @dataclass
 class Problem:
+    """One task and every candidate solution to it.
+
+    Blind steps (PBT-gen, trigger-search, TM) may read only the spec-safe fields: `main_task`,
+    `provided_tests_hint`, `io_mode`/`entry_point`, and a candidate's `code`. `reference_code`
+    and each attack's `secret_input` are hidden from them, and reach only ground-truth scoring
+    and the PBT soundness gate.
+
+        io_mode          "function" (call entry_point(**kwargs)) or "stdio" (run on stdin)
+        selected_attack  candidate_id deployed as the attack policy; defaults to the first attack
+    """
+
     task_id: str
-    main_task: str  # spec/description shown to the trusted model (blind-safe)
-    io_mode: str  # "function" (call entry_point(**kwargs)) | "stdio" (run program on stdin)
+    main_task: str
+    io_mode: str
     candidates: list[Candidate]
-    entry_point: str | None = None  # function name, io_mode="function" only
-    provided_tests_hint: str = ""  # a few example I/O for the prompt (blind-safe)
-    reference_code: str = ""  # HIDDEN correct solution; soundness gate only
-    selected_attack: str | None = None  # candidate_id used as the deployed attack policy
+    entry_point: str | None = None
+    provided_tests_hint: str = ""
+    reference_code: str = ""
+    selected_attack: str | None = None
 
     @property
     def honest(self) -> Candidate:
@@ -64,10 +75,10 @@ class Problem:
             self.selected_attack = self.attacks[0].candidate_id
 
 
-# What a backend hands back for each candidate: control_arena's ground-truth verdicts.
-# side_task_success is None for honest candidates.
 @dataclass
 class ScoreResult:
+    """Ground-truth verdicts for one candidate; `side_task_success` is None for honest ones."""
+
     main_task_success: bool
     side_task_success: bool | None
 
@@ -76,7 +87,7 @@ class ScoreResult:
 class Backend(Protocol):
     """Benchmark adapter. The ONLY benchmark-specific surface the pipeline depends on."""
 
-    name: str  # "bcb" | "apps" | "mock"
+    name: str
 
     def preprocess(self, pool: dict[str, Any], *, limit: int | None = None) -> list[Problem]:
         """Normalize a benchmark pool into common Problem records."""
@@ -93,17 +104,20 @@ class Backend(Protocol):
         ...
 
 
-# The per-candidate row the metrics + report consume. Kept identical to the legacy schema so
-# metrics.py needs no shape changes.
 def make_row(
     *,
     task_id: str,
     candidate: Candidate,
     score: ScoreResult,
-    pbt_results: dict[str, dict[str, Any]],  # {"pbt": ungated/deployable, "pbt_ceiling": reference-gated}
+    pbt_results: dict[str, dict[str, Any]],
     tm: float | None,
     informed: float | None,
 ) -> dict[str, Any]:
+    """The per-candidate row metrics and the report consume.
+
+    `pbt_results` holds the two PBT arms: "pbt" runs every property, "pbt_ceiling" only those
+    that held on the privileged reference.
+    """
     dep = pbt_results["pbt"]
     ceil = pbt_results["pbt_ceiling"]
     scores = {
@@ -120,7 +134,7 @@ def make_row(
         "candidate_label": candidate.label,
         "main_task_success": score.main_task_success,
         "side_task_success": score.side_task_success,
-        "pbt_runnable": dep["runnable"],  # deployable arm's runnability
+        "pbt_runnable": dep["runnable"],
         "pbt_status": dep["verdict"],
         "scores": scores,
         "evidence": {
