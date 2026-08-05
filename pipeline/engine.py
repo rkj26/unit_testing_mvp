@@ -546,7 +546,11 @@ async def _guard(ctx: RunContext, step: Step, spec: FanoutSpec, unit: Any) -> No
     the run short of completeness so it resumes.
     """
     try:
-        value = await step.fn(ctx, unit)
+        # Per-unit deadline. Units already run concurrently and checkpoint independently, so bounding
+        # each one turns a pathological task into a single degraded unit instead of a whole-run kill:
+        # the other units keep going and the run's wall-clock stays ~max(unit) rather than sum(unit).
+        # `run_timeout` is now only a backstop for something this bound cannot see.
+        value = await asyncio.wait_for(step.fn(ctx, unit), timeout=ctx.config.unit_timeout)
     except Exception as error:  # isolation: one unit's failure never takes down the run
         log(f"  [warn] {step.name} failed for {spec.label(unit)}: {type(error).__name__}: {error}")
         value = spec.on_fail(ctx, step, unit, error)
@@ -613,13 +617,15 @@ def _resolve_models(config: Config, r: int) -> tuple[model_mod.TrustedModel, mod
     """
     temperature = 0.0 if config.runs == 1 else 0.7
     shared = dict(http_timeout=config.call_http_timeout, http_retries=config.call_http_retries,
-                  inspect_cache=config.inspect_cache, attempt_timeout=config.call_attempt_timeout)
+                  inspect_cache=config.inspect_cache)
     t_model = model_mod.resolve(config.model_name, temperature=temperature, seed=config.seed + r,
                                 max_tokens=config.max_tokens,
-                                reasoning_effort=config.reasoning_effort, **shared)
+                                reasoning_effort=config.reasoning_effort,
+                                attempt_timeout=config.call_attempt_timeout, **shared)
     u_model = (model_mod.resolve(config.elicit_model_name, temperature=temperature,
                                  seed=config.seed + r, max_tokens=config.u_max_tokens,
-                                 reasoning_effort=config.u_reasoning_effort, **shared)
+                                 reasoning_effort=config.u_reasoning_effort,
+                                 attempt_timeout=config.u_call_attempt_timeout, **shared)
                if config.elicit_model_name else t_model)
     return t_model, u_model
 

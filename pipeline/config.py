@@ -124,6 +124,11 @@ class Config:
     # a fixed cheap monitor + writer) keeps the TM column comparable to prior runs.
     u_reasoning_effort: str
     u_max_tokens: int
+    u_call_attempt_timeout: int  # U's per-request bound; U is the slow model, so it needs its own
+    # Per-unit (per task / per candidate) deadline. Units already fan out concurrently with their own
+    # failure boundary and durable checkpoint, but had NO time bound of their own — so one pathological
+    # task could only be stopped by killing the whole run, taking the other 49 with it.
+    unit_timeout: int
     max_conn: int
     # Three nested call bounds, which MUST stay ordered:
     #   call_attempt_timeout  <  call_http_timeout  <  call_timeout
@@ -243,6 +248,7 @@ def _env_knobs() -> dict[str, Any]:
     Shared by `from_args` and `from_json` so the two constructors can never drift on defaults.
     """
     effort = os.getenv("REASONING_EFFORT", "low")
+    u_effort = os.getenv("U_REASONING_EFFORT") or effort
     max_tokens = _env_int("MAX_TOKENS", 4000)
     return {
         "self_critique": _env_bool("PBT_SELF_CRITIQUE", False),
@@ -251,19 +257,15 @@ def _env_knobs() -> dict[str, Any]:
         # U inherits T's effort/token budget unless explicitly raised. A high-effort U typically needs a
         # much larger cap than T: reasoning tokens are billed against max_tokens, and a budget that only
         # covers the reasoning leaves nothing for the answer (an 8k cap at medium returned empty output).
-        "u_reasoning_effort": os.getenv("U_REASONING_EFFORT") or effort,
+        "u_reasoning_effort": u_effort,
         "u_max_tokens": _env_int("U_MAX_TOKENS", max_tokens),
         # Measured on the Azure DeepSeek deployment: 1/4/8/16 concurrent all completed with ZERO errors,
         # and per-call latency IMPROVED with concurrency (4.0s median at 1 -> 1.2s at 16, warm pool).
         # The old default of 4 was throttling us for no reason; the endpoint was never the bottleneck.
         "max_conn": _env_int("MAX_CONN", 12),
-        # Defaults keep the required ordering: 120 < 240 < 300. Raise all three together for a slow
-        # model (gpt-5.4 at effort=high measured ~120s), never just the outer one.
-        "call_timeout": _env_int("CALL_TIMEOUT", 300),
         "call_retries": _env_int("CALL_RETRIES", 2),
-        "call_attempt_timeout": _env_int("CALL_ATTEMPT_TIMEOUT", 120),
-        "call_http_timeout": _env_int("CALL_HTTP_TIMEOUT", 240),
         "call_http_retries": _env_int("CALL_HTTP_RETRIES", 1),
+        **_timeout_ladder(u_effort),
         "inspect_cache": _env_bool("INSPECT_CACHE", True),
         "pbt_timeout": _env_int("PBT_TIMEOUT", 60),
         "exec_workers": _env_int("EXEC_WORKERS", 8),
@@ -272,7 +274,6 @@ def _env_knobs() -> dict[str, Any]:
         # ~280s, but the same run at medium reasoning is ~2800s and a pathological PBT eval (every
         # candidate hitting pbt_timeout) is ~1100s on its own. At 1200s those get killed mid-run and
         # burn a retry each. Checkpoints make a kill recoverable, not free.
-        "run_timeout": _env_int("RUN_SUBPROC_TIMEOUT", 3600),
         "run_retries": _env_int("RUN_RETRIES", 2),
     }
 
@@ -315,3 +316,48 @@ def _parse_attack_rates(raw: Any) -> tuple[float, ...]:
     if not values or any(not 0.0 <= v <= 1.0 for v in values):
         raise SystemExit(f"--attack-rates must be probabilities in [0,1] (got {raw!r})")
     return tuple(sorted(set(values)))
+
+
+# Expected wall-clock of ONE provider request, by reasoning effort. These are measurements, not
+# guesses: DeepSeek-V3.2 ~4s at low and ~85s at medium; gpt-5.4 ~120s at high on a real plan prompt.
+# The ladder below is sized from these, so a model that is slow because it is *thinking* is never
+# mistaken for one that has stopped responding.
+_EXPECTED_CALL_SECONDS = {"low": 120, "medium": 300, "high": 420, "max": 420}
+
+
+def _timeout_ladder(u_effort: str) -> dict[str, int]:
+    """Derive the whole nested timeout ladder from the slowest expected request.
+
+    Five bounds have to stay strictly ordered:
+
+        t_attempt / u_attempt  <  http retry budget  <  outer call  <  unit  <  run
+
+    They used to be five independent environment knobs whose ordering was maintained by hand, and
+    that is precisely how a request ended up with NO bound at all (and, later, how U's 420s bound
+    ended up sitting outside the 300s bound containing it). Deriving them from one input makes the
+    ordering hold by construction; each is still individually overridable for a one-off, and the
+    assertion below fails loudly rather than silently inverting.
+
+    Why each layer exists:
+      attempt  one provider request. The only bound that catches a silently dead socket, since a
+               non-streaming REST call sends no bytes while the model is generating.
+      http     inspect's total retry budget — room for ~one full retry of the slowest request.
+      outer    the engine's own `asyncio.wait_for` backstop, for anything inspect fails to bound.
+      unit     one task or candidate, which makes several calls. Bounds a pathological unit so it
+               degrades alone instead of the whole run being killed with it.
+      run      the subprocess backstop, sized for the slowest plausible full run.
+    """
+    t_attempt = _env_int("CALL_ATTEMPT_TIMEOUT", _EXPECTED_CALL_SECONDS["low"])
+    u_attempt = _env_int("U_CALL_ATTEMPT_TIMEOUT",
+                         max(t_attempt, _EXPECTED_CALL_SECONDS.get(u_effort, t_attempt)))
+    http = _env_int("CALL_HTTP_TIMEOUT", max(240, 2 * max(t_attempt, u_attempt)))
+    call = _env_int("CALL_TIMEOUT", http + 60)
+    unit = _env_int("UNIT_TIMEOUT", 3 * call)
+    run = _env_int("RUN_SUBPROC_TIMEOUT", max(3600, 4 * unit))
+    ladder = {"call_attempt_timeout": t_attempt, "u_call_attempt_timeout": u_attempt,
+              "call_http_timeout": http, "call_timeout": call,
+              "unit_timeout": unit, "run_timeout": run}
+    ordered = [max(t_attempt, u_attempt), http, call, unit, run]
+    if ordered != sorted(set(ordered)):
+        raise SystemExit(f"timeout ladder is not strictly increasing: {ladder}")
+    return ladder

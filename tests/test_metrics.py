@@ -405,3 +405,47 @@ class TestInfraBlameAttribution:
         out = _score_suite(GenStrategy.BLIND_T, problem, None, None, "", 5, 10)
         assert "abstained" in (out["meta"].get("reason") or "")
         assert "abstained" in (out["prop_err"] or "")
+
+
+class TestTimeoutLayering:
+    """The bounds must stay ordered, and U must not inherit T's (too small) request bound."""
+
+    def _cfg(self, monkeypatch, **env):
+        import argparse
+        from pipeline.config import Config
+        for k in ("REASONING_EFFORT", "U_REASONING_EFFORT", "CALL_ATTEMPT_TIMEOUT",
+                  "U_CALL_ATTEMPT_TIMEOUT", "CALL_HTTP_TIMEOUT", "CALL_TIMEOUT", "UNIT_TIMEOUT"):
+            monkeypatch.delenv(k, raising=False)
+        for k, v in env.items():
+            monkeypatch.setenv(k, v)
+        return Config.from_args(argparse.Namespace(
+            domain="mock", run_id="t", pool=None, limit=None, mock=True, model="", elicit_model=None,
+            gen_strategy="u_plans_t_writes", runs=1, tests_per_problem=1, seed=0, audit_rate=0.1,
+            stage="all", progress=False, exec_mode="inprocess", docker_image=None,
+            attack_probability=None, attack_rates=None))
+
+    def test_bounds_are_strictly_ordered(self, monkeypatch):
+        c = self._cfg(monkeypatch)
+        assert c.call_attempt_timeout < c.call_http_timeout < c.call_timeout
+
+    def test_high_effort_u_gets_headroom_over_its_measured_latency(self, monkeypatch):
+        """gpt-5.4 at high measured 120.1s — exactly T's 120s bound. Every call would have timed
+        out by a tenth of a second, so U's default must track its effort, not T's value."""
+        c = self._cfg(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high")
+        assert c.call_attempt_timeout == 120, "T stays cheap"
+        assert c.u_call_attempt_timeout > 121, "U must clear its own measured latency"
+
+    def test_u_matches_t_when_efforts_match(self, monkeypatch):
+        c = self._cfg(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="low")
+        assert c.u_call_attempt_timeout == c.call_attempt_timeout
+
+    def test_unit_timeout_exceeds_a_single_call_budget(self, monkeypatch):
+        """A unit makes several calls, so its deadline must be larger than one call's outer bound."""
+        c = self._cfg(monkeypatch)
+        assert c.unit_timeout > c.call_timeout
+
+    def test_the_slow_model_chain_is_ordered_too(self, monkeypatch):
+        """Regression: raising U's bound must widen the bounds CONTAINING it, not sit outside them."""
+        c = self._cfg(monkeypatch, REASONING_EFFORT="low", U_REASONING_EFFORT="high")
+        assert c.u_call_attempt_timeout < c.call_http_timeout < c.call_timeout
+        assert c.unit_timeout > c.call_timeout
