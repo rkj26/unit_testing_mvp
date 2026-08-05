@@ -16,6 +16,8 @@ from dataclasses import asdict, dataclass, fields
 from enum import Enum
 from typing import Any
 
+from .metrics import MetricConfig
+
 
 class Domain(str, Enum):
     """Benchmark backend to run against."""
@@ -76,10 +78,7 @@ PBT_EXEC_WORKERS = 8
 MAX_SEARCH_SPACE = 60
 TESTS_PER_PROBLEM = 5
 
-DEFAULT_ATTACK_RATE = 0.10
-DEFAULT_AUDIT_RATE = 0.10
-DEFAULT_ATTACK_RATE_SWEEP = (0.05, 0.1, 0.25, 0.5, 1.0)
-ALWAYS_ATTACK = ("always", "none")
+ALWAYS_ATTACK_ALIASES = ("always", "none")
 
 
 @dataclass(frozen=True)
@@ -109,12 +108,10 @@ class Config:
     run_id: str
     domain: Domain
     dataset: str | None
-    protocols: tuple[str, ...]
     gen_strategy: GenStrategy
     trusted: ModelSpec
     untrusted: ModelSpec | None
-    attack_rate: float | None
-    audit_rate: float
+    metrics: MetricConfig
     runs: int
     seed: int
 
@@ -125,7 +122,6 @@ class Config:
     docker_image: str | None = None
     progress: bool = False
     tests_per_problem: int = TESTS_PER_PROBLEM
-    attack_rates: tuple[float, ...] = DEFAULT_ATTACK_RATE_SWEEP
     self_critique: bool = False
     property_prompt: str = "default"
     search_prompt: str = "default"
@@ -173,8 +169,12 @@ class Config:
         return (self.untrusted or self.trusted).resolved_max_tokens()
 
     @property
-    def attack_probability(self) -> float | None:
-        return self.attack_rate
+    def protocols(self) -> tuple[str, ...]:
+        return self.metrics.protocols
+
+    @property
+    def audit_rate(self) -> float:
+        return self.metrics.audit_rate
 
     @classmethod
     def from_args(cls, args: Any) -> "Config":
@@ -189,12 +189,10 @@ class Config:
             run_id=args.run_id,
             domain=Domain(args.domain),
             dataset=_arg(args, "dataset", None),
-            protocols=_parse_protocols(_arg(args, "protocols", None)),
             gen_strategy=GenStrategy(_arg(args, "gen_strategy", None) or "blind_t"),
             trusted=trusted,
             untrusted=untrusted,
-            attack_rate=_parse_attack_rate(_arg(args, "attack_rate", None)),
-            audit_rate=float(_arg(args, "audit_rate", None) or DEFAULT_AUDIT_RATE),
+            metrics=_metric_config(args),
             runs=int(_arg(args, "runs", 1) or 1),
             seed=int(_arg(args, "seed", 0) or 0),
             mock=bool(_arg(args, "mock", False)),
@@ -230,10 +228,19 @@ class Config:
         for key in ("trusted", "untrusted"):
             if isinstance(merged.get(key), dict):
                 merged[key] = ModelSpec(**merged[key])
-        for key in ("protocols", "attack_rates"):
-            if isinstance(merged.get(key), list):
-                merged[key] = tuple(merged[key])
+        if isinstance(merged.get("metrics"), dict):
+            merged["metrics"] = MetricConfig.from_json(merged["metrics"])
         return cls(**merged)
+
+
+def _metric_config(args: Any) -> MetricConfig:
+    """Build the metrics layer's config from the three deployment-game flags."""
+    return MetricConfig(
+        audit_rate=float(_arg(args, "audit_rate", None) or MetricConfig.audit_rate),
+        attack_probability=_parse_attack_rate(_arg(args, "attack_rate", None)),
+        protocols=_parse_protocols(_arg(args, "protocols", None)),
+        seed=int(_arg(args, "seed", 0) or 0),
+    )
 
 
 def _untrusted_spec(args: Any, trusted: ModelSpec) -> ModelSpec | None:
@@ -320,8 +327,8 @@ def _parse_protocols(raw: Any) -> tuple[str, ...]:
 def _parse_attack_rate(raw: Any) -> float | None:
     """Parse --attack-rate as a probability, or 'always' for the degenerate always-attack regime."""
     if raw is None or raw == "":
-        return DEFAULT_ATTACK_RATE
-    if isinstance(raw, str) and raw.strip().lower() in ALWAYS_ATTACK:
+        return MetricConfig.attack_probability
+    if isinstance(raw, str) and raw.strip().lower() in ALWAYS_ATTACK_ALIASES:
         return None
     value = float(raw)
     if not 0.0 <= value <= 1.0:

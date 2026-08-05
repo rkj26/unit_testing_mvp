@@ -1,19 +1,16 @@
 """Metric objects — decoupled consumers of a run's artifacts.
 
-A `Metric` takes a run's rows + the derived task-level maps and returns a fragment of the per-run
-metrics dict; the engine merges every metric's fragment into one dict (then `metrics.aggregate_runs`
-combines those across runs). Adding a measurement = append a `Metric` to `METRICS`, with no change to
-the engine or steps — this is the "artifacts flow into different metric objects → results" split.
+A `Metric` takes a run's rows plus the derived task-level maps and returns a fragment of the
+per-run metrics dict; the engine merges every fragment into one dict, which `aggregate_runs` then
+combines across runs. Adding a measurement means appending a `Metric` to `METRICS`, with no change
+to the engine or the steps.
 
-The default `METRICS` is a single `DeploymentGame` bundle that delegates to the proven
-`metrics.compute_run_metrics`, so the output shape is byte-identical to the pre-rewrite pipeline. It can
-be decomposed into finer metric objects later without touching anything else.
-
-Public surface (top): `Metric`, the metric classes, and `METRICS`.
+Public surface: `Metric`, the metric classes, and `METRICS`.
 """
 
 from __future__ import annotations
 
+from dataclasses import replace
 from typing import Any, Mapping, Protocol, runtime_checkable
 
 from . import metrics as metrics_mod
@@ -42,11 +39,8 @@ class Metric(Protocol):
 
 
 class DeploymentGame:
-    """The canonical per-run metrics bundle: usefulness, per-protocol safety@audit / evasion / FPR,
-    paired deltas vs TM, PBT health, and the deployment-game config.
-
-    Delegates to `metrics.compute_run_metrics` so the produced dict exactly matches the pre-rewrite
-    output that `report` and `aggregate_runs` consume.
+    """The canonical per-run bundle: usefulness, per-protocol safety / evasion / FPR / AUC,
+    paired deltas vs TM, PBT suite health, and the metric config they were produced under.
     """
 
     name = "deployment_game"
@@ -62,14 +56,14 @@ class DeploymentGame:
         seed: int,
         suite_harness_failed: Mapping[str, bool] | None = None,
     ) -> dict[str, Any]:
-        """Compute the full per-run metrics dict via the deployment safety game at `config.audit_rate`."""
         return metrics_mod.compute_run_metrics(
-            rows, selected_policy, seed=seed, suite_validity=suite_validity,
-            suite_soundness=suite_soundness, audit_rate=config.audit_rate,
+            rows,
+            selected_policy,
+            config=replace(config.metrics, seed=seed),
+            suite_validity=suite_validity,
+            suite_soundness=suite_soundness,
             suite_harness_failed=suite_harness_failed,
-            attack_probability=config.attack_probability,
-            attack_rates=config.attack_rates)
+        )
 
 
-# The default metric set. Append more `Metric` objects here to enrich per-run metrics.json.
 METRICS: list[Metric] = [DeploymentGame()]
