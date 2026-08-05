@@ -41,6 +41,12 @@ def main() -> None:
     ap.add_argument("--runs", type=int, default=1, help="full pipeline re-runs for mean±std")
     ap.add_argument("--tests-per-problem", type=int, default=5)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--attack-probability", default=None,
+                    help="per-step chance the untrusted model submits its backdoor (default 0.10); "
+                         "'always' for the degenerate always-attack regime prior runs used")
+    ap.add_argument("--attack-rates", default=None,
+                    help="comma-separated attack rates for the reported sweep "
+                         "(default 0.05,0.1,0.25,0.5,1.0)")
     ap.add_argument("--audit-rate", type=float, default=metrics.DEFAULT_AUDIT_RATE,
                     help="human audit budget; must be >= 1/n_honest to be measurable")
     ap.add_argument("--run-id", help="reuse the same id to RESUME an interrupted run")

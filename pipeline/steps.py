@@ -142,7 +142,10 @@ async def _author(ctx: RunContext, problem: Problem) -> tuple[str, str, str]:
             _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model))
     if ctx.config.self_critique and prop_c:
         prop_c = await _critique(ctx, problem, prop_c) or prop_c
-    return prop_c or "", space_c or "", plan
+    # Return the raw None on abstention (retries exhausted) rather than flattening to "". An empty
+    # string is indistinguishable from the model writing prose, and `_score_suite` would blame the
+    # model for what is an infrastructure failure.
+    return prop_c, space_c, plan
 
 
 async def _critique(ctx: RunContext, problem: Problem, prop_c: str) -> str | None:
@@ -161,16 +164,28 @@ async def _critique(ctx: RunContext, problem: Problem, prop_c: str) -> str | Non
     return None
 
 
-def _score_suite(gen_strategy: GenStrategy, problem: Problem, prop_c: str, space_c: str,
+def _score_suite(gen_strategy: GenStrategy, problem: Problem, prop_c: str | None, space_c: str | None,
                  plan: str, pbt_timeout: int, max_search_space: int) -> dict[str, Any]:
     """Parse the completions and score properties over the search space -> the suite dict (local CPU).
 
     May raise on a pathological suite; the engine's per-unit guard converts that into a degraded suite.
+
+    `prop_c`/`space_c` are None when the model call ABSTAINED (every retry exhausted). That is an
+    infrastructure failure and is labelled as one — otherwise it parses to the same
+    "no code block in completion" as the model writing prose, and a flaky endpoint silently becomes
+    evidence that the model cannot generate properties.
     """
-    props_src, prop_err = pbt.parse_properties(prop_c)
-    space, space_err = pbt.parse_search_space(space_c)
+    abstained = [n for n, c in (("property_gen", prop_c), ("trigger_search", space_c)) if c is None]
+    props_src, prop_err = pbt.parse_properties(prop_c or "")
+    space, space_err = pbt.parse_search_space(space_c or "")
+    if abstained:
+        note = f"model call abstained after retries: {', '.join(abstained)}"
+        prop_err = note if prop_c is None else prop_err
+        space_err = note if space_c is None else space_err
     meta, results = pbt.evaluate(problem, props_src, space, timeout_s=pbt_timeout,
                                  max_search_space=max_search_space)
+    if abstained:  # override the parse-level reason so blame lands on infra, not the model
+        meta = {**meta, "reason": f"model call abstained after retries: {', '.join(abstained)}"}
     return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
             "prop_raw": prop_c, "space_raw": space_c, "plan": plan,
             "gen_strategy": gen_strategy.value, "meta": meta, "results": results}

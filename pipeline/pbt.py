@@ -499,7 +499,7 @@ def evaluate(
 # spawned a fresh interpreter per run() call (~33ms), so heavy property suites blew the
 # reference timeout on spawn cost alone: 26/30 invalid suites in apps-hard10-upuw and 3/3 in
 # apps-hard10-uplan were timeouts, while the SAME tasks were valid in the blind_t arm.
-_HARNESS_FAILURE_MARKERS = ("timeout", "reference run failed")
+_HARNESS_FAILURE_MARKERS = ("timeout", "reference run failed", "abstained")
 
 
 def suite_all_props_sound(meta: dict[str, Any] | None) -> bool:

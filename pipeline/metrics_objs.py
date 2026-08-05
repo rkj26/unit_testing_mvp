@@ -66,7 +66,9 @@ class DeploymentGame:
         return metrics_mod.compute_run_metrics(
             rows, selected_policy, seed=seed, suite_validity=suite_validity,
             suite_soundness=suite_soundness, audit_rate=config.audit_rate,
-            suite_harness_failed=suite_harness_failed)
+            suite_harness_failed=suite_harness_failed,
+            attack_probability=config.attack_probability,
+            attack_rates=config.attack_rates)
 
 
 # The default metric set. Append more `Metric` objects here to enrich per-run metrics.json.
