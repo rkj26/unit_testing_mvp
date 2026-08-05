@@ -6,16 +6,22 @@ from ..schema import Backend
 
 
 def get_backend(domain: str) -> Backend:
+    backend: Backend
     if domain == "mock":
         from .mock import MockBackend
 
-        return MockBackend()
-    if domain == "apps":
+        backend = MockBackend()
+    elif domain == "apps":
         from .apps import AppsBackend
 
-        return AppsBackend()
-    if domain == "bcb":
+        backend = AppsBackend()
+    elif domain == "bcb":
         from .bcb import BcbBackend
 
-        return BcbBackend()
-    raise ValueError(f"unknown domain {domain!r} (expected bcb | apps | mock)")
+        backend = BcbBackend()
+    else:
+        raise ValueError(f"unknown domain {domain!r} (expected bcb | apps | mock)")
+
+    if not isinstance(backend, Backend):
+        raise TypeError(f"Backend {backend!r} does not conform to Backend protocol")
+    return backend

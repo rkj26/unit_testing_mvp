@@ -35,13 +35,15 @@ class ProgressReporter:
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
 
-    def __enter__(self) -> "ProgressReporter":
+    def __enter__(self) -> ProgressReporter:
         """Start the render thread."""
-        self._thread = threading.Thread(target=self._render_loop, daemon=True, name="progress")
+        self._thread = threading.Thread(
+            target=self._render_loop, daemon=True, name="progress"
+        )
         self._thread.start()
         return self
 
-    def __exit__(self, *exc: Any) -> bool:
+    def __exit__(self, *exc: object) -> bool:
         """Stop the render thread and let it paint the final state."""
         self._stop.set()
         if self._thread is not None:
@@ -50,8 +52,14 @@ class ProgressReporter:
 
     def _render_loop(self) -> None:
         """Render overall-runs + active-phase bars until stopped, refreshing from `status.json`."""
-        from rich.progress import (BarColumn, MofNCompleteColumn, Progress, SpinnerColumn,
-                                    TextColumn, TimeElapsedColumn)
+        from rich.progress import (
+            BarColumn,
+            MofNCompleteColumn,
+            Progress,
+            SpinnerColumn,
+            TextColumn,
+            TimeElapsedColumn,
+        )
 
         columns = [
             SpinnerColumn(),
@@ -69,10 +77,15 @@ class ProgressReporter:
                 time.sleep(0.25)
             self._refresh(prog, runs_task, phase_task, final=True)
 
-    def _refresh(self, prog: Any, runs_task: Any, phase_task: Any, *, final: bool = False) -> None:
+    def _refresh(
+        self, prog: Any, runs_task: Any, phase_task: Any, *, final: bool = False
+    ) -> None:
         """Pull the latest status + completed-run count and update the two bars."""
-        done_runs = sum(1 for r in range(self.runs)
-                        if self._store.has(ArtifactKind.RUN_METRICS, run=r))
+        done_runs = sum(
+            1
+            for r in range(self.runs)
+            if self._store.has(ArtifactKind.RUN_METRICS, run=r)
+        )
         prog.update(runs_task, completed=done_runs)
         st = read_json(self.run_dir / "status.json") or {}
         phase = st.get("phase", "…")
@@ -83,7 +96,13 @@ class ProgressReporter:
         if final and done_runs >= self.runs:
             prog.update(phase_task, description="done", total=1, completed=1, note="")
         elif total:
-            prog.update(phase_task, description=desc, total=total, completed=done or 0, note=note)
+            prog.update(
+                phase_task,
+                description=desc,
+                total=total,
+                completed=done or 0,
+                note=note,
+            )
         else:
             prog.update(phase_task, description=desc, total=None, note=note)
 

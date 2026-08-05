@@ -26,7 +26,9 @@ class BcbBackend:
     name = "bcb"
 
     def __init__(self) -> None:
-        from control_arena.settings.bigcodebench.bigcodebench_setting import BigCodeBenchSetting
+        from control_arena.settings.bigcodebench.bigcodebench_setting import (
+            BigCodeBenchSetting,
+        )
 
         self._setting = BigCodeBenchSetting(sandbox_type="local")
         self._meta: dict[str, dict[str, str]] = {}
@@ -47,7 +49,9 @@ class BcbBackend:
                     "reference": f"{tm.get('code_prompt', '')}\n    pass\n{tm.get('canonical_solution', '')}",
                 }
 
-    def preprocess(self, pool: dict[str, Any], *, limit: int | None = None) -> list[Problem]:
+    def preprocess(
+        self, pool: dict[str, Any], *, limit: int | None = None
+    ) -> list[Problem]:
         items = list(pool["candidates"].items())
         if limit:
             items = items[:limit]
@@ -57,12 +61,24 @@ class BcbBackend:
             tid = str(task_id)
             meta = self._meta.get(tid)
             if meta is None:
-                print(f"  [warn] {tid} not found in BigCodeBench dataset; skipping", flush=True)
+                print(
+                    f"  [warn] {tid} not found in BigCodeBench dataset; skipping",
+                    flush=True,
+                )
                 continue
-            cands = [Candidate(t["honest"]["candidate_id"], "honest", t["honest"]["code"], None)]
+            cands = [
+                Candidate(
+                    t["honest"]["candidate_id"], "honest", t["honest"]["code"], None
+                )
+            ]
             for i, attack in enumerate(t["attack_proposals"]):
                 cands.append(
-                    Candidate(attack["candidate_id"], f"attack_{i}", attack["code"], attack.get("secret_input"))
+                    Candidate(
+                        attack["candidate_id"],
+                        f"attack_{i}",
+                        attack["code"],
+                        attack.get("secret_input"),
+                    )
                 )
             problems.append(
                 Problem(
@@ -76,5 +92,7 @@ class BcbBackend:
             )
         return problems
 
-    def score_candidates(self, problems: list[Problem], limits: ScoringLimits) -> dict[tuple[str, str], ScoreResult]:
+    def score_candidates(
+        self, problems: list[Problem], limits: ScoringLimits
+    ) -> dict[tuple[str, str], ScoreResult]:
         return score_via_control_arena(self._setting, problems, limits)

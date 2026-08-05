@@ -20,9 +20,10 @@ from .config import ModelRuntime
 
 KINDS = ("property_gen", "trigger_search", "tm", "informed", "plan", "write_from_plan")
 
-TEMPERATURE_REJECTING_PREFIXES = ("gpt-5", "o1", "o3", "o4")
+TEMPERATURE_REJECTING_PREFIXES = ("gpt-5", "o1", "o3", "o4", "deepseek-v3.2", "v3.2")
 AZURE_KEY_VARS = ("AZUREAI_API_KEY", "AZURE_API_KEY")
 AZURE_URL_VARS = ("AZUREAI_BASE_URL", "AZUREAI_ENDPOINT_URL", "AZURE_ENDPOINT_URL")
+
 
 _MOCK_PROPS = (
     "```python\n"
@@ -35,7 +36,7 @@ _MOCK: dict[str, str] = {
     "property_gen": _MOCK_PROPS,
     "write_from_plan": _MOCK_PROPS,
     "plan": "1. PROPERTY: f is commutative, f(a,b)==f(b,a). CHECK VIA: run(x) vs run(swapped x). "
-            "TARGET INPUTS: small pairs like {a:0,b:0}, {a:1,b:2}.",
+    "TARGET INPUTS: small pairs like {a:0,b:0}, {a:1,b:2}.",
     "trigger_search": '[{"a": 999, "b": 1}, {"a": 1, "b": 2}, {"a": 0, "b": 0}]',
     "tm": "Looks routine.\nSUSPICION_SCORE: 3",
     "informed": "No property failure noted.\nSUSPICION_SCORE: 3",
@@ -63,7 +64,7 @@ class TrustedModel:
         return self.runtime.max_tokens
 
     def _rejects_temperature(self) -> bool:
-        """OpenAI reasoning models 400 on any temperature but the default, so omit it for them."""
+        """Reasoning models (gpt-5, o1, o3, o4, DeepSeek-V3.2) reject non-default temperature."""
         base = self.runtime.name.lower().split("/")[-1]
         return base.startswith(TEMPERATURE_REJECTING_PREFIXES)
 
@@ -106,18 +107,40 @@ class TrustedModel:
 def resolve(runtime: ModelRuntime) -> TrustedModel:
     """Build a model from its runtime knobs, validating provider credentials up front."""
     if not runtime.name:
-        raise ValueError("a model is required (e.g. --t-model openai-api/azureai/DeepSeek-V3.2 or --mock)")
+        raise ValueError(
+            "a model is required (e.g. --t-model openai-api/azureai/DeepSeek-V3.2 or --mock)"
+        )
+    
+    # Auto-export standard Azure / OpenAI variables that inspect-ai / SDKs expect internally
+    # This allows a unified Azure AI Foundry endpoint (AZUREAI_BASE_URL) to map to everything
+    key = next((os.getenv(alias) for alias in AZURE_KEY_VARS if os.getenv(alias)), None)
+    url = next((os.getenv(alias) for alias in AZURE_URL_VARS if os.getenv(alias)), None)
+    
+    if key:
+        os.environ.setdefault("AZURE_API_KEY", key)
+        os.environ.setdefault("AZURE_OPENAI_API_KEY", key)
+        os.environ.setdefault("OPENAI_API_KEY", key)
+    if url:
+        os.environ.setdefault("AZUREAI_ENDPOINT_URL", url)
+        os.environ.setdefault("AZURE_OPENAI_ENDPOINT", url)
+        os.environ.setdefault("OPENAI_BASE_URL", url)
+
     if "azureai" in runtime.name.split("/"):
         _require_azure_credentials(runtime.name)
     return TrustedModel(runtime)
 
 
 def _require_azure_credentials(name: str) -> None:
-    missing = [var for var, group in (("AZUREAI_API_KEY", AZURE_KEY_VARS),
-                                      ("AZUREAI_BASE_URL", AZURE_URL_VARS))
-               if not any(os.getenv(alias) for alias in group)]
+    missing = [
+        var
+        for var, group in (
+            ("AZUREAI_API_KEY", AZURE_KEY_VARS),
+            ("AZUREAI_BASE_URL", AZURE_URL_VARS),
+        )
+        if not any(os.getenv(alias) for alias in group)
+    ]
     if missing:
-        raise EnvironmentError(
+        raise OSError(
             f"Azure model {name!r} needs {' + '.join(missing)} in .env (see .env.example). "
             "For openai-api/azureai/<deployment>, AZUREAI_BASE_URL is the OpenAI-compatible "
             "endpoint: https://<resource>.services.ai.azure.com/openai/v1"

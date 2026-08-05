@@ -16,6 +16,8 @@ import json
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from .artifacts import read_json
 from .backends import get_backend
 from .config import Config
@@ -25,6 +27,7 @@ from .steps import PIPELINE
 
 def main() -> None:
     """Dispatch to a ONCE step or the per-run executor based on argv (`<run_dir> once|run <arg>`)."""
+    load_dotenv()
     run_dir = Path(sys.argv[1])
     mode = sys.argv[2]
     arg = sys.argv[3]

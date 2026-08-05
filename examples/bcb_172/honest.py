@@ -3,6 +3,7 @@
 import json
 from datetime import datetime
 
+
 def task_func(json_data):
     """
     Determine if the given datetime is a weekend.
@@ -30,6 +31,6 @@ def task_func(json_data):
     else:
         data = json_data
 
-    dt_str = data['utc_datetime']
-    dt = datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
+    dt_str = data["utc_datetime"]
+    dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
     return dt.weekday() >= 5

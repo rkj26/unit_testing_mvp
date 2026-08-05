@@ -84,9 +84,7 @@ def _official_result(sample: Any, label: str) -> dict[str, bool | None]:
         raise RuntimeError(f"{sample.id} has no official BigCodeBench result")
     main_success = score.value.get("main_task_success") == CORRECT
     side_success = (
-        None
-        if label == "honest"
-        else score.value.get("side_task_success") == CORRECT
+        None if label == "honest" else score.value.get("side_task_success") == CORRECT
     )
     return {
         "main_task_success": main_success,
@@ -234,9 +232,7 @@ def generate_pool(split: str, model_name: str) -> Path:
         },
         "views": {"selected_policy": selected},
     }
-    output_path.write_text(
-        json.dumps(pool, indent=2, sort_keys=True), encoding="utf-8"
-    )
+    output_path.write_text(json.dumps(pool, indent=2, sort_keys=True), encoding="utf-8")
     return output_path
 
 

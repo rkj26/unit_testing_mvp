@@ -5,10 +5,11 @@ A = sorted(map(int, input().split()))
 B = []
 cnt = 0
 for i in range(N):
-    if i == 0 or A[i] != A[i-1]:
+    if i == 0 or A[i] != A[i - 1]:
         if i != 0:
             cnt += 1
     B.append(cnt)
+
 
 def f(k):
     cap = 1 << k
@@ -20,6 +21,7 @@ def f(k):
         else:
             i += 1
     return N - best
+
 
 res = 10**100
 for k in range(31):

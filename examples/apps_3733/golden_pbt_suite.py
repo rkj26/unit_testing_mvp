@@ -4,7 +4,7 @@ from collections import Counter
 
 from hypothesis import given, strategies as st, settings
 
-from harness import run_candidate   # run_candidate(stdin: str) -> stdout: str
+from harness import run_candidate  # run_candidate(stdin: str) -> stdout: str
 
 
 # ---------------------------------------------------------------------------
@@ -30,7 +30,9 @@ def parse_in(s):
     first = lines[0].split()
     n = int(first[0])
     I = int(first[1])
-    arr = list(map(int, lines[1].split())) if len(lines) > 1 and lines[1].strip() else []
+    arr = (
+        list(map(int, lines[1].split())) if len(lines) > 1 and lines[1].strip() else []
+    )
     return n, I, arr
 
 
@@ -46,20 +48,21 @@ def parse_out(stdout):
 def compute_params(n, I, arr):
     """Sound quantities derived directly from the input (no optimization)."""
     freqs = sorted(Counter(arr).values(), reverse=True)
-    m = len(freqs)                    # number of distinct values
-    cmax = freqs[0]                   # largest single frequency (the mode count)
-    kmax = (8 * I) // n               # max bits available per element
-    if kmax >= 20:                    # 2^20 > 4e5 >= n >= m  -> window covers all
+    m = len(freqs)  # number of distinct values
+    cmax = freqs[0]  # largest single frequency (the mode count)
+    kmax = (8 * I) // n  # max bits available per element
+    if kmax >= 20:  # 2^20 > 4e5 >= n >= m  -> window covers all
         W = m
     else:
-        W = min(m, 1 << kmax)         # max distinct values we may keep
-    topW = sum(freqs[:W])             # relaxation: best W freqs (ignores contiguity)
+        W = min(m, 1 << kmax)  # max distinct values we may keep
+    topW = sum(freqs[:W])  # relaxation: best W freqs (ignores contiguity)
     return m, cmax, W, topW
 
 
 # ---------------------------------------------------------------------------
 # Generators tuned for coverage of the trigger regions.
 # ---------------------------------------------------------------------------
+
 
 def _order(arr, omode):
     if omode == 1:
@@ -74,7 +77,7 @@ def gen_case(draw, big=False):
     # --- number of distinct values, biased to power-of-2 boundaries ---
     mmode = draw(st.integers(0, 3))
     if mmode == 0:
-        m = 1 << draw(st.integers(0, 4))        # 1,2,4,8,16  (exact log2 boundary)
+        m = 1 << draw(st.integers(0, 4))  # 1,2,4,8,16  (exact log2 boundary)
     elif mmode == 1:
         m = (1 << draw(st.integers(0, 4))) + 1  # 2,3,5,9,17  (needs one extra bit)
     else:
@@ -82,19 +85,19 @@ def gen_case(draw, big=False):
 
     # --- pick the actual distinct values (domain) ---
     dmode = draw(st.integers(0, 3))
-    if dmode == 0:                                # small consecutive block
+    if dmode == 0:  # small consecutive block
         base = draw(st.integers(0, 5))
         vals = list(range(base, base + m))
-    elif dmode == 1:                             # include extreme magnitudes 0 & 1e9
+    elif dmode == 1:  # include extreme magnitudes 0 & 1e9
         s = {0}
         if m >= 2:
-            s.add(10 ** 9)
+            s.add(10**9)
         while len(s) < m:
-            s.add(draw(st.integers(0, 10 ** 9)))
+            s.add(draw(st.integers(0, 10**9)))
         vals = sorted(s)
-    elif dmode == 2:                            # widely spread
-        vals = sorted(draw(st.sets(st.integers(0, 10 ** 9), min_size=m, max_size=m)))
-    else:                                       # tight small domain, heavy structure
+    elif dmode == 2:  # widely spread
+        vals = sorted(draw(st.sets(st.integers(0, 10**9), min_size=m, max_size=m)))
+    else:  # tight small domain, heavy structure
         vals = sorted(draw(st.sets(st.integers(0, 30), min_size=m, max_size=m)))
     m = len(vals)
 
@@ -102,9 +105,9 @@ def gen_case(draw, big=False):
     fmode = draw(st.integers(0, 3))
     hi = 40 if big else 8
     freqs = [draw(st.integers(1, hi)) for _ in range(m)]
-    if fmode == 0:                               # one dominant value
+    if fmode == 0:  # one dominant value
         freqs[draw(st.integers(0, m - 1))] += draw(st.integers(5, 60 if big else 20))
-    elif fmode == 1:                             # every value appears exactly once
+    elif fmode == 1:  # every value appears exactly once
         freqs = [1] * m
 
     arr = []
@@ -114,23 +117,23 @@ def gen_case(draw, big=False):
     n = len(arr)
 
     # --- choose I, biased to the exact fit / bit-budget thresholds ---
-    kfull = 0 if m <= 1 else (m - 1).bit_length()   # ceil(log2 m)
+    kfull = 0 if m <= 1 else (m - 1).bit_length()  # ceil(log2 m)
     tmode = draw(st.integers(0, 5))
-    if tmode == 0:                               # smallest I giving budget exactly k
+    if tmode == 0:  # smallest I giving budget exactly k
         k = draw(st.integers(0, kfull + 1))
         I = max(1, -(-(n * k) // 8))
-    elif tmode == 1:                             # just below budget k
+    elif tmode == 1:  # just below budget k
         k = draw(st.integers(1, kfull + 2))
         I = max(1, (n * k - 1) // 8)
     elif tmode == 2:
-        I = 1                                    # minimum disk
+        I = 1  # minimum disk
     elif tmode == 3:
-        I = 10 ** 8                              # maximum disk (fits)
+        I = 10**8  # maximum disk (fits)
     elif tmode == 4:
-        I = draw(st.integers(1, 10 ** 8))       # uniform
-    else:                                        # exactly enough to fit whole array
+        I = draw(st.integers(1, 10**8))  # uniform
+    else:  # exactly enough to fit whole array
         I = max(1, -(-(n * kfull) // 8))
-    I = max(1, min(I, 10 ** 8))
+    I = max(1, min(I, 10**8))
     return n, I, arr
 
 
@@ -172,24 +175,24 @@ def scale_case(draw):
 # Deterministic curated corner cases (always exercised, incl. exact boundaries).
 def _build_curated():
     cases = [
-        (1, [0]),                               # singleton, min value
-        (1, [10 ** 9]),                         # singleton, max value
-        (1, [7, 7, 7, 7, 7]),                   # all equal (m=1)
-        (1, [0, 1]),                            # m=2
-        (1, [0, 1, 2]),                         # m=3, fits (n*2=6<=8)
-        (1, [0, 1, 2, 3]),                      # m=4, EXACT fit (n*2=8==8I)
-        (1, [0, 1, 2, 3, 4]),                   # m=5, does not fit
-        (3, [0, 1, 2, 3, 4, 5, 6, 7]),          # m=8, EXACT fit (n*3=24==8I)
-        (2, [0, 1, 2, 3, 4, 5, 6, 7]),          # m=8, does not fit (8I=16)
-        (1, [0, 1, 2, 3, 4, 5, 6, 7, 8]),       # m=9 (pow2+1), not fit
-        (1, [0, 10 ** 9]),                      # two extremes
-        (1, [0, 10 ** 9, 0, 10 ** 9, 500]),     # extremes + midpoint, heavy dup
-        (10 ** 8, list(range(10))),             # max I -> fits
-        (1, [5, 5, 5, 4, 4, 3]),                # skewed frequencies
+        (1, [0]),  # singleton, min value
+        (1, [10**9]),  # singleton, max value
+        (1, [7, 7, 7, 7, 7]),  # all equal (m=1)
+        (1, [0, 1]),  # m=2
+        (1, [0, 1, 2]),  # m=3, fits (n*2=6<=8)
+        (1, [0, 1, 2, 3]),  # m=4, EXACT fit (n*2=8==8I)
+        (1, [0, 1, 2, 3, 4]),  # m=5, does not fit
+        (3, [0, 1, 2, 3, 4, 5, 6, 7]),  # m=8, EXACT fit (n*3=24==8I)
+        (2, [0, 1, 2, 3, 4, 5, 6, 7]),  # m=8, does not fit (8I=16)
+        (1, [0, 1, 2, 3, 4, 5, 6, 7, 8]),  # m=9 (pow2+1), not fit
+        (1, [0, 10**9]),  # two extremes
+        (1, [0, 10**9, 0, 10**9, 500]),  # extremes + midpoint, heavy dup
+        (10**8, list(range(10))),  # max I -> fits
+        (1, [5, 5, 5, 4, 4, 3]),  # skewed frequencies
     ]
     out = [to_stdin(len(a), I, a) for I, a in cases]
     # large-size / max-magnitude degenerate case
-    out.append(to_stdin(40000, 1, [10 ** 9] * 40000))
+    out.append(to_stdin(40000, 1, [10**9] * 40000))
     return out
 
 
@@ -199,6 +202,7 @@ CURATED = _build_curated()
 # ---------------------------------------------------------------------------
 # Tests
 # ---------------------------------------------------------------------------
+
 
 @given(st.one_of(st.sampled_from(CURATED), case_string()))
 @settings(max_examples=60, deadline=None)
@@ -230,7 +234,7 @@ def test_monotonic_in_I(stdin):
     # A larger disk can never force MORE changes.
     n, I, arr = parse_in(stdin)
     ans0 = parse_out(run_candidate(stdin))
-    I1 = min(10 ** 8, I + 8 * n)                 # add ~one bit of budget
+    I1 = min(10**8, I + 8 * n)  # add ~one bit of budget
     ans1 = parse_out(run_candidate(to_stdin(n, I1, arr)))
     assert ans1 <= ans0, f"more disk raised changes: I={I}->{ans0}, I={I1}->{ans1}"
 
@@ -265,7 +269,7 @@ def test_relabel_invariant(stdin):
     ans_small = parse_out(run_candidate(to_stdin(n, I, arr_small)))
 
     # (b) spread distinct values across the full magnitude range (includes big values)
-    step = (10 ** 9) // (m + 1)
+    step = (10**9) // (m + 1)
     big = {v: i * step for i, v in enumerate(order)}
     arr_big = [big[v] for v in arr]
     ans_big = parse_out(run_candidate(to_stdin(n, I, arr_big)))
@@ -282,11 +286,13 @@ def test_scale_frequencies(stdin_t):
     # every frequency is multiplied by t, so the minimal changes scale by t.
     stdin, t = stdin_t
     n, I, arr = parse_in(stdin)
-    if n * t > 4 * 10 ** 5 or I * t > 10 ** 8:
+    if n * t > 4 * 10**5 or I * t > 10**8:
         return
     ans0 = parse_out(run_candidate(stdin))
     arr2 = []
     for v in arr:
         arr2.extend([v] * t)
     ans2 = parse_out(run_candidate(to_stdin(n * t, I * t, arr2)))
-    assert ans2 == t * ans0, f"scaling by {t}: {ans0} -> expected {t * ans0}, got {ans2}"
+    assert ans2 == t * ans0, (
+        f"scaling by {t}: {ans0} -> expected {t * ans0}, got {ans2}"
+    )

@@ -1,7 +1,7 @@
 # APPS/3692 GOLDEN PBT SUITE (Opus, blind/spec-only)
 
 from hypothesis import given, strategies as st, settings
-from harness import run_candidate   # run_candidate(stdin: str) -> stdout: str
+from harness import run_candidate  # run_candidate(stdin: str) -> stdout: str
 
 # =====================================================================
 # Problem: count the number of regions (faces, INCLUDING the single
@@ -22,13 +22,13 @@ from harness import run_candidate   # run_candidate(stdin: str) -> stdout: str
 #   * n concentric circles, or n pairwise-far-apart circles, give n+1.
 # =====================================================================
 
-MAXC = 10   # |x|,|y| <= 10 and r <= 10
+MAXC = 10  # |x|,|y| <= 10 and r <= 10
 
 
 # ---------------------------------------------------------------- helpers
 def _fmt(circles):
     lines = [str(len(circles))]
-    for (x, y, r) in circles:
+    for x, y, r in circles:
         lines.append("{} {} {}".format(x, y, r))
     return "\n".join(lines) + "\n"
 
@@ -74,7 +74,7 @@ def _distinct_radii(draw, n, rmax):
 def _fix(circles, n, cmax, rmax):
     """Clamp to bounds, dedupe, and guarantee EXACTLY n distinct valid circles."""
     out, used = [], set()
-    for (x, y, r) in circles:
+    for x, y, r in circles:
         x = max(-cmax, min(cmax, int(x)))
         y = max(-cmax, min(cmax, int(y)))
         r = max(1, min(rmax, int(r)))
@@ -102,46 +102,63 @@ def _fix(circles, n, cmax, rmax):
 def _config(draw, cmax, rmax, nfix=None):
     """Rich generator biased toward degenerate / boundary geometry."""
     n = nfix if nfix is not None else draw(st.integers(1, 3))
-    mode = draw(st.sampled_from(
-        ["dense", "wide", "concentric", "collinear", "common", "tangent"]))
+    mode = draw(
+        st.sampled_from(
+            ["dense", "wide", "concentric", "collinear", "common", "tangent"]
+        )
+    )
 
-    if mode == "dense":                       # small box -> many crossings/tangencies
+    if mode == "dense":  # small box -> many crossings/tangencies
         c = min(4, cmax)
         rr = min(4, rmax)
-        circles = [(draw(st.integers(-c, c)),
-                    draw(st.integers(-c, c)),
-                    draw(st.integers(1, rr))) for _ in range(n)]
-    elif mode == "wide":                      # extremes at the coordinate/radius bounds
-        circles = [(draw(st.sampled_from([-cmax, -cmax + 1, 0, cmax - 1, cmax])),
-                    draw(st.sampled_from([-cmax, -cmax + 1, 0, cmax - 1, cmax])),
-                    draw(st.sampled_from([1, 2, rmax - 1, rmax]))) for _ in range(n)]
-    elif mode == "concentric":                # same centre, distinct radii (nested)
+        circles = [
+            (
+                draw(st.integers(-c, c)),
+                draw(st.integers(-c, c)),
+                draw(st.integers(1, rr)),
+            )
+            for _ in range(n)
+        ]
+    elif mode == "wide":  # extremes at the coordinate/radius bounds
+        circles = [
+            (
+                draw(st.sampled_from([-cmax, -cmax + 1, 0, cmax - 1, cmax])),
+                draw(st.sampled_from([-cmax, -cmax + 1, 0, cmax - 1, cmax])),
+                draw(st.sampled_from([1, 2, rmax - 1, rmax])),
+            )
+            for _ in range(n)
+        ]
+    elif mode == "concentric":  # same centre, distinct radii (nested)
         cx = draw(st.integers(-cmax, cmax))
         cy = draw(st.integers(-cmax, cmax))
         circles = [(cx, cy, r) for r in _distinct_radii(draw, n, rmax)]
-    elif mode == "collinear":                 # like the examples: equal r on a line
+    elif mode == "collinear":  # like the examples: equal r on a line
         r = draw(st.integers(1, min(4, rmax)))
         d = draw(st.sampled_from([r, 2 * r, max(1, 2 * r - 1), 2 * r + 1]))
         start = draw(st.integers(-cmax, 0))
         circles = [(start + i * d, 0, r) for i in range(n)]
-    elif mode == "common":                    # all pass through the origin (concurrent)
+    elif mode == "common":  # all pass through the origin (concurrent)
         r = draw(st.integers(1, min(cmax, rmax)))
         menu = [(0, r, r), (r, 0, r), (0, -r, r), (-r, 0, r)]
         idxs = list(draw(st.permutations(range(4))))
         circles = [menu[i] for i in idxs[:n]]
-    else:                                     # explicit tangency (exact threshold)
+    else:  # explicit tangency (exact threshold)
         r1 = draw(st.integers(1, rmax))
         r2 = draw(st.integers(1, rmax))
-        d = (r1 + r2) if draw(st.booleans()) else abs(r1 - r2)   # ext / int tangent
+        d = (r1 + r2) if draw(st.booleans()) else abs(r1 - r2)  # ext / int tangent
         if d <= 2 * cmax:
             ax = draw(st.integers(-cmax, cmax - d))
             circles = [(ax, 0, r1), (ax + d, 0, r2)]
         else:
             circles = [(0, 0, r1)]
         if n >= 3:
-            circles.append((draw(st.integers(-cmax, cmax)),
-                            draw(st.integers(-cmax, cmax)),
-                            draw(st.integers(1, rmax))))
+            circles.append(
+                (
+                    draw(st.integers(-cmax, cmax)),
+                    draw(st.integers(-cmax, cmax)),
+                    draw(st.integers(1, rmax)),
+                )
+            )
 
     return _fix(circles, n, cmax, rmax)
 
@@ -153,12 +170,12 @@ def gen_config(draw):
 
 
 @st.composite
-def gen_config_small(draw):                   # small so we can scale up in bounds
+def gen_config_small(draw):  # small so we can scale up in bounds
     return _fmt(_config(draw, 3, 3))
 
 
 @st.composite
-def gen_for_add(draw):                         # base of 1 or 2 circles
+def gen_for_add(draw):  # base of 1 or 2 circles
     return _fmt(_config(draw, MAXC, MAXC, nfix=draw(st.integers(1, 2))))
 
 
@@ -166,17 +183,22 @@ def gen_for_add(draw):                         # base of 1 or 2 circles
 def gen_separated(draw):
     kind = draw(st.sampled_from(["single", "concentric", "disjoint"]))
     if kind == "single":
-        return _fmt([(draw(st.integers(-MAXC, MAXC)),
-                      draw(st.integers(-MAXC, MAXC)),
-                      draw(st.integers(1, MAXC)))])
+        return _fmt(
+            [
+                (
+                    draw(st.integers(-MAXC, MAXC)),
+                    draw(st.integers(-MAXC, MAXC)),
+                    draw(st.integers(1, MAXC)),
+                )
+            ]
+        )
     n = draw(st.integers(1, 3))
     if kind == "concentric":
         cx = draw(st.integers(-MAXC, MAXC))
         cy = draw(st.integers(-MAXC, MAXC))
         return _fmt([(cx, cy, r) for r in _distinct_radii(draw, n, MAXC)])
     # disjoint: far-apart anchors (min pairwise centre distance 9) with tiny radii
-    anchors = [(-9, -9), (9, 9), (9, -9), (-9, 9),
-               (0, 9), (0, -9), (9, 0), (-9, 0)]
+    anchors = [(-9, -9), (9, 9), (9, -9), (-9, 9), (0, 9), (0, -9), (9, 0), (-9, 0)]
     idxs = list(draw(st.permutations(range(len(anchors)))))[:n]
     circles = [(anchors[i][0], anchors[i][1], draw(st.integers(1, 3))) for i in idxs]
     return _fmt(circles)
@@ -193,7 +215,8 @@ def test_format_and_bounds(stdin):
     lo, hi = n + 1, n * n - n + 2
     assert lo <= val <= hi, (
         "region count %d outside sound range [%d,%d] for n=%d\ninput=%r out=%r"
-        % (val, lo, hi, n, stdin, out))
+        % (val, lo, hi, n, stdin, out)
+    )
 
 
 @given(gen_separated())
@@ -206,7 +229,8 @@ def test_separated_certificate(stdin):
     val = _out_int(run_candidate(stdin))
     assert val == n + 1, (
         "clearly-separated %d circle(s) must give %d regions, got %d\ninput=%r"
-        % (n, n + 1, val, stdin))
+        % (n, n + 1, val, stdin)
+    )
 
 
 @given(gen_config())
@@ -238,12 +262,13 @@ def test_isometry_invariance(stdin):
     dx = (MAXC - max(xs)) if key % 2 == 0 else (-MAXC - min(xs))
     dy = (MAXC - max(ys)) if (key // 2) % 2 == 0 else (-MAXC - min(ys))
     tc = [(x + dx, y + dy, r) for (x, y, r) in tc]
-    tc = list(reversed(tc))                     # also exercises order-invariance
+    tc = list(reversed(tc))  # also exercises order-invariance
 
     timg = _out_int(run_candidate(_fmt(tc)))
     assert timg == base, (
         "rigid motion + reorder changed region count: base=%d image=%d\n"
-        "base_in=%r\nimg_in=%r" % (base, timg, stdin, _fmt(tc)))
+        "base_in=%r\nimg_in=%r" % (base, timg, stdin, _fmt(tc))
+    )
 
 
 @given(gen_config_small())
@@ -266,7 +291,8 @@ def test_scaling_invariance(stdin):
     simg = _out_int(run_candidate(_fmt(scaled)))
     assert simg == base, (
         "scaling by %d changed region count: base=%d image=%d\n"
-        "base_in=%r\nscaled_in=%r" % (k, base, simg, stdin, _fmt(scaled)))
+        "base_in=%r\nscaled_in=%r" % (k, base, simg, stdin, _fmt(scaled))
+    )
 
 
 @given(gen_for_add())
@@ -282,16 +308,28 @@ def test_add_boundary_disjoint_adds_one(stdin):
     assert (n + 1) <= r0 <= (n * n - n + 2)
 
     used = set(base)
-    candidates = [(9, 9, 1), (-9, -9, 1), (9, -9, 1), (-9, 9, 1),
-                  (0, 9, 1), (9, 0, 1), (-9, 0, 1), (0, -9, 1),
-                  (10, 10, 1), (-10, -10, 1), (10, -10, 1), (-10, 10, 1),
-                  (9, 9, 2), (-9, -9, 2)]
+    candidates = [
+        (9, 9, 1),
+        (-9, -9, 1),
+        (9, -9, 1),
+        (-9, 9, 1),
+        (0, 9, 1),
+        (9, 0, 1),
+        (-9, 0, 1),
+        (0, -9, 1),
+        (10, 10, 1),
+        (-10, -10, 1),
+        (10, -10, 1),
+        (-10, 10, 1),
+        (9, 9, 2),
+        (-9, -9, 2),
+    ]
     new = None
-    for (xn, yn, rn) in candidates:
+    for xn, yn, rn in candidates:
         if (xn, yn, rn) in used:
             continue
         ok = True
-        for (xi, yi, ri) in base:
+        for xi, yi, ri in base:
             d2 = (xn - xi) ** 2 + (yn - yi) ** 2
             separate = d2 > (rn + ri) ** 2
             nested = d2 < (rn - ri) ** 2
@@ -302,9 +340,10 @@ def test_add_boundary_disjoint_adds_one(stdin):
             new = (xn, yn, rn)
             break
     if new is None:
-        return   # could not place a safe extra circle; skip this example
+        return  # could not place a safe extra circle; skip this example
 
     r1 = _out_int(run_candidate(_fmt(base + [new])))
     assert r1 == r0 + 1, (
         "adding a boundary-disjoint circle must add exactly 1 region: "
-        "r0=%d r1=%d\nbase=%r new=%r" % (r0, r1, stdin, new))
+        "r0=%d r1=%d\nbase=%r new=%r" % (r0, r1, stdin, new)
+    )

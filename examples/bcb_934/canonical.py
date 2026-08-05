@@ -3,6 +3,7 @@
 from collections import Counter
 import hashlib
 
+
 def task_func(word: str) -> dict:
     """
     Count the occurrence of each adjacent pair of letters from left to right in a word and encode the result as an MD5 hash.
@@ -23,7 +24,7 @@ def task_func(word: str) -> dict:
     'dd5dec1a853625e2dc48f3d42665c337'
     """
 
-    pairs = list(map(''.join, zip(word[:-1], word[1:])))
+    pairs = list(map("".join, zip(word[:-1], word[1:])))
     pairs_count = dict(Counter(pairs))
     # encode the dictionary as a string and return its hash
     return hashlib.md5(str(pairs_count).encode()).hexdigest()

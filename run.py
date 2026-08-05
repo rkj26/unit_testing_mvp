@@ -24,29 +24,31 @@ from pydantic import ValidationError
 from pipeline import engine
 from pipeline.backends import get_backend
 from pipeline.config import Settings
-from pipeline.steps import PIPELINE
+from pipeline.steps import get_pipeline
 
 
 def _prevent_system_sleep() -> None:
-    """Hold a macOS power assertion for this process's lifetime.
-
-    A run is resumable, so sleeping never loses work — but it stalls in-flight provider calls, and a
-    sleep longer than the unit deadline degrades a task that was fine. `-w <pid>` makes caffeinate
-    exit with us, so it cannot outlive the run.
-    """
+    """Hold a macOS power assertion for this process's lifetime."""
     if sys.platform != "darwin":
         return
     try:
-        subprocess.Popen(["caffeinate", "-dimsu", "-w", str(os.getpid())],
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.Popen(
+            ["caffeinate", "-dimsu", "-w", str(os.getpid())],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
     except OSError as error:
-        print(f"run.py: could not prevent sleep ({error}); a long sleep may degrade units")
+        print(
+            f"run.py: could not prevent sleep ({error}); a long sleep may degrade units"
+        )
 
 
 def main() -> None:
     load_dotenv()
     os.environ.setdefault("MPLBACKEND", "Agg")
-    os.environ["PATH"] = os.path.dirname(sys.executable) + os.pathsep + os.environ.get("PATH", "")
+    os.environ["PATH"] = (
+        os.path.dirname(sys.executable) + os.pathsep + os.environ.get("PATH", "")
+    )
 
     try:
         settings = Settings()
@@ -64,7 +66,8 @@ def main() -> None:
         pool = json.loads(Path(config.dataset).read_text(encoding="utf-8"))
         pool["_path"] = config.dataset
 
-    engine.run(config, get_backend(config.domain.value), pool, PIPELINE)
+    backend = get_backend(config.domain.value)
+    engine.run(config, backend, pool, get_pipeline())
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 import re
 from hypothesis import given, strategies as st, settings
 
-from harness import run_candidate   # run_candidate(stdin: str) -> stdout: str
+from harness import run_candidate  # run_candidate(stdin: str) -> stdout: str
 
 
 # ----------------------------------------------------------------------------
@@ -30,6 +30,7 @@ from harness import run_candidate   # run_candidate(stdin: str) -> stdout: str
 
 # ---------------------------- helpers ---------------------------------------
 
+
 def build_stdin(rows):
     H = len(rows)
     W = len(rows[0])
@@ -39,7 +40,7 @@ def build_stdin(rows):
 def parse_grid(stdin):
     parts = stdin.split("\n")
     H, W = map(int, parts[0].split())
-    rows = parts[1:1 + H]
+    rows = parts[1 : 1 + H]
     return H, W, rows
 
 
@@ -73,17 +74,17 @@ def upper_bound(rows):
 # ---------------------------- generators ------------------------------------
 
 TEMPLATES = [
-    ["S.o", ".o.", "o.T"],          # sample 1  -> 2
-    ["S...", ".oo.", "...T"],       # sample 2  -> 0
+    ["S.o", ".o.", "o.T"],  # sample 1  -> 2
+    ["S...", ".oo.", "...T"],  # sample 2  -> 0
     [".S.", ".o.", ".o.", ".T."],  # sample 3  -> -1 (same column)
-    ["ST", ".."],                   # same row  -> -1
-    ["S.", "T."],                   # same col  -> -1
-    ["S.", ".T"],                   # diagonal, no leaves -> 0
-    ["So", "oT"],                   # 2x2 full  -> 2
-    ["Soo", "ooo", "ooT"],          # 3x3 all leaves diagonal endpoints
-    ["S..", ".o.", "..T"],          # unreachable centre leaf -> 0
-    ["S.o", ".oo", "o.T"],          # mixed
-    ["oS.", ".o.", ".To"],          # S/T not at corners
+    ["ST", ".."],  # same row  -> -1
+    ["S.", "T."],  # same col  -> -1
+    ["S.", ".T"],  # diagonal, no leaves -> 0
+    ["So", "oT"],  # 2x2 full  -> 2
+    ["Soo", "ooo", "ooT"],  # 3x3 all leaves diagonal endpoints
+    ["S..", ".o.", "..T"],  # unreachable centre leaf -> 0
+    ["S.o", ".oo", "o.T"],  # mixed
+    ["oS.", ".o.", ".To"],  # S/T not at corners
     ["S..o", "o..o", "o..o", "o..T"],  # two parallel columns of leaves
 ]
 
@@ -93,8 +94,10 @@ def _rand_grid(draw, max_dim=9):
     H = draw(st.integers(min_value=2, max_value=max_dim))
     W = draw(st.integers(min_value=2, max_value=max_dim))
     dens = draw(st.sampled_from([0, 15, 40, 70, 100]))
-    cells = [["o" if draw(st.integers(0, 99)) < dens else "." for _ in range(W)]
-             for _ in range(H)]
+    cells = [
+        ["o" if draw(st.integers(0, 99)) < dens else "." for _ in range(W)]
+        for _ in range(H)
+    ]
 
     mode = draw(st.sampled_from(["same_row", "same_col", "diff", "diff"]))
     rs = draw(st.integers(0, H - 1))
@@ -155,23 +158,31 @@ def _big_grid(draw):
     if kind == "tall":
         H, W = 100, draw(st.sampled_from([2, 3, 4]))
         # a column of leaves in S's column; only the bottom one touches T's row.
-        rows = ["".join(("S" if (i == 0 and j == 0) else
-                          ("o" if j == 0 else ".")) for j in range(W))
-                for i in range(H)]
-        rows[H - 1] = rows[H - 1][:W - 1] + "T"
+        rows = [
+            "".join(
+                ("S" if (i == 0 and j == 0) else ("o" if j == 0 else "."))
+                for j in range(W)
+            )
+            for i in range(H)
+        ]
+        rows[H - 1] = rows[H - 1][: W - 1] + "T"
         return build_stdin(rows)
     if kind == "wide":
         H, W = draw(st.sampled_from([2, 3, 4])), 100
-        rows = ["".join(("S" if (i == 0 and j == 0) else
-                          ("o" if i == 0 else ".")) for j in range(W))
-                for i in range(H)]
-        rows[H - 1] = rows[H - 1][:W - 1] + "T"
+        rows = [
+            "".join(
+                ("S" if (i == 0 and j == 0) else ("o" if i == 0 else "."))
+                for j in range(W)
+            )
+            for i in range(H)
+        ]
+        rows[H - 1] = rows[H - 1][: W - 1] + "T"
         return build_stdin(rows)
     if kind == "huge":
         H = W = 100
         rows = ["." * W for _ in range(H)]
         rows[0] = "S" + rows[0][1:]
-        rows[H - 1] = rows[H - 1][:W - 1] + "T"
+        rows[H - 1] = rows[H - 1][: W - 1] + "T"
         return build_stdin(rows)
     # line: 2 x W, many vertex-disjoint S->T paths (large answer, small grid)
     W = draw(st.integers(10, 30))
@@ -187,6 +198,7 @@ _small = st.one_of(_rand_grid(max_dim=6), _offset_grid(), _templates)
 
 
 # ------------------------------- tests --------------------------------------
+
 
 @given(_primary)
 @settings(max_examples=45, deadline=None)
@@ -207,8 +219,9 @@ def test_format_certificate_range(stdin):
         # Achievable: a finite, non-negative answer bounded by a known cut.
         assert ans != -1, "S,T do not share row/col -> answer must be finite"
         ub = upper_bound(rows)
-        assert 0 <= ans <= ub, \
-            "answer {} outside [0, {}] (valid cut size)".format(ans, ub)
+        assert 0 <= ans <= ub, "answer {} outside [0, {}] (valid cut size)".format(
+            ans, ub
+        )
 
 
 @given(_small)
@@ -248,7 +261,7 @@ def _swap_pair(draw):
     for r in rows:
         swapped.append(r.replace("S", "\0").replace("T", "S").replace("\0", "T"))
     if draw(st.booleans()):
-        swapped = swapped + ["." * W]        # neutral empty row
+        swapped = swapped + ["." * W]  # neutral empty row
     if draw(st.booleans()):
         swapped = [r + "." for r in swapped]  # neutral empty column
     return stdin, build_stdin(swapped)

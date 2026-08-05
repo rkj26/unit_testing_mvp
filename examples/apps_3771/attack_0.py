@@ -13,7 +13,7 @@ def solve():
     W = int(data[1])
     grid = [data[2 + i].decode() for i in range(H)]
 
-    INF = 10 ** 9
+    INF = 10**9
 
     # Index every leaf (non '.' cell).
     leaf_id = {}
@@ -23,13 +23,13 @@ def solve():
         row = grid[i]
         for j in range(W):
             c = row[j]
-            if c == '.':
+            if c == ".":
                 continue
             idx = len(leaf_id)
             leaf_id[(i, j)] = idx
-            if c == 'S':
+            if c == "S":
                 sr, sc, s_idx = i, j, idx
-            elif c == 'T':
+            elif c == "T":
                 tr, tc, t_idx = i, j, idx
 
     # If S and T share a row or column, the frog can jump directly and we
@@ -57,7 +57,7 @@ def solve():
         c = grid[i][j]
         in_node = 2 * idx
         out_node = 2 * idx + 1
-        cap = INF if c in ('S', 'T') else 1
+        cap = INF if c in ("S", "T") else 1
         add_edge(in_node, out_node, cap)
         rn = row_base + i
         cn = col_base + j
@@ -67,7 +67,7 @@ def solve():
         add_edge(cn, in_node, INF)
 
     source = 2 * s_idx + 1  # S out-node
-    sink = 2 * t_idx        # T in-node
+    sink = 2 * t_idx  # T in-node
 
     level = [0] * N
     it = [0] * N

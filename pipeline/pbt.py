@@ -18,16 +18,9 @@ from __future__ import annotations
 
 import ast
 import json
-import os
 import re
-import shutil
-import signal
-import subprocess
-import sys
-import tempfile
 from pathlib import Path
 from typing import Any
-
 
 from . import search
 from .outcome import Blame, Unknown
@@ -65,7 +58,10 @@ def render(name: str, **kw: Any) -> str:
     return text
 
 
-_PROPERTY_PROMPTS = {"default": "property_gen.txt", "precision": "property_gen_precision.txt"}
+_PROPERTY_PROMPTS = {
+    "default": "property_gen.txt",
+    "precision": "property_gen_precision.txt",
+}
 _SEARCH_PROMPTS = {"default": "trigger_search.txt", "dense": "trigger_search_dense.txt"}
 
 
@@ -175,11 +171,18 @@ def _salvage_json_array(blob: str) -> list[Any] | None:
 
 def parse_search_space(completion: str) -> tuple[list[Any] | None, str | None]:
     text = (completion or "").strip()
-    fence = re.search(r"```(?:json)?\s*(\[.*)", text, re.DOTALL)
-    blob = fence.group(1) if fence else (text[text.find("[") :] if "[" in text else None)
+    fence = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, re.DOTALL)
+    if fence:
+        blob = fence.group(1)
+    else:
+        start = text.find("[")
+        end = text.rfind("]")
+        blob = (
+            text[start : end + 1] if start != -1 and end != -1 and start < end else None
+        )
     if blob is None:
         return None, "no JSON array found"
-    blob = blob.strip().rstrip("`").strip()
+    blob = blob.strip()
     try:
         arr = json.loads(blob)
     except Exception:
@@ -191,157 +194,7 @@ def parse_search_space(completion: str) -> tuple[list[Any] | None, str | None]:
     return arr, None
 
 
-_HARNESS = '''\
-import json, sys, io, contextlib, os, subprocess
-RESULT = os.environ["PBT_RESULT"]
-
-class _CandidateError(Exception):
-    """The CANDIDATE under test raised (or a stdio program exited nonzero)."""
-
-__ENTRY_SETUP__
-
-# ---- model-written properties ----
-__PROPERTIES__
-# ---- end properties ----
-
-SPACE = json.loads(__SPACE_JSON__)
-_props = [(n, f) for n, f in sorted(globals().items())
-          if (n.startswith("prop_") or n.startswith("test_")) and callable(f)]
-_records = []
-for _pname, _pfn in _props:
-    for _i, _x in enumerate(SPACE):
-        _rec = {"prop": _pname, "i": _i}
-        try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                _pfn(run, _x)
-            _rec["outcome"] = "pass"
-        except AssertionError as _e:
-            _rec["outcome"] = "catch"; _rec["msg"] = str(_e)[:300]
-        except _CandidateError as _e:
-            _rec["outcome"] = "candidate_crash"; _rec["msg"] = str(_e)[:300]
-        except Exception as _e:
-            _rec["outcome"] = "prop_error"; _rec["msg"] = type(_e).__name__ + ": " + str(_e)[:300]
-        _records.append(_rec)
-with open(RESULT, "w") as _f:
-    json.dump({"props": [n for n, _ in _props], "records": _records}, _f)
-'''
-
-_ENTRY_FUNCTION = '''\
-import signal as _signal
-_g = {}
-exec(compile(__CANDIDATE_SRC__, "candidate.py", "exec"), _g)
-_ENTRY = _g[__ENTRY_NAME__]
-class _Timeout(Exception):
-    pass
-def _on_alarm(_s, _f):
-    raise _Timeout()
-_signal.signal(_signal.SIGALRM, _on_alarm)
-def run(x):
-    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)
-    try:
-        return _ENTRY(**x)
-    except _Timeout:
-        raise _CandidateError("timeout")
-    except Exception as _e:
-        raise _CandidateError(type(_e).__name__ + ": " + str(_e)[:200])
-    finally:
-        _signal.setitimer(_signal.ITIMER_REAL, 0)
-'''
-
-_ENTRY_STDIO = '''\
-import io as _io, signal as _signal
-_CAND_CODE = compile(__CANDIDATE_SRC__, "candidate_prog.py", "exec")
-class _Timeout(Exception):
-    pass
-def _on_alarm(_s, _f):
-    raise _Timeout()
-_signal.signal(_signal.SIGALRM, _on_alarm)
-def run(x):
-    _old_in, _old_out, _old_argv = sys.stdin, sys.stdout, sys.argv
-    sys.stdin, sys.stdout, sys.argv = _io.StringIO(x), _io.StringIO(), ["candidate_prog.py"]
-    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)
-    try:
-        exec(_CAND_CODE, {"__name__": "__main__"})
-    except _Timeout:
-        raise _CandidateError("timeout")
-    except SystemExit as _e:
-        if _e.code not in (0, None):
-            raise _CandidateError("exit %s" % _e.code)
-    except Exception as _e:
-        raise _CandidateError(type(_e).__name__ + ": " + str(_e)[:200])
-    finally:
-        _signal.setitimer(_signal.ITIMER_REAL, 0)
-        _result = sys.stdout.getvalue()
-        sys.stdin, sys.stdout, sys.argv = _old_in, _old_out, _old_argv
-    return _result
-'''
-
-
-def _build_harness(problem: Problem, code: str, props_src: str, space: list[Any]) -> str:
-    if problem.io_mode == "function":
-        setup = _ENTRY_FUNCTION.replace("__CANDIDATE_SRC__", repr(code)).replace(
-            "__ENTRY_NAME__", repr(problem.entry_point)
-        ).replace("__CAND_TIMEOUT__", str(SINGLE_CANDIDATE_CALL_SECONDS))
-    else:
-        setup = _ENTRY_STDIO.replace("__CANDIDATE_SRC__", repr(code)).replace(
-            "__CAND_TIMEOUT__", str(SINGLE_CANDIDATE_CALL_SECONDS)
-        )
-    return (
-        _HARNESS.replace("__ENTRY_SETUP__", setup)
-        .replace("__PROPERTIES__", props_src)
-        .replace("__SPACE_JSON__", repr(json.dumps(space)))
-    )
-
-
-def _kill_group(proc: "subprocess.Popen") -> None:
-    """SIGKILL the process's whole group (harness + any candidate_prog.py it spawned), then reap it,
-    so a timed-out eval can't leave orphaned candidate processes grinding the CPU."""
-    try:
-        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-    except (ProcessLookupError, PermissionError):
-        pass
-    try:
-        proc.wait(timeout=5)
-    except Exception:
-        pass
-
-
-def run_raw(problem: Problem, code: str, props_src: str, space: list[Any],
-            *, timeout_s: int = DEFAULT_PBT_TIMEOUT) -> dict[str, Any]:
-    """Run every property over every search-space input against one implementation.
-
-    The harness gets its own process group so a timeout kills the candidate it spawned too; an
-    orphaned looping candidate would otherwise run uncapped and starve every other eval.
-    Candidates run in-process against redirected stdio rather than a fresh interpreter per call,
-    because a ~33ms spawn cost per `run(x)` blew the reference timeout on spawn overhead alone.
-    """
-    directory = tempfile.mkdtemp(prefix="pbt_")
-    try:
-        (Path(directory) / "harness.py").write_text(_build_harness(problem, code, props_src, space))
-        env = {**os.environ, "PBT_RESULT": "pbt_result.json"}
-        proc = subprocess.Popen(
-            [sys.executable, "harness.py"],
-            cwd=directory,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            env=env,
-            start_new_session=True,
-        )
-        try:
-            _out, err = proc.communicate(timeout=timeout_s)
-        except subprocess.TimeoutExpired:
-            _kill_group(proc)
-            return {"ok": False, "error": "timeout", "records": [], "props": []}
-        try:
-            result = json.loads((Path(directory) / "pbt_result.json").read_text())
-            records, props = result["records"], result["props"]
-        except Exception:
-            return {"ok": False, "error": (err or "no result file")[:500],
-                    "records": [], "props": []}
-        return {"ok": True, "error": None, "records": records, "props": props}
-    finally:
-        shutil.rmtree(directory, ignore_errors=True)
+from .harness import run_raw
 
 
 def _invalid(reason: str) -> dict[str, Any]:
@@ -364,7 +217,9 @@ def _score_candidate(
 ) -> dict[str, Any]:
     if not raw["ok"]:
         return _invalid(f"candidate run failed: {raw['error']}")
-    recs = [r for r in raw["records"] if r["prop"] in sound_props and r["i"] in valid_inputs]
+    recs = [
+        r for r in raw["records"] if r["prop"] in sound_props and r["i"] in valid_inputs
+    ]
     catches = [r for r in recs if r["outcome"] == "catch"]
     crashes = [r for r in recs if r["outcome"] == "candidate_crash"]
     per_prop: dict[str, int] = {}
@@ -380,20 +235,31 @@ def _score_candidate(
         "n_candidate_crashes": len(crashes),
         "per_prop": per_prop,
         "catch_examples": [
-            {"prop": r["prop"], "input": space[r["i"]], "msg": r.get("msg", "")} for r in catches[:3]
+            {"prop": r["prop"], "input": space[r["i"]], "msg": r.get("msg", "")}
+            for r in catches[:3]
         ],
         "error": None,
     }
 
 
 def _empty_meta(unknown: Unknown, n_space: int = 0) -> dict[str, Any]:
-    return {"valid": False, "sound": False, "reason": unknown.reason,
-            "unknown": unknown.to_json(), "n_props": 0, "n_space": n_space,
-            "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
+    return {
+        "valid": False,
+        "sound": False,
+        "reason": unknown.reason,
+        "unknown": unknown.to_json(),
+        "n_props": 0,
+        "n_space": n_space,
+        "sound_props": [],
+        "valid_inputs": [],
+        "unsound_props": [],
+        "invalid_inputs": [],
+    }
 
 
-def degraded(problem: Problem, reason: str, blame: Blame = Blame.INFRA
-             ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
+def degraded(
+    problem: Problem, reason: str, blame: Blame = Blame.INFRA
+) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
     """A fully-abstaining suite result, used for per-problem failure isolation.
 
     Blame defaults to INFRA: this path is reached when an exception escaped the step, and an
@@ -401,20 +267,31 @@ def degraded(problem: Problem, reason: str, blame: Blame = Blame.INFRA
     an invalid suite from `evaluate` instead.
     """
     inv = _invalid(reason)
-    return (_empty_meta(Unknown(blame, reason)),
-            {c.candidate_id: {"pbt": inv, "pbt_ceiling": dict(inv)} for c in problem.candidates})
+    return (
+        _empty_meta(Unknown(blame, reason)),
+        {
+            c.candidate_id: {"pbt": inv, "pbt_ceiling": dict(inv)}
+            for c in problem.candidates
+        },
+    )
 
 
-def _gate(problem: Problem, props_src: str, space: list[Any], timeout_s: int) -> dict[str, Any]:
+def _gate(
+    problem: Problem, props_src: str, space: list[Any], timeout_s: int
+) -> dict[str, Any]:
     """Run the reference over `space` to find which properties and inputs are usable.
 
     A property that fires or errors on the reference is unsound; an input the reference crashes on is
     out of domain. Both are dropped from `pbt_ceiling` and kept in `pbt`.
     """
-    ref = run_raw(problem, problem.reference_code, props_src, space, timeout_s=timeout_s)
+    ref = run_raw(
+        problem, problem.reference_code, props_src, space, timeout_s=timeout_s
+    )
     if not ref["ok"]:
         return {"ok": False, "error": ref["error"]}
-    invalid_inputs = sorted({r["i"] for r in ref["records"] if r["outcome"] == "candidate_crash"})
+    invalid_inputs = sorted(
+        {r["i"] for r in ref["records"] if r["outcome"] == "candidate_crash"}
+    )
     valid_inputs = [i for i in range(len(space)) if i not in set(invalid_inputs)]
     bad = {
         r["prop"]
@@ -431,7 +308,9 @@ def _gate(problem: Problem, props_src: str, space: list[Any], timeout_s: int) ->
     }
 
 
-def _candidate_space(problem: Problem, cand, blind: list[Any], budget: int) -> list[Any]:
+def _candidate_space(
+    problem: Problem, cand, blind: list[Any], budget: int
+) -> list[Any]:
     """The blind space interleaved with inputs chosen by reading THIS candidate's code.
 
     Soundness constrains the oracle, not the generator: the properties never see the code and they
@@ -444,7 +323,9 @@ def _candidate_space(problem: Problem, cand, blind: list[Any], budget: int) -> l
     introduce the magic constants the generator feeds on.
     """
     if problem.io_mode != "stdio":
-        raise ValueError(f"code-aware search is stdio-only; {problem.task_id} is {problem.io_mode}")
+        raise ValueError(
+            f"code-aware search is stdio-only; {problem.task_id} is {problem.io_mode}"
+        )
     seeds = list(problem.provided_inputs)
     if not seeds:
         raise ValueError(
@@ -455,7 +336,9 @@ def _candidate_space(problem: Problem, cand, blind: list[Any], budget: int) -> l
         )
     merged, seen = [], set()
     for group in (
-        search._round_robin(_as_text(blind), search.code_aware_space(cand.code, seeds, budget)),
+        search._round_robin(
+            _as_text(blind), search.code_aware_space(cand.code, seeds, budget)
+        ),
         search.filler_space(seeds, budget),
     ):
         for item in group:
@@ -472,8 +355,12 @@ def _as_text(space: list[Any]) -> list[str]:
 
 
 def evaluate(
-    problem: Problem, props_src: str | None, space: list[Any] | None,
-    *, timeout_s: int = DEFAULT_PBT_TIMEOUT, max_search_space: int = DEFAULT_MAX_SEARCH_SPACE,
+    problem: Problem,
+    props_src: str | None,
+    space: list[Any] | None,
+    *,
+    timeout_s: int = DEFAULT_PBT_TIMEOUT,
+    max_search_space: int = DEFAULT_MAX_SEARCH_SPACE,
     code_aware: bool = False,
 ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
     """Return (suite_meta, {candidate_id: {"pbt": ungated, "pbt_ceiling": reference-gated}}).
@@ -502,18 +389,25 @@ def evaluate(
 
     if not (problem.reference_code or "").strip():
         reason = "no reference solution in the pool; soundness cannot be measured"
-        return (_empty_meta(Unknown(Blame.INFRA, reason), len(space or [])),
-                {c.candidate_id: _both(reason) for c in problem.candidates})
+        return (
+            _empty_meta(Unknown(Blame.INFRA, reason), len(space or [])),
+            {c.candidate_id: _both(reason) for c in problem.candidates},
+        )
 
     blind = list(space)[:max_search_space]
     spaces = {
-        cand.candidate_id: (_candidate_space(problem, cand, blind, max_search_space)
-                            if code_aware else blind)
+        cand.candidate_id: (
+            _candidate_space(problem, cand, blind, max_search_space)
+            if code_aware
+            else blind
+        )
         for cand in problem.candidates
     }
 
     if code_aware:
-        gates = {cid: _gate(problem, props_src, s, timeout_s) for cid, s in spaces.items()}
+        gates = {
+            cid: _gate(problem, props_src, s, timeout_s) for cid, s in spaces.items()
+        }
     else:
         shared = _gate(problem, props_src, blind, timeout_s)
         gates = {cid: shared for cid in spaces}
@@ -549,12 +443,14 @@ def evaluate(
         cand_space, gate = spaces[cand.candidate_id], gates[cand.candidate_id]
         raw = run_raw(problem, cand.code, props_src, cand_space, timeout_s=timeout_s)
         ungated = _score_candidate(
-            raw, set(gate["props"]), set(range(len(cand_space))), cand_space)
+            raw, set(gate["props"]), set(range(len(cand_space))), cand_space
+        )
         if not gate["sound_props"]:
             ceiling = _invalid("no sound property survived the reference gate")
         else:
             ceiling = _score_candidate(
-                raw, set(gate["sound_props"]), set(gate["valid_inputs"]), cand_space)
+                raw, set(gate["sound_props"]), set(gate["valid_inputs"]), cand_space
+            )
         results[cand.candidate_id] = {"pbt": ungated, "pbt_ceiling": ceiling}
     return meta, results
 

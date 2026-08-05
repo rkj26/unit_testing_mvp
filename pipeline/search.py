@@ -26,6 +26,7 @@ import sys
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Protocol, runtime_checkable
 
 COVERAGE_MARKER = "\x00COVERAGE"
 DEFAULT_RUN_SECONDS = 5
@@ -52,7 +53,11 @@ def _fold_int(node: ast.AST) -> int | None:
     `ast.literal_eval` rejects `(1 << 30) - 1`, which is exactly the shape of a magic-value guard.
     """
     if isinstance(node, ast.Constant):
-        return node.value if isinstance(node.value, int) and not isinstance(node.value, bool) else None
+        return (
+            node.value
+            if isinstance(node.value, int) and not isinstance(node.value, bool)
+            else None
+        )
     if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
         inner = _fold_int(node.operand)
         return None if inner is None else -inner
@@ -64,10 +69,15 @@ def _fold_int(node: ast.AST) -> int | None:
             if not 0 <= right <= _MAX_FOLD_EXPONENT:
                 return None
             return _bounded(left**right)
-        if isinstance(node.op, (ast.LShift, ast.RShift)) and not 0 <= right <= _MAX_FOLD_SHIFT:
+        if (
+            isinstance(node.op, (ast.LShift, ast.RShift))
+            and not 0 <= right <= _MAX_FOLD_SHIFT
+        ):
             return None
         operation = _FOLD_OPS.get(type(node.op))
-        if operation is None or (isinstance(node.op, (ast.FloorDiv, ast.Mod)) and right == 0):
+        if operation is None or (
+            isinstance(node.op, (ast.FloorDiv, ast.Mod)) and right == 0
+        ):
             return None
         return _bounded(operation(left, right))
     return None
@@ -85,21 +95,20 @@ def mine_constants(code: str) -> list[int]:
     """
     try:
         tree = ast.parse(code)
-    except SyntaxError:
-        return []
-
-    compared: list[int] = []
-    incidental: list[int] = []
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Compare):
-            for operand in [node.left, *node.comparators]:
-                value = _fold_int(operand)
+        compared: list[int] = []
+        incidental: list[int] = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Compare):
+                for operand in [node.left, *node.comparators]:
+                    value = _fold_int(operand)
+                    if value is not None:
+                        compared.append(value)
+            elif isinstance(node, ast.Constant):
+                value = _fold_int(node)
                 if value is not None:
-                    compared.append(value)
-        elif isinstance(node, ast.Constant):
-            value = _fold_int(node)
-            if value is not None:
-                incidental.append(value)
+                    incidental.append(value)
+    except Exception:
+        return []
 
     def rank(values: list[int]) -> list[int]:
         unusual = [v for v in values if v not in UNREMARKABLE_CONSTANTS]
@@ -158,7 +167,10 @@ def _substitute(stdin: str, slot: tuple[int, int], value: int) -> str:
 def _saturate(stdin: str, value: int) -> str:
     lines = stdin.rstrip("\n").split("\n")
     for line_index in range(1, len(lines)):
-        tokens = [str(value) if t.lstrip("-").isdigit() else t for t in lines[line_index].split()]
+        tokens = [
+            str(value) if t.lstrip("-").isdigit() else t
+            for t in lines[line_index].split()
+        ]
         lines[line_index] = " ".join(tokens)
     return "\n".join(lines) + "\n"
 
@@ -170,7 +182,9 @@ def _variants_for(seeds: list[str], constant: int) -> list[str]:
     """Every way of writing `constant` into one input: all positions, then each position alone."""
     variants = [_saturate(seed, constant) for seed in seeds]
     for seed in seeds:
-        variants.extend(_substitute(seed, slot, constant) for slot in _integer_slots(seed))
+        variants.extend(
+            _substitute(seed, slot, constant) for slot in _integer_slots(seed)
+        )
     return variants
 
 
@@ -250,9 +264,13 @@ def run_plain(code: str, stdin: str, timeout: int = DEFAULT_RUN_SECONDS) -> Exec
     try:
         finished = subprocess.run(
             [sys.executable, "-W", "ignore", "-c", code],
-            input=stdin, capture_output=True, text=True, timeout=timeout,
+            input=stdin,
+            capture_output=True,
+            text=True,
+            errors="replace",
+            timeout=timeout,
         )
-    except (subprocess.TimeoutExpired, OSError):
+    except Exception:
         return Execution("", -1, frozenset())
     return Execution(finished.stdout.strip(), finished.returncode, frozenset())
 
@@ -272,9 +290,11 @@ class TracedProgram:
         self._directory = tempfile.TemporaryDirectory(prefix="pbtsearch-")
         self._target = str(Path(self._directory.name) / "candidate.py")
         Path(self._target).write_text(code, encoding="utf-8")
-        self._harness = _TRACE_HARNESS.format(target=self._target, marker=COVERAGE_MARKER)
+        self._harness = _TRACE_HARNESS.format(
+            target=self._target, marker=COVERAGE_MARKER
+        )
 
-    def __enter__(self) -> "TracedProgram":
+    def __enter__(self) -> TracedProgram:
         return self
 
     def __exit__(self, *_: object) -> None:
@@ -284,9 +304,13 @@ class TracedProgram:
         try:
             finished = subprocess.run(
                 [sys.executable, "-W", "ignore", "-c", self._harness],
-                input=stdin, capture_output=True, text=True, timeout=timeout,
+                input=stdin,
+                capture_output=True,
+                text=True,
+                errors="replace",
+                timeout=timeout,
             )
-        except (subprocess.TimeoutExpired, OSError):
+        except Exception:
             return Execution("", -1, frozenset())
         _, marker, payload = finished.stderr.partition(COVERAGE_MARKER)
         coverage = _decode_coverage(payload) if marker else frozenset()
@@ -297,29 +321,79 @@ SEARCH_CACHE = Path("runs/_search_cache")
 DEFAULT_FUZZ_ITERATIONS = 400
 
 
-def code_aware_space(code: str, seeds: list[str], budget: int, *,
-                     iterations: int = DEFAULT_FUZZ_ITERATIONS, cache: bool = True) -> list[str]:
-    """Inputs chosen by reading the candidate: mined constants spliced in, plus coverage-guided fuzz.
+@runtime_checkable
+class SearchStrategy(Protocol):
+    """Protocol for pluggable, composable search space generators."""
 
-    Round-robins the two so each gets an equal share of `budget`; they miss disjoint backdoors
-    (constant mining needs a numeric slot, fuzzing needs incremental coverage reward), so the union
-    beats either even at half the budget each. Measured on `apps_pool_hard10`, matched budget 60:
-    blind 3/14, dictionary 2/14, coverage 6/14, union 8/14.
+    def generate_space(self, code: str, seeds: list[str], budget: int) -> list[str]: ...
 
-    Cached on a hash of (code, seeds, budget, iterations): candidate code is frozen across the runs
-    of an experiment, so without this every run re-fuzzes identical programs.
-    """
+
+class ConstantMiningStrategy:
+    """Strategy that mines numeric constants from code and splices them into valid seeds."""
+
+    def generate_space(self, code: str, seeds: list[str], budget: int) -> list[str]:
+        constants = with_boundaries(mine_constants(code))
+        return dictionary_space(seeds, constants, budget)
+
+
+class CoverageFuzzingStrategy:
+    """Strategy that uses line-coverage tracing to guide mutation fuzzing."""
+
+    def __init__(self, iterations: int = DEFAULT_FUZZ_ITERATIONS) -> None:
+        self.iterations = iterations
+
+    def generate_space(self, code: str, seeds: list[str], budget: int) -> list[str]:
+        constants = with_boundaries(mine_constants(code))
+        return coverage_guided_space(
+            code, seeds, budget, iterations=self.iterations, constants=constants
+        )
+
+
+class FillerStrategy:
+    """Strategy that generates value mutations without reading candidate code."""
+
+    def generate_space(self, code: str, seeds: list[str], budget: int) -> list[str]:
+        return filler_space(seeds, budget)
+
+
+class AdditiveSearchComposition:
+    """Combines multiple SearchStrategy instances additively via round-robin merging."""
+
+    def __init__(self, strategies: list[SearchStrategy]) -> None:
+        self.strategies = strategies
+
+    def generate_space(self, code: str, seeds: list[str], budget: int) -> list[str]:
+        if not self.strategies:
+            return []
+        sub_spaces = [
+            strat.generate_space(code, seeds, budget) for strat in self.strategies
+        ]
+        return _round_robin(*sub_spaces)[:budget]
+
+
+def code_aware_space(
+    code: str,
+    seeds: list[str],
+    budget: int,
+    *,
+    iterations: int = DEFAULT_FUZZ_ITERATIONS,
+    cache: bool = True,
+) -> list[str]:
+    """Inputs chosen by reading the candidate: mined constants spliced in, plus coverage-guided fuzz."""
     key = hashlib.sha256(
-        json.dumps([code, seeds, budget, iterations], sort_keys=True).encode()).hexdigest()[:32]
+        json.dumps([code, seeds, budget, iterations], sort_keys=True).encode()
+    ).hexdigest()[:32]
     cached = SEARCH_CACHE / f"{key}.json"
     if cache and cached.exists():
         return json.loads(cached.read_text(encoding="utf-8"))
 
-    constants = with_boundaries(mine_constants(code))
-    space = _round_robin(
-        dictionary_space(seeds, constants, budget),
-        coverage_guided_space(code, seeds, budget, iterations=iterations, constants=constants),
-    )[:budget]
+    composition = AdditiveSearchComposition(
+        [
+            ConstantMiningStrategy(),
+            CoverageFuzzingStrategy(iterations=iterations),
+        ]
+    )
+    space = composition.generate_space(code, seeds, budget)
 
     if cache:
         SEARCH_CACHE.mkdir(parents=True, exist_ok=True)
@@ -388,7 +462,9 @@ def alphabet_of(seeds: list[str]) -> list[str]:
     return sorted(characters)
 
 
-def _mutate_token(token: str, constants: list[int], alphabet: list[str], rng: random.Random) -> str:
+def _mutate_token(
+    token: str, constants: list[int], alphabet: list[str], rng: random.Random
+) -> str:
     """Perturb one token, preserving its length for non-numeric tokens.
 
     Grid rows are declared by a header, so a character token that changes length desynchronises the
@@ -401,20 +477,27 @@ def _mutate_token(token: str, constants: list[int], alphabet: list[str], rng: ra
     if not alphabet or not token:
         return token
     characters = list(token)
-    for position in rng.sample(range(len(characters)), k=min(len(characters), rng.randint(1, 2))):
+    for position in rng.sample(
+        range(len(characters)), k=min(len(characters), rng.randint(1, 2))
+    ):
         characters[position] = rng.choice(alphabet)
     return "".join(characters)
 
 
-def _mutate(stdin: str, constants: list[int], alphabet: list[str], rng: random.Random) -> str:
+def _mutate(
+    stdin: str, constants: list[int], alphabet: list[str], rng: random.Random
+) -> str:
     """Perturb tokens in place, never line 0 and never the token count."""
     slots = _token_slots(stdin)
     if not slots:
         return stdin
     lines = [line.split() for line in stdin.rstrip("\n").split("\n")]
-    for line_index, token_index in rng.sample(slots, k=min(len(slots), rng.randint(1, 3))):
+    for line_index, token_index in rng.sample(
+        slots, k=min(len(slots), rng.randint(1, 3))
+    ):
         lines[line_index][token_index] = _mutate_token(
-            lines[line_index][token_index], constants, alphabet, rng)
+            lines[line_index][token_index], constants, alphabet, rng
+        )
     return "\n".join(" ".join(tokens) for tokens in lines) + "\n"
 
 
@@ -435,8 +518,13 @@ MAX_TRACE_SEEDS = 24
 
 
 def coverage_guided_space(
-    code: str, seeds: list[str], budget: int, *,
-    iterations: int = 400, constants: list[int] | None = None, seed_value: int = 0,
+    code: str,
+    seeds: list[str],
+    budget: int,
+    *,
+    iterations: int = 400,
+    constants: list[int] | None = None,
+    seed_value: int = 0,
 ) -> list[str]:
     """Greybox fuzz the candidate, returning inputs that reached previously unvisited lines.
 

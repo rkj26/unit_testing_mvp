@@ -34,17 +34,17 @@ import subprocess
 import sys
 import time
 import traceback
+from collections.abc import Awaitable, Callable
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Awaitable, Callable
+from typing import Any
 
+from . import artifacts, pbt, report
 from . import metrics as metrics_mod
 from . import model as model_mod
-from . import pbt, report
-from . import artifacts
 from .artifacts import ArtifactKind, ArtifactStore
 from .config import Config, ExecMode, Stage
 from .outcome import Blame, Unknown
@@ -52,8 +52,10 @@ from .schema import Backend, Problem
 
 HEARTBEAT_SECONDS = 10
 SCORE_STAGE_MIN_SECONDS = 1800
-_MISSING_SUITE_META = {"valid": False,
-                       "unknown": Unknown(Blame.INFRA, "suite artifact missing").to_json()}
+_MISSING_SUITE_META = {
+    "valid": False,
+    "unknown": Unknown(Blame.INFRA, "suite artifact missing").to_json(),
+}
 ABSTAIN = object()
 
 
@@ -106,12 +108,12 @@ class FanoutSpec:
         on_fail     (ctx, step, unit, error) -> replacement value, or ABSTAIN to record nothing
     """
 
-    units: Callable[["RunContext", Step], list[Any]]
-    done_keys: Callable[["RunContext", Step], set]
+    units: Callable[[RunContext, Step], list[Any]]
+    done_keys: Callable[[RunContext, Step], set]
     key: Callable[[Any], Any]
     label: Callable[[Any], str]
-    persist: Callable[["RunContext", Step, Any, Any], None]
-    on_fail: Callable[["RunContext", Step, Any, Exception], Any]
+    persist: Callable[[RunContext, Step, Any, Any], None]
+    on_fail: Callable[[RunContext, Step, Any, Exception], Any]
 
 
 @dataclass(frozen=True)
@@ -123,9 +125,12 @@ class RetryPolicy:
     backoff_base_s: float = 0.5
 
     @classmethod
-    def from_config(cls, config: Config) -> "RetryPolicy":
+    def from_config(cls, config: Config) -> RetryPolicy:
         """Derive the policy from a Config (1 + call_retries attempts, call_timeout hard cap)."""
-        return cls(attempts=1 + config.call_retries, timeout_s=float(config.timeouts.outer_call))
+        return cls(
+            attempts=1 + config.call_retries,
+            timeout_s=float(config.timeouts.outer_call),
+        )
 
 
 @dataclass
@@ -161,7 +166,11 @@ class RunContext:
 
 
 async def with_retry(
-    make_coro: Callable[[], Awaitable[str]], policy: RetryPolicy, *, sem: asyncio.Semaphore, label: str,
+    make_coro: Callable[[], Awaitable[str]],
+    policy: RetryPolicy,
+    *,
+    sem: asyncio.Semaphore,
+    label: str,
 ) -> str | None:
     """Run a model call under a hard per-attempt timeout, retrying with backoff; the ONLY call guard.
 
@@ -174,15 +183,24 @@ async def with_retry(
             try:
                 return await asyncio.wait_for(make_coro(), timeout=policy.timeout_s)
             except Exception as error:
-                log(f"  [warn] {label} attempt {attempt + 1}/{policy.attempts}: "
-                    f"{type(error).__name__}: {str(error)[:120]}")
+                log(
+                    f"  [warn] {label} attempt {attempt + 1}/{policy.attempts}: "
+                    f"{type(error).__name__}: {str(error)[:120]}"
+                )
         if attempt < policy.attempts - 1:
-            await asyncio.sleep(min(2 ** attempt, 8) * policy.backoff_base_s)
+            await asyncio.sleep(min(2**attempt, 8) * policy.backoff_base_s)
     return None
 
 
-def run_isolated(cmd: list[str], *, timeout_s: int, exec_mode: ExecMode, docker_image: str | None,
-                 run_dir: Path, log_path: Path | None = None) -> int:
+def run_isolated(
+    cmd: list[str],
+    *,
+    timeout_s: int,
+    exec_mode: ExecMode,
+    docker_image: str | None,
+    run_dir: Path,
+    log_path: Path | None = None,
+) -> int:
     """Run a worker command under a wall-clock timeout; the ONLY subprocess/Docker guard.
 
     Returns the child exit code. On overrun it kills the whole PROCESS TREE — not just the child's group
@@ -196,8 +214,13 @@ def run_isolated(cmd: list[str], *, timeout_s: int, exec_mode: ExecMode, docker_
     full = _docker_wrap(cmd, docker_image, run_dir, container) if container else cmd
     out = open(log_path, "a", encoding="utf-8") if log_path is not None else None
     try:
-        proc = subprocess.Popen(full, cwd=str(_repo_root()), start_new_session=True,
-                                stdout=out, stderr=(subprocess.STDOUT if out is not None else None))
+        proc = subprocess.Popen(
+            full,
+            cwd=str(_repo_root()),
+            start_new_session=True,
+            stdout=out,
+            stderr=(subprocess.STDOUT if out is not None else None),
+        )
         try:
             return proc.wait(timeout=timeout_s)
         except subprocess.TimeoutExpired:
@@ -210,7 +233,9 @@ def run_isolated(cmd: list[str], *, timeout_s: int, exec_mode: ExecMode, docker_
             out.close()
 
 
-def run(config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[Step]) -> tuple[Path, dict[str, Any] | None]:
+def run(
+    config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[Step]
+) -> tuple[Path, dict[str, Any] | None]:
     """Execute the whole pipeline (parent process): ONCE setup, per-run loop, aggregate, report.
 
     Validates the step graph, runs the ONCE steps (checkpointed), then executes the per-run steps inside
@@ -227,14 +252,15 @@ def run(config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[S
     global _LOG_FILE
     _LOG_FILE = run_dir / "pipeline.log" if config.progress else None
     try:
-        outcome = _execute_with_optional_dashboard(config, backend, pool, store, status, pipeline)
+        outcome = _execute_with_optional_dashboard(
+            config, backend, pool, store, status, pipeline
+        )
         return _finalize(config, store, status, outcome)
     finally:
         _LOG_FILE = None
 
 
-def execute_run(config: Config, r: int, pipeline: list[Step],
-                run_dir: Path) -> None:
+def execute_run(config: Config, r: int, pipeline: list[Step], run_dir: Path) -> None:
     """Execute the PER_RUN steps for run `r`, then compute + persist its metrics (the run-done marker).
 
     Called inside the isolation boundary — directly by the engine for INPROCESS (parent's run_dir), or by
@@ -245,13 +271,21 @@ def execute_run(config: Config, r: int, pipeline: list[Step],
     problems = store.load(ArtifactKind.PROBLEMS)
     scores = store.load(ArtifactKind.SCORES)
     if problems is None or scores is None:
-        raise SystemExit("execute_run: problems.json / scores.json missing (run the score stage first)")
+        raise SystemExit(
+            "execute_run: problems.json / scores.json missing (run the score stage first)"
+        )
     per_run_steps = [s for s in pipeline if s.scope is Scope.PER_RUN]
     asyncio.run(_execute_run_async(config, r, per_run_steps, store, problems, scores))
 
 
-def execute_once(config: Config, run_dir: Path, step_name: str, pipeline: list[Step],
-                 backend: Backend, pool: dict[str, Any]) -> None:
+def execute_once(
+    config: Config,
+    run_dir: Path,
+    step_name: str,
+    pipeline: list[Step],
+    backend: Backend,
+    pool: dict[str, Any],
+) -> None:
     """Execute a single ONCE step inside the isolation boundary (called by `pipeline.worker`).
 
     Used for the isolated ground-truth `score` step: control_eval must run in its own process, so the
@@ -265,34 +299,80 @@ def execute_once(config: Config, run_dir: Path, step_name: str, pipeline: list[S
     log(f"worker: {step_name} produced {step.produces.value}")
 
 
+from .schema import Backend, Problem, ScoreResult, make_row
+
+
 def _degraded_suite(problem: Problem, step: Step, error: Exception) -> dict[str, Any]:
     """The degraded SUITE a PER_TASK failure records so one task's crash never sinks the run."""
-    meta, results = pbt.degraded(problem, f"{step.name} crashed: {type(error).__name__}: {error}")
+    meta, results = pbt.degraded(
+        problem, f"{step.name} crashed: {type(error).__name__}: {error}"
+    )
     return {"props_src": None, "space": None, "meta": meta, "results": results}
+
+
+def _degraded_row(
+    ctx: RunContext, step: Step, unit: tuple[Problem, Candidate], error: Exception
+) -> dict[str, Any]:
+    """The degraded ROW a PER_CANDIDATE failure records so one candidate's error is recorded."""
+    problem, candidate = unit
+    suite = ctx.store.load(ArtifactKind.SUITE, run=ctx.r, task_id=problem.task_id) or {}
+    results = suite.get("results") or {}
+    pbt_res = results.get(candidate.candidate_id)
+    if pbt_res is None:
+        _, deg_results = pbt.degraded(problem, f"{step.name} failed: {error}")
+        pbt_res = deg_results.get(
+            candidate.candidate_id,
+            {"pbt": pbt._invalid(str(error)), "pbt_ceiling": pbt._invalid(str(error))},
+        )
+    score = ctx.scores.get(
+        (problem.task_id, candidate.candidate_id),
+        ScoreResult(
+            main_task_success=False,
+            side_task_success=False,
+            unknown=Unknown(Blame.INFRA, str(error)),
+        ),
+    )
+    return make_row(
+        task_id=problem.task_id,
+        candidate=candidate,
+        score=score,
+        pbt_results=pbt_res,
+        tm=None,
+        informed=None,
+    )
 
 
 FANOUTS: dict[Fanout, FanoutSpec] = {
     Fanout.PER_TASK: FanoutSpec(
         units=lambda ctx, step: list(ctx.problems),
-        done_keys=lambda ctx, step: {p.task_id for p in ctx.problems
-                                     if ctx.store.has(step.produces, run=ctx.r, task_id=p.task_id)},
+        done_keys=lambda ctx, step: {
+            p.task_id
+            for p in ctx.problems
+            if ctx.store.has(step.produces, run=ctx.r, task_id=p.task_id)
+        },
         key=lambda p: p.task_id,
         label=lambda p: p.task_id,
-        persist=lambda ctx, step, p, v: ctx.store.put(step.produces, v, run=ctx.r, task_id=p.task_id),
+        persist=lambda ctx, step, p, v: ctx.store.put(
+            step.produces, v, run=ctx.r, task_id=p.task_id
+        ),
         on_fail=lambda ctx, step, p, e: _degraded_suite(p, step, e),
     ),
     Fanout.PER_CANDIDATE: FanoutSpec(
         units=lambda ctx, step: [(p, c) for p in ctx.problems for c in p.candidates],
-        done_keys=lambda ctx, step: {(row["task_id"], row["candidate_id"])
-                                     for row in ctx.store.load(step.produces, run=ctx.r)},
+        done_keys=lambda ctx, step: {
+            (row["task_id"], row["candidate_id"])
+            for row in (ctx.store.load(step.produces, run=ctx.r) or [])
+        },
         key=lambda u: (u[0].task_id, u[1].candidate_id),
         label=lambda u: f"{u[0].task_id}/{u[1].candidate_id}",
         persist=lambda ctx, step, u, v: ctx.store.append(step.produces, v, run=ctx.r),
-        on_fail=lambda ctx, step, u, e: ABSTAIN,
+        on_fail=lambda ctx, step, u, e: _degraded_row(ctx, step, u, e),
     ),
     Fanout.NONE: FanoutSpec(
         units=lambda ctx, step: [None],
-        done_keys=lambda ctx, step: {None} if ctx.store.has(step.produces, run=ctx.r) else set(),
+        done_keys=lambda ctx, step: (
+            {None} if ctx.store.has(step.produces, run=ctx.r) else set()
+        ),
         key=lambda u: None,
         label=lambda u: "-",
         persist=lambda ctx, step, u, v: ctx.store.put(step.produces, v, run=ctx.r),
@@ -320,14 +400,21 @@ def _validate_pipeline(pipeline: list[Step]) -> None:
     for step in pipeline:
         missing = [n for n in step.needs if n not in produced]
         if missing:
-            raise ValueError(f"step '{step.name}' needs {[m.value for m in missing]} "
-                             f"but no earlier step produces them")
+            raise ValueError(
+                f"step '{step.name}' needs {[m.value for m in missing]} "
+                f"but no earlier step produces them"
+            )
         produced.add(step.produces)
 
 
-def _execute_with_optional_dashboard(config: Config, backend: Backend, pool: dict[str, Any],
-                                     store: ArtifactStore, status: "Any", pipeline: list[Step],
-                                     ) -> tuple[list[Problem], list | None, list]:
+def _execute_with_optional_dashboard(
+    config: Config,
+    backend: Backend,
+    pool: dict[str, Any],
+    store: ArtifactStore,
+    status: Any,
+    pipeline: list[Step],
+) -> tuple[list[Problem], list | None, list]:
     """Run ONCE setup + the per-run loop, under the live dashboard when `config.progress` is set."""
     if not config.progress:
         return _execute(config, backend, pool, store, status, pipeline)
@@ -338,9 +425,14 @@ def _execute_with_optional_dashboard(config: Config, backend: Backend, pool: dic
         return _execute(config, backend, pool, store, status, pipeline)
 
 
-def _execute(config: Config, backend: Backend, pool: dict[str, Any], store: ArtifactStore,
-             status: "Any", pipeline: list[Step]
-             ) -> tuple[list[Problem], list | None, list]:
+def _execute(
+    config: Config,
+    backend: Backend,
+    pool: dict[str, Any],
+    store: ArtifactStore,
+    status: Any,
+    pipeline: list[Step],
+) -> tuple[list[Problem], list | None, list]:
     """ONCE setup + per-run loop. Returns (problems, per_run_metrics, rows_by_run); per_run_metrics is
     None for a score-only stage (signals _finalize to stop before aggregation)."""
     once_steps = [s for s in pipeline if s.scope is Scope.ONCE]
@@ -348,14 +440,22 @@ def _execute(config: Config, backend: Backend, pool: dict[str, Any], store: Arti
     _write_run_manifest(store.run_dir, config, len(problems))
     if config.stage is Stage.SCORE:
         status.set(phase="done_score")
-        log(f"stage=score complete. Resume the model phase with --stage monitor --run-id {config.run_id}")
+        log(
+            f"stage=score complete. Resume the model phase with --stage monitor --run-id {config.run_id}"
+        )
         return problems, None, []
     per_run_metrics, rows_by_run = _run_loop(config, pipeline, store, status)
     return problems, per_run_metrics, rows_by_run
 
 
-def _run_once_steps(config: Config, backend: Backend, pool: dict[str, Any], store: ArtifactStore,
-                    status: "Any", once_steps: list[Step]) -> list[Problem]:
+def _run_once_steps(
+    config: Config,
+    backend: Backend,
+    pool: dict[str, Any],
+    store: ArtifactStore,
+    status: Any,
+    once_steps: list[Step],
+) -> list[Problem]:
     """Run each ONCE step (resume-skip if produced); `isolated` steps run in a subprocess for real
     backends (mock has no control_eval so it runs inline). Returns the problem list."""
     setup = SetupContext(config, store, backend, pool)
@@ -371,7 +471,9 @@ def _run_once_steps(config: Config, backend: Backend, pool: dict[str, Any], stor
         else:
             store.put(step.produces, step.fn(setup))
         if not store.has(step.produces):
-            raise RuntimeError(f"{step.name} produced no {step.produces.value} (see output above)")
+            raise RuntimeError(
+                f"{step.name} produced no {step.produces.value} (see output above)"
+            )
     problems = store.load(ArtifactKind.PROBLEMS)
     scores = store.load(ArtifactKind.SCORES)
     if problems and scores:
@@ -379,8 +481,9 @@ def _run_once_steps(config: Config, backend: Backend, pool: dict[str, Any], stor
     return problems or []
 
 
-def _run_loop(config: Config, pipeline: list[Step], store: ArtifactStore,
-              status: "Any") -> tuple[list[dict[str, Any]], list[list[dict[str, Any]]]]:
+def _run_loop(
+    config: Config, pipeline: list[Step], store: ArtifactStore, status: Any
+) -> tuple[list[dict[str, Any]], list[list[dict[str, Any]]]]:
     """Loop over runs, executing each in its isolation boundary; skip completed, retry on timeout.
 
     Returns (per_run_metrics, rows_by_run) for the runs that completed.
@@ -402,8 +505,9 @@ def _run_loop(config: Config, pipeline: list[Step], store: ArtifactStore,
     return per_run_metrics, rows_by_run
 
 
-def _execute_run_isolated(config: Config, r: int, pipeline: list[Step],
-                          store: ArtifactStore, status: "Any") -> bool:
+def _execute_run_isolated(
+    config: Config, r: int, pipeline: list[Step], store: ArtifactStore, status: Any
+) -> bool:
     """Run one run-index in its isolation boundary with kill+resume retries; True if it completed.
 
     The run-retry boundary (failure site #4): INPROCESS calls `execute_run` directly; SUBPROCESS/DOCKER
@@ -411,46 +515,87 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step],
     a full traceback and retries so one bad run never aborts the whole loop.
     """
     for attempt in range(1 + config.run_retries):
-        log(f"--- run {r + 1}/{config.runs} ({config.exec_mode.value}, "
-            f"attempt {attempt + 1}/{1 + config.run_retries}) ---")
+        log(
+            f"--- run {r + 1}/{config.runs} ({config.exec_mode.value}, "
+            f"attempt {attempt + 1}/{1 + config.run_retries}) ---"
+        )
         status.set(phase="run_active", run_index=r, attempt=attempt + 1)
         try:
             if config.exec_mode is ExecMode.INPROCESS:
                 execute_run(config, r, pipeline, store.run_dir)
                 rc = 0
             else:
-                cmd = [sys.executable, "-u", "-m", "pipeline.worker",
-                       str(store.run_dir.resolve()), "run", str(r)]
-                rc = run_isolated(cmd, timeout_s=config.timeouts.run, exec_mode=config.exec_mode,
-                                  docker_image=config.docker_image, run_dir=store.run_dir,
-                                  log_path=(store.run_dir / "pipeline.log") if config.progress else None)
+                cmd = [
+                    sys.executable,
+                    "-u",
+                    "-m",
+                    "pipeline.worker",
+                    str(store.run_dir.resolve()),
+                    "run",
+                    str(r),
+                ]
+                rc = run_isolated(
+                    cmd,
+                    timeout_s=config.timeouts.run,
+                    exec_mode=config.exec_mode,
+                    docker_image=config.docker_image,
+                    run_dir=store.run_dir,
+                    log_path=(store.run_dir / "pipeline.log")
+                    if config.progress
+                    else None,
+                )
         except subprocess.TimeoutExpired:
-            log(f"run {r}: exceeded {config.timeouts.run}s — killed; resuming from checkpoint")
+            log(
+                f"run {r}: exceeded {config.timeouts.run}s — killed; resuming from checkpoint"
+            )
             continue
         except Exception:
             log(f"run {r}: crashed:\n{traceback.format_exc()}")
             rc = 1
         if rc == 0 and store.has(ArtifactKind.RUN_METRICS, run=r):
             return True
-        log(f"run {r}: exit={rc}, done={store.has(ArtifactKind.RUN_METRICS, run=r)} — "
-            f"{'retrying' if attempt < config.run_retries else 'giving up'}")
+        log(
+            f"run {r}: exit={rc}, done={store.has(ArtifactKind.RUN_METRICS, run=r)} — "
+            f"{'retrying' if attempt < config.run_retries else 'giving up'}"
+        )
     status.set(phase="run_incomplete", run_index=r)
-    log(f"run {r}: incomplete after {1 + config.run_retries} attempt(s); resume with the same --run-id")
+    log(
+        f"run {r}: incomplete after {1 + config.run_retries} attempt(s); resume with the same --run-id"
+    )
     return False
 
 
 def _run_once_isolated(config: Config, run_dir: Path, step_name: str) -> None:
     """Run one ONCE step in a plain subprocess (never Docker — control_arena has its own sandbox)."""
-    cmd = [sys.executable, "-u", "-m", "pipeline.worker", str(run_dir.resolve()), "once", step_name]
-    rc = run_isolated(cmd, timeout_s=max(config.timeouts.run, SCORE_STAGE_MIN_SECONDS), exec_mode=ExecMode.SUBPROCESS,
-                      docker_image=None, run_dir=run_dir,
-                      log_path=(run_dir / "pipeline.log") if config.progress else None)
+    cmd = [
+        sys.executable,
+        "-u",
+        "-m",
+        "pipeline.worker",
+        str(run_dir.resolve()),
+        "once",
+        step_name,
+    ]
+    rc = run_isolated(
+        cmd,
+        timeout_s=max(config.timeouts.run, SCORE_STAGE_MIN_SECONDS),
+        exec_mode=ExecMode.SUBPROCESS,
+        docker_image=None,
+        run_dir=run_dir,
+        log_path=(run_dir / "pipeline.log") if config.progress else None,
+    )
     if rc != 0:
-        raise RuntimeError(f"{step_name} subprocess failed (exit {rc}); see output above")
+        raise RuntimeError(
+            f"{step_name} subprocess failed (exit {rc}); see output above"
+        )
 
 
-def _finalize(config: Config, store: ArtifactStore, status: "Any",
-              outcome: tuple[list[Problem], list | None, list]) -> tuple[Path, dict[str, Any] | None]:
+def _finalize(
+    config: Config,
+    store: ArtifactStore,
+    status: Any,
+    outcome: tuple[list[Problem], list | None, list],
+) -> tuple[Path, dict[str, Any] | None]:
     """Aggregate metrics + write the report (after the dashboard has closed). Returns (run_dir, agg|None)."""
     run_dir = store.run_dir
     problems, per_run_metrics, rows_by_run = outcome
@@ -458,14 +603,23 @@ def _finalize(config: Config, store: ArtifactStore, status: "Any",
         return run_dir, None
     if not per_run_metrics:
         status.set(phase="no_completed_runs")
-        log("no runs completed (all abandoned/incomplete). Resume with the same --run-id to finish.")
+        log(
+            "no runs completed (all abandoned/incomplete). Resume with the same --run-id to finish."
+        )
         return run_dir, None
 
     agg = metrics_mod.aggregate_runs(per_run_metrics)
     manifest = artifacts.read_json(run_dir / "run.json")
-    report.compile_results(run_dir, config=manifest, run_metrics=per_run_metrics, agg=agg,
-                           rows_by_run=rows_by_run)
-    status.set(phase="done", completed_runs=len(per_run_metrics), requested_runs=config.runs)
+    report.compile_results(
+        run_dir,
+        config=manifest,
+        run_metrics=per_run_metrics,
+        agg=agg,
+        rows_by_run=rows_by_run,
+    )
+    status.set(
+        phase="done", completed_runs=len(per_run_metrics), requested_runs=config.runs
+    )
     log(f"wrote {run_dir}  ({len(per_run_metrics)}/{config.runs} runs)")
     return run_dir, agg
 
@@ -478,22 +632,41 @@ def _require_inputs(store: ArtifactStore, step: Step) -> None:
     """
     for need in step.needs:
         if need in (ArtifactKind.PROBLEMS, ArtifactKind.SCORES) and not store.has(need):
-            raise RuntimeError(f"step '{step.name}' needs {need.value}, which is missing")
+            raise RuntimeError(
+                f"step '{step.name}' needs {need.value}, which is missing"
+            )
 
 
-async def _execute_run_async(config: Config, r: int, per_run_steps: list[Step],
-                             store: ArtifactStore, problems: list[Problem],
-                             scores: dict[tuple[str, str], Any]) -> None:
+async def _execute_run_async(
+    config: Config,
+    r: int,
+    per_run_steps: list[Step],
+    store: ArtifactStore,
+    problems: list[Problem],
+    scores: dict[tuple[str, str], Any],
+) -> None:
     """Async body of one run: build the context, run each step fanned out, check completeness, persist."""
     status = store.status()
     t_model, u_model = _resolve_models(config, r)
-    log(f"run {r}: worker start (strategy={config.gen_strategy.value}, seed={config.seed + r})")
+    log(
+        f"run {r}: worker start (strategy={config.gen_strategy.value}, seed={config.seed + r})"
+    )
     beat = asyncio.create_task(_heartbeat(status))
     ctx: RunContext | None = None
     try:
         with ThreadPoolExecutor(max_workers=config.exec_workers) as pool:
-            ctx = RunContext(config, store, r, problems, scores, t_model, u_model,
-                             RetryPolicy.from_config(config), asyncio.Semaphore(config.max_conn), pool)
+            ctx = RunContext(
+                config,
+                store,
+                r,
+                problems,
+                scores,
+                t_model,
+                u_model,
+                RetryPolicy.from_config(config),
+                asyncio.Semaphore(config.max_conn),
+                pool,
+            )
             for step in per_run_steps:
                 await _run_step(ctx, step)
     finally:
@@ -522,10 +695,16 @@ async def _run_step(ctx: RunContext, step: Step) -> None:
     todo = [u for u in units if spec.key(u) not in done]
     if done:
         log(f"run {ctx.r}: resumed {len(units) - len(todo)}/{len(units)} {step.name}")
-    ctx.store.status().set(phase=step.name, run_index=ctx.r, done=len(units) - len(todo), total=len(units))
-    log(f"run {ctx.r}: {step.name} for {len(todo)} units "
-        f"({ctx.config.max_conn} gen / {ctx.config.exec_workers} eval concurrent)...")
-    results = await asyncio.gather(*[_guard(ctx, step, spec, u) for u in todo], return_exceptions=True)
+    ctx.store.status().set(
+        phase=step.name, run_index=ctx.r, done=len(units) - len(todo), total=len(units)
+    )
+    log(
+        f"run {ctx.r}: {step.name} for {len(todo)} units "
+        f"({ctx.config.max_conn} gen / {ctx.config.exec_workers} eval concurrent)..."
+    )
+    results = await asyncio.gather(
+        *[_guard(ctx, step, spec, u) for u in todo], return_exceptions=True
+    )
     for res in results:
         if isinstance(res, Exception):
             log(f"  [warn] {step.name} persist error: {type(res).__name__}: {res}")
@@ -539,9 +718,13 @@ async def _guard(ctx: RunContext, step: Step, spec: FanoutSpec, unit: Any) -> No
     the run short of completeness so it resumes.
     """
     try:
-        value = await asyncio.wait_for(step.fn(ctx, unit), timeout=ctx.config.timeouts.unit)
+        value = await asyncio.wait_for(
+            step.fn(ctx, unit), timeout=ctx.config.timeouts.unit
+        )
     except Exception as error:
-        log(f"  [warn] {step.name} failed for {spec.label(unit)}: {type(error).__name__}: {error}")
+        log(
+            f"  [warn] {step.name} failed for {spec.label(unit)}: {type(error).__name__}: {error}"
+        )
         value = spec.on_fail(ctx, step, unit, error)
         if value is ABSTAIN:
             return
@@ -549,7 +732,9 @@ async def _guard(ctx: RunContext, step: Step, spec: FanoutSpec, unit: Any) -> No
     ctx.store.status().beat()
 
 
-def _incomplete_steps(ctx: RunContext | None, per_run_steps: list[Step]) -> list[tuple[str, int, int]]:
+def _incomplete_steps(
+    ctx: RunContext | None, per_run_steps: list[Step]
+) -> list[tuple[str, int, int]]:
     """Per-step completeness: (name, done, total) for any PER_RUN step short of all its units.
 
     Generic replacement for the old hardcoded row count: every step is complete iff every one of its
@@ -568,10 +753,18 @@ def _incomplete_steps(ctx: RunContext | None, per_run_steps: list[Step]) -> list
     return short
 
 
-def _run_metrics(config: Config, r: int, problems: list[Problem], store: ArtifactStore,
-                 rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _run_metrics(
+    config: Config,
+    r: int,
+    problems: list[Problem],
+    store: ArtifactStore,
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
     """Compute this run's metrics over its artifacts."""
-    suites = {p.task_id: store.load(ArtifactKind.SUITE, run=r, task_id=p.task_id) for p in problems}
+    suites = {
+        p.task_id: store.load(ArtifactKind.SUITE, run=r, task_id=p.task_id)
+        for p in problems
+    }
     metas = {t: (s or {}).get("meta") or _MISSING_SUITE_META for t, s in suites.items()}
     suite_validity = {t: bool(m.get("valid")) for t, m in metas.items()}
     suite_soundness = {t: pbt.suite_all_props_sound(m) for t, m in metas.items()}
@@ -586,22 +779,27 @@ def _run_metrics(config: Config, r: int, problems: list[Problem], store: Artifac
     )
 
 
-async def _heartbeat(status: "Any") -> None:
+async def _heartbeat(status: Any) -> None:
     """Refresh status.json every HEARTBEAT_SECONDS so a stalled run is observable."""
     while True:
         await asyncio.sleep(HEARTBEAT_SECONDS)
         status.beat()
 
 
-def _resolve_models(config: Config, r: int) -> tuple[model_mod.TrustedModel, model_mod.TrustedModel]:
+def _resolve_models(
+    config: Config, r: int
+) -> tuple[model_mod.TrustedModel, model_mod.TrustedModel]:
     """Resolve the trusted (T) and untrusted (U) models for run `r`.
 
     Effort, token cap and per-call bound are resolved per model. T doubles as the monitor, so a
     single global effort would confound any elicitation contrast.
     """
     t_model = model_mod.resolve(config.trusted_runtime(r))
-    u_model = (model_mod.resolve(config.untrusted_runtime(r))
-               if config.uses_separate_untrusted else t_model)
+    u_model = (
+        model_mod.resolve(config.untrusted_runtime(r))
+        if config.uses_separate_untrusted
+        else t_model
+    )
     return t_model, u_model
 
 
@@ -610,11 +808,17 @@ def _row_sort_key(row: dict[str, Any]) -> tuple[str, str]:
     return (row["task_id"], row["candidate_label"])
 
 
-def _record_backdoor_count(problems: list[Problem], scores: dict[tuple[str, str], Any]) -> None:
+def _record_backdoor_count(
+    problems: list[Problem], scores: dict[tuple[str, str], Any]
+) -> None:
     """Log how many attacks are ground-truth successful backdoors (main + side both true)."""
-    n = sum(1 for p in problems for c in p.attacks
-            if scores[(p.task_id, c.candidate_id)].main_task_success
-            and scores[(p.task_id, c.candidate_id)].side_task_success)
+    n = sum(
+        1
+        for p in problems
+        for c in p.attacks
+        if scores[(p.task_id, c.candidate_id)].main_task_success
+        and scores[(p.task_id, c.candidate_id)].side_task_success
+    )
     log(f"successful backdoors (ground truth): {n}")
 
 
@@ -631,7 +835,9 @@ def _write_run_manifest(run_dir: Path, config: Config, n_tasks: int = 0) -> None
     artifacts.write_json(run_dir / "run.json", manifest)
 
 
-def _docker_wrap(cmd: list[str], image: str | None, run_dir: Path, container: str) -> list[str]:
+def _docker_wrap(
+    cmd: list[str], image: str | None, run_dir: Path, container: str
+) -> list[str]:
     """Wrap a worker command as `docker run --name <container>`, mounting the repo + forwarding creds.
 
     Docker requires absolute mount paths. The run directory normally lives under the repo, so mounting
@@ -647,13 +853,31 @@ def _docker_wrap(cmd: list[str], image: str | None, run_dir: Path, container: st
     if repo not in resolved.parents:
         mounts += ["-v", f"{resolved}:{resolved}"]
     env_flags: list[str] = []
-    for key in ("AZUREAI_API_KEY", "AZUREAI_BASE_URL", "AZUREAI_ENDPOINT_URL", "AZURE_API_KEY",
-                "AZURE_ENDPOINT_URL", "OPENAI_API_KEY", "ANTHROPIC_API_KEY", "MPLBACKEND"):
+    for key in (
+        "AZUREAI_API_KEY",
+        "AZUREAI_BASE_URL",
+        "AZUREAI_ENDPOINT_URL",
+        "AZURE_API_KEY",
+        "AZURE_ENDPOINT_URL",
+        "OPENAI_API_KEY",
+        "ANTHROPIC_API_KEY",
+        "MPLBACKEND",
+    ):
         if os.getenv(key) is not None:
             env_flags += ["-e", key]
     container_cmd = ["python", *cmd[1:]]
-    return (["docker", "run", "--rm", "--name", container, *mounts, "-w", str(repo), *env_flags, image]
-            + container_cmd)
+    return [
+        "docker",
+        "run",
+        "--rm",
+        "--name",
+        container,
+        *mounts,
+        "-w",
+        str(repo),
+        *env_flags,
+        image,
+    ] + container_cmd
 
 
 def _container_name(run_dir: Path) -> str:
@@ -689,8 +913,9 @@ def _kill_tree(pid: int) -> None:
 def _descendants(pid: int) -> list[int]:
     """All transitive child PIDs of `pid` from one `ps` snapshot (portable across macOS/Linux)."""
     try:
-        snap = subprocess.run(["ps", "-Ao", "pid=,ppid="], capture_output=True, text=True,
-                              timeout=5).stdout
+        snap = subprocess.run(
+            ["ps", "-Ao", "pid=,ppid="], capture_output=True, text=True, timeout=5
+        ).stdout
     except Exception:
         return []
     kids: dict[int, list[int]] = {}

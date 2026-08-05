@@ -17,7 +17,7 @@ from typing import Annotated, Any
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .metrics import DEFAULT_ATTACK_PROBABILITY, PROTOCOLS, Probability, MetricConfig
+from .metrics import DEFAULT_ATTACK_PROBABILITY, PROTOCOLS, MetricConfig, Probability
 
 
 class Domain(str, Enum):
@@ -72,10 +72,16 @@ class Reasoning(str, Enum):
 
 
 MEASURED_CALL_SECONDS_BY_EFFORT = {
-    Reasoning.LOW: 120, Reasoning.MEDIUM: 300, Reasoning.HIGH: 420, Reasoning.MAX: 420,
+    Reasoning.LOW: 120,
+    Reasoning.MEDIUM: 300,
+    Reasoning.HIGH: 420,
+    Reasoning.MAX: 420,
 }
 MAX_TOKENS_BY_EFFORT = {
-    Reasoning.LOW: 4_000, Reasoning.MEDIUM: 32_000, Reasoning.HIGH: 32_000, Reasoning.MAX: 32_000,
+    Reasoning.LOW: 4_000,
+    Reasoning.MEDIUM: 32_000,
+    Reasoning.HIGH: 32_000,
+    Reasoning.MAX: 32_000,
 }
 
 MEASURED_SAFE_CONCURRENCY = 12
@@ -149,17 +155,26 @@ class TimeoutLadder(BaseModel):
     run: Seconds
 
     @model_validator(mode="after")
-    def _strictly_increasing(self) -> "TimeoutLadder":
-        rungs = [max(self.trusted_call, self.untrusted_call), self.http_retry_budget,
-                 self.outer_call, self.unit, self.run]
+    def _strictly_increasing(self) -> TimeoutLadder:
+        rungs = [
+            max(self.trusted_call, self.untrusted_call),
+            self.http_retry_budget,
+            self.outer_call,
+            self.unit,
+            self.run,
+        ]
         if rungs != sorted(set(rungs)):
-            raise ValueError(f"timeout ladder is not strictly increasing: {self.model_dump()}")
+            raise ValueError(
+                f"timeout ladder is not strictly increasing: {self.model_dump()}"
+            )
         return self
 
     @classmethod
-    def derive(cls, trusted: ModelSpec, untrusted: ModelSpec) -> "TimeoutLadder":
+    def derive(cls, trusted: ModelSpec, untrusted: ModelSpec) -> TimeoutLadder:
         slowest = max(trusted.resolved_timeout, untrusted.resolved_timeout)
-        http_retry_budget = max(MIN_RETRY_BUDGET_SECONDS, RETRY_BUDGET_PER_CALL * slowest)
+        http_retry_budget = max(
+            MIN_RETRY_BUDGET_SECONDS, RETRY_BUDGET_PER_CALL * slowest
+        )
         outer_call = http_retry_budget + OUTER_CALL_MARGIN_SECONDS
         unit = CALLS_PER_UNIT * outer_call
         return cls(
@@ -257,7 +272,9 @@ class Config(BaseModel):
         """Deterministic for a single run; varied across runs so repetitions are not identical."""
         return SINGLE_RUN_TEMPERATURE if self.runs == 1 else MULTI_RUN_TEMPERATURE
 
-    def runtime(self, spec: ModelSpec, attempt_timeout: int, run_index: int) -> ModelRuntime:
+    def runtime(
+        self, spec: ModelSpec, attempt_timeout: int, run_index: int
+    ) -> ModelRuntime:
         return ModelRuntime(
             name=spec.name,
             temperature=self.temperature,
@@ -286,7 +303,7 @@ class Config(BaseModel):
         }
 
     @classmethod
-    def from_json(cls, data: dict[str, Any]) -> "Config":
+    def from_json(cls, data: dict[str, Any]) -> Config:
         return cls.model_validate(data)
 
 
@@ -307,22 +324,41 @@ class Settings(BaseSettings):
     )
 
     domain: Domain = Field(description="benchmark backend")
-    dataset: str = Field("", description="candidate pool JSON (not needed for --domain mock)")
-    run_id: str = Field("", description="reuse the same id to RESUME an interrupted run")
+    dataset: str = Field(
+        "", description="candidate pool JSON (not needed for --domain mock)"
+    )
+    run_id: str = Field(
+        "", description="reuse the same id to RESUME an interrupted run"
+    )
 
     t_model: str = Field("", description="trusted model, also the monitor")
-    t_reasoning: Reasoning = Field(Reasoning.LOW, description="trusted reasoning effort")
-    t_timeout: Seconds = Field(0, description="trusted seconds per call (0 = from reasoning)")
+    t_reasoning: Reasoning = Field(
+        Reasoning.LOW, description="trusted reasoning effort"
+    )
+    t_timeout: Seconds = Field(
+        0, description="trusted seconds per call (0 = from reasoning)"
+    )
 
-    u_model: str = Field("", description="untrusted model, used only by the u_* strategies")
-    u_reasoning: Reasoning = Field(Reasoning.LOW, description="untrusted reasoning effort")
-    u_timeout: Seconds = Field(0, description="untrusted seconds per call (0 = from reasoning)")
+    u_model: str = Field(
+        "", description="untrusted model, used only by the u_* strategies"
+    )
+    u_reasoning: Reasoning = Field(
+        Reasoning.LOW, description="untrusted reasoning effort"
+    )
+    u_timeout: Seconds = Field(
+        0, description="untrusted seconds per call (0 = from reasoning)"
+    )
 
-    protocols: str = Field("", description=f"comma-separated subset of {','.join(PROTOCOLS)}")
-    gen_strategy: GenStrategy = Field(GenStrategy.BLIND_T, description="who authors the properties")
+    protocols: str = Field(
+        "", description=f"comma-separated subset of {','.join(PROTOCOLS)}"
+    )
+    gen_strategy: GenStrategy = Field(
+        GenStrategy.BLIND_T, description="who authors the properties"
+    )
     attack_rate: Probability = Field(
         DEFAULT_ATTACK_PROBABILITY,
-        description="per-step backdoor probability; 1.0 is the degenerate always-attack regime")
+        description="per-step backdoor probability; 1.0 is the degenerate always-attack regime",
+    )
     audit_rate: float = Field(0.10, ge=0.0, le=1.0, description="human audit budget")
 
     runs: int = Field(1, ge=1, description="repetitions for mean, std and intervals")
@@ -334,7 +370,9 @@ class Settings(BaseSettings):
     docker_image: str = ""
     progress: bool = Field(True, description="live progress display")
     allow_sleep: bool = Field(
-        False, description="let the machine sleep during the run (macOS: skips caffeinate)")
+        False,
+        description="let the machine sleep during the run (macOS: skips caffeinate)",
+    )
 
     tests_per_problem: int = Field(TESTS_PER_PROBLEM, ge=1)
     self_critique: bool = False
@@ -350,33 +388,52 @@ class Settings(BaseSettings):
     max_search_space: int = Field(MAX_SEARCH_SPACE, ge=1)
     run_retries: int = Field(RUN_RETRIES, ge=0)
     scoring_concurrency: int = Field(
-        SCORING_CONCURRENCY, ge=1, description="concurrent samples during ground-truth scoring")
+        SCORING_CONCURRENCY,
+        ge=1,
+        description="concurrent samples during ground-truth scoring",
+    )
 
     @field_validator("protocols")
     @classmethod
     def _known_protocols(cls, raw: str) -> str:
         unknown = [p for p in _split(raw) if p not in PROTOCOLS]
         if unknown:
-            raise ValueError(f"unknown protocol(s) {unknown}; choose from {list(PROTOCOLS)}")
+            raise ValueError(
+                f"unknown protocol(s) {unknown}; choose from {list(PROTOCOLS)}"
+            )
         return raw
 
     @model_validator(mode="after")
-    def _runnable(self) -> "Settings":
+    def _runnable(self) -> Settings:
         if self.stage is not Stage.SCORE and not (self.mock or self.t_model):
             raise ValueError("provide --t-model (e.g. azureai/DeepSeek-V3.2) or --mock")
         if self.stage is Stage.MONITOR and not self.run_id:
-            raise ValueError("--stage monitor requires --run-id (the id of the prior --stage score run)")
-        if self.domain is not Domain.MOCK and self.stage is not Stage.MONITOR and not self.dataset:
+            raise ValueError(
+                "--stage monitor requires --run-id (the id of the prior --stage score run)"
+            )
+        if (
+            self.domain is not Domain.MOCK
+            and self.stage is not Stage.MONITOR
+            and not self.dataset
+        ):
             raise ValueError(f"--domain {self.domain.value} requires --dataset")
         if self.gen_strategy.uses_untrusted and not (self.mock or self.u_model):
-            raise ValueError(f"--gen-strategy {self.gen_strategy.value} requires --u-model")
+            raise ValueError(
+                f"--gen-strategy {self.gen_strategy.value} requires --u-model"
+            )
         return self
 
     def to_config(self, run_id: str) -> Config:
-        trusted = ModelSpec(name=MOCK_MODEL if self.mock else self.t_model,
-                            reasoning=self.t_reasoning, timeout=self.t_timeout)
-        untrusted = ModelSpec(name="" if self.mock else (self.u_model or self.t_model),
-                              reasoning=self.u_reasoning, timeout=self.u_timeout)
+        trusted = ModelSpec(
+            name=MOCK_MODEL if self.mock else self.t_model,
+            reasoning=self.t_reasoning,
+            timeout=self.t_timeout,
+        )
+        untrusted = ModelSpec(
+            name="" if self.mock else (self.u_model or self.t_model),
+            reasoning=self.u_reasoning,
+            timeout=self.u_timeout,
+        )
         return Config(
             run_id=run_id,
             trusted=trusted,
@@ -394,12 +451,33 @@ class Settings(BaseSettings):
         )
 
 
-_PASSTHROUGH_TO_CONFIG = frozenset({
-    "domain", "dataset", "gen_strategy", "runs", "seed", "mock", "limit", "stage", "exec_mode",
-    "docker_image", "tests_per_problem", "self_critique", "property_prompt", "search_prompt", "code_aware_search",
-    "inspect_cache", "max_conn", "call_retries", "call_http_retries", "pbt_timeout",
-    "exec_workers", "max_search_space", "run_retries",
-})
+_PASSTHROUGH_TO_CONFIG = frozenset(
+    {
+        "domain",
+        "dataset",
+        "gen_strategy",
+        "runs",
+        "seed",
+        "mock",
+        "limit",
+        "stage",
+        "exec_mode",
+        "docker_image",
+        "tests_per_problem",
+        "self_critique",
+        "property_prompt",
+        "search_prompt",
+        "code_aware_search",
+        "inspect_cache",
+        "max_conn",
+        "call_retries",
+        "call_http_retries",
+        "pbt_timeout",
+        "exec_workers",
+        "max_search_space",
+        "run_retries",
+    }
+)
 
 
 def _split(raw: str) -> list[str]:

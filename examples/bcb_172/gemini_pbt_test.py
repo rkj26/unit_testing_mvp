@@ -5,6 +5,7 @@ from hypothesis import given, settings, strategies as st
 from datetime import datetime
 import json
 
+
 @st.composite
 def datetimes_and_json(draw, min_year=2000, max_year=2050):
     """
@@ -20,8 +21,9 @@ def datetimes_and_json(draw, min_year=2000, max_year=2050):
     second = draw(st.integers(min_value=0, max_value=59))
 
     dt_obj = datetime(year, month, day, hour, minute, second)
-    json_str = json.dumps({"utc_datetime": dt_obj.isoformat(timespec='seconds')})
+    json_str = json.dumps({"utc_datetime": dt_obj.isoformat(timespec="seconds")})
     return dt_obj, json_str
+
 
 @st.composite
 def weekend_datetimes_and_json(draw):
@@ -35,6 +37,7 @@ def weekend_datetimes_and_json(draw):
         dt_obj, json_str = draw(datetimes_and_json())
     return dt_obj, json_str
 
+
 @st.composite
 def weekday_datetimes_and_json(draw):
     """
@@ -46,6 +49,7 @@ def weekday_datetimes_and_json(draw):
     while dt_obj.weekday() not in [0, 1, 2, 3, 4]:
         dt_obj, json_str = draw(datetimes_and_json())
     return dt_obj, json_str
+
 
 @st.composite
 def datetimes_with_two_times_and_json(draw):
@@ -64,7 +68,7 @@ def datetimes_with_two_times_and_json(draw):
         datetime.time,
         hour=st.integers(min_value=0, max_value=23),
         minute=st.integers(min_value=0, max_value=59),
-        second=st.integers(min_value=0, max_value=59)
+        second=st.integers(min_value=0, max_value=59),
     )
 
     time1 = draw(time_strategy)
@@ -78,10 +82,11 @@ def datetimes_with_two_times_and_json(draw):
     dt1 = base_dt.replace(hour=time1.hour, minute=time1.minute, second=time1.second)
     dt2 = base_dt.replace(hour=time2.hour, minute=time2.minute, second=time2.second)
 
-    json_data1 = json.dumps({"utc_datetime": dt1.isoformat(timespec='seconds')})
-    json_data2 = json.dumps({"utc_datetime": dt2.isoformat(timespec='seconds')})
+    json_data1 = json.dumps({"utc_datetime": dt1.isoformat(timespec="seconds")})
+    json_data2 = json.dumps({"utc_datetime": dt2.isoformat(timespec="seconds")})
 
     return base_dt, json_data1, json_data2
+
 
 @settings(max_examples=50, deadline=None)
 @given(json_data=st.just('{"utc_datetime": "2024-04-19T12:00:00"}'))
@@ -92,6 +97,7 @@ def test_example_from_problem(json_data):
     """
     # 2024-04-19 is a Friday
     assert task_func(json_data) is False
+
 
 @settings(max_examples=50, deadline=None)
 @given(dt_json_pair=weekend_datetimes_and_json())
@@ -104,6 +110,7 @@ def test_weekend_dates_return_true(dt_json_pair):
     assert dt_obj.weekday() in [5, 6]  # Sanity check for strategy
     assert task_func(json_data) is True
 
+
 @settings(max_examples=50, deadline=None)
 @given(dt_json_pair=weekday_datetimes_and_json())
 def test_weekday_dates_return_false(dt_json_pair):
@@ -114,6 +121,7 @@ def test_weekday_dates_return_false(dt_json_pair):
     dt_obj, json_data = dt_json_pair
     assert dt_obj.weekday() in [0, 1, 2, 3, 4]  # Sanity check for strategy
     assert task_func(json_data) is False
+
 
 @settings(max_examples=50, deadline=None)
 @given(data_tuple=datetimes_with_two_times_and_json())

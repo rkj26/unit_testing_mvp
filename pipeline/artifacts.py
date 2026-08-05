@@ -92,8 +92,11 @@ class Status:
     def __init__(self, run_dir: Path):
         self.path = run_dir / "status.json"
         self.state: dict[str, Any] = {
-            "pid": os.getpid(), "phase": "init",
-            "started_at": _now(), "updated_at": _now(), "heartbeat_at": _now(),
+            "pid": os.getpid(),
+            "phase": "init",
+            "started_at": _now(),
+            "updated_at": _now(),
+            "heartbeat_at": _now(),
         }
         self._flush()
 
@@ -122,7 +125,9 @@ class ArtifactStore:
         self.run_dir = Path(run_dir)
         self._status: Status | None = None
 
-    def has(self, kind: ArtifactKind, *, run: int | None = None, task_id: str | None = None) -> bool:
+    def has(
+        self, kind: ArtifactKind, *, run: int | None = None, task_id: str | None = None
+    ) -> bool:
         """Whether the artifact already exists — the resume check (skip when present)."""
         if kind is ArtifactKind.PROBLEMS:
             return read_json(self._problems_path) is not None
@@ -135,7 +140,9 @@ class ArtifactStore:
             return self._metrics_path(_req(run)).exists()
         raise ValueError(f"has() unsupported for {kind}")
 
-    def load(self, kind: ArtifactKind, *, run: int | None = None, task_id: str | None = None) -> Any:
+    def load(
+        self, kind: ArtifactKind, *, run: int | None = None, task_id: str | None = None
+    ) -> Any:
         """Load an artifact's value. RUN_METRICS returns a `(rows, metrics)` pair."""
         if kind is ArtifactKind.PROBLEMS:
             return _problems_from_json(read_json(self._problems_path))
@@ -146,11 +153,20 @@ class ArtifactStore:
         if kind is ArtifactKind.ROWS:
             return _read_jsonl(self._rows_log_path(_req(run)))
         if kind is ArtifactKind.RUN_METRICS:
-            return (read_json(self._rows_path(_req(run))), read_json(self._metrics_path(_req(run))))
+            return (
+                read_json(self._rows_path(_req(run))),
+                read_json(self._metrics_path(_req(run))),
+            )
         raise ValueError(f"load() unsupported for {kind}")
 
-    def put(self, kind: ArtifactKind, value: Any, *, run: int | None = None,
-            task_id: str | None = None) -> None:
+    def put(
+        self,
+        kind: ArtifactKind,
+        value: Any,
+        *,
+        run: int | None = None,
+        task_id: str | None = None,
+    ) -> None:
         """Persist a step's output. RUN_METRICS writes metrics.json LAST, as the completion marker."""
         if kind is ArtifactKind.PROBLEMS:
             write_json(self._problems_path, [_problem_to_json(p) for p in value])
@@ -191,7 +207,13 @@ class ArtifactStore:
         return self.run_dir / "scores.json"
 
     def _suite_path(self, run: int, task_id: str) -> Path:
-        return self.run_dir / f"run_{run}" / "pbt" / task_id.replace("/", "_") / "suite.json"
+        return (
+            self.run_dir
+            / f"run_{run}"
+            / "pbt"
+            / task_id.replace("/", "_")
+            / "suite.json"
+        )
 
     def _rows_log_path(self, run: int) -> Path:
         return self.run_dir / f"run_{run}" / "rows.jsonl"
@@ -209,19 +231,29 @@ def _now() -> str:
 
 def _req(coord: Any) -> Any:
     if coord is None:
-        raise ValueError("missing required coordinate (run/task_id) for this artifact kind")
+        raise ValueError(
+            "missing required coordinate (run/task_id) for this artifact kind"
+        )
     return coord
 
 
 def _problem_to_json(p: Problem) -> dict[str, Any]:
     return {
-        "task_id": p.task_id, "main_task": p.main_task, "io_mode": p.io_mode,
-        "entry_point": p.entry_point, "provided_tests_hint": p.provided_tests_hint,
+        "task_id": p.task_id,
+        "main_task": p.main_task,
+        "io_mode": p.io_mode,
+        "entry_point": p.entry_point,
+        "provided_tests_hint": p.provided_tests_hint,
         "provided_inputs": p.provided_inputs,
-        "reference_code": p.reference_code, "selected_attack": p.selected_attack,
+        "reference_code": p.reference_code,
+        "selected_attack": p.selected_attack,
         "candidates": [
-            {"candidate_id": c.candidate_id, "label": c.label, "code": c.code,
-             "secret_input": c.secret_input}
+            {
+                "candidate_id": c.candidate_id,
+                "label": c.label,
+                "code": c.code,
+                "secret_input": c.secret_input,
+            }
             for c in p.candidates
         ],
     }
@@ -232,12 +264,15 @@ def _problems_from_json(data: Any) -> list[Problem] | None:
         return None
     return [
         Problem(
-            task_id=d["task_id"], main_task=d["main_task"], io_mode=d["io_mode"],
+            task_id=d["task_id"],
+            main_task=d["main_task"],
+            io_mode=d["io_mode"],
             candidates=[Candidate(**c) for c in d["candidates"]],
-            entry_point=d.get("entry_point"),
-            provided_tests_hint=d.get("provided_tests_hint", ""),
-            provided_inputs=list(d.get("provided_inputs") or []),
-            reference_code=d.get("reference_code", ""), selected_attack=d.get("selected_attack"),
+            entry_point=d["entry_point"],
+            provided_tests_hint=d["provided_tests_hint"],
+            provided_inputs=list(d["provided_inputs"]),
+            reference_code=d["reference_code"],
+            selected_attack=d["selected_attack"],
         )
         for d in data
     ]
@@ -245,9 +280,13 @@ def _problems_from_json(data: Any) -> list[Problem] | None:
 
 def _scores_to_json(scores: dict[tuple[str, str], ScoreResult]) -> list[dict[str, Any]]:
     return [
-        {"task_id": t, "candidate_id": c, "main_task_success": r.main_task_success,
-         "side_task_success": r.side_task_success,
-         "unknown": r.unknown.to_json() if r.unknown is not None else None}
+        {
+            "task_id": t,
+            "candidate_id": c,
+            "main_task_success": r.main_task_success,
+            "side_task_success": r.side_task_success,
+            "unknown": r.unknown.to_json() if r.unknown is not None else None,
+        }
         for (t, c), r in sorted(scores.items())
     ]
 
@@ -257,8 +296,10 @@ def _scores_from_json(data: Any) -> dict[tuple[str, str], ScoreResult] | None:
         return None
     return {
         (d["task_id"], d["candidate_id"]): ScoreResult(
-            d["main_task_success"], d["side_task_success"],
-            Unknown.from_json(d["unknown"]) if d.get("unknown") else None)
+            d["main_task_success"],
+            d["side_task_success"],
+            Unknown.from_json(d["unknown"]) if d["unknown"] else None,
+        )
         for d in data
     }
 
@@ -281,14 +322,24 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 def _write_readable_suite(directory: Path, suite: dict[str, Any]) -> None:
     """Human-readable mirror of a suite checkpoint, for debugging a run after the fact."""
     directory.mkdir(parents=True, exist_ok=True)
+    props_src = suite["props_src"]
+    space = suite["space"]
+    meta = suite["meta"]
     (directory / "properties.py").write_text(
-        suite.get("props_src") or f"# no valid properties\n# {suite.get('prop_err')}\n",
-        encoding="utf-8")
+        props_src if props_src else f"# no valid properties\n# {suite['prop_err']}\n",
+        encoding="utf-8",
+    )
     (directory / "search_space.json").write_text(
-        json.dumps(suite.get("space") or [], indent=2), encoding="utf-8")
+        json.dumps(space if space else [], indent=2), encoding="utf-8"
+    )
     (directory / "meta.json").write_text(
-        json.dumps(suite.get("meta") or {}, indent=2, sort_keys=True), encoding="utf-8")
-    if suite.get("props_src") is None:
-        (directory / "prop_completion_raw.txt").write_text(suite.get("prop_raw") or "", encoding="utf-8")
-    if suite.get("space") is None:
-        (directory / "search_completion_raw.txt").write_text(suite.get("space_raw") or "", encoding="utf-8")
+        json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    if not props_src:
+        (directory / "prop_completion_raw.txt").write_text(
+            suite["prop_raw"], encoding="utf-8"
+        )
+    if not space:
+        (directory / "search_completion_raw.txt").write_text(
+            suite["space_raw"], encoding="utf-8"
+        )

@@ -53,7 +53,7 @@ class Unknown:
         return {"blame": self.blame.value, "reason": self.reason}
 
     @classmethod
-    def from_json(cls, data: Mapping[str, Any]) -> "Unknown":
+    def from_json(cls, data: Mapping[str, Any]) -> Unknown:
         return cls(Blame(data["blame"]), str(data.get("reason", "")))
 
 
