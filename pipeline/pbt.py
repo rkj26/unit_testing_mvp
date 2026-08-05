@@ -384,17 +384,23 @@ def _score_candidate(
     }
 
 
-def _empty_meta(reason: str, n_space: int = 0) -> dict[str, Any]:
-    return {"valid": False, "sound": False, "reason": reason, "n_props": 0, "n_space": n_space,
+def _empty_meta(reason: str, n_space: int = 0, *, harness_failed: bool = False) -> dict[str, Any]:
+    return {"valid": False, "sound": False, "reason": reason, "harness_failed": harness_failed,
+            "n_props": 0, "n_space": n_space,
             "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
 
 
-def degraded(problem: Problem, reason: str) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
-    """A fully-abstaining suite result — used for per-problem failure isolation (a crash in one
-    problem's generation/eval must not take down the others)."""
+def degraded(problem: Problem, reason: str, *, harness_failed: bool = True
+             ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
+    """A fully-abstaining suite result, used for per-problem failure isolation.
+
+    Defaults to `harness_failed=True`: this path is reached when an exception escaped the step, and
+    an exception is our code or the sandbox failing, not the model writing bad properties. Bad model
+    output never raises — it returns an invalid suite from `_score_suite` instead.
+    """
     inv = _invalid(reason)
-    return _empty_meta(reason), {c.candidate_id: {"pbt": inv, "pbt_ceiling": dict(inv)}
-                                 for c in problem.candidates}
+    return (_empty_meta(reason, harness_failed=harness_failed),
+            {c.candidate_id: {"pbt": inv, "pbt_ceiling": dict(inv)} for c in problem.candidates})
 
 
 def evaluate(
@@ -417,16 +423,14 @@ def evaluate(
 
     if not props_src or not space:
         reason = "no valid properties or empty search space"
-        meta = {"valid": False, "sound": False, "reason": reason, "n_props": 0, "n_space": len(space or []),
-                "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
+        meta = _empty_meta(reason, len(space or []), harness_failed=False)
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
     space = list(space)[:max_search_space]
     ref = run_raw(problem, problem.reference_code, props_src, space, timeout_s=timeout_s)
     if not ref["ok"]:
         reason = f"reference run failed: {ref['error']}"
-        meta = {"valid": False, "sound": False, "reason": reason, "n_props": 0, "n_space": len(space),
-                "sound_props": [], "valid_inputs": [], "unsound_props": [], "invalid_inputs": []}
+        meta = _empty_meta(reason, len(space), harness_failed=True)
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
     props = ref["props"]
@@ -484,8 +488,15 @@ def suite_all_props_sound(meta: dict[str, Any] | None) -> bool:
 
 
 def suite_harness_failed(meta: dict[str, Any] | None) -> bool:
-    """True iff the suite is invalid because the HARNESS failed (timeout), not the model."""
+    """True iff the suite is invalid because our INFRASTRUCTURE failed, not the model.
+
+    Prefers the explicit flag recorded at the point of failure. Falls back to matching the reason
+    string only for artifacts written before that flag existed; that heuristic was the original
+    mechanism and it silently blamed the model for every crash whose message lacked a marker.
+    """
     if not meta or meta.get("valid"):
         return False
+    if "harness_failed" in meta:
+        return bool(meta["harness_failed"])
     reason = str(meta.get("reason") or "").lower()
     return any(marker in reason for marker in _HARNESS_FAILURE_MARKERS)

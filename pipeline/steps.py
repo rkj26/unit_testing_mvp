@@ -179,7 +179,8 @@ def _score_suite(gen_strategy: GenStrategy, problem: Problem, prop_c: str | None
     meta, results = pbt.evaluate(problem, props_src, space, timeout_s=pbt_timeout,
                                  max_search_space=max_search_space)
     if abstained:
-        meta = {**meta, "reason": f"model call abstained after retries: {', '.join(abstained)}"}
+        meta = {**meta, "harness_failed": True,
+                "reason": f"model call abstained after retries: {', '.join(abstained)}"}
     return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
             "prop_raw": prop_c, "space_raw": space_c, "plan": plan,
             "gen_strategy": gen_strategy.value, "meta": meta, "results": results}

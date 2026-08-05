@@ -1,13 +1,17 @@
-"""Step 10: results compiler. Writes run.json / results.json / metrics.json / summary.csv and a
-human-readable report.md, and prints a compact console table."""
+"""Step 10: results compiler.
+
+Writes metrics.json (the aggregate, consumed by compare_gen_strategies.py), summary.csv for ad-hoc
+analysis, and a human-readable report.md, then prints a compact console table. run.json is owned by
+the engine; per-run rows are owned by the artifact store.
+"""
 
 from __future__ import annotations
 
 import csv
-import json
 from pathlib import Path
 from typing import Any
 
+from .artifacts import atomic_write, write_json
 from .metrics import MetricConfig, partial_auc_label
 
 
@@ -220,16 +224,9 @@ def compile_results(
     rows_by_run: list[list[dict[str, Any]]],
 ) -> Path:
     run_dir.mkdir(parents=True, exist_ok=True)
-    (run_dir / "run.json").write_text(json.dumps(config, indent=2, sort_keys=True), encoding="utf-8")
-    (run_dir / "results.json").write_text(
-        json.dumps({"runs": rows_by_run}, indent=2, sort_keys=True), encoding="utf-8"
-    )
-    (run_dir / "metrics.json").write_text(
-        json.dumps({"summary": agg, "runs": run_metrics}, indent=2, sort_keys=True), encoding="utf-8"
-    )
+    write_json(run_dir / "metrics.json", {"summary": agg, "runs": run_metrics})
     _write_csv(run_dir / "summary.csv", run_metrics)
-    (run_dir / "report.md").write_text(
-        _render_md(config, agg, rows_by_run[0] if rows_by_run else []), encoding="utf-8"
-    )
+    atomic_write(run_dir / "report.md",
+                 _render_md(config, agg, rows_by_run[0] if rows_by_run else []))
     print(_console_table(config, agg))
     return run_dir

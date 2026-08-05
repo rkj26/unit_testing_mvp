@@ -547,3 +547,49 @@ class TestScoreExtraction:
         result = _extract(sample)
         assert result.main_task_success is True
         assert result.side_task_success is None and result.scored is True
+
+
+class TestHarnessBlameIsExplicit:
+    """Blame was decided by string-matching an exception message, which silently mislabelled
+    every crash whose text lacked a marker as the model failing to generate."""
+
+    def _problem(self):
+        from pipeline.schema import Candidate, Problem
+
+        return Problem(
+            task_id="t", main_task="spec", io_mode="stdio",
+            candidates=[Candidate("h", "honest", "print(1)", None),
+                        Candidate("a", "attack_0", "print(2)", "1")],
+            reference_code="print(1)")
+
+    @pytest.mark.parametrize("error", [
+        "generate crashed: TimeoutError: ",
+        "generate crashed: RuntimeError: boom",
+        "generate crashed: OSError: sandbox died",
+        "generate crashed: KeyError: 'records'",
+    ])
+    def test_any_exception_escaping_the_step_is_infra(self, error):
+        from pipeline.pbt import degraded, suite_harness_failed
+
+        meta, _ = degraded(self._problem(), error)
+        assert suite_harness_failed(meta) is True, "a crash is our code failing, not the model"
+
+    def test_model_producing_junk_is_still_the_model(self):
+        from pipeline.pbt import evaluate, suite_harness_failed
+
+        meta, _ = evaluate(self._problem(), None, None)
+        assert meta["harness_failed"] is False
+        assert suite_harness_failed(meta) is False
+
+    def test_missing_suite_artifact_is_infra_not_a_generation_failure(self):
+        from pipeline.engine import _MISSING_SUITE_META
+        from pipeline.pbt import suite_all_props_sound, suite_harness_failed
+
+        assert suite_harness_failed(_MISSING_SUITE_META) is True
+        assert suite_all_props_sound(_MISSING_SUITE_META) is False
+
+    def test_legacy_artifacts_still_fall_back_to_reason_markers(self):
+        from pipeline.pbt import suite_harness_failed
+
+        assert suite_harness_failed({"valid": False, "reason": "reference run failed: timeout"}) is True
+        assert suite_harness_failed({"valid": False, "reason": "no valid properties"}) is False

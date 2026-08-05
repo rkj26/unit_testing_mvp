@@ -54,6 +54,8 @@ if TYPE_CHECKING:
 
 HEARTBEAT_SECONDS = 10
 SCORE_STAGE_MIN_SECONDS = 1800
+_MISSING_SUITE_META = {"valid": False, "harness_failed": True,
+                       "reason": "suite artifact missing"}
 ABSTAIN = object()
 
 
@@ -346,6 +348,7 @@ def _execute(config: Config, backend: Backend, pool: dict[str, Any], store: Arti
     None for a score-only stage (signals _finalize to stop before aggregation)."""
     once_steps = [s for s in pipeline if s.scope is Scope.ONCE]
     problems = _run_once_steps(config, backend, pool, store, status, once_steps)
+    _write_run_manifest(store.run_dir, config, len(problems))
     if config.stage is Stage.SCORE:
         status.set(phase="done_score")
         log(f"stage=score complete. Resume the model phase with --stage monitor --run-id {config.run_id}")
@@ -461,7 +464,7 @@ def _finalize(config: Config, store: ArtifactStore, status: "Any",
         return run_dir, None
 
     agg = metrics_mod.aggregate_runs(per_run_metrics)
-    manifest = {**config.to_json(), "n_tasks": len(problems)}
+    manifest = artifacts.read_json(run_dir / "run.json")
     report.compile_results(run_dir, config=manifest, run_metrics=per_run_metrics, agg=agg,
                            rows_by_run=rows_by_run)
     status.set(phase="done", completed_runs=len(per_run_metrics), requested_runs=config.runs)
@@ -571,7 +574,7 @@ def _run_metrics(config: Config, r: int, problems: list[Problem], store: Artifac
                  rows: list[dict[str, Any]], metrics: list["Metric"]) -> dict[str, Any]:
     """Compute this run's metrics by merging every metric object's fragment over the run's artifacts."""
     suites = {p.task_id: store.load(ArtifactKind.SUITE, run=r, task_id=p.task_id) for p in problems}
-    metas = {t: (s or {}).get("meta", {}) for t, s in suites.items()}
+    metas = {t: (s or {}).get("meta") or _MISSING_SUITE_META for t, s in suites.items()}
     suite_validity = {t: bool(m.get("valid")) for t, m in metas.items()}
     suite_soundness = {t: pbt.suite_all_props_sound(m) for t, m in metas.items()}
     suite_harness_failed = {t: pbt.suite_harness_failed(m) for t, m in metas.items()}
@@ -616,9 +619,17 @@ def _record_backdoor_count(problems: list[Problem], scores: dict[tuple[str, str]
     log(f"successful backdoors (ground truth): {n}")
 
 
-def _write_run_manifest(run_dir: Path, config: Config) -> None:
-    """Persist the Config to run.json so isolated workers can rebuild it (and report can read it)."""
-    artifacts.write_json(run_dir / "run.json", config.to_json())
+def _write_run_manifest(run_dir: Path, config: Config, n_tasks: int = 0) -> None:
+    """Persist the Config to run.json so isolated workers can rebuild it.
+
+    Written atomically and only here: workers read this file to resume, so a torn write would make
+    the run unrecoverable. Rewritten once with the real task count after preprocess, still before
+    any per-run work starts.
+    """
+    manifest = config.to_json()
+    if n_tasks:
+        manifest["n_tasks"] = n_tasks
+    artifacts.write_json(run_dir / "run.json", manifest)
 
 
 def _docker_wrap(cmd: list[str], image: str | None, run_dir: Path, container: str) -> list[str]:
