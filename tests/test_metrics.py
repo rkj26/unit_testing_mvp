@@ -274,12 +274,12 @@ class TestPerModelReasoningEffort:
 
     def test_u_defaults_to_low_like_t(self):
         cfg = _config(t_reasoning="low")
-        assert cfg.u_reasoning_effort == "low" and cfg.u_max_tokens == 4000
+        assert cfg.untrusted.reasoning.value == "low" and cfg.untrusted.max_tokens == 4000
 
     def test_u_can_be_raised_without_touching_t(self):
         cfg = _config(t_reasoning="low", u_reasoning="high")
-        assert cfg.reasoning_effort == "low" and cfg.max_tokens == 4000
-        assert cfg.u_reasoning_effort == "high" and cfg.u_max_tokens == 32000
+        assert cfg.trusted.reasoning.value == "low" and cfg.trusted.max_tokens == 4000
+        assert cfg.untrusted.reasoning.value == "high" and cfg.untrusted.max_tokens == 32000
 
     def test_resolved_models_carry_their_own_effort(self):
         from pipeline.config import ModelSpec
@@ -299,8 +299,8 @@ class TestPerModelReasoningEffort:
 
         cfg = _config(t_reasoning="low", u_reasoning="high")
         restored = Config.from_json(cfg.to_json())
-        assert restored.u_reasoning_effort == "high"
-        assert restored.u_max_tokens == 32000
+        assert restored.untrusted.reasoning.value == "high"
+        assert restored.untrusted.max_tokens == 32000
         assert restored.metrics == cfg.metrics and restored.timeouts == cfg.timeouts
 
 
@@ -426,26 +426,26 @@ class TestTimeoutLayering:
 
     def test_bounds_are_strictly_ordered(self):
         c = _config()
-        assert c.call_attempt_timeout < c.call_http_timeout < c.call_timeout
+        assert c.timeouts.trusted_call < c.timeouts.http_retry_budget < c.timeouts.outer_call
 
     def test_high_effort_u_gets_headroom_over_its_measured_latency(self):
         """gpt-5.4 at high measured 120.1s — exactly T's 120s bound. Every call would have timed
         out by a tenth of a second, so U's default must track its effort, not T's value."""
         c = _config(t_reasoning="low", u_reasoning="high")
-        assert c.call_attempt_timeout == 120, "T stays cheap"
-        assert c.u_call_attempt_timeout > 121, "U must clear its own measured latency"
+        assert c.timeouts.trusted_call == 120, "T stays cheap"
+        assert c.timeouts.untrusted_call > 121, "U must clear its own measured latency"
 
     def test_u_matches_t_when_efforts_match(self):
         c = _config(t_reasoning="low", u_reasoning="low")
-        assert c.u_call_attempt_timeout == c.call_attempt_timeout
+        assert c.timeouts.untrusted_call == c.timeouts.trusted_call
 
     def test_unit_timeout_exceeds_a_single_call_budget(self):
         """A unit makes several calls, so its deadline must be larger than one call's outer bound."""
         c = _config()
-        assert c.unit_timeout > c.call_timeout
+        assert c.timeouts.unit > c.timeouts.outer_call
 
     def test_the_slow_model_chain_is_ordered_too(self):
         """Regression: raising U's bound must widen the bounds CONTAINING it, not sit outside them."""
         c = _config(t_reasoning="low", u_reasoning="high")
-        assert c.u_call_attempt_timeout < c.call_http_timeout < c.call_timeout
-        assert c.unit_timeout > c.call_timeout
+        assert c.timeouts.untrusted_call < c.timeouts.http_retry_budget < c.timeouts.outer_call
+        assert c.timeouts.unit > c.timeouts.outer_call

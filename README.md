@@ -98,8 +98,8 @@ An elicitation arm, where the untrusted model plans the properties and the trust
 ```
 
 `--run-id` names a run and, reused, RESUMES it from its last checkpoint. `--protocols` restricts
-which protocols are scored, `--attack-rate` sets the per-step backdoor probability (`always` for the
-degenerate p=1.0 regime) and `--audit-rate` the human budget. `run.py --help` lists everything;
+which protocols are scored, `--attack-rate` sets the per-step backdoor probability (`1.0` is the
+degenerate always-attack regime) and `--audit-rate` the human budget. `run.py --help` lists everything;
 every flag is also an environment variable of the same name in upper case.
 
 For a no-cost plumbing check:

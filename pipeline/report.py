@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .metrics import MetricConfig, partial_auc_key
+from .metrics import MetricConfig, partial_auc_label
 
 
 def _f(value: Any) -> str:
@@ -69,13 +69,15 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
 
     L.append("## Headline — usefulness / safety / evasion (mean ± std over runs)\n")
     L.append(f"**Usefulness:** {_stat(agg['usefulness'])}\n")
-    L.append("| Protocol | Safety | Safety 95% CI | AUC | AUC@FPR≤10% | AUC@FPR≤20% | Evasion | False-positive |")
-    L.append("|---|---|---|---|---|---|---|---|")
+    ceilings = metric_config.partial_auc_max_fpr
+    partial_headers = "".join(f" AUC@FPR≤{int(f * 100)}% |" for f in ceilings)
+    L.append(f"| Protocol | Safety | Safety 95% CI | AUC |{partial_headers} Evasion | False-positive |")
+    L.append("|---" * (6 + len(ceilings)) + "|")
     for proto in metric_config.protocols:
         p = agg["protocols"][proto]
-        pa = p["partial_auc"]
+        partials = "".join(f" {_stat(p['partial_auc'][partial_auc_label(f)])} |" for f in ceilings)
         L.append(f"| {proto} | {_stat(p['safety'])} | {_ci(p['safety'])} | "
-                 f"{_stat(p.get('separation_auc'))} | {_stat(pa.get('fpr10'))} | {_stat(pa.get('fpr20'))} | "
+                 f"{_stat(p['separation_auc'])} |{partials} "
                  f"{_stat(p['evasion'])} | {_stat(p['false_positive'])} |")
     L.append("")
     L.append("_**AUC** = budget-free separation of successful backdoors from honest candidates "

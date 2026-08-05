@@ -53,6 +53,7 @@ if TYPE_CHECKING:
     from .metrics_objs import Metric
 
 HEARTBEAT_SECONDS = 10
+SCORE_STAGE_MIN_SECONDS = 1800
 ABSTAIN = object()
 
 
@@ -124,7 +125,7 @@ class RetryPolicy:
     @classmethod
     def from_config(cls, config: Config) -> "RetryPolicy":
         """Derive the policy from a Config (1 + call_retries attempts, call_timeout hard cap)."""
-        return cls(attempts=1 + config.call_retries, timeout_s=float(config.call_timeout))
+        return cls(attempts=1 + config.call_retries, timeout_s=float(config.timeouts.outer_call))
 
 
 @dataclass
@@ -333,7 +334,7 @@ def _execute_with_optional_dashboard(config: Config, backend: Backend, pool: dic
         return _execute(config, backend, pool, store, status, pipeline, metrics)
     from .progress import ProgressReporter
 
-    label = f"{config.run_id} · {config.domain.value} · {config.model_name}"
+    label = f"{config.run_id} · {config.domain.value} · {config.trusted.name}"
     with ProgressReporter(store.run_dir, runs=config.runs, label=label):
         return _execute(config, backend, pool, store, status, pipeline, metrics)
 
@@ -419,11 +420,11 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step], metrics:
                 rc = 0
             else:
                 cmd = [sys.executable, "-m", "pipeline.worker", str(store.run_dir.resolve()), "run", str(r)]
-                rc = run_isolated(cmd, timeout_s=config.run_timeout, exec_mode=config.exec_mode,
+                rc = run_isolated(cmd, timeout_s=config.timeouts.run, exec_mode=config.exec_mode,
                                   docker_image=config.docker_image, run_dir=store.run_dir,
                                   log_path=(store.run_dir / "pipeline.log") if config.progress else None)
         except subprocess.TimeoutExpired:
-            log(f"run {r}: exceeded {config.run_timeout}s — killed; resuming from checkpoint")
+            log(f"run {r}: exceeded {config.timeouts.run}s — killed; resuming from checkpoint")
             continue
         except Exception:
             log(f"run {r}: crashed:\n{traceback.format_exc()}")
@@ -440,7 +441,7 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step], metrics:
 def _run_once_isolated(config: Config, run_dir: Path, step_name: str) -> None:
     """Run one ONCE step in a plain subprocess (never Docker — control_arena has its own sandbox)."""
     cmd = [sys.executable, "-m", "pipeline.worker", str(run_dir.resolve()), "once", step_name]
-    rc = run_isolated(cmd, timeout_s=max(config.run_timeout, 1800), exec_mode=ExecMode.SUBPROCESS,
+    rc = run_isolated(cmd, timeout_s=max(config.timeouts.run, SCORE_STAGE_MIN_SECONDS), exec_mode=ExecMode.SUBPROCESS,
                       docker_image=None, run_dir=run_dir,
                       log_path=(run_dir / "pipeline.log") if config.progress else None)
     if rc != 0:
@@ -537,7 +538,7 @@ async def _guard(ctx: RunContext, step: Step, spec: FanoutSpec, unit: Any) -> No
     the run short of completeness so it resumes.
     """
     try:
-        value = await asyncio.wait_for(step.fn(ctx, unit), timeout=ctx.config.unit_timeout)
+        value = await asyncio.wait_for(step.fn(ctx, unit), timeout=ctx.config.timeouts.unit)
     except Exception as error:
         log(f"  [warn] {step.name} failed for {spec.label(unit)}: {type(error).__name__}: {error}")
         value = spec.on_fail(ctx, step, unit, error)
@@ -598,7 +599,7 @@ def _resolve_models(config: Config, r: int) -> tuple[model_mod.TrustedModel, mod
     """
     t_model = model_mod.resolve(config.trusted_runtime(r))
     u_model = (model_mod.resolve(config.untrusted_runtime(r))
-               if config.elicit_model_name else t_model)
+               if config.uses_separate_untrusted else t_model)
     return t_model, u_model
 
 

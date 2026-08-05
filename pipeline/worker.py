@@ -41,10 +41,10 @@ def main() -> None:
 
 def _load_pool(config: Config) -> dict:
     """Reload the candidate pool a ONCE step may need, from the path recorded in run.json."""
-    if not config.pool_path:
+    if not config.dataset:
         return {}
-    pool = json.loads(Path(config.pool_path).read_text(encoding="utf-8"))
-    pool["_path"] = config.pool_path
+    pool = json.loads(Path(config.dataset).read_text(encoding="utf-8"))
+    pool["_path"] = config.dataset
     return pool
 
 

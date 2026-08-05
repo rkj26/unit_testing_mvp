@@ -17,7 +17,7 @@ from typing import Annotated, Any
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .metrics import PROTOCOLS, MetricConfig
+from .metrics import DEFAULT_ATTACK_PROBABILITY, PROTOCOLS, Probability, MetricConfig
 
 
 class Domain(str, Enum):
@@ -97,8 +97,7 @@ PBT_EXEC_WORKERS = 8
 MAX_SEARCH_SPACE = 60
 TESTS_PER_PROBLEM = 5
 
-ALWAYS_ATTACK_ALIASES = ("always", "none")
-NO_MODEL = ""
+MOCK_MODEL = "mock"
 ALL_TASKS = 0
 DERIVE_FROM_REASONING = 0
 
@@ -114,7 +113,7 @@ class ModelSpec(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    name: str = NO_MODEL
+    name: str = ""
     reasoning: Reasoning = Reasoning.LOW
     timeout: Seconds = DERIVE_FROM_REASONING
 
@@ -227,71 +226,16 @@ class Config(BaseModel):
     run_retries: int = Field(RUN_RETRIES, ge=0)
 
     @property
-    def model_name(self) -> str:
-        return "mock" if self.mock else self.trusted.name
-
-    @property
-    def elicit_model_name(self) -> str:
-        return NO_MODEL if self.mock else self.untrusted.name
-
-    @property
-    def pool_path(self) -> str:
-        return self.dataset
-
-    @property
-    def protocols(self) -> tuple[str, ...]:
-        return self.metrics.protocols
-
-    @property
-    def audit_rate(self) -> float:
-        return self.metrics.audit_rate
-
-    @property
-    def reasoning_effort(self) -> str:
-        return self.trusted.reasoning.value
-
-    @property
-    def max_tokens(self) -> int:
-        return self.trusted.max_tokens
-
-    @property
-    def u_reasoning_effort(self) -> str:
-        return self.untrusted.reasoning.value
-
-    @property
-    def u_max_tokens(self) -> int:
-        return self.untrusted.max_tokens
-
-    @property
-    def call_attempt_timeout(self) -> int:
-        return self.timeouts.trusted_call
-
-    @property
-    def u_call_attempt_timeout(self) -> int:
-        return self.timeouts.untrusted_call
-
-    @property
-    def call_http_timeout(self) -> int:
-        return self.timeouts.http_retry_budget
-
-    @property
-    def call_timeout(self) -> int:
-        return self.timeouts.outer_call
-
-    @property
-    def unit_timeout(self) -> int:
-        return self.timeouts.unit
-
-    @property
-    def run_timeout(self) -> int:
-        return self.timeouts.run
+    def uses_separate_untrusted(self) -> bool:
+        """Whether U is a distinct endpoint from T; under mock they are the same model."""
+        return not self.mock and bool(self.untrusted.name)
 
     @property
     def temperature(self) -> float:
         """Deterministic for a single run; varied across runs so repetitions are not identical."""
         return SINGLE_RUN_TEMPERATURE if self.runs == 1 else MULTI_RUN_TEMPERATURE
 
-    def runtime(self, spec: ModelSpec, *, attempt_timeout: int, run_index: int) -> ModelRuntime:
+    def runtime(self, spec: ModelSpec, attempt_timeout: int, run_index: int) -> ModelRuntime:
         return ModelRuntime(
             name=spec.name,
             temperature=self.temperature,
@@ -305,19 +249,17 @@ class Config(BaseModel):
         )
 
     def trusted_runtime(self, run_index: int) -> ModelRuntime:
-        spec = self.trusted.model_copy(update={"name": self.model_name})
-        return self.runtime(spec, attempt_timeout=self.timeouts.trusted_call, run_index=run_index)
+        return self.runtime(self.trusted, self.timeouts.trusted_call, run_index)
 
     def untrusted_runtime(self, run_index: int) -> ModelRuntime:
-        spec = self.untrusted.model_copy(update={"name": self.elicit_model_name})
-        return self.runtime(spec, attempt_timeout=self.timeouts.untrusted_call, run_index=run_index)
+        return self.runtime(self.untrusted, self.timeouts.untrusted_call, run_index)
 
     def to_json(self) -> dict[str, Any]:
         """A JSON-serializable manifest for run.json, with the aliases the report renderer reads."""
         return {
             **self.model_dump(mode="json"),
-            "model": self.model_name,
-            "pool": self.pool_path,
+            "model": self.trusted.name,
+            "pool": self.dataset,
             "n_tasks": self.limit,
         }
 
@@ -356,7 +298,9 @@ class Settings(BaseSettings):
 
     protocols: str = Field("", description=f"comma-separated subset of {','.join(PROTOCOLS)}")
     gen_strategy: GenStrategy = Field(GenStrategy.BLIND_T, description="who authors the properties")
-    attack_rate: str = Field("", description="per-step backdoor probability, or 'always' for p=1.0")
+    attack_rate: Probability = Field(
+        DEFAULT_ATTACK_PROBABILITY,
+        description="per-step backdoor probability; 1.0 is the degenerate always-attack regime")
     audit_rate: float = Field(0.10, ge=0.0, le=1.0, description="human audit budget")
 
     runs: int = Field(1, ge=1, description="repetitions for mean, std and intervals")
@@ -389,15 +333,6 @@ class Settings(BaseSettings):
             raise ValueError(f"unknown protocol(s) {unknown}; choose from {list(PROTOCOLS)}")
         return raw
 
-    @field_validator("attack_rate")
-    @classmethod
-    def _rate_or_alias(cls, raw: str) -> str:
-        if raw == "" or raw.strip().lower() in ALWAYS_ATTACK_ALIASES:
-            return raw
-        if not 0.0 <= float(raw) <= 1.0:
-            raise ValueError(f"attack-rate must be in [0,1] or 'always' (got {raw!r})")
-        return raw
-
     @model_validator(mode="after")
     def _runnable(self) -> "Settings":
         if self.stage is not Stage.SCORE and not (self.mock or self.t_model):
@@ -410,56 +345,33 @@ class Settings(BaseSettings):
             raise ValueError(f"--gen-strategy {self.gen_strategy.value} requires --u-model")
         return self
 
-    @property
-    def attack_probability(self) -> float:
-        if self.attack_rate == "":
-            return MetricConfig.model_fields["attack_probability"].default
-        if self.attack_rate.strip().lower() in ALWAYS_ATTACK_ALIASES:
-            return 1.0
-        return float(self.attack_rate)
-
     def to_config(self, run_id: str) -> Config:
-        trusted = ModelSpec(name=self.t_model, reasoning=self.t_reasoning, timeout=self.t_timeout)
-        untrusted = ModelSpec(
-            name=self.u_model or self.t_model,
-            reasoning=self.u_reasoning,
-            timeout=self.u_timeout,
-        )
+        trusted = ModelSpec(name=MOCK_MODEL if self.mock else self.t_model,
+                            reasoning=self.t_reasoning, timeout=self.t_timeout)
+        untrusted = ModelSpec(name="" if self.mock else (self.u_model or self.t_model),
+                              reasoning=self.u_reasoning, timeout=self.u_timeout)
         return Config(
             run_id=run_id,
-            domain=self.domain,
-            dataset=self.dataset,
-            gen_strategy=self.gen_strategy,
             trusted=trusted,
             untrusted=untrusted,
+            timeouts=TimeoutLadder.derive(trusted, untrusted),
             metrics=MetricConfig(
                 audit_rate=self.audit_rate,
-                attack_probability=self.attack_probability,
+                attack_probability=self.attack_rate,
                 protocols=tuple(_split(self.protocols)) or PROTOCOLS,
                 seed=self.seed,
             ),
-            timeouts=TimeoutLadder.derive(trusted, untrusted),
-            runs=self.runs,
-            seed=self.seed,
-            mock=self.mock,
-            limit=self.limit,
-            stage=self.stage,
-            exec_mode=self.exec_mode,
-            docker_image=self.docker_image,
             progress=self.progress and sys.stdout.isatty(),
-            tests_per_problem=self.tests_per_problem,
-            self_critique=self.self_critique,
-            property_prompt=self.property_prompt,
-            search_prompt=self.search_prompt,
-            inspect_cache=self.inspect_cache,
-            max_conn=self.max_conn,
-            call_retries=self.call_retries,
-            call_http_retries=self.call_http_retries,
-            pbt_timeout=self.pbt_timeout,
-            exec_workers=self.exec_workers,
-            max_search_space=self.max_search_space,
-            run_retries=self.run_retries,
+            **self.model_dump(include=_PASSTHROUGH_TO_CONFIG),
         )
+
+
+_PASSTHROUGH_TO_CONFIG = frozenset({
+    "domain", "dataset", "gen_strategy", "runs", "seed", "mock", "limit", "stage", "exec_mode",
+    "docker_image", "tests_per_problem", "self_critique", "property_prompt", "search_prompt",
+    "inspect_cache", "max_conn", "call_retries", "call_http_retries", "pbt_timeout",
+    "exec_workers", "max_search_space", "run_retries",
+})
 
 
 def _split(raw: str) -> list[str]:
