@@ -23,7 +23,6 @@ from pydantic import ValidationError
 from pipeline import engine
 from pipeline.backends import get_backend
 from pipeline.config import Settings
-from pipeline.metrics_objs import METRICS
 from pipeline.steps import PIPELINE
 
 
@@ -45,7 +44,7 @@ def main() -> None:
         pool = json.loads(Path(config.dataset).read_text(encoding="utf-8"))
         pool["_path"] = config.dataset
 
-    engine.run(config, get_backend(config.domain.value), pool, PIPELINE, METRICS)
+    engine.run(config, get_backend(config.domain.value), pool, PIPELINE)
 
 
 if __name__ == "__main__":

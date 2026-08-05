@@ -20,7 +20,6 @@ from .artifacts import read_json
 from .backends import get_backend
 from .config import Config
 from .engine import execute_once, execute_run
-from .metrics_objs import METRICS
 from .steps import PIPELINE
 
 
@@ -34,7 +33,7 @@ def main() -> None:
         backend = get_backend(config.domain.value)
         execute_once(config, run_dir, arg, PIPELINE, backend, _load_pool(config))
     elif mode == "run":
-        execute_run(config, int(arg), PIPELINE, METRICS, run_dir)
+        execute_run(config, int(arg), PIPELINE, run_dir)
     else:
         raise SystemExit(f"worker: unknown mode {mode!r} (expected 'once' or 'run')")
 

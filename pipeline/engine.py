@@ -1,6 +1,6 @@
 """The declarative pipeline engine — the only orchestration layer.
 
-`run(config, backend, pool, pipeline, metrics)` is the single entrypoint. The whole pipeline is one
+`run(config, backend, pool, pipeline)` is the single entrypoint. The whole pipeline is one
 ordered list of `Step` objects; the engine drives it off their declared fields — nothing about a
 particular step is hardcoded here:
   - `Step.scope`  splits the list into ONCE steps (preprocess, score) and PER_RUN steps.
@@ -49,9 +49,6 @@ from .artifacts import ArtifactKind, ArtifactStore
 from .config import Config, ExecMode, Stage
 from .outcome import Blame, Unknown
 from .schema import Backend, Problem
-
-if TYPE_CHECKING:
-    from .metrics_objs import Metric
 
 HEARTBEAT_SECONDS = 10
 SCORE_STAGE_MIN_SECONDS = 1800
@@ -213,8 +210,7 @@ def run_isolated(cmd: list[str], *, timeout_s: int, exec_mode: ExecMode, docker_
             out.close()
 
 
-def run(config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[Step],
-        metrics: list["Metric"]) -> tuple[Path, dict[str, Any] | None]:
+def run(config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[Step]) -> tuple[Path, dict[str, Any] | None]:
     """Execute the whole pipeline (parent process): ONCE setup, per-run loop, aggregate, report.
 
     Validates the step graph, runs the ONCE steps (checkpointed), then executes the per-run steps inside
@@ -231,13 +227,13 @@ def run(config: Config, backend: Backend, pool: dict[str, Any], pipeline: list[S
     global _LOG_FILE
     _LOG_FILE = run_dir / "pipeline.log" if config.progress else None
     try:
-        outcome = _execute_with_optional_dashboard(config, backend, pool, store, status, pipeline, metrics)
+        outcome = _execute_with_optional_dashboard(config, backend, pool, store, status, pipeline)
         return _finalize(config, store, status, outcome)
     finally:
         _LOG_FILE = None
 
 
-def execute_run(config: Config, r: int, pipeline: list[Step], metrics: list["Metric"],
+def execute_run(config: Config, r: int, pipeline: list[Step],
                 run_dir: Path) -> None:
     """Execute the PER_RUN steps for run `r`, then compute + persist its metrics (the run-done marker).
 
@@ -251,7 +247,7 @@ def execute_run(config: Config, r: int, pipeline: list[Step], metrics: list["Met
     if problems is None or scores is None:
         raise SystemExit("execute_run: problems.json / scores.json missing (run the score stage first)")
     per_run_steps = [s for s in pipeline if s.scope is Scope.PER_RUN]
-    asyncio.run(_execute_run_async(config, r, per_run_steps, metrics, store, problems, scores))
+    asyncio.run(_execute_run_async(config, r, per_run_steps, store, problems, scores))
 
 
 def execute_once(config: Config, run_dir: Path, step_name: str, pipeline: list[Step],
@@ -331,19 +327,19 @@ def _validate_pipeline(pipeline: list[Step]) -> None:
 
 def _execute_with_optional_dashboard(config: Config, backend: Backend, pool: dict[str, Any],
                                      store: ArtifactStore, status: "Any", pipeline: list[Step],
-                                     metrics: list["Metric"]) -> tuple[list[Problem], list | None, list]:
+                                     ) -> tuple[list[Problem], list | None, list]:
     """Run ONCE setup + the per-run loop, under the live dashboard when `config.progress` is set."""
     if not config.progress:
-        return _execute(config, backend, pool, store, status, pipeline, metrics)
+        return _execute(config, backend, pool, store, status, pipeline)
     from .progress import ProgressReporter
 
     label = f"{config.run_id} · {config.domain.value} · {config.trusted.name}"
     with ProgressReporter(store.run_dir, runs=config.runs, label=label):
-        return _execute(config, backend, pool, store, status, pipeline, metrics)
+        return _execute(config, backend, pool, store, status, pipeline)
 
 
 def _execute(config: Config, backend: Backend, pool: dict[str, Any], store: ArtifactStore,
-             status: "Any", pipeline: list[Step], metrics: list["Metric"]
+             status: "Any", pipeline: list[Step]
              ) -> tuple[list[Problem], list | None, list]:
     """ONCE setup + per-run loop. Returns (problems, per_run_metrics, rows_by_run); per_run_metrics is
     None for a score-only stage (signals _finalize to stop before aggregation)."""
@@ -354,7 +350,7 @@ def _execute(config: Config, backend: Backend, pool: dict[str, Any], store: Arti
         status.set(phase="done_score")
         log(f"stage=score complete. Resume the model phase with --stage monitor --run-id {config.run_id}")
         return problems, None, []
-    per_run_metrics, rows_by_run = _run_loop(config, pipeline, metrics, store, status)
+    per_run_metrics, rows_by_run = _run_loop(config, pipeline, store, status)
     return problems, per_run_metrics, rows_by_run
 
 
@@ -383,7 +379,7 @@ def _run_once_steps(config: Config, backend: Backend, pool: dict[str, Any], stor
     return problems or []
 
 
-def _run_loop(config: Config, pipeline: list[Step], metrics: list["Metric"], store: ArtifactStore,
+def _run_loop(config: Config, pipeline: list[Step], store: ArtifactStore,
               status: "Any") -> tuple[list[dict[str, Any]], list[list[dict[str, Any]]]]:
     """Loop over runs, executing each in its isolation boundary; skip completed, retry on timeout.
 
@@ -399,14 +395,14 @@ def _run_loop(config: Config, pipeline: list[Step], metrics: list["Metric"], sto
                 per_run_metrics.append(m)
                 rows_by_run.append(rows)
                 continue
-        if _execute_run_isolated(config, r, pipeline, metrics, store, status):
+        if _execute_run_isolated(config, r, pipeline, store, status):
             rows, m = store.load(ArtifactKind.RUN_METRICS, run=r)
             per_run_metrics.append(m)
             rows_by_run.append(rows)
     return per_run_metrics, rows_by_run
 
 
-def _execute_run_isolated(config: Config, r: int, pipeline: list[Step], metrics: list["Metric"],
+def _execute_run_isolated(config: Config, r: int, pipeline: list[Step],
                           store: ArtifactStore, status: "Any") -> bool:
     """Run one run-index in its isolation boundary with kill+resume retries; True if it completed.
 
@@ -420,7 +416,7 @@ def _execute_run_isolated(config: Config, r: int, pipeline: list[Step], metrics:
         status.set(phase="run_active", run_index=r, attempt=attempt + 1)
         try:
             if config.exec_mode is ExecMode.INPROCESS:
-                execute_run(config, r, pipeline, metrics, store.run_dir)
+                execute_run(config, r, pipeline, store.run_dir)
                 rc = 0
             else:
                 cmd = [sys.executable, "-m", "pipeline.worker", str(store.run_dir.resolve()), "run", str(r)]
@@ -484,7 +480,7 @@ def _require_inputs(store: ArtifactStore, step: Step) -> None:
             raise RuntimeError(f"step '{step.name}' needs {need.value}, which is missing")
 
 
-async def _execute_run_async(config: Config, r: int, per_run_steps: list[Step], metrics: list["Metric"],
+async def _execute_run_async(config: Config, r: int, per_run_steps: list[Step],
                              store: ArtifactStore, problems: list[Problem],
                              scores: dict[tuple[str, str], Any]) -> None:
     """Async body of one run: build the context, run each step fanned out, check completeness, persist."""
@@ -507,7 +503,7 @@ async def _execute_run_async(config: Config, r: int, per_run_steps: list[Step], 
         detail = ", ".join(f"{name} {done}/{total}" for name, done, total in short)
         raise RuntimeError(f"run {r}: incomplete ({detail}) — resume to finish")
     rows = store.load(ArtifactKind.ROWS, run=r)
-    m = _run_metrics(config, r, problems, store, rows, metrics)
+    m = _run_metrics(config, r, problems, store, rows)
     store.put(ArtifactKind.RUN_METRICS, (sorted(rows, key=_row_sort_key), m), run=r)
     log(f"run {r}: worker complete + checkpointed")
 
@@ -572,20 +568,21 @@ def _incomplete_steps(ctx: RunContext | None, per_run_steps: list[Step]) -> list
 
 
 def _run_metrics(config: Config, r: int, problems: list[Problem], store: ArtifactStore,
-                 rows: list[dict[str, Any]], metrics: list["Metric"]) -> dict[str, Any]:
-    """Compute this run's metrics by merging every metric object's fragment over the run's artifacts."""
+                 rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Compute this run's metrics over its artifacts."""
     suites = {p.task_id: store.load(ArtifactKind.SUITE, run=r, task_id=p.task_id) for p in problems}
     metas = {t: (s or {}).get("meta") or _MISSING_SUITE_META for t, s in suites.items()}
     suite_validity = {t: bool(m.get("valid")) for t, m in metas.items()}
     suite_soundness = {t: pbt.suite_all_props_sound(m) for t, m in metas.items()}
     suite_blame = {t: pbt.suite_blame(m) for t, m in metas.items()}
-    selected_policy = {p.task_id: p.selected_attack for p in problems}
-    merged: dict[str, Any] = {}
-    for metric in metrics:
-        merged.update(metric.compute(rows, selected_policy, suite_validity, suite_soundness,
-                                     config=config, seed=config.seed + r,
-                                     suite_blame=suite_blame))
-    return merged
+    return metrics_mod.compute_run_metrics(
+        rows,
+        {p.task_id: p.selected_attack for p in problems},
+        config=config.metrics.model_copy(update={"seed": config.seed + r}),
+        suite_validity=suite_validity,
+        suite_soundness=suite_soundness,
+        suite_blame=suite_blame,
+    )
 
 
 async def _heartbeat(status: "Any") -> None:
