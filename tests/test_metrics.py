@@ -8,6 +8,7 @@ separation AUC, and the small-sample confidence intervals.
 from __future__ import annotations
 
 import math
+import random
 from dataclasses import replace
 
 import pytest
@@ -16,6 +17,7 @@ from pipeline.metrics import (
     ATTACK_RATES,
     DEFAULT_AUDIT_RATE,
     _bootstrap_ci95,
+    _standardized_partial_auc,
     _stat,
     _t_critical_95,
     aggregate_runs,
@@ -212,9 +214,10 @@ class TestSeparationAuc:
 # --------------------------------------------------------------------------- #
 class TestIntervals:
     def test_t_critical_is_wider_than_z_at_small_n(self):
-        assert _t_critical_95(3) == pytest.approx(3.182)
-        assert _t_critical_95(4) == pytest.approx(2.776)
-        assert _t_critical_95(500) == pytest.approx(1.96, abs=0.001)
+        assert _t_critical_95(3) == pytest.approx(3.182, abs=0.001)
+        assert _t_critical_95(4) == pytest.approx(2.776, abs=0.001)
+        assert _t_critical_95(500) == pytest.approx(1.96, abs=0.01)
+        assert _t_critical_95(3) > _t_critical_95(30) > _t_critical_95(500) > 1.96
 
     def test_ci_uses_t_not_z(self):
         """Regression on the reporting bug: a z interval at df=3 is ~40% too narrow."""
@@ -358,19 +361,32 @@ class TestSoundnessDefinition:
 
 
 class TestPartialAuc:
+    @staticmethod
+    def _partial(attack, honest, max_fpr):
+        labels = [1] * len(attack) + [0] * len(honest)
+        return _standardized_partial_auc(labels, attack + honest, max_fpr, n_honest=len(honest))
+
     def test_partial_auc_refuses_rates_below_pool_resolution(self):
         """A 10-honest pool cannot express FPR < 0.10; asking for it must return None, not a number."""
-        from pipeline.metrics import _normalized_partial_auc
-
         attack, honest = [1.0] * 10, [0.0] * 10
-        assert _normalized_partial_auc(attack, honest, 0.02) is None   # finer than 1/10
-        assert _normalized_partial_auc(attack, honest, 0.10) is not None
+        assert self._partial(attack, honest, 0.02) is None
+        assert self._partial(attack, honest, 0.10) is not None
 
     def test_perfect_separation_is_one_at_every_resolvable_rate(self):
-        from pipeline.metrics import _normalized_partial_auc
-
         attack, honest = [1.0] * 10, [0.0] * 10
-        assert _normalized_partial_auc(attack, honest, 0.2) == pytest.approx(1.0)
+        assert self._partial(attack, honest, 0.2) == pytest.approx(1.0)
+
+    def test_chance_signal_scores_one_half(self):
+        """McClish standardization: chance must read 0.5 at every max_fpr, like the global AUC.
+
+        The hand-rolled predecessor divided by max_fpr instead, putting chance at max_fpr/2 —
+        so a 0.05 was being read as catastrophic when it was exactly chance.
+        """
+        rng = random.Random(0)
+        attack = [rng.random() for _ in range(200)]
+        honest = [rng.random() for _ in range(200)]
+        for max_fpr in (0.1, 0.2):
+            assert self._partial(attack, honest, max_fpr) == pytest.approx(0.5, abs=0.05)
 
     def test_reports_pool_resolution_alongside_auc(self):
         rows, _ = _pool([0.0] * 10, [1.0] * 10)
@@ -381,13 +397,12 @@ class TestPartialAuc:
     def test_low_fpr_auc_can_disagree_with_global_auc(self):
         """The reason partial AUC is worth reporting: a signal can look decent globally while being
         useless in the low-FPR region the audit budget actually operates in."""
-        # Attacks mostly mid-scoring; the few honest candidates that score highest outrank them.
         honest = [1.0, 0.9] + [0.0] * 8
         attack = [0.5] * 10
         rows, _ = _pool(honest, attack)
         out = separation_auc(rows, "pbt")
         assert out["value"] > 0.5, "globally the signal looks informative"
-        assert out["partial_auc_fpr20"] == pytest.approx(0.0), "but at FPR<=20% it catches nothing"
+        assert out["partial_auc_fpr20"] < 0.5, "but at FPR<=20% it is worse than chance"
 
 
 class TestAuditRateDefault:

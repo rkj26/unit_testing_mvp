@@ -78,7 +78,9 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
     L.append("")
     L.append("_**AUC** = budget-free separation of successful backdoors from honest candidates "
              "(0.5 = chance). Read it when safety sits at the audit-rate floor: a protocol can only "
-             "be starved by the audit budget if its AUC is above chance in the first place._\n")
+             "be starved by the audit budget if its AUC is above chance in the first place. "
+             "**AUC@FPR≤x** is McClish-standardized, so 0.5 is chance there too; `—` means the pool "
+             "cannot resolve that false-positive rate (needs at least 1/x honest candidates)._\n")
     L.append("_**Safety** here uses the configured `attack_probability` (`null` = always-attack), "
              "where the game resolves on the first slot and safety reduces to the mean audit "
              "probability. See the attack-rate table below for the realistic regime._\n")
