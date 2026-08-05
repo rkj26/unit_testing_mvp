@@ -627,11 +627,14 @@ class TestReferenceOracle:
         assert meta["valid"] is True and meta["all_props_sound"] is True
 
     def test_abstention_is_not_a_non_firing_monitor(self):
-        from analyze_complementarity import _fired
+        from deployment_game import BlockRule
 
-        assert _fired(1.0) is True
-        assert _fired(0.0) is False
-        assert _fired(None) is False, "an abstention is not evidence the monitor stayed quiet"
+        rule = BlockRule(protocol="pbt", threshold=0.5)
+        fires = lambda score: rule.fires({"scores": {"pbt": score}})
+
+        assert fires(1.0) is True
+        assert fires(0.0) is False
+        assert fires(None) is False, "an abstention is not evidence the monitor stayed quiet"
 
 
 class TestUnknownCannotBeReadAsFalse:

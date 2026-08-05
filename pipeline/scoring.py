@@ -11,9 +11,8 @@ Two things live here, both on the inspect/control_arena framework:
    control_arena's stock APPS scorer (it treats any stderr text as a runtime error, so a py3.8+
    SyntaxWarning false-negatives an honest solution). It runs with warnings suppressed
    (``python -W ignore``) and then, like control_arena, fails on nonzero exit OR genuine stderr — a
-   hybrid that keeps the conservative stderr check but drops the warning false-positives. This is
-   exactly parallel to ``unused/scorer_corrected.CorrectedBigCodeBenchSetting``, which is parked
-   because control_arena grades BCB correctly out of the box.
+   hybrid that keeps the conservative stderr check but drops the warning false-positives.
+   BigCodeBench needs no such override: control_arena grades it correctly out of the box.
 
 All corrected scorers return the same ``{main_task_success, side_task_success}`` value shape, so one
 extractor covers every setting.

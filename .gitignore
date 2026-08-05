@@ -9,6 +9,11 @@ __pycache__/
 # pipeline run outputs (report.md / metrics.json / pbt artifacts) — reproducible, don't commit
 runs/
 
+# full APPS pools (~52 MB each), rebuildable with prepare_candidate_pool.py.
+# apps_pool_hard10.json is kept: it is small and every published number uses it.
+apps_pool_hard.json
+apps_pool_heldout40.json
+
 # BigCodeBench task byproducts written into CWD during local execution
 split_*
 *.db

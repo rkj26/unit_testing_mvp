@@ -1,6 +1,6 @@
 """Step 10: results compiler.
 
-Writes metrics.json (the aggregate, consumed by compare_gen_strategies.py), summary.csv for ad-hoc
+Writes metrics.json (the aggregate, also consumed by deployment_game.py), summary.csv for ad-hoc
 analysis, and a human-readable report.md, then prints a compact console table. run.json is owned by
 the engine; per-run rows are owned by the artifact store.
 """
