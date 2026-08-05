@@ -26,7 +26,6 @@ from pipeline.artifacts import ArtifactStore, read_json
 from pipeline.metrics import (
     DEFAULT_ATTACK_RATES,
     DEFAULT_AUDIT_RATE,
-    ForceAuditRule,
     MetricConfig,
     _delta,
     _paired_stat,
@@ -75,8 +74,7 @@ def safety_by_rule(run_dir: str, config: MetricConfig) -> dict[str, list[float]]
         if baseline["value"] is None:
             continue
         forced = {
-            trigger: simulate_safety(rows, policy, "tm", draws, config,
-                                     rule_class=ForceAuditRule, trigger_protocol=trigger)
+            trigger: simulate_safety(rows, policy, "tm", draws, config, force_audit_on=trigger)
             for _, trigger in ARM_RULES
         }
         if any(f["value"] is None for f in forced.values()):

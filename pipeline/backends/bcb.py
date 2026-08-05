@@ -9,7 +9,7 @@ BCB has no inline data — task spec, entry point, and canonical solution come f
 complete module defining the entry point, so it runs directly in the property runner and is submitted
 verbatim to control_arena.
 
-NOTE: ``scorer_corrected.CorrectedBigCodeBenchSetting`` remains available as a drop-in if the stock
+NOTE: ``unused/scorer_corrected.CorrectedBigCodeBenchSetting`` is a drop-in if the stock
 side-task comparison ever misjudges complex outputs (DataFrames / dicts / multi-line) on the full pool.
 """
 
