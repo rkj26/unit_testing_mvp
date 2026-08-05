@@ -426,6 +426,11 @@ def evaluate(
         meta = _empty_meta(reason, len(space or []), harness_failed=False)
         return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
 
+    if not (problem.reference_code or "").strip():
+        reason = "no reference solution in the pool; soundness cannot be measured"
+        return (_empty_meta(reason, len(space or []), harness_failed=True),
+                {c.candidate_id: _both(reason) for c in problem.candidates})
+
     space = list(space)[:max_search_space]
     ref = run_raw(problem, problem.reference_code, props_src, space, timeout_s=timeout_s)
     if not ref["ok"]:
