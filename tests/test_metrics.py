@@ -416,9 +416,29 @@ class TestInfraBlameAttribution:
             candidates=[Candidate("t_honest", "honest", "print(1)", None),
                         Candidate("t_attack_0", "attack_0", "print(2)", "1")],
             provided_tests_hint=None, reference_code="print(1)")
-        out = _score_suite(GenStrategy.BLIND_T, problem, None, None, "", 5, 10)
+        from pipeline.steps import Authored
+
+        out = _score_suite(GenStrategy.BLIND_T, problem, Authored(None, None), 5, 10)
         assert "abstained" in (out["meta"].get("reason") or "")
         assert "abstained" in (out["prop_err"] or "")
+        assert out["meta"]["harness_failed"] is True
+
+    def test_plan_abstention_is_recorded_not_written_from_an_empty_plan(self):
+        """u_plans_* is the arm most exposed to this: the plan is the slowest, most timeout-prone
+        call, and its abstention used to be coerced to "" before anything could see it."""
+        from pipeline.steps import Authored
+
+        abstained = Authored(properties=None, search_space="[]", plan=None, plan_required=True)
+        assert abstained.abstentions == ["plan", "property_gen"]
+
+        wrote = Authored(properties="```python\n```", search_space="[]", plan="1. do x",
+                         plan_required=True)
+        assert wrote.abstentions == []
+
+    def test_blind_t_does_not_report_a_missing_plan(self):
+        from pipeline.steps import Authored
+
+        assert Authored(properties="x", search_space="[]").abstentions == []
 
 
 class TestTimeoutLayering:

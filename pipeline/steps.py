@@ -17,6 +17,7 @@ Public surface (top): the step fns and `PIPELINE`. Private gen/eval helpers are 
 from __future__ import annotations
 
 import asyncio
+from dataclasses import dataclass
 from typing import Any
 
 from . import pbt
@@ -55,10 +56,10 @@ async def generate_step(ctx: RunContext, problem: Problem) -> dict[str, Any]:
     Returns the full suite dict (raw completions + parsed sources + meta + per-candidate results) that
     the engine persists as SUITE(run, task_id). Raising is fine — the engine records a degraded suite.
     """
-    prop_c, space_c, plan = await _author(ctx, problem)
+    authored = await _author(ctx, problem)
     loop = asyncio.get_running_loop()
     suite = await loop.run_in_executor(ctx.pool, _score_suite, ctx.config.gen_strategy, problem,
-                                       prop_c, space_c, plan, ctx.config.pbt_timeout,
+                                       authored, ctx.config.pbt_timeout,
                                        ctx.config.max_search_space)
     log(f"    PBT ({problem.task_id}: {'valid' if suite['meta'].get('valid') else 'invalid'}, "
         f"{len(suite.get('space') or [])} inputs)")
@@ -113,33 +114,64 @@ def _task_suite(ctx: RunContext, task_id: str) -> dict[str, Any]:
     return suite
 
 
-async def _author(ctx: RunContext, problem: Problem) -> tuple[str, str, str]:
-    """Author (properties, search_space, plan) completions per the gen strategy.
+@dataclass
+class Authored:
+    """The completions one task's authoring produced, with each abstention recorded by name.
 
-    The trigger search space is ALWAYS trusted-authored; only the property author (and whether a plan is
-    written first) varies by strategy. Returns empty strings where a call abstained (retries exhausted)
-    — the scorer degrades gracefully.
+    A `None` completion means every retry was exhausted, which is an infrastructure failure. It must
+    stay distinguishable from the model returning prose, so `abstentions` is what decides blame
+    rather than any downstream parse of the text.
+    """
+
+    properties: str | None
+    search_space: str | None
+    plan: str | None = None
+    plan_required: bool = False
+
+    @property
+    def abstentions(self) -> list[str]:
+        missing = []
+        if self.plan_required and self.plan is None:
+            missing.append("plan")
+        if self.properties is None:
+            missing.append("property_gen")
+        if self.search_space is None:
+            missing.append("trigger_search")
+        return missing
+
+
+async def _author(ctx: RunContext, problem: Problem) -> Authored:
+    """Author the completions for one task per the gen strategy.
+
+    The trigger search space is ALWAYS trusted-authored; only the property author (and whether a
+    plan is written first) varies by strategy.
     """
     n = ctx.config.tests_per_problem
     strategy = ctx.config.gen_strategy
-    plan = ""
+    search = _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model)
+
     if strategy in (GenStrategy.U_PLANS_T_WRITES, GenStrategy.U_PLANS_U_WRITES):
         writer = ctx.t_model if strategy is GenStrategy.U_PLANS_T_WRITES else ctx.u_model
-        plan = await _call(ctx, pbt.plan_prompt(problem, n), "plan", ctx.u_model) or ""
+        plan = await _call(ctx, pbt.plan_prompt(problem, n), "plan", ctx.u_model)
+        if plan is None:
+            log(f"    plan abstained ({problem.task_id}) — not writing properties from an empty plan")
+            return Authored(properties=None, search_space=await search, plan=None, plan_required=True)
         prop_c, space_c = await asyncio.gather(
-            _call(ctx, pbt.write_from_plan_prompt(problem, plan, n), "write_from_plan", writer),
-            _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model))
-    elif strategy is GenStrategy.U_WRITES:
-        prop_c, space_c = await asyncio.gather(
-            _call(ctx, pbt.property_prompt(problem, n, ctx.config.property_prompt), "property_gen", ctx.u_model),
-            _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model))
-    else:
-        prop_c, space_c = await asyncio.gather(
-            _call(ctx, pbt.property_prompt(problem, n, ctx.config.property_prompt), "property_gen", ctx.t_model),
-            _call(ctx, pbt.search_prompt(problem, ctx.config.search_prompt), "trigger_search", ctx.t_model))
-    if ctx.config.self_critique and prop_c:
-        prop_c = await _critique(ctx, problem, prop_c) or prop_c
-    return prop_c, space_c, plan
+            _call(ctx, pbt.write_from_plan_prompt(problem, plan, n), "write_from_plan", writer), search)
+        return Authored(properties=await _maybe_critique(ctx, problem, prop_c),
+                        search_space=space_c, plan=plan, plan_required=True)
+
+    author_model = ctx.u_model if strategy is GenStrategy.U_WRITES else ctx.t_model
+    prop_c, space_c = await asyncio.gather(
+        _call(ctx, pbt.property_prompt(problem, n, ctx.config.property_prompt), "property_gen", author_model),
+        search)
+    return Authored(properties=await _maybe_critique(ctx, problem, prop_c), search_space=space_c)
+
+
+async def _maybe_critique(ctx: RunContext, problem: Problem, prop_c: str | None) -> str | None:
+    if not (ctx.config.self_critique and prop_c):
+        return prop_c
+    return await _critique(ctx, problem, prop_c) or prop_c
 
 
 async def _critique(ctx: RunContext, problem: Problem, prop_c: str) -> str | None:
@@ -158,29 +190,26 @@ async def _critique(ctx: RunContext, problem: Problem, prop_c: str) -> str | Non
     return None
 
 
-def _score_suite(gen_strategy: GenStrategy, problem: Problem, prop_c: str | None, space_c: str | None,
-                 plan: str, pbt_timeout: int, max_search_space: int) -> dict[str, Any]:
+def _score_suite(gen_strategy: GenStrategy, problem: Problem, authored: Authored,
+                 pbt_timeout: int, max_search_space: int) -> dict[str, Any]:
     """Parse the completions and score properties over the search space -> the suite dict (local CPU).
 
     May raise on a pathological suite; the engine's per-unit guard converts that into a degraded suite.
-
-    `prop_c`/`space_c` are None when the model call ABSTAINED (every retry exhausted). That is an
-    infrastructure failure and is labelled as one — otherwise it parses to the same
-    "no code block in completion" as the model writing prose, and a flaky endpoint silently becomes
-    evidence that the model cannot generate properties.
+    Any abstention makes the suite an infrastructure failure, not evidence about the model.
     """
-    abstained = [n for n, c in (("property_gen", prop_c), ("trigger_search", space_c)) if c is None]
-    props_src, prop_err = pbt.parse_properties(prop_c or "")
-    space, space_err = pbt.parse_search_space(space_c or "")
-    if abstained:
-        note = f"model call abstained after retries: {', '.join(abstained)}"
-        prop_err = note if prop_c is None else prop_err
-        space_err = note if space_c is None else space_err
+    abstained = authored.abstentions
+    props_src, prop_err = pbt.parse_properties(authored.properties or "")
+    space, space_err = pbt.parse_search_space(authored.search_space or "")
+    note = f"model call abstained after retries: {', '.join(abstained)}" if abstained else ""
+    if authored.properties is None:
+        prop_err = note
+    if authored.search_space is None:
+        space_err = note
     meta, results = pbt.evaluate(problem, props_src, space, timeout_s=pbt_timeout,
                                  max_search_space=max_search_space)
     if abstained:
-        meta = {**meta, "harness_failed": True,
-                "reason": f"model call abstained after retries: {', '.join(abstained)}"}
+        meta = {**meta, "harness_failed": True, "reason": note}
     return {"props_src": props_src, "space": space, "prop_err": prop_err, "space_err": space_err,
-            "prop_raw": prop_c, "space_raw": space_c, "plan": plan,
-            "gen_strategy": gen_strategy.value, "meta": meta, "results": results}
+            "prop_raw": authored.properties, "space_raw": authored.search_space,
+            "plan": authored.plan or "", "gen_strategy": gen_strategy.value,
+            "meta": meta, "results": results}
