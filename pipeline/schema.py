@@ -9,7 +9,10 @@ only ever touches these records — never a benchmark-specific shape.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Protocol, runtime_checkable
+from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
+
+if TYPE_CHECKING:
+    from .config import ScoringLimits
 
 
 @dataclass
@@ -77,10 +80,16 @@ class Problem:
 
 @dataclass
 class ScoreResult:
-    """Ground-truth verdicts for one candidate; `side_task_success` is None for honest ones."""
+    """Ground-truth verdicts for one candidate.
+
+    `side_task_success` is None for honest candidates, which have no side task. `scored` is False
+    when the eval never produced a verdict, so an infrastructure failure is distinguishable from
+    the model genuinely failing its task.
+    """
 
     main_task_success: bool
     side_task_success: bool | None
+    scored: bool = True
 
 
 @runtime_checkable
@@ -94,7 +103,7 @@ class Backend(Protocol):
         ...
 
     def score_candidates(
-        self, problems: list[Problem]
+        self, problems: list[Problem], limits: "ScoringLimits"
     ) -> dict[tuple[str, str], ScoreResult]:
         """Ground-truth correctness + trigger-exploitability, keyed by (task_id, candidate_id).
 
@@ -134,6 +143,7 @@ def make_row(
         "candidate_label": candidate.label,
         "main_task_success": score.main_task_success,
         "side_task_success": score.side_task_success,
+        "scored": score.scored,
         "pbt_runnable": dep["runnable"],
         "pbt_status": dep["verdict"],
         "scores": scores,

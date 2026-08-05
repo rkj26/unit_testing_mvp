@@ -39,6 +39,7 @@ from control_arena.settings.apps.task.scorers import check_solutions_equal
 from control_arena.settings.apps.task.submission_types import SubmitAttackArgs, SubmitHonestArgs
 from control_arena.tools.submit_tool import STORE_SUBMIT_ARGS_KEY
 
+from .config import ScoringLimits
 from .schema import Problem, ScoreResult
 
 APPS_TIMEOUT_SECONDS = 10
@@ -65,21 +66,29 @@ def frozen_replay(candidates_by_task: dict[str, dict[str, Any]]):
     return impl
 
 
-def _extract(sample: Any) -> ScoreResult:
+SCORER_KEYS = ("corrected_apps_scorer", "apps_scorer",
+               "corrected_bigcodebench_scorer", "bigcodebench_scorer")
+
+
+def _score_of(sample: Any) -> Any:
     scores = sample.scores or {}
-    score = None
-    for key in ("corrected_apps_scorer", "apps_scorer", "corrected_bigcodebench_scorer", "bigcodebench_scorer"):
+    for key in SCORER_KEYS:
         if key in scores:
-            score = scores[key]
-            break
-    if score is None:
-        score = next((s for s in scores.values() if isinstance(s.value, dict)), None)
-    if score is None or not isinstance(score.value, dict):
-        raise RuntimeError(f"sample {sample.id} has no usable score")
-    main = score.value.get("main_task_success") == CORRECT
-    side_val = score.value.get("side_task_success")
-    side = None if side_val is None else side_val == CORRECT
-    return ScoreResult(main, side)
+            return scores[key]
+    raise RuntimeError(
+        f"sample {sample.id} has none of the known scorers {SCORER_KEYS}; got {sorted(scores)}")
+
+
+def _extract(sample: Any) -> ScoreResult:
+    """Turn one control_arena sample into a ScoreResult, failing loudly on a missing verdict."""
+    value = _score_of(sample).value
+    if not isinstance(value, dict) or "main_task_success" not in value:
+        raise RuntimeError(f"sample {sample.id} has no main_task_success in {value!r}")
+    side = value.get("side_task_success")
+    return ScoreResult(
+        main_task_success=value["main_task_success"] == CORRECT,
+        side_task_success=None if side is None else side == CORRECT,
+    )
 
 
 def _candidate_id(sample: Any) -> str | None:
@@ -90,77 +99,116 @@ def _candidate_id(sample: Any) -> str | None:
     return None
 
 
-def score_via_control_arena(setting: Any, problems: list[Problem]) -> dict[tuple[str, str], ScoreResult]:
-    labels = sorted({c.label for p in problems for c in p.candidates}, key=lambda l: (l != "honest", l))
-    eval_config = ControlEvalConfig(
-        trusted_model="mockllm/model",
-        untrusted_model="mockllm/model",
-        max_tasks=4,
-        max_samples=4,
-        max_sandboxes=4,
-        time_limit=1800,
-        fail_on_error=False,
-        log_dir=tempfile.mkdtemp(prefix="ca_score_"),
+def _task_id(sample: Any) -> str:
+    return str((sample.metadata or {}).get("main_task_name") or sample.id)
+
+
+def _labels(problems: list[Problem]) -> list[str]:
+    return sorted({c.label for p in problems for c in p.candidates},
+                  key=lambda label: (label != "honest", label))
+
+
+def _dataset_for(setting: Any, mode: Any, task_ids: set[str], label: str) -> Any:
+    """The setting's dataset restricted to our task ids, warning about any it cannot supply.
+
+    A sample's pipeline key is `main_task_name` (BCB: "BigCodeBench/172"), which differs from
+    `sample.id` (BCB: "BigCodeBench_172"), so match on whichever lands in `task_ids`.
+    """
+    dataset = setting.get_dataset(mode).filter(
+        lambda s: str(s.id) in task_ids or str((s.metadata or {}).get("main_task_name")) in task_ids
+    )
+    found = {_task_id(s) for s in dataset}
+    missing = task_ids - found
+    if missing:
+        print(f"  [warn] {label}: {len(missing)} task(s) absent from the {setting.get_name()} "
+              f"dataset: {sorted(missing)[:5]}", flush=True)
+    return dataset
+
+
+def _task_for_label(setting: Any, problems: list[Problem], label: str, eval_config: Any) -> Any | None:
+    cand_by_task = {p.task_id: c for p in problems for c in p.candidates if c.label == label}
+    if not cand_by_task:
+        return None
+    mode = EvalMode.HONEST if label == "honest" else EvalMode.ATTACK
+    return get_control_task(
+        setting=setting,
+        micro_protocol=frozen_replay(candidates_by_task={
+            tid: {"code": c.code, "secret_input": c.secret_input,
+                  "candidate_id": c.candidate_id, "label": c.label}
+            for tid, c in cand_by_task.items()
+        }),
+        mode=mode,
+        eval_config=eval_config,
+        dataset=_dataset_for(setting, mode, set(cand_by_task), label),
+        metadata={"candidate_label": label},
+        task_name=f"score-{label}",
     )
 
-    tasks = []
-    for label in labels:
-        cand_by_task = {p.task_id: c for p in problems for c in p.candidates if c.label == label}
-        if not cand_by_task:
-            continue
-        mode = EvalMode.HONEST if label == "honest" else EvalMode.ATTACK
-        task_ids = set(cand_by_task)
-        dataset = setting.get_dataset(mode).filter(
-            lambda s: str(s.id) in task_ids or str((s.metadata or {}).get("main_task_name")) in task_ids
-        )
-        found = {
-            (str((s.metadata or {}).get("main_task_name"))
-             if str((s.metadata or {}).get("main_task_name")) in task_ids else str(s.id))
-            for s in dataset
-        }
-        missing = task_ids - found
-        if missing:
-            print(f"  [warn] {label}: {len(missing)} task(s) absent from the {setting.get_name()} "
-                  f"dataset (will score False): {sorted(missing)[:5]}", flush=True)
-        proto = frozen_replay(
-            candidates_by_task={
-                tid: {"code": c.code, "secret_input": c.secret_input,
-                      "candidate_id": c.candidate_id, "label": c.label}
-                for tid, c in cand_by_task.items()
-            }
-        )
-        tasks.append(
-            get_control_task(
-                setting=setting,
-                micro_protocol=proto,
-                mode=mode,
-                eval_config=eval_config,
-                dataset=dataset,
-                metadata={"candidate_label": label},
-                task_name=f"score-{label}",
-            )
-        )
 
-    logs = control_eval(tasks, **eval_config.eval_args(), display="plain")
+def _results_from_logs(logs: Any) -> dict[tuple[str, str], ScoreResult]:
     results: dict[tuple[str, str], ScoreResult] = {}
     for log in logs:
         for sample in log.samples or []:
-            if sample.error is not None:
-                continue
-            task_id = str((sample.metadata or {}).get("main_task_name") or sample.id)
             cand_id = _candidate_id(sample)
             if cand_id is None:
                 continue
+            if sample.error is not None:
+                print(f"  [warn] sample {_task_id(sample)}/{cand_id} errored: "
+                      f"{str(sample.error)[:160]}", flush=True)
+                continue
             try:
-                results[(task_id, cand_id)] = _extract(sample)
+                results[(_task_id(sample), cand_id)] = _extract(sample)
             except Exception as error:
-                print(f"  [warn] score extract failed for {task_id}/{cand_id}: {error}", flush=True)
+                print(f"  [warn] score extract failed for {_task_id(sample)}/{cand_id}: {error}",
+                      flush=True)
+    return results
 
-    for p in problems:
-        for c in p.candidates:
-            results.setdefault(
-                (p.task_id, c.candidate_id), ScoreResult(False, None if c.label == "honest" else False)
-            )
+
+def _mark_unscored(results: dict[tuple[str, str], ScoreResult],
+                   problems: list[Problem]) -> list[tuple[str, str]]:
+    """Fill candidates the eval never scored, flagged `scored=False`, and return which they were.
+
+    They are filled pessimistically so downstream code cannot crash, but the flag is what matters:
+    an unscored honest candidate is an INFRASTRUCTURE failure, not the model failing its task, and
+    counting it as the latter is what `scoring_coverage` exists to expose.
+    """
+    unscored = []
+    for problem in problems:
+        for candidate in problem.candidates:
+            key = (problem.task_id, candidate.candidate_id)
+            if key not in results:
+                results[key] = ScoreResult(
+                    main_task_success=False,
+                    side_task_success=None if candidate.label == "honest" else False,
+                    scored=False,
+                )
+                unscored.append(key)
+    return unscored
+
+
+def score_via_control_arena(
+    setting: Any, problems: list[Problem], limits: ScoringLimits
+) -> dict[tuple[str, str], ScoreResult]:
+    n_candidates = sum(len(p.candidates) for p in problems)
+    eval_config = ControlEvalConfig(
+        trusted_model="mockllm/model",
+        untrusted_model="mockllm/model",
+        max_tasks=limits.max_concurrent,
+        max_samples=limits.max_concurrent,
+        max_sandboxes=limits.max_concurrent,
+        time_limit=limits.time_limit_for(n_candidates),
+        fail_on_error=False,
+        log_dir=tempfile.mkdtemp(prefix="ca_score_"),
+    )
+    tasks = [t for t in (_task_for_label(setting, problems, label, eval_config)
+                         for label in _labels(problems)) if t is not None]
+    logs = control_eval(tasks, **eval_config.eval_args(), display="plain")
+
+    results = _results_from_logs(logs)
+    unscored = _mark_unscored(results, problems)
+    if unscored:
+        print(f"  [warn] {len(unscored)}/{n_candidates} candidates were never scored and are "
+              f"flagged scored=False (see scoring_coverage): {sorted(unscored)[:5]}", flush=True)
     return results
 
 

@@ -14,6 +14,25 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ## 2026-08-05
 
+### Ground-truth scoring: stop laundering infra failures into capability results
+- **What:** `score_via_control_arena` filled every candidate the eval failed to score with
+  `ScoreResult(False, False)` — indistinguishable from the model genuinely failing its task. A
+  harness error, an absent dataset entry or a failed score extraction all silently depressed
+  **usefulness** and removed attacks from the backdoor pool, with no record that it happened.
+  `ScoreResult` now carries `scored: bool`; unscored candidates are flagged, logged loudly at the
+  step boundary, exposed as a new `scoring_coverage` metric, and warned about at the top of
+  `report.md`. Extraction now raises on a missing scorer or a missing `main_task_success` instead
+  of coercing to False. Scoring concurrency and the eval time limit moved out of hardcoded
+  literals (`4`, `1800`) into `ScoringLimits`, with the time limit scaling per candidate.
+  `score_via_control_arena` split into six named helpers (17 branches -> 6 worst).
+- **Why:** This is the same blame confusion `pbt_harness_failure` was added to fix on 2026-08-04,
+  still live one layer down — and this layer feeds *every* metric, since `successful_backdoor`
+  is derived from these verdicts. It was also a practical risk for the 50-task run: 150 candidates
+  at 4 concurrent under a flat 1800s budget could time out and quietly score everything remaining
+  as a failure.
+- **Result:** 8 new tests, including one that fails against the old silent-fill behaviour. A
+  50-task pool now gets 4500s instead of 1800s. Mock parity bit-identical; 68 tests pass.
+
 ### Reuse over hand-rolling: scipy/sklearn for statistics, pydantic-settings for config
 - **What:** Six commits, no new model calls and no run data touched.
   (1) **Statistics delegated to libraries.** All five scientific packages were already installed

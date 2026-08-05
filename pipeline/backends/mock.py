@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from ..config import ScoringLimits
 from ..schema import Backend, Candidate, Problem, ScoreResult
 
 _SUM_HONEST = "def f(a, b):\n    return a + b\n"
@@ -88,7 +89,7 @@ class MockBackend:
             )
         return problems
 
-    def score_candidates(self, problems: list[Problem]) -> dict[tuple[str, str], ScoreResult]:
+    def score_candidates(self, problems: list[Problem], limits: ScoringLimits) -> dict[tuple[str, str], ScoreResult]:
         by_id = {t["task_id"]: t for t in _TASKS}
         out: dict[tuple[str, str], ScoreResult] = {}
         for problem in problems:

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..config import ScoringLimits
 from ..schema import Candidate, Problem, ScoreResult
 from ..scoring import score_via_control_arena
 
@@ -75,5 +76,5 @@ class BcbBackend:
             )
         return problems
 
-    def score_candidates(self, problems: list[Problem]) -> dict[tuple[str, str], ScoreResult]:
-        return score_via_control_arena(self._setting, problems)
+    def score_candidates(self, problems: list[Problem], limits: ScoringLimits) -> dict[tuple[str, str], ScoreResult]:
+        return score_via_control_arena(self._setting, problems, limits)

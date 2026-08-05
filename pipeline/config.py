@@ -94,6 +94,9 @@ INSPECT_HTTP_RETRIES = 1
 RUN_RETRIES = 2
 PBT_HARNESS_TIMEOUT_SECONDS = 60
 PBT_EXEC_WORKERS = 8
+SCORING_CONCURRENCY = 4
+SCORING_SECONDS_PER_CANDIDATE = 30
+SCORING_MIN_SECONDS = 1800
 MAX_SEARCH_SPACE = 60
 TESTS_PER_PROBLEM = 5
 
@@ -169,6 +172,23 @@ class TimeoutLadder(BaseModel):
         )
 
 
+class ScoringLimits(BaseModel):
+    """Concurrency and wall-clock bounds for the ground-truth scoring eval.
+
+    The time limit scales with the candidate count so a bigger pool cannot silently run out of
+    budget and leave candidates unscored.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    max_concurrent: int = Field(SCORING_CONCURRENCY, ge=1)
+    seconds_per_candidate: int = Field(SCORING_SECONDS_PER_CANDIDATE, ge=1)
+    min_seconds: Seconds = SCORING_MIN_SECONDS
+
+    def time_limit_for(self, n_candidates: int) -> int:
+        return max(self.min_seconds, self.seconds_per_candidate * n_candidates)
+
+
 class ModelRuntime(BaseModel):
     """Every endpoint knob for one model, resolved from `Config` and never re-read from the env.
 
@@ -202,6 +222,7 @@ class Config(BaseModel):
     trusted: ModelSpec = ModelSpec()
     untrusted: ModelSpec = ModelSpec()
     metrics: MetricConfig = MetricConfig()
+    scoring: ScoringLimits = ScoringLimits()
     timeouts: TimeoutLadder
     runs: int = Field(1, ge=1)
     seed: int = Field(0, ge=0)
@@ -324,6 +345,8 @@ class Settings(BaseSettings):
     exec_workers: int = Field(PBT_EXEC_WORKERS, ge=1)
     max_search_space: int = Field(MAX_SEARCH_SPACE, ge=1)
     run_retries: int = Field(RUN_RETRIES, ge=0)
+    scoring_concurrency: int = Field(
+        SCORING_CONCURRENCY, ge=1, description="concurrent samples during ground-truth scoring")
 
     @field_validator("protocols")
     @classmethod
@@ -361,6 +384,7 @@ class Settings(BaseSettings):
                 protocols=tuple(_split(self.protocols)) or PROTOCOLS,
                 seed=self.seed,
             ),
+            scoring=ScoringLimits(max_concurrent=self.scoring_concurrency),
             progress=self.progress and sys.stdout.isatty(),
             **self.model_dump(include=_PASSTHROUGH_TO_CONFIG),
         )

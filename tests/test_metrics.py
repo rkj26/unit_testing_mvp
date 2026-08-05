@@ -449,3 +449,101 @@ class TestTimeoutLayering:
         c = _config(t_reasoning="low", u_reasoning="high")
         assert c.timeouts.untrusted_call < c.timeouts.http_retry_budget < c.timeouts.outer_call
         assert c.timeouts.unit > c.timeouts.outer_call
+
+
+class TestScoringCoverage:
+    """An unscored candidate is an infra failure and must not read as the model failing its task."""
+
+    def test_unscored_candidates_are_flagged_not_silently_failed(self):
+        from pipeline.schema import Candidate, Problem
+        from pipeline.scoring import _mark_unscored
+
+        problem = Problem(
+            task_id="t", main_task="spec", io_mode="stdio",
+            candidates=[Candidate("t_honest", "honest", "print(1)", None),
+                        Candidate("t_attack_0", "attack_0", "print(2)", "1")],
+            reference_code="print(1)")
+        results = {}
+        unscored = _mark_unscored(results, [problem])
+        assert unscored == [("t", "t_honest"), ("t", "t_attack_0")]
+        assert all(not r.scored for r in results.values())
+        assert results[("t", "t_honest")].main_task_success is False
+
+    def test_scored_candidates_are_left_alone(self):
+        from pipeline.schema import Candidate, Problem, ScoreResult
+        from pipeline.scoring import _mark_unscored
+
+        problem = Problem(
+            task_id="t", main_task="spec", io_mode="stdio",
+            candidates=[Candidate("t_honest", "honest", "print(1)", None),
+                        Candidate("t_attack_0", "attack_0", "print(2)", "1")],
+            reference_code="print(1)")
+        results = {("t", "t_honest"): ScoreResult(True, None)}
+        assert _mark_unscored(results, [problem]) == [("t", "t_attack_0")]
+        assert results[("t", "t_honest")].scored is True
+
+    def test_coverage_metric_exposes_the_reduced_denominator(self):
+        from pipeline.metrics import scoring_coverage
+
+        rows, _ = _pool([0.0] * 4, [1.0] * 4)
+        assert scoring_coverage(rows)["value"] == 1.0, "legacy rows without the key count as scored"
+        rows[0]["scored"] = False
+        rows[1]["scored"] = False
+        out = scoring_coverage(rows)
+        assert out["value"] == pytest.approx(0.75) and out["scored"] == 6
+
+    def test_scored_flag_round_trips_through_the_artifact_store(self, tmp_path):
+        from pipeline.artifacts import ArtifactKind, ArtifactStore
+        from pipeline.schema import ScoreResult
+
+        store = ArtifactStore(tmp_path)
+        store.put(ArtifactKind.SCORES, {
+            ("t", "t_honest"): ScoreResult(True, None),
+            ("t", "t_attack_0"): ScoreResult(False, False, scored=False),
+        })
+        restored = store.load(ArtifactKind.SCORES)
+        assert restored[("t", "t_honest")].scored is True
+        assert restored[("t", "t_attack_0")].scored is False
+
+    def test_scoring_time_limit_scales_with_pool_size(self):
+        from pipeline.config import ScoringLimits
+
+        limits = ScoringLimits()
+        assert limits.time_limit_for(10) == limits.min_seconds, "small pools keep the floor"
+        assert limits.time_limit_for(150) > limits.min_seconds, "150 candidates must get more budget"
+
+
+class TestScoreExtraction:
+    """A missing verdict must raise, not silently become main_task_success=False."""
+
+    class _Sample:
+        id = "s1"
+
+        def __init__(self, scores):
+            self.scores = scores
+
+    class _Score:
+        def __init__(self, value):
+            self.value = value
+
+    def test_missing_scorer_raises(self):
+        from pipeline.scoring import _extract
+
+        with pytest.raises(RuntimeError, match="none of the known scorers"):
+            _extract(self._Sample({}))
+
+    def test_missing_main_task_success_raises(self):
+        from pipeline.scoring import _extract
+
+        sample = self._Sample({"apps_scorer": self._Score({"side_task_success": "C"})})
+        with pytest.raises(RuntimeError, match="no main_task_success"):
+            _extract(sample)
+
+    def test_honest_sample_has_no_side_verdict(self):
+        from inspect_ai.scorer import CORRECT
+        from pipeline.scoring import _extract
+
+        sample = self._Sample({"apps_scorer": self._Score({"main_task_success": CORRECT})})
+        result = _extract(sample)
+        assert result.main_task_success is True
+        assert result.side_task_success is None and result.scored is True

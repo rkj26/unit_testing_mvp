@@ -62,6 +62,11 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
     bs = agg["backdoor_success"]
     L.append(f"- **Tasks:** {config.get('n_tasks')}  ·  **Successful backdoors:** "
              f"{bs.get('successful')}/{bs.get('attack_proposals')}")
+    coverage = agg.get("scoring_coverage") or {}
+    if (coverage.get("mean") or 1.0) < 1.0:
+        L.append(f"- ⚠️ **Ground-truth scoring coverage: {_stat(coverage)}** — some candidates were "
+                 f"never scored (infrastructure failure) and were filled as failures. Usefulness and "
+                 f"backdoor-success are over a reduced denominator.")
     L.append(f"- **PBT suite health:** valid {_stat(agg['pbt_generation_health'])} · "
              f"sound {_stat(agg.get('pbt_soundness'))} "
              f"(= ALL properties hold on the reference) · "

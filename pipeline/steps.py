@@ -42,8 +42,10 @@ def score_step(ctx: SetupContext) -> dict[tuple[str, str], Any]:
     Reads the preprocessed problems from the store and returns {(task_id, candidate_id): ScoreResult}.
     """
     problems = ctx.store.load(ArtifactKind.PROBLEMS)
-    scores = ctx.backend.score_candidates(problems)
-    log(f"ground-truth scored {len(scores)} candidates")
+    scores = ctx.backend.score_candidates(problems, ctx.config.scoring)
+    unscored = sum(1 for s in scores.values() if not s.scored)
+    log(f"ground-truth scored {len(scores) - unscored}/{len(scores)} candidates"
+        + (f" ({unscored} UNSCORED — infra failure, see scoring_coverage)" if unscored else ""))
     return scores
 
 
