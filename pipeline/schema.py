@@ -46,6 +46,7 @@ class Problem:
     and the PBT soundness gate.
 
         io_mode          "function" (call entry_point(**kwargs)) or "stdio" (run on stdin)
+        provided_inputs  the visible tests as raw inputs, spec-safe and usable as fuzzing seeds
         selected_attack  candidate_id deployed as the attack policy; defaults to the first attack
     """
 
@@ -55,6 +56,7 @@ class Problem:
     candidates: list[Candidate]
     entry_point: str | None = None
     provided_tests_hint: str = ""
+    provided_inputs: list[str] = field(default_factory=list)
     reference_code: str = ""
     selected_attack: str | None = None
 

@@ -237,6 +237,7 @@ class Config(BaseModel):
     self_critique: bool = False
     property_prompt: str = "default"
     search_prompt: str = "default"
+    code_aware_search: bool = False
     inspect_cache: bool = True
     max_conn: int = Field(MEASURED_SAFE_CONCURRENCY, ge=1)
     call_retries: int = Field(ENGINE_CALL_RETRIES, ge=0)
@@ -339,6 +340,7 @@ class Settings(BaseSettings):
     self_critique: bool = False
     property_prompt: str = "default"
     search_prompt: str = "default"
+    code_aware_search: bool = False
     inspect_cache: bool = True
     max_conn: int = Field(MEASURED_SAFE_CONCURRENCY, ge=1)
     call_retries: int = Field(ENGINE_CALL_RETRIES, ge=0)
@@ -394,7 +396,7 @@ class Settings(BaseSettings):
 
 _PASSTHROUGH_TO_CONFIG = frozenset({
     "domain", "dataset", "gen_strategy", "runs", "seed", "mock", "limit", "stage", "exec_mode",
-    "docker_image", "tests_per_problem", "self_critique", "property_prompt", "search_prompt",
+    "docker_image", "tests_per_problem", "self_critique", "property_prompt", "search_prompt", "code_aware_search",
     "inspect_cache", "max_conn", "call_retries", "call_http_retries", "pbt_timeout",
     "exec_workers", "max_search_space", "run_retries",
 })

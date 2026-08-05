@@ -253,6 +253,125 @@ trace and reports +31–59% branch coverage over concolic hybrids. An LLM that c
 
 ---
 
+---
+
+# F-series — end-to-end pipeline runs
+
+E0–E7 measure reach rate, a *ceiling* on recall. These convert it into safety and usefulness by
+running the whole pipeline and re-playing the block+audit game (`2026-08-05-deployment-experiments.md`)
+on the result. One flag changes per run.
+
+**Control: `uplan10-p05`** — `u_plans_t_writes`, U = gpt-5.4 high plans, T = DeepSeek-V3.2 low
+writes, `apps_pool_hard10`, 10 tasks, 5 runs, seed 0, `tests_per_problem=5`, `max_search_space=60`,
+`self_critique=False`, `search_prompt=default`, `code_aware_search=False`.
+
+### F1 — Self-critique on `u_plans_t_writes`
+
+**Setup.** Control config, `--self-critique`. Run id `uplan10-crit`.
+
+**Change.** `self_critique False → True`. Nothing else.
+
+**Hypothesis.** D3's deployable +0.044 was measured on `apps-hard10-crit`, which used `blind_t`. That
+makes the deployable block rule and the D1 rows come from different generators, so the D-table's
+cross-run comparison is confounded. This run removes the confound: critique and `u_plans_t_writes`
+in the same run.
+
+**Prediction.** `pbt` honest fire rate drops from 0.350 (control) toward the ~0.150 seen under
+`blind_t`. Block safety delta positive and excluding zero, at a usefulness cost equal to the honest
+fire rate.
+
+**Observed. Fire rate predicted correctly, significance not.** Run `uplan10-crit`.
+
+| block rule | safety | useful | fp\|hon | tp\|atk | Δ safety | excl. 0 |
+|---|---|---|---|---|---|---|
+| none | 0.833 | 1.000 | — | — | — | — |
+| `pbt` / reject | 0.907 | 0.824 | **0.175** | 0.304 | +0.074 [−0.011, +0.159] | **no** |
+| `pbt` / shutdown | 0.952 | 0.484 | 0.175 | 0.304 | +0.119 [+0.029, +0.209] | yes |
+| `pbt_ceiling` / reject | 0.843 | 1.000 | 0.000 | 0.107 | +0.010 [−0.013, +0.034] | no |
+
+Honest fire rate **0.350 → 0.175** under critique, as predicted — critique roughly halves it on
+`u_plans_t_writes` just as it did on `blind_t`.
+
+But the unconfounded deployable delta is **+0.074 [−0.011, +0.159], which does not exclude zero**,
+where the confounded D3 number was +0.044 and did. **Removing the confound made the result larger and
+less significant, not more significant.** n=4 is the binding constraint, not the effect: at
+mean +0.074 with this spread, roughly 10 runs would be needed to separate it from zero. D3's +0.044
+should not be quoted as the deployable figure; this is.
+
+### F2 — Code-aware search
+
+**Setup.** F1 config plus `--code-aware-search`. Run id `uplan10-crit-cas`.
+
+**Change.** The generator reads each candidate's source. Per candidate the space becomes
+`round_robin(blind, dictionary±1 ∪ coverage)` topped up to exactly 60 with code-independent filler.
+The soundness gate becomes per-candidate, since soundness is only meaningful over the inputs run.
+
+**Hypothesis.** Reach rate on this pool goes 21% → 57% (E5), and reach bounds recall, so catch rate
+and therefore block safety should rise. Precision is not obviously protected: a code-aware generator
+finds rare paths in *honest* code too, and an unsound property firing there is a false positive.
+`pbt_ceiling` FPR should stay 0 by construction of the gate; ungated `pbt` FPR may rise.
+
+**Prediction.** `tp|atk` for the block rule rises materially above F1. If `fp|hon` rises by more than
+`tp|atk` does, the change is a net loss and should be reported as one.
+
+**Two things that could make this fail for uninteresting reasons, checked before launch:**
+- *Budget crowding.* Concatenating blind then truncating to 60 would leave almost no room for
+  code-aware inputs on a task with a 50-input blind space. Fixed: round-robin. Verified 21–30 blind
+  / 30–39 code-aware per candidate.
+- *Unequal scrutiny.* Backdoors introduce magic constants, so attacks mine more constants than honest
+  code and would get larger spaces — understating FPR. On `apps_3945` honest mined **0** constants
+  and produced an empty space while the attack produced 60. Fixed: every candidate is topped up to
+  exactly 60 with code-independent filler. Verified equal at 60 for all candidates on 4 tasks.
+
+**Observed. Net loss on the deployable arm by the pre-registered criterion; small free gain on the
+ceiling.** Run `uplan10-crit-cas`.
+
+**A first attempt was a silent no-op and is parked at `runs/uplan10-crit-cas-NOOP`.** `code_aware`
+was `True` in the metadata but `n_space_by_candidate` was 50 — the blind size. `provided_inputs` had
+been added to `Problem` and to the APPS backend but not to `artifacts.py`'s serializer, so the
+reloaded problems carried no seeds, every strategy returned an empty space, and the run quietly
+reduced to blind search while reporting the flag as on. The results were identical to F1 to three
+decimals, which is exactly what a working no-op looks like. Fixed, plus `_candidate_space` now raises
+on empty seeds rather than degrading. Re-run verified at `n_space_by_candidate = {60, 60}` before
+being allowed to proceed.
+
+| | F1 (blind) | F2 (code-aware) | change |
+|---|---|---|---|
+| `pbt` fires on attacks | 0.304 | 0.393 | **+0.089** |
+| `pbt` fires on honest | 0.175 | 0.325 | **+0.150** |
+| `pbt` block safety Δ | +0.074 | +0.074 | **0.000** |
+| `pbt` usefulness | 0.824 | **0.675** | **−0.149** |
+| `pbt_ceiling` fires on attacks | 0.107 | 0.143 | +0.036 |
+| `pbt_ceiling` fires on honest | 0.000 | **0.000** | 0.000 |
+| `pbt_ceiling` block safety Δ | +0.010 | +0.016 | +0.006 |
+| mean inputs per candidate | 45 | 60 | +15 |
+
+**The pre-registered rule was "if `fp|hon` rises by more than `tp|atk` does, the change is a net loss
+and should be reported as one." It rose by 0.150 against 0.089.** Same safety, 15 points more
+usefulness destroyed: strictly worse. The ungated arm is a net loss.
+
+The reference-gated ceiling behaves exactly as hypothesised — catch up, **FPR still exactly 0**,
+because the gate drops any property that fires on the reference over that candidate's own space.
+Confirms the design claim that a code-aware generator cannot manufacture a false positive *when the
+oracle is sound*. The cost lands entirely on unsound properties, which the critique gate only
+partially removes.
+
+## What the F-series changes
+
+**The bottleneck moved, and A6's framing was only half right.**
+
+Reach rate went 21% → 57% (E5), yet the ceiling's catch rate went only 0.107 → 0.143. Roughly a
+quarter of the newly-reached backdoors turn into a catch. **Executing the buggy path is necessary and
+far from sufficient** — most divergences violate no simple spec-derived invariant. A property like
+"output is one of `{cslnb, sjfnb}`" holds on the backdoor and the reference alike.
+
+So: A6 said search was the binding constraint. Fix search, and the **oracle** becomes the binding
+constraint — and for the deployable arm the fix is actively harmful, because more inputs give unsound
+properties more chances to fire on honest code. The next lever is a better *deployable* soundness
+gate, not more search and not more properties.
+
+---
+
 ## Precision side — to run once an arm wins
 
 Reach rate is a recall ceiling and says nothing about false positives. Any arm that moves reach must

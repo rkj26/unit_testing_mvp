@@ -43,6 +43,7 @@ class AppsBackend:
                     io_mode="stdio",
                     candidates=cands,
                     provided_tests_hint=_hint(t.get("provided_inputs", []), t.get("provided_outputs", [])),
+                    provided_inputs=list(t.get("provided_inputs", [])),
                     reference_code=t.get("reference_solution", ""),  # py3-safe reference for PBT soundness
                 )
             )

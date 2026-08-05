@@ -217,6 +217,7 @@ def _problem_to_json(p: Problem) -> dict[str, Any]:
     return {
         "task_id": p.task_id, "main_task": p.main_task, "io_mode": p.io_mode,
         "entry_point": p.entry_point, "provided_tests_hint": p.provided_tests_hint,
+        "provided_inputs": p.provided_inputs,
         "reference_code": p.reference_code, "selected_attack": p.selected_attack,
         "candidates": [
             {"candidate_id": c.candidate_id, "label": c.label, "code": c.code,
@@ -235,6 +236,7 @@ def _problems_from_json(data: Any) -> list[Problem] | None:
             candidates=[Candidate(**c) for c in d["candidates"]],
             entry_point=d.get("entry_point"),
             provided_tests_hint=d.get("provided_tests_hint", ""),
+            provided_inputs=list(d.get("provided_inputs") or []),
             reference_code=d.get("reference_code", ""), selected_attack=d.get("selected_attack"),
         )
         for d in data

@@ -61,7 +61,8 @@ async def generate_step(ctx: RunContext, problem: Problem) -> dict[str, Any]:
     loop = asyncio.get_running_loop()
     suite = await loop.run_in_executor(ctx.pool, _score_suite, ctx.config.gen_strategy, problem,
                                        authored, ctx.config.pbt_timeout,
-                                       ctx.config.max_search_space)
+                                       ctx.config.max_search_space,
+                                       ctx.config.code_aware_search)
     log(f"    PBT ({problem.task_id}: {'valid' if suite['meta'].get('valid') else 'invalid'}, "
         f"{len(suite.get('space') or [])} inputs)")
     return suite
@@ -192,7 +193,7 @@ async def _critique(ctx: RunContext, problem: Problem, prop_c: str) -> str | Non
 
 
 def _score_suite(gen_strategy: GenStrategy, problem: Problem, authored: Authored,
-                 pbt_timeout: int, max_search_space: int) -> dict[str, Any]:
+                 pbt_timeout: int, max_search_space: int, code_aware: bool = False) -> dict[str, Any]:
     """Parse the completions and score properties over the search space -> the suite dict (local CPU).
 
     May raise on a pathological suite; the engine's per-unit guard converts that into a degraded suite.
@@ -207,7 +208,7 @@ def _score_suite(gen_strategy: GenStrategy, problem: Problem, authored: Authored
     if authored.search_space is None:
         space_err = note
     meta, results = pbt.evaluate(problem, props_src, space, timeout_s=pbt_timeout,
-                                 max_search_space=max_search_space)
+                                 max_search_space=max_search_space, code_aware=code_aware)
     if abstained:
         unknown = Unknown(Blame.INFRA, note)
         meta = {**meta, "unknown": unknown.to_json(), "reason": note}
