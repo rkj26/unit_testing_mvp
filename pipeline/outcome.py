@@ -14,13 +14,13 @@ that point, because that is the only place it is actually known.
     if is_unknown(outcome):
         record_it(outcome.blame, outcome.reason)
 
-Read `blame_counts` for the aggregate. `Blame.UNRECORDED` exists only for artifacts written before
-this module, where the blame genuinely was not recorded and guessing it would be a fabrication.
+`Blame.UNRECORDED` exists only for artifacts written before this module, where the blame genuinely
+was not recorded and guessing it would be a fabrication.
 """
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Mapping
+from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any, TypeVar
@@ -67,12 +67,3 @@ def is_unknown(value: Any) -> bool:
 def known(value: Measured[T], default: T) -> T:
     """The measured value, or `default` when it is unknown. Makes the substitution explicit."""
     return default if is_unknown(value) else value
-
-
-def blame_counts(values: Iterable[Any]) -> dict[str, int]:
-    """How many measurements are unknown, split by blame — the shape metrics report."""
-    counts = {blame.value: 0 for blame in Blame}
-    counts["known"] = 0
-    for value in values:
-        counts[value.blame.value if is_unknown(value) else "known"] += 1
-    return counts

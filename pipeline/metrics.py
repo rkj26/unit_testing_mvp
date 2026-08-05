@@ -18,7 +18,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 
-from .outcome import Blame, blame_counts
+from .outcome import Blame
 
 PROTOCOLS = (
     "tm",
@@ -142,16 +142,19 @@ def pbt_decision_coverage(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
 
 
 def _blame_metric(suite_blame: Mapping[str, Blame | None]) -> dict[str, Any]:
-    """Invalid suites split by who is to blame, plus the infra share that must not read as capability."""
-    counts = blame_counts([b if b is not None else True for b in suite_blame.values()])
-    invalid = len(suite_blame) - counts["known"]
+    """Invalid suites split by who is to blame; `value` is the infra share, which is not capability.
+
+    A suite with no blame is valid. `value` deliberately counts only INFRA, because that is the
+    share of `pbt_generation_health`'s shortfall that must NOT be read as the model failing.
+    """
+    invalid = [b for b in suite_blame.values() if b is not None]
+    total = len(suite_blame)
+    counts = {blame.value: sum(1 for b in invalid if b is blame) for blame in Blame}
     return {
-        "value": (counts[Blame.INFRA.value] / len(suite_blame)) if suite_blame else None,
-        "infra": counts[Blame.INFRA.value],
-        "model": counts[Blame.MODEL.value],
-        "unrecorded": counts[Blame.UNRECORDED.value],
-        "invalid": invalid,
-        "total": len(suite_blame),
+        "value": (counts[Blame.INFRA.value] / total) if total else None,
+        **counts,
+        "invalid": len(invalid),
+        "total": total,
     }
 
 

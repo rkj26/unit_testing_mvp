@@ -656,3 +656,21 @@ class TestUnknownCannotBeReadAsFalse:
 
         unknown = Unknown(Blame.MODEL, "no valid properties")
         assert Unknown.from_json(unknown.to_json()) == unknown
+
+
+class TestBlameMetric:
+    def test_counts_invalid_suites_by_blame(self):
+        """Regression: this reported 0 invalid on a real run because it fed Blame members to a
+        helper that only recognised Unknown instances, so every suite counted as valid."""
+        from pipeline.metrics import _blame_metric
+        from pipeline.outcome import Blame
+
+        out = _blame_metric({"a": None, "b": Blame.INFRA, "c": Blame.MODEL, "d": None})
+        assert out["invalid"] == 2 and out["infra"] == 1 and out["model"] == 1
+        assert out["total"] == 4 and out["value"] == pytest.approx(0.25)
+
+    def test_all_valid_is_zero_not_none(self):
+        from pipeline.metrics import _blame_metric
+
+        out = _blame_metric({"a": None, "b": None})
+        assert out["invalid"] == 0 and out["value"] == 0.0
