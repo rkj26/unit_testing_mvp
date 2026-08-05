@@ -220,7 +220,7 @@ _CLI_DEFAULTS: dict[str, Any] = {
     "domain": "mock", "run_id": "", "pool_path": None, "limit": None,
     "mock": False, "t_model": "", "u_model": None, "gen_strategy": "blind_t",
     "property_prompt": "default", "search_prompt": "default",
-    "runs": 1, "tests_per_problem": 5, "seed": 0, "audit_rate": 0.02, "stage": "all",
+    "runs": 1, "tests_per_problem": 5, "seed": 0, "audit_rate": 0.10, "stage": "all",
     "progress": False, "exec_mode": "subprocess", "docker_image": None,
 }
 

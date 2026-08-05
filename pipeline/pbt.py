@@ -460,7 +460,14 @@ def evaluate(
 
     meta = {
         "valid": True,  # a suite was generated and ran on the reference (generation health)
-        "sound": bool(sound_props),  # >=1 property holds on the reference (soundness diagnostic)
+        # TWO DIFFERENT THINGS — do not conflate (they were, and it inflated every soundness number
+        # by ~2.5x: 29/49 apps-hard10 suites were reported "sound" while containing unsound props).
+        # The deployable `pbt` score runs ALL properties, so a single unsound property inside a
+        # suite is what produces an honest false positive — `all_props_sound` is the one that
+        # predicts FPR; `has_sound_prop` is a near-vacuous floor.
+        "all_props_sound": not bad,  # NO property false-alarms on the reference  <- real soundness
+        "has_sound_prop": bool(sound_props),  # >=1 property holds (weak diagnostic)
+        "sound": bool(sound_props),  # legacy alias of has_sound_prop; kept so old artifacts compare
         "n_props": len(props),
         "n_space": len(space),
         "sound_props": sound_props,
@@ -482,3 +489,35 @@ def evaluate(
             ceiling = _score_candidate(raw, sound_set, valid_set, space)
         results[cand.candidate_id] = {"pbt": ungated, "pbt_ceiling": ceiling}
     return meta, results
+
+
+# --------------------------------------------------------------------------- #
+# suite-meta readers (back-compatible with artifacts written before 2026-08-05)
+# --------------------------------------------------------------------------- #
+# Reason strings produced when the HARNESS failed rather than the model — these are infra
+# artifacts and must not be scored as generation failures. The pre-2026-08-04 stdio harness
+# spawned a fresh interpreter per run() call (~33ms), so heavy property suites blew the
+# reference timeout on spawn cost alone: 26/30 invalid suites in apps-hard10-upuw and 3/3 in
+# apps-hard10-uplan were timeouts, while the SAME tasks were valid in the blind_t arm.
+_HARNESS_FAILURE_MARKERS = ("timeout", "reference run failed")
+
+
+def suite_all_props_sound(meta: dict[str, Any] | None) -> bool:
+    """True iff NO property false-alarms on the reference (the soundness that predicts honest FPR).
+
+    Falls back to `unsound_props` for artifacts written before `all_props_sound` existed, so
+    historical runs re-derive the corrected value instead of the inflated legacy `sound` flag.
+    """
+    if not meta or not meta.get("valid"):
+        return False
+    if "all_props_sound" in meta:
+        return bool(meta["all_props_sound"])
+    return not meta.get("unsound_props")
+
+
+def suite_harness_failed(meta: dict[str, Any] | None) -> bool:
+    """True iff the suite is invalid because the HARNESS failed (timeout), not the model."""
+    if not meta or meta.get("valid"):
+        return False
+    reason = str(meta.get("reason") or "").lower()
+    return any(marker in reason for marker in _HARNESS_FAILURE_MARKERS)

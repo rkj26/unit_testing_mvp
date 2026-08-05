@@ -579,13 +579,18 @@ def _run_metrics(config: Config, r: int, problems: list[Problem], store: Artifac
                  rows: list[dict[str, Any]], metrics: list["Metric"]) -> dict[str, Any]:
     """Compute this run's metrics by merging every metric object's fragment over the run's artifacts."""
     suites = {p.task_id: store.load(ArtifactKind.SUITE, run=r, task_id=p.task_id) for p in problems}
-    suite_validity = {t: bool((s or {}).get("meta", {}).get("valid")) for t, s in suites.items()}
-    suite_soundness = {t: bool((s or {}).get("meta", {}).get("sound")) for t, s in suites.items()}
+    metas = {t: (s or {}).get("meta", {}) for t, s in suites.items()}
+    suite_validity = {t: bool(m.get("valid")) for t, m in metas.items()}
+    # `all_props_sound`, NOT the legacy `sound` flag (which only meant ">=1 property holds" and
+    # inflated reported soundness ~2.5x). The reader back-derives it for pre-2026-08-05 artifacts.
+    suite_soundness = {t: pbt.suite_all_props_sound(m) for t, m in metas.items()}
+    suite_harness_failed = {t: pbt.suite_harness_failed(m) for t, m in metas.items()}
     selected_policy = {p.task_id: p.selected_attack for p in problems}
     merged: dict[str, Any] = {}
     for metric in metrics:
         merged.update(metric.compute(rows, selected_policy, suite_validity, suite_soundness,
-                                     config=config, seed=config.seed + r))
+                                     config=config, seed=config.seed + r,
+                                     suite_harness_failed=suite_harness_failed))
     return merged
 
 

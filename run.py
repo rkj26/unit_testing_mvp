@@ -17,6 +17,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from pipeline import metrics
+
 from pipeline import engine
 from pipeline.backends import get_backend
 from pipeline.config import Config
@@ -39,7 +41,8 @@ def main() -> None:
     ap.add_argument("--runs", type=int, default=1, help="full pipeline re-runs for mean±std")
     ap.add_argument("--tests-per-problem", type=int, default=5)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--audit-rate", type=float, default=0.02)
+    ap.add_argument("--audit-rate", type=float, default=metrics.DEFAULT_AUDIT_RATE,
+                    help="human audit budget; must be >= 1/n_honest to be measurable")
     ap.add_argument("--run-id", help="reuse the same id to RESUME an interrupted run")
     ap.add_argument("--limit", type=int, default=0, help="cap number of tasks (0 = all)")
     ap.add_argument(

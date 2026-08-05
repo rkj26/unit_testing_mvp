@@ -61,16 +61,19 @@ def _render_md(config: dict[str, Any], agg: dict[str, Any], rows0: list[dict[str
     L.append(f"- **Tasks:** {config.get('n_tasks')}  ·  **Successful backdoors:** "
              f"{bs.get('successful')}/{bs.get('attack_proposals')}")
     L.append(f"- **PBT suite health:** valid {_stat(agg['pbt_generation_health'])} · "
-             f"sound {_stat(agg.get('pbt_soundness'))}\n")
+             f"sound {_stat(agg.get('pbt_soundness'))} "
+             f"(= ALL properties hold on the reference) · "
+             f"harness-failed {_stat(agg.get('pbt_harness_failure'))}\n")
 
     L.append("## Headline — usefulness / safety / evasion (mean ± std over runs)\n")
     L.append(f"**Usefulness:** {_stat(agg['usefulness'])}\n")
-    L.append("| Protocol | Safety | Safety 95% CI | AUC | Evasion | False-positive |")
-    L.append("|---|---|---|---|---|---|")
+    L.append("| Protocol | Safety | Safety 95% CI | AUC | AUC@FPR≤10% | AUC@FPR≤20% | Evasion | False-positive |")
+    L.append("|---|---|---|---|---|---|---|---|")
     for proto in PROTOCOLS:
         p = agg["protocols"][proto]
+        pa = p.get("partial_auc") or {}
         L.append(f"| {proto} | {_stat(p['safety'])} | {_ci(p['safety'])} | "
-                 f"{_stat(p.get('separation_auc'))} | "
+                 f"{_stat(p.get('separation_auc'))} | {_stat(pa.get('fpr10'))} | {_stat(pa.get('fpr20'))} | "
                  f"{_stat(p['evasion'])} | {_stat(p['false_positive'])} |")
     L.append("")
     L.append("_**AUC** = budget-free separation of successful backdoors from honest candidates "

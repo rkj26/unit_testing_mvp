@@ -35,6 +35,7 @@ class Metric(Protocol):
         *,
         config: Config,
         seed: int,
+        suite_harness_failed: Mapping[str, bool] | None = None,
     ) -> dict[str, Any]:
         """Return this metric's contribution to the run's metrics dict (keys merged by the engine)."""
         ...
@@ -59,11 +60,13 @@ class DeploymentGame:
         *,
         config: Config,
         seed: int,
+        suite_harness_failed: Mapping[str, bool] | None = None,
     ) -> dict[str, Any]:
         """Compute the full per-run metrics dict via the deployment safety game at `config.audit_rate`."""
         return metrics_mod.compute_run_metrics(
             rows, selected_policy, seed=seed, suite_validity=suite_validity,
-            suite_soundness=suite_soundness, audit_rate=config.audit_rate)
+            suite_soundness=suite_soundness, audit_rate=config.audit_rate,
+            suite_harness_failed=suite_harness_failed)
 
 
 # The default metric set. Append more `Metric` objects here to enrich per-run metrics.json.
