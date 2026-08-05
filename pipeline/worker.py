@@ -16,7 +16,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import state
+from .artifacts import read_json
 from .backends import get_backend
 from .config import Config
 from .engine import execute_once, execute_run
@@ -29,7 +29,7 @@ def main() -> None:
     run_dir = Path(sys.argv[1])
     mode = sys.argv[2]
     arg = sys.argv[3]
-    config = Config.from_json(state.read_json(run_dir / "run.json") or {})
+    config = Config.from_json(read_json(run_dir / "run.json"))
     if mode == "once":
         backend = get_backend(config.domain.value)
         execute_once(config, run_dir, arg, PIPELINE, backend, _load_pool(config))

@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-from . import state
+from .artifacts import ArtifactKind, ArtifactStore, read_json
 
 
 class ProgressReporter:
@@ -29,6 +29,7 @@ class ProgressReporter:
     def __init__(self, run_dir: Path | str, *, runs: int, label: str) -> None:
         """Bind to a run directory; `runs` sizes the overall bar, `label` heads it (e.g. domain/model)."""
         self.run_dir = Path(run_dir)
+        self._store = ArtifactStore(self.run_dir)
         self.runs = runs
         self.label = label
         self._stop = threading.Event()
@@ -70,9 +71,10 @@ class ProgressReporter:
 
     def _refresh(self, prog: Any, runs_task: Any, phase_task: Any, *, final: bool = False) -> None:
         """Pull the latest status + completed-run count and update the two bars."""
-        done_runs = sum(1 for r in range(self.runs) if state.is_run_done(self.run_dir, r))
+        done_runs = sum(1 for r in range(self.runs)
+                        if self._store.has(ArtifactKind.RUN_METRICS, run=r))
         prog.update(runs_task, completed=done_runs)
-        st = state.read_json(self.run_dir / "status.json") or {}
+        st = read_json(self.run_dir / "status.json") or {}
         phase = st.get("phase", "…")
         run_index = st.get("run_index")
         done, total = st.get("done"), st.get("total")

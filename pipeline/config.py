@@ -79,6 +79,9 @@ MAX_TOKENS_BY_EFFORT = {
 }
 
 MEASURED_SAFE_CONCURRENCY = 12
+MODEL_POOL_CONNECTIONS = 16
+SINGLE_RUN_TEMPERATURE = 0.0
+MULTI_RUN_TEMPERATURE = 0.7
 RETRY_BUDGET_PER_CALL = 2
 MIN_RETRY_BUDGET_SECONDS = 240
 OUTER_CALL_MARGIN_SECONDS = 60
@@ -165,6 +168,27 @@ class TimeoutLadder(BaseModel):
             unit=unit,
             run=max(MIN_RUN_BUDGET_SECONDS, UNITS_PER_RUN * unit),
         )
+
+
+class ModelRuntime(BaseModel):
+    """Every endpoint knob for one model, resolved from `Config` and never re-read from the env.
+
+    Carrying them as one object is what lets a subprocess or Docker worker rebuild a model that
+    behaves identically to the parent's.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    name: str
+    temperature: float = Field(0.0, ge=0.0)
+    seed: int = Field(0, ge=0)
+    attempt_timeout: Seconds
+    http_timeout: Seconds
+    http_retries: int = Field(ge=0)
+    max_tokens: int = Field(gt=0)
+    reasoning_effort: Reasoning
+    inspect_cache: bool = True
+    max_connections: int = Field(MODEL_POOL_CONNECTIONS, ge=1)
 
 
 class Config(BaseModel):
@@ -261,6 +285,32 @@ class Config(BaseModel):
     @property
     def run_timeout(self) -> int:
         return self.timeouts.run
+
+    @property
+    def temperature(self) -> float:
+        """Deterministic for a single run; varied across runs so repetitions are not identical."""
+        return SINGLE_RUN_TEMPERATURE if self.runs == 1 else MULTI_RUN_TEMPERATURE
+
+    def runtime(self, spec: ModelSpec, *, attempt_timeout: int, run_index: int) -> ModelRuntime:
+        return ModelRuntime(
+            name=spec.name,
+            temperature=self.temperature,
+            seed=self.seed + run_index,
+            attempt_timeout=attempt_timeout,
+            http_timeout=self.timeouts.http_retry_budget,
+            http_retries=self.call_http_retries,
+            max_tokens=spec.max_tokens,
+            reasoning_effort=spec.reasoning,
+            inspect_cache=self.inspect_cache,
+        )
+
+    def trusted_runtime(self, run_index: int) -> ModelRuntime:
+        spec = self.trusted.model_copy(update={"name": self.model_name})
+        return self.runtime(spec, attempt_timeout=self.timeouts.trusted_call, run_index=run_index)
+
+    def untrusted_runtime(self, run_index: int) -> ModelRuntime:
+        spec = self.untrusted.model_copy(update={"name": self.elicit_model_name})
+        return self.runtime(spec, attempt_timeout=self.timeouts.untrusted_call, run_index=run_index)
 
     def to_json(self) -> dict[str, Any]:
         """A JSON-serializable manifest for run.json, with the aliases the report renderer reads."""

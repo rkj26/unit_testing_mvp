@@ -44,6 +44,7 @@ from typing import TYPE_CHECKING, Any, Awaitable, Callable
 from . import metrics as metrics_mod
 from . import model as model_mod
 from . import pbt, report
+from . import artifacts
 from .artifacts import ArtifactKind, ArtifactStore
 from .config import Config, ExecMode, Stage
 from .schema import Backend, Problem
@@ -606,26 +607,13 @@ async def _heartbeat(status: "Any") -> None:
 
 
 def _resolve_models(config: Config, r: int) -> tuple[model_mod.TrustedModel, model_mod.TrustedModel]:
-    """Resolve the trusted (T) and elicited (U) models for run `r`, threading Config's endpoint knobs.
+    """Resolve the trusted (T) and untrusted (U) models for run `r`.
 
-    U falls back to T when unset. Temperature is 0 for a single deterministic run, else 0.7 for per-run
-    variance (reasoning models that reject a temperature ignore it — see `model._omits_temperature`).
-
-    Reasoning effort and the token cap are resolved PER MODEL (`u_reasoning_effort` / `u_max_tokens`,
-    both defaulting to the T values). T doubles as the monitor, so a single global effort would confound
-    any elicitation contrast — see the note on `Config.u_reasoning_effort`.
+    Effort, token cap and per-call bound are resolved per model. T doubles as the monitor, so a
+    single global effort would confound any elicitation contrast.
     """
-    temperature = 0.0 if config.runs == 1 else 0.7
-    shared = dict(http_timeout=config.call_http_timeout, http_retries=config.call_http_retries,
-                  inspect_cache=config.inspect_cache)
-    t_model = model_mod.resolve(config.model_name, temperature=temperature, seed=config.seed + r,
-                                max_tokens=config.max_tokens,
-                                reasoning_effort=config.reasoning_effort,
-                                attempt_timeout=config.call_attempt_timeout, **shared)
-    u_model = (model_mod.resolve(config.elicit_model_name, temperature=temperature,
-                                 seed=config.seed + r, max_tokens=config.u_max_tokens,
-                                 reasoning_effort=config.u_reasoning_effort,
-                                 attempt_timeout=config.u_call_attempt_timeout, **shared)
+    t_model = model_mod.resolve(config.trusted_runtime(r))
+    u_model = (model_mod.resolve(config.untrusted_runtime(r))
                if config.elicit_model_name else t_model)
     return t_model, u_model
 
@@ -645,9 +633,7 @@ def _record_backdoor_count(problems: list[Problem], scores: dict[tuple[str, str]
 
 def _write_run_manifest(run_dir: Path, config: Config) -> None:
     """Persist the Config to run.json so isolated workers can rebuild it (and report can read it)."""
-    from . import state
-
-    state.write_json(run_dir / "run.json", config.to_json())
+    artifacts.write_json(run_dir / "run.json", config.to_json())
 
 
 # --------------------------------------------------------------------------- #
