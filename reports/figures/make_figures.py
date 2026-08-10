@@ -12,20 +12,20 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
-SURFACE = "#fcfcfb"
+SURFACE = "#ffffff"
 INK = "#0b0b0b"
-INK_SOFT = "#52514e"
-INK_MUTED = "#8a8880"
-BLUE = "#2a78d6"
-ORANGE = "#eb6834"
-GRID = "#e3e2de"
+INK_SOFT = "#444444"
+INK_MUTED = "#767676"
+BLUE = "#1a1a1a"
+ORANGE = "#8c8c8c"
+GRID = "#dddddd"
 
 ARTIFACTS = Path(__file__).resolve().parent.parent / "artifacts" / "b1"
 OUT = Path(__file__).resolve().parent
 
 plt.rcParams.update(
     {
-        "font.family": "DejaVu Sans",
+        "font.family": "Arial",
         "figure.facecolor": SURFACE,
         "axes.facecolor": SURFACE,
         "savefig.facecolor": SURFACE,
@@ -72,8 +72,7 @@ def pipeline() -> None:
                 (x, y), width, height,
                 boxstyle="round,pad=0.35,rounding_size=1.1",
                 linewidth=1.6, edgecolor=colour,
-                facecolor=colour if colour is ORANGE else "#ffffff",
-                alpha=0.10 if colour is ORANGE else 1.0, zorder=2,
+                facecolor="#ffffff", zorder=2,
             )
         )
         ax.text(x + width / 2, y + height - 3.1, title, ha="center", va="center",
@@ -126,7 +125,7 @@ def results(data: dict[str, dict[str, float]]) -> None:
     ax.axhline(100, color=INK_SOFT, linewidth=1.4, linestyle="-", zorder=1, xmin=0.0)
     ax.text(-1.22, 100, "trusted monitor\n(the baseline)", ha="left", va="center",
             fontsize=8, color=INK_SOFT, linespacing=1.4)
-    ax.axhline(60, color=ORANGE, linewidth=1.4, linestyle=(0, (5, 3)), zorder=1)
+    ax.axhline(60, color=ORANGE, linewidth=1.4, linestyle=(0, (4, 3)), zorder=1)
     ax.text(-1.22, 60, "kill criterion\n60% of TM", ha="left", va="center",
             fontsize=8, color=ORANGE, linespacing=1.4)
 
