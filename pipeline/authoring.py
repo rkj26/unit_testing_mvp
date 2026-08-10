@@ -9,25 +9,36 @@ from __future__ import annotations
 
 import asyncio
 from collections.abc import Callable, Coroutine
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
 from . import pbt
 from .config import GenStrategy
+from .outcome import Blame, Unknown, is_unknown
 from .schema import Problem
 
 if TYPE_CHECKING:
     from .engine import RunContext
 
+Failures = dict[str, Unknown]
+
 
 @dataclass
 class Authored:
-    """The completions one task's authoring produced, with each abstention recorded by name."""
+    """The completions one task's authoring produced, with each abstention recorded by name.
+
+    `abstentions` names the steps that produced no text. `failures` says which of those were a CALL
+    that never returned, and why. The two are not the same set, and the difference is who is to
+    blame: a step in `failures` is INFRA, a step that abstained without one is a model that answered
+    with nothing. Collapsing both into INFRA excluded genuine model failures from PBT's failure
+    count, which flattered PBT.
+    """
 
     properties: str = ""
     search_space: str = ""
     plan: str = ""
     plan_required: bool = False
+    failures: Failures = field(default_factory=dict)
 
     @property
     def abstentions(self) -> list[str]:
@@ -40,15 +51,34 @@ class Authored:
             missing.append("trigger_search")
         return missing
 
+    @property
+    def blame(self) -> Blame:
+        return Blame.INFRA if self.failures else Blame.MODEL
+
+    @property
+    def why(self) -> str:
+        """Every abstention by name, then every call failure by reason.
+
+        Keyed separately because the names differ: the plan strategies get their properties from
+        `write_from_plan`, so a failure there is what makes `property_gen` abstain.
+        """
+        named = ", ".join(self.abstentions)
+        reasons = "; ".join(f.reason for f in self.failures.values())
+        return f"{named} ({reasons})" if reasons else named
+
 
 async def _call(
-    ctx: RunContext, prompt: str, kind: str, model: Any
-) -> Coroutine[Any, Any, str]:
+    ctx: RunContext, prompt: str, kind: str, model: Any, failures: Failures
+) -> str:
+    """One authoring call. A call that never returned records why, under its step's name."""
     from .engine import with_retry
 
     res = await with_retry(
         lambda: model.complete(prompt, kind), ctx.retry, sem=ctx.sem, label=kind
     )
+    if is_unknown(res):
+        failures[kind] = res
+        return ""
     return res or ""
 
 
@@ -57,6 +87,9 @@ class RefinementLoop:
 
     Evaluates property code syntax and spec-only critique feedback over 1 or more turns,
     refining property completions before freezing the task suite.
+
+    A critique call that never returns is not an abstention — the draft properties stand and the
+    suite is authored — so its failure is discarded rather than counted against the task.
     """
 
     def __init__(self, max_turns: int = 1) -> None:
@@ -68,13 +101,18 @@ class RefinementLoop:
         if not (ctx.config.self_critique and prop_c):
             return prop_c
 
+        discarded: Failures = {}
         current = prop_c
         for turn in range(self.max_turns):
             base_src, error = pbt.parse_properties(current)
             if not base_src:
                 break
             crit_c = await _call(
-                ctx, pbt.critique_prompt(problem, base_src), "property_gen", ctx.t_model
+                ctx,
+                pbt.critique_prompt(problem, base_src),
+                "property_gen",
+                ctx.t_model,
+                discarded,
             )
             crit_src, _ = pbt.parse_properties(crit_c)
             if crit_src:
@@ -106,11 +144,13 @@ class StrategyPipeline:
 
 async def _author_blind_t(ctx: RunContext, problem: Problem) -> Authored:
     n = ctx.config.tests_per_problem
+    failures: Failures = {}
     search = _call(
         ctx,
         pbt.search_prompt(problem, ctx.config.search_prompt),
         "trigger_search",
         ctx.t_model,
+        failures,
     )
     prop_c, space_c = await asyncio.gather(
         _call(
@@ -118,21 +158,26 @@ async def _author_blind_t(ctx: RunContext, problem: Problem) -> Authored:
             pbt.property_prompt(problem, n, ctx.config.property_prompt),
             "property_gen",
             ctx.t_model,
+            failures,
         ),
         search,
     )
     return Authored(
-        properties=await _maybe_critique(ctx, problem, prop_c), search_space=space_c
+        properties=await _maybe_critique(ctx, problem, prop_c),
+        search_space=space_c,
+        failures=failures,
     )
 
 
 async def _author_u_writes(ctx: RunContext, problem: Problem) -> Authored:
     n = ctx.config.tests_per_problem
+    failures: Failures = {}
     search = _call(
         ctx,
         pbt.search_prompt(problem, ctx.config.search_prompt),
         "trigger_search",
         ctx.t_model,
+        failures,
     )
     prop_c, space_c = await asyncio.gather(
         _call(
@@ -140,11 +185,14 @@ async def _author_u_writes(ctx: RunContext, problem: Problem) -> Authored:
             pbt.property_prompt(problem, n, ctx.config.property_prompt),
             "property_gen",
             ctx.u_model,
+            failures,
         ),
         search,
     )
     return Authored(
-        properties=await _maybe_critique(ctx, problem, prop_c), search_space=space_c
+        properties=await _maybe_critique(ctx, problem, prop_c),
+        search_space=space_c,
+        failures=failures,
     )
 
 
@@ -154,24 +202,34 @@ async def _author_plan_writes(
     from .engine import log
 
     n = ctx.config.tests_per_problem
+    failures: Failures = {}
     search = _call(
         ctx,
         pbt.search_prompt(problem, ctx.config.search_prompt),
         "trigger_search",
         ctx.t_model,
+        failures,
     )
     writer = ctx.t_model if writer_is_trusted else ctx.u_model
-    plan = await _call(ctx, pbt.plan_prompt(problem, n), "plan", ctx.u_model)
+    plan = await _call(ctx, pbt.plan_prompt(problem, n), "plan", ctx.u_model, failures)
     if not plan:
         log(
             f"    plan abstained ({problem.task_id}) — not writing properties from an empty plan"
         )
         return Authored(
-            properties="", search_space=await search, plan="", plan_required=True
+            properties="",
+            search_space=await search,
+            plan="",
+            plan_required=True,
+            failures=failures,
         )
     prop_c, space_c = await asyncio.gather(
         _call(
-            ctx, pbt.write_from_plan_prompt(problem, plan, n), "write_from_plan", writer
+            ctx,
+            pbt.write_from_plan_prompt(problem, plan, n),
+            "write_from_plan",
+            writer,
+            failures,
         ),
         search,
     )
@@ -180,6 +238,7 @@ async def _author_plan_writes(
         search_space=space_c,
         plan=plan,
         plan_required=True,
+        failures=failures,
     )
 
 

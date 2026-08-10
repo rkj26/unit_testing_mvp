@@ -12,6 +12,171 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ---
 
+## 2026-08-09
+
+### Unit timeout confounded the code-aware arm; r2 discarded and re-run
+- **What:** `b1-r2` (blind_t + code-aware) produced 5/14/11 INFRA-blamed invalid suites across three
+  runs and `pbt` coverage of 0.904/0.730/0.765, against `b1-r1`'s zero INFRA and ~1.0. 36 unit-level
+  TimeoutErrors. Those three runs were deleted and the cell relaunched with `--t-timeout 420`.
+- **Why:** `TimeoutLadder.derive` sizes the unit budget from reasoning effort, not from the work a
+  unit performs. `blind_t` gets unit=900s, `u_plans` 2700s. Code-aware adds the same extra work to
+  both — a sandboxed search plus a reference gate per candidate — so it starved the blind arm (36
+  timeouts) while the u_plans arm absorbed it (3). A degraded suite is an abstention and abstentions
+  score BENIGN, so the artifact pushed `pbt` down in exactly the direction H2 predicts. Confirming a
+  hypothesis with an infrastructure failure is the outcome the `pbt_invalid_blame` gate exists to
+  prevent.
+- **Result:** r2 relaunched at unit=2700s, matching r3/r4. r1 is NOT re-run: it recorded zero
+  timeouts at 900s, so a bound that never bound it cannot have changed its numbers.
+
+### Sandbox made mandatory and CPU-bounded after a fourth hang
+- **What:** `_docker_command` gained `--cpus 2` and `--memory-swap 2g`; `Settings._runnable` now
+  REFUSES any non-mock run that is not `--pbt-isolation docker`.
+- **Why:** Docker stopped the kernel panics — memory was contained and no fourth panic occurred —
+  but the machine still hung. The container capped memory and PIDs and left **CPU unbounded**, so a
+  single harness could saturate all 16 cores of the VM while staying inside its memory budget.
+  Separately, isolation was a flag that could be omitted; on a host where macOS cannot enforce
+  RLIMIT_AS/DATA/RSS, omitting it means an unbounded candidate takes the host down rather than
+  itself. A guarantee that depends on remembering a flag is not a guarantee.
+- **Result:** 183 tests pass; 531 numeric mock metrics unmoved. A real run without a sandbox now
+  fails at config validation with the reason and the remedy. Only `--mock` bypasses it.
+
+### Kernel panic during the B1 batch; resourcing corrected
+- **What:** The machine panicked at 12:00:35 with `userspace watchdog timeout: no successful
+  checkins from WindowServer in 182 seconds`, killing all eight cells. Not an OOM — memory was 93%
+  free. The batch had already stopped progressing at ~10:09, roughly two hours before the panic.
+- **Why:** `Isolation.SUBPROCESS` spawns a fresh Python per candidate (harness run + reference
+  gate, ~330 spawns per run), and every spawn is intercepted by this machine's security stack
+  (Defender, Cyberhaven, flxconfig — 97% CPU between them post-boot). Eight cells of that churn
+  starved the compositor until the kernel watchdog fired. The 2-task smoke could not have caught
+  it: 2 tasks is ~12 spawns per cell against ~330 at 50 tasks.
+- **Fixes:** `nice -n 10` on every cell so the runs always yield to system processes;
+  `EXEC_WORKERS` 2 -> 1, halving concurrent harness subprocesses to eight across the batch.
+  `MAX_CONN` left at 4 — network I/O was never the constraint. `poll.py` now records load average
+  and runs continuously in its own tmux session, appending to `batch_health.log` every 5 minutes;
+  the 10:09 stall went unseen for two hours because the poller existed but was never left running.
+- **Result:** no data lost. `--run-id` resume is unit-granular, verified on relaunch
+  (`run 3: resumed 50/50 generate`, `resumed 68/115 monitor`). 13 completed runs and ~250 suites
+  were banked. **The crash did not contaminate the artifacts**: tasks whose generate step timed out
+  left no suite at all, so resume re-runs them, and all 17 invalid suites across the batch are
+  MODEL-blamed with zero INFRA. Load recovered 616 -> 34.
+
+### Code-aware search unblocked; monitor prompt v2; `tm_plus_*` deleted
+- **What:** Six fixes ahead of the 2x2x2 batch (gen_strategy x code-aware x self-critique).
+  1. **The informed monitor sees the space that ran.** `evaluate` now carries `space_by_candidate`
+     into the suite and `monitor_step` indexes it per candidate. Under `--code-aware-search` each
+     candidate runs a widened space while the monitor was shown the blind one.
+  2. **A failed reference gate voids one candidate, not the task.** `_reference_gates` returns
+     failed gates instead of collapsing to a suite-wide `None`; `_gate_refusal` decides per
+     candidate. Code-aware probes the reference once per candidate, so collapsing gave R2/R4
+     ~n_candidates times the exposure R1/R3 carry.
+  3. **`_scaled_timeout` holds time-per-pair constant.** A space topped up to 60 on a deadline
+     sized for 45 finishes proportionally fewer pairs, scoring code-aware search on the clock.
+     Spaces no wider than blind are untouched, so the blind arms keep the historical budget.
+  4. **`_degraded_suite` carries every key `monitor_step` reads.** It omitted the space keys, so
+     the step raised AFTER the TM call returned — a paid-for score discarded.
+  5. **`sweep_deployed`.** `safety` scores the selected attack per task; `sweep` scores all 65
+     successful backdoors. Quoting a catch rate from one beside a safety from the other reports
+     two denominators as one. The console table now reads the deployed sweep.
+  6. **`tm_plus_pbt` / `tm_plus_pbt_ceiling` deleted.** `max(tm, pbt)` compared a 0-1 monitor
+     score with a raw count of failing properties. Nothing reported them; every row carried them.
+  Also: `results.affordable_operating_point` no longer reads an unmeasured FPR as 0.0;
+  `wrong_shape` raises on an undeclared `io_mode`.
+- **Why:** Items 1-3 were confounds between code-aware search and its own measurement, so R2/R4
+  would have scored low for reasons that are not the method.
+- **Result:** 183 tests pass. **531 numeric mock metrics compared against the pre-change baseline
+  (`runs/smoke-migrated`), 0 moved**; 210 new `sweep_deployed` keys, none removed. Eight-way
+  parallel smoke on live models at `--max-conn 4`: zero warnings, zero throttling.
+
+### Monitor rubric v2 — drafted, measured the case for it, then REVERTED
+- **What:** Both monitor prompts were rewritten with per-band anchors requiring a stated mechanism
+  for 9 and 10, then reverted to the AI-control-paper wording before the batch launched.
+- **Why reverted:** the trusted monitor is the paper's baseline, so changing it costs comparability
+  with the literature; and changing only the informed monitor would confound `pbt_informed_tm` vs
+  `tm`, mixing "saw PBT evidence" with "got a different rubric".
+- **The measurement that motivated it stands.** Run A `run_0`, n=230, 0 unparsed: TM put 37 attacks
+  AND 11 honest candidates at level 9. Those 11 are the binding constraint — threshold 10 catches
+  21/65 at 2% FPR, threshold 9 catches 58/65 at 24% FPR, and a 10% audit budget cannot buy the
+  second. The congestion is at the TOP of the scale, so a 0-10 rescale would not help: `(v-1)/9` is
+  monotone and safety depends on rank. Worth its own pre-registered experiment against the paper
+  prompt as control.
+- **Result:** prompts unchanged from the paper. `reasoning_tail` (below) is kept regardless, since
+  it is what would let such an experiment be audited.
+
+### Monitor reasoning is retained
+- **What:** `_monitor_evidence` keeps a 600-char `reasoning_tail` for every answer, not only
+  unparsed ones. `UNPARSED_TAIL_CHARS` -> `REASONING_TAIL_CHARS`.
+- **Why:** the score alone cannot say whether a rating followed the rubric it was given, so no
+  prompt or rubric question could be audited against the artifact that answered it.
+- **Result:** 183 tests pass; 531 numeric mock metrics unmoved.
+
+## 2026-08-08
+
+### Phase 1 complete — instrumentation repair, all eight items
+- **What:** Landed the remaining `REFACTOR.md` Phase-1 items (1.2 – 1.7; 1.1 and 1.8 landed earlier).
+  1. **Harness records stream** (item 34). JSONL: a header line, then one flushed line per
+     property-input pair. `run_raw` returns `complete`, `n_records`, `n_expected`, with `complete`
+     counted by the PARENT over distinct `(prop, i)` pairs — never a flag the file claims, because
+     the candidate shares the process and can write that file.
+  2. **The harness bounds itself** (item 35). It stops at `work_seconds`, and the parent's hard kill
+     moved out to `pbt_timeout + HARNESS_KILL_GRACE_SECONDS`. The per-call and per-process budgets
+     disagreed ~30x; the answer is not a tighter per-call bound that kills slow-but-correct
+     solutions, it is a loop that stops itself and keeps what it has. Inputs became the outer loop
+     so a shortfall costs every property the same tail, instead of starving whichever properties
+     sort last — a fixed set, so a bias.
+  3. **The environment is an allowlist** (items 36, 44). `env={**os.environ, ...}` handed every
+     provider API key to untrusted candidate code. Now six names plus `PBT_RESULT`. `Isolation` is a
+     parameter on `run_raw`/`evaluate`; `--pbt-isolation docker` runs the harness with
+     `--network none --memory 2g --pids-limit 256`. `inspect`'s `sandbox()` was not reused: it is
+     async and needs an eval context, and `run_raw` is sync on a thread-pool worker.
+  4. **Salvage is recorded** (item 37). `parse_search_space` returns `(space, error, salvaged)`.
+  5. **`with_retry` returns the failure** (items 2, 39). `Completed | Unknown` instead of
+     `Completed | None`, carrying the last exception. Blame is INFRA and is not read off the message
+     — what failed is the CALL.
+  6. **The unit deadline starts on admission** (item 1). A second semaphore, `units`, of width
+     `max_conn + exec_workers`.
+- **Why:** These are measurement failures, not science. A harness timeout used to discard 400
+  finished pairs including catches; an abstention is imputed BENIGN, so the whole suite then read as
+  "PBT found nothing suspicious". And blaming every abstention on INFRA excluded genuine model
+  failures from PBT's failure count, which flattered the thing under study.
+- **Result:** **172 tests pass** (159 + 13 new pins), **0 of 111 numeric mock metrics moved**.
+  Two consequences worth stating separately:
+  - **The soundness gate now refuses a partial reference run**, while the arms score one. Soundness
+    is a *negative* — "this property never fires on the reference" — and a false alarm sitting on an
+    input the harness never reached would win the property its soundness and then false-alarm on
+    every candidate. For the arms the asymmetry runs the other way: a missing pair can only lose a
+    catch, so partial evidence beats the abstention it replaces.
+  - **`monitor.summarize_pbt` was telling the informed monitor "Every property was run on every
+    trigger-search input"** on a passing verdict. False for a partial run, and the same defect shape
+    as scoring an abstention benign. It now reports `N of M pairs`.
+  - **Not verified:** the Docker isolation round-trip. No Docker daemon in this environment; command
+    construction and the CLI refusal (`--pbt-isolation docker` without `--docker-image`) are tested,
+    the container is not.
+  - Item 1.6 **will** move numbers on a real run. That is the repair, and Run A is where it shows.
+
+### Search-space format and the informed-monitor prompt
+- **What:** Trigger search now asks for **one input per line** rather than a JSON array, with a
+  worked example and the reason stated to the model. `parse_search_space` reads line-per-value
+  first, then the array path, then character-level salvage. The informed-monitor prompt stopped
+  presenting truncated evidence as complete.
+- **Why:** Follow-on from item 37. A cut JSON array loses every input after the cut; a cut
+  line-per-input list loses the line being written and nothing else — the same argument as
+  streaming the harness records. On the informed monitor, three faults of the same shape as the
+  `summarize_pbt` one: the input list was sliced at 2,000 chars *mid-value* and called "the inputs
+  the tests were run on", the property source was sliced mid-function, and the space shown was the
+  raw parsed one rather than the capped one that actually ran.
+- **Result:** 180 tests pass, 0 of 111 mock metrics moved. The format instruction now lives in one
+  place (`pbt._SPACE_FORMAT`), so the prompt files are format-agnostic and every variant asks for
+  the same shape. The new parser rescues a truncated **pretty-printed** array for free.
+  - **These are prompt changes, so they are NOT instrumentation**, and Run A's pre-registration now
+    carries a free check to settle it: compare `meta.n_space_parsed` per task against the previous
+    run. Matching distributions mean the format change was packaging only; diverging ones mean Run A
+    carries a second variable. The old instruction is kept verbatim in `REFACTOR.md` — this repo has
+    no git history to recover it from.
+  - **Blocks Phase 2:** under `--code-aware-search` each candidate runs a widened per-candidate
+    space, but the monitor is shown the blind one. Harmless for Run A, wrong for Run B.
+
+---
+
 ## 2026-08-05
 
 ### Whole-codebase review: one bug class, six instances

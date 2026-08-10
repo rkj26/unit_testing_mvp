@@ -1,7 +1,19 @@
-"""PBT execution harness generation and subprocess runner.
+"""PBT execution harness generation and the runner that executes it.
 
-Extracted from pbt.py to isolate sandbox code generation, timeout signal handling,
-and process-group lifecycle management.
+Extracted from pbt.py to isolate harness code generation, timeout signal handling, and process
+lifecycle management.
+
+This is the ONLY place untrusted candidate code runs, so it owns three bounds:
+  - a per-call SIGALRM inside the harness, so one hanging ``run(x)`` cannot eat the whole budget;
+  - a whole-loop deadline inside the harness, so the process stops itself and keeps what it has;
+  - a hard kill from the parent a grace period later, as the backstop for a harness that ignores
+    its own deadline.
+Records stream to disk one line at a time, so none of the three loses the pairs already finished.
+
+Isolation is a parameter, not a property of this module: SUBPROCESS is a timeout and
+process-group boundary only, DOCKER is a real one. The default is SUBPROCESS, which is safe while
+candidates are frozen benchmark artifacts and stops being safe the moment attack code is generated
+live from an untrusted model.
 """
 
 from __future__ import annotations
@@ -13,6 +25,7 @@ import signal
 import subprocess
 import sys
 import tempfile
+from enum import Enum
 from pathlib import Path
 from typing import Any
 
@@ -20,10 +33,19 @@ from .schema import Problem
 
 SINGLE_CANDIDATE_CALL_SECONDS = 6
 DEFAULT_PBT_TIMEOUT = 60
+HARNESS_KILL_GRACE_SECONDS = SINGLE_CANDIDATE_CALL_SECONDS
+PIPE_DRAIN_SECONDS = 5
+RESULT_FILENAME = "pbt_result.jsonl"
+HARNESS_FILENAME = "harness.py"
 
 _HARNESS = '''\
-import json, sys, io, contextlib, os, subprocess
-RESULT = os.environ["PBT_RESULT"]
+import json, sys, io, contextlib, os, time
+_pbt_deadline = time.monotonic() + __WORK_SECONDS__
+_pbt_sink = open(os.environ["PBT_RESULT"], "w")
+
+def _pbt_emit(_obj):
+    _pbt_sink.write(json.dumps(_obj) + "\\n")
+    _pbt_sink.flush()
 
 class _CandidateError(Exception):
     """The CANDIDATE under test raised (or a stdio program exited nonzero)."""
@@ -35,26 +57,39 @@ __PROPERTIES__
 # ---- end properties ----
 
 SPACE = json.loads(__SPACE_JSON__)
+__BARE_RUN_PROBE__
 _props = [(n, f) for n, f in sorted(globals().items())
           if (n.startswith("prop_") or n.startswith("test_")) and callable(f)]
-_records = []
-for _pname, _pfn in _props:
-    for _i, _x in enumerate(SPACE):
-        _rec = {"prop": _pname, "i": _i}
-        try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                _pfn(run, _x)
-            _rec["outcome"] = "pass"
-        except AssertionError as _e:
-            _rec["outcome"] = "catch"; _rec["msg"] = str(_e)[:300]
-        except _CandidateError as _e:
-            _rec["outcome"] = "candidate_crash"; _rec["msg"] = str(_e)[:300]
-        except Exception as _e:
-            _rec["outcome"] = "prop_error"; _rec["msg"] = type(_e).__name__ + ": " + str(_e)[:300]
-        _records.append(_rec)
-with open(RESULT, "w") as _f:
-    json.dump({"props": [n for n, _ in _props], "records": _records}, _f)
+_pbt_emit({"props": [n for n, _ in _props], "bare_run_ok": _bare_run_ok})
+for _i, _x, _pname, _pfn in [(i, x, n, f) for i, x in enumerate(SPACE) for n, f in _props]:
+    if time.monotonic() >= _pbt_deadline:
+        break
+    _rec = {"prop": _pname, "i": _i}
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            _pfn(run, _x)
+        _rec["outcome"] = "pass"
+    except AssertionError as _e:
+        _rec["outcome"] = "catch"; _rec["msg"] = str(_e)[:300]
+    except _CandidateError as _e:
+        _rec["outcome"] = "candidate_crash"; _rec["msg"] = str(_e)[:300]
+    except Exception as _e:
+        _rec["outcome"] = "prop_error"; _rec["msg"] = type(_e).__name__ + ": " + str(_e)[:300]
+    _pbt_emit(_rec)
 '''
+
+_BARE_RUN_PROBE = """\
+_bare_run_ok = []
+for _i, _x in enumerate(SPACE):
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            run(_x)
+        _bare_run_ok.append(True)
+    except Exception:
+        _bare_run_ok.append(False)
+"""
+
+_NO_BARE_RUN_PROBE = "_bare_run_ok = None\n"
 
 _ENTRY_FUNCTION = """\
 import signal as _signal
@@ -107,7 +142,25 @@ def run(x):
 """
 
 
-def build_harness(problem: Problem, code: str, props_src: str, space: list[Any]) -> str:
+def build_harness(
+    problem: Problem,
+    code: str,
+    props_src: str,
+    space: list[Any],
+    *,
+    probe_bare_run: bool = False,
+    work_seconds: int = DEFAULT_PBT_TIMEOUT,
+) -> str:
+    """Generate the harness script.
+
+    `probe_bare_run` prepends a pass calling the implementation on every input with no property
+    wrapping it, which is what establishes each input's domain. The probe is not deadline-checked;
+    the gate needs all of its verdicts and `_validated_bare_run` refuses a short one.
+
+    `work_seconds` bounds the whole script. Inputs are the outer loop so a budget that runs out
+    costs every property the same tail rather than starving whichever sort last. `__WORK_SECONDS__`
+    is substituted before the candidate and properties are inlined, so neither can rewrite it.
+    """
     if problem.io_mode == "function":
         setup = (
             _ENTRY_FUNCTION.replace("__CANDIDATE_SRC__", repr(code))
@@ -119,10 +172,103 @@ def build_harness(problem: Problem, code: str, props_src: str, space: list[Any])
             "__CAND_TIMEOUT__", str(SINGLE_CANDIDATE_CALL_SECONDS)
         )
     return (
-        _HARNESS.replace("__ENTRY_SETUP__", setup)
+        _HARNESS.replace("__WORK_SECONDS__", str(max(1, work_seconds)))
+        .replace("__ENTRY_SETUP__", setup)
         .replace("__PROPERTIES__", props_src)
         .replace("__SPACE_JSON__", repr(json.dumps(space)))
+        .replace(
+            "__BARE_RUN_PROBE__",
+            _BARE_RUN_PROBE if probe_bare_run else _NO_BARE_RUN_PROBE,
+        )
     )
+
+
+RECORD_OUTCOMES = ("pass", "catch", "candidate_crash", "prop_error")
+
+
+def _failed(error: str) -> dict[str, Any]:
+    return {
+        "ok": False,
+        "complete": False,
+        "error": error[:500],
+        "records": [],
+        "props": [],
+        "n_records": 0,
+        "n_expected": 0,
+        "bare_run_ok": None,
+    }
+
+
+def _validated(result: Any, n_space: int) -> tuple[list[str], list[dict[str, Any]]]:
+    """Re-derive props and records from the result file, rejecting anything off-contract.
+
+    The result file is attacker-reachable: the candidate runs in this process and knows the path.
+    Raises `ValueError`; the caller turns that into a failed run.
+    """
+    if not isinstance(result, dict):
+        raise ValueError("result is not an object")
+    props, records = result["props"], result["records"]
+    if not isinstance(props, list) or not all(isinstance(p, str) for p in props):
+        raise ValueError("props is not a list of property names")
+    if not isinstance(records, list):
+        raise ValueError("records is not a list")
+    named = set(props)
+    for record in records:
+        if not isinstance(record, dict):
+            raise ValueError("record is not an object")
+        if record.get("prop") not in named:
+            raise ValueError(f"record names an unknown property {record.get('prop')!r}")
+        index = record.get("i")
+        if not isinstance(index, int) or isinstance(index, bool):
+            raise ValueError(f"record index {index!r} is not an integer")
+        if not 0 <= index < n_space:
+            raise ValueError(f"record index {index} is outside the search space")
+        if record.get("outcome") not in RECORD_OUTCOMES:
+            raise ValueError(f"record outcome {record.get('outcome')!r} is not a verdict")
+    return props, records
+
+
+def _validated_bare_run(result: Any, n_space: int) -> list[bool]:
+    """Re-derive the bare-run probe, one verdict per search-space input.
+
+    Read from the same attacker-reachable result file as the records, so it gets the same scrutiny:
+    a short list would silently shift every input's domain verdict onto its neighbour, and a missing
+    one would make the whole space look out of domain. Raises `ValueError`.
+    """
+    bare_run_ok = result["bare_run_ok"]
+    if not isinstance(bare_run_ok, list) or len(bare_run_ok) != n_space:
+        raise ValueError("bare_run_ok is not one verdict per search-space input")
+    if not all(isinstance(v, bool) for v in bare_run_ok):
+        raise ValueError("bare_run_ok holds a verdict that is not a boolean")
+    return bare_run_ok
+
+
+def _stream(text: str) -> tuple[dict[str, Any] | None, str]:
+    """The harness's JSONL output as one result dict, or `(None, reason)`.
+
+    Line 1 is the header; every later line is one property-input record, flushed as written, so a
+    killed harness still yields the pairs it finished. A line that does not parse ends the stream —
+    only the torn tail of an interrupted write is legitimately incomplete. A header carrying its own
+    `records` is refused: the harness never writes that shape, so the candidate wrote the file.
+    """
+    lines = text.splitlines()
+    if not lines:
+        return None, "no result file"
+    try:
+        header = json.loads(lines[0])
+    except json.JSONDecodeError:
+        return None, "result file does not open with a header line"
+    if not isinstance(header, dict) or "props" not in header:
+        return None, "result header names no properties"
+    if "records" in header:
+        return None, "result header carries records, which the harness never writes"
+    records = []
+    for line in lines[1:]:
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            break
+    return {**header, "records": records}, ""
 
 
 def kill_group(proc: subprocess.Popen) -> None:
@@ -136,6 +282,147 @@ def kill_group(proc: subprocess.Popen) -> None:
         pass
 
 
+class Isolation(str, Enum):
+    """How far the harness is held away from the host while it runs candidate code."""
+
+    SUBPROCESS = "subprocess"
+    DOCKER = "docker"
+
+
+HARNESS_ENV_ALLOWLIST = (
+    "PATH",
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "TMPDIR",
+    "MPLBACKEND",
+    "DOCKER_HOST",
+    "DOCKER_CONFIG",
+)
+DOCKER_WORKDIR = "/pbt"
+DOCKER_MEMORY_LIMIT = "2g"
+DOCKER_CPU_LIMIT = "2"
+DOCKER_PID_LIMIT = 256
+
+
+def _harness_env() -> dict[str, str]:
+    """What a Python program needs, and nothing else.
+
+    The parent's environment holds every provider API key, and the candidate's module-level code
+    runs inside the harness process. Inheriting the whole environment handed untrusted code our
+    credentials for no gain: the harness imports only the standard library.
+
+    The DOCKER_* entries are read by the `docker run` CLI on this side of the boundary, never by
+    the container, which is handed `PBT_RESULT` and nothing else.
+    """
+    allowed = {key: os.environ[key] for key in HARNESS_ENV_ALLOWLIST if key in os.environ}
+    return {**allowed, "PBT_RESULT": RESULT_FILENAME}
+
+
+def _docker_command(directory: str, image: str, container: str) -> list[str]:
+    """`docker run` for the harness: bounded CPU, memory, processes and network.
+
+    Every resource the candidate can consume is capped here, because nothing outside the container
+    can cap it: macOS does not enforce RLIMIT_AS/DATA/RSS, so an unbounded candidate takes the host
+    down rather than itself. Memory alone is not enough — an uncapped container saturates every core
+    it can see and hangs the machine without ever exceeding its memory budget.
+
+    The container name is what lets a timeout `docker kill` exactly this harness — SIGKILLing the
+    host `docker run` CLI leaves the container running.
+    """
+    if not image:
+        raise ValueError("Isolation.DOCKER requires a docker image")
+    return [
+        "docker", "run", "--rm", "--name", container,
+        "--network", "none",
+        "--memory", DOCKER_MEMORY_LIMIT,
+        "--memory-swap", DOCKER_MEMORY_LIMIT,
+        "--cpus", DOCKER_CPU_LIMIT,
+        "--pids-limit", str(DOCKER_PID_LIMIT),
+        "-v", f"{directory}:{DOCKER_WORKDIR}",
+        "-w", DOCKER_WORKDIR,
+        "-e", f"PBT_RESULT={RESULT_FILENAME}",
+        image, "python", HARNESS_FILENAME,
+    ]
+
+
+def _docker_kill(container: str) -> None:
+    try:
+        subprocess.run(["docker", "kill", container], capture_output=True, timeout=20)
+    except Exception:
+        pass
+
+
+SEARCH_JOB_FILENAME = "search_job.json"
+SEARCH_RESULT_FILENAME = "search_result.json"
+SEARCH_MODULE_DIR = "/search"
+SEARCH_SECONDS = 600
+
+_SEARCH_DRIVER = f"""\
+import json, sys
+sys.path.insert(0, {SEARCH_MODULE_DIR!r})
+import search
+job = json.load(open({SEARCH_JOB_FILENAME!r}))
+space = search.code_aware_space(
+    job["code"], job["seeds"], job["budget"], iterations=job["iterations"]
+)
+json.dump(space, open({SEARCH_RESULT_FILENAME!r}, "w"))
+"""
+
+
+def run_search(
+    code: str,
+    seeds: list[str],
+    budget: int,
+    *,
+    iterations: int,
+    isolation: Isolation,
+    docker_image: str,
+    timeout_s: int = SEARCH_SECONDS,
+) -> list[str]:
+    """Coverage-guided trigger search for one candidate, inside the same bounds as the harness.
+
+    The search EXECUTES the candidate — hundreds of times, under a line tracer — so it is the second
+    place untrusted code runs, and it used to run unsandboxed on the host. `search.py` is stdlib-only
+    by design, so the whole adaptive loop is mounted and run inside one container: the per-execution
+    timeout it already had bounds each trace, and the container bounds the search in aggregate.
+
+    Under SUBPROCESS the loop runs in-process, which is only reachable for mock runs — a real run is
+    refused without DOCKER.
+    """
+    from . import search as search_mod
+
+    if isolation is not Isolation.DOCKER:
+        return search_mod.code_aware_space(code, seeds, budget, iterations=iterations)
+
+    directory = tempfile.mkdtemp(prefix="pbtsearch_")
+    container = f"pbtsearch-{Path(directory).name}"
+    try:
+        job = {"code": code, "seeds": seeds, "budget": budget, "iterations": iterations}
+        (Path(directory) / SEARCH_JOB_FILENAME).write_text(json.dumps(job), encoding="utf-8")
+        (Path(directory) / HARNESS_FILENAME).write_text(_SEARCH_DRIVER, encoding="utf-8")
+        module = Path(search_mod.__file__).resolve()
+        command = _docker_command(directory, docker_image, container)
+        command[-3:-3] = ["-v", f"{module}:{SEARCH_MODULE_DIR}/search.py:ro"]
+        proc = subprocess.Popen(
+            command, cwd=directory, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True, env=_harness_env(), start_new_session=True,
+        )
+        try:
+            proc.communicate(timeout=timeout_s + HARNESS_KILL_GRACE_SECONDS)
+        except subprocess.TimeoutExpired:
+            _docker_kill(container)
+            kill_group(proc)
+        result = Path(directory) / SEARCH_RESULT_FILENAME
+        if not result.exists():
+            return []
+        return [str(x) for x in json.loads(result.read_text(encoding="utf-8"))]
+    except (OSError, ValueError, json.JSONDecodeError):
+        return []
+    finally:
+        shutil.rmtree(directory, ignore_errors=True)
+
+
 def run_raw(
     problem: Problem,
     code: str,
@@ -143,40 +430,94 @@ def run_raw(
     space: list[Any],
     *,
     timeout_s: int = DEFAULT_PBT_TIMEOUT,
+    probe_bare_run: bool = False,
+    isolation: Isolation = Isolation.SUBPROCESS,
+    docker_image: str = "",
 ) -> dict[str, Any]:
-    """Run every property over every search-space input against one implementation."""
+    """Run every property over every search-space input against one implementation.
+
+    `ok` means the result file yielded a usable header and at least one well-formed record.
+    `complete` means the whole grid ran, counted by the parent as distinct pairs rather than read
+    off a flag the candidate could write. A missing pair can only lose a catch, never invent one,
+    so an incomplete run under-reports and must not be read as a negative.
+
+    `bare_run_ok` is the probe's per-input verdict, `None` unless `probe_bare_run` asked for one.
+    """
     directory = tempfile.mkdtemp(prefix="pbt_")
+    container = f"pbt-{Path(directory).name}"
     try:
-        (Path(directory) / "harness.py").write_text(
-            build_harness(problem, code, props_src, space), encoding="utf-8"
+        (Path(directory) / HARNESS_FILENAME).write_text(
+            build_harness(
+                problem,
+                code,
+                props_src,
+                space,
+                probe_bare_run=probe_bare_run,
+                work_seconds=timeout_s,
+            ),
+            encoding="utf-8",
         )
-        env = {**os.environ, "PBT_RESULT": "pbt_result.json"}
+        command = (
+            _docker_command(directory, docker_image, container)
+            if isolation is Isolation.DOCKER
+            else [sys.executable, HARNESS_FILENAME]
+        )
         proc = subprocess.Popen(
-            [sys.executable, "harness.py"],
+            command,
             cwd=directory,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            env=env,
+            env=_harness_env(),
             start_new_session=True,
         )
+        hard_kill_s = timeout_s + HARNESS_KILL_GRACE_SECONDS
         try:
-            _out, err = proc.communicate(timeout=timeout_s)
-        except subprocess.TimeoutExpired:
-            kill_group(proc)
-            return {"ok": False, "error": "timeout", "records": [], "props": []}
-        try:
-            result = json.loads(
-                (Path(directory) / "pbt_result.json").read_text(encoding="utf-8")
+            _out, err = proc.communicate(timeout=hard_kill_s)
+            exit_note = (
+                f"harness exited {proc.returncode}: "
+                f"{(err or '').strip() or 'no stderr'}"
             )
-            records, props = result["records"], result["props"]
-        except Exception:
-            return {
-                "ok": False,
-                "error": (err or "no result file")[:500],
-                "records": [],
-                "props": [],
-            }
-        return {"ok": True, "error": None, "records": records, "props": props}
+        except subprocess.TimeoutExpired:
+            if isolation is Isolation.DOCKER:
+                _docker_kill(container)
+            kill_group(proc)
+            try:
+                proc.communicate(timeout=PIPE_DRAIN_SECONDS)
+            except subprocess.TimeoutExpired:
+                pass
+            exit_note = f"killed after {hard_kill_s}s"
+        result, unreadable = _stream(_result_text(directory))
+        if result is None:
+            return _failed(f"{unreadable} ({exit_note})")
+        try:
+            props, records = _validated(result, len(space))
+            bare_run_ok = (
+                _validated_bare_run(result, len(space)) if probe_bare_run else None
+            )
+        except (ValueError, TypeError, KeyError) as error:
+            return _failed(f"malformed harness result: {error}")
+        n_expected = len(props) * len(space)
+        n_records = len({(r["prop"], r["i"]) for r in records})
+        if n_expected and not n_records:
+            return _failed(f"harness recorded no property-input pair ({exit_note})")
+        complete = n_records >= n_expected
+        return {
+            "ok": True,
+            "complete": complete,
+            "error": None if complete else f"{n_records}/{n_expected} pairs ({exit_note})",
+            "records": records,
+            "props": props,
+            "n_records": n_records,
+            "n_expected": n_expected,
+            "bare_run_ok": bare_run_ok,
+        }
     finally:
         shutil.rmtree(directory, ignore_errors=True)
+
+
+def _result_text(directory: str) -> str:
+    try:
+        return (Path(directory) / RESULT_FILENAME).read_text(encoding="utf-8")
+    except OSError:
+        return ""

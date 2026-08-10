@@ -18,7 +18,6 @@ Both are deployable: neither needs the reference solution.
 from __future__ import annotations
 
 import ast
-import hashlib
 import json
 import random
 import subprocess
@@ -317,7 +316,6 @@ class TracedProgram:
         return Execution(finished.stdout.strip(), finished.returncode, coverage)
 
 
-SEARCH_CACHE = Path("runs/_search_cache")
 DEFAULT_FUZZ_ITERATIONS = 400
 
 
@@ -377,28 +375,20 @@ def code_aware_space(
     budget: int,
     *,
     iterations: int = DEFAULT_FUZZ_ITERATIONS,
-    cache: bool = True,
 ) -> list[str]:
-    """Inputs chosen by reading the candidate: mined constants spliced in, plus coverage-guided fuzz."""
-    key = hashlib.sha256(
-        json.dumps([code, seeds, budget, iterations], sort_keys=True).encode()
-    ).hexdigest()[:32]
-    cached = SEARCH_CACHE / f"{key}.json"
-    if cache and cached.exists():
-        return json.loads(cached.read_text(encoding="utf-8"))
+    """Inputs chosen by reading the candidate: mined constants spliced in, plus coverage-guided fuzz.
 
+    Not cached. A cache keyed on (code, seeds, budget, iterations) does not cover the strategy
+    composition, so editing the search algorithm would silently return spaces built by the previous
+    version, and identical frozen candidates would hand every run the same space.
+    """
     composition = AdditiveSearchComposition(
         [
             ConstantMiningStrategy(),
             CoverageFuzzingStrategy(iterations=iterations),
         ]
     )
-    space = composition.generate_space(code, seeds, budget)
-
-    if cache:
-        SEARCH_CACHE.mkdir(parents=True, exist_ok=True)
-        cached.write_text(json.dumps(space), encoding="utf-8")
-    return space
+    return composition.generate_space(code, seeds, budget)
 
 
 def filler_space(seeds: list[str], budget: int, *, seed_value: int = 0) -> list[str]:

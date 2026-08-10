@@ -22,9 +22,10 @@ from typing import Any
 from . import monitor, pbt
 from .artifacts import ArtifactKind
 from .config import GenStrategy
+from .harness import Isolation
 from .engine import Fanout, RunContext, Scope, SetupContext, Step, log, with_retry
-from .outcome import Blame, Unknown
-from .schema import Candidate, Problem, make_row
+from .outcome import Unknown, is_unknown
+from .schema import NEVER_RETURNED, Candidate, Completion, Problem, make_row
 
 
 def preprocess_step(ctx: SetupContext) -> list[Problem]:
@@ -72,6 +73,8 @@ async def generate_step(ctx: RunContext, problem: Problem) -> dict[str, Any]:
         ctx.config.pbt_timeout,
         ctx.config.max_search_space,
         ctx.config.code_aware_search,
+        ctx.config.pbt_isolation,
+        ctx.config.docker_image,
     )
     log(
         f"    PBT ({problem.task_id}: {'valid' if suite['meta'].get('valid') else 'invalid'}, "
@@ -86,21 +89,25 @@ async def monitor_step(
     """PER_CANDIDATE: TM (reads code) + informed-TM (reads code + PBT evidence) -> a make_row dict.
 
     Reads this task's suite (loaded once per task and reused across its candidates) for the candidate's
-    PBT result. A None suspicion (retries exhausted) is a clean abstention. Returns the row the engine
-    appends to ROWS(run).
+    PBT result. A None suspicion (retries exhausted, or an answer the score never appeared in) is a
+    clean abstention, and the completion travels into the row so the two stay tellable apart. Returns
+    the row the engine appends to ROWS(run).
+
+    The informed monitor is shown THIS candidate's own inputs. Under `--code-aware-search` every
+    candidate runs a different space, so a suite-level list would describe a grid it never ran.
     """
     problem, candidate = unit
     suite = _task_suite(ctx, problem.task_id)
     pbt_res = suite["results"][candidate.candidate_id]
-    tm_txt = await _call(ctx, monitor.tm_prompt(problem, candidate), "tm", ctx.t_model)
-    inf_txt = await _call(
+    tm_out = await _call(ctx, monitor.tm_prompt(problem, candidate), "tm", ctx.t_model)
+    inf_out = await _call(
         ctx,
         monitor.informed_prompt(
             problem,
             candidate,
             pbt_res["pbt"],
-            suite.get("props_src"),
-            suite.get("space"),
+            suite["props_src"],
+            suite["space_by_candidate"][candidate.candidate_id],
         ),
         "informed",
         ctx.t_model,
@@ -110,8 +117,10 @@ async def monitor_step(
         candidate=candidate,
         score=ctx.scores[(problem.task_id, candidate.candidate_id)],
         pbt_results=pbt_res,
-        tm=monitor.parse_suspicion(tm_txt),
-        informed=monitor.parse_suspicion(inf_txt),
+        tm=monitor.parse_suspicion(tm_out.text),
+        informed=monitor.parse_suspicion(inf_out.text),
+        tm_completion=tm_out,
+        informed_completion=inf_out,
     )
 
 
@@ -157,11 +166,18 @@ def get_pipeline() -> list[Step]:
 PIPELINE: list[Step] = get_pipeline()
 
 
-def _call(ctx: RunContext, prompt: str, kind: str, model: Any):
-    """One guarded model call (returns an awaitable). Thin wrapper over the engine's `with_retry`."""
-    return with_retry(
-        lambda: model.complete(prompt, kind), ctx.retry, sem=ctx.sem, label=kind
+async def _call(ctx: RunContext, prompt: str, kind: str, model: Any) -> Completion:
+    """One guarded model call, over the engine's `with_retry`.
+
+    Exhausted retries become `NO_COMPLETION`, whose stop reason says the call never returned rather
+    than leaving an empty answer that looks like a monitor which simply wrote nothing.
+    """
+    completed = await with_retry(
+        lambda: model.completion(prompt, kind), ctx.retry, sem=ctx.sem, label=kind
     )
+    if is_unknown(completed):
+        return Completion(stop_reason=NEVER_RETURNED, unknown=completed)
+    return completed
 
 
 def _task_suite(ctx: RunContext, task_id: str) -> dict[str, Any]:
@@ -186,20 +202,24 @@ def _score_suite(
     pbt_timeout: int,
     max_search_space: int,
     code_aware: bool = False,
+    isolation: Isolation = Isolation.SUBPROCESS,
+    docker_image: str = "",
 ) -> dict[str, Any]:
     """Parse the completions and score properties over the search space -> the suite dict (local CPU).
 
     May raise on a pathological suite; the engine's per-unit guard converts that into a degraded suite.
-    Any abstention makes the suite an infrastructure failure, not evidence about the model.
+
+    An abstention is INFRA only when a CALL failed. A step that returned text the parser could not
+    use, or no text at all with the call reporting success, is the MODEL. Blaming every abstention on
+    infrastructure excluded genuine model failures from PBT's failure count and so flattered PBT.
     """
     abstained = authored.abstentions
     props_src, prop_err = pbt.parse_properties(authored.properties or "")
-    space, space_err = pbt.parse_search_space(authored.search_space or "")
-    note = (
-        f"model call abstained after retries: {', '.join(abstained)}"
-        if abstained
-        else ""
-    )
+    space, space_err, salvaged = pbt.parse_search_space(authored.search_space or "")
+    misshapen = pbt.wrong_shape(space, problem.io_mode)
+    if misshapen:
+        space, space_err = None, misshapen
+    note = f"authoring abstained: {authored.why}" if abstained else ""
     if not authored.properties:
         prop_err = note
     if not authored.search_space:
@@ -211,15 +231,22 @@ def _score_suite(
         timeout_s=pbt_timeout,
         max_search_space=max_search_space,
         code_aware=code_aware,
+        isolation=isolation,
+        docker_image=docker_image,
     )
+    meta = {**meta, "space_salvaged": salvaged, "n_space_parsed": len(space or [])}
+    space_run = (space or [])[:max_search_space]
     if abstained:
-        unknown = Unknown(Blame.INFRA, note)
+        unknown = Unknown(authored.blame, note)
         meta = {**meta, "unknown": unknown.to_json(), "reason": note}
     return {
         "props_src": props_src,
         "space": space,
+        "space_run": space_run,
+        "space_by_candidate": meta["space_by_candidate"],
         "prop_err": prop_err,
         "space_err": space_err,
+        "space_salvaged": salvaged,
         "prop_raw": authored.properties,
         "space_raw": authored.search_space,
         "plan": authored.plan or "",

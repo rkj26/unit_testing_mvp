@@ -40,9 +40,9 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any
+from typing import Any, TypeVar
 
-from . import artifacts, pbt, report
+from . import artifacts, pbt, results
 from . import metrics as metrics_mod
 from . import model as model_mod
 from .artifacts import ArtifactKind, ArtifactStore
@@ -57,6 +57,8 @@ _MISSING_SUITE_META = {
     "unknown": Unknown(Blame.INFRA, "suite artifact missing").to_json(),
 }
 ABSTAIN = object()
+
+Completed = TypeVar("Completed")
 
 
 class Scope(str, Enum):
@@ -150,6 +152,9 @@ class RunContext:
     Step fns read what they need off this object (config, models, the artifact store, the shared
     semaphore/thread-pool, a per-run suite cache) instead of the engine threading a bespoke inputs dict
     — keeping fn signatures uniform as `(ctx, unit)`.
+
+    Two semaphores, two different jobs. `sem` rations model calls. `units` rations UNITS, and exists
+    so a unit's deadline starts when it can actually do work; see `_guard`.
     """
 
     config: Config
@@ -161,35 +166,39 @@ class RunContext:
     u_model: model_mod.TrustedModel
     retry: RetryPolicy
     sem: asyncio.Semaphore
+    units: asyncio.Semaphore
     pool: ThreadPoolExecutor
     suites: dict[str, Any] = field(default_factory=dict)
 
 
 async def with_retry(
-    make_coro: Callable[[], Awaitable[str]],
+    make_coro: Callable[[], Awaitable[Completed]],
     policy: RetryPolicy,
     *,
     sem: asyncio.Semaphore,
     label: str,
-) -> str | None:
+) -> Completed | Unknown:
     """Run a model call under a hard per-attempt timeout, retrying with backoff; the ONLY call guard.
 
-    Acquires `sem` per attempt (so a stalled attempt frees its slot for others) and backs off OUTSIDE
-    the slot. Returns the completion string, or None once attempts are exhausted (callers read None as an
-    abstention). This is the single place model-call timeout+retry logic exists.
+    Acquires `sem` per attempt so a stalled one frees its slot, and backs off outside the slot.
+    Returns the call's value, or an `Unknown` carrying the last exception once attempts run out.
+
+    Blame is INFRA and is never read off the message: what failed here is the CALL. A model that
+    answers badly fails at the parser, where MODEL is stated by the code that detects it.
     """
+    last = "no attempt was made"
     for attempt in range(policy.attempts):
         async with sem:
             try:
                 return await asyncio.wait_for(make_coro(), timeout=policy.timeout_s)
             except Exception as error:
-                log(
-                    f"  [warn] {label} attempt {attempt + 1}/{policy.attempts}: "
-                    f"{type(error).__name__}: {str(error)[:120]}"
-                )
+                last = f"{type(error).__name__}: {str(error)[:120]}"
+                log(f"  [warn] {label} attempt {attempt + 1}/{policy.attempts}: {last}")
         if attempt < policy.attempts - 1:
             await asyncio.sleep(min(2**attempt, 8) * policy.backoff_base_s)
-    return None
+    return Unknown(
+        Blame.INFRA, f"{label}: {policy.attempts} attempt(s) failed, last {last}"
+    )
 
 
 def run_isolated(
@@ -303,11 +312,22 @@ from .schema import Backend, Problem, ScoreResult, make_row
 
 
 def _degraded_suite(problem: Problem, step: Step, error: Exception) -> dict[str, Any]:
-    """The degraded SUITE a PER_TASK failure records so one task's crash never sinks the run."""
+    """The degraded SUITE a PER_TASK failure records so one task's crash never sinks the run.
+
+    Carries every key `monitor_step` reads: a missing one raises after the TM call has returned,
+    discarding a score that was already paid for.
+    """
     meta, results = pbt.degraded(
         problem, f"{step.name} crashed: {type(error).__name__}: {error}"
     )
-    return {"props_src": None, "space": None, "meta": meta, "results": results}
+    return {
+        "props_src": None,
+        "space": None,
+        "space_run": [],
+        "space_by_candidate": meta["space_by_candidate"],
+        "meta": meta,
+        "results": results,
+    }
 
 
 def _degraded_row(
@@ -610,7 +630,7 @@ def _finalize(
 
     agg = metrics_mod.aggregate_runs(per_run_metrics)
     manifest = artifacts.read_json(run_dir / "run.json")
-    report.compile_results(
+    results.compile_results(
         run_dir,
         config=manifest,
         run_metrics=per_run_metrics,
@@ -665,6 +685,7 @@ async def _execute_run_async(
                 u_model,
                 RetryPolicy.from_config(config),
                 asyncio.Semaphore(config.max_conn),
+                asyncio.Semaphore(config.units_in_flight),
                 pool,
             )
             for step in per_run_steps:
@@ -713,14 +734,18 @@ async def _run_step(ctx: RunContext, step: Step) -> None:
 async def _guard(ctx: RunContext, step: Step, spec: FanoutSpec, unit: Any) -> None:
     """Run one fan-out unit; on failure degrade it (or abstain) and continue — the per-unit boundary.
 
-    This is why the step fns carry no try/except of their own: the one failure path for a unit lives
-    here. A degraded value is persisted (e.g. a degraded suite); an `ABSTAIN` records nothing, leaving
-    the run short of completeness so it resumes.
+    The single failure path for a unit, which is why step fns carry no try/except. A degraded value
+    is persisted; an `ABSTAIN` records nothing, leaving the run short so it resumes.
+
+    The deadline starts on ADMISSION. `asyncio.gather` creates every unit's task at once, so timing
+    from creation would put the queue ahead of it inside its own clock, making unit timeouts a
+    function of pool size.
     """
     try:
-        value = await asyncio.wait_for(
-            step.fn(ctx, unit), timeout=ctx.config.timeouts.unit
-        )
+        async with ctx.units:
+            value = await asyncio.wait_for(
+                step.fn(ctx, unit), timeout=ctx.config.timeouts.unit
+            )
     except Exception as error:
         log(
             f"  [warn] {step.name} failed for {spec.label(unit)}: {type(error).__name__}: {error}"

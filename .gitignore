@@ -9,6 +9,9 @@ __pycache__/
 # pipeline run outputs (report.md / metrics.json / pbt artifacts) — reproducible, don't commit
 runs/
 
+# post-hoc rescorings of a completed run (reaggregate.py) — reproducible from runs/, don't commit
+reaggregations/
+
 # full APPS pools (~52 MB each), rebuildable with prepare_candidate_pool.py.
 # apps_pool_hard10.json is kept: it is small and every published number uses it.
 apps_pool_hard.json
@@ -26,3 +29,7 @@ names.csv
 country_population_report.csv
 s0.txt
 s1.txt
+papers/*.pdf
+
+.DS_Store
+.claude/

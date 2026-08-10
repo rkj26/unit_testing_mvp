@@ -17,8 +17,12 @@ import os
 from typing import Any
 
 from .config import ModelRuntime
+from .schema import Completion
 
 KINDS = ("property_gen", "trigger_search", "tm", "informed", "plan", "write_from_plan")
+
+MOCK_STOP_REASON = "stop"
+EMPTY_RESPONSE_STOP_REASON = "empty_response"
 
 TEMPERATURE_REJECTING_PREFIXES = ("gpt-5", "o1", "o3", "o4", "deepseek-v3.2", "v3.2")
 AZURE_KEY_VARS = ("AZUREAI_API_KEY", "AZURE_API_KEY")
@@ -44,7 +48,8 @@ _MOCK: dict[str, str] = {
 
 
 class TrustedModel:
-    """Thin async wrapper over one inspect model: ``await model.complete(prompt, kind) -> str``."""
+    """Thin async wrapper over one inspect model: ``await model.complete(prompt, kind) -> str``,
+    or ``await model.completion(prompt, kind) -> Completion`` when the stop reason matters."""
 
     def __init__(self, runtime: ModelRuntime):
         self.runtime = runtime
@@ -92,16 +97,22 @@ class TrustedModel:
         return self._model
 
     async def complete(self, prompt: str, kind: str) -> str:
+        return (await self.completion(prompt, kind)).text
+
+    async def completion(self, prompt: str, kind: str) -> Completion:
+        """The same single call as `complete`, keeping the provider's stop reason attached."""
         if kind not in KINDS:
             raise ValueError(f"unknown model-call kind: {kind}")
         if self._mock:
-            return _MOCK[kind]
+            return Completion(_MOCK[kind], MOCK_STOP_REASON)
         from inspect_ai.model import ChatMessageUser
 
         out = await self._resolve_inspect().generate(
             [ChatMessageUser(content=prompt)], cache=self.runtime.inspect_cache
         )
-        return out.completion or (out.message.text if out.message else "")
+        if out.empty:
+            return Completion("", EMPTY_RESPONSE_STOP_REASON)
+        return Completion(out.completion or out.message.text, out.stop_reason)
 
 
 def resolve(runtime: ModelRuntime) -> TrustedModel:

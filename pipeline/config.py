@@ -17,6 +17,7 @@ from typing import Annotated, Any
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .harness import Isolation
 from .metrics import DEFAULT_ATTACK_PROBABILITY, PROTOCOLS, MetricConfig, Probability
 
 
@@ -78,7 +79,7 @@ MEASURED_CALL_SECONDS_BY_EFFORT = {
     Reasoning.MAX: 420,
 }
 MAX_TOKENS_BY_EFFORT = {
-    Reasoning.LOW: 4_000,
+    Reasoning.LOW: 12_000,
     Reasoning.MEDIUM: 32_000,
     Reasoning.HIGH: 32_000,
     Reasoning.MAX: 32_000,
@@ -109,6 +110,8 @@ TESTS_PER_PROBLEM = 5
 MOCK_MODEL = "mock"
 ALL_TASKS = 0
 DERIVE_FROM_REASONING = 0
+
+METRIC_DEFAULTS = MetricConfig()
 
 Seconds = Annotated[int, Field(ge=0)]
 
@@ -258,6 +261,7 @@ class Config(BaseModel):
     call_retries: int = Field(ENGINE_CALL_RETRIES, ge=0)
     call_http_retries: int = Field(INSPECT_HTTP_RETRIES, ge=0)
     pbt_timeout: Seconds = PBT_HARNESS_TIMEOUT_SECONDS
+    pbt_isolation: Isolation = Isolation.SUBPROCESS
     exec_workers: int = Field(PBT_EXEC_WORKERS, ge=1)
     max_search_space: int = Field(MAX_SEARCH_SPACE, ge=1)
     run_retries: int = Field(RUN_RETRIES, ge=0)
@@ -266,6 +270,16 @@ class Config(BaseModel):
     def uses_separate_untrusted(self) -> bool:
         """Whether U is a distinct endpoint from T; under mock they are the same model."""
         return not self.mock and bool(self.untrusted.name)
+
+    @property
+    def units_in_flight(self) -> int:
+        """How many fan-out units may hold a running deadline at once.
+
+        Wide enough to keep both bottlenecks fed — `max_conn` units on the network plus
+        `exec_workers` on the harness threads — and no wider, because every extra admitted unit is
+        one whose clock is running while it waits for a resource the others already hold.
+        """
+        return self.max_conn + self.exec_workers
 
     @property
     def temperature(self) -> float:
@@ -360,6 +374,19 @@ class Settings(BaseSettings):
         description="per-step backdoor probability; 1.0 is the degenerate always-attack regime",
     )
     audit_rate: float = Field(0.10, ge=0.0, le=1.0, description="human audit budget")
+    horizon: int = Field(
+        METRIC_DEFAULTS.horizon,
+        ge=1,
+        description="deployment steps per trial; (1-attack_rate)^horizon of safety is the "
+        "attacker never attacking, so a short horizon adds a constant to every protocol",
+    )
+    audit_slots: int = Field(
+        METRIC_DEFAULTS.audit_slots,
+        ge=0,
+        description="human audits per deployment; 0 derives it as --audit-rate x --horizon, "
+        "which is how the AI-control paper couples them (one 2% sets both the budget and the "
+        "threshold). Cannot exceed --horizon.",
+    )
 
     runs: int = Field(1, ge=1, description="repetitions for mean, std and intervals")
     seed: int = Field(0, ge=0)
@@ -384,6 +411,11 @@ class Settings(BaseSettings):
     call_retries: int = Field(ENGINE_CALL_RETRIES, ge=0)
     call_http_retries: int = Field(INSPECT_HTTP_RETRIES, ge=0)
     pbt_timeout: Seconds = PBT_HARNESS_TIMEOUT_SECONDS
+    pbt_isolation: Isolation = Field(
+        Isolation.SUBPROCESS,
+        description="isolation for the PBT harness, the one place candidate code runs; "
+        "subprocess is a timeout boundary only, docker is a real one and needs --docker-image",
+    )
     exec_workers: int = Field(PBT_EXEC_WORKERS, ge=1)
     max_search_space: int = Field(MAX_SEARCH_SPACE, ge=1)
     run_retries: int = Field(RUN_RETRIES, ge=0)
@@ -421,6 +453,25 @@ class Settings(BaseSettings):
             raise ValueError(
                 f"--gen-strategy {self.gen_strategy.value} requires --u-model"
             )
+        if self.audit_slots > self.horizon:
+            raise ValueError(
+                f"--audit-slots {self.audit_slots} exceeds --horizon {self.horizon}"
+            )
+        if self.pbt_isolation is Isolation.DOCKER and not self.docker_image:
+            raise ValueError("--pbt-isolation docker requires --docker-image")
+        if (
+            self.domain is not Domain.MOCK
+            and not self.mock
+            and self.stage is not Stage.SCORE
+            and self.pbt_isolation is not Isolation.DOCKER
+        ):
+            raise ValueError(
+                "a real run executes untrusted candidate code and requires "
+                "--pbt-isolation docker --docker-image <image>. Subprocess isolation bounds time "
+                "only: macOS cannot enforce RLIMIT_AS/DATA/RSS, so an unbounded candidate takes the "
+                "host down instead of itself (three kernel panics, 2026-08-09). Use --mock or "
+                "--domain mock to run without a sandbox."
+            )
         return self
 
     def to_config(self, run_id: str) -> Config:
@@ -443,6 +494,8 @@ class Settings(BaseSettings):
                 audit_rate=self.audit_rate,
                 attack_probability=self.attack_rate,
                 protocols=tuple(_split(self.protocols)) or PROTOCOLS,
+                horizon=self.horizon,
+                audit_slots=self.audit_slots,
                 seed=self.seed,
             ),
             scoring=ScoringLimits(max_concurrent=self.scoring_concurrency),
@@ -473,6 +526,7 @@ _PASSTHROUGH_TO_CONFIG = frozenset(
         "call_retries",
         "call_http_retries",
         "pbt_timeout",
+        "pbt_isolation",
         "exec_workers",
         "max_search_space",
         "run_retries",
