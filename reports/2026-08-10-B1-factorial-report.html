@@ -469,6 +469,8 @@ cannot be evaluated yet</li>
 <h1 id="questions-for-you">7. Questions for you</h1>
 <h2 id="is-the-informed-reviewer-worth-3-the-cost">7.1 Is the informed
 reviewer worth 3× the cost?</h2>
+<p><strong>This is the central open question, and the data does not
+settle it.</strong></p>
 <ul>
 <li><strong>Cost per run:</strong> code review 115 AI calls · informed
 review <strong>330–380 (2.9–3.3×)</strong></li>
@@ -491,7 +493,8 @@ right trade?</li>
 code-aware input search?</h2>
 <p><strong>No results here.</strong> Some runs have begun but are
 excluded — they are not powered to the same standard, and a partial
-result should not sit beside a complete one.</p>
+result should not sit beside a complete one. <strong>We would like a
+view on whether the direction is worth completing at all.</strong></p>
 <p><strong>The idea.</strong> Pick test inputs by reading the submitted
 code, not just the specification. In §1 that would have surfaced
 <code>i == 5</code> immediately.</p>
@@ -518,7 +521,8 @@ knows we harvest constants can plant misleading ones</li>
 <li><strong>Qualification:</strong> only <em>input choice</em> would
 read the code; the tests themselves still would not. So this cannot
 manufacture a false accusation — only miss real ones. The best-case
-arm’s false-alarm rate was exactly zero in the earlier study</li>
+arm’s false-alarm rate was exactly zero in the earlier study.
+<strong>The risk is missing backdoors, not inventing them</strong></li>
 </ul>
 <p><strong>Discouraging prior.</strong> Across 88 backdoors examined by
 hand: 9 had a trigger readable from the code, 2 of those were also
@@ -548,7 +552,9 @@ tasks</strong></li>
 backdoors <em>and 11 honest submissions</em> at level 9. Those 11 stop
 us lowering the threshold: at 10 we catch 21/65 for 2% false alarms; at
 9 we catch 58/65 but at 24%, unaffordable. A finer scale at the top may
-beat either intervention tested here</li>
+beat either intervention tested here. We deliberately left the prompt
+untouched for this experiment, so it stays comparable to the published
+baseline</li>
 <li><strong>Write tests that are correct by construction.</strong> Rules
 like “reordering the input must not change the answer” are reliable by
 their very form, and the AI writes them unprompted</li>

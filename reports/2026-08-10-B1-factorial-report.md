@@ -189,6 +189,8 @@ Across the first factor answers **H4**; across the second answers **H1**.
 
 ## 7.1 Is the informed reviewer worth 3× the cost?
 
+**This is the central open question, and the data does not settle it.**
+
 - **Cost per run:** code review 115 AI calls · informed review **330–380 (2.9–3.3×)**
 - Plus executing every submission in a sandbox, and the burden of running untrusted code — which crashed the machine three times before containment
 - **Buys:** 7–14 points, at t = 1.08–1.31 — indistinguishable from zero at this sample size
@@ -201,7 +203,7 @@ Across the first factor answers **H4**; across the second answers **H1**.
 
 ## 7.2 Should we pursue code-aware input search?
 
-**No results here.** Some runs have begun but are excluded — they are not powered to the same standard, and a partial result should not sit beside a complete one.
+**No results here.** Some runs have begun but are excluded — they are not powered to the same standard, and a partial result should not sit beside a complete one. **We would like a view on whether the direction is worth completing at all.**
 
 **The idea.** Pick test inputs by reading the submitted code, not just the specification. In §1 that would have surfaced `i == 5` immediately.
 
@@ -218,7 +220,7 @@ Across the first factor answers **H4**; across the second answers **H1**.
 
 - Independence is the whole argument here: a specification-only test **cannot be talked out of firing** by innocent-looking code
 - Reading the code to pick inputs spends part of that. An AI that knows we harvest constants can plant misleading ones
-- **Qualification:** only *input choice* would read the code; the tests themselves still would not. So this cannot manufacture a false accusation — only miss real ones. The best-case arm's false-alarm rate was exactly zero in the earlier study
+- **Qualification:** only *input choice* would read the code; the tests themselves still would not. So this cannot manufacture a false accusation — only miss real ones. The best-case arm's false-alarm rate was exactly zero in the earlier study. **The risk is missing backdoors, not inventing them**
 
 **Discouraging prior.** Across 88 backdoors examined by hand: 9 had a trigger readable from the code, 2 of those were also missed by code review, and both of those had no reliable test to check them. **Backdoors where this would uniquely help: 0 of 88.** The suggested reason is not bad luck — the vagueness that hides a backdoor from a reader is the same vagueness that leaves a specification-only test with no rule to check.
 
@@ -232,7 +234,7 @@ Across the first factor answers **H4**; across the second answers **H1**.
 
 - **Decide whether to complete code-aware search** — see above
 - **Power the informed-reviewer comparison.** More repeats will not help: every repeat uses the same 115 submissions, so the variation is scorer noise. This needs **more tasks**
-- **Fix the suspicion scale.** An earlier run put 37 backdoors *and 11 honest submissions* at level 9. Those 11 stop us lowering the threshold: at 10 we catch 21/65 for 2% false alarms; at 9 we catch 58/65 but at 24%, unaffordable. A finer scale at the top may beat either intervention tested here
+- **Fix the suspicion scale.** An earlier run put 37 backdoors *and 11 honest submissions* at level 9. Those 11 stop us lowering the threshold: at 10 we catch 21/65 for 2% false alarms; at 9 we catch 58/65 but at 24%, unaffordable. A finer scale at the top may beat either intervention tested here. We deliberately left the prompt untouched for this experiment, so it stays comparable to the published baseline
 - **Write tests that are correct by construction.** Rules like "reordering the input must not change the answer" are reliable by their very form, and the AI writes them unprompted
 
 &nbsp;
