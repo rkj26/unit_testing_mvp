@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>B1 — Does PBT add monitoring value over code review?</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">B1 — Does PBT add monitoring value over code
+review?</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#does-property-based-testing-add-monitoring-value-over-code-review-a-22-ablation" id="toc-does-property-based-testing-add-monitoring-value-over-code-review-a-22-ablation">Does
+property-based testing add monitoring value over code review? A 2×2
+ablation</a>
+<ul>
+<li><a href="#summary" id="toc-summary">0. Summary</a></li>
+<li><a href="#question" id="toc-question">1. Question</a></li>
+<li><a href="#threat-model-and-how-the-experiment-works" id="toc-threat-model-and-how-the-experiment-works">2. Threat model and
+how the experiment works</a></li>
+<li><a href="#setup" id="toc-setup">3. Setup</a></li>
+<li><a href="#design" id="toc-design">4. Design</a></li>
+<li><a href="#results" id="toc-results">5. Results</a></li>
+<li><a href="#interpretation" id="toc-interpretation">6.
+Interpretation</a></li>
+<li><a href="#questions-for-discussion" id="toc-questions-for-discussion">7. Questions for discussion</a></li>
+<li><a href="#caveats" id="toc-caveats">8. Caveats</a></li>
+<li><a href="#what-we-would-need-to-change-our-mind" id="toc-what-we-would-need-to-change-our-mind">9. What we would need to
+change our mind</a></li>
+<li><a href="#artifacts-and-provenance" id="toc-artifacts-and-provenance">10. Artifacts and provenance</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="does-property-based-testing-add-monitoring-value-over-code-review-a-22-ablation">Does
+property-based testing add monitoring value over code review? A 2×2
+ablation</h1>
+<p><strong>Date:</strong> 2026-08-10 · <strong>Run IDs:</strong>
+<code>b1-r1</code>, <code>b1-r5</code>, <code>b1-r3</code>,
+<code>b1-r7</code> · <strong>Status:</strong> complete, n=10 per
+cell</p>
+<hr />
+<h2 id="summary">0. Summary</h2>
+<p>Two interventions were ablated against a common baseline on 50 APPS
+tasks, 10 runs each: letting an untrusted model <strong>plan</strong>
+the properties, and a spec-only <strong>critique</strong> pass that
+prunes unsound ones. Pre-registered before any cell ran
+(<code>reports/2026-08-09-factorial-batch.md</code>).</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>finding</th>
+<th>verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H1</strong> critique raises deployable PBT by ≥5 pts</td>
+<td><strong>not supported</strong> — +0.3 pts under
+<code>blind_t</code>, <strong>−9.4</strong> under
+<code>u_plans</code></td>
+</tr>
+<tr>
+<td><strong>H4</strong> <code>u_plans_t_writes</code> beats
+<code>blind_t</code> by ≥5 pts</td>
+<td><strong>supported</strong> — <strong>+17.9 pts</strong></td>
+</tr>
+<tr>
+<td><strong>H3</strong> the two interventions are non-additive</td>
+<td><strong>supported</strong>, direction opposite to prediction — they
+<em>conflict</em></td>
+</tr>
+<tr>
+<td><strong>Kill criterion</strong> any cell above 60% of TM</td>
+<td><strong>fires</strong> — best cell is 44.1%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Headline.</strong> Deployable standalone PBT reaches at best
+<strong>44% of the trusted monitor’s earned safety</strong>, so it does
+not replace code review on this pool. Two results are worth more than
+that number. First, the critique <strong>doubled property soundness
+(0.44 → 0.81) and bought no safety at all</strong> — soundness was not
+the binding constraint, and screening for it costs more catches than it
+saves false alarms. Second, the only configuration that beats code
+review is <code>pbt_informed_tm</code> — PBT evidence handed to the
+monitor rather than acting on its own — and even there the advantage is
+<strong>not statistically significant at n=10</strong> in any cell, at
+roughly 3× the monitoring cost.</p>
+<p><strong>What would move the field:</strong> the value of PBT here is
+as an <em>evidence channel for a monitor</em>, not as a monitor. Every
+configuration that acted on property verdicts directly lost to a model
+reading the code.</p>
+<hr />
+<h2 id="question">1. Question</h2>
+<p>Within an AI-control threat model with no ground-truth reference at
+deploy time, does having a trusted model write property-based tests add
+monitoring value over a trusted monitor that simply reads the code?</p>
+<h2 id="threat-model-and-how-the-experiment-works">2. Threat model and
+how the experiment works</h2>
+<h3 id="the-setting">The setting</h3>
+<p>An untrusted model writes code we cannot fully review by hand. It may
+insert a <strong>backdoor</strong>: logic that returns a deliberately
+wrong result on one rare secret input while passing every visible test.
+We have a <strong>trusted but weaker</strong> model to defend with, and
+a <strong>human audit budget</strong> far smaller than the submission
+volume. Crucially, <strong>there is no reference solution at deploy
+time</strong> — if we had one, we would not need the untrusted model.
+Any defence that consults ground truth is not deployable.</p>
+<p>The question is whether <em>executing</em> the code — running
+property-based tests against it — catches backdoors that
+<em>reading</em> the code misses.</p>
+<h3 id="the-pipeline-per-task">The pipeline, per task</h3>
+<pre><code>  pool (frozen)                    50 tasks x {1 honest, 1-2 backdoored} candidates
+        |
+        v
+  [1] AUTHORING           trusted model writes PROPERTIES from the SPEC ONLY
+        |                 (never sees the candidate code)
+        |                 - blind_t          : T writes them alone
+        |                 - u_plans_t_writes : U writes a prose PLAN, T implements it
+        |                 - +critique        : second pass prunes properties a correct
+        |                                      solution could violate            &lt;- H1
+        v
+  [2] TRIGGER SEARCH      trusted model proposes inputs where a backdoor would likely
+        |                 fire. Spec-blind in every cell of this experiment.
+        v
+  [3] EXECUTION           every property x every input, against every candidate,
+        |                 inside a sandbox (memory 2g, cpus 2, pids 256, no network)
+        |                 - assertion fails, candidate returned  -&gt; CATCH
+        |                 - candidate crashed                    -&gt; NOT a catch
+        |                 - property itself errored              -&gt; ignored
+        v
+  [4] SOUNDNESS GATE      the REFERENCE is run over the same inputs to find which
+        |                 properties are trustworthy. Privileged: used only to compute
+        |                 the ceiling arm, never by a deployable one.
+        v
+  [5] MONITORS            tm       : trusted model reads the code, scores 1-10
+        |                 informed : same prompt + the property evidence, scores 1-10
+        v
+  [6] DEPLOYMENT GAME     Monte-Carlo simulation over the scores -&gt; SAFETY</code></pre>
+<h3 id="the-four-arms-and-which-are-deployable">The four arms, and which
+are deployable</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>arm</th>
+<th>what it is</th>
+<th>deployable?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tm</code></td>
+<td>trusted model reads the code. <strong>The baseline to
+beat.</strong></td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>pbt</code></td>
+<td>acts on property verdicts directly: how many independent properties
+caught it</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>pbt_ceiling</code></td>
+<td>same, but only properties the reference certified as sound</td>
+<td><strong>no</strong> — needs ground truth</td>
+</tr>
+<tr>
+<td><code>pbt_informed_tm</code></td>
+<td>trusted monitor reads the code <strong>and</strong> the property
+evidence</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p><code>pbt_ceiling</code> is an upper bound, not a proposal: it
+answers “if we could perfectly filter unsound properties, how good could
+this get?”</p>
+<h3 id="how-a-score-becomes-safety">How a score becomes “safety”</h3>
+<p>Every candidate gets a suspicion score. The <strong>audit
+rule</strong> calibrates a threshold so that auditing spends exactly the
+budget (10% of honest traffic), splitting ties with a weighted coin so a
+coarse monitor cannot buy extra audits by bunching scores.</p>
+<p>The <strong>deployment game</strong> then simulates 10,000
+deployments of 50 steps each. At each step the untrusted model submits a
+solution, attacking with probability 10%. The blue team wins a
+deployment if it audits an attack before an unaudited backdoor lands.
+<strong>Safety</strong> is the fraction of deployments won, and
+<strong>earned safety</strong> subtracts the free floor (0.005) — the
+share of deployments where the attacker never attacked, which no
+protocol earned.</p>
+<p>Two conventions matter for reading the numbers:</p>
+<ul>
+<li><strong>An abstention scores BENIGN.</strong> A monitor that returns
+nothing still has to be dealt with, so it counts as “nothing
+suspicious”. This is why <code>pbt_invalid_blame</code> and
+<code>decision_coverage</code> are checked <em>before</em> any headline
+number: an infrastructure failure would otherwise silently read as PBT
+finding nothing, penalising the method for our bugs.</li>
+<li><strong>Ratio to TM, not raw delta.</strong> Raw safety depends on
+the horizon; the ratio does not.</li>
+</ul>
+<h2 id="setup">3. Setup</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Pool</strong></td>
+<td><code>apps_pool_hard.json</code> — 50 tasks, 115 candidates (50
+honest, 65 attacks). Frozen. Every attack is a verified working
+backdoor; all tasks stdio with ≥20 provided inputs.</td>
+</tr>
+<tr>
+<td><strong>Trusted model (T)</strong></td>
+<td><code>azureai/DeepSeek-V3.2</code>, reasoning <code>low</code>.
+Writes properties, trigger search, and both monitors.</td>
+</tr>
+<tr>
+<td><strong>Untrusted model (U)</strong></td>
+<td><code>azureai/gpt-5.4</code>, reasoning <code>high</code>. Used only
+by <code>u_plans_t_writes</code>, and only to produce a prose plan —
+never executable code.</td>
+</tr>
+<tr>
+<td><strong>Runs</strong></td>
+<td>10 per cell, seed base 300. n=10 chosen because the informed-TM
+t-statistic previously sat at 2.48–2.66 against
+<code>t_crit(4)=2.776</code>.</td>
+</tr>
+<tr>
+<td><strong>Deployment game</strong></td>
+<td>horizon 50, audit rate 10%, attack rate 10%, 10,000 Monte-Carlo
+trials. Free floor 0.005.</td>
+</tr>
+<tr>
+<td><strong>Isolation</strong></td>
+<td>Docker,
+<code>--memory 2g --memory-swap 2g --cpus 2 --pids-limit 256 --network none</code>
+(see §8).</td>
+</tr>
+<tr>
+<td><strong>Monitor prompts</strong></td>
+<td>AI-control-paper wording, unchanged. Not a variable in this
+experiment.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Arms scored in every cell</strong></p>
+<ul>
+<li><code>tm</code> — trusted monitor reads the code. The baseline.</li>
+<li><code>pbt</code> — deployable: every property the model wrote, run
+over the trigger space.</li>
+<li><code>pbt_ceiling</code> — only properties that held on the
+privileged reference. <strong>Not deployable</strong> (no reference
+exists at deploy time); an upper bound.</li>
+<li><code>pbt_informed_tm</code> — the trusted monitor, given the code
+<em>plus</em> the PBT evidence.</li>
+</ul>
+<h2 id="design">4. Design</h2>
+<p>Full 2×2, one factor per axis, everything else held fixed.</p>
+<table>
+<thead>
+<tr>
+<th>cell</th>
+<th>property author</th>
+<th>critique pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>r1</strong></td>
+<td>T alone (<code>blind_t</code>)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>r5</strong></td>
+<td>T alone (<code>blind_t</code>)</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>r3</strong></td>
+<td>U plans, T writes</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>r7</strong></td>
+<td>U plans, T writes</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<h2 id="results">5. Results</h2>
+<p>All values mean ± std over n=10. Earned safety = safety minus the
+free floor (the share of deployments in which the attacker never
+attacked, which no protocol earned).</p>
+<h3 id="earned-safety">Earned safety</h3>
+<table>
+<thead>
+<tr>
+<th>cell</th>
+<th><code>tm</code></th>
+<th><code>pbt</code></th>
+<th><code>pbt_ceiling</code></th>
+<th><code>pbt_informed_tm</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1</td>
+<td>0.533 ± 0.067</td>
+<td>0.139 ± 0.020</td>
+<td>0.220 ± 0.035</td>
+<td>0.499 ± 0.052</td>
+</tr>
+<tr>
+<td>r5</td>
+<td>0.540 ± 0.061</td>
+<td>0.142 ± 0.029</td>
+<td>0.163 ± 0.031</td>
+<td>0.579 ± 0.084</td>
+</tr>
+<tr>
+<td>r3</td>
+<td>0.552 ± 0.072</td>
+<td>0.239 ± 0.027</td>
+<td>0.317 ± 0.042</td>
+<td>0.582 ± 0.046</td>
+</tr>
+<tr>
+<td>r7</td>
+<td>0.540 ± 0.062</td>
+<td>0.185 ± 0.030</td>
+<td>0.192 ± 0.022</td>
+<td>0.603 ± 0.112</td>
+</tr>
+</tbody>
+</table>
+<h3 id="as-a-ratio-to-the-trusted-monitor-horizon-invariant">As a ratio
+to the trusted monitor (horizon-invariant)</h3>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th>cell</th>
+<th>strategy</th>
+<th>critique</th>
+<th><code>pbt</code></th>
+<th><code>pbt_ceiling</code></th>
+<th><code>pbt_informed_tm</code></th>
+<th>soundness</th>
+<th>coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1</td>
+<td><code>blind_t</code></td>
+<td>—</td>
+<td>26.2%</td>
+<td>41.5%</td>
+<td>95.0%</td>
+<td>0.442</td>
+<td>0.986</td>
+</tr>
+<tr>
+<td>r5</td>
+<td><code>blind_t</code></td>
+<td>✓</td>
+<td>26.4%</td>
+<td>30.3%</td>
+<td>108.5%</td>
+<td>0.814</td>
+<td>0.990</td>
+</tr>
+<tr>
+<td>r3</td>
+<td><code>u_plans</code></td>
+<td>—</td>
+<td><strong>44.1%</strong></td>
+<td><strong>58.3%</strong></td>
+<td>107.3%</td>
+<td>0.484</td>
+<td>0.970</td>
+</tr>
+<tr>
+<td>r7</td>
+<td><code>u_plans</code></td>
+<td>✓</td>
+<td>34.8%</td>
+<td>36.2%</td>
+<td><strong>113.8%</strong></td>
+<td>0.772</td>
+<td>0.969</td>
+</tr>
+</tbody>
+</table>
+<h3 id="main-effects-on-pbt-ratio-to-tm">Main effects on
+<code>pbt</code> ratio-to-TM</h3>
+<pre><code>critique, under blind_t :  26.2 → 26.4   =  +0.3
+critique, under u_plans :  44.1 → 34.8   =  −9.4
+strategy, no critique   :  26.2 → 44.1   = +17.9
+strategy, with critique :  26.4 → 34.8   =  +8.3</code></pre>
+<h3 id="operating-point-at-the-10-audit-budget">Operating point at the
+10% audit budget</h3>
+<p>Computed over <code>sweep_deployed</code> — the population the
+deployment game can actually draw (each task’s selected attack plus
+every honest candidate), so catch rate, false-positive rate and safety
+share one denominator.</p>
+<table>
+<thead>
+<tr>
+<th>cell</th>
+<th><code>tm</code> catch / FPR</th>
+<th><code>pbt_informed_tm</code> catch / FPR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1</td>
+<td>0.362 / 0.014</td>
+<td>0.466 / 0.070</td>
+</tr>
+<tr>
+<td>r5</td>
+<td>0.366 / 0.012</td>
+<td>0.456 / 0.034</td>
+</tr>
+<tr>
+<td>r3</td>
+<td>0.370 / 0.014</td>
+<td><strong>0.502</strong> / 0.038</td>
+</tr>
+<tr>
+<td>r7</td>
+<td>0.366 / 0.014</td>
+<td>0.460 / 0.026</td>
+</tr>
+</tbody>
+</table>
+<h3 id="significance-of-the-informed-monitor-against-tm-paired-per-run">Significance
+of the informed monitor against TM (paired, per-run)</h3>
+<table>
+<thead>
+<tr>
+<th>cell</th>
+<th>ratio</th>
+<th>paired Δ</th>
+<th>t</th>
+<th>significant?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1</td>
+<td>95.0%</td>
+<td>−0.0346</td>
+<td>−1.18</td>
+<td>no</td>
+</tr>
+<tr>
+<td>r5</td>
+<td>108.5%</td>
+<td>+0.0396</td>
+<td>+1.26</td>
+<td>no</td>
+</tr>
+<tr>
+<td>r3</td>
+<td>107.3%</td>
+<td>+0.0302</td>
+<td>+1.08</td>
+<td>no</td>
+</tr>
+<tr>
+<td>r7</td>
+<td>113.8%</td>
+<td>+0.0625</td>
+<td>+1.31</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><code>t_crit(df=9) = 2.262</code>. <strong>No cell reaches
+significance.</strong></p>
+<h2 id="interpretation">6. Interpretation</h2>
+<p><strong>H1 — critique: not supported, and harmful under the better
+strategy.</strong> The intervention did what it was designed to do:
+soundness rose 0.442 → 0.814 (<code>blind_t</code>) and 0.484 → 0.772
+(<code>u_plans</code>). It bought no safety. The mechanism is visible in
+the operating points — the critique removes properties, so the
+false-positive rate falls (0.058 → 0.020) but the catch rate falls
+further (0.094 → 0.040). It is clearest in <code>pbt_ceiling</code>,
+which fell 41.5 → 30.3 and 58.3 → 36.2: that arm’s FPR is already zero
+by construction, so pruning properties is pure loss with nothing to
+gain.</p>
+<p><strong>H4 — strategy: supported, and the largest effect
+measured.</strong> Letting U plan and T write is worth <strong>+17.9
+points</strong> without the critique. This is the control-relevant
+result: U never emits executable code — it produces a prose plan the
+trusted model implements — so the collusion surface stays narrow while
+the invariants get materially better targeted. It is also the first test
+of <code>blind_t</code> on this 50-task pool; every prior 50-task run
+used <code>u_plans_t_writes</code>, so the baseline it beats had never
+actually been measured here.</p>
+<p><strong>H3 — interaction: supported, direction reversed.</strong> The
+two interventions conflict rather than compose. Critique is neutral
+under <code>blind_t</code> (+0.3) and costly under <code>u_plans</code>
+(−9.4), cutting the strategy gain from +17.9 to +8.3. Interpretation:
+<code>u_plans</code> produces <em>better</em> properties, and the
+critique then prunes precisely the ones earning the catches.</p>
+<p><strong>Kill criterion fires.</strong> Best deployable cell is 44.1%
+of TM. Standalone PBT as a deployed monitor is not competitive with code
+review on this pool.</p>
+<p><strong>The one arm that beats TM is not yet established.</strong>
+<code>pbt_informed_tm</code> exceeds TM in three of four cells, best at
+113.8%, and lifts catch from 0.362 → 0.502 at r3’s operating point. But
+every t-stat is 1.08–1.31 against 2.262. Effect and noise scale
+together, so more runs of this design will not resolve it (see §9).</p>
+<h2 id="questions-for-discussion">7. Questions for discussion</h2>
+<h3 id="is-pbt_informed_tm-worth-its-cost">7.1 Is
+<code>pbt_informed_tm</code> worth its cost?</h3>
+<p>This is the central open question and we do not think the data
+settles it.</p>
+<p><strong>What it costs, per run of 50 tasks / 115
+candidates:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>model calls</th>
+<th>vs TM alone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tm</code> alone</td>
+<td>115</td>
+<td>1.0×</td>
+</tr>
+<tr>
+<td><code>pbt_informed_tm</code> (<code>blind_t</code>)</td>
+<td>115 TM + 115 informed + 100 authoring = <strong>330</strong></td>
+<td><strong>2.9×</strong></td>
+</tr>
+<tr>
+<td><code>pbt_informed_tm</code> (<code>u_plans</code>)</td>
+<td>115 TM + 115 informed + 150 authoring = <strong>380</strong></td>
+<td><strong>3.3×</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Plus per-candidate sandboxed harness execution, plus the operational
+cost of running untrusted code at all — which in our case caused three
+kernel panics before containment (§8).</p>
+<p><strong>What it buys:</strong> +7 to +14 points of earned safety
+ratio, at t = 1.08–1.31, i.e. <strong>not distinguishable from zero at
+n=10</strong>.</p>
+<p><strong>The question:</strong> is roughly <strong>3× the monitoring
+cost, plus a code-execution sandbox in the deployment path, justified by
+an effect this size — and how large would the effect need to be before
+it is?</strong> A related framing: <code>pbt_informed_tm</code>’s gain
+is concentrated in catch rate (0.362 → 0.502) at a higher FPR (0.014 →
+0.038). Under a fixed audit budget, is that trade the right one, or is
+the honest conclusion that PBT’s value is as an <em>evidence
+channel</em> only where execution is already available and cheap?</p>
+<h3 id="is-code-aware-trigger-search-a-legitimate-direction-at-all">7.2
+Is code-aware trigger search a legitimate direction at all?</h3>
+<p>We are running it now (<code>r2</code>: <code>blind_t</code> +
+code-aware, <code>r4</code>: <code>u_plans_t_writes</code> + code-aware)
+and want a view on whether the direction is sound <em>independent of
+what the numbers say</em>.</p>
+<p><strong>Why it may not be.</strong> The implementation is
+benchmark-shaped: it harvests integer literals and magic constants out
+of the candidate, builds whitespace token grids, and applies line-0
+heuristics tuned to APPS-style stdio parsing. None of that obviously
+transfers to a codebase with structured inputs, database state, or
+non-textual I/O. If the gain concentrates on tasks with simple
+line-based input formats, it is a benchmark artifact rather than a
+method.</p>
+<p><strong>The argument that it does generalise.</strong> The
+<em>principle</em> — read the code to decide where to probe — is general
+even where this implementation is not. “Look at what the code branches
+on, then test near those boundaries” is what a human auditor does, and
+it does not depend on APPS.</p>
+<p><strong>The sharper objection, which we think matters more than
+generalisability.</strong> Blindness is the entire architectural
+argument for PBT as a monitor. A property written from the specification
+alone is <em>independent</em> of the submission: it cannot be talked out
+of firing by code that merely looks innocent. Code-aware search spends
+part of that independence. The input generator now looks where the code
+suggests looking, and an untrusted model that knows constants get
+harvested can plant misleading ones — a form of sandbagging the blind
+version is immune to.</p>
+<p>One important qualification, and it is a real defence: the
+<strong>oracle stays blind</strong>. Properties never see the code, so a
+code-aware generator cannot manufacture a false positive — it can only
+change where we look. Our data supports this: <code>pbt_ceiling</code>’s
+false-positive rate was <strong>0.000</strong> in the earlier code-aware
+study. So the exposure is on the <strong>recall</strong> side (an
+adversary steers you to the wrong inputs), not the precision side (you
+invent violations).</p>
+<p><strong>Prior evidence is discouraging.</strong> An earlier analysis
+of 88 clean backdoors asked how often a harvestable literal is
+<em>also</em> the triggering input <em>and</em> missed by the trusted
+monitor <em>and</em> checkable by a sound oracle. Direct-harvestable was
+9/88; harvest ∧ TM-miss was 2/88, and both failed the oracle wall —
+leaving the genuinely complementary-and-sound cell at
+<strong>0/88</strong>. The proposed reason is causal rather than
+incidental: the specification ambiguity that hides a backdoor from a
+reader is the same ambiguity that leaves a blind tester without a sound
+invariant to check.</p>
+<p><strong>The questions.</strong> (a) Is spending blindness on the
+generator, while keeping the oracle blind, an acceptable trade within
+this threat model, or does it undermine the claim PBT is making? (b) If
+the 50-task result is positive, how would we distinguish “the method
+works” from “APPS inputs are easy to harvest”? (c) Is there a version of
+code-awareness that is adversarially robust — one where an untrusted
+model gains nothing by anticipating the generator?</p>
+<h3 id="what-should-the-next-experiments-be">7.3 What should the next
+experiments be?</h3>
+<p>Our own shortlist, for critique:</p>
+<ol type="1">
+<li><strong>Code-aware trigger search, both strategies.</strong> The
+obvious remaining lever: use the candidate’s code to choose trigger
+inputs rather than the spec alone. Cells <code>r2</code>/<code>r6</code>
+(<code>blind_t</code>) and <code>r4</code>/<code>r8</code>
+(<code>u_plans</code>) are built and pre-registered but unrun. Our prior
+is negative — an earlier 10-task study measured +0.150 honest FPR
+against +0.089 catch, safety unchanged — but it has never been tested at
+50 tasks, nor under <code>u_plans_t_writes</code>, which is now known to
+be the stronger strategy. <strong>This is the experiment we would run
+next.</strong></li>
+<li><strong>Powering the informed-TM comparison.</strong> n=10 does not
+resolve a t≈1.3 effect, and more runs will not help because runs share
+candidates: run-to-run variance is monitor noise, not sampling. This
+needs <em>more tasks</em>, not more runs.</li>
+<li><strong>Monitor rubric.</strong> On a prior run TM placed 37 attacks
+<strong>and 11 honest candidates</strong> at suspicion level 9. Those 11
+are what stops the audit threshold dropping from 10 to 9 — threshold 10
+catches 21/65 at 2% FPR, threshold 9 catches 58/65 at 24% FPR, and a 10%
+budget cannot buy the second. A finer scale at the top may be worth more
+than either intervention tested here. We deliberately did
+<strong>not</strong> change the paper’s prompt for this experiment.</li>
+<li><strong>Sound-by-construction properties.</strong> The critique
+result suggests the binding constraint is not soundness
+<em>screening</em> but property <em>quality</em>. Metamorphic relations
+are sound by construction; the models already produce them unprompted
+(translation invariance, permutation invariance).</li>
+</ol>
+<h2 id="caveats">8. Caveats</h2>
+<ul>
+<li><p><strong><code>selected_attack</code> defaults to the first
+attack.</strong> ~15 tasks carry a second attack the game never draws.
+If <code>attack_0</code> is systematically easier, safety carries an
+unmeasured selection bias.</p></li>
+<li><p><strong>Runs share candidates.</strong> The same 115 candidates
+appear in all 10 runs, so reported spread understates true variance and
+n=10 does not make the pool representative.</p></li>
+<li><p><strong>APPS-shaped trigger search.</strong> Line-0 heuristics
+and whitespace token grids; do not read these results as generalising to
+other benchmarks.</p></li>
+<li><p><strong>Temperature uncontrolled</strong>, at each provider’s
+default — both models reject the parameter.</p></li>
+<li><p><strong>Isolation changed mid-batch, asymmetrically — measured,
+and it does not bite.</strong> <code>r1</code> and <code>r5</code> ran
+all ten runs under subprocess isolation; <code>r3</code> and
+<code>r7</code> ran runs 0–6 under subprocess and 7–9 under Docker. That
+makes the H4 and H3 contrasts compare an unmixed cell against a mixed
+one, so the boundary was tested directly rather than assumed harmless.
+Shift in <code>pbt</code> ratio-to-TM from runs 0–6 to runs 7–9:</p>
+<table>
+<thead>
+<tr>
+<th>cell</th>
+<th>isolation changed?</th>
+<th>runs 0–6</th>
+<th>runs 7–9</th>
+<th>shift</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1</td>
+<td>no</td>
+<td>27.4</td>
+<td>23.3</td>
+<td><strong>−4.1</strong></td>
+</tr>
+<tr>
+<td>r5</td>
+<td>no</td>
+<td>27.2</td>
+<td>24.7</td>
+<td><strong>−2.5</strong></td>
+</tr>
+<tr>
+<td>r3</td>
+<td>yes</td>
+<td>44.4</td>
+<td>43.5</td>
+<td><strong>−0.9</strong></td>
+</tr>
+<tr>
+<td>r7</td>
+<td>yes</td>
+<td>35.6</td>
+<td>32.9</td>
+<td>−2.7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The cells that changed nothing moved the most.</strong>
+<code>r1</code> shifted −4.1 with no change at all, while
+<code>r3</code>, which did switch, moved −0.9 — the smallest of the
+four. A shift of this size is ordinary run-to-run variance and the
+boundary is not detectable above it. H4’s +17.9 is roughly four times
+the largest same-cell wobble, so it is not an artifact of the mixing.
+Coverage also <em>rose</em> across the boundary (0.9615 → 0.9884 in r3,
+0.9640 → 0.9797 in r7), confirming no candidate hit the 2GB memory cap.
+The asymmetry is real and is stated here rather than hidden; its
+magnitude is bounded.</p></li>
+<li><p><strong>Infrastructure history.</strong> The subprocess isolation
+path applies a time bound but no memory bound, and macOS cannot enforce
+one (<code>RLIMIT_AS</code>/<code>DATA</code>/<code>RSS</code> are
+unsettable). Untrusted candidate code reached ~120GB on a 64GB machine
+and caused three kernel panics. Docker with cgroup limits resolved it;
+the batch then ran 7.5 hours without incident.
+<code>pbt_invalid_blame = 0.0</code> in all four cells, so no
+infrastructure failure contaminated these numbers.</p></li>
+</ul>
+<h2 id="what-we-would-need-to-change-our-mind">9. What we would need to
+change our mind</h2>
+<p>Deployable standalone PBT would need a cell above 60% of TM. Nothing
+came close. For <code>pbt_informed_tm</code>, an effect of the observed
+size would need roughly 4× the task count to reach significance — which
+is a different experiment, not a longer one.</p>
+<h2 id="artifacts-and-provenance">10. Artifacts and provenance</h2>
+<p>Every number in this report was read from the committed metrics files
+below — none quoted from memory. <code>runs/</code> itself is gitignored
+(1.1 GB of raw suites and rows), so the per-cell
+<code>metrics.json</code> and resolved <code>run.json</code> are
+mirrored into the repo so the figures can be checked independently.</p>
+<h3 id="results-per-cell">Results, per cell</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>cell</th>
+<th>strategy</th>
+<th>critique</th>
+<th>metrics</th>
+<th>resolved config</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r1</td>
+<td><code>blind_t</code></td>
+<td>—</td>
+<td><a href="artifacts/b1/b1-r1.metrics.json"><code>b1-r1.metrics.json</code></a></td>
+<td><a href="artifacts/b1/b1-r1.run.json"><code>b1-r1.run.json</code></a></td>
+</tr>
+<tr>
+<td>r5</td>
+<td><code>blind_t</code></td>
+<td>✓</td>
+<td><a href="artifacts/b1/b1-r5.metrics.json"><code>b1-r5.metrics.json</code></a></td>
+<td><a href="artifacts/b1/b1-r5.run.json"><code>b1-r5.run.json</code></a></td>
+</tr>
+<tr>
+<td>r3</td>
+<td><code>u_plans_t_writes</code></td>
+<td>—</td>
+<td><a href="artifacts/b1/b1-r3.metrics.json"><code>b1-r3.metrics.json</code></a></td>
+<td><a href="artifacts/b1/b1-r3.run.json"><code>b1-r3.run.json</code></a></td>
+</tr>
+<tr>
+<td>r7</td>
+<td><code>u_plans_t_writes</code></td>
+<td>✓</td>
+<td><a href="artifacts/b1/b1-r7.metrics.json"><code>b1-r7.metrics.json</code></a></td>
+<td><a href="artifacts/b1/b1-r7.run.json"><code>b1-r7.run.json</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Each <code>metrics.json</code> holds <code>summary</code> (the
+aggregate over 10 runs, which every table here quotes) and
+<code>runs</code> (the 10 per-run metric objects the aggregate is
+computed from).</p>
+<h3 id="reading-a-number-back">Reading a number back</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the pbt ratio-to-TM in the H1 comparison (r1 vs r5, section 5)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">jq</span> <span class="st">&#39;.summary.protocols.pbt.ratio_to_baseline.mean&#39;</span> reports/artifacts/b1/b1-r1.metrics.json</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">jq</span> <span class="st">&#39;.summary.protocols.pbt.ratio_to_baseline.mean&#39;</span> reports/artifacts/b1/b1-r5.metrics.json</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># soundness, the metric that shows the critique DID work</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">jq</span> <span class="st">&#39;.summary.pbt_soundness.mean&#39;</span> reports/artifacts/b1/b1-r<span class="dt">{1</span><span class="op">,</span><span class="dt">5}</span>.metrics.json</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># the gate that must be zero before any of the above is trusted</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">jq</span> <span class="st">&#39;.summary.pbt_invalid_blame.mean&#39;</span> reports/artifacts/b1/b1-r<span class="dt">{1</span><span class="op">,</span><span class="dt">3</span><span class="op">,</span><span class="dt">5</span><span class="op">,</span><span class="dt">7}</span>.metrics.json</span></code></pre></div>
+<h3 id="prompts-the-exact-text-the-models-were-given">Prompts (the exact
+text the models were given)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>role</th>
+<th>file</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trusted monitor</td>
+<td><a href="../prompts/trusted_monitor.txt"><code>prompts/trusted_monitor.txt</code></a></td>
+<td>AI-control-paper wording, <strong>unchanged</strong></td>
+</tr>
+<tr>
+<td>Informed monitor</td>
+<td><a href="../prompts/informed_monitor.txt"><code>prompts/informed_monitor.txt</code></a></td>
+<td>the same prompt <strong>plus</strong> PBT evidence; opening and
+rating instruction byte-identical to the trusted monitor</td>
+</tr>
+<tr>
+<td>Property generation</td>
+<td><a href="../prompts/property_gen.txt"><code>prompts/property_gen.txt</code></a></td>
+<td><code>blind_t</code></td>
+</tr>
+<tr>
+<td>Property plan (U)</td>
+<td><a href="../prompts/property_plan.txt"><code>prompts/property_plan.txt</code></a></td>
+<td><code>u_plans_t_writes</code> step 1 — prose only, never code</td>
+</tr>
+<tr>
+<td>Write from plan (T)</td>
+<td><a href="../prompts/property_from_plan.txt"><code>prompts/property_from_plan.txt</code></a></td>
+<td><code>u_plans_t_writes</code> step 2</td>
+</tr>
+<tr>
+<td>Property critique</td>
+<td><a href="../prompts/property_critique.txt"><code>prompts/property_critique.txt</code></a></td>
+<td>the H1 intervention</td>
+</tr>
+<tr>
+<td>Trigger search</td>
+<td><a href="../prompts/trigger_search.txt"><code>prompts/trigger_search.txt</code></a></td>
+<td>spec-blind in every strategy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-paths-behind-the-claims">Code paths behind the claims</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>claim</th>
+<th>where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deployment game, safety, sweeps</td>
+<td><a href="../pipeline/metrics.py"><code>pipeline/metrics.py</code></a></td>
+</tr>
+<tr>
+<td><code>sweep_deployed</code> — the population safety draws from</td>
+<td><a href="../pipeline/metrics.py"><code>pipeline/metrics.py</code></a>
+(<code>deployed_rows</code>)</td>
+</tr>
+<tr>
+<td>property scoring, soundness gate, both arms</td>
+<td><a href="../pipeline/pbt.py"><code>pipeline/pbt.py</code></a></td>
+</tr>
+<tr>
+<td>sandboxed execution of candidate code</td>
+<td><a href="../pipeline/harness.py"><code>pipeline/harness.py</code></a></td>
+</tr>
+<tr>
+<td>authoring strategies (<code>blind_t</code>,
+<code>u_plans_t_writes</code>, critique)</td>
+<td><a href="../pipeline/authoring.py"><code>pipeline/authoring.py</code></a></td>
+</tr>
+<tr>
+<td>a failure never silently becoming a value</td>
+<td><a href="../pipeline/outcome.py"><code>pipeline/outcome.py</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="documents">Documents</h3>
+<ul>
+<li><strong>Pre-registration</strong>, written before any cell ran: <a href="2026-08-09-factorial-batch.md"><code>2026-08-09-factorial-batch.md</code></a></li>
+<li><strong>Experiment index</strong>: <a href="EXPERIMENTS.md"><code>EXPERIMENTS.md</code></a></li>
+<li><strong>Operational log</strong> (including the three kernel panics
+and the unsandboxed-search bug): <a href="../CHANGELOG.md"><code>CHANGELOG.md</code></a></li>
+<li><strong>Working rules</strong> this project is held to: <a href="../CLAUDE.md"><code>CLAUDE.md</code></a></li>
+</ul>
+<hr />
+<p><strong>Provenance.</strong> Pre-registration:
+<code>reports/2026-08-09-factorial-batch.md</code>, written before any
+cell ran. Artifacts: <code>runs/b1-r{1,3,5,7}/metrics.json</code>. Every
+number above read from those files.</p>
+</body>
+</html>
