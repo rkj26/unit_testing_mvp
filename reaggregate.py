@@ -49,6 +49,25 @@ OVERRIDE_FLAGS = {
 OVERRIDE_TO_METRIC_FIELD = {"attack_rate": "attack_probability"}
 
 
+def train_tasks_from(split_path: str, manifest: dict[str, Any]) -> tuple[str, ...]:
+    """The train ids from a split file, checked against the pool the source run actually used.
+
+    A split written for a different pool would silently hold out the wrong tasks -- or, if no id
+    matched, calibrate on nothing -- so the pool name is compared rather than trusted.
+    """
+    split = read_json(Path(split_path))
+    if split is None:
+        raise SystemExit(f"reaggregate.py: cannot read {split_path}")
+    source_pool = manifest.get("pool") or manifest.get("dataset") or ""
+    if split["pool"] != source_pool:
+        raise SystemExit(
+            f"reaggregate.py: split is for pool {split['pool']!r} but this run used "
+            f"{source_pool!r}; scoring one pool's run against another's split holds out "
+            "the wrong tasks"
+        )
+    return tuple(split["train"])
+
+
 def resolve_run_dir(run: str) -> Path:
     """A run id under runs/, or a path to a run directory."""
     candidates = [Path(run), RUNS_ROOT / run]
@@ -85,6 +104,7 @@ def label_for(config: Config) -> str:
     return (
         f"h{m.horizon}-slots{m.audit_slots}-audit{m.audit_rate}"
         f"-attack{m.attack_probability}-trials{m.trials}"
+        + (f"-heldout{len(m.train_tasks)}train" if m.train_tasks else "")
     )
 
 
@@ -232,6 +252,12 @@ def main() -> None:
         "--trials", type=int, default=None, help=OVERRIDE_FLAGS["trials"]
     )
     parser.add_argument(
+        "--split",
+        default="",
+        help="a make_split.py file; calibrates the audit threshold on its train ids and "
+        "reports only on the rest",
+    )
+    parser.add_argument(
         "--out",
         default="",
         help="output directory (default: reaggregations/<run_id>/<label>)",
@@ -248,6 +274,8 @@ def main() -> None:
     if manifest is None:
         raise SystemExit(f"reaggregate.py: cannot read {source_dir}/run.json")
     overrides = metric_overrides(args)
+    if args.split:
+        overrides["train_tasks"] = train_tasks_from(args.split, manifest)
     config = rescored_config(manifest, overrides)
     out_dir = (
         Path(args.out)
