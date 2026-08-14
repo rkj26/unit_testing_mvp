@@ -1,0 +1,60 @@
+{
+  "arxiv_id": "2506.05296",
+  "arxiv_abs_url": "https://arxiv.org/abs/2506.05296",
+  "arxiv_pdf_url": "https://arxiv.org/pdf/2506.05296",
+  "verified_title": "Control Tax: The Price of Keeping AI in Check",
+  "authors": [
+    "Mikhail Terekhov",
+    "Zhen Ning David Liu",
+    "Caglar Gulcehre",
+    "Samuel Albanie"
+  ],
+  "author_notes": "Mikhail Terekhov and Zhen Ning David Liu marked as equal contribution. Correspondence: mikhail.terekhov@epfl.ch.",
+  "affiliations": {
+    "Mikhail Terekhov": [
+      "EPFL (CLAIRE lab)",
+      "MATS Program"
+    ],
+    "Zhen Ning David Liu": [
+      "MATS Program"
+    ],
+    "Caglar Gulcehre": [
+      "EPFL (CLAIRE lab)"
+    ],
+    "Samuel Albanie": [
+      "no affiliation marker on the paper title page"
+    ]
+  },
+  "affiliations_source": "PDF title page. arXiv abstract pages do not carry author affiliations, so this field could not be taken from https://arxiv.org/abs/<id> as originally intended.",
+  "latest_version": "v3",
+  "versions": [
+    {
+      "version": "v1",
+      "date_utc": "Thu, 5 Jun 2025 17:48:39 UTC",
+      "size": "3,117 KB"
+    },
+    {
+      "version": "v2",
+      "date_utc": "Sat, 14 Jun 2025 18:09:16 UTC",
+      "size": "3,258 KB"
+    },
+    {
+      "version": "v3",
+      "date_utc": "Mon, 2 Mar 2026 09:03:52 UTC",
+      "size": "3,665 KB"
+    }
+  ],
+  "submission_history_submitter": "Mikhail Terekhov",
+  "abstract": "The rapid integration of agentic AI into high-stakes real-world applications requires robust oversight mechanisms. The emerging field of AI Control (AIC) aims to provide such an oversight mechanism, but practical adoption depends heavily on implementation overhead. To study this problem better, we introduce the notion of Control tax -- the operational and financial cost of integrating control measures into AI pipelines. Our work makes three key contributions to the field of AIC: (1) we introduce a theoretical framework that quantifies the Control Tax and maps classifier performance to safety assurances; (2) we conduct comprehensive evaluations of state-of-the-art language models in adversarial settings, where attacker models insert subtle backdoors into code while monitoring models attempt to detect these vulnerabilities; and (3) we provide empirical financial cost estimates for control protocols and develop optimized monitoring strategies that balance safety and cost-effectiveness while accounting for practical constraints like auditing budgets. Our framework enables practitioners to make informed decisions by systematically connecting safety guarantees with their costs, advancing AIC through principled economic feasibility assessment across different deployment contexts.",
+  "subjects": "Artificial Intelligence (cs.AI); Machine Learning (cs.LG)",
+  "arxiv_comments": null,
+  "arxiv_journal_ref": null,
+  "arxiv_doi": null,
+  "venue": "ICLR 2026",
+  "venue_confidence": "likely",
+  "venue_evidence": "Listed as an ICLR 2026 paper on EPFL's official 'EPFL @ ICLR 2026' page (https://actu.epfl.ch/news/epfl-iclr-2026/). arXiv itself carries no journal-ref, DOI or comment; v3 (2 Mar 2026) is consistent with an ICLR 2026 camera-ready. The project site still self-describes as an arXiv preprint, so treat the venue as strongly indicated but not confirmed by arXiv.",
+  "code_repository": "https://github.com/MikhailTerekhov/control-tax-code (MIT)",
+  "project_page": "https://mikhailterekhov.github.io/control-tax/",
+  "local_pdf": "2506.05296-control-tax.pdf",
+  "metadata_source": "https://arxiv.org/abs/2506.05296 and the arXiv Atom API (export.arxiv.org/api/query?id_list=2506.05296), fetched 2026-08-07."
+}
