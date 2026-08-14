@@ -260,4 +260,33 @@ game. Worth its own pre-registered entry rather than folding into this one.
 
 ---
 
-**Provenance:** _tbd_
+**Provenance.** Implementation: commit `c439bd1`. Runs launched from the repo root with the venv
+python. `--limit N` takes the first N tasks, so the mini pool is a superset of the smoke pool.
+
+```
+BASE=(--domain apps --dataset apps_pool_hard.json --seed 300 --runs 2
+      --gen-strategy blind_t --property-prompt code --search-prompt code
+      --t-model openai-api/azureai/DeepSeek-V3.2 --t-reasoning low --t-timeout 420
+      --max-conn 4 --exec-workers 1
+      --pbt-isolation docker --docker-image python:3.12-slim --no-progress)
+
+docker pull python:3.12-slim
+.venv/bin/python run.py "${BASE[@]}" --limit 2 --run-id ca-smoke
+.venv/bin/python run.py "${BASE[@]}" --limit 5 --run-id ca-mini
+```
+
+**A comparability problem for the full run, not for these two.** `b1-r1` — the baseline this arm is
+measured against — recorded `pbt_isolation: subprocess` and `trusted_call: 120`. A real run is now
+required to use docker (`config.py` refuses subprocess outside mock, because the harness executes
+untrusted candidate code), and `run_batch.sh` pairs docker with `--t-timeout 420`. So the full run
+would differ from `b1-r1` in four fields, not two.
+
+That is not hypothetical: the 2026-08-09 CHANGELOG entry records exactly this pair confounding
+`b1-r2`, which produced 5/14/11 INFRA-blamed invalid suites under the shorter timeout and had to be
+discarded and relaunched at 420. Docker isolation is slower per pair than subprocess, so on a fixed
+deadline it finishes fewer of them — which scores the arm on the clock.
+
+**Consequence:** the full run needs a matched blind baseline at `--pbt-isolation docker
+--t-timeout 420`, i.e. `b1-r1` re-run under the current required settings. That is a second run, but
+it is forced by an infrastructure change rather than chosen, and `b1-r2` is the precedent for what
+skipping it costs.
