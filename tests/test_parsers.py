@@ -182,7 +182,10 @@ class TestParseProperties:
         src, error = pbt.parse_properties(fenced(props_src))
         assert src is None
         assert error == "async properties are never awaited by the harness: prop_a"
-        meta, _ = pbt.evaluate(make_problem(), src, [1])
+        problem = make_problem()
+        meta, _ = pbt.evaluate(
+            problem, *pbt.one_suite_for_every_candidate(problem, src, [1])
+        )
         assert meta["unknown"]["blame"] == "model"
         harness = build_harness(make_problem(), "def solve():\n    pass", props_src, [1])
         assert "await" not in harness
@@ -360,32 +363,37 @@ class TestParseSearchSpace:
 
 
 class TestRender:
-    def test_bug_missing_kwarg_leaves_the_literal_placeholder_in_the_prompt(self):
-        assert "{code}" in pbt.render("trusted_monitor.txt", main_task="spec")
+    def test_missing_kwarg_raises_rather_than_shipping_the_literal_placeholder(self):
+        with pytest.raises(ValueError, match="no value supplied for code"):
+            pbt.render("trusted_monitor.txt", main_task="spec")
 
-    def test_bug_placeholder_inside_an_earlier_value_is_expanded_by_a_later_kwarg(self):
+    def test_empty_value_raises_rather_than_shipping_a_prompt_with_a_hole(self):
+        with pytest.raises(ValueError, match="empty substitution for code"):
+            pbt.render("trusted_monitor.txt", main_task="spec", code="")
+
+    def test_placeholder_inside_a_value_is_never_expanded_by_another_key(self):
         problem = make_problem(main_task="the spec says {code}", code="CANDIDATE_BODY")
         prompt = tm_prompt(problem, problem.honest)
-        assert prompt.count("CANDIDATE_BODY") == 2
-        assert "{code}" not in prompt
+        assert prompt.count("CANDIDATE_BODY") == 1
+        assert "the spec says {code}" in prompt
 
     def test_placeholder_inside_a_later_value_is_left_literal(self):
         problem = make_problem(main_task="SPEC_BODY", code="see {main_task} above")
         prompt = tm_prompt(problem, problem.honest)
         assert "see {main_task} above" in prompt
-        assert prompt.count("SPEC_BODY") == 1
 
-    def test_bug_informed_prompt_expands_placeholders_found_in_candidate_code(self):
+    def test_a_literal_brace_set_in_a_template_is_not_a_placeholder(self):
+        assert "{0,1,2,3}" in pbt.search_prompt(make_problem())
+
+    def test_informed_prompt_does_not_expand_a_placeholder_found_in_candidate_code(self):
         problem = make_problem(code="if {properties}: pass")
         prompt = informed_prompt(
             problem, problem.honest, PASSING_PBT_RESULT, "PROPS_BODY", [1]
         )
-        assert "if PROPS_BODY: pass" in prompt
-        assert prompt.count("PROPS_BODY") == 2
+        assert "if {properties}: pass" in prompt
+        assert prompt.count("PROPS_BODY") == 1
 
-    def test_bug_informed_prompt_expands_a_search_space_placeholder_found_in_properties(
-        self,
-    ):
+    def test_informed_prompt_does_not_expand_a_placeholder_found_in_properties(self):
         problem = make_problem(code="def solve(): pass")
         prompt = informed_prompt(
             problem,
@@ -394,7 +402,40 @@ class TestRender:
             "PROPS {search_space} END",
             [{"marker": 7}],
         )
-        assert 'PROPS {"marker": 7} END' in prompt
+        assert "PROPS {search_space} END" in prompt
+
+    def test_informed_prompt_says_so_when_no_inputs_ran(self):
+        problem = make_problem()
+        prompt = informed_prompt(problem, problem.honest, PASSING_PBT_RESULT, "P", [])
+        assert "no usable trigger-search inputs" in prompt
+
+
+class TestCodeAwareVariants:
+    def test_code_variant_embeds_the_submission(self):
+        prompt = pbt.property_prompt(make_problem(), 5, "code", "SUBMITTED_BODY")
+        assert "SUBMITTED_BODY" in prompt
+        assert "{code}" not in prompt
+
+    def test_code_variant_without_the_submission_raises(self):
+        with pytest.raises(ValueError, match="empty substitution for code"):
+            pbt.property_prompt(make_problem(), 5, "code")
+        with pytest.raises(ValueError, match="empty substitution for code"):
+            pbt.search_prompt(make_problem(), "code")
+
+    def test_blind_variants_ignore_a_submission_they_are_handed(self):
+        problem = make_problem()
+        assert pbt.property_prompt(problem, 5, "default", "SUBMITTED_BODY") == (
+            pbt.property_prompt(problem, 5, "default")
+        )
+        assert "SUBMITTED_BODY" not in pbt.search_prompt(
+            problem, "default", "SUBMITTED_BODY"
+        )
+
+    def test_reads_candidate_code_is_true_only_when_a_code_variant_is_chosen(self):
+        assert not pbt.reads_candidate_code("default", "default")
+        assert not pbt.reads_candidate_code("precision", "dense")
+        assert pbt.reads_candidate_code("code", "default")
+        assert pbt.reads_candidate_code("default", "code")
 
 
 class TestParseSuspicion:

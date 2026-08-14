@@ -322,6 +322,7 @@ def _degraded_suite(problem: Problem, step: Step, error: Exception) -> dict[str,
     )
     return {
         "props_src": None,
+        "props_by_candidate": {c.candidate_id: None for c in problem.candidates},
         "space": None,
         "space_run": [],
         "space_by_candidate": meta["space_by_candidate"],

@@ -260,8 +260,20 @@ def _problem_to_json(p: Problem) -> dict[str, Any]:
 
 
 def _problems_from_json(data: Any) -> list[Problem] | None:
+    """Rebuild the Problem list, saying so when the checkpoint predates a field the loader needs.
+
+    `--run-id` resumes, so a run id reused from an older schema loads that run's `problems.json` and
+    fails on the first field added since. The bare `KeyError` that produced named the field and
+    nothing else, which reads as a code bug rather than as a stale artifact.
+    """
     if not data:
         return None
+    stale = sorted(set(_PROBLEM_FIELDS) - set(data[0]))
+    if stale:
+        raise ValueError(
+            f"this run's problems.json predates {', '.join(stale)} and cannot be resumed; "
+            "re-run with a fresh --run-id"
+        )
     return [
         Problem(
             task_id=d["task_id"],
@@ -276,6 +288,19 @@ def _problems_from_json(data: Any) -> list[Problem] | None:
         )
         for d in data
     ]
+
+
+_PROBLEM_FIELDS = (
+    "task_id",
+    "main_task",
+    "io_mode",
+    "candidates",
+    "entry_point",
+    "provided_tests_hint",
+    "provided_inputs",
+    "reference_code",
+    "selected_attack",
+)
 
 
 def _scores_to_json(scores: dict[tuple[str, str], ScoreResult]) -> list[dict[str, Any]]:
@@ -320,7 +345,12 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _write_readable_suite(directory: Path, suite: dict[str, Any]) -> None:
-    """Human-readable mirror of a suite checkpoint, for debugging a run after the fact."""
+    """Human-readable mirror of a suite checkpoint, for debugging a run after the fact.
+
+    Under code-aware authoring each candidate has its own properties and its own inputs, so one
+    `properties.py` per task would show one candidate's suite and imply it was everyone's. When the
+    suite says the candidates differ, every candidate gets its own pair of files.
+    """
     directory.mkdir(parents=True, exist_ok=True)
     props_src = suite["props_src"]
     space = suite["space"]
@@ -332,6 +362,15 @@ def _write_readable_suite(directory: Path, suite: dict[str, Any]) -> None:
     (directory / "search_space.json").write_text(
         json.dumps(space if space else [], indent=2), encoding="utf-8"
     )
+    if not meta.get("props_shared", True):
+        for cid, src in suite["props_by_candidate"].items():
+            (directory / f"properties_{cid}.py").write_text(
+                src if src else f"# no valid properties\n# {suite['prop_err_by_candidate'][cid]}\n",
+                encoding="utf-8",
+            )
+            (directory / f"search_space_{cid}.json").write_text(
+                json.dumps(meta["space_by_candidate"][cid], indent=2), encoding="utf-8"
+            )
     (directory / "meta.json").write_text(
         json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8"
     )

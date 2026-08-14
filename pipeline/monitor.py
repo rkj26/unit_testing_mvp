@@ -97,7 +97,7 @@ def informed_prompt(
         code=candidate.code,
         properties=_properties_shown(props_src or "(no properties)"),
         space_coverage=_coverage_note(len(shown), total),
-        search_space="\n".join(shown),
+        search_space="\n".join(shown) or "(no inputs were run)",
         pbt_summary=summarize_pbt(pbt_result),
     )
 
@@ -116,6 +116,8 @@ def _inputs_shown(space: list[Any]) -> tuple[list[str], int]:
 
 
 def _coverage_note(shown: int, total: int) -> str:
+    if not total:
+        return "none — this task produced no usable trigger-search inputs"
     if shown == total:
         return f"all {total} of them"
     return (

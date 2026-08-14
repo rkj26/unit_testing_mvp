@@ -133,21 +133,28 @@ class StrategyPipeline:
     def __init__(
         self,
         name: GenStrategy,
-        author_fn: Callable[[RunContext, Problem], Coroutine[Any, Any, Authored]],
+        author_fn: Callable[[RunContext, Problem, str], Coroutine[Any, Any, Authored]],
     ) -> None:
         self.name = name
         self.author_fn = author_fn
 
-    async def execute(self, ctx: RunContext, problem: Problem) -> Authored:
-        return await self.author_fn(ctx, problem)
+    async def execute(self, ctx: RunContext, problem: Problem, code: str) -> Authored:
+        return await self.author_fn(ctx, problem, code)
 
 
-async def _author_blind_t(ctx: RunContext, problem: Problem) -> Authored:
+async def _author_prompt_pair(
+    ctx: RunContext, problem: Problem, writer: Any, code: str
+) -> Authored:
+    """The two concurrent authoring calls: properties from `writer`, trigger inputs from T.
+
+    `code` is the submission being audited, empty on the spec-blind path. The trigger search is
+    always trusted-authored, whichever model writes the properties.
+    """
     n = ctx.config.tests_per_problem
     failures: Failures = {}
     search = _call(
         ctx,
-        pbt.search_prompt(problem, ctx.config.search_prompt),
+        pbt.search_prompt(problem, ctx.config.search_prompt, code),
         "trigger_search",
         ctx.t_model,
         failures,
@@ -155,9 +162,9 @@ async def _author_blind_t(ctx: RunContext, problem: Problem) -> Authored:
     prop_c, space_c = await asyncio.gather(
         _call(
             ctx,
-            pbt.property_prompt(problem, n, ctx.config.property_prompt),
+            pbt.property_prompt(problem, n, ctx.config.property_prompt, code),
             "property_gen",
-            ctx.t_model,
+            writer,
             failures,
         ),
         search,
@@ -169,35 +176,16 @@ async def _author_blind_t(ctx: RunContext, problem: Problem) -> Authored:
     )
 
 
-async def _author_u_writes(ctx: RunContext, problem: Problem) -> Authored:
-    n = ctx.config.tests_per_problem
-    failures: Failures = {}
-    search = _call(
-        ctx,
-        pbt.search_prompt(problem, ctx.config.search_prompt),
-        "trigger_search",
-        ctx.t_model,
-        failures,
-    )
-    prop_c, space_c = await asyncio.gather(
-        _call(
-            ctx,
-            pbt.property_prompt(problem, n, ctx.config.property_prompt),
-            "property_gen",
-            ctx.u_model,
-            failures,
-        ),
-        search,
-    )
-    return Authored(
-        properties=await _maybe_critique(ctx, problem, prop_c),
-        search_space=space_c,
-        failures=failures,
-    )
+async def _author_blind_t(ctx: RunContext, problem: Problem, code: str) -> Authored:
+    return await _author_prompt_pair(ctx, problem, ctx.t_model, code)
+
+
+async def _author_u_writes(ctx: RunContext, problem: Problem, code: str) -> Authored:
+    return await _author_prompt_pair(ctx, problem, ctx.u_model, code)
 
 
 async def _author_plan_writes(
-    ctx: RunContext, problem: Problem, writer_is_trusted: bool
+    ctx: RunContext, problem: Problem, code: str, writer_is_trusted: bool
 ) -> Authored:
     from .engine import log
 
@@ -205,7 +193,7 @@ async def _author_plan_writes(
     failures: Failures = {}
     search = _call(
         ctx,
-        pbt.search_prompt(problem, ctx.config.search_prompt),
+        pbt.search_prompt(problem, ctx.config.search_prompt, code),
         "trigger_search",
         ctx.t_model,
         failures,
@@ -243,21 +231,34 @@ async def _author_plan_writes(
 
 
 _STRATEGY_FUNCS: dict[
-    GenStrategy, Callable[[RunContext, Problem], Coroutine[Any, Any, Authored]]
+    GenStrategy, Callable[[RunContext, Problem, str], Coroutine[Any, Any, Authored]]
 ] = {
     GenStrategy.BLIND_T: _author_blind_t,
     GenStrategy.U_WRITES: _author_u_writes,
-    GenStrategy.U_PLANS_T_WRITES: lambda ctx, p: _author_plan_writes(
-        ctx, p, writer_is_trusted=True
+    GenStrategy.U_PLANS_T_WRITES: lambda ctx, p, code: _author_plan_writes(
+        ctx, p, code, writer_is_trusted=True
     ),
-    GenStrategy.U_PLANS_U_WRITES: lambda ctx, p: _author_plan_writes(
-        ctx, p, writer_is_trusted=False
+    GenStrategy.U_PLANS_U_WRITES: lambda ctx, p, code: _author_plan_writes(
+        ctx, p, code, writer_is_trusted=False
     ),
 }
 
 
-async def author_task(ctx: RunContext, problem: Problem) -> Authored:
-    """Execute the configured authoring strategy for one problem."""
+async def author_task(ctx: RunContext, problem: Problem) -> dict[str, Authored]:
+    """One `Authored` per candidate.
+
+    Spec-blind authoring runs ONCE and every candidate is handed the same result — the same calls,
+    in the same order, as before this fan-out existed. Code-aware authoring runs once per candidate,
+    concurrently, because the prompt embeds that candidate's submission.
+    """
     author_fn = _STRATEGY_FUNCS[ctx.config.gen_strategy]
     strategy = StrategyPipeline(ctx.config.gen_strategy, author_fn)
-    return await strategy.execute(ctx, problem)
+    if not pbt.reads_candidate_code(
+        ctx.config.property_prompt, ctx.config.search_prompt
+    ):
+        shared = await strategy.execute(ctx, problem, "")
+        return {c.candidate_id: shared for c in problem.candidates}
+    authored = await asyncio.gather(
+        *(strategy.execute(ctx, problem, c.code) for c in problem.candidates)
+    )
+    return dict(zip((c.candidate_id for c in problem.candidates), authored))

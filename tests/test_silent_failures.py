@@ -50,6 +50,14 @@ def make_problem() -> Problem:
     )
 
 
+def _evaluate_shared(props_src: str | None, space: list[Any] | None):
+    """`pbt.evaluate` on one suite handed to every candidate — what spec-blind authoring produces."""
+    problem = make_problem()
+    return pbt.evaluate(
+        problem, *pbt.one_suite_for_every_candidate(problem, props_src, space)
+    )
+
+
 def records(props: list[str], n_inputs: int, outcome: str) -> list[dict[str, Any]]:
     return [
         {"prop": p, "i": i, "outcome": outcome} for p in props for i in range(n_inputs)
@@ -132,7 +140,7 @@ class TestReferenceGateStarvation:
             ),
             candidate=raw_ok(["prop_nonneg"], len(SPACE), "pass"),
         )
-        return pbt.evaluate(make_problem(), PROP_SRC, SPACE)
+        return _evaluate_shared(PROP_SRC, SPACE)
 
     def test_the_suite_stays_valid_and_records_that_soundness_was_not_measured(
         self, monkeypatch
@@ -166,7 +174,7 @@ class TestZeroRunnableProperties:
             reference=raw_ok([], len(SPACE), "pass"),
             candidate=raw_ok([], len(SPACE), "pass"),
         )
-        return pbt.evaluate(make_problem(), PROP_SRC, SPACE)
+        return _evaluate_shared(PROP_SRC, SPACE)
 
     def test_deployable_arm_does_not_pass_on_zero_properties(self, monkeypatch):
         _, results = self.evaluate_with_no_properties(monkeypatch)
@@ -366,7 +374,7 @@ class TestSoundnessIsNotCertifiedFromAPartialReferenceRun:
             reference=reference,
             candidate=raw_ok(["prop_nonneg"], len(SPACE), "pass"),
         )
-        return pbt.evaluate(make_problem(), PROP_SRC, SPACE)
+        return _evaluate_shared(PROP_SRC, SPACE)
 
     def test_the_ceiling_arm_abstains_and_says_the_reference_was_short(self, monkeypatch):
         _, results = self.evaluate_with_partial_reference(monkeypatch)
@@ -718,7 +726,7 @@ class TestAPropertyCrashIsNotAnInputFault:
                 {p: ["pass"] * len(WIDE_SPACE) for p in grid}, bare_run_ok
             ),
         )
-        return pbt.evaluate(make_problem(), PROP_SRC, WIDE_SPACE)
+        return _evaluate_shared(PROP_SRC, WIDE_SPACE)
 
     def all_in_domain(self, monkeypatch):
         return self.evaluate_with(

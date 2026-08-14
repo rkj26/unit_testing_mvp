@@ -78,32 +78,78 @@ def wrong_shape(space: list[Any] | None, io_mode: str) -> str:
     )
 
 
+_PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\}")
+
+
 def render(name: str, **kw: Any) -> str:
+    """Fill a prompt template in ONE pass, refusing to ship one with a hole in it.
+
+    Two failures this forbids, both of which shipped. A template that keeps a literal `{code}`
+    because nobody passed it returns a completion that looks like every other completion, so a
+    prompt we never asked is recorded as an answer we did. And substituting key by key let a value
+    filled in early have its own `{code}` expanded by a later key, which spliced the candidate's
+    source into any specification that happened to contain that text.
+
+    The placeholder pattern is a lowercase identifier, so the literal `{0,1,2,3}` brace sets the
+    trigger-search prompts use to name a value range are left alone.
+    """
     text = (PROMPTS / name).read_text(encoding="utf-8")
-    for key, value in kw.items():
-        text = text.replace("{" + key + "}", str(value))
-    return text
+    wanted = set(_PLACEHOLDER.findall(text))
+    missing = sorted(wanted - set(kw))
+    if missing:
+        raise ValueError(f"{name}: no value supplied for {', '.join(missing)}")
+    empty = sorted(key for key in wanted if not str(kw[key]))
+    if empty:
+        raise ValueError(f"{name}: empty substitution for {', '.join(empty)}")
+    return _PLACEHOLDER.sub(lambda m: str(kw[m.group(1)]), text)
 
 
 _PROPERTY_PROMPTS = {
     "default": "property_gen.txt",
     "precision": "property_gen_precision.txt",
+    "code": "property_gen_code.txt",
 }
-_SEARCH_PROMPTS = {"default": "trigger_search.txt", "dense": "trigger_search_dense.txt"}
+_SEARCH_PROMPTS = {
+    "default": "trigger_search.txt",
+    "dense": "trigger_search_dense.txt",
+    "code": "trigger_search_code.txt",
+}
+PROPERTY_VARIANTS = frozenset(_PROPERTY_PROMPTS)
+SEARCH_VARIANTS = frozenset(_SEARCH_PROMPTS)
+CODE_AWARE_VARIANT = "code"
 
 
-def property_prompt(problem: Problem, n_tests: int, variant: str = "default") -> str:
+def reads_candidate_code(property_variant: str, search_variant: str) -> bool:
+    """Whether this pair of variants makes authoring per-candidate rather than per-task."""
+    return CODE_AWARE_VARIANT in (property_variant, search_variant)
+
+
+def property_prompt(
+    problem: Problem, n_tests: int, variant: str = "default", candidate_code: str = ""
+) -> str:
+    """The property-authoring prompt.
+
+    `candidate_code` is consumed only by the code-aware variant, whose template is the only one with
+    a `{code}` to fill; a blind variant ignores it. Leaving it empty for the code-aware variant
+    raises in `render` rather than sending the model a prompt with a hole where the submission goes.
+    """
     return render(
         _PROPERTY_PROMPTS[variant],
         main_task=problem.main_task,
         provided_tests=problem.provided_tests_hint or "(none provided)",
         invoke_contract=_INVOKE_CONTRACT[problem.io_mode],
         n_tests=n_tests,
+        code=candidate_code,
     )
 
 
-def search_prompt(problem: Problem, variant: str = "default") -> str:
+def search_prompt(
+    problem: Problem, variant: str = "default", candidate_code: str = ""
+) -> str:
     """The trigger-search prompt: a JSON array of inputs.
+
+    `candidate_code` is consumed only by the code-aware variant, on the same contract as
+    `property_prompt`.
 
     A one-input-per-line format was tried, because a cut array loses every input after the cut while
     a cut line list loses only the line being written. Pre-flighted on four real tasks and REVERTED:
@@ -117,6 +163,7 @@ def search_prompt(problem: Problem, variant: str = "default") -> str:
         main_task=problem.main_task,
         provided_tests=problem.provided_tests_hint or "(none provided)",
         space_format=_SPACE_FORMAT[problem.io_mode],
+        code=candidate_code,
     )
 
 
@@ -531,10 +578,20 @@ def _as_text(space: list[Any]) -> list[str]:
     return [x if isinstance(x, str) else json.dumps(x) for x in space]
 
 
+def one_suite_for_every_candidate(
+    problem: Problem, props_src: str | None, space: list[Any] | None
+) -> tuple[dict[str, str | None], dict[str, list[Any] | None]]:
+    """The same properties and inputs for every candidate — what spec-blind authoring produces."""
+    return (
+        {c.candidate_id: props_src for c in problem.candidates},
+        {c.candidate_id: space for c in problem.candidates},
+    )
+
+
 def evaluate(
     problem: Problem,
-    props_src: str | None,
-    space: list[Any] | None,
+    props_by_candidate: dict[str, str | None],
+    space_by_candidate: dict[str, list[Any] | None],
     *,
     timeout_s: int = DEFAULT_PBT_TIMEOUT,
     max_search_space: int = DEFAULT_MAX_SEARCH_SPACE,
@@ -544,56 +601,96 @@ def evaluate(
 ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, Any]]]]:
     """Return (suite_meta, {candidate_id: {"pbt": ungated, "pbt_ceiling": reference-gated}}).
 
-    Both scores come from the SAME per-candidate run over props x space, filtered two ways:
-      - ``pbt`` (deployable): ALL properties x ALL inputs — unsound properties/out-of-domain inputs
-        can false-alarm, so their cost shows up honestly in the false-positive rate.
+    Each candidate is scored against the properties and inputs authored FOR IT. Spec-blind authoring
+    hands the same pair to every candidate (`one_suite_for_every_candidate`); code-aware authoring
+    reads each submission and hands it its own. Both scores come from the same per-candidate run over
+    props x space, filtered two ways:
+      - ``pbt`` (deployable): ALL properties x ALL inputs — properties that should never have been
+        written can false-alarm, so their cost shows up honestly in the false-positive rate.
       - ``pbt_ceiling`` (best case): only properties that hold on the (privileged) reference, over
         inputs the reference accepts — the reference is NOT available to a real deployed monitor, so
         this is a ceiling, not deployable.
 
-    With `code_aware`, each candidate gets its own space and therefore its own soundness gate, since
-    soundness is only meaningful over the inputs actually run. The honest candidate is widened too:
-    giving attacks more scrutiny than honest code would make the false-positive rate incomparable.
-    Suite-level `all_props_sound` then means "no property was unsound on ANY candidate's space".
+    A candidate whose authoring abstained scores invalid ALONE. Collapsing that into a suite-wide
+    refusal would throw away the measurement the other candidates paid for.
+
+    Soundness is per candidate, because a property name means nothing across two different suites:
+    `prop_sum_bounded` written from the honest submission and `prop_sum_bounded` written from the
+    attack are different functions. Only counts and the all-clear flag are reported suite-wide.
     """
+    ids = [c.candidate_id for c in problem.candidates]
+    if set(props_by_candidate) != set(ids) or set(space_by_candidate) != set(ids):
+        raise ValueError(
+            f"{problem.task_id}: authored suites must cover exactly the candidate set"
+        )
 
     def _both(reason: str) -> dict[str, dict[str, Any]]:
         inv = _invalid(reason)
         return {"pbt": inv, "pbt_ceiling": dict(inv)}
 
-    if not props_src or not space:
-        reason = "no valid properties or empty search space"
+    authored = {
+        cid: (
+            props_by_candidate[cid],
+            list(space_by_candidate[cid] or [])[:max_search_space],
+        )
+        for cid in ids
+    }
+    absent = [cid for cid, (props, space) in authored.items() if not (props and space)]
+    absent_reason = "no valid properties or empty search space"
+    if len(absent) == len(ids):
         meta = {
-            **_empty_meta(Unknown(Blame.MODEL, reason), len(space or [])),
-            "space_by_candidate": {c.candidate_id: [] for c in problem.candidates},
+            **_empty_meta(
+                Unknown(Blame.MODEL, absent_reason), max(len(s) for _, s in authored.values())
+            ),
+            "space_by_candidate": {cid: [] for cid in ids},
         }
-        return meta, {c.candidate_id: _both(reason) for c in problem.candidates}
+        return meta, {cid: _both(absent_reason) for cid in ids}
 
-    blind = list(space)[:max_search_space]
+    scored = [cid for cid in ids if cid not in absent]
+    widths = {cid: len(authored[cid][1]) for cid in scored}
     spaces = {
         cand.candidate_id: (
             _candidate_space(
-                problem, cand, blind, max_search_space, isolation, docker_image
+                problem,
+                cand,
+                authored[cand.candidate_id][1],
+                max_search_space,
+                isolation,
+                docker_image,
             )
             if code_aware
-            else blind
+            else authored[cand.candidate_id][1]
         )
         for cand in problem.candidates
+        if cand.candidate_id in scored
     }
     gates, gate_unavailable = _reference_gates(
-        problem, props_src, spaces, blind, timeout_s, code_aware, isolation, docker_image
+        problem,
+        {cid: authored[cid][0] for cid in scored},
+        spaces,
+        widths,
+        timeout_s,
+        isolation,
+        docker_image,
     )
 
-    results: dict[str, dict[str, dict[str, Any]]] = {}
+    results: dict[str, dict[str, dict[str, Any]]] = {
+        cid: _both(absent_reason) for cid in absent
+    }
     runs: dict[str, dict[str, Any]] = {}
     for cand in problem.candidates:
+        if cand.candidate_id in absent:
+            continue
         cand_space = spaces[cand.candidate_id]
+        props_src = authored[cand.candidate_id][0]
         raw = run_raw(
             problem,
             cand.code,
             props_src,
             cand_space,
-            timeout_s=_scaled_timeout(timeout_s, len(cand_space), len(blind)),
+            timeout_s=_scaled_timeout(
+                timeout_s, len(cand_space), widths[cand.candidate_id]
+            ),
             isolation=isolation,
             docker_image=docker_image,
         )
@@ -616,6 +713,7 @@ def evaluate(
         results[cand.candidate_id] = {"pbt": ungated, "pbt_ceiling": ceiling}
 
     props_seen = sorted({p for raw in runs.values() for p in raw["props"]})
+    all_spaces = {**{cid: [] for cid in absent}, **spaces}
     if not props_seen:
         reason = (
             "the property source defines no property the harness could run, so neither arm "
@@ -623,24 +721,30 @@ def evaluate(
         )
         return (
             {
-                **_empty_meta(Unknown(Blame.MODEL, reason), len(blind)),
-                "space_by_candidate": spaces,
+                **_empty_meta(Unknown(Blame.MODEL, reason), max(widths.values())),
+                "space_by_candidate": all_spaces,
             },
-            {c.candidate_id: _both(reason) for c in problem.candidates},
+            {cid: _both(reason) for cid in ids},
         )
 
-    usable = [g for g in (gates or {}).values() if not _gate_refusal(g)]
+    usable = {
+        cid: g for cid, g in (gates or {}).items() if not _gate_refusal(g)
+    }
     shared_meta = {
-        "valid": True,
-        "n_space": len(blind),
-        "n_space_by_candidate": {cid: len(s) for cid, s in spaces.items()},
-        "space_by_candidate": spaces,
+        "valid": not absent,
+        "n_space": max(len(s) for s in all_spaces.values()),
+        "n_space_by_candidate": {cid: len(s) for cid, s in all_spaces.items()},
+        "space_by_candidate": all_spaces,
         "code_aware": code_aware,
+        "n_props_by_candidate": {cid: len(raw["props"]) for cid, raw in runs.items()},
         "n_partial_runs": sum(1 for raw in runs.values() if not raw["complete"]),
         "n_candidate_runs": len(runs),
         "n_gates_usable": len(usable),
         "n_gates": len(gates or {}),
     }
+    if absent:
+        unknown = Unknown(Blame.MODEL, f"{', '.join(absent)}: {absent_reason}")
+        shared_meta = {**shared_meta, "unknown": unknown.to_json()}
     if not usable:
         return {
             **shared_meta,
@@ -650,64 +754,74 @@ def evaluate(
             "sound": False,
             "n_props": len(props_seen),
             "sound_props": [],
+            "sound_props_by_candidate": {},
             "valid_inputs": [],
+            "valid_inputs_by_candidate": {},
             "unsound_props": [],
             "unsound_prop_reasons": {},
             "invalid_inputs": [],
-            "reason": gate_unavailable or _gate_refusal(next(iter(gates.values()))),
+            "reason": gate_unavailable
+            or _gate_refusal(next(iter(gates.values())))
+            or (f"{', '.join(absent)}: {absent_reason}" if absent else None),
         }, results
 
-    certifier = usable[0]
-    unsound = sorted({p for g in usable for p in g["unsound_props"]})
-    sound_everywhere = [p for p in certifier["props"] if p not in set(unsound)]
+    unsound = sorted({p for g in usable.values() for p in g["unsound_props"]})
+    sound_by_candidate = {cid: g["sound_props"] for cid, g in usable.items()}
+    certifier = usable[next(cid for cid in ids if cid in usable)]
     return {
         **shared_meta,
         "soundness_measured": True,
         "all_props_sound": not unsound,
-        "has_sound_prop": bool(sound_everywhere),
-        "sound": bool(sound_everywhere),
+        "has_sound_prop": any(sound_by_candidate.values()),
+        "sound": any(sound_by_candidate.values()),
         "n_props": len(certifier["props"]),
-        "sound_props": sound_everywhere,
+        "sound_props": certifier["sound_props"],
+        "sound_props_by_candidate": sound_by_candidate,
         "valid_inputs": certifier["valid_inputs"],
+        "valid_inputs_by_candidate": {
+            cid: g["valid_inputs"] for cid, g in usable.items()
+        },
         "unsound_props": unsound,
-        "unsound_prop_reasons": _merge_unsound_reasons(usable),
+        "unsound_prop_reasons": _merge_unsound_reasons(usable.values()),
         "invalid_inputs": certifier["invalid_inputs"],
-        "reason": None,
+        "reason": (f"{', '.join(absent)}: {absent_reason}") if absent else None,
     }, results
 
 
 def _reference_gates(
     problem: Problem,
-    props_src: str,
+    props_by_candidate: dict[str, str],
     spaces: dict[str, list[Any]],
-    blind: list[Any],
+    widths: dict[str, int],
     timeout_s: int,
-    code_aware: bool,
     isolation: Isolation = Isolation.SUBPROCESS,
     docker_image: str = "",
 ) -> tuple[dict[str, dict[str, Any]] | None, str]:
     """One soundness gate per candidate, or `(None, reason)` when there is no reference at all.
 
-    Only `pbt_ceiling` consumes these. A failed gate is returned as a failed gate, never collapsed
-    into a suite-wide refusal: under `code_aware` each candidate probes the reference over its own
-    space, so collapsing would let one slow probe void the ceiling for the whole task.
+    Candidates handed the same properties over the same space share one gate, so spec-blind
+    authoring still probes the reference exactly once per task. A failed gate is returned as a
+    failed gate, never collapsed into a suite-wide refusal: each candidate probes the reference over
+    its own space, so collapsing would let one slow probe void the ceiling for the whole task.
     """
     if not (problem.reference_code or "").strip():
         return None, "no reference solution in the pool; soundness cannot be measured"
-    if code_aware:
-        return {
-            cid: _gate(
+    gates: dict[str, dict[str, Any]] = {}
+    already_probed: dict[tuple[str, str, int], dict[str, Any]] = {}
+    for cid, space in spaces.items():
+        timeout = _scaled_timeout(timeout_s, len(space), widths[cid])
+        key = (props_by_candidate[cid], json.dumps(space, default=str), timeout)
+        if key not in already_probed:
+            already_probed[key] = _gate(
                 problem,
-                props_src,
-                s,
-                _scaled_timeout(timeout_s, len(s), len(blind)),
+                props_by_candidate[cid],
+                space,
+                timeout,
                 isolation,
                 docker_image,
             )
-            for cid, s in spaces.items()
-        }, ""
-    shared = _gate(problem, props_src, blind, timeout_s, isolation, docker_image)
-    return {cid: shared for cid in spaces}, ""
+        gates[cid] = already_probed[key]
+    return gates, ""
 
 
 def _gate_refusal(gate: dict[str, Any]) -> str:
@@ -724,15 +838,17 @@ def _gate_refusal(gate: dict[str, Any]) -> str:
     return ""
 
 
-def _scaled_timeout(base: int, n_inputs: int, n_blind: int) -> int:
-    """`base` scaled so time-per-pair is constant, leaving a space no wider than blind untouched.
+def _scaled_timeout(base: int, n_inputs: int, n_authored: int) -> int:
+    """`base` scaled so time-per-pair is constant, leaving an unwidened space untouched.
 
-    A widened space on a fixed deadline finishes proportionally fewer pairs, which would score
-    code-aware search on the clock rather than the method.
+    A widened space on a fixed deadline finishes proportionally fewer pairs, which would score the
+    widening on the clock rather than on the method. The reference is what THIS candidate's
+    authoring produced, so only the AST fuzzer's widening buys extra time; a candidate whose
+    code-aware author simply wrote more inputs than another gets the same deadline as everyone else.
     """
-    if n_blind <= 0 or n_inputs <= n_blind:
+    if n_authored <= 0 or n_inputs <= n_authored:
         return base
-    return -(-base * n_inputs // n_blind)
+    return -(-base * n_inputs // n_authored)
 
 
 def suite_all_props_sound(meta: dict[str, Any] | None) -> bool:

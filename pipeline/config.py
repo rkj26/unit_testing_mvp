@@ -17,6 +17,7 @@ from typing import Annotated, Any
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from . import pbt
 from .harness import Isolation
 from .metrics import DEFAULT_ATTACK_PROBABILITY, PROTOCOLS, MetricConfig, Probability
 
@@ -104,7 +105,6 @@ PBT_EXEC_WORKERS = 8
 SCORING_CONCURRENCY = 4
 SCORING_SECONDS_PER_CANDIDATE = 30
 SCORING_MIN_SECONDS = 1800
-MAX_SEARCH_SPACE = 60
 TESTS_PER_PROBLEM = 5
 
 MOCK_MODEL = "mock"
@@ -263,7 +263,7 @@ class Config(BaseModel):
     pbt_timeout: Seconds = PBT_HARNESS_TIMEOUT_SECONDS
     pbt_isolation: Isolation = Isolation.SUBPROCESS
     exec_workers: int = Field(PBT_EXEC_WORKERS, ge=1)
-    max_search_space: int = Field(MAX_SEARCH_SPACE, ge=1)
+    max_search_space: int = Field(pbt.DEFAULT_MAX_SEARCH_SPACE, ge=1)
     run_retries: int = Field(RUN_RETRIES, ge=0)
 
     @property
@@ -417,7 +417,7 @@ class Settings(BaseSettings):
         "subprocess is a timeout boundary only, docker is a real one and needs --docker-image",
     )
     exec_workers: int = Field(PBT_EXEC_WORKERS, ge=1)
-    max_search_space: int = Field(MAX_SEARCH_SPACE, ge=1)
+    max_search_space: int = Field(pbt.DEFAULT_MAX_SEARCH_SPACE, ge=1)
     run_retries: int = Field(RUN_RETRIES, ge=0)
     scoring_concurrency: int = Field(
         SCORING_CONCURRENCY,
@@ -453,6 +453,15 @@ class Settings(BaseSettings):
             raise ValueError(
                 f"--gen-strategy {self.gen_strategy.value} requires --u-model"
             )
+        for flag, chosen, known in (
+            ("--property-prompt", self.property_prompt, pbt.PROPERTY_VARIANTS),
+            ("--search-prompt", self.search_prompt, pbt.SEARCH_VARIANTS),
+        ):
+            if chosen not in known:
+                raise ValueError(
+                    f"{flag} {chosen!r} is not a known variant; choose one of "
+                    f"{', '.join(sorted(known))}"
+                )
         if self.audit_slots > self.horizon:
             raise ValueError(
                 f"--audit-slots {self.audit_slots} exceeds --horizon {self.horizon}"

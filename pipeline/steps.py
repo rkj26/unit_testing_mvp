@@ -17,6 +17,7 @@ Public surface (top): the step fns and `PIPELINE`. Private gen/eval helpers are 
 from __future__ import annotations
 
 import asyncio
+from dataclasses import dataclass
 from typing import Any
 
 from . import monitor, pbt
@@ -24,7 +25,7 @@ from .artifacts import ArtifactKind
 from .config import GenStrategy
 from .harness import Isolation
 from .engine import Fanout, RunContext, Scope, SetupContext, Step, log, with_retry
-from .outcome import Unknown, is_unknown
+from .outcome import Blame, Unknown, is_unknown
 from .schema import NEVER_RETURNED, Candidate, Completion, Problem, make_row
 
 
@@ -106,7 +107,7 @@ async def monitor_step(
             problem,
             candidate,
             pbt_res["pbt"],
-            suite["props_src"],
+            suite_props(suite, candidate.candidate_id),
             suite["space_by_candidate"][candidate.candidate_id],
         ),
         "informed",
@@ -195,62 +196,128 @@ from .authoring import Authored, author_task
 _author = author_task
 
 
+@dataclass(frozen=True)
+class _Parsed:
+    """One candidate's authored suite after parsing, with why each half is missing if it is."""
+
+    props_src: str | None
+    space: list[Any] | None
+    prop_err: str
+    space_err: str
+    salvaged: bool
+    note: str
+    blame: Blame
+
+
+def _parse_authored(problem: Problem, authored: Authored) -> _Parsed:
+    """Parse one candidate's completions.
+
+    An abstention is INFRA only when a CALL failed. A step that returned text the parser could not
+    use, or no text at all with the call reporting success, is the MODEL. Blaming every abstention on
+    infrastructure excluded genuine model failures from PBT's failure count and so flattered PBT.
+    """
+    props_src, prop_err = pbt.parse_properties(authored.properties or "")
+    space, space_err, salvaged = pbt.parse_search_space(authored.search_space or "")
+    misshapen = pbt.wrong_shape(space, problem.io_mode)
+    if misshapen:
+        space, space_err = None, misshapen
+    note = f"authoring abstained: {authored.why}" if authored.abstentions else ""
+    return _Parsed(
+        props_src=props_src,
+        space=space,
+        prop_err=note if not authored.properties else prop_err,
+        space_err=note if not authored.search_space else space_err,
+        salvaged=salvaged,
+        note=note,
+        blame=authored.blame,
+    )
+
+
 def _score_suite(
     gen_strategy: GenStrategy,
     problem: Problem,
-    authored: Authored,
+    authored_by_candidate: dict[str, Authored],
     pbt_timeout: int,
     max_search_space: int,
     code_aware: bool = False,
     isolation: Isolation = Isolation.SUBPROCESS,
     docker_image: str = "",
 ) -> dict[str, Any]:
-    """Parse the completions and score properties over the search space -> the suite dict (local CPU).
+    """Parse each candidate's completions and score them -> the suite dict (local CPU).
 
     May raise on a pathological suite; the engine's per-unit guard converts that into a degraded suite.
 
-    An abstention is INFRA only when a CALL failed. A step that returned text the parser could not
-    use, or no text at all with the call reporting success, is the MODEL. Blaming every abstention on
-    infrastructure excluded genuine model failures from PBT's failure count and so flattered PBT.
+    Spec-blind authoring hands every candidate the same `Authored`, so the top-level `props_src` /
+    `space` keys describe the whole task exactly as they always have. Code-aware authoring gives each
+    candidate its own, and those keys carry the FIRST candidate's — readers that need a specific
+    candidate's suite must go through `props_by_candidate`, which is why `props_shared` says which
+    world the artifact is from.
     """
-    abstained = authored.abstentions
-    props_src, prop_err = pbt.parse_properties(authored.properties or "")
-    space, space_err, salvaged = pbt.parse_search_space(authored.search_space or "")
-    misshapen = pbt.wrong_shape(space, problem.io_mode)
-    if misshapen:
-        space, space_err = None, misshapen
-    note = f"authoring abstained: {authored.why}" if abstained else ""
-    if not authored.properties:
-        prop_err = note
-    if not authored.search_space:
-        space_err = note
+    parsed = {
+        cid: _parse_authored(problem, authored)
+        for cid, authored in authored_by_candidate.items()
+    }
     meta, results = pbt.evaluate(
         problem,
-        props_src,
-        space,
+        {cid: p.props_src for cid, p in parsed.items()},
+        {cid: p.space for cid, p in parsed.items()},
         timeout_s=pbt_timeout,
         max_search_space=max_search_space,
         code_aware=code_aware,
         isolation=isolation,
         docker_image=docker_image,
     )
-    meta = {**meta, "space_salvaged": salvaged, "n_space_parsed": len(space or [])}
-    space_run = (space or [])[:max_search_space]
+    first = parsed[problem.candidates[0].candidate_id]
+    shared = len({id(a) for a in authored_by_candidate.values()}) == 1
+    abstained = sorted(cid for cid, p in parsed.items() if p.note)
+    meta = {
+        **meta,
+        "props_shared": shared,
+        "space_salvaged": first.salvaged,
+        "space_salvaged_by_candidate": {cid: p.salvaged for cid, p in parsed.items()},
+        "n_space_parsed": len(first.space or []),
+    }
     if abstained:
-        unknown = Unknown(authored.blame, note)
-        meta = {**meta, "unknown": unknown.to_json(), "reason": note}
+        note = "; ".join(f"{cid}: {parsed[cid].note}" for cid in abstained)
+        blame = (
+            Blame.INFRA
+            if any(parsed[cid].blame is Blame.INFRA for cid in abstained)
+            else Blame.MODEL
+        )
+        meta = {**meta, "unknown": Unknown(blame, note).to_json(), "reason": note}
     return {
-        "props_src": props_src,
-        "space": space,
-        "space_run": space_run,
+        "props_src": first.props_src,
+        "props_by_candidate": {cid: p.props_src for cid, p in parsed.items()},
+        "space": first.space,
+        "space_run": (first.space or [])[:max_search_space],
         "space_by_candidate": meta["space_by_candidate"],
-        "prop_err": prop_err,
-        "space_err": space_err,
-        "space_salvaged": salvaged,
-        "prop_raw": authored.properties,
-        "space_raw": authored.search_space,
-        "plan": authored.plan or "",
+        "prop_err": first.prop_err,
+        "prop_err_by_candidate": {cid: p.prop_err for cid, p in parsed.items()},
+        "space_err": first.space_err,
+        "space_err_by_candidate": {cid: p.space_err for cid, p in parsed.items()},
+        "space_salvaged": first.salvaged,
+        "prop_raw": authored_by_candidate[problem.candidates[0].candidate_id].properties,
+        "prop_raw_by_candidate": {
+            cid: a.properties for cid, a in authored_by_candidate.items()
+        },
+        "space_raw": authored_by_candidate[problem.candidates[0].candidate_id].search_space,
+        "space_raw_by_candidate": {
+            cid: a.search_space for cid, a in authored_by_candidate.items()
+        },
+        "plan": authored_by_candidate[problem.candidates[0].candidate_id].plan or "",
         "gen_strategy": gen_strategy.value,
         "meta": meta,
         "results": results,
     }
+
+
+def suite_props(suite: dict[str, Any], candidate_id: str) -> str | None:
+    """This candidate's properties, falling back to the task-wide source.
+
+    The fallback is what keeps every pre-fan-out run readable: artifacts written before authoring
+    was per candidate carry only `props_src`, and every candidate genuinely shared it.
+    """
+    by_candidate = suite.get("props_by_candidate")
+    if by_candidate is None:
+        return suite["props_src"]
+    return by_candidate[candidate_id]

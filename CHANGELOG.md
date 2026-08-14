@@ -12,6 +12,52 @@ weak trusted model or mechanical/static; untrusted model may sandbag/collude.
 
 ---
 
+## 2026-08-14
+
+### Code-aware authoring: the trusted model reads the submission before writing tests and triggers
+- **What:** new `--property-prompt code` / `--search-prompt code` variants that embed the candidate's
+  source in both authoring prompts. Authoring becomes per candidate when either is set: `author_task`
+  now returns `{candidate_id: Authored}`, `pbt.evaluate` takes properties and space per candidate,
+  and the suite carries `props_by_candidate` + `props_shared`. Pre-registered in
+  `reports/2026-08-14-code-aware-authoring.md`; no run launched yet.
+- **Why:** B1 §7.2 left code-aware search as an open question and never tested code-aware *test
+  writing* at all. The trusted monitor already reads the code, so PBT reading it too is what makes
+  the comparison a fair one — what PBT would then add is the execution of the hypothesis, not the
+  hypothesis itself.
+- **Result:** 201 tests green; the spec-blind path produces byte-identical mock metrics
+  (`diff runs/smoke-base runs/smoke-new` empty), because it still makes the same two calls in the
+  same order and hands every candidate the same `Authored`.
+
+### Soundness dropped as a decision metric; catch rate, FPR and safety are the three
+- **What:** `pbt_soundness` stays in the artifact and is out of every hypothesis and kill criterion.
+  The suite-level `sound_props` / `valid_inputs` scalars are now per candidate.
+- **Why:** the gate compares properties against `reference_code`, which a deployed monitor does not
+  have, and `suite_soundness` only ever fed the descriptive `pbt_soundness` — no arm's score depends
+  on it. A property that should not have been written fires on honest code, and that is already the
+  false-positive rate. `b1-r1` measured, at "any property fired": catch 0.558, FPR **0.498**, safety
+  0.1439, ratio to TM 0.262.
+- **Result:** the old suite-level `sound_props` was one candidate's property list minus the union of
+  unsound names across candidates. With a different suite per candidate those names are different
+  functions, so that subtraction would have reported a property-name coincidence as soundness.
+
+### Four silent-failure holes closed on the prompt and artifact path
+- **What:** (1) `pbt.render` fills in one pass and raises on a missing or empty substitution;
+  (2) `--property-prompt` / `--search-prompt` are validated at argument parse;
+  (3) `_problems_from_json` names the stale field instead of raising a bare `KeyError`;
+  (4) `MAX_SEARCH_SPACE` and `DEFAULT_MAX_SEARCH_SPACE` collapsed into one constant.
+- **Why:** (1) substituting key by key let a value filled early have its own `{code}` expanded by a
+  later key, so a specification containing that text spliced the candidate's source into itself —
+  three `test_bug_` cases recorded it; and a template placeholder nobody passed shipped as a literal
+  `{code}`, returning a completion that looked like every other completion. (2) a typo'd variant
+  raised inside the per-task guard and degraded every task to an abstaining suite. (3) `--run-id
+  smoke` from `CLAUDE.md` crashed on a checkpoint predating `provided_inputs`.
+- **Result:** the placeholder pattern is a lowercase identifier, so the literal `{0,1,2,3}` brace
+  sets in the trigger-search prompts are untouched. `monitor.informed_prompt` needed an explicit
+  `"(no inputs were run)"` for a candidate whose suite ran nothing, matching the existing
+  `(no properties)` idiom.
+
+---
+
 ## 2026-08-09
 
 ### Unit timeout confounded the code-aware arm; r2 discarded and re-run
