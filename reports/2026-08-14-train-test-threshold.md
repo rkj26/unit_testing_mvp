@@ -1,6 +1,6 @@
 # Fit the audit threshold on 20 tasks, report on the other 30
 
-**Date:** 2026-08-14 · **Run ID:** `<tbd>` · **Status:** plan, not started
+**Date:** 2026-08-14 · **Run ID:** `<tbd>` · **Status:** S1-S5 + S7 done; S6 outstanding; code-aware arm still running
 
 ---
 
@@ -82,3 +82,62 @@ rather than the honest-vs-fitted difference.
 The split makes the *threshold* honest. It does not make the *tasks* held out: `apps_pool_hard.json`
 is the pool every design decision in this project has been made against. `apps_pool_heldout40.json`
 exists for that and is untouched by this plan.
+
+
+---
+
+## 6. Results: what holding the threshold out actually does
+
+Re-scored from stored rows, no model calls. `b1-r8` has no completed runs so it is absent, matching
+the 2x2x2 log's 4/8.
+
+### The mechanism: it costs TM, not PBT
+
+| cell | pbt safety in-sample | held-out | Δ | tm in-sample | held-out | Δ |
+|---|---|---|---|---|---|---|
+| blind | 0.144 | 0.143 | −0.001 | 0.539 | 0.479 | **−0.059** |
+| blind+codeaware | 0.108 | 0.114 | +0.006 | 0.542 | 0.474 | **−0.068** |
+| uplan | 0.245 | 0.272 | +0.027 | 0.557 | 0.499 | **−0.058** |
+| uplan+codeaware | 0.177 | 0.149 | −0.028 | 0.581 | 0.502 | **−0.080** |
+| blind+crit | 0.147 | 0.206 | +0.059 | 0.545 | 0.486 | **−0.059** |
+| uplan+crit | 0.190 | 0.150 | −0.039 | 0.545 | 0.492 | **−0.054** |
+
+TM loses 0.054-0.080 in **every** cell. PBT moves ±0.06 with no consistent sign. So `pbt/tm` rising
+under held-out scoring is mostly the denominator falling, not PBT improving.
+
+That is itself a finding: **TM was overfitting its operating point and PBT was not.** TM scores on a
+1-10 suspicion scale, PBT on a count of properties that fired. The coarser score has less to overfit,
+so it loses less when the threshold has to generalise.
+
+### One split is one sample
+
+Five seeds, all reported, none selected. `pbt/tm`:
+
+| seed | blind | uplan |
+|---|---|---|
+| 300 | 0.307 | **0.577** |
+| 301 | 0.203 | 0.488 |
+| 302 | 0.333 | 0.521 |
+| 303 | 0.271 | 0.549 |
+| 304 | 0.345 | 0.461 |
+| **mean (sd)** | **0.292 (0.057)** | **0.519 (0.046)** |
+
+Seed 300 gave the **highest** uplan value of the five. Reporting 0.577 alone would have been a
+number chosen by looking at the data, which is the failure this whole change exists to prevent.
+
+**Consequences.**
+
+1. The held-out shift is real but smaller than seed 300 suggested: blind 0.262 → 0.292 mean,
+   uplan 0.441 → 0.519 mean.
+2. **B1's conclusion survives.** Its kill criterion was "no cell puts pbt's ratio above 60% of TM".
+   The best cell held out is 0.577 at its most favourable split and 0.519 on average — under 0.60 in
+   all five. Held-out scoring does not rescue deployable standalone PBT.
+3. A single-split comparison carries sd ≈ 0.05 of noise, which is the same size as the effects being
+   argued about. **Every held-out comparison from here reports the mean and range across the five
+   splits, not one number.** The code-aware arm will be scored on the same five.
+
+### Still not fixed
+
+The threshold is now honest. The *tasks* are not held out — `apps_pool_hard.json` is the pool every
+design decision in this project was made against, and these five splits all partition that same
+pool. `apps_pool_heldout40.json` remains the only untouched set.
