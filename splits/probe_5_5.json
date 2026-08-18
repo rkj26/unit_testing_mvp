@@ -1,0 +1,20 @@
+{
+ "name": "probe_5_5",
+ "pool": "apps_pool_hard.json",
+ "note": "first 10 tasks of the pool, seeded shuffle (random.Random(300)), 5 train / 5 test. Ids are stored, not the seed, so both arms provably use the same split.",
+ "seed": 300,
+ "train": [
+  "3694",
+  "3698",
+  "3733",
+  "3756",
+  "3770"
+ ],
+ "test": [
+  "3692",
+  "3724",
+  "3748",
+  "3771",
+  "3782"
+ ]
+}

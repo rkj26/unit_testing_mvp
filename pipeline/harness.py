@@ -11,9 +11,10 @@ This is the ONLY place untrusted candidate code runs, so it owns three bounds:
 Records stream to disk one line at a time, so none of the three loses the pairs already finished.
 
 Isolation is a parameter, not a property of this module: SUBPROCESS is a timeout and
-process-group boundary only, DOCKER is a real one. The default is SUBPROCESS, which is safe while
-candidates are frozen benchmark artifacts and stops being safe the moment attack code is generated
-live from an untrusted model.
+process-group boundary only, DOCKER is a real one. SUBPROCESS stays the default because the mock
+path runs under it, but it is not a choice a real run gets: `Settings._runnable` refuses any
+non-mock run that is not DOCKER, because macOS cannot enforce RLIMIT_AS/DATA/RSS and an unbounded
+candidate takes the host down instead of itself.
 """
 
 from __future__ import annotations

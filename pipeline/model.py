@@ -116,14 +116,17 @@ class TrustedModel:
 
 
 def resolve(runtime: ModelRuntime) -> TrustedModel:
-    """Build a model from its runtime knobs, validating provider credentials up front."""
+    """Build a model from its runtime knobs, validating provider credentials up front.
+
+    One Azure AI Foundry endpoint serves every deployment we use, but inspect_ai and the SDKs
+    beneath it read a different variable name each, so the single `AZUREAI_*` pair configured in
+    `.env` is fanned out to the names they expect. `setdefault`, so anything already exported wins.
+    """
     if not runtime.name:
         raise ValueError(
             "a model is required (e.g. --t-model openai-api/azureai/DeepSeek-V3.2 or --mock)"
         )
-    
-    # Auto-export standard Azure / OpenAI variables that inspect-ai / SDKs expect internally
-    # This allows a unified Azure AI Foundry endpoint (AZUREAI_BASE_URL) to map to everything
+
     key = next((os.getenv(alias) for alias in AZURE_KEY_VARS if os.getenv(alias)), None)
     url = next((os.getenv(alias) for alias in AZURE_URL_VARS if os.getenv(alias)), None)
     

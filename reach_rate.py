@@ -6,8 +6,9 @@ candidate diverge from the reference, so
     reach rate = fraction of successful backdoors whose search space contains >=1 diverging input
 
 is a hard ceiling on PBT recall, independent of how many properties there are or how sound they are.
-`diag_search_vs_props.py` measured it at 2/14 for the spec-blind searcher. This compares strategies
-against that baseline at a matched budget.
+The spec-blind searcher measures 3/14 through this harness at the deployed 60-input cap (E0 in
+`reports/2026-08-05-search-experiments.md`); ablation A6's 2/14 came from an earlier diagnostic that
+truncated the space at 40. This compares strategies against that baseline at a matched budget.
 
 The reference is used ONLY to decide divergence, i.e. to grade the arm. No arm consults it, so every
 strategy here stays deployable.

@@ -34,6 +34,12 @@ class BcbBackend:
         self._meta: dict[str, dict[str, str]] = {}
 
     def _load_meta(self, task_ids: list[str]) -> None:
+        """Cache each task's spec and a runnable reference.
+
+        BCB ships its canonical solution as a bare body, so it is reassembled onto the prompt's
+        signature to become executable. It feeds the PBT soundness gate only and is never submitted
+        as a candidate.
+        """
         from control_arena import EvalMode
 
         want = set(task_ids)
@@ -42,11 +48,13 @@ class BcbBackend:
             tid = str(md.get("main_task_name"))
             if tid in want and tid not in self._meta:
                 tm = md.get("metadata") or {}
+                runnable_canonical = (
+                    f"{tm.get('code_prompt', '')}\n    pass\n{tm.get('canonical_solution', '')}"
+                )
                 self._meta[tid] = {
                     "description": str(md.get("main_task_description", "")),
                     "entry_point": str(tm.get("entry_point", "task_func")),
-                    # assembled canonical (runnable) for the PBT soundness gate — never submitted
-                    "reference": f"{tm.get('code_prompt', '')}\n    pass\n{tm.get('canonical_solution', '')}",
+                    "reference": runnable_canonical,
                 }
 
     def preprocess(

@@ -24,6 +24,32 @@ def _hint(inputs: list[str], outputs: list[str], n: int = 3) -> str:
     return "\n".join(lines) or "(none provided)"
 
 
+def statement_examples(task: dict[str, Any]) -> tuple[list[str], list[str]]:
+    """The stored input/output pairs a deployment can actually see.
+
+    An APPS pool files its whole grading set under `provided_inputs`, hidden cases included: 1,986
+    pairs across `apps_pool_hard.json` against the 132 its problem statements actually print. A
+    defender has the statement and nothing else, so a pair is spec-safe only if the statement shows
+    its input; every other pair is the answer key, and handing it to a blind step is a leak.
+
+    Matching is whitespace-normalised because statements pretty-print their examples. On the hard
+    pool this keeps a median of 2 pairs per task and leaves no task with none.
+    """
+
+    def normalise(text: str) -> str:
+        return " ".join(text.split())
+
+    statement = normalise(task["task_description"])
+    pairs = [
+        (raw_in, raw_out)
+        for raw_in, raw_out in zip(
+            task.get("provided_inputs", []), task.get("provided_outputs", [])
+        )
+        if normalise(raw_in) and normalise(raw_in) in statement
+    ]
+    return [raw_in for raw_in, _ in pairs], [raw_out for _, raw_out in pairs]
+
+
 class AppsBackend:
     name = "apps"
 
@@ -38,6 +64,7 @@ class AppsBackend:
             items = items[:limit]
         problems: list[Problem] = []
         for task_id, t in items:
+            example_inputs, example_outputs = statement_examples(t)
             cands = [
                 Candidate(
                     t["honest"]["candidate_id"], "honest", t["honest"]["code"], None
@@ -58,13 +85,9 @@ class AppsBackend:
                     main_task=t["task_description"],
                     io_mode="stdio",
                     candidates=cands,
-                    provided_tests_hint=_hint(
-                        t.get("provided_inputs", []), t.get("provided_outputs", [])
-                    ),
-                    provided_inputs=list(t.get("provided_inputs", [])),
-                    reference_code=t.get(
-                        "reference_solution", ""
-                    ),  # py3-safe reference for PBT soundness
+                    provided_tests_hint=_hint(example_inputs, example_outputs),
+                    provided_inputs=example_inputs,
+                    reference_code=t.get("reference_solution", ""),
                 )
             )
         return problems

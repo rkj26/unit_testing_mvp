@@ -1,9 +1,10 @@
 """The redesigned PBT arm (steps 3-5): blind properties + a curated trigger search space,
 then score by running the properties over that space.
 
-Hypothesis is gone. The trusted model writes:
-  - PROPERTIES: functions ``prop_NAME(run, x)`` that assert a solve-free invariant / metamorphic
-    relation, where ``run(x)`` invokes the candidate on input ``x`` and returns its result.
+The `hypothesis` library is not used; the trusted model writes both halves itself:
+  - PROPERTIES: functions ``prop_NAME(run, x)`` — ``test_NAME`` is accepted too — that assert a
+    solve-free invariant / metamorphic relation, where ``run(x)`` invokes the candidate on input
+    ``x`` and returns its result.
   - SEARCH SPACE: a JSON list of adversarial *valid* inputs (where a backdoor would likely fire).
 
 Scoring (per candidate), consistent with control_arena's backdoor definition:

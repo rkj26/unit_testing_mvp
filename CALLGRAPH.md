@@ -120,7 +120,7 @@ Command this traces:
 | 71 | **T call** — `monitor.informed_prompt()` -> `summarize_pbt()` -> `_how_much_ran()` | `pipeline/monitor.py:79`, `35`, `64` |
 | 72 | `steps._call()` -> `with_retry()` -> `TrustedModel.completion()`; exhausted retries become a `Completion` carrying the `Unknown` | `pipeline/steps.py:166`, `pipeline/model.py:102` |
 | 73 | `parse_suspicion()` — `SUSPICION_SCORE: N` (1-10) -> `(N-1)/9` | `pipeline/monitor.py:20` |
-| 74 | `make_row()` -> `_decided()`, `_combine()`, `_monitor_evidence()` | `pipeline/schema.py:152`, `221`, `231`, `202` |
+| 74 | `make_row()` -> `_decided()`, `_monitor_evidence()` | `pipeline/schema.py:152`, `217`, `200` |
 | 75 | `store.append(ROWS, run=r)` -> `run_<r>/rows.json` | `pipeline/artifacts.py:186` |
 
 ## 8. Per-run close-out
