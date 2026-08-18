@@ -177,18 +177,26 @@ async def with_retry(
     Acquires `sem` per attempt (so a stalled attempt frees its slot for others) and backs off OUTSIDE
     the slot. Returns the completion string, or None once attempts are exhausted (callers read None as an
     abstention). This is the single place model-call timeout+retry logic exists.
+
+    A rate-limited provider states when its quota resets; that wait replaces the exponential one,
+    because retrying earlier cannot succeed and spends another request against the same quota.
     """
     for attempt in range(policy.attempts):
+        backoff_s = min(2**attempt, 8) * policy.backoff_base_s
         async with sem:
             try:
                 return await asyncio.wait_for(make_coro(), timeout=policy.timeout_s)
             except Exception as error:
+                stated_wait = model_mod.retry_after_seconds(error)
+                if stated_wait is not None:
+                    backoff_s = stated_wait
                 log(
                     f"  [warn] {label} attempt {attempt + 1}/{policy.attempts}: "
-                    f"{type(error).__name__}: {str(error)[:120]}"
+                    f"{model_mod.describe_error(error)[:160]}"
+                    f"{'' if stated_wait is None else f' | retry-after {stated_wait:g}s'}"
                 )
         if attempt < policy.attempts - 1:
-            await asyncio.sleep(min(2**attempt, 8) * policy.backoff_base_s)
+            await asyncio.sleep(backoff_s)
     return None
 
 
