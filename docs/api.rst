@@ -17,17 +17,13 @@ Generated from the docstrings in the source, so it cannot drift from the code.
    :members:
    :exclude-members: main
 
-``analyse_probes`` — held-out metrics
--------------------------------------
+``analyse_probes`` — held-out metrics and the deployment simulation
+--------------------------------------------------------------------
+
+Every derived number lives here, so each one is computed once, at analysis time,
+over every arm at the same moment. ``probe.py`` records observations only.
 
 .. automodule:: analyse_probes
-   :members:
-   :exclude-members: main
-
-``deployment_game`` — block-then-audit simulation
--------------------------------------------------
-
-.. automodule:: deployment_game
    :members:
    :exclude-members: main
 
@@ -59,16 +55,10 @@ Generated from the docstrings in the source, so it cannot drift from the code.
 -----------------------------------------
 
 .. automodule:: pipeline.pbt
-   :members: render, parse_properties, parse_search_space, read_input_lines, input_block, wrong_shape
+   :members: render, parse_properties, parse_search_space, read_input_lines, input_block
 
 ``pipeline.monitor`` — the trusted monitor
 -------------------------------------------
 
 .. automodule:: pipeline.monitor
    :members:
-
-``pipeline.metrics`` — the deployment game
---------------------------------------------
-
-.. automodule:: pipeline.metrics
-   :members: MetricConfig, AuditRule, stat, safety

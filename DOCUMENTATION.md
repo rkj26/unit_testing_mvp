@@ -149,7 +149,7 @@ a null result.
 | file | |
 |---|---|
 | `analyse_probes.py` | held-out metrics: `load_arm(run, i)`, `common_population`, `auroc`, `operating_points`, `best_at_budget`, `union_rule` |
-| `deployment_game.py` | block-then-audit simulation over stored scores: `load_runs`, `sweep`, `simulate`, `BlockRule` |
+| `deployment_game.py` | trigger-then-audit simulation over stored scores, importable only: `load_runs`, `sweep`, `simulate`, `TriggerRule` |
 | `pipeline/` | the shared library — harness, model, monitor prompts, parsers, config, metrics, launcher |
 | `pipeline/launch.py` | `launch(run_id, argv)` starts a run detached in tmux and proves it started |
 | `notebooks/run.ipynb` | launch → watch → audit → metrics → deployment, for a real run |

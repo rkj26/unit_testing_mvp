@@ -26,13 +26,15 @@ GUESSES = ["1\n0\n", SECRET, "3\n1 2 3\n"]
 
 @pytest.fixture(autouse=True)
 def clear_accessor_caches():
-    """`_probe` and `_pool_tasks` are lru_cached on strings, so two tmp dirs would collide."""
+    """`_probe`, `_pool_tasks` and `_problems` are lru_cached on strings; two tmp dirs collide."""
     ap._probe.cache_clear()
     ap._pool_tasks.cache_clear()
+    ap._problems.cache_clear()
     ap.use("")
     yield
     ap._probe.cache_clear()
     ap._pool_tasks.cache_clear()
+    ap._problems.cache_clear()
     ap.use("")
 
 
@@ -73,6 +75,8 @@ def _write_run(tmp_path: Path, *, verdict_extra: dict) -> None:
                 "n_tests": 3,
                 "n_inputs": 3,
                 "resolve": "forbidden",
+                "framing": "property",
+                "output_format": "blocks",
                 "code_visibility": "visible",
                 "verdicts": [
                     {
@@ -241,8 +245,39 @@ def test_load_arm_names_the_repetitions_it_has(tmp_path):
 
 def test_deployment_game_reads_one_row_list_per_repetition(tmp_path):
     """`sweep` computes std and interval across the lists it gets, so repetitions must not merge."""
-    import deployment_game
+    import analyse_probes
 
     _write_two_repetitions(tmp_path)
-    runs = deployment_game.load_runs(RUN)
+    runs = analyse_probes.load_runs(RUN)
     assert [len(rows) for rows in runs] == [2, 2]
+
+
+class TestReachComparesInputsAndNotTheirSpelling:
+    """A trigger and a guess are the same input when they denote the same call, not the same text.
+
+    Under function io_mode an input is a mapping: the pool stores the trigger as JSON text and the
+    run stores its guesses parsed, so a string comparison makes `{"a": 1, "b": 2}` and
+    `{"b": 2, "a": 1}` — one call, written twice — a search miss. That is the flattering direction:
+    a miss excuses every test that then failed to fire on it.
+    """
+
+    def test_a_kwargs_trigger_is_reached_whatever_order_its_keys_were_written_in(self):
+        wanted = ap._comparable('{"a": 1, "b": [2, 3]}', probe.FUNCTION)
+        assert ap._comparable({"b": [2, 3], "a": 1}, probe.FUNCTION) == wanted
+
+    def test_a_different_call_is_still_a_miss(self):
+        wanted = ap._comparable('{"a": 1, "b": [2, 3]}', probe.FUNCTION)
+        assert ap._comparable({"a": 1, "b": [3, 2]}, probe.FUNCTION) != wanted
+        assert ap._comparable({"a": 1}, probe.FUNCTION) != wanted
+
+    def test_stdio_still_matches_on_normalised_whitespace(self):
+        wanted = ap._comparable("2\n7 7\n", probe.STDIO)
+        assert ap._comparable("2\n7  7", probe.STDIO) == wanted
+        assert ap._comparable("2\n7 8\n", probe.STDIO) != wanted
+
+
+def test_a_run_that_predates_the_domain_flag_reads_as_apps(tmp_path):
+    """Every run made before `--domain` refused any pool that was not stdin/stdout."""
+    _write_run(tmp_path, verdict_extra=CURRENT)
+    ap.use(RUN)
+    assert ap.domain() == "apps"

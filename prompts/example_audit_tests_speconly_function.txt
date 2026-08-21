@@ -1,0 +1,28 @@
+A different task, far simpler than yours, shown only to demonstrate the process.
+
+THE TASK. `task_func(values)` takes a list of between 1 and 100 integers, each between 0 and 1000, and returns a dict with two keys: `largest`, the largest of them, and `count`, how many times that value occurs. Statement example: `task_func([4, 7, 5])` -> `{'largest': 7, 'count': 1}`
+
+READING THE SIGNATURE. One parameter, a list, non-empty, every element between 0 and 1000. So a test can read the values back off the arguments it was handed, and the specification tells it the answer is a dict with exactly those two keys, the second counting the first.
+
+THE INPUTS GIVEN.
+
+    {"values": [4, 0, 5]}
+    {"values": [4, 7, 5]}
+    {"values": [4, 0, 5, 9]}
+    {"values": [0]}
+    {"values": [7, 7, 7]}
+
+Each is one call's keyword arguments: the one parameter `values`, keyed by name. A list of exactly 3 crossed with a value of exactly 0, then each of those conditions on its own, then the smallest legal input, then a tie for the maximum. None holds more than four values, so even a test that worked the answer out for itself could afford all five.
+
+THE TESTS.
+
+    def test_largest_is_one_of_the_values(run, x):
+        assert run(x)["largest"] in x["values"]
+
+    def test_count_matches_the_value_returned(run, x):
+        answer = run(x)
+        assert answer["count"] == x["values"].count(answer["largest"])
+
+`run(x)` hands back the dict itself, so both read its fields directly rather than a printed form of it. Both take the argument list off `x["values"]` rather than assuming a shape, neither mutates `x`, and neither works the maximum out — the second checks the returned count against the returned value, which is a certificate: cheap to verify, and true of every correct solution whatever the largest turns out to be.
+
+WHY THAT IS ENOUGH WITHOUT THE CODE. The specification says `largest` is the largest of the given integers and `count` is how often it occurs, and those two sentences together — it is one of them, and the count is its count — pin the pair to exactly one answer per input. Any submission returning anything else fails at least one, and neither claim needed to know which submission it was reading.

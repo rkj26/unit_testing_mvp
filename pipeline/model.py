@@ -17,12 +17,15 @@ import os
 from typing import Any
 
 from .config import ModelRuntime
+from .outcome import Blame, Measured, Unknown
 from .schema import Completion
 
 KINDS = ("property_gen", "trigger_search", "tm", "informed", "plan", "write_from_plan")
 
 MOCK_STOP_REASON = "stop"
 EMPTY_RESPONSE_STOP_REASON = "empty_response"
+NO_REASONING = ""
+REASONING_PART_TYPE = "reasoning"
 
 TEMPERATURE_REJECTING_PREFIXES = ("gpt-5", "o1", "o3", "o4", "deepseek-v3.2", "v3.2")
 AZURE_KEY_VARS = ("AZUREAI_API_KEY", "AZURE_API_KEY")
@@ -47,18 +50,37 @@ _MOCK: dict[str, str] = {
 }
 
 
-def _reasoning(out: Any) -> str:
-    """The provider's thinking, if it sent any.
+def _reasoning(out: Any) -> Measured[str]:
+    """The provider's thinking, or `Unknown` when the response shape could not be read.
 
     `ModelOutput.completion` returns the answer text alone; on a reasoning model the thinking
-    arrives as `ContentReasoning` blocks in the message content and is dropped there.
+    arrives as `ContentReasoning` blocks in the message content and is dropped there. A plain
+    string content is the ordinary shape of a reply carrying no thinking, so it is `NO_REASONING`
+    — an answer. A content that is neither a string nor a list of parts is not an answer, and used
+    to leave the same empty string, which reads as a model that does not reason.
     """
     content = getattr(getattr(out, "message", None), "content", None)
+    if isinstance(content, str):
+        return NO_REASONING
     if not isinstance(content, list):
-        return ""
-    return "\n".join(
-        part.reasoning for part in content if getattr(part, "type", "") == "reasoning"
-    )
+        return Unknown(
+            Blame.INFRA,
+            f"message content is {type(content).__name__}, not a string or a list of parts",
+        )
+    return _joined_reasoning(content)
+
+
+def _joined_reasoning(content: list[Any]) -> Measured[str]:
+    """Every reasoning part of a parts list, joined. `Unknown` if one carries no reasoning text."""
+    parts = [part for part in content if getattr(part, "type", "") == REASONING_PART_TYPE]
+    unreadable = [part for part in parts if not isinstance(getattr(part, "reasoning", None), str)]
+    if unreadable:
+        return Unknown(
+            Blame.INFRA,
+            f"{len(unreadable)} of {len(parts)} reasoning parts carry no reasoning text "
+            f"(first is {type(unreadable[0]).__name__})",
+        )
+    return "\n".join(part.reasoning for part in parts)
 
 
 class TrustedModel:
@@ -123,7 +145,7 @@ class TrustedModel:
         if kind not in KINDS:
             raise ValueError(f"unknown model-call kind: {kind}")
         if self._mock:
-            return Completion(_MOCK[kind], MOCK_STOP_REASON)
+            return Completion(_MOCK[kind], MOCK_STOP_REASON, reasoning=NO_REASONING)
         from inspect_ai.model import ChatMessageUser, GenerateConfig
 
         config = GenerateConfig(response_schema=schema) if schema is not None else None
@@ -131,7 +153,7 @@ class TrustedModel:
             [ChatMessageUser(content=prompt)], cache=self.runtime.inspect_cache, config=config
         )
         if out.empty:
-            return Completion("", EMPTY_RESPONSE_STOP_REASON)
+            return Completion("", EMPTY_RESPONSE_STOP_REASON, reasoning=_reasoning(out))
         return Completion(
             out.completion or out.message.text, out.stop_reason, reasoning=_reasoning(out)
         )

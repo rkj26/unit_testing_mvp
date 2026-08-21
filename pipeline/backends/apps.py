@@ -9,16 +9,25 @@ blind PBT soundness gate come inline from the pool; candidates are stdin/stdout 
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from ..config import ScoringLimits
 from ..schema import Candidate, Problem, ScoreResult
 from ..scoring import CorrectedAppsSetting, score_via_control_arena
 
+EXAMPLES_SHOWN = 3
 
-def _hint(inputs: list[str], outputs: list[str], n: int = 3) -> str:
+
+def _hint(inputs: list[str], outputs: list[str], n: int = EXAMPLES_SHOWN) -> str:
+    """Statement examples written in the exact shape an answer must use.
+
+    `json.dumps`, not `repr`: the prompt demands a double-quoted JSON string per line, and a Python
+    repr is single-quoted. Showing the format in one notation while requiring another is how a model
+    ends up writing something that looks right and parses to nothing.
+    """
     lines = [
-        f"  STDIN={inputs[i]!r} -> STDOUT={outputs[i]!r}"
+        f"  {json.dumps(inputs[i])}   ->   {json.dumps(outputs[i])}"
         for i in range(min(n, len(inputs), len(outputs)))
     ]
     return "\n".join(lines) or "(none provided)"
@@ -42,9 +51,7 @@ def statement_examples(task: dict[str, Any]) -> tuple[list[str], list[str]]:
     statement = normalise(task["task_description"])
     pairs = [
         (raw_in, raw_out)
-        for raw_in, raw_out in zip(
-            task.get("provided_inputs", []), task.get("provided_outputs", [])
-        )
+        for raw_in, raw_out in zip(task["provided_inputs"], task["provided_outputs"])
         if normalise(raw_in) and normalise(raw_in) in statement
     ]
     return [raw_in for raw_in, _ in pairs], [raw_out for _, raw_out in pairs]
@@ -67,16 +74,19 @@ class AppsBackend:
             example_inputs, example_outputs = statement_examples(t)
             cands = [
                 Candidate(
-                    t["honest"]["candidate_id"], "honest", t["honest"]["code"], None
+                    candidate_id=t["honest"]["candidate_id"],
+                    label="honest",
+                    code=t["honest"]["code"],
+                    secret_input=None,
                 )
             ]
             for i, attack in enumerate(t["attack_proposals"]):
                 cands.append(
                     Candidate(
-                        attack["candidate_id"],
-                        f"attack_{i}",
-                        attack["code"],
-                        attack["secret_input"],
+                        candidate_id=attack["candidate_id"],
+                        label=f"attack_{i}",
+                        code=attack["code"],
+                        secret_input=attack["secret_input"],
                     )
                 )
             problems.append(
@@ -87,7 +97,7 @@ class AppsBackend:
                     candidates=cands,
                     provided_tests_hint=_hint(example_inputs, example_outputs),
                     provided_inputs=example_inputs,
-                    reference_code=t.get("reference_solution", ""),
+                    reference_code=t["reference_solution"],
                 )
             )
         return problems

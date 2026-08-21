@@ -214,30 +214,6 @@ class TestSalvageJsonArray:
         assert pbt._salvage_json_array('{"a": 1}') is None
 
 
-class TestWrongShapedSearchSpaceIsRefused:
-    """Four real trigger-search calls, asked for one input per line: two wrote RAW multi-line stdin
-    instead of escaped JSON strings. One produced nothing parseable; the other parsed to `[1, 0]` —
-    two bare integers, no error, no salvage flag. That space is garbage every candidate then
-    "crashes" on and the domain probe quietly discards, so it must be refused at the parse."""
-
-    def test_bare_integers_are_not_a_stdio_search_space(self):
-        assert "not str" in pbt.wrong_shape([1, 0], "stdio")
-
-    def test_strings_are_not_a_function_search_space(self):
-        assert "not dict" in pbt.wrong_shape(["3\n1 2\n"], "function")
-
-    def test_the_right_shape_passes(self):
-        assert pbt.wrong_shape(["3\n1 2\n", "1\n0\n"], "stdio") == ""
-        assert pbt.wrong_shape([{"n": 1}, {"n": 2}], "function") == ""
-
-    def test_one_bad_element_condemns_the_space_and_says_how_many(self):
-        reason = pbt.wrong_shape(["ok", 7, "fine"], "stdio")
-        assert "1 of 3" in reason
-
-    def test_an_absent_space_has_no_shape_to_be_wrong(self):
-        assert pbt.wrong_shape(None, "stdio") == ""
-
-
 class TestOneInputPerLineIsAcceptedIfAModelWritesIt:
     """The prompt asks for a JSON array, and the pre-flight showed why. The parser still reads
     line-per-value, because that shape survives a token cap and rescues the complete elements of a
@@ -383,9 +359,6 @@ class TestRender:
         prompt = tm_prompt(problem, problem.honest)
         assert "see {main_task} above" in prompt
 
-    def test_a_literal_brace_set_in_a_template_is_not_a_placeholder(self):
-        assert "{0,1,2,3}" in pbt.search_prompt(make_problem())
-
     def test_informed_prompt_does_not_expand_a_placeholder_found_in_candidate_code(self):
         problem = make_problem(code="if {properties}: pass")
         prompt = informed_prompt(
@@ -409,34 +382,6 @@ class TestRender:
         problem = make_problem()
         prompt = informed_prompt(problem, problem.honest, PASSING_PBT_RESULT, "P", [])
         assert "no usable trigger-search inputs" in prompt
-
-
-class TestCodeAwareVariants:
-    def test_code_variant_embeds_the_submission(self):
-        prompt = pbt.property_prompt(make_problem(), 5, "code", "SUBMITTED_BODY")
-        assert "SUBMITTED_BODY" in prompt
-        assert "{code}" not in prompt
-
-    def test_code_variant_without_the_submission_raises(self):
-        with pytest.raises(ValueError, match="empty substitution for code"):
-            pbt.property_prompt(make_problem(), 5, "code")
-        with pytest.raises(ValueError, match="empty substitution for code"):
-            pbt.search_prompt(make_problem(), "code")
-
-    def test_blind_variants_ignore_a_submission_they_are_handed(self):
-        problem = make_problem()
-        assert pbt.property_prompt(problem, 5, "default", "SUBMITTED_BODY") == (
-            pbt.property_prompt(problem, 5, "default")
-        )
-        assert "SUBMITTED_BODY" not in pbt.search_prompt(
-            problem, "default", "SUBMITTED_BODY"
-        )
-
-    def test_reads_candidate_code_is_true_only_when_a_code_variant_is_chosen(self):
-        assert not pbt.reads_candidate_code("default", "default")
-        assert not pbt.reads_candidate_code("precision", "dense")
-        assert pbt.reads_candidate_code("code", "default")
-        assert pbt.reads_candidate_code("default", "code")
 
 
 class TestParseSuspicion:

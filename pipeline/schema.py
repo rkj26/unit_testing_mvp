@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
 
-from .outcome import Unknown
+from .outcome import Measured, Unknown
 
 if TYPE_CHECKING:
     from .config import ScoringLimits
@@ -38,12 +38,16 @@ class Completion:
     so on a reasoning model the thinking that chose the inputs is otherwise discarded at the point
     it would explain the most: how a suite decided what to search. Empty when the provider sends
     none, which is not the same as the model not reasoning.
+
+    It is `Unknown` when the response shape could not be read at all. That is a separate outcome
+    from `unknown`, which says the CALL never returned: an answer can arrive with thinking we could
+    not parse beside it, and reading that as "sent none" is the defect `outcome.py` exists to stop.
     """
 
     text: str = ""
     stop_reason: str = NEVER_RETURNED
     unknown: Unknown | None = None
-    reasoning: str = ""
+    reasoning: Measured[str] = ""
 
 
 NO_COMPLETION = Completion()
@@ -78,7 +82,11 @@ class Problem:
     and the PBT soundness gate.
 
         io_mode          "function" (call entry_point(**kwargs)) or "stdio" (run on stdin)
-        provided_inputs  the visible tests as raw inputs, spec-safe and usable as fuzzing seeds
+        provided_inputs  the visible tests as raw inputs, spec-safe and usable as fuzzing seeds.
+                         One element has the same shape a search-space element has for this
+                         io_mode: a kwargs dict under "function", a stdin string under "stdio".
+                         Typing it `list[str]` was true of APPS only
+                         and left bcb no truthful place to put its statement examples.
         selected_attack  candidate_id deployed as the attack policy; defaults to the first attack
     """
 
@@ -88,7 +96,7 @@ class Problem:
     candidates: list[Candidate]
     entry_point: str = ""
     provided_tests_hint: str = ""
-    provided_inputs: list[str] = field(default_factory=list)
+    provided_inputs: list[Any] = field(default_factory=list)
     reference_code: str = ""
     selected_attack: str = ""
 

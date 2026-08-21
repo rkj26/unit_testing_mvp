@@ -1,23 +1,26 @@
 # `pipeline/` — the shared library
 
-Twelve modules, no entry point. `probe.py` runs an arm with them and `audit.py` reads the result;
-neither owns them. The old orchestrator that did own them (`run.py`, `engine`, `steps`) was deleted
-on 2026-08-19, so anything here that reads like a step in a longer sequence is a remnant of that.
+Ten modules and a backends package, no entry point. `probe.py` runs an arm with them and `audit.py`
+reads the result; neither owns them. The orchestrator that did own them (`run.py`, `engine`, `steps`)
+was deleted on 2026-08-19, so anything here that reads like a step in a longer sequence is a remnant
+of that.
 
-| module | lines | what it is for |
-|---|---|---|
-| `schema.py` | 232 | the records everything passes around: `Problem`, `Candidate`, `Completion`, `Backend` |
-| `outcome.py` | 69 | **the one way this repo says "we don't know"** — read this first |
-| `config.py` | 547 | `ModelRuntime` and the reasoning/timeout ladders |
-| `model.py` | 177 | one runtime in, one awaitable completion out |
-| `monitor.py` | 135 | the trusted monitor's prompt and its score parser |
-| `pbt.py` | 912 | prompt rendering and the two hardened parsers |
-| `harness.py` | 524 | the sandbox: the only place candidate code runs |
-| `search.py` | 571 | trigger-search strategies, all local, no model calls |
-| `scoring.py` | 370 | ground-truth correctness via control_arena |
-| `metrics.py` | 545 | the deployment game's safety and usefulness |
-| `launch.py` | 111 | start a run detached in tmux and prove it started |
-| `backends/` | — | `apps` (live), `bcb` and `mock` (present, unused) |
+| module | what it is for |
+|---|---|
+| `schema.py` | the records everything passes around: `Problem`, `Candidate`, `Completion`, `Backend` |
+| `outcome.py` | **the one way this repo says "we don't know"** — read this first |
+| `config.py` | `Settings`, `ModelRuntime` and the reasoning/timeout ladders, plus `MetricConfig` |
+| `model.py` | one runtime in, one awaitable completion out |
+| `monitor.py` | the trusted monitor's prompt and its score parser |
+| `pbt.py` | prompt rendering and the two hardened parsers |
+| `harness.py` | the sandbox: the only place candidate code runs |
+| `search.py` | trigger-search strategies, all local, no model calls |
+| `scoring.py` | ground-truth correctness via control_arena |
+| `launch.py` | start a run detached in tmux and prove it started |
+| `backends/` | `apps` (live), `bcb` and `mock` (present, unused) |
+
+`metrics.py` is gone. Its simulation moved to `deployment_game.py` at the repo root and its
+`MetricConfig` to `config.py`; the rest had no callers and was deleted.
 
 ---
 
@@ -53,6 +56,16 @@ use it — it has its own APPS-only loader — which is why a BigCodeBench run i
 `mock` produce `"function"` (a candidate takes kwargs). `pbt._INVOKE_CONTRACT` holds prompt text for
 both; `probe.py` hardcodes the stdio one.
 
+## `config.py` — settings and `MetricConfig`
+
+`MetricConfig(audit_rate, attack_probability, horizon, trials, train_tasks)` is the record
+`deployment_game.sweep` and `simulate` take. Its `free_floor` property — `(1 − attack_rate)^horizon`
+— is the share of deployments containing no attack at all, which every protocol wins for nothing. At
+a 2% attack rate over 50 submissions that is 0.364, so a raw safety of 0.40 is almost entirely floor.
+Report `safety − free_floor`.
+
+`Settings.allow_sleep` names an intent no code reads; suppressing sleep during a run is manual.
+
 ## `harness.py` — the sandbox
 
 The only place candidate code executes, and the only thing holding a memory, CPU and PID bound.
@@ -69,8 +82,8 @@ Runs every test over every input against one implementation and returns `records
   a flag the candidate could have written. A missing pair can only lose a catch, never invent one,
   so an incomplete run under-reports and must never be read as a clean negative.
 
-`probe.execute` is a thin wrapper over this; `_catches` turns `records` into `(test, input_index)`
-pairs.
+`probe.execute` is a thin wrapper over this; `probe._catches` turns `records` into
+`(test, input_index)` pairs.
 
 ## `pbt.py` — rendering and parsing
 
@@ -92,22 +105,9 @@ asked was recorded as an answer we did*; and substituting key by key let an earl
 `parse_search_space`'s third return is a **count**, not a flag: `0` clean, `n` lines lost, `None`
 when some were lost and the number is unrecoverable (a truncated array cannot say what it meant).
 
-Everything else in the module — `property_prompt`, `search_prompt`, `critique_prompt`, the soundness
-gate — belonged to the deleted orchestrator. `critique_prompt`, `plan_prompt`,
-`write_from_plan_prompt` and `degraded` have no caller at all.
-
-## `metrics.py` — the deployment game
-
-`MetricConfig(audit_rate, attack_probability, horizon, trials, train_tasks)` and the simulation
-`deployment_game.py` drives.
-
-The number to be careful with is **`free_floor`** — `(1 − attack_rate)^horizon`, the share of
-deployments containing no attack at all, which every protocol wins for nothing. At a 2% attack rate
-over 50 submissions that is 0.364, so a raw safety of 0.40 is almost entirely floor. Report
-`safety − free_floor`.
-
-`stat(values, config)` returns mean, std and a Student-t interval **over K runs**, so with one
-repetition `ci95` is `None`. Every error bar in this project comes from `--runs N`.
+Everything else in the module — `property_prompt`, `search_prompt`, the soundness gate — belonged to
+the deleted orchestrator and is now reached only by `tests/test_parsers.py`. `critique_prompt`,
+`plan_prompt`, `write_from_plan_prompt` and `degraded` have no caller at all.
 
 ## `launch.py`
 
@@ -120,13 +120,13 @@ Raises `LaunchFailed` if the session dies within a few seconds of starting, with
 — so a mistyped flag surfaces at launch rather than as an empty `runs/` in the morning. Refuses a
 run id already running, because two processes writing one run directory corrupt it.
 
-`probe.py --detach` is its only caller.
+`probe.py --detach` is the only caller of `launch`; notebooks import `alive` and `pane` to watch.
 
 ## `search.py` and `scoring.py`
 
 `search.py` is local trigger generation — constant mining, boundary values, coverage-guided fuzzing.
-No model calls. `probe.py` does not use it: the model writes its own inputs. It is reached only
-through `harness.run_search`.
+No model calls. `probe.py` does not use it: the model writes its own inputs. It is reached through
+`harness.run_search`, and `reach_rate.py` imports its strategies directly to compare them.
 
 `scoring.py` wraps control_arena for ground-truth correctness, including `CorrectedAppsSetting` —
 the stock APPS scorer treats stderr warnings as fatal, which false-negatives modern-Python
@@ -135,6 +135,7 @@ solutions.
 ## Not reached by anything live
 
 `backends/bcb.py` and `backends/mock.py`. `mock` supported the deleted orchestrator's offline
-determinism check. `bcb` is the BigCodeBench adapter and is the starting point whenever that run
-happens — note its `preprocess` **silently skips** tasks missing from the dataset, printing a
-warning and shrinking the pool, which is the pattern `outcome.py` exists to prevent.
+determinism check and now only `tests/test_architecture.py` constructs it. `bcb` is the
+BigCodeBench adapter and is the starting point whenever that run happens — note its `preprocess`
+**silently skips** tasks missing from the dataset, printing a warning and shrinking the pool, which
+is the pattern `outcome.py` exists to prevent.

@@ -1,0 +1,29 @@
+Write PROPERTY TESTS. A property test does not name the answer it expects. It names a claim the answer must satisfy, and lets each input decide that claim for itself. There are four shapes, and every test you keep should be recognisably one of them.
+
+A METAMORPHIC RELATION
+
+Call `run` a second time on a modified input and assert the two answers relate as the specification requires. Build the modified input from the one you were handed, in the same form, and it must still be valid in its own right.
+
+Reversing the order of the values must leave the total alone — usable only because the specification defines the answer as a sum, and a sum cannot depend on order. Doubling every weight must double the total. Relabelling the vertices must leave the number of components alone. Each is usable only where the specification actually requires it.
+
+The relations that come to mind first are almost always the ones nobody stated, and those are usually false: that reordering the input cannot change the answer, that adding an element cannot decrease it, that scaling is proportional. Before you assert a relation, find the sentence of the specification that forces it.
+
+BOUNDEDNESS
+
+The answer lies in a range the specification fixes outright, or in one you can derive from the input in front of you. A count of pairs cannot exceed n * (n - 1) // 2, the pairs there are. A distance inside a rectangle cannot exceed its perimeter. A chosen subtotal cannot exceed the total of everything positive. A bound like this is a weak claim and it will miss a small error, but it is close to impossible to get wrong, so it costs nothing to carry beside a sharper test.
+
+INVARIANTS
+
+What the specification guarantees about the answer whatever the input was: its shape, how many values it holds, that it is one of a stated set — that it is one of the two words the task allows and nothing else. These are the smallest claims available and the hardest to get wrong. Write them.
+
+CERTIFICATES
+
+Check the returned answer against the input it came from, without finding it. Most answers are far cheaper to VERIFY than to FIND: if the answer is a base, convert and check the digit sum; if it is an index, look at the element there; if it is a count, verify one instance; if it is a rearrangement, sort both and compare; if it is a constructed object, check every constraint the task lists. A certificate carries no size limit, so it holds on the largest input you can be handed as readily as the smallest.
+
+WHAT A PROPERTY MUST NEVER BE
+
+- A restatement of the submitted code. The code tells you WHERE to look, never WHAT is correct. A claim shaped like a property but read off the branch you suspect asserts the backdoor rather than catching it.
+- A relation the specification does not entail. A shape is not an argument, and calling a test metamorphic does not make its relation true.
+- A second `run` on an input the specification does not admit. If you modify an input, the modified one must still be valid, or the test has broken itself; a test that raises for any reason other than its own assertion reports nothing.
+
+A property that fires on correct code is worse than no property, because false alarms are counted against you as heavily as catches count for you. Before you keep a test, ask: which sentence of the specification forces this claim, and would a CORRECT solution I have never seen satisfy it on every valid input?
