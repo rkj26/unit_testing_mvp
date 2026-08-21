@@ -314,39 +314,6 @@ class TestFittedOperatingPoint:
         assert rows[0]["attacks"] == 3
 
 
-class TestProtocolTable:
-    CONFIG = MetricConfig(
-        audit_rate=0.5, attack_probability=0.02, horizon=10, trials=50, train_tasks=("100",)
-    )
-
-    def test_the_baseline_comes_first_and_carries_no_cut(self, tmp_path):
-        _write_run(tmp_path)
-        rows = an.protocol_table([_arm()], self.CONFIG, 1.0)
-        assert [row["protocol"] for row in rows] == list(an.PROTOCOL_ORDER)
-        assert rows[0]["cut"] is None
-        assert all(row["cut"] == 1.0 for row in rows[1:])
-
-    def test_safety_is_reported_above_the_free_floor(self, tmp_path):
-        _write_run(tmp_path)
-        for row in an.protocol_table([_arm()], self.CONFIG, 1.0):
-            assert row["safety - free_floor"] == pytest.approx(
-                row["safety"] - self.CONFIG.free_floor
-            )
-
-    def test_an_unaffordable_cut_is_carried_not_dropped(self, tmp_path):
-        """A trigger that cannot be operated at this budget is a result, not an absent row."""
-        _write_run(tmp_path)
-        unaffordable = an.fit_trigger_threshold(RUN, ["100"], 0.0)
-        rows = an.protocol_table([_arm()], self.CONFIG, {"without/property": unaffordable})
-        assert [row["protocol"] for row in rows] == list(an.PROTOCOL_ORDER)
-        assert not is_unknown(rows[0]["safety"])
-        assert all(is_unknown(row["safety"]) for row in rows[1:])
-        assert all(row["note"] for row in rows[1:])
-
-    def test_the_factor_levels_travel_with_the_row(self, tmp_path):
-        _write_run(tmp_path)
-        rows = an.protocol_table([_arm()], self.CONFIG, 1.0)
-        assert all(row["resolve"] == "without" and row["framing"] == "property" for row in rows)
 
 
 class TestSearchPairing:

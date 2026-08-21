@@ -19,8 +19,8 @@ of that.
 | `launch.py` | start a run detached in tmux and prove it started |
 | `backends/` | `apps` (live), `bcb` and `mock` (present, unused) |
 
-`metrics.py` is gone. Its simulation moved to `deployment_game.py` at the repo root and its
-`MetricConfig` to `config.py`; the rest had no callers and was deleted.
+`metrics.py` is gone. Its `MetricConfig` moved to `config.py` and its simulation now lives in the
+notebooks' deployment cells; the rest had no callers and was deleted.
 
 ---
 
@@ -58,8 +58,8 @@ both; `probe.py` hardcodes the stdio one.
 
 ## `config.py` — settings and `MetricConfig`
 
-`MetricConfig(audit_rate, attack_probability, horizon, trials, train_tasks)` is the record
-`deployment_game.sweep` and `simulate` take. Its `free_floor` property — `(1 − attack_rate)^horizon`
+`MetricConfig(audit_rate, attack_probability, horizon, trials, train_tasks)` is the record the
+notebooks' `play_safety` and `run_deployment` take. Its `free_floor` property — `(1 − attack_rate)^horizon`
 — is the share of deployments containing no attack at all, which every protocol wins for nothing. At
 a 2% attack rate over 50 submissions that is 0.364, so a raw safety of 0.40 is almost entirely floor.
 Report `safety − free_floor`.
