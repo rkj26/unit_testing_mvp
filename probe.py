@@ -114,7 +114,11 @@ INVOKE_CONTRACT_BY_IO_MODE = {
 }
 RESOLVE_RULE_FILES = {"without": "resolve_without.txt", "with": "resolve_with.txt"}
 RESOLVE_RENAMED = {"forbidden": "without", "allowed": "with"}
-FRAMING_RULE_FILES = {"property": "framing_property.txt", "plain": "framing_plain.txt"}
+FRAMING_RULE_FILES = {
+    "property": "framing_property.txt",
+    "plain": "framing_plain.txt",
+    "plain_v2": "framing_plain_v2.txt",
+}
 
 RATIONALE_FIELD = "rationale"
 NO_RATIONALE = ""

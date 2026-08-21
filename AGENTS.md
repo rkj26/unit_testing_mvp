@@ -31,6 +31,29 @@ Shape first, then red-green upward.
    failure silently becoming a value — the defect this whole repo is built around.
 4. **One function per diff.**
 
+## Delegation
+
+**The default execution mode here is a team of parallel agents, with the lead as orchestrator, not
+implementer.** The user has asked for this three times now; this entry is why a fourth time shouldn't
+be needed.
+
+- **Anything past a single mechanical edit goes to an agent.** The lead decides WHAT is measured and
+  WHETHER the answer is believable — not types the measurement.
+- **Independent work goes out in one message, multiple tool calls, so agents run concurrently.**
+  Dispatching independent tasks one at a time is the failure mode to avoid.
+- **Every brief names the files the agent owns and the files it must not touch.** Concurrent agents in
+  one repo collide: four runs launched at 15:03 had `probe.py` edited by another agent at 15:06, so all
+  four had to be killed and relaunched — readiness had been inferred from green tests instead of
+  waiting on the owning agent's report.
+- **A brief carries the numbers the agent must reproduce.** A port that produces different numbers is
+  wrong, not the table it disagrees with. Two traps worth citing: a firing outcome from
+  `pipeline.harness.run_raw` is `outcome == "catch"`, never `"fail"` — checking for `"fail"` silently
+  scores every suite as clean — and `analyse_probes.load_arm` returns a dict, not a list.
+- **Agents report conclusions, not file dumps.** The lead relays what changed and what it means; it
+  does not restate the artifact.
+- **What the lead still does alone:** deciding the experiment, judging whether a result is real, and
+  talking to the user. Never delegate the interpretation.
+
 ## The rule that matters most
 
 **A failure must never silently become a value.** Six separate bugs here were the same shape: a
