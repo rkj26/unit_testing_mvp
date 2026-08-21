@@ -205,7 +205,7 @@ def write_from_plan_prompt(problem: Problem, plan: str, n_tests: int) -> str:
 
 
 _SINGLE_WORD_INFO_STRING = r"(?:[A-Za-z0-9_+#.-]*[ \t]*\r?\n)?"
-_FENCED_CODE = rf"```{_SINGLE_WORD_INFO_STRING}\s*(.*?)```"
+FENCED_CODE = rf"```{_SINGLE_WORD_INFO_STRING}\s*(.*?)```"
 _FENCED_JSON_ARRAY = rf"```{_SINGLE_WORD_INFO_STRING}\s*(\[.*?\])\s*```"
 
 
@@ -217,7 +217,7 @@ def _extract_code(completion: str) -> str:
     line silently, which is the failure direction this repo cannot afford; a multi-word info string
     is left in the block instead, where it fails loudly as a SyntaxError.
     """
-    blocks = re.findall(_FENCED_CODE, completion or "", re.DOTALL)
+    blocks = re.findall(FENCED_CODE, completion or "", re.DOTALL)
     if blocks:
         return max(blocks, key=len).strip()
     text = (completion or "").strip()
@@ -277,7 +277,39 @@ def _salvage_json_array(blob: str) -> list[Any] | None:
 
 
 _MIN_LINES_TO_READ_AS_ONE_PER_LINE = 2
-_STRUCTURAL_LINES = ("[", "]", "[]")
+STRUCTURAL_LINES = ("[", "]", "[]")
+
+
+def input_block(completion: str) -> str:
+    """The fenced block the inputs live in, or the whole text when the model wrote no fence.
+
+    Shared by the parser and by `audit.dropped_inputs`, so a diagnostic always looks at exactly the
+    text the parse looked at.
+    """
+    fenced = re.findall(FENCED_CODE, completion, re.DOTALL)
+    return max(fenced, key=len) if fenced else completion
+
+
+def read_input_lines(blob: str) -> list[dict[str, Any]]:
+    """Every candidate input line, with what it parsed to or why it did not parse.
+
+    The single place a line becomes a value. `_parse_one_per_line` builds the search space from
+    this and `audit.dropped_inputs` explains the failures from it, so an explanation can never
+    disagree with the parse it is explaining.
+
+    `ok` carries whether the line read, because `value` alone cannot: a line holding `null` parses
+    fine and to `None`, which is indistinguishable from a line that failed.
+    """
+    read: list[dict[str, Any]] = []
+    for number, raw in enumerate(blob.splitlines(), 1):
+        line = raw.strip().rstrip(",").strip()
+        if not line or line in STRUCTURAL_LINES:
+            continue
+        try:
+            read.append({"line": number, "text": line, "ok": True, "value": json.loads(line), "reason": ""})
+        except json.JSONDecodeError as error:
+            read.append({"line": number, "text": line, "ok": False, "value": None, "reason": error.msg})
+    return read
 
 
 def _parse_one_per_line(blob: str) -> tuple[list[Any] | None, int]:
@@ -289,18 +321,13 @@ def _parse_one_per_line(blob: str) -> tuple[list[Any] | None, int]:
     """
     items: list[Any] = []
     dropped = 0
-    for raw in blob.splitlines():
-        line = raw.strip().rstrip(",").strip()
-        if not line or line in _STRUCTURAL_LINES:
-            continue
-        try:
-            value = json.loads(line)
-        except json.JSONDecodeError:
+    for entry in read_input_lines(blob):
+        if not entry["ok"]:
             dropped += bool(items)
             continue
-        if isinstance(value, list):
+        if isinstance(entry["value"], list):
             return None, 0
-        items.append(value)
+        items.append(entry["value"])
     if len(items) < _MIN_LINES_TO_READ_AS_ONE_PER_LINE:
         return None, 0
     return items, dropped
@@ -309,20 +336,27 @@ def _parse_one_per_line(blob: str) -> tuple[list[Any] | None, int]:
 def parse_search_space(
     completion: str,
 ) -> tuple[list[Any] | None, str | None, bool]:
-    """Return (space, error, salvaged).
+    """Return (space, error, dropped).
 
     Two accepted shapes, tried in order: one JSON value per line, then a single JSON array.
 
-    `salvaged` is True when the parse recovered less than the model wrote — a line that failed after
-    the first good one, or an array cut to its leading complete elements. Not an error, since the
-    shortened space is still usable, but it lowers trigger reach and so must be visible. Prose after
-    the first input counts as dropped, which over-flags rather than under-flags.
+    `dropped` counts the inputs the model wrote that this parse could not read:
+
+        0     — everything the model wrote was read
+        n     — n inputs were lost, one per line, and the suite searched a smaller space than
+                it was asked for
+        None  — inputs were lost but HOW MANY IS NOT RECOVERABLE. A truncated JSON array is cut
+                to its leading complete elements, and nothing in the fragment says how many were
+                intended.
+
+    A shortened space is not an error, since it still runs, but it lowers trigger reach and is
+    the ceiling on everything downstream, so the magnitude travels rather than a bare flag.
+    Prose after the first input counts as dropped, which over-reports rather than under-reports.
     """
     text = (completion or "").strip()
-    fenced = re.findall(_FENCED_CODE, text, re.DOTALL)
-    per_line, dropped = _parse_one_per_line(max(fenced, key=len) if fenced else text)
+    per_line, dropped = _parse_one_per_line(input_block(text))
     if per_line:
-        return per_line, None, dropped > 0
+        return per_line, None, dropped
     fence = re.search(_FENCED_JSON_ARRAY, text, re.DOTALL)
     if fence:
         blob = fence.group(1)
@@ -333,19 +367,19 @@ def parse_search_space(
             text[start : end + 1] if start != -1 and end != -1 and start < end else None
         )
     if blob is None:
-        return None, "no JSON array found", False
+        return None, "no JSON array found", 0
     blob = blob.strip()
-    salvaged = False
+    dropped: int | None = 0
     try:
         arr = json.loads(blob)
     except Exception:
         arr = _salvage_json_array(blob)
-        salvaged = arr is not None
+        dropped = None if arr is not None else 0
         if arr is None:
-            return None, "JSON parse error (unsalvageable)", False
+            return None, "JSON parse error (unsalvageable)", 0
     if not isinstance(arr, list) or not arr:
-        return None, "search space is not a non-empty list", False
-    return arr, None, salvaged
+        return None, "search space is not a non-empty list", 0
+    return arr, None, dropped
 
 
 def _invalid(reason: str) -> dict[str, Any]:

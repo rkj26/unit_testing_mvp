@@ -1,0 +1,9 @@
+{
+ "pool": "apps_pool_hard10.json",
+ "seed": 300,
+ "n_train": 2,
+ "n_test": 1,
+ "train": ["3945", "3949"],
+ "test": ["3931"],
+ "note": "smoke only: 3 tasks x 2 candidates, for exercising flags and the audit accessors"
+}

@@ -1,8 +1,7 @@
-"""Tests for architectural components: RefinementLoop, AdditiveSearchComposition, and Backend protocol."""
+"""Tests for architectural components: AdditiveSearchComposition and the Backend protocol."""
 
 from __future__ import annotations
 
-from pipeline.authoring import RefinementLoop
 from pipeline.backends import get_backend
 from pipeline.schema import Backend
 from pipeline.search import (
@@ -37,6 +36,3 @@ def test_backend_protocol_validation():
     assert apps_backend.name == "apps"
 
 
-def test_refinement_loop_init():
-    loop = RefinementLoop(max_turns=3)
-    assert loop.max_turns == 3

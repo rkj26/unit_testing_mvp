@@ -25,9 +25,19 @@ TM = "tm"
 MAX_CUT = 12
 
 
-def load_arm(run_id: str) -> dict[str, dict[str, Any]]:
+def load_arm(run_id: str, run_index: int = 0) -> dict[str, dict[str, Any]]:
+    """One repetition of a run, keyed by candidate.
+
+    A run with `--runs N` holds N verdicts per candidate. Keying them all by `candidate_id` would
+    keep whichever repetition came last and silently discard the rest, so the repetition is chosen
+    here and named in the result rather than left to dictionary order.
+    """
     probe = json.loads(Path(f"runs/{run_id}/probe.json").read_text(encoding="utf-8"))
-    return {verdict["candidate_id"]: verdict for verdict in probe["verdicts"]}
+    of_run = [v for v in probe["verdicts"] if v.get("run", 0) == run_index]
+    if not of_run:
+        available = sorted({v.get("run", 0) for v in probe["verdicts"]})
+        raise KeyError(f"runs/{run_id} has no repetition {run_index}; it has {available}")
+    return {verdict["candidate_id"]: verdict for verdict in of_run}
 
 
 def pbt_score(verdict: dict[str, Any]) -> int:

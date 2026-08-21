@@ -252,7 +252,7 @@ class TestOneInputPerLineIsAcceptedIfAModelWritesIt:
 
     def test_a_fenced_line_per_input_list_is_read(self):
         completion = 'Here they are:\n```json\n{"n": 1}\n{"n": 2}\n```'
-        assert pbt.parse_search_space(completion) == ([{"n": 1}, {"n": 2}], None, False)
+        assert pbt.parse_search_space(completion) == ([{"n": 1}, {"n": 2}], None, 0)
 
     def test_stdio_inputs_arrive_as_one_json_string_per_line(self):
         assert pbt.parse_search_space('"2\\n0 0\\n"\n"1\\n5\\n"') == (
@@ -262,11 +262,11 @@ class TestOneInputPerLineIsAcceptedIfAModelWritesIt:
         )
 
     def test_a_cut_off_last_line_costs_only_that_line_and_is_flagged(self):
-        space, error, salvaged = pbt.parse_search_space(
+        space, error, dropped = pbt.parse_search_space(
             '{"n": 1}\n{"n": 2}\n{"n": 3}\n{"n": 4, "xs": [0,'
         )
         assert space == [{"n": 1}, {"n": 2}, {"n": 3}]
-        assert error is None and salvaged is True
+        assert error is None and dropped > 0
 
     def test_trailing_commas_are_tolerated(self):
         assert pbt.parse_search_space('{"n": 1},\n{"n": 2},') == (
@@ -278,30 +278,31 @@ class TestOneInputPerLineIsAcceptedIfAModelWritesIt:
     def test_a_truncated_pretty_printed_array_keeps_its_complete_elements(self):
         """Not the requested shape, but line-per-value rescues it for free: each element sits on
         its own line, so only the half-written one is lost."""
-        space, error, salvaged = pbt.parse_search_space(
+        space, error, dropped = pbt.parse_search_space(
             '[\n  {"n": 1},\n  {"n": 2},\n  {"n": 3'
         )
         assert space == [{"n": 1}, {"n": 2}]
-        assert error is None and salvaged is True
+        assert error is None and dropped > 0
 
     def test_a_wrapper_object_is_not_mistaken_for_a_one_input_space(self):
         """One parseable line is not evidence of this shape. `{"cases": [1, 2]}` is a wrapper, and
         reading it as a single input would give a space of one meaningless element."""
-        assert pbt.parse_search_space('{"cases": [1, 2]}') == ([1, 2], None, False)
+        assert pbt.parse_search_space('{"cases": [1, 2]}') == ([1, 2], None, 0)
 
     def test_a_single_line_array_still_goes_down_the_array_path(self):
-        assert pbt.parse_search_space("[1, 2, 3]") == ([1, 2, 3], None, False)
+        assert pbt.parse_search_space("[1, 2, 3]") == ([1, 2, 3], None, 0)
 
 
 class TestParseSearchSpace:
     def test_bug_prose_between_two_arrays_truncates_to_the_first_array_and_says_so(self):
         """The widest-span scan grabs `[1,2] middle [3,4]`, which does not parse, so salvage keeps
-        the leading elements and drops the rest. Still a truncation — but a flagged one, which is
-        the whole of item 37: a shortened space lowers trigger reach and used to read as clean."""
+        the leading elements and drops the rest. Still a truncation, and it must not read as clean —
+        a shortened space lowers trigger reach. `None` rather than a count: nothing in the fragment
+        says how many elements were intended."""
         assert pbt.parse_search_space("prefix [1,2] middle [3,4] suffix") == (
             [1, 2],
             None,
-            True,
+            None,
         )
 
     def test_bug_truncated_array_without_a_closing_bracket_never_reaches_salvage(self):
@@ -312,17 +313,17 @@ class TestParseSearchSpace:
         )
 
     def test_salvage_only_fires_when_a_closing_bracket_is_present(self):
-        assert pbt.parse_search_space("[1, 2, nope, 4]") == ([1, 2], None, True)
+        assert pbt.parse_search_space("[1, 2, nope, 4]") == ([1, 2], None, None)
 
     def test_a_salvaged_space_is_flagged_so_a_shortened_space_is_not_read_as_a_clean_parse(
         self,
     ):
         """A truncated array yields a SHORTER search space, which lowers trigger reach, which
         lowers catch rate. Reported as a clean parse, that drop is invisible in the artifact."""
-        _, error, salvaged = pbt.parse_search_space('```json\n[{"a": 1}, {"a": 2}, {"a"]```')
-        assert salvaged is True
+        _, error, dropped = pbt.parse_search_space('```json\n[{"a": 1}, {"a": 2}, {"a"]```')
+        assert dropped is None
         assert error is None
-        assert pbt.parse_search_space("[1, 2, 3]")[2] is False
+        assert pbt.parse_search_space("[1, 2, 3]")[2] == 0
 
     def test_wholly_unsalvageable_array_reports_a_parse_error(self):
         assert pbt.parse_search_space("[nope, alsonope]") == (
@@ -332,8 +333,8 @@ class TestParseSearchSpace:
         )
 
     def test_bug_array_wrapped_in_a_json_string_or_object_is_unwrapped_and_accepted(self):
-        assert pbt.parse_search_space('"[1, 2]"') == ([1, 2], None, False)
-        assert pbt.parse_search_space('{"cases": [1, 2]}') == ([1, 2], None, False)
+        assert pbt.parse_search_space('"[1, 2]"') == ([1, 2], None, 0)
+        assert pbt.parse_search_space('{"cases": [1, 2]}') == ([1, 2], None, 0)
 
     def test_empty_array_reports_not_a_non_empty_list(self):
         assert pbt.parse_search_space("[]") == (
@@ -344,7 +345,7 @@ class TestParseSearchSpace:
 
     def test_bug_first_fenced_array_wins_unlike_longest_wins_code_extraction(self):
         completion = "```json\n[1,2]\n```\n```json\n[3,4,5,6,7]\n```"
-        assert pbt.parse_search_space(completion) == ([1, 2], None, False)
+        assert pbt.parse_search_space(completion) == ([1, 2], None, 0)
 
     def test_any_tagged_fence_beats_a_stray_bracket_in_the_surrounding_prose(self):
         for tag in ("json", "javascript", "python", ""):

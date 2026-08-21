@@ -199,14 +199,20 @@ def load_runs(run_id: str) -> list[list[dict[str, Any]]]:
     paths = sorted(Path(f"runs/{run_id}").glob("run_*/rows.json"))
     if paths:
         return [json.loads(p.read_text(encoding="utf-8")) for p in paths]
-    probe = Path(f"runs/{run_id}/probe.json")
-    if probe.exists():
-        return [rows_from_probe(json.loads(probe.read_text(encoding="utf-8")))]
+    probe_path = Path(f"runs/{run_id}/probe.json")
+    if probe_path.exists():
+        probe = json.loads(probe_path.read_text(encoding="utf-8"))
+        repetitions = sorted({v.get("run", 0) for v in probe["verdicts"]})
+        return [rows_from_probe(probe, run_index) for run_index in repetitions]
     raise FileNotFoundError(f"no run_*/rows.json or probe.json under runs/{run_id}")
 
 
-def rows_from_probe(probe: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """`audit_probe.py`'s artifact in the row shape this game reads.
+def rows_from_probe(probe: Mapping[str, Any], run_index: int = 0) -> list[dict[str, Any]]:
+    """One repetition of `audit_probe.py`'s artifact, in the row shape this game reads.
+
+    A run with `--runs N` holds N verdicts per candidate and `simulate` keys rows by candidate, so
+    passing all of them would keep whichever came last. `load_runs` splits them into one row list
+    per repetition instead, which is exactly the shape `sweep` needs for a std and an interval.
 
     `pbt` scores the count of tests that fired, which is the graded signal a block threshold acts
     on; `tm` scores the 1-10 rating on [0,1]. An arm that reached no verdict scores `None`, so
@@ -220,6 +226,8 @@ def rows_from_probe(probe: Mapping[str, Any]) -> list[dict[str, Any]]:
     """
     rows = []
     for verdict in probe["verdicts"]:
+        if verdict.get("run", 0) != run_index:
+            continue
         is_an_attack = str(verdict["label"]).startswith("attack_")
         rows.append(
             {

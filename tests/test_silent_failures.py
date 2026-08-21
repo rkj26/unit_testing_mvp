@@ -695,7 +695,7 @@ class TestSearchSpaceFenceMatchesTheCodeFence:
         ],
     )
     def test_a_tagged_array_is_read_from_the_fence(self, completion):
-        assert pbt.parse_search_space(completion) == ([1, 2], None, False)
+        assert pbt.parse_search_space(completion) == ([1, 2], None, 0)
 
 
 WIDE_SPACE = [{"a": 1}, {"a": 2}, {"a": 3}]

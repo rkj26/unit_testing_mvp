@@ -36,6 +36,35 @@ for a project whose claim is about model capability.
 - **No abstraction with one implementation.** A Protocol with a single implementation that forwards
   to a function is ceremony; we deleted one that was threaded through eight signatures.
 
+## Before writing a loader, adapter or parser
+
+**Search `pipeline/` for the abstraction before writing the second one.** If two functions would
+answer the same question, there is one function.
+
+`probe.py` wrote an APPS-only loader while `schema.Backend` already normalised both benchmarks. The
+cost was not the duplicated lines — it was that BigCodeBench stopped being a flag and became a
+refactor, discovered only when someone asked for it.
+
+**"Deliberately outside `pipeline/`" is a decision with a bill.** Sometimes right; write down what
+it will cost, in the module docstring, so the bill arrives visibly rather than as a surprise.
+
+## Where a change goes
+
+**A new measurement is a flag on the harness, never a new script.** The repo accumulated
+`regrade.py`, `reaggregate.py`, `sweep_table.py`, `poll.py`, `differential_sim.py` and
+`solve_rate.py` — six entry points that each re-derived a number the pipeline already computed, then
+drifted from it. They were deleted on 2026-08-18 and do not come back.
+
+- A new arm is a value in an existing `choices=` list (`--resolve`, `--code`), not a new entry point.
+- A new score is a field on the artifact, written by the code that already writes the artifact.
+- A rescoring reads `runs/<id>/` and writes back into `runs/<id>/`, as a flag on the tool that made
+  the run — never as a sibling script that reimplements the read.
+- If two entry points would compute the same number, there is one entry point.
+
+The test: could a later run need this? Then it is a flag. Only a genuinely single-use diagnostic —
+one question, one answer, discarded the same day — belongs outside the harness, and it goes in a
+notebook, not a `.py` at the repo root.
+
 ## Running an experiment
 
 **Write the entry before the run, not after.** Every experiment gets an entry in the current
@@ -80,16 +109,60 @@ State the headline metric in the same units across entries so the log reads as a
 
 ```
 .venv/bin/python -m pytest -q                                   # must stay green
-.venv/bin/python run.py --domain mock --mock --runs 2 --run-id smoke   # values must not move
+.venv/bin/python probe.py --run-id smoke3 --pool apps_pool_hard10.json \
+    --split splits/smoke_3.json --runs 2 --tests 3 --inputs 10   # 24 calls, ~4 min
 ```
 
-Mock output is deterministic. If a refactor changes a number, that is a bug until proven otherwise.
+The old `run.py --domain mock --mock` determinism check went with the orchestrator it belonged to.
+The smoke run above is the replacement: it is cheap, it exercises both model paths and docker, and
+`--run-id` resumes it. It is not deterministic, so compare shapes — every candidate reaching a
+verdict, suites written under `run_0/` and `run_1/` — not exact numbers.
 
-## Running experiments
+## Two modules, one experiment
 
+`probe.py` runs an arm and costs money. `audit.py` reads a finished run and cannot change one.
+Nothing in a notebook should import `probe` except to launch. See `DOCUMENTATION.md` for the full
+surface of both.
+
+## Launching a run
+
+- **Detached, always.** A run goes into tmux and writes to `runs/<run-id>/`:
+
+  ```
+  tmux new-session -d -s <run-id> '.venv/bin/python -u audit_probe.py --run-id <run-id> ... 2>&1 | tee runs/<run-id>/console.log'
+  tmux capture-pane -pt <run-id> | tail -20     # check on it without attaching
+  ```
+
+  `-u` is not optional. Piped into `tee`, Python block-buffers stdout and the log stays empty for
+  the whole run, which reads exactly like a hung job.
+
+  Nothing that takes more than a minute runs in a foreground shell, an agent tool call, or a
+  notebook cell. All three die with their session and take the run with them.
 - `--run-id` resumes. A killed run costs at most one in-flight call.
+- The machine must not sleep mid-run (`run.py` holds a `caffeinate` assertion on darwin). tmux does
+  not prevent sleep; `caffeinate` does. Both are needed.
 - Diagnose in this order: `status.json` heartbeat → artifact counts → the log **last**. The log lied
   to us for an hour once; the artifacts never have.
-- The machine must not sleep mid-run (`run.py` holds a `caffeinate` assertion on darwin).
 - Attacks written by a human or by Claude are a **different distribution** from attacks sampled from
   an untrusted policy. Never pool them; they answer different questions.
+
+## Notebooks
+
+A notebook **reads artifacts; it never produces a number.** Every figure in it loads from
+`runs/<id>/*.json` and plots. None is computed in a cell.
+
+This follows from verifying against the artifact. A number computed in a cell has no run id, no
+config, and no record of which cells ran in what order, so it cannot be re-derived and cannot be
+cited. Out-of-order execution has already cost this project one retracted correlation.
+
+- **Explore in the notebook; graduate what gets reported.** Pivots, groupings and plots belong in
+  cells, where they are fastest. The moment a number goes on a slide or into a report it moves into
+  `analyse_probes.py` and is *called* from the cell, so it has a name, a test, and can be recomputed
+  from a run id by someone who never opens this notebook. Statistics always go through
+  scipy/sklearn — hand-rolling them here is how a partial-AUC figure was silently wrong once already.
+- `%load_ext autoreload` in the setup cell, so editing the harness needs no kernel restart. Friction
+  is not a reason to redefine a metric in a cell.
+- A notebook may **launch** a run but never **hosts** one. `pipeline/launch.py` starts it detached in
+  tmux and returns in milliseconds. A cell that blocks on the run dies with the kernel and takes the
+  run with it, so no `subprocess.run`, no `await`, no `asyncio.run` of an experiment in a cell.
+- Restart-and-run-all must reproduce the whole notebook, or it is not evidence.

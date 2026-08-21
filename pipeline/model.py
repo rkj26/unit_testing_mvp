@@ -47,6 +47,20 @@ _MOCK: dict[str, str] = {
 }
 
 
+def _reasoning(out: Any) -> str:
+    """The provider's thinking, if it sent any.
+
+    `ModelOutput.completion` returns the answer text alone; on a reasoning model the thinking
+    arrives as `ContentReasoning` blocks in the message content and is dropped there.
+    """
+    content = getattr(getattr(out, "message", None), "content", None)
+    if not isinstance(content, list):
+        return ""
+    return "\n".join(
+        part.reasoning for part in content if getattr(part, "type", "") == "reasoning"
+    )
+
+
 class TrustedModel:
     """Thin async wrapper over one inspect model: ``await model.complete(prompt, kind) -> str``,
     or ``await model.completion(prompt, kind) -> Completion`` when the stop reason matters."""
@@ -99,20 +113,28 @@ class TrustedModel:
     async def complete(self, prompt: str, kind: str) -> str:
         return (await self.completion(prompt, kind)).text
 
-    async def completion(self, prompt: str, kind: str) -> Completion:
-        """The same single call as `complete`, keeping the provider's stop reason attached."""
+    async def completion(self, prompt: str, kind: str, schema: Any = None) -> Completion:
+        """The same single call as `complete`, keeping the provider's stop reason attached.
+
+        `schema` is an `inspect_ai.model.ResponseSchema`. When given, the provider is required to
+        return JSON matching it, so a malformed answer becomes an API-level failure rather than a
+        parse this side has to cope with.
+        """
         if kind not in KINDS:
             raise ValueError(f"unknown model-call kind: {kind}")
         if self._mock:
             return Completion(_MOCK[kind], MOCK_STOP_REASON)
-        from inspect_ai.model import ChatMessageUser
+        from inspect_ai.model import ChatMessageUser, GenerateConfig
 
+        config = GenerateConfig(response_schema=schema) if schema is not None else None
         out = await self._resolve_inspect().generate(
-            [ChatMessageUser(content=prompt)], cache=self.runtime.inspect_cache
+            [ChatMessageUser(content=prompt)], cache=self.runtime.inspect_cache, config=config
         )
         if out.empty:
             return Completion("", EMPTY_RESPONSE_STOP_REASON)
-        return Completion(out.completion or out.message.text, out.stop_reason)
+        return Completion(
+            out.completion or out.message.text, out.stop_reason, reasoning=_reasoning(out)
+        )
 
 
 def resolve(runtime: ModelRuntime) -> TrustedModel:

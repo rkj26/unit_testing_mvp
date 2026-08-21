@@ -33,11 +33,17 @@ class Completion:
     `unknown` is set only when the call never returned, and carries WHY — a provider 500, a dead
     socket and a content filter all end up here and used to be indistinguishable. It stays out of
     `stop_reason`, which is one word by contract.
+
+    `reasoning` is whatever the provider returned alongside the answer. `text` is the answer only,
+    so on a reasoning model the thinking that chose the inputs is otherwise discarded at the point
+    it would explain the most: how a suite decided what to search. Empty when the provider sends
+    none, which is not the same as the model not reasoning.
     """
 
     text: str = ""
     stop_reason: str = NEVER_RETURNED
     unknown: Unknown | None = None
+    reasoning: str = ""
 
 
 NO_COMPLETION = Completion()
