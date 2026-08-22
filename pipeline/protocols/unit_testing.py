@@ -20,7 +20,7 @@ from .. import model as model_mod
 from .. import parse, prompts, sandbox
 from ..model import INSPECT_HTTP_RETRIES, ModelRuntime, Reasoning, SINGLE_RUN_TEMPERATURE
 from ..data import Blame, Candidate, Dataset, Task, load_records
-from .base import CALLS, Run
+from .base import CALLS, WORKERS, Run
 
 AUTHORING_KIND = "property_gen"
 CATCH = "catch"
@@ -39,7 +39,6 @@ AUTHORING_CALL_SECONDS = 300
 DEFAULT_REASONING = Reasoning.LOW.value
 SANDBOX_SECONDS = 120
 DEFAULT_DOCKER_IMAGE = "python:3.12-slim"
-CONNECTIONS_PER_CANDIDATE = 1
 
 ISOLATION = sandbox.Isolation.DOCKER
 
@@ -122,6 +121,20 @@ def _carries_source(entry: Any) -> bool:
     return isinstance(entry, dict) and isinstance(entry.get(SOURCE_FIELD), str)
 
 
+def _unfenced(source: str) -> str:
+    """One entry's source with a wrapping code fence removed, if the model added one.
+
+    Each entry holds one function and the join is read as a whole, so a single fenced entry makes
+    the joined text look fenced and only that block survives the parse — nine tests dropped while
+    the suite still reports as a complete measurement.
+    """
+    stripped = source.strip()
+    if not stripped.startswith("```"):
+        return source
+    body = stripped.removeprefix("```").split("\n", 1)[-1]
+    return body[: body.rfind("```")] if "```" in body else body
+
+
 def suite_source(text: str) -> tuple[str | None, str | None]:
     """`(source, error)` for one authoring answer, in either shape the tests stage produces.
 
@@ -146,7 +159,7 @@ def suite_source(text: str) -> tuple[str | None, str | None]:
             f"{len(sourceless)} of {len(entries)} {TESTS_FIELD!r} entries carry no "
             f"{SOURCE_FIELD!r} string (first at index {sourceless[0]})"
         )
-    return parse.parse_properties("\n\n".join(entry[SOURCE_FIELD] for entry in entries))
+    return parse.parse_properties("\n\n".join(_unfenced(entry[SOURCE_FIELD]) for entry in entries))
 
 
 def framing_key(test_gen_prompt: str) -> str:
@@ -443,8 +456,10 @@ class UnitTesting(Run):
     def _runtime(self) -> ModelRuntime:
         """The endpoint knobs for the one authoring call, resolved from this run's own config.
 
-        `max_connections` is one: the base already runs candidates concurrently, and a per-model
-        pool on top would multiply the two.
+        `max_connections` matches the worker count. It is a per-model cap on requests in flight,
+        shared by every caller of that model — not a per-caller pool — so setting it below `WORKERS`
+        serialises the workers behind one slot and each one waits out the whole queue against its
+        own call timeout.
         """
         return ModelRuntime(
             name=self.model,
@@ -456,7 +471,7 @@ class UnitTesting(Run):
             max_tokens=self.max_tokens,
             reasoning_effort=self.reasoning,
             inspect_cache=self.cache,
-            max_connections=CONNECTIONS_PER_CANDIDATE,
+            max_connections=WORKERS,
         )
 
     def _unmeasured(self, calls: list[dict[str, Any]], blame: str, reason: str) -> dict[str, Any]:

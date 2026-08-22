@@ -111,6 +111,13 @@ changes the experiment, not the code.
 asked for would otherwise have them read as the search space, so a caller must cut the python block
 out first — `prompts.input_section` is that cut, and dropping it silently swaps tests in for inputs.
 
+`_extract_code`, which feeds `parse_program` and `parse_properties`, reads the **last python-tagged**
+block instead. Two different rules because the two answers fail differently: inputs are one big
+block and the risk is reading a *different* block, while code is many small blocks and the longest
+is the brute-force reference or the commented-out outline an answer shows before the real solution.
+Both parse, so length picks the wrong one and nothing downstream can tell. Where an answer revises
+itself, the later block is the one it means.
+
 A fence's language tag is matched as **one word terminated by a line break**, never as "everything up
 to the first newline". A model that opens a fence and starts code on the same line would otherwise
 lose that line silently; a multi-word info string is left in the block instead, where it fails loudly

@@ -14,7 +14,7 @@ THE INPUTS.
     {"values": [0]}             the shortest legal list, one element at the bottom of its range
     {"values": [7, 7, 7]}       every element equal, so the maximum is tied
 
-That is exactly the form each one must be returned in: one complete call's keyword arguments as an object keyed by parameter name, here the single parameter `values`. The label beside each is what its `targets` says.
+That is exactly the form each one must be returned in: one complete call's keyword arguments as an object keyed by parameter name, here the single parameter `values`. The label beside each is shown here to say what the input is for; in your answer those labels go in the RATIONALE, one numbered line each, and the block holds the bare values and nothing else.
 
 Every list is non-empty and every element lies inside 0 to 1000, so a correct solution I have never seen runs on all five and returns a well-defined answer. None holds more than four values: the point is to land on the condition, not to be large.
 

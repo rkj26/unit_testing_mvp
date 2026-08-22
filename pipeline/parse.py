@@ -15,18 +15,26 @@ from typing import Any
 
 _SINGLE_WORD_INFO_STRING = r"(?:[A-Za-z0-9_+#.-]*[ \t]*\r?\n)?"
 FENCED_CODE = rf"```{_SINGLE_WORD_INFO_STRING}\s*(.*?)```"
+_FENCED_TAGGED = r"```(?:([A-Za-z0-9_+#.-]*)[ \t]*\r?\n)?\s*(.*?)```"
 _FENCED_JSON_ARRAY = rf"```{_SINGLE_WORD_INFO_STRING}\s*(\[.*?\])\s*```"
+PYTHON_INFO_STRINGS = ("python", "py", "python3")
 
 
 def _extract_code(completion: str) -> str:
-    """The longest fenced block, with any single-word language tag dropped.
+    """The last python-tagged fenced block, with any single-word language tag dropped.
+
+    Tag before length, and last before first. Length picks whichever block is biggest, which is the
+    brute-force reference an answer shows before its real solution, or a commented-out outline; both
+    parse, so nothing downstream reports the wrong block. Where an answer revises itself the later
+    block is the one it means, and an untagged block is prose until proven otherwise.
 
     A multi-word info string is left in the block, where it surfaces as a SyntaxError rather than
     silently eating the first line of code.
     """
-    blocks = re.findall(FENCED_CODE, completion or "", re.DOTALL)
+    blocks = re.findall(_FENCED_TAGGED, completion or "", re.DOTALL)
     if blocks:
-        return max(blocks, key=len).strip()
+        python = [body for tag, body in blocks if tag.lower() in PYTHON_INFO_STRINGS]
+        return (python or [body for _, body in blocks])[-1].strip()
     text = (completion or "").strip()
     return text if "def " in text else ""
 
@@ -36,15 +44,19 @@ def parse_program(completion: str) -> tuple[str | None, str | None]:
 
     Unlike `parse_properties` this requires no ``prop_``/``test_`` function — a solver answers with
     a script that reads stdin. The source must still parse, so a truncated answer is an error rather
-    than something a sandbox discovers later.
+    than something a sandbox discovers later, and it must contain a statement: a block of comments
+    parses to an empty body and would otherwise be recorded as a solution that reads nothing and
+    prints nothing.
     """
     source = _extract_code(completion)
     if not source:
         return None, "no fenced code block in the completion"
     try:
-        ast.parse(source)
+        tree = ast.parse(source)
     except SyntaxError as broken:
         return None, f"the program does not parse: {broken}"
+    if not tree.body:
+        return None, "the block parses but defines and does nothing — comments only"
     return source, None
 
 

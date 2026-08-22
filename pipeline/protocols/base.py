@@ -27,6 +27,8 @@ from pathlib import Path
 from threading import Lock
 from typing import Any, ClassVar, Mapping, Sequence
 
+from dotenv import load_dotenv
+
 from .. import launch as launch_mod
 from ..data import (
     CONFIG_FILE,
@@ -548,7 +550,12 @@ def main(config_path: str | Path) -> int:
     Imports the package first, so `REGISTRY` holds every protocol before the class is resolved from
     the config's `protocol` name alone. Returns zero whenever the loop completed; records carrying
     a failure are results, not a crash.
+
+    Loads `.env` here because a detached tmux session inherits the environment of the server, which
+    was started before any of these were exported. The credentials have to arrive with the process
+    that makes the call, not with the shell that launched it.
     """
+    load_dotenv(REPO_ROOT / ".env")
     importlib.import_module(PROTOCOLS_PACKAGE)
     document = json.loads(Path(config_path).read_text(encoding="utf-8"))
     run = Run.from_config(document)
