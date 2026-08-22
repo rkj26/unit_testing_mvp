@@ -15,7 +15,6 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.config import Settings
 
 
 @pytest.fixture(autouse=True)
@@ -34,15 +33,3 @@ def restore_environment():
     os.environ.update(snapshot)
 
 
-@pytest.fixture
-def settings_from_cli():
-    """Build Settings from an explicit argv list, bypassing pytest's argv and the repo `.env`.
-
-    `Settings.model_config` sets `cli_parse_args=True`, so a bare `Settings()` under pytest parses
-    pytest's own arguments and exits.
-    """
-
-    def build(args: list[str]) -> Settings:
-        return Settings(_cli_parse_args=args, _env_file=None)
-
-    return build
