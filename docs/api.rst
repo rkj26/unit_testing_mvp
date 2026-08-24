@@ -42,6 +42,16 @@ drifted until three published premises were wrong.
 .. automodule:: pipeline.protocols.unit_testing
    :members:
 
+``pipeline.protocols.solve`` — the trusted model's own attempt
+----------------------------------------------------------------
+
+The only protocol that never sees a candidate: it answers the statement and nothing else, so its
+program owes nothing to the submission it is later compared against. Two uses downstream — the
+defer-to-trusted baseline, and the oracle the soundness filter judges a suite against.
+
+.. automodule:: pipeline.protocols.solve
+   :members:
+
 ``pipeline.model`` — one runtime in, one completion out
 ---------------------------------------------------------
 

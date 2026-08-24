@@ -24,6 +24,31 @@ The first three were timed on the cells §3 and §5 replace. So *expensive* and 
 kernel* are not the same axis, and only the second one buys a detached process. If a measurement cell
 ever grows past ~10 minutes, reach for `pipeline.launch.launch`; none is close.
 
+## The first cell chdirs to the repo root, and that is load-bearing
+
+`RUNS_DIR = Path("runs")` and the dataset path are both **CWD-relative**. Jupyter starts a notebook
+in its own directory, so a notebook that only puts the repo on `sys.path` resolves `runs/` to
+`notebooks/runs/` — a second, empty run tree. `pending()` then finds no records, and every `.run()`
+in the notebook re-pays in full for a run that already finished. That happened: a completed
+`runs/tm-22` (100/100) was re-scored from zero out of `notebooks/runs/tm-22`, and it was 90 calls in
+before anyone noticed, because a duplicate run looks exactly like a first one.
+
+Patching the dataset to `../data/apps_hard.json` is the trap, not the fix — it makes the load work
+from `notebooks/` and leaves `runs/` pointing at the wrong tree, so the symptom disappears and the
+cost does not.
+
+```python
+REPO = Path.cwd().parent if Path.cwd().name == "notebooks" else Path.cwd()
+sys.path.insert(0, str(REPO))
+os.chdir(REPO)
+assert Path.cwd() == REPO and (REPO / "data").is_dir(), f"not at the repo root: {Path.cwd()}"
+```
+
+The assert is there because the failure is silent in both directions: wrong tree, and a reordered
+cell putting the chdir after the first `Run`. Anchoring `RUNS_DIR` to the repo instead would break
+`tests/conftest.py::isolate_working_directory`, which relies on CWD-relative paths to keep test
+artifacts in `tmp_path`.
+
 ## What still holds
 
 - **Restart-and-run-all must reproduce the notebook, or it is not evidence.** A number is citable

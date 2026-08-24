@@ -7,7 +7,13 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 project = "unit-testing MVP"
 author = "unit_testing_mvp"
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "sphinx.ext.viewcode", "myst_parser"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "myst_parser",
+    "sphinxcontrib.mermaid",
+]
 
 # the pipeline imports the model stack; autodoc only needs the signatures and docstrings.
 autodoc_mock_imports = ["inspect_ai", "control_arena", "dotenv", "azure"]

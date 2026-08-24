@@ -18,7 +18,7 @@ outside it has to remember what an arm meant. Nothing else here has a `__main__`
 | `launch.py` | start a run detached in tmux and prove it started |
 | `prompts.py` | every prompt template, and the one renderer that fills them |
 | `parse.py` | one completion into the two things a protocol can run: test source, trigger inputs |
-| `protocols/` | `Run`, the four protocols, `main`. Its own `AGENTS.md` is the rulebook for adding one |
+| `protocols/` | `Run`, the five protocols, `main`. Its own `AGENTS.md` is the rulebook for adding one |
 
 ---
 

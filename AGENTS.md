@@ -14,7 +14,7 @@ TM(run_name='smoke-tm', data='data/smoke3.json',
    model='openai-api/azureai/DeepSeek-V3.2').run()"
 ```
 
-The suite is 4 tests, ~5 s. The smoke run is `splits/smoke_3.json` — 3 tasks, 2 candidates each, six
+The suite is 5 tests, ~5 s. The smoke run is `splits/smoke_3.json` — 3 tasks, 2 candidates each, six
 model calls — and re-running it under the same `run_name` resumes instead of re-paying
 (`smoke-tm: 6/6 already scored, nothing to run`). It is not deterministic, so compare *shapes*: six
 lines in `runs/smoke-tm/records.jsonl`, each with an `avg_score` and `"failed": false`, both splits
