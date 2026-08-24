@@ -1,13 +1,13 @@
 # `tests/`
 
-Run with `.venv/bin/python -m pytest -q` — **4 passed**, ~5 s. `pytest.ini` sets `pythonpath = .`
+Run with `.venv/bin/python -m pytest -q` — **5 passed**, ~5 s. `pytest.ini` sets `pythonpath = .`
 and `testpaths = tests`, so imports are the same here as at the repo root.
 
-## Four tests, and why not four hundred
+## Five tests, and why not four hundred
 
 `test_end_to_end.py` is the whole suite: one test per protocol — `TM`, `TriggerSearch`,
-`UnitTesting` — plus `test_a_real_detached_run_rebuilds_itself_in_the_subprocess`, which drives the
-real `Run.run()` on `mockllm/model` and is the only coverage `launch.py` has. Metrics live in
+`UnitTesting`, `TrustedSolve` — plus `test_a_real_detached_run_rebuilds_itself_in_the_subprocess`,
+which drives the real `Run.run()` on `mockllm/model` and is the only coverage `launch.py` has. Metrics live in
 `notebooks/apps.ipynb` cells and nothing here touches them.
 
 The per-module suite this replaced was **484 tests, green**, while `UnitTesting` could not parse a
@@ -23,6 +23,11 @@ The policy that follows is about where a double is installed, not how many tests
 - **Fake at the process boundary, never between two of our own modules.** The scripted `Client`
   replaces `resolve` and `Script.run_raw` replaces `sandbox.run_raw` — the provider and Docker.
   Everything from the rendered prompt to the record on disk is the real code.
+- **Where the fixture would be asserting against itself, replace Docker and keep the harness.**
+  `TrustedSolve`'s property is the oracle — an expected-output table we build, embed in the harness
+  source and key back into inside the container — so a canned grid would decide every outcome the
+  test then checks. `Script.run_raw` runs that one grid for real under `Isolation.SUBPROCESS` and
+  records the isolation it was *asked* for, which is what pins Docker on the real path.
 - **Write a canned answer in the shape the provider returns, not the shape the parser wants.**
   `suite_answer()` is the schema object; `trigger_answer()` is one JSON value per line. A fixture
   written backwards from the parser cannot fail the way the run failed.

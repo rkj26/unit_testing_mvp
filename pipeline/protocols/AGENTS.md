@@ -39,7 +39,7 @@ every subprocess and out of `Run.attach`.
 
 ```
 .venv/bin/python -c "import pipeline.protocols as p; print(sorted(p.REGISTRY))"
-['echo', 'tm', 'trigger_search', 'unit_testing']
+['echo', 'tm', 'trigger_search', 'trusted_solve', 'unit_testing']
 ```
 
 ## `run_raw` fires on `outcome == "catch"`, never `"fail"`
@@ -87,6 +87,29 @@ scale, which is how *"the monitor never answered"* came to be read as *"the moni
 and an empty `fired` on a suite that was never written is indistinguishable from a suite that ran
 and found nothing.
 
+## A protocol runs at the same reasoning effort as the protocol it is compared against
+
+`DEFAULT_REASONING` is `low` in every protocol here, and a new one that wants more has to say why in
+its docstring — because the number it produces will be put in a table next to `TM`, and a protocol
+given more thinking is not a better protocol, it is a different experiment.
+
+`Ablation` shipped at `medium` for no recorded reason and it cost a run. Medium's attempt bound is
+300 s and the task is an *edit* — delete the branch the monitor named, list eight inputs — so the
+model spent a median **26k reasoning characters returning a 1k-character answer**, and 18 of 19
+infra failures were that call hitting its own timeout. `UnitTesting` writes ten complete test
+functions at `low` with **zero** reasoning characters; the authoring task is harder than the editing
+task and gets less budget.
+
+The cheap check before a run, and after:
+
+```python
+[len(c["reasoning"] or "") for r in run.get_records() if not r["failed"] for c in r["calls"]]
+```
+
+A protocol whose reasoning length is an order of magnitude off its neighbours is misconfigured, not
+thorough. Importing the constant — `from .tm import DEFAULT_REASONING`, as `monitor_with_tests` does
+— pins the parity in code rather than in a reviewer's memory.
+
 ## `runs > 1` forces the cache off, and only the seed varies
 
 The inspect cache key includes the seed. Constructing with `runs > 1` resolves `cache` to `False`
@@ -99,6 +122,35 @@ Temperature is a no-op on the provider we use — `model.TEMPERATURE_REJECTING_P
 repetition from the next. Build one client per seed in `prepare`, since the seed is fixed into the
 `GenerateConfig` when the client resolves and one shared client sends every rep at the same seed.
 **Assert the repetitions actually differ before trusting an average.**
+
+### A BLIND protocol defaults the cache off, whatever `runs` is
+
+The rule above is about repetitions of one prompt. A blind protocol has the same problem *across
+candidates*: `TrustedSolve` renders the statement and nothing else, so both candidates of a task
+produce a byte-identical prompt at one seed, which is one cache key. Measured on a live run — 2
+calls, 1 cache entry written. The second attempt is then the first replayed, and `attempts_agree`
+is true by construction rather than by measurement.
+
+So `cache=None` resolves to `False` there, and the class docstring says why. Override the *default*
+only; `cache=True` asked for explicitly is still honoured, and `runs > 1, cache=True` still raises
+in the base. Any later protocol whose prompt does not carry the candidate inherits this, and the
+test that pins it asserts one prompt per **task** across two records rather than counting calls.
+
+## An oracle is written by us, and is calibrated against the answer key
+
+`run_raw` has no notion of an expected output, so a protocol that needs one ships it inside a
+property — `solve.matches_provided_source` builds a `{input: output}` table, embeds it as JSON
+inside a `repr`ed literal (never concatenated: one quote in a provided output turns the oracle into
+a `SyntaxError`, which arrives as every pair `prop_error`) and keys back into it in the container.
+A model may not write that property. It is the thing everything downstream is judged against, and a
+model that wrote it would be grading itself.
+
+**Calibrate it on the reference solutions before trusting a single number off it.** The answer key
+must score 1.0; where it does not, the oracle is wrong and every program it grades is marked down
+by the same amount. Comparing whole outputs with `str.strip()` scored the reference solutions
+49/50 tasks and 0.985 mean pair agreement on `data/apps_hard.json`, purely because APPS prints a
+trailing space after every value on a line; line-wise `rstrip` scores them 50/50 and 1.000. A
+correct trusted program was being recorded as one that cannot solve the task.
 
 ## `task.blind()` is what a prompt may see
 
@@ -157,6 +209,27 @@ with its own name.
 `load_records` forgives an unterminated final line, which is what a process killed mid-write leaves.
 That forgiveness expires the moment a resumed run appends: the fragment stops being the last line,
 and the whole artifact then raises. `execute` truncates back to the last complete record first.
+
+## A resume does not retry an infra failure — you have to delete the record
+
+`pending()` counts any record as scored, including `failed` ones, so a candidate that died on a dead
+socket is never attempted again and the run reports complete. That contradicts the reason `blame`
+exists at all: `"model"` is data about the thing being measured, `"infra"` is our noise and should be
+retried.
+
+It is left this way deliberately. Retrying appends a *second* record for a candidate that already has
+one and `load_records` keeps both, which double-counts it in every denominator — so the honest fix is
+"a candidate's record is its latest attempt", a change to the artifact contract rather than a patch.
+
+Until then the recovery is manual, and it works:
+
+    # stop the run, drop the infra failures, resume — it picks them up as pending
+    python -c "from pipeline import launch; launch.kill('ut-with-plain_v2')"
+    # rewrite records.jsonl without lines where failed and blame == "infra"
+    python -c "from pipeline.protocols import UnitTesting; UnitTesting.attach('ut-with-plain_v2').run()"
+
+Back the file up first. And print `Counter((r['failed'], r['blame']) ...)` after every run — a run
+that is 100% infra failures otherwise reads as a completed one.
 
 ## A rebound `protocol` name raises rather than letting the later import win
 

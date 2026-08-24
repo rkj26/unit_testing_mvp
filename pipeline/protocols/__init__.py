@@ -19,15 +19,19 @@ detached run and out of `Run.attach`.
 
 from __future__ import annotations
 
+from .ablation import Ablation
 from .base import REGISTRY, Echo, Run, RunFailed, main
+from .monitor_with_tests import MonitorWithTests
 from .solve import TrustedSolve
 from .tm import TM
 from .trigger_search import TriggerSearch
 from .unit_testing import UnitTesting
 
 __all__ = [
+    "Ablation",
     "REGISTRY",
     "Echo",
+    "MonitorWithTests",
     "Run",
     "RunFailed",
     "TM",

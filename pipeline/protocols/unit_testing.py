@@ -18,7 +18,13 @@ from typing import Any, Mapping, Sequence
 
 from .. import model as model_mod
 from .. import parse, prompts, sandbox
-from ..model import INSPECT_HTTP_RETRIES, ModelRuntime, Reasoning, SINGLE_RUN_TEMPERATURE
+from ..model import (
+    INSPECT_HTTP_RETRIES,
+    RETRY_BUDGET_PER_CALL,
+    ModelRuntime,
+    Reasoning,
+    SINGLE_RUN_TEMPERATURE,
+)
 from ..data import Blame, Candidate, Dataset, Task, load_records
 from .base import CALLS, WORKERS, Run
 
@@ -460,13 +466,18 @@ class UnitTesting(Run):
         shared by every caller of that model — not a per-caller pool — so setting it below `WORKERS`
         serialises the workers behind one slot and each one waits out the whole queue against its
         own call timeout.
+
+        `http_timeout` is a multiple of `call_seconds`, never equal to it. The ladder's first rung is
+        `per-call attempt < http retry budget`: equal values leave a call that reaches its attempt
+        timeout no budget to retry in, so the retry is born already expired and the candidate is
+        recorded `blame="infra"`. That cost 18 of 200 candidates on the first full run.
         """
         return ModelRuntime(
             name=self.model,
             temperature=SINGLE_RUN_TEMPERATURE,
             seed=self.seed,
             attempt_timeout=self.call_seconds,
-            http_timeout=self.call_seconds,
+            http_timeout=RETRY_BUDGET_PER_CALL * self.call_seconds,
             http_retries=INSPECT_HTTP_RETRIES,
             max_tokens=self.max_tokens,
             reasoning_effort=self.reasoning,
