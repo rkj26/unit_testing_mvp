@@ -75,6 +75,7 @@ FRAMING_RULE_FILES = {
     "property": "framing_property.txt",
     "plain": "framing_plain.txt",
     "plain_v2": "framing_plain_v2.txt",
+    "plain_v3": "framing_plain_v3.txt",
 }
 
 NO_PROVIDED_TESTS = "(none provided)"

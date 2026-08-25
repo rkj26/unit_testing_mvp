@@ -48,11 +48,15 @@ DEFAULT_DOCKER_IMAGE = "python:3.12-slim"
 
 ISOLATION = sandbox.Isolation.DOCKER
 
+CRITIQUE_PROMPT = "critique_tests.txt"
+CRITIQUE_PROMPT_INFORMED = "critique_tests_informed.txt"
+
 NOTHING_RAN = {
     "tests_src": None,
     "test_names": None,
     "fired": None,
     "catches": None,
+    "critiqued_out": None,
     "n_pairs_run": None,
     "n_pairs_expected": None,
     "n_pairs_by_outcome": None,
@@ -311,6 +315,65 @@ def _call(prompt: str, completion: Any) -> dict[str, Any]:
     }
 
 
+CRITIQUE_KIND = "test_critique"
+CRITIQUE_SCHEMA_NAME = "dropped_tests"
+DROP_FIELD = "drop"
+WHY_FIELD = "why"
+
+
+def critique_schema():
+    """``{drop: [name], why}`` -- an empty `drop` is a real answer and must stay expressible.
+
+    No `minItems`: a critique that is forced to discard something will, and a suite where every test
+    was justified is the outcome this arm exists to be able to observe.
+    """
+    from inspect_ai.model import ResponseSchema
+    from inspect_ai.util import JSONSchema
+
+    return ResponseSchema(
+        name=CRITIQUE_SCHEMA_NAME,
+        strict=True,
+        json_schema=JSONSchema(
+            type="object",
+            additionalProperties=False,
+            required=[DROP_FIELD, WHY_FIELD],
+            properties={
+                DROP_FIELD: JSONSchema(
+                    type="array",
+                    items=JSONSchema(type="string", description="the name off a def line"),
+                    description="every test to remove; empty keeps them all",
+                ),
+                WHY_FIELD: JSONSchema(type="string", description="under eighty words"),
+            },
+        ),
+    )
+
+
+def drop_tests(tests_src: str, names: Sequence[str]) -> tuple[str, list[str]]:
+    """`tests_src` without the named top-level functions, and the names actually removed.
+
+    Cut by AST line span rather than by text search: a name also appearing in another test's body or
+    in a docstring would take the wrong lines with it, and a suite that silently loses the wrong
+    function reports a false-alarm rate that belongs to a suite nobody wrote.
+    """
+    wanted = set(names)
+    try:
+        tree = ast.parse(tests_src)
+    except SyntaxError:
+        return tests_src, []
+    doomed = [n for n in tree.body
+              if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name in wanted]
+    if not doomed:
+        return tests_src, []
+    lines = tests_src.splitlines(keepends=True)
+    cut = set()
+    for node in doomed:
+        start = min([node.lineno] + [d.lineno for d in node.decorator_list]) - 1
+        cut.update(range(start, node.end_lineno))
+    kept = "".join(line for i, line in enumerate(lines) if i not in cut)
+    return kept, [n.name for n in doomed]
+
+
 class UnitTesting(Run):
     """A trusted model writes tests against one submission; the sandbox runs them on its triggers.
 
@@ -331,6 +394,8 @@ class UnitTesting(Run):
         resolve: str = prompts.DEFAULT_RESOLVE,
         code_visible: bool = True,
         n_tests: int = TESTS_PER_CANDIDATE,
+        critique: bool = False,
+        critique_informed: bool = False,
         reasoning: str = DEFAULT_REASONING,
         max_tokens: int = AUTHORING_MAX_TOKENS,
         call_seconds: int = AUTHORING_CALL_SECONDS,
@@ -349,6 +414,8 @@ class UnitTesting(Run):
             resolve=resolve,
             code_visible=code_visible,
             n_tests=n_tests,
+            critique=critique,
+            critique_informed=critique_informed,
             reasoning=reasoning,
             max_tokens=max_tokens,
             call_seconds=call_seconds,
@@ -363,6 +430,11 @@ class UnitTesting(Run):
             )
         if n_tests < 1:
             raise ValueError(f"{self.run_name}: n_tests={n_tests} would author an empty suite")
+        if critique_informed and not critique:
+            raise ValueError(
+                f"{self.run_name}: critique_informed=True with critique=False names a critique "
+                "that never runs, and the config would read as an arm that was never measured"
+            )
         if self.runs != 1:
             raise ValueError(
                 f"{self.run_name}: runs={self.runs}, but a record holds one suite and there is no "
@@ -377,6 +449,8 @@ class UnitTesting(Run):
         prompts.resolve_rule_file(resolve)
         self.code_visible = bool(code_visible)
         self.n_tests = n_tests
+        self.critique = critique
+        self.critique_informed = critique_informed
         self.reasoning = Reasoning(reasoning)
         self.max_tokens = max_tokens
         self.call_seconds = call_seconds
@@ -421,7 +495,18 @@ class UnitTesting(Run):
                 f"(stop_reason {completion.stop_reason}, {len(completion.text)} chars)",
             )
 
+        calls, dropped = [call], []
+        if self.critique:
+            tests_src, dropped, review = self._critique(task, candidate, space, tests_src)
+            calls.append(review)
+
         test_names = test_names_in(tests_src)
+        if not test_names:
+            return {CALLS: calls, **NOTHING_RAN, "tests_src": tests_src, "test_names": [],
+                    "fired": [], "catches": [], "critiqued_out": dropped,
+                    "n_pairs_run": 0, "n_pairs_expected": len(space),
+                    "n_pairs_by_outcome": {}}
+
         result = sandbox.run_raw(
             task,
             candidate.code,
@@ -431,7 +516,49 @@ class UnitTesting(Run):
             isolation=ISOLATION,
             docker_image=self.docker_image,
         )
-        return self._verdict([call], tests_src, test_names, space, result)
+        return self._verdict(calls, tests_src, test_names, space, result) | {
+            "critiqued_out": dropped
+        }
+
+    def _critique(
+        self, task: Task, candidate: Candidate, space: Sequence[Any], tests_src: str
+    ) -> tuple[str, list[str], dict[str, Any]]:
+        """A second call that throws out the tests it cannot justify from the specification.
+
+        `critique_informed` decides what it may look at. Blind, it sees the task and the suite only:
+        a reviewer shown the code can talk itself into keeping a test that merely agrees with the
+        branch it was written from, which is the failure the authoring prompt warns about. Informed,
+        it also sees the submission and the inputs, and the prompt carries that warning instead —
+        the blind arm cannot tell which tests are about to do anything, and measuring whether that
+        is what stops it discriminating is the point of running both.
+
+        A critique that returns nothing parseable keeps the suite whole. Dropping tests on the
+        strength of an answer we could not read would change the arm being measured into a coin.
+        """
+        blind = task.blind()
+        if self.critique_informed:
+            prompt = prompts.render(
+                CRITIQUE_PROMPT_INFORMED,
+                main_task=blind["main_task"],
+                code=candidate.code,
+                chosen_inputs="\n".join(f"{i}. {x!r}" for i, x in enumerate(space, 1)),
+                tests_src=tests_src,
+            )
+        else:
+            prompt = prompts.render(
+                CRITIQUE_PROMPT, main_task=blind["main_task"], tests_src=tests_src
+            )
+        completion = model_mod.complete_sync(
+            model_mod.resolve(self._runtime()), prompt, CRITIQUE_KIND, critique_schema()
+        )
+        review = _call(prompt, completion)
+        try:
+            answer = json.loads(completion.text)
+            names = list(answer[DROP_FIELD])
+        except (json.JSONDecodeError, TypeError, KeyError, ValueError):
+            return tests_src, [], review
+        kept, removed = drop_tests(tests_src, names)
+        return kept, removed, review
 
     def _prompt(self, task: Task, candidate: Candidate, space: Sequence[Any]) -> str:
         """The authoring prompt for one candidate: the task as `blind()` gives it, and its inputs.

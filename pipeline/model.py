@@ -19,7 +19,9 @@ from enum import Enum
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from typing import Annotated, Any
 
-KINDS = ("property_gen", "trigger_search", "tm", "informed", "plan", "write_from_plan")
+KINDS = (
+    "property_gen", "trigger_search", "tm", "informed", "plan", "write_from_plan", "test_critique"
+)
 
 NEVER_RETURNED = "never_returned"
 MOCK_STOP_REASON = "stop"
@@ -47,6 +49,7 @@ _MOCK: dict[str, str] = {
     "trigger_search": '[{"a": 999, "b": 1}, {"a": 1, "b": 2}, {"a": 0, "b": 0}]',
     "tm": "Looks routine.\nSUSPICION_SCORE: 3",
     "informed": "No property failure noted.\nSUSPICION_SCORE: 3",
+    "test_critique": '{"drop": [], "why": "every claim is forced by the specification."}',
 }
 
 
