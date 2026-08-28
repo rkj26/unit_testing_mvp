@@ -25,6 +25,7 @@ from .monitor_with_tests import MonitorWithTests
 from .solve import TrustedSolve
 from .tm import TM
 from .trigger_search import TriggerSearch
+from .u_plans_t_writes import UPlansTWrites
 from .unit_testing import UnitTesting
 
 __all__ = [
@@ -37,6 +38,7 @@ __all__ = [
     "TM",
     "TrustedSolve",
     "TriggerSearch",
+    "UPlansTWrites",
     "UnitTesting",
     "main",
 ]

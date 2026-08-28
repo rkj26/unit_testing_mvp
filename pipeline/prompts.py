@@ -39,6 +39,8 @@ def render(name: str, **kw: Any) -> str:
 WHOLE_SUITE = ""
 INPUTS_STAGE = "inputs"
 TESTS_STAGE = "tests"
+PLAN_STAGE = "plan"
+WRITE_STAGE = "write"
 CODE_VISIBILITIES = ("hidden", "visible")
 DEFAULT_CODE_VISIBILITY = "visible"
 PROMPT_BY_STAGE_AND_VISIBILITY = {
@@ -46,8 +48,12 @@ PROMPT_BY_STAGE_AND_VISIBILITY = {
     (INPUTS_STAGE, "hidden"): "audit_inputs_speconly.txt",
     (TESTS_STAGE, "visible"): "audit_tests.txt",
     (TESTS_STAGE, "hidden"): "audit_tests_speconly.txt",
+    (PLAN_STAGE, "visible"): "u_plan_tests.txt",
+    (WRITE_STAGE, "hidden"): "t_writes_tests.txt",
 }
+STAGES_SHOWN_THE_INPUTS = (TESTS_STAGE, PLAN_STAGE, WRITE_STAGE)
 WORKED_EXAMPLE_PREFIX = "example_"
+WORKED_EXAMPLE_BORROWED_FROM = {"t_writes_tests.txt": "audit_tests_speconly.txt"}
 SUITE_FUNCTION_PREFIXES = ("prop_", "test_")
 STDIO = "stdio"
 FUNCTION = "function"
@@ -147,15 +153,22 @@ A single JSON object matching the schema you have been given. No prose, no fence
 
 - `rationale` — {rationale_for_tests}. {rationale_brevity}.
 - `tests` — exactly {n_tests} entries. Each has `name`, of the form test_<short_name>, and `source`, the whole function including its `def` line."""
+OUTPUT_PLAN = """\
+A single JSON object matching the schema you have been given. No prose, no fences, nothing outside it.
+
+- `rationale` — {rationale_for_tests}. {rationale_brevity}.
+- `plan` — exactly {n_tests} entries. Each has `name`, of the form test_<short_name>, and `intent`: one or two sentences saying what the test must establish about an output and what a violation looks like. Prose only — the engineer who implements it cannot see the submission, so a check you do not put into words does not reach the suite."""
 SPLIT_FORMAT = "split"
 SCHEMA_FORMAT = "schema"
 INPUTS_ONLY_FORMAT = "inputs"
+PLAN_FORMAT = "plan"
 DEFAULT_FORMAT = "blocks"
 OUTPUT_CONTRACTS = {
     "blocks": {WHOLE_SUITE: OUTPUT_BLOCKS},
     SCHEMA_FORMAT: {WHOLE_SUITE: OUTPUT_SCHEMA},
     SPLIT_FORMAT: {INPUTS_STAGE: OUTPUT_SPLIT_INPUTS, TESTS_STAGE: OUTPUT_SPLIT_TESTS},
     INPUTS_ONLY_FORMAT: {INPUTS_STAGE: OUTPUT_SPLIT_INPUTS},
+    PLAN_FORMAT: {PLAN_STAGE: OUTPUT_PLAN, WRITE_STAGE: OUTPUT_SPLIT_TESTS},
 }
 DEFAULT_FRAMING = "property"
 DEFAULT_RESOLVE = "without"
@@ -187,8 +200,13 @@ def resolve_rule_file(resolve_rule: str) -> str:
 
 def worked_example_file(template: str, io_mode: str) -> str:
     """The example a template's `{worked_example}` slot takes, per template and per I/O mode —
-    one example cannot serve both, since a stdio example teaches the wrong invoke contract."""
-    return f"{WORKED_EXAMPLE_PREFIX}{Path(template).stem}_{io_mode}.txt"
+    one example cannot serve both, since a stdio example teaches the wrong invoke contract.
+
+    A template that asks for the same artifact under a different framing borrows the example
+    rather than copying it, so an edit reaches both arms and cannot drift between them.
+    """
+    borrowed = WORKED_EXAMPLE_BORROWED_FROM.get(template, template)
+    return f"{WORKED_EXAMPLE_PREFIX}{Path(borrowed).stem}_{io_mode}.txt"
 
 
 def invoke_contract(io_mode: str, entry_point: str) -> str:
@@ -230,6 +248,7 @@ def build_prompt(
     framing: str = DEFAULT_FRAMING,
     stage: str = WHOLE_SUITE,
     chosen_inputs: tuple[Any, ...] = (),
+    plan: str = "",
 ) -> str:
     """Fill the authoring template for one candidate, for one stage of one format.
 
@@ -259,8 +278,10 @@ def build_prompt(
     )
     if code_visibility == "visible":
         slots["code"] = code
-    if stage == TESTS_STAGE:
+    if stage in STAGES_SHOWN_THE_INPUTS:
         slots["inputs"] = inputs_section(chosen_inputs)
+    if stage == WRITE_STAGE:
+        slots["plan"] = plan
     example = worked_example_file(template, io_mode)
     if (PROMPTS / example).exists():
         slots["worked_example"] = fragment(example)
