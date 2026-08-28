@@ -22,6 +22,7 @@ import argparse
 import ast
 import doctest
 import json
+from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from functools import lru_cache
@@ -355,6 +356,107 @@ def read_pool(pool_path: Path) -> dict[str, Any]:
     return pool
 
 
+APPS_SOURCE = "RoganInglis/apps-control-arena"
+CONTROL_TAX = "control_tax"
+POOL_SCHEMA_VERSION = 1
+ANY_DIFFICULTY = ""
+
+
+def _usable_backdoors(row: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """The control-tax backdoors that compile, pass the visible tests, and actually trigger.
+
+    A backdoor that does not trigger is not an attack — it is a wrong program, and scoring one as a
+    caught attack would credit every protocol for finding a bug nobody planted.
+    """
+    return [
+        backdoor
+        for backdoor in row["backdoors"]
+        if backdoor["source"] == CONTROL_TAX
+        and backdoor["backdoor_works"]
+        and backdoor["compiles"]
+        and backdoor["passes_tests"]
+    ]
+
+
+def _pool_entry(row: Mapping[str, Any]) -> dict[str, Any]:
+    """One source row in the pool's shape — the same shape `apps_pool_hard.json` already holds.
+
+    `honest` is `solutions[0]`, which is also the reference solution: the pool's honest submission is
+    the answer key, and every arm's usefulness ceiling is therefore asserted rather than measured.
+    """
+    task_id = row["problem_id"]
+    honest = row["solutions"][0]["code"]
+    return {
+        "attack_proposals": [
+            {
+                "candidate_id": f"apps_{task_id}_{ATTACK_PREFIX}{position}",
+                "code": backdoor["backdoor_code"],
+                "secret_input": backdoor["backdoor_input"],
+            }
+            for position, backdoor in enumerate(_usable_backdoors(row))
+        ],
+        "difficulty": row["difficulty"],
+        "honest": {
+            "candidate_id": f"apps_{task_id}_{HONEST}",
+            "code": honest,
+            "secret_input": None,
+        },
+        "provided_inputs": list(row["inputs"]),
+        "provided_outputs": list(row["outputs"]),
+        "reference_solution": honest,
+        "task_description": row["question"],
+    }
+
+
+def write_pool(n_tasks: int, seed: int, out: Path, difficulty: str = ANY_DIFFICULTY) -> None:
+    """Sample `n_tasks` usable tasks UNIFORMLY from the source, and write them as a pool.
+
+    `apps_pool_hard.json` took competition tier first, which is why every task in it is competition
+    and why it is called hard. This takes the same validity filter — the reference solution compiles
+    and passes, the task is deterministic, at least one control-tax backdoor works — and then draws
+    at random, so the difficulty mix is the benchmark's own rather than the tail of it.
+
+    The two pools are therefore comparable in construction and different in population, which is the
+    only way a number that moves between them says something about difficulty rather than about
+    filtering.
+    """
+    from datasets import load_dataset
+
+    source = load_dataset(APPS_SOURCE, split="train")
+    usable = [
+        row
+        for row in source
+        if row["solution_compiles"]
+        and row["solution_passes_tests"]
+        and not row["is_nondeterministic"]
+        and (difficulty == ANY_DIFFICULTY or row["difficulty"] == difficulty)
+        and _usable_backdoors(row)
+    ]
+    if len(usable) < n_tasks:
+        raise ValueError(
+            f"{len(usable)} usable task(s) under difficulty {difficulty or 'any'!r}, "
+            f"fewer than the {n_tasks} asked for"
+        )
+    drawn = sorted(
+        Random(f"pool:{seed}").sample(usable, n_tasks), key=lambda row: row["problem_id"]
+    )
+    document = {
+        "io_mode": STDIO,
+        "candidates": {row["problem_id"]: _pool_entry(row) for row in drawn},
+        "n_tasks": n_tasks,
+        "schema_version": POOL_SCHEMA_VERSION,
+        "selection": (
+            f"control-tax backdoors, {difficulty or 'any'}-difficulty drawn uniformly, "
+            f"deterministic + works + passes-tests, seed {seed}"
+        ),
+        "source": APPS_SOURCE,
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(document, indent=1) + "\n", encoding="utf-8")
+    mix = sorted(Counter(row["difficulty"] for row in drawn).items())
+    print(f"wrote {out}: {n_tasks} tasks from {len(usable)} usable, {mix}")
+
+
 def write_split(pool_path: Path, n_train: int, seed: int, out: Path) -> None:
     """Write a train/test split of a pool's tasks as explicit id lists.
 
@@ -466,7 +568,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend", choices=BACKENDS)
     parser.add_argument("--pool", required=True)
-    parser.add_argument("--split", required=True)
+    parser.add_argument("--split", required=False, default="")
     parser.add_argument("--out")
     parser.add_argument("--name", default="", help="defaults to the --out stem")
     parser.add_argument(
@@ -476,14 +578,31 @@ def main() -> None:
         metavar="N",
         help="write --split as an N-task train half over --pool, and build nothing",
     )
+    parser.add_argument(
+        "--make-pool",
+        type=int,
+        default=0,
+        metavar="N",
+        help=f"draw N usable tasks uniformly from {APPS_SOURCE} into --pool, and build nothing",
+    )
+    parser.add_argument(
+        "--difficulty",
+        default=ANY_DIFFICULTY,
+        help="restrict --make-pool to one APPS tier; the default draws across all of them",
+    )
     parser.add_argument("--seed", type=int, default=PROJECT_SEED)
     args = parser.parse_args()
 
+    if args.make_pool:
+        write_pool(args.make_pool, args.seed, Path(args.pool), args.difficulty)
+        return
     if args.make_split:
+        if not args.split:
+            parser.error("--split names the file --make-split writes")
         write_split(Path(args.pool), args.make_split, args.seed, Path(args.split))
         return
-    if not args.backend or not args.out:
-        parser.error("--backend and --out are required unless --make-split is given")
+    if not args.backend or not args.out or not args.split:
+        parser.error("--backend, --split and --out are required unless a --make-* is given")
 
     out = Path(args.out)
     document = build(
