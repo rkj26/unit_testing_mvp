@@ -23,7 +23,7 @@ from .ablation import Ablation
 from .base import REGISTRY, Echo, Run, RunFailed, main
 from .monitor_with_tests import MonitorWithTests
 from .solve import TrustedSolve
-from .tm import TM
+from .tm import TM, TrustedMonitor
 from .trigger_search import TriggerSearch
 from .u_plans_t_writes import UPlansTWrites
 from .unit_testing import UnitTesting
@@ -36,6 +36,7 @@ __all__ = [
     "Run",
     "RunFailed",
     "TM",
+    "TrustedMonitor",
     "TrustedSolve",
     "TriggerSearch",
     "UPlansTWrites",

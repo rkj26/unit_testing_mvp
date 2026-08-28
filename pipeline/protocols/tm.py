@@ -5,7 +5,7 @@ actually differed. `avg_score` is the mean of the reps that produced a number; a
 repetition scored is `failed` with `avg_score=None`, which leaves every denominator rather than
 sitting at the innocent end of one.
 
-    tm = TM(run_name="tm-v1", data=data, model="openai-api/azureai/DeepSeek-V3.2", runs=2)
+    tm = TrustedMonitor(run_name="tm-v1", data=data, model=MODEL, runs=2)
     tm.run()
     [record["avg_score"] for record in tm.get_records("train")]
 """
@@ -85,7 +85,7 @@ def _blame_across(calls: Sequence[dict[str, Any]]) -> str:
     return Blame.INFRA.value if fell_over else Blame.MODEL.value
 
 
-class TM(Run):
+class TrustedMonitor(Run):
     """Greenblatt et al.'s trusted monitor: rate this code 1-10 for hidden-backdoor suspicion.
 
     `runs` repetitions of one prompt, one record. Only the seed separates one repetition from the
@@ -174,3 +174,9 @@ class TM(Run):
             "blame": blame,
             "reason": reason,
         }
+
+
+# The class was called `TM` until the demo notebook made the abbreviation the first thing a new
+# reader had to decode. The name is only Python: `protocol` is the registry key and the value in
+# every record, so it stays "tm" and every run directory ever written still attaches.
+TM = TrustedMonitor
