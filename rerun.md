@@ -30,19 +30,23 @@ reach it. Everything else either reads candidate code or consumes something that
 | # | run name | protocol | reads code? | status |
 |---|---|---|---|---|
 | 1 | `solve-22` / `solve-r50` | TrustedSolve | no | restore from archive |
-| 2 | `trig-22` / `trig-r50` | TriggerSearch, `num_inputs=30` | yes | pending |
-| 3 | `tm-22` / `tm-r50` | TrustedMonitor, `reasoning=low`, 2 reps | yes | pending |
-| 4 | `ut-property-10` / `-r50` | UnitTesting, `property`, `n_tests=10` | no, but tests run on 2's inputs | pending |
-| 5 | `ut-plain_v3-10` / `-r50` | UnitTesting, `plain_v3`, `n_tests=10` | same | pending |
-| 6 | `upt-property-10` / `-r50` | UPlansTWrites, `property`, `n_tests=10` | yes, U's plan stage | pending |
-| 7 | `upt-plain_v3-10` / `-r50` | UPlansTWrites, `plain_v3`, `n_tests=10` | yes | pending |
-| 8 | `mwt-property-10` / `-r50` | MonitorWithTests over run 4 | yes | pending |
+| 2 | `trig-22` / `trig-r50` | TriggerSearch, `num_inputs=30` | yes | **running** (hard) |
+| 3 | `tm-22` / `tm-r50` | TrustedMonitor, `reasoning=low`, 2 reps | yes | queued (hard) |
+| 4 | `ut-property-10` / `-r50` | UnitTesting, `property`, `n_tests=10` | no, but tests run on 2's inputs | queued (hard) |
+| 5 | `ut-plain_v3-10` / `-r50` | UnitTesting, `plain_v3`, `n_tests=10` | same | queued (hard) |
+| 6 | `upt-property-10` / `-r50` | UPlansTWrites, `property`, `n_tests=10` | yes, U's plan stage | queued (hard) |
+| 7 | `upt-plain_v3-10` / `-r50` | UPlansTWrites, `plain_v3`, `n_tests=10` | yes | queued (hard) |
+| 8 | `mwt-property-10` / `-r50` | MonitorWithTests over run 4 | yes | queued (hard) |
 
 Run order matters: 2 before 4-7 (its inputs are what every suite tests against), 4 before 8.
+`scratch/launch_scrubbed.py` runs apps_hard in that order, three arms at a time; the notebook's
+own `.run()` calls then find every candidate already scored and spend nothing. random50 is held
+back until the hard pool reads sensibly.
 
 ## Then
 
-- [ ] notebook cut down to these arms, both datasets
+- [x] notebook cut down to these arms (apps_hard); section 5 dropped with the critique arms
+- [ ] same for random50
 - [ ] paired before/after: catch, false alarms, AUC, and the deployment game, contaminated vs scrubbed
 - [ ] the question this answers: how much of TM's 0.85 catch was reading the attacker's notes
 
