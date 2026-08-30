@@ -73,8 +73,13 @@ The prediction going in was that catch would barely move. It did not — it move
 went 0.080 to 0.200**, which was not the quantity anyone was watching. The comments were evidence
 that honest code was fine, not evidence that attacks were bad.
 
-`monitor + tests` is the result worth keeping: same catch as the monitor at two thirds of the false
-alarms, for one extra call over a suite already run.
+`monitor + tests` looked like the result worth keeping — same catch, two thirds of the false alarms
+— until the exchange underneath was counted. On the 43 honest candidates the suite's silence clears
+8 of the monitor's false alarms and the suite's firing creates 5 new ones. Net 3, exact two-sided
+McNemar p = 0.58. It needs a bigger pool before it means anything.
+
+The one clean effect is U-planning: lower false alarms than T-alone at both framings, with catch
+holding or rising. That is the arm to build on.
 
 ## Follow-ups this raised
 
