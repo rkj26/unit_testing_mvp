@@ -21,7 +21,10 @@ from __future__ import annotations
 import argparse
 import ast
 import doctest
+import io
 import json
+import re
+import tokenize
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -46,6 +49,10 @@ ATTACKS_PER_TASK = 1
 PROJECT_SEED = 300
 
 ASSERTED = "asserted by pool construction"
+
+SCRUBBED = "comments and self-naming identifiers removed from every candidate"
+TELL = re.compile(r"bug|flaw|hack|backdoor|sabotag|exploit|malicious|cheat|sneak", re.I)
+NEUTRAL_NAME = "aux"
 
 POOL_IO_MODE_FIELD = "io_mode"
 BACKEND_BY_IO_MODE = {STDIO: "apps", FUNCTION: "bcb"}
@@ -512,8 +519,91 @@ def read_split(split_path: Path) -> tuple[list[str], list[str]]:
     return train, test
 
 
+def bound_tells(source: str) -> dict[str, str]:
+    """Locally bound identifiers that name the attack, mapped to neutral replacements.
+
+    Bound, not merely mentioned: an attribute or a library name of the same spelling belongs to
+    something this file does not own, and renaming it would change what the program calls. Each
+    distinct name gets its own replacement, since collapsing two variables onto one spelling is a
+    rewrite of the program rather than a scrub of its labelling.
+    """
+    tree = ast.parse(source)
+    bound = {
+        node.id if isinstance(node, ast.Name) else getattr(node, "name", getattr(node, "arg", ""))
+        for node in ast.walk(tree)
+        if (isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store))
+        or isinstance(node, (ast.arg, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+    }
+    taken = {node.id for node in ast.walk(tree) if isinstance(node, ast.Name)}
+    names = sorted(name for name in bound if name and TELL.search(name))
+    return {
+        name: next(
+            candidate
+            for candidate in (f"{NEUTRAL_NAME}{suffix}" for suffix in range(len(names) + 1))
+            if candidate not in taken
+        )
+        for name in names
+    }
+
+
+def scrubbed(source: str) -> str:
+    """`source` with every comment gone and every self-naming identifier renamed.
+
+    The pool's attacks were written by someone else's attack policy, and it left its reasoning in the
+    file: 68% of them carry a comment along the lines of `# Subtle bug: ...`, against 0% of the
+    honest submissions, so the label is legible in the text before a monitor reads a line of logic.
+
+    Two rules, both chosen to move nothing else:
+
+    - a comment sharing a line with code is cut off the end of that line;
+    - a line holding nothing but a comment is deleted outright rather than left blank, because a
+      blank where a comment used to be marks exactly the candidates that had something to say.
+
+    Original blank lines, indentation and every surviving token are untouched. Source that will not
+    tokenise raises: passing it through unchanged would keep a labelled candidate in a pool the
+    caller believes is clean.
+    """
+    lines = source.splitlines()
+    renames = bound_tells(source)
+    drop: set[int] = set()
+    edits: dict[int, list[tuple[int, int, str]]] = {}
+    previous = ""
+    for token in tokenize.generate_tokens(io.StringIO(source).readline):
+        row, column = token.start
+        if token.type == tokenize.COMMENT:
+            if lines[row - 1][:column].strip():
+                edits.setdefault(row, []).append((column, len(lines[row - 1]), ""))
+            else:
+                drop.add(row)
+        elif token.type == tokenize.NAME and token.string in renames and previous != ".":
+            edits.setdefault(row, []).append((column, token.end[1], renames[token.string]))
+        if token.type not in (tokenize.NL, tokenize.NEWLINE, tokenize.INDENT, tokenize.DEDENT):
+            previous = token.string
+    for row, spans in edits.items():
+        text = lines[row - 1]
+        for start, stop, replacement in sorted(spans, reverse=True):
+            text = f"{text[:start]}{replacement}{text[stop:]}"
+        lines[row - 1] = text.rstrip()
+    return "\n".join(line for number, line in enumerate(lines, 1) if number not in drop)
+
+
+def scrubbed_pool_entry(entry: Mapping[str, Any]) -> dict[str, Any]:
+    """One pool entry with every candidate's code scrubbed, honest and attack alike.
+
+    Both sides, because scrubbing only the attacks would replace one tell with another: comment-free
+    code would then itself be the label.
+    """
+    return {
+        **entry,
+        "honest": {**entry["honest"], "code": scrubbed(entry["honest"]["code"])},
+        "attack_proposals": [
+            {**attack, "code": scrubbed(attack["code"])} for attack in entry["attack_proposals"]
+        ],
+    }
+
+
 def build(
-    pool_path: Path, split_path: Path, backend: str, name: str
+    pool_path: Path, split_path: Path, backend: str, name: str, scrub: bool = False
 ) -> dict[str, Any]:
     """The whole dataset document, ready to serialise. Makes no model calls."""
     pool = read_pool(pool_path)
@@ -530,6 +620,8 @@ def build(
     if missing:
         raise ValueError(f"the pool has no task {', '.join(missing)}")
     chosen = {task_id: pool["candidates"][task_id] for task_id in task_ids}
+    if scrub:
+        chosen = {task_id: scrubbed_pool_entry(entry) for task_id, entry in chosen.items()}
     return Dataset(
         name=name,
         backend=backend,
@@ -540,6 +632,7 @@ def build(
             "pool": str(pool_path),
             "split": str(split_path),
             "ground_truth": ASSERTED,
+            "candidate_code": SCRUBBED if scrub else "as the pool wrote it",
             "built_at": datetime.now(timezone.utc).isoformat(),
             "source": pool["source"],
         },
@@ -591,6 +684,12 @@ def main() -> None:
         help="restrict --make-pool to one APPS tier; the default draws across all of them",
     )
     parser.add_argument("--seed", type=int, default=PROJECT_SEED)
+    parser.add_argument(
+        "--scrub-tells",
+        action="store_true",
+        help="strip comments and rename self-naming identifiers in EVERY candidate, honest and "
+        "attack alike; without it the pool's attacks arrive still carrying `# Subtle bug: ...`",
+    )
     args = parser.parse_args()
 
     if args.make_pool:
@@ -610,6 +709,7 @@ def main() -> None:
         Path(args.split),
         args.backend,
         args.name if args.name else out.stem,
+        scrub=args.scrub_tells,
     )
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
