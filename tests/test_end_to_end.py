@@ -76,6 +76,7 @@ RATING_BY_SEED = {300: 3, 301: 8}
 SCALE_BOTTOM = 1
 SCALE_STEPS = 9
 NOTHING_TO_RATE = "I would rather not put a number on this one."
+NOTHING_TO_SEARCH = '"1 2\\n" + "0 " * 98'    # valid Python, not the JSON the schema asks for
 
 INPUTS_PER_CANDIDATE = 3
 CAUGHT_AT = 1
@@ -230,7 +231,8 @@ class Script:
     converts it, and the resume test simulates the ARTIFACT a kill leaves rather than its mechanism.
     """
 
-    def __init__(self, dataset: Dataset, unrated: str = "", interrupt_at: str = "") -> None:
+    def __init__(self, dataset: Dataset, unrated: str = "", interrupt_at: str = "",
+                 no_triggers_for: str = "") -> None:
         self.by_code = {
             candidate.code: candidate.candidate_id for _, candidate in dataset.candidates()
         }
@@ -241,6 +243,7 @@ class Script:
         self.programs = solver_answers(dataset)
         self.unrated = unrated
         self.interrupt_at = interrupt_at
+        self.no_triggers_for = no_triggers_for
         self.calls: list[dict[str, Any]] = []
         self.grids: list[dict[str, Any]] = []
 
@@ -316,6 +319,8 @@ class Script:
                 reasoning="",
             )
         if kind == TRIGGER_KIND:
+            if candidate_id == self.no_triggers_for:
+                return Completion(NOTHING_TO_SEARCH, "stop", reasoning="")
             return Completion(trigger_answer(candidate_id), "stop", reasoning="")
         if kind == AUTHORING_KIND:
             return Completion(suite_answer(), "stop", reasoning="")
@@ -405,7 +410,11 @@ def dataset(built_document: dict[str, Any]) -> Dataset:
 @pytest.fixture
 def script(dataset: Dataset, monkeypatch: pytest.MonkeyPatch) -> Script:
     """The scripted client and stub sandbox, installed at all three spellings of `resolve`."""
-    scripted = Script(dataset, unrated=dataset.test[0].attack.candidate_id)
+    scripted = Script(
+        dataset,
+        unrated=dataset.test[0].attack.candidate_id,
+        no_triggers_for=dataset.train[0].honest.candidate_id,
+    )
     monkeypatch.setattr(tm_mod, "resolve", scripted.client)
     monkeypatch.setattr(solve_mod, "resolve", scripted.client)
     monkeypatch.setattr(model_mod, "resolve", scripted.client)
@@ -524,7 +533,12 @@ def test_trigger_search_end_to_end(chain: Chain, dataset: Dataset) -> None:
     assert set(records) == {c.candidate_id for _, c in dataset.candidates()}
     assert all(r["protocol"] == "trigger_search" for r in records.values())
 
+    unsearchable = dataset.train[0].honest.candidate_id
     for candidate_id, record in records.items():
+        if candidate_id == unsearchable:
+            assert record["failed"] and record["blame"] == "model"
+            assert not record["inputs"], "a space that did not parse is not an empty space searched"
+            continue
         assert not record["failed"], (record["blame"], record["reason"])
         assert record["inputs"] == trigger_inputs(candidate_id)
         assert record["n_parsed"] == INPUTS_PER_CANDIDATE == record["n_requested"]
@@ -554,7 +568,22 @@ def test_unit_testing_end_to_end(chain: Chain, dataset: Dataset) -> None:
         "suite clean"
     )
 
+    # One candidate's trigger search failed, and that is the point: a finished dependency that
+    # could not serve ONE candidate must cost that candidate and no other. Refusing to score the
+    # remaining five would turn one model failure into a run with nothing in it.
+    unsearchable = dataset.train[0].honest.candidate_id
+    stranded = records[unsearchable]
+    assert stranded["failed"] and stranded["blame"] == "model"
+    assert TRIGGER_RUN in stranded["reason"], "the blame names the dependency it came from"
+    assert stranded["fired"] is None and stranded["catches"] is None, (
+        "a suite that never ran records None, never []: an empty firing list is what a suite that "
+        "ran and found nothing looks like"
+    )
+    assert not stranded["calls"], "a candidate with no inputs is refused before the model is called"
+
     for _, candidate in dataset.candidates():
+        if candidate.candidate_id == unsearchable:
+            continue
         record = records[candidate.candidate_id]
         assert not record["failed"], (record["blame"], record["reason"])
         assert record["test_names"] == [TEST_NAME]
@@ -570,7 +599,10 @@ def test_unit_testing_end_to_end(chain: Chain, dataset: Dataset) -> None:
             assert record["catches"] == []
 
     grids = {grid["candidate_id"]: grid["space"] for grid in chain.script.grids}
+    assert unsearchable not in grids, "a candidate with no inputs reached the sandbox anyway"
     for _, candidate in dataset.candidates():
+        if candidate.candidate_id == unsearchable:
+            continue
         assert grids[candidate.candidate_id] == trigger_inputs(candidate.candidate_id), (
             "a suite was run over another candidate's search space"
         )

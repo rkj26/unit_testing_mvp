@@ -325,12 +325,22 @@ def suite_verdict(
     return measured
 
 
-def spaces_from(triggers: str, data: Dataset) -> dict[str, list[Any]]:
-    """One search space per candidate the dataset holds, read off a finished trigger run.
+def spaces_from(triggers: str, data: Dataset) -> tuple[dict[str, list[Any]], dict[str, str]]:
+    """Search spaces read off a trigger run, and the candidates it could not give one.
 
-    Raises unless *every* candidate has a non-empty space, naming which of the three ways it is
-    missing: no record at all, a record that failed, or a verdict that parsed no inputs. An empty
-    space counts as missing — a suite run over zero inputs comes back `complete` with no catches.
+    Two ways to be without a space, and they are not the same thing:
+
+    - **no record at all.** The trigger run is short, so it is still going or it died. Raises: a
+      dependency that is unfinished must fail before the first model call, not halfway through with
+      half an artifact on disk.
+    - **a record that failed, or a verdict that parsed no inputs.** The trigger run is finished and
+      this candidate will never have a space. Returned in the second dict, for the caller to record
+      as its own failure with the blame carried forward — one unscoreable candidate leaves every
+      denominator, which is what this project does with a failure everywhere else, and is a great
+      deal better than refusing to score the other ninety-nine.
+
+    An empty space counts as no space: a suite run over zero inputs comes back `complete` with no
+    catches, which reads as a clean verdict and is not one.
     """
     unusable: dict[str, str] = {}
     space: dict[str, list[Any]] = {}
@@ -351,21 +361,29 @@ def spaces_from(triggers: str, data: Dataset) -> dict[str, list[Any]]:
         space[candidate_id] = list(record[INPUTS])
 
     wanted = [candidate.candidate_id for _, candidate in data.candidates()]
-    absent = [candidate_id for candidate_id in wanted if candidate_id not in space]
-    if absent:
-        named = "; ".join(
-            f"{candidate_id} — "
-            + (unusable[candidate_id] if candidate_id in unusable else "no record in the run")
-            for candidate_id in absent[:CANDIDATES_NAMED_IN_A_GAP]
-        )
+    unrecorded = [
+        candidate_id
+        for candidate_id in wanted
+        if candidate_id not in space and candidate_id not in unusable
+    ]
+    if unrecorded:
+        named = "; ".join(unrecorded[:CANDIDATES_NAMED_IN_A_GAP])
         raise ValueError(
-            f"trigger run {triggers!r} has no usable search space for {len(absent)} of "
+            f"trigger run {triggers!r} has no record at all for {len(unrecorded)} of "
             f"{len(wanted)} candidate(s) in {data.name}: {named}"
-            + (f" (+{len(absent) - CANDIDATES_NAMED_IN_A_GAP} more)" if len(absent) > CANDIDATES_NAMED_IN_A_GAP else "")
+            + (
+                f" (+{len(unrecorded) - CANDIDATES_NAMED_IN_A_GAP} more)"
+                if len(unrecorded) > CANDIDATES_NAMED_IN_A_GAP
+                else ""
+            )
             + f". Finish or resume {triggers!r} first — a dependency that is short must fail before "
             "the first model call, not halfway through with half an artifact on disk"
         )
-    return space
+    return space, {
+        candidate_id: reason
+        for candidate_id, reason in unusable.items()
+        if candidate_id in set(wanted)
+    }
 
 
 def _call(prompt: str, completion: Any) -> dict[str, Any]:
@@ -524,15 +542,17 @@ class UnitTesting(Run):
         self.sandbox_seconds = sandbox_seconds
         self.docker_image = docker_image
         self.trigger_space: dict[str, list[Any]] = {}
+        self.no_trigger_space: dict[str, str] = {}
 
     def prepare(self, data: Dataset) -> None:
-        """Resolve the trigger run into one search space per candidate, and refuse any gap.
+        """Resolve the trigger run into one search space per candidate, and refuse an unfinished one.
 
         This and the credential check in `model.resolve` both raise before the first model call: a
         gap found halfway through leaves half an artifact, and a missing `AZUREAI_API_KEY` would
-        otherwise arrive as one infra failure per candidate in the dataset.
+        otherwise arrive as one infra failure per candidate in the dataset. A candidate the finished
+        trigger run could not serve is not a gap — it is a failure, kept for `score` to record.
         """
-        self.trigger_space = spaces_from(self.triggers, data)
+        self.trigger_space, self.no_trigger_space = spaces_from(self.triggers, data)
         model_mod.resolve(self._runtime())
 
     def score(self, task: Task, candidate: Candidate) -> dict[str, Any]:
@@ -543,6 +563,11 @@ class UnitTesting(Run):
         suite: `blame="model"`, stated where it is detected. The schema travels with the call,
         because `_prompt` renders a contract that holds the model to one.
         """
+        if candidate.candidate_id in self.no_trigger_space:
+            return self._unmeasured(
+                [], Blame.MODEL.value,
+                f"no trigger inputs: {self.triggers} {self.no_trigger_space[candidate.candidate_id]}"
+            )
         space = self.trigger_space[candidate.candidate_id]
         prompt = self._prompt(task, candidate, space)
         completion = model_mod.complete_sync(

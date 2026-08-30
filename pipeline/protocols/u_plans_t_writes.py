@@ -296,6 +296,7 @@ class UPlansTWrites(Run):
         self.sandbox_seconds = sandbox_seconds
         self.docker_image = docker_image
         self.trigger_space: dict[str, list[Any]] = {}
+        self.no_trigger_space: dict[str, str] = {}
 
     def prepare(self, data: Dataset) -> None:
         """Resolve the trigger run into one search space per candidate, and both clients, here.
@@ -304,7 +305,7 @@ class UPlansTWrites(Run):
         name the provider rejects, and a missing `AZUREAI_API_KEY`. Each one found halfway through
         leaves half an artifact and one identical infra record per remaining candidate.
         """
-        self.trigger_space = spaces_from(self.triggers, data)
+        self.trigger_space, self.no_trigger_space = spaces_from(self.triggers, data)
         model_mod.resolve(self._planner_runtime())
         model_mod.resolve(self._writer_runtime())
 
@@ -319,6 +320,11 @@ class UPlansTWrites(Run):
         A suite that compiles to zero test functions is not `failed`: it is a measured empty suite,
         recorded with `fired=[]` and `n_pairs_run=0`, exactly as `UnitTesting` records it.
         """
+        if candidate.candidate_id in self.no_trigger_space:
+            return self._unmeasured(
+                [], Blame.MODEL.value,
+                f"no trigger inputs: {self.triggers} {self.no_trigger_space[candidate.candidate_id]}"
+            )
         space = self.trigger_space[candidate.candidate_id]
         entries, unplanned, plan_call = self._plan(task, candidate, space)
         if entries is None:
