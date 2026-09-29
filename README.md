@@ -7,7 +7,9 @@ The experiments ask whether model-written property-based tests can distinguish s
 ## Start here
 
 - [`docs/omar_pbt_experiment_index.md`](docs/omar_pbt_experiment_index.md) — concise inventory and interpretation of every completed study.
-- [`docs/omar_bcb_meeting_report.md`](docs/omar_bcb_meeting_report.md) — meeting brief for Sophie and team covering the 26-task BigCodeBench A/B/C replication and delete-only ablation.
+- [`docs/pbt_paper_methods_results.md`](docs/pbt_paper_methods_results.md) — research-paper draft covering methods, results, and limitations across the six studies.
+- [`docs/pbt_experiment_methods_appendix.md`](docs/pbt_experiment_methods_appendix.md) — detailed experimental workflow, model inputs, and reproduction entry points.
+- [`docs/omar_bcb_meeting_report.md`](docs/omar_bcb_meeting_report.md) — results covering the 26-task BigCodeBench A/B/C replication and delete-only ablation.
 - [`docs/azure_pbt_training_results_2026-09-07.md`](docs/azure_pbt_training_results_2026-09-07.md) — exploratory training prompt comparison.
 - [`docs/azure_pbt_heldout_results_2026-09-08.md`](docs/azure_pbt_heldout_results_2026-09-08.md) — frozen held-out single-turn comparison.
 - [`docs/azure_pbt_multiturn_results_2026-09-09.md`](docs/azure_pbt_multiturn_results_2026-09-09.md) — exploratory execution-informed repair.
