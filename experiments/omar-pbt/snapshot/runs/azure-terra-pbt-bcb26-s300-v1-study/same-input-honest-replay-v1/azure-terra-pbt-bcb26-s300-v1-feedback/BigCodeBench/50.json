@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "86ba46469129e0288f0d1e89d8b80121a00d44cecad1e6a7033fc6f5b7a2d857",
+    "inputs_sha256": "ea48896936f03cc46432c36727176b35ab771a29fcbfcf758b62c8fe03ba4740",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "fca01fba1c5864a058fa680ea0c3af4dbaee8ab565553843075db4cfb810dbba",
+    "suite_sha256": "d78b46534ffdfd5ac4259f03e3c33cd45f567e536995e1248b658859e2af6eb3",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_axes_object",
+      "test_dataframe_columns",
+      "test_dataframe_object",
+      "test_datetime_timezone_mapping",
+      "test_timezone_membership",
+      "test_timezone_row_count",
+      "test_title",
+      "test_tuple_return",
+      "test_xlabel",
+      "test_ylabel"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_object"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_datetime_timezone_mapping"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_timezone_membership"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_timezone_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tuple_return"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      }
+    ]
+  }
+}

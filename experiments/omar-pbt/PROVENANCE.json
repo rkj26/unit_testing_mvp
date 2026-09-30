@@ -1,0 +1,3941 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/rkj26/unit_testing_mvp",
+  "source_branch": "codex/omar-pbt-testing-results",
+  "source_commit": "507b0942c91f586f0a3e0375751d56f71cb93edc",
+  "base_branch": "origin/main",
+  "base_commit": "e0ec76b715d9ae256efbf313e56849665add4f84",
+  "destination_branch": "codex/omar-pbt-subproject",
+  "inventory_algorithm": "git ls-tree -r at source_commit; included entries are blobs only",
+  "included_blob_count": 784,
+  "included_blobs": [
+    {
+      "path": ".env.example",
+      "mode": "100644",
+      "git_blob_sha1": "c2e7bbc3e0f1e030ce0a44818085aea148a0286d"
+    },
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "git_blob_sha1": "8b39e0c4fd5fcfae855cbd27f843d03aa080ed63"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "git_blob_sha1": "217d17d09d13d6627d4a87e0f8ca741721df9f55"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "git_blob_sha1": "ac55c83308fe613beca67e57ada0d39bccd52f6b"
+    },
+    {
+      "path": "CLAUDE.md",
+      "mode": "100644",
+      "git_blob_sha1": "64089990d75cac26b651e6577a3df3746c451eab"
+    },
+    {
+      "path": "DOCUMENTATION.md",
+      "mode": "100644",
+      "git_blob_sha1": "afd7699e10e62d3f4914efe42af37e059431935b"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "git_blob_sha1": "c5b4d0480825df5f3cfb0dd4e0d13550abdcc4f5"
+    },
+    {
+      "path": "apps_pool_confirmatory31.json",
+      "mode": "100644",
+      "git_blob_sha1": "261569747257b0738ef60c891a88e1ad03f3eb2f"
+    },
+    {
+      "path": "apps_pool_hard10.json",
+      "mode": "100644",
+      "git_blob_sha1": "4a3ede0deaf4385f216e76f5cecf9beb0242c6ae"
+    },
+    {
+      "path": "apps_pool_random50.json",
+      "mode": "100644",
+      "git_blob_sha1": "f7190c10fb35666123597149f4050a9d8abb66d2"
+    },
+    {
+      "path": "bcb_pool.json",
+      "mode": "100644",
+      "git_blob_sha1": "6cc9764cab880055a3190054f4305847c59f7522"
+    },
+    {
+      "path": "build_dataset.py",
+      "mode": "100644",
+      "git_blob_sha1": "46ca8baed1b2692f12c429df4773efbd2bdf6044"
+    },
+    {
+      "path": "data/apps_confirmatory31.json",
+      "mode": "100644",
+      "git_blob_sha1": "ea28c2847381c2342cdee5237194c6fc0ceaade1"
+    },
+    {
+      "path": "data/apps_hard.json",
+      "mode": "100644",
+      "git_blob_sha1": "0ed726709b3b938f6b58427ae09fac7350f09aab"
+    },
+    {
+      "path": "data/apps_random50.json",
+      "mode": "100644",
+      "git_blob_sha1": "57362afbc1e622dc815ff122c555cc175f5c0d73"
+    },
+    {
+      "path": "data/apps_smoke.json",
+      "mode": "100644",
+      "git_blob_sha1": "f1b556c8fb10b83ffe76eac42f82f9c20dfbd4ed"
+    },
+    {
+      "path": "data/azure-terra-pbt-fresh30-second-revision-s300-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "15c7e5d4e0c824a925a4326ec5561aa11af53204"
+    },
+    {
+      "path": "data/azure_pbt_heldout29_s300_reviewed_v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "6f354ceb1f24967134647155d27bf0638e14b586"
+    },
+    {
+      "path": "data/azure_pbt_heldout30_s300_v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "ef14d6f715dac5c420bda4affed16987a839f9c5"
+    },
+    {
+      "path": "data/azure_pbt_train19_s300_reviewed_v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "8f0663217518426b930ea7155d24a534dd05a5e4"
+    },
+    {
+      "path": "data/azure_pbt_train19_s300_v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "10f8ef427c5d51f0ca074c6ebbd9b6e28bdb78fb"
+    },
+    {
+      "path": "data/azure_pbt_train1_s300_v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "b8a60c4a3f8f9bd806f6f6a848cc08b39f8dcf01"
+    },
+    {
+      "path": "data/bcb.json",
+      "mode": "100644",
+      "git_blob_sha1": "d8da788788b1f0e84fcb935f79a2f3d870436876"
+    },
+    {
+      "path": "data/bcb_replication26_eval.json",
+      "mode": "100644",
+      "git_blob_sha1": "8a3ff3323cee293d503d3cdf2046527f18b41c55"
+    },
+    {
+      "path": "data/bcb_smoke2.json",
+      "mode": "100644",
+      "git_blob_sha1": "33b5230bc9a07141f78f65b45f4789eb58679dae"
+    },
+    {
+      "path": "docker/bcb-pbt/Dockerfile",
+      "mode": "100644",
+      "git_blob_sha1": "0497d2a3f90ed9d6f5ffcdfd58d28d9bff1d69c2"
+    },
+    {
+      "path": "docker/bcb-pbt/installed-freeze-20260917.txt",
+      "mode": "100644",
+      "git_blob_sha1": "eaeed4005e9da3e4039d8a01cd23998062c36afb"
+    },
+    {
+      "path": "docker/bcb-pbt/requirements.txt",
+      "mode": "100644",
+      "git_blob_sha1": "96c1a65ea1c446e0d5acb39ac1f390da361b8c5a"
+    },
+    {
+      "path": "docs/api.rst",
+      "mode": "100644",
+      "git_blob_sha1": "b83dcbab77b8498d975bc619c2d680655b955aa7"
+    },
+    {
+      "path": "docs/azure_pbt_bcb_delete_only_plan.md",
+      "mode": "100644",
+      "git_blob_sha1": "2628e6634a6c4fae77536d0a58c21558572c0167"
+    },
+    {
+      "path": "docs/azure_pbt_bcb_replication_plan.md",
+      "mode": "100644",
+      "git_blob_sha1": "e8a530d57fb604159596f426f0b6560a1de48ced"
+    },
+    {
+      "path": "docs/azure_pbt_heldout_results_2026-09-08.md",
+      "mode": "100644",
+      "git_blob_sha1": "79afb373598622cbce8e393ce71a4353f672dc74"
+    },
+    {
+      "path": "docs/azure_pbt_multiturn_confirmatory_plan.md",
+      "mode": "100644",
+      "git_blob_sha1": "3d6526369db9af39c8f616df373607d4f30067a0"
+    },
+    {
+      "path": "docs/azure_pbt_multiturn_confirmatory_results_2026-09-14.md",
+      "mode": "100644",
+      "git_blob_sha1": "522dfc039e27963a2dc729ca21a6fe018f31854c"
+    },
+    {
+      "path": "docs/azure_pbt_multiturn_plan.md",
+      "mode": "100644",
+      "git_blob_sha1": "fc0e6a574ae25d55ace6a060d1168bdff6d481f9"
+    },
+    {
+      "path": "docs/azure_pbt_multiturn_results_2026-09-09.md",
+      "mode": "100644",
+      "git_blob_sha1": "718e5284a5eff9d68c972a5cc9a3d1e816fb2399"
+    },
+    {
+      "path": "docs/azure_pbt_training_results_2026-09-07.md",
+      "mode": "100644",
+      "git_blob_sha1": "0c30fe510ee3329585451e49d043c3b7dca579b5"
+    },
+    {
+      "path": "docs/bcb_environment_preflight.md",
+      "mode": "100644",
+      "git_blob_sha1": "9f21278b855c8b4a8f180a5bdfb2dadfe748acf9"
+    },
+    {
+      "path": "docs/conf.py",
+      "mode": "100644",
+      "git_blob_sha1": "ad9eb219d7c78b16b415291710ef45f07c7686f5"
+    },
+    {
+      "path": "docs/deployment.md",
+      "mode": "100644",
+      "git_blob_sha1": "e1d420e567e5312d67938a4fdb4befe936080885"
+    },
+    {
+      "path": "docs/direction.md",
+      "mode": "100644",
+      "git_blob_sha1": "bc39ce3813fbc6212eed4938aa57be42de5f2ccf"
+    },
+    {
+      "path": "docs/flow_run.md",
+      "mode": "100644",
+      "git_blob_sha1": "70855d2846c91fa0b56aa1cb5108ed284f109f41"
+    },
+    {
+      "path": "docs/flow_solve.md",
+      "mode": "100644",
+      "git_blob_sha1": "4d15049224a5ef33d6cb296aa4ad21339855507b"
+    },
+    {
+      "path": "docs/flow_tm.md",
+      "mode": "100644",
+      "git_blob_sha1": "52a5d569eed37d94e1e688c6041b7b47ea077dbf"
+    },
+    {
+      "path": "docs/flow_trigger_search.md",
+      "mode": "100644",
+      "git_blob_sha1": "74f404861ef70d4d1e01d330892940dd694bf461"
+    },
+    {
+      "path": "docs/flow_unit_testing.md",
+      "mode": "100644",
+      "git_blob_sha1": "2f9bd7a3c1795041fcaaee8f2f299ae1e29923e6"
+    },
+    {
+      "path": "docs/guide.md",
+      "mode": "120000",
+      "git_blob_sha1": "d77c97edea374261529f2cce9ab9f8c527f7c1a1"
+    },
+    {
+      "path": "docs/index.md",
+      "mode": "100644",
+      "git_blob_sha1": "ca6ff49cc8ce060aa9db414161b81b31d00aa451"
+    },
+    {
+      "path": "docs/omar_bcb_meeting_report.md",
+      "mode": "100644",
+      "git_blob_sha1": "33ccaba6a684e444d8704df64ccbc39bd47381de"
+    },
+    {
+      "path": "docs/omar_pbt_design_assessment.md",
+      "mode": "100644",
+      "git_blob_sha1": "b949d4fc244c9ca4a633c7355555890d581809da"
+    },
+    {
+      "path": "docs/omar_pbt_experiment_index.md",
+      "mode": "100644",
+      "git_blob_sha1": "ca694d3a736be572e8c1eee97a72cdb74bdc8a94"
+    },
+    {
+      "path": "docs/omar_pbt_publication_verification.md",
+      "mode": "100644",
+      "git_blob_sha1": "cf422c8b41fd87c374fcac451345962fb0032e8d"
+    },
+    {
+      "path": "docs/openrouter_glm_check_2026-09-17.md",
+      "mode": "100644",
+      "git_blob_sha1": "7b6cd1a4560f15df7aba7982740901de25d6772e"
+    },
+    {
+      "path": "docs/pbt_experiment_methods_appendix.md",
+      "mode": "100644",
+      "git_blob_sha1": "2524cba6f35cca2b31f7262ab59a652d6eb20058"
+    },
+    {
+      "path": "docs/pbt_paper_methods_results.md",
+      "mode": "100644",
+      "git_blob_sha1": "969aa56e3e38ffa358af4809e49045694b725b20"
+    },
+    {
+      "path": "docs/pipeline.md",
+      "mode": "120000",
+      "git_blob_sha1": "c4f25131e006c18c88a73161b84848ba93e69c90"
+    },
+    {
+      "path": "docs/promptfoo_deepteam_llmguard_review.md",
+      "mode": "100644",
+      "git_blob_sha1": "17dd4d7ff3cc2659475776433f3f097569490dfc"
+    },
+    {
+      "path": "docs/protocols.md",
+      "mode": "120000",
+      "git_blob_sha1": "8a95f3ce306b4d67f18dfda53f346edf896d0b20"
+    },
+    {
+      "path": "docs/standard_prompt_experiment.md",
+      "mode": "100644",
+      "git_blob_sha1": "ab94b01a536e6850ee1907e8449d1a9ef893e235"
+    },
+    {
+      "path": "docs/test_visibility.md",
+      "mode": "100644",
+      "git_blob_sha1": "6ada9167f59c8675004736af7ca28de63e682674"
+    },
+    {
+      "path": "notebook_plan.md",
+      "mode": "100644",
+      "git_blob_sha1": "8af3ecadeab8cb28a97c381d2e975c7c11330f68"
+    },
+    {
+      "path": "notebook_spec.md",
+      "mode": "100644",
+      "git_blob_sha1": "b224137db42b4626bca4211afd95e3ef6e8d0e74"
+    },
+    {
+      "path": "notebooks/AGENTS.md",
+      "mode": "100644",
+      "git_blob_sha1": "43ad6ce1e0cc679247fe50fed005aa5c900af672"
+    },
+    {
+      "path": "notebooks/ablation.png",
+      "mode": "100644",
+      "git_blob_sha1": "6abd2bc7ad994e8e4c30cae26d7650078ff9164f"
+    },
+    {
+      "path": "notebooks/ablation.svg",
+      "mode": "100644",
+      "git_blob_sha1": "00915bcf6749cb90aedd3135bcf1007675ce64d1"
+    },
+    {
+      "path": "notebooks/azure_pbt_authoring.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "31da559a52fe43535919afb60bed0f1a3d1f36a3"
+    },
+    {
+      "path": "notebooks/azure_pbt_authoring_replay.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "00d33a219a7a02bb21d8416880b41507084ec111"
+    },
+    {
+      "path": "notebooks/azure_pbt_bcb_delete_analysis.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "c7aa3a0e4cdf426ed79c1e7d2225484a07b9c568"
+    },
+    {
+      "path": "notebooks/azure_pbt_bcb_delete_only.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "bc2d2724fae27cf8bdddae01bdd590371a54c6f9"
+    },
+    {
+      "path": "notebooks/azure_pbt_bcb_delete_replay.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "fec29c7ac3b417f28c6a0d15d8d5a756dfae27ef"
+    },
+    {
+      "path": "notebooks/azure_pbt_bcb_domain_review.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "2acbcf00ee0cf6d3bfe540f6da48bb96a0c03e06"
+    },
+    {
+      "path": "notebooks/azure_pbt_bcb_replay_analysis.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "c43eccc6fc0a43d5564755b16240cfdf2cf1cfe4"
+    },
+    {
+      "path": "notebooks/azure_pbt_bcb_replication.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "4b9124034b5b6072e8caffbec5a886bb96ab464e"
+    },
+    {
+      "path": "notebooks/azure_pbt_confirmatory_domain_review.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "82c2770af3bdf8b5d495104136280a97b107ddfc"
+    },
+    {
+      "path": "notebooks/azure_pbt_domain_review.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "f7e8c69fccb727755672f2d097a3c7bed6fed3d1"
+    },
+    {
+      "path": "notebooks/azure_pbt_heldout.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "74226fb39219d8b2d7c9e343aca0982555be8a5f"
+    },
+    {
+      "path": "notebooks/azure_pbt_heldout_domain_review.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "962e6be6df0c186ac591d3c59f2f4b0f79fce1c5"
+    },
+    {
+      "path": "notebooks/azure_pbt_heldout_replay.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "71a5f1cc67de3a745ad96bb1e8deff446329fb18"
+    },
+    {
+      "path": "notebooks/azure_pbt_multiturn.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "1dcee7438077239f5b4bd5fb0810131fc43328e7"
+    },
+    {
+      "path": "notebooks/azure_pbt_multiturn_confirmatory.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "e3abdf9d9f6c7585a49c68de1a254df7bc1695c9"
+    },
+    {
+      "path": "notebooks/azure_pbt_smoke.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "5e1c0ef1c90568b9d2cf05aa918b817804ec0917"
+    },
+    {
+      "path": "notebooks/azure_pbt_training.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "e27c06954844565daa0b6db32983d0afd6438cb7"
+    },
+    {
+      "path": "notebooks/build_results.py",
+      "mode": "100644",
+      "git_blob_sha1": "5e2a483deff78b0aaae91a018bd00bb02a862317"
+    },
+    {
+      "path": "notebooks/demo.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "574e1e8e0431ae70a72db6a3e99c0c823ea9da43"
+    },
+    {
+      "path": "notebooks/figures/budget_attack_surface.png",
+      "mode": "100644",
+      "git_blob_sha1": "69c05314de83a665c7987936f759e92c94ae20d9"
+    },
+    {
+      "path": "notebooks/figures/frontiers_b_c.png",
+      "mode": "100644",
+      "git_blob_sha1": "a386008e97545685d4d3996caeb2a01a886468a8"
+    },
+    {
+      "path": "notebooks/figures/roc.png",
+      "mode": "100644",
+      "git_blob_sha1": "a4779583fb7bfb278f99687b2526de4746d35bbd"
+    },
+    {
+      "path": "notebooks/figures/safety_by_variation.png",
+      "mode": "100644",
+      "git_blob_sha1": "b19d21059c97a75b8c28529a25224b451d2c678d"
+    },
+    {
+      "path": "notebooks/results.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "49f6d4e8ffdfd151503395eef21b33e5c628dc05"
+    },
+    {
+      "path": "notebooks/results_random50.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "3cfefb980ee71751c6387bca8bbd2c8c6ee0167a"
+    },
+    {
+      "path": "notebooks/standard_prompt_ablation.ipynb",
+      "mode": "100644",
+      "git_blob_sha1": "7b41c4c8f60ce79a5646e62f324ffcfeecde0b93"
+    },
+    {
+      "path": "papers/2312.06942.json",
+      "mode": "100644",
+      "git_blob_sha1": "b2626ec44aa773ee54c4c008cd0f50386ca38927"
+    },
+    {
+      "path": "papers/2506.05296.json",
+      "mode": "100644",
+      "git_blob_sha1": "918c80a3731fa48f06190ddaa03f2ea929bb4e7b"
+    },
+    {
+      "path": "papers/2507.15886.json",
+      "mode": "100644",
+      "git_blob_sha1": "a4c237bb3c434e091ca7e9b897a0c7fa08a30916"
+    },
+    {
+      "path": "papers/2510.09462.json",
+      "mode": "100644",
+      "git_blob_sha1": "3074032e18b200c2cd93ec6b0c44971373e19b45"
+    },
+    {
+      "path": "papers/2602.10153.json",
+      "mode": "100644",
+      "git_blob_sha1": "bde316afccb244df01d5a5959a5bcbbd655ab9db"
+    },
+    {
+      "path": "papers/README.md",
+      "mode": "100644",
+      "git_blob_sha1": "5c13d6937f2f2a7783197bd890c2fb4dadfdde14"
+    },
+    {
+      "path": "pipeline/AGENTS.md",
+      "mode": "100644",
+      "git_blob_sha1": "531b9d07565734c1a9594ee6df4754de5758228d"
+    },
+    {
+      "path": "pipeline/__init__.py",
+      "mode": "100644",
+      "git_blob_sha1": "c9281f3f641057869d44cf5a8a3141d2240ba4b6"
+    },
+    {
+      "path": "pipeline/data.py",
+      "mode": "100644",
+      "git_blob_sha1": "d67d278ac9f0b75315002c08607a3e3791294dac"
+    },
+    {
+      "path": "pipeline/launch.py",
+      "mode": "100644",
+      "git_blob_sha1": "0c26f0577de32ffb606c8af54074cdbba3a42a35"
+    },
+    {
+      "path": "pipeline/model.py",
+      "mode": "100644",
+      "git_blob_sha1": "22f8a0413f2720faa9a45ef0a7e87c1419e86e9c"
+    },
+    {
+      "path": "pipeline/parse.py",
+      "mode": "100644",
+      "git_blob_sha1": "632d48c845be0858bdd38abdb8c1c37c172e8a82"
+    },
+    {
+      "path": "pipeline/prompts.py",
+      "mode": "100644",
+      "git_blob_sha1": "a100aa12431b4e60a5d7981255901deec26b3051"
+    },
+    {
+      "path": "pipeline/protocols/AGENTS.md",
+      "mode": "100644",
+      "git_blob_sha1": "d4d405e8907eb4864c66132194f8d91cf4e784f9"
+    },
+    {
+      "path": "pipeline/protocols/__init__.py",
+      "mode": "100644",
+      "git_blob_sha1": "735e1ce424fb5f62e088e1da316c744cde434e77"
+    },
+    {
+      "path": "pipeline/protocols/ablation.py",
+      "mode": "100644",
+      "git_blob_sha1": "6e2ace27eaffb7b8e3c7e00c0e3a8ea9d2abbc74"
+    },
+    {
+      "path": "pipeline/protocols/base.py",
+      "mode": "100644",
+      "git_blob_sha1": "d81e8ed17ed979abb401952e117be00f5fe9ac30"
+    },
+    {
+      "path": "pipeline/protocols/monitor_with_tests.py",
+      "mode": "100644",
+      "git_blob_sha1": "320a6d1364fce298316438dedf6f511c600f3a95"
+    },
+    {
+      "path": "pipeline/protocols/second_revision.py",
+      "mode": "100644",
+      "git_blob_sha1": "99245af5aa8c2f0bad4f043c9c0ea343cb4edb21"
+    },
+    {
+      "path": "pipeline/protocols/solve.py",
+      "mode": "100644",
+      "git_blob_sha1": "3ad60edf35b77f88832197d1142ed67b904fa1c8"
+    },
+    {
+      "path": "pipeline/protocols/test_repair.py",
+      "mode": "100644",
+      "git_blob_sha1": "5babd0677a3eae5784682aacbbd7bc2d65a3c408"
+    },
+    {
+      "path": "pipeline/protocols/tm.py",
+      "mode": "100644",
+      "git_blob_sha1": "6e7d1546ca1225c48e7092a25566601d2fb203e5"
+    },
+    {
+      "path": "pipeline/protocols/trigger_search.py",
+      "mode": "100644",
+      "git_blob_sha1": "3d3d19189e9063b4d6c33ee1807480a7c7bb1d82"
+    },
+    {
+      "path": "pipeline/protocols/u_plans_t_writes.py",
+      "mode": "100644",
+      "git_blob_sha1": "a0a2ad8c707e02ec272d097bbd20f67d0a355639"
+    },
+    {
+      "path": "pipeline/protocols/unit_testing.py",
+      "mode": "100644",
+      "git_blob_sha1": "d98877b70835cae6b3753acba747a9e91641bcf9"
+    },
+    {
+      "path": "pipeline/sandbox.py",
+      "mode": "100644",
+      "git_blob_sha1": "e7bf38421ce715a2eefbb3c3378ba885a121e88e"
+    },
+    {
+      "path": "prompts/AGENTS.md",
+      "mode": "100644",
+      "git_blob_sha1": "16ff6cf063555c0c9b6ad62299fa66c5d7c96c12"
+    },
+    {
+      "path": "prompts/ablation.txt",
+      "mode": "100644",
+      "git_blob_sha1": "44d688386debc2e5bb8f0836aeb779841fc02802"
+    },
+    {
+      "path": "prompts/audit_inputs.txt",
+      "mode": "100644",
+      "git_blob_sha1": "5ff86c2a6fab66c20fc12c45b32a2fc4ca76a3d8"
+    },
+    {
+      "path": "prompts/audit_inputs_speconly.txt",
+      "mode": "100644",
+      "git_blob_sha1": "3d04f157466628b2f62255ae91615ac55569f4c4"
+    },
+    {
+      "path": "prompts/audit_tests.txt",
+      "mode": "100644",
+      "git_blob_sha1": "8d1cdfacb80fc6cd5b3a08d10f1057c949de4eaf"
+    },
+    {
+      "path": "prompts/audit_tests_speconly.txt",
+      "mode": "100644",
+      "git_blob_sha1": "dbab661201b1fd005f8d7bf23000aa1992c841d8"
+    },
+    {
+      "path": "prompts/critique_tests.txt",
+      "mode": "100644",
+      "git_blob_sha1": "647a54f3dd02501638c00d47ae4a5dd2754acc33"
+    },
+    {
+      "path": "prompts/critique_tests_informed.txt",
+      "mode": "100644",
+      "git_blob_sha1": "d256a7d920c7ff72bfa86d59529b531682ed5f89"
+    },
+    {
+      "path": "prompts/example_audit_inputs_function.txt",
+      "mode": "100644",
+      "git_blob_sha1": "b08242c8cc5eb30ae74d9bd9afdcc54a73be678d"
+    },
+    {
+      "path": "prompts/example_audit_inputs_speconly_function.txt",
+      "mode": "100644",
+      "git_blob_sha1": "e51f44ae678cb5fa5893bf4d5e7f09db7abee1ae"
+    },
+    {
+      "path": "prompts/example_audit_inputs_speconly_stdio.txt",
+      "mode": "100644",
+      "git_blob_sha1": "27424e72710700c202e3fbc331035ffd3835c88f"
+    },
+    {
+      "path": "prompts/example_audit_inputs_stdio.txt",
+      "mode": "100644",
+      "git_blob_sha1": "5d36acd7d388e36c8861ea35ec286e723875957a"
+    },
+    {
+      "path": "prompts/example_audit_tests_function.txt",
+      "mode": "100644",
+      "git_blob_sha1": "adc4a438ee64049fe1aaac6154e50304e6c39ad5"
+    },
+    {
+      "path": "prompts/example_audit_tests_speconly_function.txt",
+      "mode": "100644",
+      "git_blob_sha1": "ac0f0aaf6a3e49035388472bc86e1d1724446808"
+    },
+    {
+      "path": "prompts/example_audit_tests_speconly_stdio.txt",
+      "mode": "100644",
+      "git_blob_sha1": "324d8c9f007c1df3e92f1be7309210ef6d76ba5c"
+    },
+    {
+      "path": "prompts/example_audit_tests_stdio.txt",
+      "mode": "100644",
+      "git_blob_sha1": "40a0d6fe7ac437a6c5cf7e0ff43bb8968f756d7e"
+    },
+    {
+      "path": "prompts/example_repair_tests_v1_function.txt",
+      "mode": "100644",
+      "git_blob_sha1": "69ca1bf3c104e7499e08092fede25e3245319d94"
+    },
+    {
+      "path": "prompts/example_repair_tests_v1_stdio.txt",
+      "mode": "100644",
+      "git_blob_sha1": "547eac1d1941bb4f5400b9d3993f519f0a37bc2f"
+    },
+    {
+      "path": "prompts/framing_plain.txt",
+      "mode": "100644",
+      "git_blob_sha1": "4494e3b90569cac03ace4517e7c5f03da624a131"
+    },
+    {
+      "path": "prompts/framing_plain_v2.txt",
+      "mode": "100644",
+      "git_blob_sha1": "067efb09a322a76ca58ee8ae53862bcf71d90624"
+    },
+    {
+      "path": "prompts/framing_plain_v3.txt",
+      "mode": "100644",
+      "git_blob_sha1": "ad9dc2816578f7259688b2ab328922b4391656f7"
+    },
+    {
+      "path": "prompts/framing_property.txt",
+      "mode": "100644",
+      "git_blob_sha1": "91cabac926aee84df25389fe63c06b2b94c02cce"
+    },
+    {
+      "path": "prompts/framing_traceable_v1.txt",
+      "mode": "100644",
+      "git_blob_sha1": "30bb3cd28193b019bfd16cb1a3f697aca4602c1a"
+    },
+    {
+      "path": "prompts/monitor_with_tests.txt",
+      "mode": "100644",
+      "git_blob_sha1": "19870bb465abe2e3923d46936541a1b623d762c1"
+    },
+    {
+      "path": "prompts/repair_tests_v1.txt",
+      "mode": "100644",
+      "git_blob_sha1": "44cd09f4624ce0a6e98dab7b725ba864f32ba9d1"
+    },
+    {
+      "path": "prompts/resolve_with.txt",
+      "mode": "100644",
+      "git_blob_sha1": "42bf13b903fa6a510860143fcb342e4f1145028d"
+    },
+    {
+      "path": "prompts/resolve_without.txt",
+      "mode": "100644",
+      "git_blob_sha1": "e99027679fbdd5f0d98df45ffa7d4aaee6ef7bdb"
+    },
+    {
+      "path": "prompts/second_revision_v1.txt",
+      "mode": "100644",
+      "git_blob_sha1": "532d60d8ba614ed7e545f256a83af1ebb89fd5ff"
+    },
+    {
+      "path": "prompts/t_writes_tests.txt",
+      "mode": "100644",
+      "git_blob_sha1": "756b9e80569a88666ff26502ef8e05e07317fda3"
+    },
+    {
+      "path": "prompts/trusted_monitor.txt",
+      "mode": "100644",
+      "git_blob_sha1": "076d6210516d9fd68753fc050106b1d8d52bb828"
+    },
+    {
+      "path": "prompts/trusted_solve.txt",
+      "mode": "100644",
+      "git_blob_sha1": "fa13871668e900ea5b3446af622545a01127ee58"
+    },
+    {
+      "path": "prompts/u_plan_tests.txt",
+      "mode": "100644",
+      "git_blob_sha1": "d3af7d513191c32671ec988ab6da67f8a771e226"
+    },
+    {
+      "path": "pytest.ini",
+      "mode": "100644",
+      "git_blob_sha1": "c7b23ecb1408be49fb2fa8ef77ffa48640681e34"
+    },
+    {
+      "path": "requirements.txt",
+      "mode": "100644",
+      "git_blob_sha1": "2984f068ec8d084d84d84e98218730f0bf12a3fa"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-baseline/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "70568df110a9e184d01bb41194afc7326e767092"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-baseline/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "896a9d4ddb408b4690f9f301c4c8e54969902aa8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-delete-only/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "9484bed4a88a62dd90a9f7441af4de8b018a5a1f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-delete-only/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "5d8f8d261819ea456efff1c25116110d8c632185"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-feedback/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "99a8015adce33be377cc48b84cb8f8d6a252a751"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-feedback/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "3b3dd6e1e03085c97bc13680f2a6350f3fa7f20b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-no-feedback/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "d0db4f62d234b2ea38c7aab99461b8f35226ab2d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-no-feedback/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "907c32cb7cfe7965706019df5e349ba6962bef27"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-reviewed-inputs/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "8e0029a2661e4558225fda698a607651596fcb70"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-reviewed-inputs/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "caa6b609f2e21221b8a7896dc22fedbd70321f51"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-reviewed-inputs/reviewed-inputs.json",
+      "mode": "100644",
+      "git_blob_sha1": "d1844bfe5a56ff486d0cc1ac1518a5ef7808f14f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-reviewed-inputs/statement-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "9ff37e7d2d5b2500a3e4b1aac9f55f69288df4e4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/baseline-diagnostic-review-v1.md",
+      "mode": "100644",
+      "git_blob_sha1": "4fc5ef6d8db710ad107e349bbcf4ea02e61bcb5c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/baseline-full-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "249d03edc25ba554f3b02f8e6bd187ca22dab7d8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/baseline-full-launch-v1.preflight-failed.json",
+      "mode": "100644",
+      "git_blob_sha1": "249d03edc25ba554f3b02f8e6bd187ca22dab7d8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/baseline-smoke-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "8f4d9ce502d5cda8a0226b2d1882af2eef59bcad"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/baseline-smoke-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "e018dae5d668ee44de15e8211ac7b4c2dc42f59b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "57235d92dff41216c286d19393adbdfbe1bad5f6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-honest-twin-replay-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5e7d0bab12b61c1f7610825ac95640a9a2f37e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-honest-twin-replay-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "0f1a9bdd170773f7c7cb5a916280d14edb93414a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-only-full-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "9dba78e3e16504531282180ce2a1a43e13bef1b5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-only-full-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "d5ad939f7d6e01f1ab4be79aca245ec39ea89a6c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-only-smoke-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "9dba78e3e16504531282180ce2a1a43e13bef1b5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-only-smoke-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "d7b437ef23c73a6cbdee4b44ed635042ff3383a7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-only-smoke-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "3d0835f2742c5c736a290ea958e098b12103d70d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/delete-replay-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "2e5246bd8b503a35768f2c0a03f4127579c19b7a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/121.json",
+      "mode": "100644",
+      "git_blob_sha1": "f0591a8934eca388946cbe9c5b2e27db29c83ee1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/141.json",
+      "mode": "100644",
+      "git_blob_sha1": "ee70a4678e3d42e7168cb9218da185e2ca69629f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/147.json",
+      "mode": "100644",
+      "git_blob_sha1": "fc498d1afab82b5f979c150f2541c6b9c963d101"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/149.json",
+      "mode": "100644",
+      "git_blob_sha1": "9a1cbc336b63e917359ada75740d0bd45e8c0d7a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/150.json",
+      "mode": "100644",
+      "git_blob_sha1": "5ef1f56bf65bb92cfeee34f0fc6f26be36fb94be"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/151.json",
+      "mode": "100644",
+      "git_blob_sha1": "aa9820d3e093b031e514b4a812bd8a87bda350f9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/153.json",
+      "mode": "100644",
+      "git_blob_sha1": "ce0bf6bb3ff7924e022396383f2faed4bb27e582"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/25.json",
+      "mode": "100644",
+      "git_blob_sha1": "7c46f3a6a2ec928994d1433e415112a5aaadf39a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/27.json",
+      "mode": "100644",
+      "git_blob_sha1": "4815d114ec4ef8592f98110082dcafe267642776"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/33.json",
+      "mode": "100644",
+      "git_blob_sha1": "e03c7f10cf5cc56b12889473216a17c8817538a3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/4.json",
+      "mode": "100644",
+      "git_blob_sha1": "970c8abd010dedc31a1bf2a87e53f3d23b9aacfc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/50.json",
+      "mode": "100644",
+      "git_blob_sha1": "bd72c7da1e7202882c28a11c582a2ab4b9536edd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/52.json",
+      "mode": "100644",
+      "git_blob_sha1": "d3f9295afb2769c5ea6438b1e7b9cd9d2558805c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/54.json",
+      "mode": "100644",
+      "git_blob_sha1": "9928316f47114cc80cfefba070ac5020a78c3592"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/55.json",
+      "mode": "100644",
+      "git_blob_sha1": "a43fea9762dd3432c8d40708d7dd01dbc415b3eb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/61.json",
+      "mode": "100644",
+      "git_blob_sha1": "c58a6e8699af68e3b056437d457089250a3a3432"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/63.json",
+      "mode": "100644",
+      "git_blob_sha1": "0e65ea1b2dc8b748a82d08fd355c92fe778ac2ea"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/64.json",
+      "mode": "100644",
+      "git_blob_sha1": "058ff966154285f5fa8073949fa91e8bc0cab20c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/65.json",
+      "mode": "100644",
+      "git_blob_sha1": "afce6f72c3a44430b048d726eb679bc9e15a9472"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/66.json",
+      "mode": "100644",
+      "git_blob_sha1": "c8165892612add37f71de1bf85d0c4a6253c528a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/84.json",
+      "mode": "100644",
+      "git_blob_sha1": "92a2c0e01330018d5030e2bdd7b16c530d1a62d7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "1b412542be80023f9d62e73177a3a6e715616455"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/87.json",
+      "mode": "100644",
+      "git_blob_sha1": "84d323e7e6da5288fbe97a809e22f8b62b640c81"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/9.json",
+      "mode": "100644",
+      "git_blob_sha1": "21435d81802fe542f91399cf6de2aa05a4812e27"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/95.json",
+      "mode": "100644",
+      "git_blob_sha1": "79cd82245ecedf7157a58cecd9c976c1f03e70e4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/delete-only-v1/honest-twin-replay/azure-terra-pbt-bcb26-s300-v1-delete-only/BigCodeBench/97.json",
+      "mode": "100644",
+      "git_blob_sha1": "881d74e9f8e7e5899d8f1f20f4552e6883ff00b0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/honest-twin-replay-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5e7d0bab12b61c1f7610825ac95640a9a2f37e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/honest-twin-replay-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "ba27b1bd3c0b9a136ffe72ebff8f86a4cb4fc236"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/primary-analysis-v2.json",
+      "mode": "100644",
+      "git_blob_sha1": "2f2307c63af91dafe06a5f72176e62a6575f5e6d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/primary-analysis-v3-supplement.json",
+      "mode": "100644",
+      "git_blob_sha1": "7fef3a3bca0172ea2e878d5c100d1fb5335a8550"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/replay-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "0c573fdb4ca1249e5399f75aba31e1628fd46994"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/replication-manifest-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "d7c638b0683612bcd06e95a6adc6a8c1fd4bf8a2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/revision-smoke-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "e58bf26b7587a7edffa30229089111cfabd3ca5a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/revisions-full-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5e7d0bab12b61c1f7610825ac95640a9a2f37e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/revisions-full-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "e15cdcaae0e61040e46b2fb5c80e743e28910b26"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/revisions-smoke-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5e7d0bab12b61c1f7610825ac95640a9a2f37e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/revisions-smoke-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "581c197564bcb6ca3b2bdabef6abb09572288ca3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/121.json",
+      "mode": "100644",
+      "git_blob_sha1": "65d653e256131d6022b76e3ce6cd37867ed97b2e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/141.json",
+      "mode": "100644",
+      "git_blob_sha1": "912d0a282b14e5ddc436526a54860f7c4348bc79"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/147.json",
+      "mode": "100644",
+      "git_blob_sha1": "308d33f4e111c73d4fa2ec5f5bd4faa8d51d1662"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/149.json",
+      "mode": "100644",
+      "git_blob_sha1": "8f0f0bee53b6feadc1fa3d1f98bffa76bcc546cb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/150.json",
+      "mode": "100644",
+      "git_blob_sha1": "1856dca6359ff59c0c21a72e0ea8104c274c20dc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/151.json",
+      "mode": "100644",
+      "git_blob_sha1": "9ac0aed835f6413ae9f01201f15557029378c9fd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/153.json",
+      "mode": "100644",
+      "git_blob_sha1": "be707ace74a687fb8328af665066c31084d88c87"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/25.json",
+      "mode": "100644",
+      "git_blob_sha1": "f59ab0e1908a7f9b3ee27c595333107d85532f2d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/27.json",
+      "mode": "100644",
+      "git_blob_sha1": "2657ad08d206cc8e61cda7e2e4569261f64c5dc0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/33.json",
+      "mode": "100644",
+      "git_blob_sha1": "d029056234beed8028e3277c5e5c6a09682fe852"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/4.json",
+      "mode": "100644",
+      "git_blob_sha1": "25ff67caef4250e3c60b73bd5174a7e6c22448b4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/50.json",
+      "mode": "100644",
+      "git_blob_sha1": "0d0704972b35d3ed948540c6c82ccf7f0b34237c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/52.json",
+      "mode": "100644",
+      "git_blob_sha1": "031645f1758b211875298cf73e1b17ae5e8b0b58"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/54.json",
+      "mode": "100644",
+      "git_blob_sha1": "d102a91b977591ea3336b23352d52008d6e22582"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/55.json",
+      "mode": "100644",
+      "git_blob_sha1": "40316993b963bd6d916299de6132fa1832ea87a7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/61.json",
+      "mode": "100644",
+      "git_blob_sha1": "36a340388d51023d90d7428e5bb1a73ac7b75084"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/63.json",
+      "mode": "100644",
+      "git_blob_sha1": "fce7d1f5d761efe4d02eadbb078b088c51000205"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/64.json",
+      "mode": "100644",
+      "git_blob_sha1": "fec3d9c0834eb72cf7eec394852933540077f72a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/65.json",
+      "mode": "100644",
+      "git_blob_sha1": "d907ba44b3d4d6939e2f8a0f993fbe35e8098468"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/66.json",
+      "mode": "100644",
+      "git_blob_sha1": "0907126a24e8791e2363c52186544f2762ef0949"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/84.json",
+      "mode": "100644",
+      "git_blob_sha1": "bebcf9fc7c05e04251a0be92562998edd2ae3146"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "2b0fd89a43da5de0a65701c15fecd4194f87234e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/87.json",
+      "mode": "100644",
+      "git_blob_sha1": "f4ff85b212c596558ca85d605f09c88037291dca"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/9.json",
+      "mode": "100644",
+      "git_blob_sha1": "c6b8a721c673c081f1632a826a12763adb3c3f50"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/95.json",
+      "mode": "100644",
+      "git_blob_sha1": "79dc5c34013d02b4aafc715cf6a102b4f9642adb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-baseline/BigCodeBench/97.json",
+      "mode": "100644",
+      "git_blob_sha1": "195e72ca50d5015bfcf65f0e2612035eec9ef840"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/121.json",
+      "mode": "100644",
+      "git_blob_sha1": "81ff86dec25ba3d12315c53c3f1bf983d37c3f2d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/141.json",
+      "mode": "100644",
+      "git_blob_sha1": "6abf1ceabe1552247d47c0d9f9e03e3ba67606ea"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/147.json",
+      "mode": "100644",
+      "git_blob_sha1": "32792041979542b6133e4cc1c0e8d18452a355a5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/149.json",
+      "mode": "100644",
+      "git_blob_sha1": "72365fd1da0d33f152a0e74c55a8ec8221af8902"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/150.json",
+      "mode": "100644",
+      "git_blob_sha1": "7051187b091dee9e50640523c6a6390ab1005beb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/151.json",
+      "mode": "100644",
+      "git_blob_sha1": "1fb72b1033f660d8d07f7ba1b70c8ae6697d270a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/153.json",
+      "mode": "100644",
+      "git_blob_sha1": "e92e35c4416b525e1934e2f26a414cd8831f0e33"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/25.json",
+      "mode": "100644",
+      "git_blob_sha1": "925fd6da2297a6c0b49a4373e259e325594365e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/27.json",
+      "mode": "100644",
+      "git_blob_sha1": "758e255df18f5bc64dd82659c3a24b7138fa8a65"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/33.json",
+      "mode": "100644",
+      "git_blob_sha1": "d60fa0c9fe87c819ff86f6a97fa5a8f5abb67cfa"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/4.json",
+      "mode": "100644",
+      "git_blob_sha1": "ae9bb4de6eac07b5851c716aec2765914d4f6609"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/50.json",
+      "mode": "100644",
+      "git_blob_sha1": "09e31fa7e1485f9c6f9cb80b02e3d49825c93d8c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/52.json",
+      "mode": "100644",
+      "git_blob_sha1": "0a9c247fe951d38c617fd41d20af122f3e323221"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/54.json",
+      "mode": "100644",
+      "git_blob_sha1": "54923511969b29327d60975f6d43d8f2c4abefe2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/55.json",
+      "mode": "100644",
+      "git_blob_sha1": "cce8762c110b333bc8fcd6e704ef3034986a67fc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/61.json",
+      "mode": "100644",
+      "git_blob_sha1": "66166e607a3e58df28b1710dc9ab72cce6e84396"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/63.json",
+      "mode": "100644",
+      "git_blob_sha1": "8e65e18fe5a6935dca1f8d6acefafe33284b9f93"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/64.json",
+      "mode": "100644",
+      "git_blob_sha1": "6d88e49052ac367a8cf8ea0ae1b67e58562ec3b3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/65.json",
+      "mode": "100644",
+      "git_blob_sha1": "dc1868891aef5239ef1909188a476f0105c1d47e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/66.json",
+      "mode": "100644",
+      "git_blob_sha1": "b70294b871ba9769662ccf67cf523046f4fb5244"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/84.json",
+      "mode": "100644",
+      "git_blob_sha1": "9bf248643ccdd5efdd7d37181c476e6cf97a6480"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "992c088b010ecb2e24d909bc4ba2f2b448bb6685"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/87.json",
+      "mode": "100644",
+      "git_blob_sha1": "f76dafb9d5de28823a05dc6ef9ee375690f2664f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/9.json",
+      "mode": "100644",
+      "git_blob_sha1": "ce6605bab09e7efee84d38dea2cd3541957e41f3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/95.json",
+      "mode": "100644",
+      "git_blob_sha1": "2fd62fa45e86b9504f083bfed5598db9d39cafdf"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-feedback/BigCodeBench/97.json",
+      "mode": "100644",
+      "git_blob_sha1": "dd0700672c6a2b3d348e04f82dc34fcc049ff1d1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/121.json",
+      "mode": "100644",
+      "git_blob_sha1": "f094297b43df8d8787bd23d09ca5715f73ebbf35"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/141.json",
+      "mode": "100644",
+      "git_blob_sha1": "994c4bdddc9555ceb19a070c02ac8025dcbe1de6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/147.json",
+      "mode": "100644",
+      "git_blob_sha1": "10bb309e92933c94ba2e25704e090efc8087f413"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/149.json",
+      "mode": "100644",
+      "git_blob_sha1": "9f29d5424c676eb195891fcc4c7743c7b64fcfae"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/150.json",
+      "mode": "100644",
+      "git_blob_sha1": "953d7a892158a9d90e781a1a18907d371913baf9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/151.json",
+      "mode": "100644",
+      "git_blob_sha1": "77b3165c95bc773b1942a94ad19147b32915ccb0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/153.json",
+      "mode": "100644",
+      "git_blob_sha1": "a805043f85ca7e121c37912db85f7fae3426bc26"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/25.json",
+      "mode": "100644",
+      "git_blob_sha1": "b46dac2e970fde6b26ab38aacfe3e410f6799876"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/27.json",
+      "mode": "100644",
+      "git_blob_sha1": "a926c513d0440d4ca6e7003997d1db712de34af1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/33.json",
+      "mode": "100644",
+      "git_blob_sha1": "c37d38922472898b8f6f611982c50e84fa40c4b0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/4.json",
+      "mode": "100644",
+      "git_blob_sha1": "54b503a5210c8d954c78aedad24443ee9fbe75e2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/50.json",
+      "mode": "100644",
+      "git_blob_sha1": "ed8d03e9e6d837df528a44d0595f2681775784a5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/52.json",
+      "mode": "100644",
+      "git_blob_sha1": "bf3c496966d725155ad7cda39f968a7acda982e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/54.json",
+      "mode": "100644",
+      "git_blob_sha1": "f5909312d12a75409395cc16fe250f7f5683604d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/55.json",
+      "mode": "100644",
+      "git_blob_sha1": "63eaab8b31bdd4e9ce1879e614732c3d1814c7be"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/61.json",
+      "mode": "100644",
+      "git_blob_sha1": "cf4fda5fa4088211e16541e73a2c934ebd2e4f99"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/63.json",
+      "mode": "100644",
+      "git_blob_sha1": "68d876e1e6a704b2e94a3ae3433a37ff9978281f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/64.json",
+      "mode": "100644",
+      "git_blob_sha1": "0d0d02954cc9a0e5629dfeb2fe30c1f47c7c43ca"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/65.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5240461c13cc3031d8d1f935f00c2b324a25e84"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/66.json",
+      "mode": "100644",
+      "git_blob_sha1": "1f4903282fedf3cdfdbdf18cb965b06743dd4936"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/84.json",
+      "mode": "100644",
+      "git_blob_sha1": "94aede445cc446e80a585810826205e83f01450c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "068539ef48a610cfdbbb4efd521dac0d745c9e8c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/87.json",
+      "mode": "100644",
+      "git_blob_sha1": "5714c120a92b5ed630f4370bcfa1b358de2427ce"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/9.json",
+      "mode": "100644",
+      "git_blob_sha1": "6ee76fd35722f38d33e4b2478079e195fdcd0379"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/95.json",
+      "mode": "100644",
+      "git_blob_sha1": "d600a8284219fd6574e021e4bf55851b637dfa40"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-bcb26-s300-v1-no-feedback/BigCodeBench/97.json",
+      "mode": "100644",
+      "git_blob_sha1": "87559098a37b2f34153ab659995f23b156f29085"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/source-bundle-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "1c0a701b337b0080f40f4413a0f8651edba96e50"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/source-feedback-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "ffb8107aedd18cc983f624faa65ac20950fa40fc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/trigger-launch.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5e7d0bab12b61c1f7610825ac95640a9a2f37e8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-study/trigger-launch.json",
+      "mode": "100644",
+      "git_blob_sha1": "1a899d8b7e259503c0dab88b4258e268aee8ac07"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-triggers/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "fad7e4b7e1d08549a750bfd472ce0f8fe0b1dbc1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-triggers/domain-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "a172160e9044f30e17baea742969489109446a09"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-triggers/domain-review-v2.json",
+      "mode": "100644",
+      "git_blob_sha1": "2dc14e9783b2c83e73fae90bdea68128189076b7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-triggers/domain-review-v3.json",
+      "mode": "100644",
+      "git_blob_sha1": "e44b58c167158287d8c546d9a84ddd80c04fa6fb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-triggers/domain-review-v4.json",
+      "mode": "100644",
+      "git_blob_sha1": "93269e6f3fbb85b1145c249946a03ee7e84f7dd1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-bcb26-s300-v1-triggers/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "d947143393dac5da1a6e348f120341f5a930612b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "852aa43295697046a9892ee45053ed0333487ca4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "f03b2d098a47daef270de136d1cfa53a0241d8b2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "b65c3d4318ec0200a0aed3bb746e8b9b73146876"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "6c6c5f59523a630c81d1014b3fcc2595f6a71dc3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "fca4968712dde38e6fcae8583ff77e570c6ebda8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "409acde0d285e647c5ff9efb2bfe53c5dbf4298c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-reviewed-inputs/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "6537892e882d4c8add053efa137f9f54dfdd0242"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-reviewed-inputs/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "270e4c7d68df1a3aebd91dc4db42236fcc4ea030"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/baseline-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "676da98ad92061f1aacbbd28d841fb8cf7c0ea16"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/baseline-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "a926013a89bb6638b28a42ccef7d75d9f34ba391"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/baseline-launch-v2.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "6c4865cbab4f67426fc0c9e6eceaba0ade719aa2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/baseline-launch-v2.json",
+      "mode": "100644",
+      "git_blob_sha1": "2597ceb38a02c2f9efff4bca2ac269b09e16f77d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/differential-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "231fd2472e36a13639ffda02583ba11fb528a557"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/differential-replay-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "b29b99bcb89a4e2ef0465d91d8753c6909f96008"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/differential-replay-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "5c98a653607fd116911f61547f8e9623d07784e7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/differential-replay-launch-v2.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "68601e75f5e72e8859012b999289461b342ed3af"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/differential-replay-launch-v2.json",
+      "mode": "100644",
+      "git_blob_sha1": "d6c66fadd48860e6bad980551a33a2d545a95abd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/diversity-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "a1db98f01bfcefc9e0fc10b07247b1915fce6e10"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/primary-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "1cbc5e3073a0d7792eb54c0ea9d7649fdba14fd6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/revision-full-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "6a09ddba74ad75c13475778d01b039a0528c48b5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/revision-full-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "6c0d9d0e1216b78fe259335e090b54c1b4e40d6b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/revision-manifest-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "c20543fc720eccdf0ebda27f2c0bd2bcd7f528d7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/revision-smoke-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5bd99f971e84952426440b7f707b091b3728225"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/revision-smoke-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "a2f506caddfa91528482afa5dfa07cf6305bf2a8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1175.json",
+      "mode": "100644",
+      "git_blob_sha1": "515877b81424e5c1203357bcf438dba1524f60e7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1223.json",
+      "mode": "100644",
+      "git_blob_sha1": "5ec6bfdb268b1dcc0e6cdf8e838a2c07f6a2cc54"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1361.json",
+      "mode": "100644",
+      "git_blob_sha1": "8773d89b1b9553e23e7b2073e004d4c430e34721"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1383.json",
+      "mode": "100644",
+      "git_blob_sha1": "45697595194cb5b1193a11e2e23c82aaaddb46bb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1433.json",
+      "mode": "100644",
+      "git_blob_sha1": "ec7ab1f8c8547224c57e42a1c06dd1b82594e8e0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1553.json",
+      "mode": "100644",
+      "git_blob_sha1": "a12d6a7e5e7471e0407982bd8b9252be223843cf"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1670.json",
+      "mode": "100644",
+      "git_blob_sha1": "0f70d4673fa95925a0d4735e7d49da5386de9929"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1681.json",
+      "mode": "100644",
+      "git_blob_sha1": "65e52b8443600a6d45fa57b20581d34a34f0bd81"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1737.json",
+      "mode": "100644",
+      "git_blob_sha1": "dd37f1601ec6d750534c71c1b5e7e499fb9c0bf9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1743.json",
+      "mode": "100644",
+      "git_blob_sha1": "8f712d036bd744da3e01ba4b636bc4efc7c7e8fe"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1766.json",
+      "mode": "100644",
+      "git_blob_sha1": "0b1efecad9fb8309f5b4424ab8d1daafc3c4117d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1864.json",
+      "mode": "100644",
+      "git_blob_sha1": "fbc6ffbd4899e53b3749ec6100fd7aa93f58a498"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1941.json",
+      "mode": "100644",
+      "git_blob_sha1": "1a77b72934dd24d13a0ff5ede8cf416c48903f35"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/1958.json",
+      "mode": "100644",
+      "git_blob_sha1": "3d3011a81006ae48cc9e3aab35127827f9afff84"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/2046.json",
+      "mode": "100644",
+      "git_blob_sha1": "406274deb99a2a81444f5546f2c52818e5e635e6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/2183.json",
+      "mode": "100644",
+      "git_blob_sha1": "b75155ad88d2298dbd3f056f9882df6ce5b78e28"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/2222.json",
+      "mode": "100644",
+      "git_blob_sha1": "5ca53083bed7c24758571a29c902065d04be7fb5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/4089.json",
+      "mode": "100644",
+      "git_blob_sha1": "bb91b0db7fa20806435f1896c57659779f9049e2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/4365.json",
+      "mode": "100644",
+      "git_blob_sha1": "4b90df34b2dd84ecf269a3d7b6768dc52c8f4381"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/4414.json",
+      "mode": "100644",
+      "git_blob_sha1": "55df6ad4413381a04c3224472d46e79a9d84a344"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/4442.json",
+      "mode": "100644",
+      "git_blob_sha1": "7c57eab493a307d42e65f258673e654f23ae0e7b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/570.json",
+      "mode": "100644",
+      "git_blob_sha1": "fbb69efddf0001163ad4382493dc064e2e1e4fea"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/630.json",
+      "mode": "100644",
+      "git_blob_sha1": "1ff857905af6ec265f095db197bf313595091e81"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/632.json",
+      "mode": "100644",
+      "git_blob_sha1": "ca7f23e627d5ca8785468d45081c9b51b7eac77b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/677.json",
+      "mode": "100644",
+      "git_blob_sha1": "fdce64cf801e25c08eae7d91b76fce10bb2a20eb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/756.json",
+      "mode": "100644",
+      "git_blob_sha1": "21c7b2f00d1bfd9b23b477b36868b20feb2e9f10"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/838.json",
+      "mode": "100644",
+      "git_blob_sha1": "4302b3378604e66c2739320eb533eec676e1cdcd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/842.json",
+      "mode": "100644",
+      "git_blob_sha1": "05167aad3c442a4ffa442b0337332e61d49599e9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "43f3ae8b0428726c849f0f0a56cb8325e5918f65"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-baseline/966.json",
+      "mode": "100644",
+      "git_blob_sha1": "699359ff8ae959f42a27ec94881bb6f813a655de"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1175.json",
+      "mode": "100644",
+      "git_blob_sha1": "89930f4326dbf851ee23ab8b638a05580cb89745"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1223.json",
+      "mode": "100644",
+      "git_blob_sha1": "5d837379eaaa9bc77aeab790fcde08ac2357a16e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1361.json",
+      "mode": "100644",
+      "git_blob_sha1": "b07b9c81cf8901c5f0586fff3737317ba0f5dc18"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1383.json",
+      "mode": "100644",
+      "git_blob_sha1": "2b7352602d2ad4cd600c15dd216bcd2b67153610"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1433.json",
+      "mode": "100644",
+      "git_blob_sha1": "6cab2adcb825788403084171cb9eadf996ae853d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1553.json",
+      "mode": "100644",
+      "git_blob_sha1": "baad57f38549e04a80ab4e6c371825f70c8141cc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1670.json",
+      "mode": "100644",
+      "git_blob_sha1": "89d6b0027a7cda82ca1812c2f27d61dd15a93396"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1681.json",
+      "mode": "100644",
+      "git_blob_sha1": "758e2d7fe24871b9be49a75726713a247ca8eee0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1737.json",
+      "mode": "100644",
+      "git_blob_sha1": "72a9d8e5146c6d9bcce77b5edddc758a0026df14"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1743.json",
+      "mode": "100644",
+      "git_blob_sha1": "2a07780ec197ac3c354d06b81e8576430d010361"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1766.json",
+      "mode": "100644",
+      "git_blob_sha1": "a193906f1b09333d188bdab3cb68a0f0fb7e9b52"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1864.json",
+      "mode": "100644",
+      "git_blob_sha1": "59bf1b7f7c4e8227ad024fb4b0c997457305eb1f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1941.json",
+      "mode": "100644",
+      "git_blob_sha1": "323605ae1daf4ea4007f7f5380f2c7f074cbf539"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/1958.json",
+      "mode": "100644",
+      "git_blob_sha1": "ea5ce77053c2bb484f96296eb20e185b7d772652"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/2046.json",
+      "mode": "100644",
+      "git_blob_sha1": "6060a2349261240bd40e17448beebf0984dd8f6d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/2183.json",
+      "mode": "100644",
+      "git_blob_sha1": "bf450c587657eb602f824d8d10b11fe81ba49971"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/2222.json",
+      "mode": "100644",
+      "git_blob_sha1": "3dfbeb8207215e50219661ad4ce5ee84fd1d45fb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/4089.json",
+      "mode": "100644",
+      "git_blob_sha1": "f4ca14a6ab5152294168f99d604ea5e8f4ffb119"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/4365.json",
+      "mode": "100644",
+      "git_blob_sha1": "e1ade0570eaded7ae544d9b1059bbe850e60a511"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/4414.json",
+      "mode": "100644",
+      "git_blob_sha1": "86c6698eaaed515c336685261820339c26ce5166"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/4442.json",
+      "mode": "100644",
+      "git_blob_sha1": "cb808e41bf7cb4a1036399cb87a98b73d0ff2473"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/570.json",
+      "mode": "100644",
+      "git_blob_sha1": "0bc273916162092e5d3597729d4ed6a5c790515d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/630.json",
+      "mode": "100644",
+      "git_blob_sha1": "95da55dc88d32747926c98769fac8551025761a8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/632.json",
+      "mode": "100644",
+      "git_blob_sha1": "1115ee82ed9d37bcf6be0eec9d383726311104c3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/677.json",
+      "mode": "100644",
+      "git_blob_sha1": "eb149c5adb342ab039f5dab3331659cf16e4cf4b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/756.json",
+      "mode": "100644",
+      "git_blob_sha1": "a11606f768609208f7a5f0cadf4c46874a50523f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/838.json",
+      "mode": "100644",
+      "git_blob_sha1": "ad71013d9916e8b7ead9ce6377020e7d11b32042"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/842.json",
+      "mode": "100644",
+      "git_blob_sha1": "7875b4393850424998cb5783206aae925bf9ccd9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "91c188f2c9323a7bec135dcb8d1d8b8b56f7e5d3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-feedback/966.json",
+      "mode": "100644",
+      "git_blob_sha1": "776ed28820e4365943ef74fc00f51a236c9ba2ec"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1175.json",
+      "mode": "100644",
+      "git_blob_sha1": "54d68a9d1a07980259ce64240ee5e50f81f55769"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1223.json",
+      "mode": "100644",
+      "git_blob_sha1": "016abe4dc357858b610f60bc8ea7268350743ab1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1361.json",
+      "mode": "100644",
+      "git_blob_sha1": "46e66e141f4f2647a7d5fb7dedc0393a84bf0771"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1383.json",
+      "mode": "100644",
+      "git_blob_sha1": "4052b96bbd4a2c596a64296720e172a8e2e10f84"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1433.json",
+      "mode": "100644",
+      "git_blob_sha1": "7a71c213dd595d034117787f8939155ed4b25b31"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1553.json",
+      "mode": "100644",
+      "git_blob_sha1": "0ce5943010152ca1917d2fdf37a4b2296c47f6c8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1670.json",
+      "mode": "100644",
+      "git_blob_sha1": "30cb3e07103b76a3e5d5f024b1339799ffaddbc5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1681.json",
+      "mode": "100644",
+      "git_blob_sha1": "366f779b52ceeeee31c20db06deed3271422ba1e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1737.json",
+      "mode": "100644",
+      "git_blob_sha1": "2c27c5af0200d06937f8dcb35216bc6053a848ba"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1743.json",
+      "mode": "100644",
+      "git_blob_sha1": "388f22e769384c6564bedb91b558a3c21151f9a6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1766.json",
+      "mode": "100644",
+      "git_blob_sha1": "871dae230a657ab2667d8e670ca42ff3674357ee"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1864.json",
+      "mode": "100644",
+      "git_blob_sha1": "8219f6857ea7ed53f5a5a020b1bdb2c321031fda"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1941.json",
+      "mode": "100644",
+      "git_blob_sha1": "2fdd56657acb57eafa94e4ad94e16c3bade6e284"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/1958.json",
+      "mode": "100644",
+      "git_blob_sha1": "e8562bee3a05681cf11142320da8e4b56d148738"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/2046.json",
+      "mode": "100644",
+      "git_blob_sha1": "21d1ef4c57eb27ddd6ee49af72973115a3eb11ed"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/2183.json",
+      "mode": "100644",
+      "git_blob_sha1": "59e00a21673c967cc15c4b89ca03783b53d292be"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/2222.json",
+      "mode": "100644",
+      "git_blob_sha1": "a129ca0a33327b545ede04a6ac75de9c5274bcf2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/4089.json",
+      "mode": "100644",
+      "git_blob_sha1": "913b6a2765bd71731e16bcb0fefe513f26a87d39"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/4365.json",
+      "mode": "100644",
+      "git_blob_sha1": "c74ed7975397d3f21b9db69f6c9302e7c39c480c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/4414.json",
+      "mode": "100644",
+      "git_blob_sha1": "dffb1b50442242620a202e4d159e8282e15f6c36"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/4442.json",
+      "mode": "100644",
+      "git_blob_sha1": "6d97c4cd70e9451daabdb18a684b9e9e16fe60b6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/570.json",
+      "mode": "100644",
+      "git_blob_sha1": "17aa5b4370c03700f55a89ea6133b8292efcb6ce"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/630.json",
+      "mode": "100644",
+      "git_blob_sha1": "4a214a793fca99e7aedc923d3dd47a4af57a2dd8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/632.json",
+      "mode": "100644",
+      "git_blob_sha1": "2ecdab823d28d2120e5ca258055027444d73777c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/677.json",
+      "mode": "100644",
+      "git_blob_sha1": "89bab4e5e1fe72e3156e6e2e89e4f21451106734"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/756.json",
+      "mode": "100644",
+      "git_blob_sha1": "c24bd9908081ea4fe86e7b1f814be00eed5e6cd1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/838.json",
+      "mode": "100644",
+      "git_blob_sha1": "8080907061c7f305111fff36f780ab393131fe97"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/842.json",
+      "mode": "100644",
+      "git_blob_sha1": "bf42ee31b6ea17d3f38aea723458e6ff898341f9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/86.json",
+      "mode": "100644",
+      "git_blob_sha1": "7951c6a8644fa310b7c6bb76bf73966c8d536bec"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/same-input-honest-replay-v1/azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback/966.json",
+      "mode": "100644",
+      "git_blob_sha1": "f7e4eaee897915f090a26a0044ffee94819681eb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/smoke-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "b8640d379ecb73444cedbf251bb2fb9edc521be1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-bundle-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "085de013fe256bdbe7a92d22508b134c22a86302"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback-launch-v1.exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "857b9ef5aa4da8b8cf9843cd6a80a66dc3c1e645"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback-launch-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "99d643f19d3b763c98cc8169d4fe3002cda76851"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1175_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f6fe39970bfb8e0415c377774f6f8805efc9baa0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1175_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "5f5f26c56ddd977df23b5e9d6679c56653714114"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1223_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "409538014046df92534e746668234ebb16059013"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1223_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "393627793bf5585cf9b9305a4df5b46943dc697b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1361_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "1126cfbd337d7aa41fb187be9faf38a8edfc011f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1361_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "181156946a4a00e50326a7705e1e5c5caa054030"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1383_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "9ace54f335f76ad7d7eec0f07906c6d985bf2909"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1383_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "2d1c87860af804f7bac46b6b156db3779486036e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1433_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "919516ec6d39fd7689c2f58b3fe6e4829f7c7a1f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1433_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "84dbf784f8804faab7a2bbd6d5be9e135ddb3860"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1553_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "9327ab3636b550aa89cbc46e7a5675b4d9f75329"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1553_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "3f68a19918b7505d9def9652cda783e2b2ffd206"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1670_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "7da0a36d2c8ce7971d88282a4170b8f5ba39b34c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1670_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "b672c72badd7dd0af6a049377abd3dc10d5c9a0b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1681_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f6a7a26d76b02159c09b8b623ef9d0a209267479"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1681_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "529e434e303f6ffc238cc2ebfcf4160b8fa512e1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1737_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "bdabdace193591ec404b74a2aa075ba2b89bb674"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1737_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "f5b4dd2d2e9cbbe5f336ee26110f9fb161b87b4d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1743_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "e241433cb9832d54c0541a071b2a7bb719045e2a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1743_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "ce7243682033509f826ffb1434cafcdb725e2f2f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1766_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "bf15cecb4f460a014cad5ef87415b7c69afccda2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1766_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "961930387d288fbb3fb606c47ad9e96024aeea9d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1864_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "a1a47c51680021fcf9df3830c9665f6995e96f33"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1864_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "4e199c889d57d315e3eb688323a95c3b8b66d36a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1941_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "683ae3c5ce45f80d8f3566cd7114b33b53452412"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1941_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "b65571daf710d997261d93116aa50ad2f1dc4a76"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1958_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "e0b6aadfc862e870c77f02df569cf6b380dc6daf"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_1958_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "bfc62de4dfbaf7ab2531347a715e0a1520dca2ee"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_2046_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "cd2a9e4af94f3a104038ee5aad4813415766dd8f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_2046_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "e8d928352e9f884f0c32cd04e93abf61284e3a28"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_2183_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f4388b3905b0b628f99639f943371e78432ff244"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_2183_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "707a63dff4424f0076d4c937524d70dfb6d104e6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_2222_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "ddd2fbf7ea52def83789c2a2ab6076a630b00c2c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_2222_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "45ca7840d755ad35e3780d12278b2d52ab9f4ad6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4089_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "8662ee6628a29711880c6c6d860f535b3e449076"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4089_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "2698cace28c7c808cd380a3618f013371abadcd8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4365_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "1ae4061b1f8909bb7febb67fbde987286eaf206f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4365_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "76207df64ce52a3560656c0aec4c142f53f8a819"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4414_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f38d5441776f1b5de3234f684add500009f254d8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4414_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "5b9adc40b38c8a60c52841522e67cc00c0ab022b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4442_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "81ebdefe72e990c41b416d9e2fc60139fdc254c3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_4442_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "65c50b340a2bf79cca885941f784f1809a848136"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_570_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "36d1ff4ee43f603d5a0a7445391a5f9b0791534b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_570_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "91833243291dc3c8a24a2415f28eb790c9c74bc7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_630_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "64f17376d2085f1a4b5dd660bb52b7013b07a913"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_630_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "aedd88d7a452882f16ad51ef40da6be74f4aec87"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_632_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "25c7120bb6184820a2bc9a7175f3f636affb7726"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_632_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "3b2747461d3391346cc5e418202a046a808be632"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_677_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "e561b45b8b5d4062b17e8519fd96a2a7c45e2f36"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_677_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5ee9b689ef9009250c2b2e2a5657c5b4ddfe161"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_756_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "9055e5f30c44793782f3e061e8d387da9b2a08c5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_756_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "2ab2e18715b7a917f0db28c7eb0e302ddaa43f7e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_838_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "a6bbfdc07e86e0f76407c33274a7350c0ba1e888"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_838_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "6ce728a864b84a08dfeafa79e6c0ec947aba2aa6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_842_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "35c878dbcafff8c30dbd52667ca02bb252807434"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_842_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "7aaf841d5742bdffb42f32933d23231d91896010"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_86_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "e39296d764f480c21f7510bed541e387dc3edde0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_86_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "3b8dcf98eb44b8bb80332d24733314a748180266"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_966_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "b6ded5bfcd89c165796d7cc172a1d7cdcd540737"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-study/source-feedback/apps_966_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "ea6011339052bba9a0eb2428ec27d1640b803333"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-triggers/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "69fedfbbab6ab5399bcd61acfd6a4cc2fb39f087"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-triggers/domain-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "497174993247cca4623f20edbca29ee232b0cdd6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-triggers/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "f0366c9c462806c61c25cd44253900f48c9e6735"
+    },
+    {
+      "path": "runs/azure-terra-pbt-fresh30-second-revision-s300-v1-triggers/worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "7d7ebefaf3e4d8151f20d5bea05f9d5a7d268d53"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "c1a52c500247a1c661322c2f0c2f11db4009dba6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/heldout-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "525670a97cfc47ae3b0c1e337d9c31bc7fdb1e9e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/heldout-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "51bbe97e1a1709c5e390f60b773d30d09fd0bfae"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "e47e9d52eb7618b117e64b5a1fe868a327ed71a3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "34ee992649edf6fe66c1ecdcc1258a5697360dc9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3698.json",
+      "mode": "100644",
+      "git_blob_sha1": "deb5f98e0d269c9916e6b3cf34f588ad1cf4b237"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3724.json",
+      "mode": "100644",
+      "git_blob_sha1": "91c0e63fc45c941c6aece9299b5ccb5dea6a1a59"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3756.json",
+      "mode": "100644",
+      "git_blob_sha1": "99d41cadd6d0983fc638188e3976c98a12d3e74a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3770.json",
+      "mode": "100644",
+      "git_blob_sha1": "a726bd9923b29e72201893af1184faaa766a225d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3789.json",
+      "mode": "100644",
+      "git_blob_sha1": "17ae4ecda810b8e69bc9ed7655e78bef49469824"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3819.json",
+      "mode": "100644",
+      "git_blob_sha1": "95ace0fc42608acfa19fa265a0a3395e8a32d5fd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3832.json",
+      "mode": "100644",
+      "git_blob_sha1": "6a0382f79dea3d283d9b7e5b6fc5689617918476"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3843.json",
+      "mode": "100644",
+      "git_blob_sha1": "8a21c0c047cd16f3da6a4c1951ae0c23b694590c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3862.json",
+      "mode": "100644",
+      "git_blob_sha1": "43f07419916840dc47a326e3b42d1488999b99b6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3870.json",
+      "mode": "100644",
+      "git_blob_sha1": "4b803d0f9c7aa24a1ae79decdfe61fd6bfda613a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3875.json",
+      "mode": "100644",
+      "git_blob_sha1": "47a074cd2421ba5b9d8428744bdb89ae562193c5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3893.json",
+      "mode": "100644",
+      "git_blob_sha1": "1363f346c6d1783835f1c8357e871e102219a52e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3926.json",
+      "mode": "100644",
+      "git_blob_sha1": "fea4b20c7cc41e5e5b821b3433996af8641914e9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3928.json",
+      "mode": "100644",
+      "git_blob_sha1": "35e6593c1046b9bd731e2c45d9bf15b764c05975"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3932.json",
+      "mode": "100644",
+      "git_blob_sha1": "d2af2b37c824377cf121fc9d57588e9c3b7120f0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3934.json",
+      "mode": "100644",
+      "git_blob_sha1": "96ab142dad5269445d93f2534d8744d982882e02"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3941.json",
+      "mode": "100644",
+      "git_blob_sha1": "7021e3035763c2f55fd1f2e451879014c93ec39a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3945.json",
+      "mode": "100644",
+      "git_blob_sha1": "bb8740bba173d55f3f7d4c329fd6d046f4b1411a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3949.json",
+      "mode": "100644",
+      "git_blob_sha1": "a202db9e6bddb45d79ca82e8bef7d88b8da68f38"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3955.json",
+      "mode": "100644",
+      "git_blob_sha1": "86748c8fc5ef96e1db4bb68f19f6707604617bc7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3956.json",
+      "mode": "100644",
+      "git_blob_sha1": "4919f40e941453ce6f544d9cbf8649b01e5f1eee"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3960.json",
+      "mode": "100644",
+      "git_blob_sha1": "7cd262f2a82f51190d1601e2921cfd9ba9596159"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3985.json",
+      "mode": "100644",
+      "git_blob_sha1": "f853475dabfcc7edea973999c274fdd75d627ea8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3987.json",
+      "mode": "100644",
+      "git_blob_sha1": "8703648ab6e67fdc14ea41760cb1dcf7be98e53c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3991.json",
+      "mode": "100644",
+      "git_blob_sha1": "0c1c83f4ebb02babc0ec9c609627727ba27f184b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-plain-v3/same-input-honest-replay-v1/3996.json",
+      "mode": "100644",
+      "git_blob_sha1": "9833d3d52cd480045be0fe5f7fae1a727f72b309"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-reviewed-inputs/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "d825dc0a2211eb417f1852eb6d244c3e13a1b388"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-reviewed-inputs/exact-ten-test-sensitivity-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "3ba6d6adbfe2bdc4baa7e8f95ba6d11a980ed3ea"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-reviewed-inputs/heldout-comparison-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "d3490002cbaf9848880026f36c5fd272b452f4d2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-reviewed-inputs/paired-task-bootstrap-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "f7f8e82cdddbc6f0e0c53d8afa72170126a1f2e5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-reviewed-inputs/pairwise-differential-witnesses-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "fbc9722ab4f33b5be73b539cdc1689c0d30abef9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-reviewed-inputs/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "47b7448073fe4ce8942285eef00a71a9b1d6ec79"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "c539ce6c6c2947f1a2e23e240bbce65bae1e7853"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/heldout-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "525670a97cfc47ae3b0c1e337d9c31bc7fdb1e9e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/heldout-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "c5e7d38abdc636fe38cce98d3b2f7c04794d1cbf"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "e9a727dfaddb5649c644a7301c6b1f4a231e5e11"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "4ba87b91138584643bed22b3916d6ca8069796a3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3698.json",
+      "mode": "100644",
+      "git_blob_sha1": "53b79343c91aa88da510c5f25316552b9ed36c85"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3724.json",
+      "mode": "100644",
+      "git_blob_sha1": "b702fa7cf03e90790e85c6d3a70ebb083d5e2030"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3770.json",
+      "mode": "100644",
+      "git_blob_sha1": "e190503400687bdd08120de655fd0ef4744a4546"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3789.json",
+      "mode": "100644",
+      "git_blob_sha1": "d33dbebae7e688aef0a78818bec602901e0ffb7a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3819.json",
+      "mode": "100644",
+      "git_blob_sha1": "fd7bd14682400268e5cd69bebed4ef428770101d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3832.json",
+      "mode": "100644",
+      "git_blob_sha1": "1da415bd6e466e7111b237279505af1a8d21687d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3843.json",
+      "mode": "100644",
+      "git_blob_sha1": "7fecbdbdfd979821b8063b019313facd88adeda1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3862.json",
+      "mode": "100644",
+      "git_blob_sha1": "5ee1fc5ce614c16457f2fe225b9a6a16b82c1e14"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3870.json",
+      "mode": "100644",
+      "git_blob_sha1": "957f5691433913a91dadf372c2fdb7d78e2a2aa4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3875.json",
+      "mode": "100644",
+      "git_blob_sha1": "fe4154da5d29d0afb684607039c54cb59ce85f02"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3893.json",
+      "mode": "100644",
+      "git_blob_sha1": "5d14fa4f75f5b5615ed165be8f1301941f73f73b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3926.json",
+      "mode": "100644",
+      "git_blob_sha1": "75eb7167b22722f0ea6677f5d3529ab0b8426923"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3928.json",
+      "mode": "100644",
+      "git_blob_sha1": "94720f2fffeca33dc6690f8158960d917a93e871"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3932.json",
+      "mode": "100644",
+      "git_blob_sha1": "c59fb71d631c44e91b606c04c4cf86808f10a208"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3934.json",
+      "mode": "100644",
+      "git_blob_sha1": "a277331925f9e1fc428a1687dfa7f2c3b66b8c5c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3941.json",
+      "mode": "100644",
+      "git_blob_sha1": "b1f82650b90b729de07e0845ea3fc2020242a6af"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3945.json",
+      "mode": "100644",
+      "git_blob_sha1": "c9f668844e38b75dd8e65baf40687f1f8ad2d13a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3949.json",
+      "mode": "100644",
+      "git_blob_sha1": "cb8a0cf7418eb6fa217e9533cab5dd615ad421c3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3955.json",
+      "mode": "100644",
+      "git_blob_sha1": "8743e3da850f93fa4b6ff75bcf658690b0168eac"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3956.json",
+      "mode": "100644",
+      "git_blob_sha1": "16d576ae68128b1ced6c04a2aba4d91d81d9cb75"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3960.json",
+      "mode": "100644",
+      "git_blob_sha1": "ae95397923067e6a6d95f6da6cc09caf39d48ab6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3985.json",
+      "mode": "100644",
+      "git_blob_sha1": "bf64687a8004581fda81ac9fdb7703ebb4f12ac9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3987.json",
+      "mode": "100644",
+      "git_blob_sha1": "374d0b8f29ba1e83ad47e76cd36ad2c1f55f41e0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3991.json",
+      "mode": "100644",
+      "git_blob_sha1": "34f6a10d336cc483d7bb74562b14e8fc9f781fef"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-traceable-v1/same-input-honest-replay-v1/3996.json",
+      "mode": "100644",
+      "git_blob_sha1": "813156654af330e9bf118a4bf9ef95ca70a2cc46"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-triggers/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "85c77fc954ac868fd98ebfad186be5b7681551e5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-triggers/domain-review-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "358aebf012217d15f373986d05513183cff9bda9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-triggers/heldout-preregistration.json",
+      "mode": "100644",
+      "git_blob_sha1": "cd350629082e2e6eac0c3a078c8ecd04c0d48997"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-triggers/heldout-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "33b89f6b316c8f61905a00a5d4df3a7e4b13a6b3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-triggers/heldout-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "53aa6b876bdf4ab74dd2647772124eb611d7d377"
+    },
+    {
+      "path": "runs/azure-terra-pbt-heldout30-s300-v1-triggers/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "57ffedb81569ae20778eb7bdc4431114bbc2eca9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v1-triggers/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "8bd026a9579aa329fffb9d0e65e81ba31d5eac77"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v1-triggers/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "5d1e3e1afe4adcfac64296a7f2ac0da676499c40"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v1-triggers/smoke-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "3f18ec174b73ee9df1fe0ba237bbf543e960117b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v1-triggers/smoke-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "7db185c1876347b3cf7478c10e8ead6167548b35"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/attack-suite-on-honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "3078c6e914484a0a56d47b4bed7e872a0d04f22f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "8752454d2690e54b6ae5a737d1644d3fe8d591a5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/independent-geometry-witnesses.json",
+      "mode": "100644",
+      "git_blob_sha1": "e4327c10c48553f0e625dbcd5ddf74af6fee8edd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "953b061be88817a0b96cf003241ce240b5975eac"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/smoke-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "3f18ec174b73ee9df1fe0ba237bbf543e960117b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/smoke-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "f0466b235283e3a0002aabe08062e4491ee2e884"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/valid-input-replay-apps_3692_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "de16c85c514e0ad42fb831abbe3b0cae93ad4ace"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-plain-v3/valid-input-replay-apps_3692_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "35f4fca4d0842f57fae3cd56e4aad49ad89bafc2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/attack-suite-on-honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "269cd5b1057d3263c663bc9e2d0d52784d32e152"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "0cd215e786f84a86c29502eabee913a1041694d7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "1f48a3585dc6841b58a964897d065cd300cba104"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/smoke-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "3f18ec174b73ee9df1fe0ba237bbf543e960117b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/smoke-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "1bbc5d9fc5b941ae6c559c6e211c6929178cfe7d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/valid-input-replay-apps_3692_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "12623f8ae80cd2ca77716308f2de44c3676da68e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-traceable-v1/valid-input-replay-apps_3692_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "9f55f4d411e3b6f523eac5c870688eddf970c938"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-triggers/circle-domain-and-replay-summary.json",
+      "mode": "100644",
+      "git_blob_sha1": "64704c0a4bbcfb5e873f5c3fef0404fe7d5ce421"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-triggers/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "f899452a99a3ac5febad963ab9753fa6bcd03027"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-triggers/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "55f2523736b2d3e4cf30c186aa644de34d05c027"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-triggers/smoke-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "3f18ec174b73ee9df1fe0ba237bbf543e960117b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train1-s300-v2-triggers/smoke-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "82c81ac422a01d115f4da91f697132e1f1fd6f5a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "2cb5669ad50bb60e22fd6938156f857c9c694b82"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/differential-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "348709e1af02624052fd00aa97712ca10c70e5a3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/full-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "c47187659b9a06477856d61af91ccdee243e4086"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/full-worker.log.pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "310fd0792289be5e9578818e1846cbbaddd62c83"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/manifest.json",
+      "mode": "100644",
+      "git_blob_sha1": "898675171736a156e8889953377bce6162551c3a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/primary-analysis-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "4dd2e6a8db3f344de11f0c2d798c4333f9865819"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "b75f7f06772866aa0bdb622048bf4f89ea3b58d4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/results-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "ef8d87bdf43ec4934c8d09b5a2230c145d60033f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3694.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "51850079165095fba5c7c871704642bd0563fb7b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3694.json",
+      "mode": "100644",
+      "git_blob_sha1": "89fc586f1af6dfcfecae2c3aebf8242fc72aed7b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3733.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "34f808732ecf4baea34c72f6050e063543d2a9a5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3733.json",
+      "mode": "100644",
+      "git_blob_sha1": "bbb165ccba5c8ac58147283fe4d31917ea2a2ad6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3748.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "ad464802101dac4eccde43b44d6698e36ab770cf"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3748.json",
+      "mode": "100644",
+      "git_blob_sha1": "a25b89956dd3b6d0f2f4802f9d35464028d51d2f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3771.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "5f6a90dd784e5525160d94d24e76794cd9b22483"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3771.json",
+      "mode": "100644",
+      "git_blob_sha1": "094a8e27bd41132d74befa194d4a50eafca04a8a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3782.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "39883b85cd58985fd7b47213e1e91fb15a8f8234"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3782.json",
+      "mode": "100644",
+      "git_blob_sha1": "4d9c5b1746b2a0a50ce80f6808addc20f935edbd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3790.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "6a5a69760f131f45a9e7c6b7c17b278118589122"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3790.json",
+      "mode": "100644",
+      "git_blob_sha1": "58cb94abe7d65a1533b2da596977a49e58b9eed7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3798.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "0464870886e541305829e570632e046e214bb8f3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3798.json",
+      "mode": "100644",
+      "git_blob_sha1": "bd36cfe1bdd5ff015c738188a80d43ddbf425d60"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3801.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "1ee7cddc1223b07a8a11b50a2a0e5ec9be60af28"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3801.json",
+      "mode": "100644",
+      "git_blob_sha1": "0de91629ae1747023130e684790f19a55f449ca1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3825.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "5e5756e1fe6e37a9294d60adcccb629278f78e1e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3825.json",
+      "mode": "100644",
+      "git_blob_sha1": "e647497f5e6d5b26839117bbfda822ff5d79c74e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3868.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "ff3efe226555cdb800bfea6a392fe5b411c54109"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3868.json",
+      "mode": "100644",
+      "git_blob_sha1": "400476f904672bc0fe008273985728aa9d7b30b1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3892.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "a64a960b93cbd358fba7dc24b4983e27e87528f2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3892.json",
+      "mode": "100644",
+      "git_blob_sha1": "a29f3e5c782f7a184f028dc3fc07a9966dce47e5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3897.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "9c5906f64a720ad46aaa1c460a643e0e99272f5b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3897.json",
+      "mode": "100644",
+      "git_blob_sha1": "3a2c76e3d43dcd4e54b2808c221318985d4d47c3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3901.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "8f1155b2ada9a26a23c661f1809456bfc57d5c30"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3901.json",
+      "mode": "100644",
+      "git_blob_sha1": "e9893196f45124200a079fac53dae0ea616f634e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3902.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "166112b7d191f2c600b3de73a4f9460f1d65b4d3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3902.json",
+      "mode": "100644",
+      "git_blob_sha1": "2ca8e8cf00774cf87efdc9a32d08476d7ffde069"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3915.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "d09f4df87db5879e1a743730a1bfc76dd81d8af7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3915.json",
+      "mode": "100644",
+      "git_blob_sha1": "1fa45b6e9004c8dc459238b4502b0e3efec87b49"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3929.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "3e2bd0c03c467cfcf700e0b015fdf79a47282eae"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3929.json",
+      "mode": "100644",
+      "git_blob_sha1": "85d412a3448d7c90cdd0b50034021a833197b449"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3957.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "6a3b22dfbab0d77d84890ad368a49ede0d8a240e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3957.json",
+      "mode": "100644",
+      "git_blob_sha1": "a06911686f3755a35dd63baeb4e1bc3264e29665"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3977.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "2e9ffa2be9c520bf8edd5e3c25bb0d88cb6ad23d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3977.json",
+      "mode": "100644",
+      "git_blob_sha1": "00a099f4c8084cd05646a9b9d621e3e5d2a40da4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3999.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "6ce6294861ca77df6f03e5e759d5ae24e54a0876"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/3999.json",
+      "mode": "100644",
+      "git_blob_sha1": "fb3e7958fd2ccafd4bb063019866e6d51c6a7a85"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/replay-config.json",
+      "mode": "100644",
+      "git_blob_sha1": "47fdff4026b095fb6fc4eccdbe1499ace3149e2a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/replay-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "e1f5519a0099611782e69780a668eeadc7a55833"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/same-input-honest-replay-v1/replay-worker.log.pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "1b3029acf1d4d1dd71779d0c322092777a243cd0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/smoke-review.json",
+      "mode": "100644",
+      "git_blob_sha1": "99f77b691abc53c75779782735144593dd1c91d7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/smoke-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "46432062e2bac53a887d4590360fe692b75e4623"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-repair-v1/smoke-worker.log.pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "1e6adf314abad557f8822857c548217c03a0d5bc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-inputs/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "f18cf756721fe94e42b9982c77366208a71a4362"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-inputs/pairwise-differential-witnesses-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "2877b60a1651d2cd86f8c608b9c7739b3a51fc02"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-inputs/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "fe80251922e82b9dabbfdacbf7bfea936ebd76d1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-inputs/training-comparison-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "f10f8d4c219260194656f901d5c4b91de659c0bd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/author-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "014a1a79a462f7d0964154a77b105d43f6a0aae6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/author-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "fd4c14e2e371c724fe2a28933cb68c780bd03cfc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "a868b59cf9356e9d54c4fbb9bf09ab2b283f59a4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "deceebf2b7ca4d9b2d49feadf86d4b4c62d243d7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "42e5c6ce4238f1cd034a0dc5b81a0fc37d378a60"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3694.json",
+      "mode": "100644",
+      "git_blob_sha1": "94b6d820fcf9bf601bf10ea3826a3f5cc8994d8b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3733.json",
+      "mode": "100644",
+      "git_blob_sha1": "5c19e4d0c7ee980d4781433402ae26afe8649bf3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3748.json",
+      "mode": "100644",
+      "git_blob_sha1": "77651e4a3484b575bba83c9f1093249e9296d4fc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3771.json",
+      "mode": "100644",
+      "git_blob_sha1": "38d58c602b94e9210107440fb8393646df2bc956"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3782.json",
+      "mode": "100644",
+      "git_blob_sha1": "6eaac38031633deaffa071eca9b3fbf7c88b3855"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3790.json",
+      "mode": "100644",
+      "git_blob_sha1": "de96c5f47017e0af51d09c15e6df8c0ab9d775c4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3798.json",
+      "mode": "100644",
+      "git_blob_sha1": "daa77d528c18f39bdebb2c2bdfe98a93ec0d7c47"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3801.json",
+      "mode": "100644",
+      "git_blob_sha1": "56302b0afd88bf191824052c12422c2453481f0c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3825.json",
+      "mode": "100644",
+      "git_blob_sha1": "9550f236680d340ac95dfcabfa47f5362b8165f8"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3868.json",
+      "mode": "100644",
+      "git_blob_sha1": "9c341565f65d446af7b95ebbd5731faa717d5020"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3892.json",
+      "mode": "100644",
+      "git_blob_sha1": "42a1948056894df5689c7461dc1f1b90072af6e7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3897.json",
+      "mode": "100644",
+      "git_blob_sha1": "1ea02d987eba5d7b938d44efc17edc6a71132096"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3901.json",
+      "mode": "100644",
+      "git_blob_sha1": "afd3d180621113fdd1c5d0021d32d51e9f329385"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3902.json",
+      "mode": "100644",
+      "git_blob_sha1": "8b993b5fcf541c1ee0591e1f7b850978fa9f87d9"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3915.json",
+      "mode": "100644",
+      "git_blob_sha1": "18fd3c86adaca82473627ef54b444df101715077"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3929.json",
+      "mode": "100644",
+      "git_blob_sha1": "314e3c95aae20e324ed24301c577661e0181b0e5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3957.json",
+      "mode": "100644",
+      "git_blob_sha1": "0822398abbe45ff86fd7489bc7f3b3932c4d66be"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3977.json",
+      "mode": "100644",
+      "git_blob_sha1": "048fca6a23459ac4c536a73336cff9ef241dfb97"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-plain-v3/same-input-honest-replay-v1/3999.json",
+      "mode": "100644",
+      "git_blob_sha1": "ef91ba8e82eb6620d6826960c8034cb9491fb15b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/author-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "014a1a79a462f7d0964154a77b105d43f6a0aae6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/author-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "dff138bedafc387925276ac2113683af45179b27"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "994e1e94ce5dbdc95db7afeb13e27286f454517e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "6b986c9cb76a2a6f000ea22994823e7bc2fc7c46"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3694_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5e6f224d4e09dbb4e0362a9199188878b59f318"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3694_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "c31ba47b710617bf3f2f142caaa2dff9175f0ee5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3694_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "c7953a250937d09ebe07256273d63fdbd2135d44"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3694_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "7663ae5adc431a18e6954f0c5b9af3b9883fc36a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3733_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "8734b948405af3c382c84acecd835bb069c86257"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3733_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "87c9bc7e051f9d58c3afcc2583048ed838269f07"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3733_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "ccc0a17448d262b693a688f89bf287803c39558c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3733_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "f3075ba8f4579d549f1d11552c10eded98679932"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3748_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "fb2298aefd14cb3fb4b2d80d8825934768dfda98"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3748_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "c2e1a4e5b6fef33e50a64b765d673077de5e9c76"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3748_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "386fc7d65b520933fb9ebd47b0c410b750494f38"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3748_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "a2e717eb2e17e999b53eff1984cd8ec6cc1ee34a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3771_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "f97f3e01b306500a1eea27a9058912cd81a2cea1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3771_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f0016c810f793fd1c5bce24f43458eff259671ff"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3771_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "7ee7730cc6f3d3c74b8b395f42f646203b0463ce"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3771_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "3ddc6fbbdab6e61daf1c234aae777cb26a96e79f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3782_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "d1cc5be3e9b35477815b21211624c1c6a1685712"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3782_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "ab78ff67fd3bef1745d04cf35300ddcbdee96e62"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3782_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "7de8fea16f5dc0d9729b4a8cdb5a4518a934de3f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3782_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "57fa18991ee212616363bdd5bd84f256fb161384"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3790_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "504b4b0e2331ea78080ed68f692c4d1b192c9e33"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3790_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "8f7e0b9066834ccdc3d5f1803810a26a08206421"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3790_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "9903cfa016875989b18cc50bfb8221ff33822391"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3790_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "da0e825aaf3605623129d1c3143368621e77cb08"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3798_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "a1f3618c4abc50b370a9ed1765f632883c7f0714"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3798_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f501268f4e767c62845ed046b7c80126ec7558e3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3798_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "b4eaa4548fc2dd228eef4e023e3cbd0bffb2c2cd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3798_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "7c98523eb89731291722ea8814efd2b73b0fa225"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3801_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "122d81fe3cf5167c4a4269877bf29a7aaf16e799"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3801_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "aff23e81b9a61013546368db2fcb116b6713a09c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3801_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "a5051f3374f525180065a7dc38758e604291c90c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3801_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "15e5facfe468c88686e5b87ea98275ae733508fe"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3825_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "2e21058c0f887ddb2fb43ae2e372c7986362d1ff"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3825_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "38454291b324a3bf364887e64145486ec9eed212"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3825_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "3a88bdfb1982acce720680796028ec07bf28a229"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3825_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "1b43e93af2a0602ea09972ec7081418732355d50"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3868_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "8bfab7a6116635d44167003180dfeaacd9b1c221"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3868_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "bb8758ff8dbbae1107fbb08c958b7735ef842f6a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3868_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "0f0bb35e0060fe48831a7a11dd2fbb52a282b084"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3868_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "97dd8f1b78f6735296500259206fc44ea4e770db"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3892_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "56ea5b670ec1fbc4e0f944c4c9fef67c65e1f691"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3892_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "28f32f5d3593974b829c32efda67b7db6ff3f7b7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3892_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "1a423f6f83a0ab51251246780f4a48077e60488f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3892_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "841916ac3f9a75630260dc19148d273bfedff34b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3897_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "7f8ae536456a25f57ca51bc40f6eee053c4d8094"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3897_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "cc980b920786a271454ebfaa368f6473a54ecf38"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3897_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "d62cb4d884bb7eb5288b83f36e9148dadecded48"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3897_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "b1b5d782e8184f9472071d8dfe1c267ebace0e15"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3901_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "32ee1de00ea8c1338805e92972b9e1191fe1c3c0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3901_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f65fde4798746e704ae5256fa029c86a935740fa"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3901_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "82b8740b6db6ecb6bc8ac89f587d8922b46db291"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3901_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "1f1e19675c716f0a951f8a883a17dfc558437bea"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3902_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "a028c7569217efbf65249f83c7e35fb6c7151a40"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3902_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "71e239ae32274defd69774abadf22b14a64d2363"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3902_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "98b4f8144f0211ccaa4bde20e418f001d7ae40c0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3902_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "f8d119a30e88377e7882a4964ad4a751c47a71a6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3915_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "2ff0b7b3da2f3c53100493175561d7d075063d03"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3915_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "6cb93a6ade180ac413f23cc1e6ce849bf19b3f8e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3915_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "aba8749a7af8b9ce0a004f5ed40d14d195a6fd98"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3915_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "8031f7c683630f01de5b5a85c1cd4ad827659926"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3929_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "39ed0a778bd47300cca0a820191dafdbe318c9d4"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3929_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "cd855c8ed47472d862b0f16bd803bbd147961d64"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3929_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "d000565a2f740bc0f84d692236e0da5e0276687f"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3929_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "3ba0ea5aad83f134fee7136f8d2dee95fbeb51c2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3957_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "f441f35210989e11300a853dc6b518152425147e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3957_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "db2371ef725e596f0720b715e1257ef7e578aca0"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3957_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "1bd4c680b43a99df1bd538f30373c69822fde0f7"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3977_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "8af10ae8c3c822324bee9d21de61d8b6e5939b8d"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3977_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "c453c8881649e1223d2eb44cfdafb801375cbf1a"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3977_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "a7f9f4412a327cca30b7f3b02387328431ea0f4c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3977_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "bd636f262dc529f8028b3520e8f75eeadc0f88f1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3999_attack_0.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "9b43e5654ca814b94e4f8726f15c64070903b342"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3999_attack_0.json",
+      "mode": "100644",
+      "git_blob_sha1": "8e36f9777e4a7e1e7ae0b9972bd9d4c58bd4a137"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3999_honest.attempt.json",
+      "mode": "100644",
+      "git_blob_sha1": "e79531425b33e3d582c2ed110f574f6d43f2f1bf"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/apps_3999_honest.json",
+      "mode": "100644",
+      "git_blob_sha1": "af7915989da0f8e9312278ab71b64d85697db3e2"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/feedback-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "8069342cbf23fb08d54dad5938e6ad037e5de1fd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/feedback-worker.log.pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "d3b69c40b56ef0fb34f6234307c6df13cdf341e3"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/feedback.json",
+      "mode": "100644",
+      "git_blob_sha1": "7c4942c6385c65dcdf39dd3a2180e5260356306b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/repair-feedback-v1/prep-config.json",
+      "mode": "100644",
+      "git_blob_sha1": "716fd3b56d39d71f407871e06d48d83c7f520f00"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-summary-v1.json",
+      "mode": "100644",
+      "git_blob_sha1": "f83094c795cb93a66e0a454095e3f7eea9e36f01"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3694.json",
+      "mode": "100644",
+      "git_blob_sha1": "f2dd77c7ffdfa3752b903259a99366dde931fffe"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3733.json",
+      "mode": "100644",
+      "git_blob_sha1": "d034783715dcfb2ded4a42e83c226213320de137"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3748.json",
+      "mode": "100644",
+      "git_blob_sha1": "433b70a11c91c30c3817a2955bd138001c1948f1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3771.json",
+      "mode": "100644",
+      "git_blob_sha1": "273c75758f32cd107fb92012e61a7147cc62b936"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3782.json",
+      "mode": "100644",
+      "git_blob_sha1": "163f2300fbc6617faadd519120b34756d64bfa5b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3790.json",
+      "mode": "100644",
+      "git_blob_sha1": "26c75d38a1f2bf214f749f377701f0eff3f46269"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3798.json",
+      "mode": "100644",
+      "git_blob_sha1": "f702f11da64314b26c3a731ab708cf0e84c1bcf6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3801.json",
+      "mode": "100644",
+      "git_blob_sha1": "839c25a76b10303162867bdf70018a36dc7d76dd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3825.json",
+      "mode": "100644",
+      "git_blob_sha1": "3ad1249982341585a41577d060dadc834c1649ae"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3868.json",
+      "mode": "100644",
+      "git_blob_sha1": "add484e36777f668114f7b4b8cbbd7653b393c22"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3892.json",
+      "mode": "100644",
+      "git_blob_sha1": "80cbf713c34be6e3fbe528d9af365f555c8845cc"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3897.json",
+      "mode": "100644",
+      "git_blob_sha1": "b669f9383313b71a4358f44e3cb2f918b535e380"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3901.json",
+      "mode": "100644",
+      "git_blob_sha1": "40e192778d595ec80b0f021145ba7c9984e3c7e1"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3902.json",
+      "mode": "100644",
+      "git_blob_sha1": "0bfb92e300196cc199aed341606570c39e41836b"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3915.json",
+      "mode": "100644",
+      "git_blob_sha1": "fa4a9427ede630ec4b60306a68f04571da1448bb"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3929.json",
+      "mode": "100644",
+      "git_blob_sha1": "8831bdb933205cd72113a3e1a52ef77119ae76bd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3977.json",
+      "mode": "100644",
+      "git_blob_sha1": "e77428b32aa5c9db706ed1009f107a0af0ba4ebd"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/same-input-honest-replay-v1/3999.json",
+      "mode": "100644",
+      "git_blob_sha1": "5476c96a14b27015cb7fb54392dcd1193e578261"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-v1-triggers/config.json",
+      "mode": "100644",
+      "git_blob_sha1": "7262dc6e4a820420210faa5f1db0255c8b1b3151"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-v1-triggers/domain-review-v2.json",
+      "mode": "100644",
+      "git_blob_sha1": "b2196e26b7dba8611d65394ee53a1bb123b8e20e"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-v1-triggers/domain-review.json",
+      "mode": "100644",
+      "git_blob_sha1": "c948dbe41debdd4f62065e76808b9e4d19b963c5"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-v1-triggers/records.jsonl",
+      "mode": "100644",
+      "git_blob_sha1": "6d6e3d69b478c2f2c063e1d4cc43b31f25b7b56c"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-v1-triggers/training-worker-exit.json",
+      "mode": "100644",
+      "git_blob_sha1": "014a1a79a462f7d0964154a77b105d43f6a0aae6"
+    },
+    {
+      "path": "runs/azure-terra-pbt-train19-s300-v1-triggers/training-worker-pid.json",
+      "mode": "100644",
+      "git_blob_sha1": "cfbdf06b5592f0665ba13b7d1418bff9d6c62a48"
+    },
+    {
+      "path": "scratch/launch_scrubbed.py",
+      "mode": "100644",
+      "git_blob_sha1": "bd2cf59d25665cbaf26a8c4fe80d9752f0073d7a"
+    },
+    {
+      "path": "splits/apps_confirmatory_1_30.json",
+      "mode": "100644",
+      "git_blob_sha1": "a8e69fb25422b8d931688fb8730c1aa788ef9869"
+    },
+    {
+      "path": "splits/apps_hard_20_30.json",
+      "mode": "100644",
+      "git_blob_sha1": "032c0df2d6816b0afdbc930230dd771af49addec"
+    },
+    {
+      "path": "splits/apps_random_20_30.json",
+      "mode": "100644",
+      "git_blob_sha1": "135ace8d9d095a0fe7819b1276c4525bdf99ca22"
+    },
+    {
+      "path": "splits/bcb_10_16.json",
+      "mode": "100644",
+      "git_blob_sha1": "2a96cb6c31af0bbea55f5cf3248507165fc40575"
+    },
+    {
+      "path": "splits/smoke_3.json",
+      "mode": "100644",
+      "git_blob_sha1": "a495d5d1083ba9ac8cfcbefd224092c6abe89f6d"
+    },
+    {
+      "path": "tests/AGENTS.md",
+      "mode": "100644",
+      "git_blob_sha1": "5f9c8255d8fc2c049a6c73517a37178c4092dc77"
+    },
+    {
+      "path": "tests/conftest.py",
+      "mode": "100644",
+      "git_blob_sha1": "06b2f3870af557331797eff6d2e7d60aa988ad95"
+    },
+    {
+      "path": "tests/fixtures/mini_pool.json",
+      "mode": "100644",
+      "git_blob_sha1": "c8a54ce6b66caabeac2d4f0cdc4d93b71b17ca13"
+    },
+    {
+      "path": "tests/test_end_to_end.py",
+      "mode": "100644",
+      "git_blob_sha1": "58130dad95875e5e4f7403edf5d5cc62ea271b73"
+    },
+    {
+      "path": "tests/test_pool_sampling.py",
+      "mode": "100644",
+      "git_blob_sha1": "4e650af7468e1218a2b1baa503c241654a6fcff8"
+    },
+    {
+      "path": "tests/test_provider_timeout.py",
+      "mode": "100644",
+      "git_blob_sha1": "4398c4dbbe3725e2842dfb1d6e8e265e20f6051b"
+    },
+    {
+      "path": "tests/test_second_revision.py",
+      "mode": "100644",
+      "git_blob_sha1": "40b05d4ce7d83671c5f8a09f4414aa52c98e65ce"
+    },
+    {
+      "path": "tests/test_test_repair.py",
+      "mode": "100644",
+      "git_blob_sha1": "6b98578a95ea7b7e7c2e69901d8dcbe1c326576a"
+    },
+    {
+      "path": "tests/test_windows_sandbox_cleanup.py",
+      "mode": "100644",
+      "git_blob_sha1": "6e5cdb72081979f78665f3862f5e6cd07cead22f"
+    }
+  ],
+  "omitted_gitlinks": [
+    {
+      "path": ".claude/worktrees/pbt-validator-order-fix",
+      "commit": "1c6ad2ff0a1e6f83f58ee1fc9fcf40e6b3b4d420",
+      "mode": "160000"
+    }
+  ],
+  "source_checkout": "work/unit_testing_mvp"
+}

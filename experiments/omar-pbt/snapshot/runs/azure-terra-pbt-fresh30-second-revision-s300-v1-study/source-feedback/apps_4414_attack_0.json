@@ -1,0 +1,540 @@
+{
+  "identity": {
+    "code_sha256": "d5e5033ae3c3653f7ce3ee3fa2f03b537eb34690662205a28846ee0896c8d73f",
+    "inputs_sha256": "7947ecbc029a3b5b13ef4f5edfb4b173f822d2276efcb1a940749ecda6ac4ca1",
+    "source_record_sha256": "e00336cdf7504e75b986cb06f5ba8782c9f632dd7609997b9328268535548eb6",
+    "suite_sha256": "de0e2d1e48b38e4276aac703ff790abb4ee7bba97d57fcfd4a2a1cdadaebdf1b"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_five_value",
+      "test_large_coin",
+      "test_large_ones",
+      "test_large_quotient",
+      "test_large_supply",
+      "test_max_value",
+      "test_one_n",
+      "test_three_n",
+      "test_three_value",
+      "test_two_n"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      }
+    ]
+  }
+}

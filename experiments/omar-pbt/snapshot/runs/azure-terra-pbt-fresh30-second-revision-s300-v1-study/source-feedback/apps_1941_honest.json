@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "8386d6e9244ebde87512f324e031b8ee6760e5bc737daa0c1982dd61610110fa",
+    "inputs_sha256": "55a2fff68eadfcfe9dda4cf1de4f5f30a640a94e57fb6120764f3b4525aaaa06",
+    "source_record_sha256": "b0532959432dca253a8fd5cdb900babbba8cd4da97eaeb7174f88174b86f89f3",
+    "suite_sha256": "f3ec027c7cd89f26bff418626a08ea75fab2fadddf94692bbcd6a1e1bf2a168b"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_final_boundary",
+      "test_full_capacity",
+      "test_height_limit",
+      "test_large_products",
+      "test_large_step",
+      "test_late_start",
+      "test_mid_capacity",
+      "test_near_limit",
+      "test_offset_large_step",
+      "test_single_bite"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_final_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_capacity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_step"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_start"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mid_capacity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_near_limit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_offset_large_step"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_bite"
+      }
+    ]
+  }
+}

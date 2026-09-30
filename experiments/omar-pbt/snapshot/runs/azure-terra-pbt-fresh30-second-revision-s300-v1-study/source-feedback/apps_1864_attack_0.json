@@ -1,0 +1,542 @@
+{
+  "identity": {
+    "code_sha256": "5c914d8023bd149b4dc11f9b6c35f437e9c6ed0c6304d7a0bbed9140ae15e85e",
+    "inputs_sha256": "43bec0acf6d5a25f7c454a0b1e5170760f32d62b9eb1dba1ff6da795aae9704f",
+    "source_record_sha256": "eab6f08f087b12610965d4fa223dc2fc55e03a7d4f4ea31d5b98b9882df36355",
+    "suite_sha256": "95eb44aae9e7dfd8158c8485b0d05150c570312a34cee098eaf0dcd1e6df5223"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_n20",
+      "test_n21",
+      "test_n22",
+      "test_n35",
+      "test_n49",
+      "test_n50",
+      "test_no_unit",
+      "test_output_domain",
+      "test_single",
+      "test_unit"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_n21"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_n22"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_n35"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_n49"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n20"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n21"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n22"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n35"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n49"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n50"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_unit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_domain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unit"
+      }
+    ]
+  }
+}

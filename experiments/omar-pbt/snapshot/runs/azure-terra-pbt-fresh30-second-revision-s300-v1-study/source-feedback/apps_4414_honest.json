@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "c6bb6361152d94f27e641abc5d0665cefebd1c3e6641c07a6480da624590eb7a",
+    "inputs_sha256": "f7f017757f3b0ab6161eb2ec9e6a3d5ca0487526d4c9490387deac09ceb3afbe",
+    "source_record_sha256": "3f3377011d05153543c589e2b1a1dc81c8121d925cc2cd5c2a2f6f55cfcd310e",
+    "suite_sha256": "e69e201d4aa35db3b911a3e763ac2a568035ebb861fc288f59715083943fe2d2"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_exact_large_coin",
+      "test_full_ones_yes",
+      "test_large_limits_yes",
+      "test_multiple_large_yes",
+      "test_over_ones_no",
+      "test_remainder_limit_no",
+      "test_small_remainder_no",
+      "test_small_remainder_yes",
+      "test_unit_value_capacity_no",
+      "test_unit_value_capacity_yes"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_large_coin"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_ones_yes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_limits_yes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_multiple_large_yes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_over_ones_no"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_remainder_limit_no"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_remainder_no"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_remainder_yes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_no"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unit_value_capacity_yes"
+      }
+    ]
+  }
+}

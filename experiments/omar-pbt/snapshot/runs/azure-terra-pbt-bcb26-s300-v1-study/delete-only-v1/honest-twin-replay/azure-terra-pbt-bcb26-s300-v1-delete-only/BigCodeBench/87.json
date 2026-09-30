@@ -1,0 +1,128 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "0bcaf3441b9ce8d697de8edc8aaf48737e6cfac4618919f694dff25046b3bbbb",
+    "inputs_sha256": "0f0b8c98636ee672c46055db3f590a3a072d225c0a200dc02ef58d3c00ba491d",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "31122ecd972841e6005c7b5792f410eca447588cfe08915947803a83d0f056c3",
+    "suite_sha256": "2936547dedc11923d4f4e219badbc7f518794f61985cc60d287cb5a2a19f5f92",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 20,
+    "n_records": 20,
+    "ok": true,
+    "props": [
+      "test_descending_ratings",
+      "test_products_preserved"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      }
+    ]
+  }
+}

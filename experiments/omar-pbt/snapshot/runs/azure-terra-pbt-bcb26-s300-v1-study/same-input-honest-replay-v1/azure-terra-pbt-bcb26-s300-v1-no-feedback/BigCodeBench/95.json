@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "a9a233d8bb6765d291714269024d2506efea027beb0d208953df4ebae30f3d17",
+    "inputs_sha256": "a4ce10475f42b54f3a7fa676127c2cbc97be6ff4a74a395c76acb46a697c1b1e",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "f9af6994c2a959782901317c176a9b8fd1700feb1afedf96d4f1a172ce9d8005",
+    "suite_sha256": "f8bc6e62dcf8c186c699c402524747ba21ac1d84158f98715d8715e11a2d5b34",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_category_multiplicities",
+      "test_columns",
+      "test_month_category_pairs",
+      "test_month_multiplicities",
+      "test_row_count",
+      "test_sales_float_dtype",
+      "test_sales_fraction_component",
+      "test_sales_integer_component",
+      "test_sales_range",
+      "test_seeded_sales_values"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_category_multiplicities"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_month_multiplicities"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_float_dtype"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_fraction_component"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_integer_component"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_values"
+      }
+    ]
+  }
+}

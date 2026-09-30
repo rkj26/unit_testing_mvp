@@ -1,0 +1,23 @@
+{
+  "protocol": "unit_testing",
+  "run_name": "azure-terra-pbt-train19-s300-reviewed-v1-plain-v3",
+  "data": "data\\azure_pbt_train19_s300_reviewed_v1.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "triggers": "azure-terra-pbt-train19-s300-reviewed-v1-inputs",
+    "test_gen_prompt": "plain_v3",
+    "resolve": "with",
+    "code_visible": true,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 8192,
+    "call_seconds": 300,
+    "sandbox_seconds": 120,
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "ba07bb49fc776d57a4a85b70b0ea606c7385bf452fece60b0b0a2a18abd6337e",
+    "inputs_sha256": "a8d977b49430194c1ee0766b1bbe411f46b81ca8c8535ce2cccce502f840773c",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "ab5f87ffe0bdddc20adedcf98b2abbdf5e07cdfafda0593a863b03de7a94afbc",
+    "suite_sha256": "f3e0c409bae8e48fb7a3806b9c3a8bebe369f372d96a626857034c0b6a42a1dd",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_ndarray",
+      "test_numeric_dtype",
+      "test_one_dimensional",
+      "test_product_array_equal",
+      "test_product_list_value",
+      "test_product_loop",
+      "test_product_math_prod",
+      "test_product_reduce",
+      "test_singleton_shape",
+      "test_singleton_size"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ndarray"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_numeric_dtype"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_dimensional"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_array_equal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_list_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_loop"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_math_prod"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_reduce"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_shape"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_size"
+      }
+    ]
+  }
+}

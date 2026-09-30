@@ -1,0 +1,5 @@
+Just write tests. Each one decides whether an answer is wrong, and what it checks is up to you.
+
+Every test runs against every input you were given, so a test has to make sense on all of them and not only on the one you had in mind. A bare `assert` that fails is how a test reports a wrong answer; a test that raises for any other reason reports nothing.
+
+Before you keep a test, ask: would a CORRECT solution I have never seen pass it on every valid input? If you cannot say yes, drop it — a test that fires on correct code is worse than no test at all.

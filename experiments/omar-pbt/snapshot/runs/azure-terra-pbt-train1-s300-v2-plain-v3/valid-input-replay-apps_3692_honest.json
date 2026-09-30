@@ -1,0 +1,595 @@
+{
+  "config": {
+    "kind": "valid-input-replay-apps_3692_honest",
+    "task_id": "3692",
+    "code_sha256": "74edb5d2a46a743d467f831294b563e239d9a691faf00469a3a58872ee8efd97",
+    "suite_sha256": "6b1972564e49e9cf2f6839ac142e6c8d7869504acd6598058810c684e5dd6457",
+    "inputs": [
+      "3\n0 0 1\n3 0 2\n0 4 3\n",
+      "3\n0 0 2\n6 0 4\n0 8 6\n",
+      "3\n0 4 3\n0 0 1\n3 0 2\n",
+      "3\n-1 -1 1\n2 -1 2\n-1 3 3\n",
+      "3\n0 0 1\n3 0 2\n2 0 3\n",
+      "3\n0 0 2\n6 0 4\n4 0 6\n",
+      "3\n0 0 1\n4 0 3\n3 0 4\n",
+      "3\n0 0 3\n4 0 1\n1 0 4\n",
+      "3\n0 0 2\n5 0 3\n3 0 5\n"
+    ],
+    "image": {
+      "id": "sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+      "repo_digests": [
+        "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      ]
+    },
+    "sandbox_sha256": "896c06d87c9d3c8b03f85c7f0a8294b0422b058cf699ebbbb183052c4f2053bf",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_all_contact_pairs",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_contact_only_region_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_exact_tangent_distance_cases",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_no_transverse_intersections",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairwise_tangent_answer",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_regions_for_pairwise_contacts",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangencies_make_four_regions",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_arrangement_increment",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_tangent_circle_union_regions",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_distinct_tangent_circles",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      }
+    ],
+    "props": [
+      "test_all_contact_pairs",
+      "test_contact_only_region_count",
+      "test_exact_tangent_distance_cases",
+      "test_no_transverse_intersections",
+      "test_pairwise_tangent_answer",
+      "test_regions_for_pairwise_contacts",
+      "test_tangencies_make_four_regions",
+      "test_tangent_arrangement_increment",
+      "test_tangent_circle_union_regions",
+      "test_three_distinct_tangent_circles"
+    ],
+    "n_records": 90,
+    "n_expected": 90,
+    "bare_run_ok": null
+  },
+  "outcome_counts": {
+    "pass": 0,
+    "catch": 90,
+    "candidate_crash": 0,
+    "prop_error": 0
+  }
+}

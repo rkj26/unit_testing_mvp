@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "code_sha256": "f8dd87a8f44aacb6bb049aa67724d0fff987e146ddb9936fe81b1cf465dca471",
+    "inputs_sha256": "62927838a8b9edf6d7febc3a69c7d3509dc6192ffa75fcc8d33363a52275d9ff",
+    "source_record_sha256": "25717bac3ae73a2dc3d308225d829c28fb710e0ca13fc2700e3706cfc000a751",
+    "suite_sha256": "545f03a3a471801d06efd1f5f1f2101f61cb853e3b666922db7f298d8c5eab07"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_five_alternating",
+      "test_four_ascending",
+      "test_four_descending",
+      "test_four_mixed",
+      "test_singleton",
+      "test_thousand_ascending",
+      "test_three_ascending",
+      "test_three_mixed",
+      "test_two_ascending",
+      "test_two_descending"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_alternating"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_ascending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_descending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_mixed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_thousand_ascending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_ascending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_mixed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_ascending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_descending"
+      }
+    ]
+  }
+}

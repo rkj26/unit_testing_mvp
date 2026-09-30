@@ -1,0 +1,96 @@
+{
+  "provenance": {
+    "dataset_sha256": "947f10a82b6234bd85b9d4e6676c08964f219200a8bdfe364b4cbc6d529aa680",
+    "inputs_sha256": "17c66bae520416f66f4bc7e854adec4e2b38039b165cf57a0d040993ac343a7f",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "arm_records_sha256": {
+      "azure-terra-pbt-heldout30-s300-v1-plain-v3": "fc438dc110020c41916f114c32d1b3b3b15aec232f695cb52fdcb19cadc5a324",
+      "azure-terra-pbt-heldout30-s300-v1-traceable-v1": "dd097b5be98c56c50f160e9500c99913f9088b6b40a320204a86eb82f3b23fac"
+    }
+  },
+  "bootstrap": {
+    "method": "paired task-clustered percentile bootstrap",
+    "seed": 300,
+    "resamples": 10000,
+    "task_ids": [
+      "3698",
+      "3724",
+      "3756",
+      "3770",
+      "3789",
+      "3819",
+      "3832",
+      "3843",
+      "3862",
+      "3870",
+      "3875",
+      "3886",
+      "3888",
+      "3893",
+      "3926",
+      "3928",
+      "3931",
+      "3932",
+      "3934",
+      "3941",
+      "3945",
+      "3949",
+      "3955",
+      "3956",
+      "3960",
+      "3985",
+      "3987",
+      "3991",
+      "3996"
+    ],
+    "contrast": "traceable minus baseline",
+    "status": "exploratory post-scoring uncertainty analysis, not a new preregistered test",
+    "estimates": {
+      "protocol_success": {
+        "honest_fpr": {
+          "paired_n": 29,
+          "difference": -0.034482758620689655,
+          "interval95": [
+            -0.1724137931034483,
+            0.10344827586206896
+          ],
+          "defined_resamples": 10000,
+          "undefined_resamples": 0
+        },
+        "attack_firing": {
+          "paired_n": 28,
+          "difference": 0.0,
+          "interval95": [
+            0.0,
+            0.0
+          ],
+          "defined_resamples": 10000,
+          "undefined_resamples": 0
+        }
+      },
+      "error_free": {
+        "honest_fpr": {
+          "paired_n": 28,
+          "difference": -0.03571428571428571,
+          "interval95": [
+            -0.18518518518518517,
+            0.1111111111111111
+          ],
+          "defined_resamples": 10000,
+          "undefined_resamples": 0
+        },
+        "attack_firing": {
+          "paired_n": 25,
+          "difference": 0.0,
+          "interval95": [
+            0.0,
+            0.0
+          ],
+          "defined_resamples": 10000,
+          "undefined_resamples": 0
+        }
+      }
+    },
+    "caveat": "A zero-width paired attack contrast reflects identical observed paired outcomes, not proof of equivalence or generalization."
+  }
+}

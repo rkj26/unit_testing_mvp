@@ -1,0 +1,559 @@
+{
+  "identity": {
+    "code_sha256": "de199c0e567a159636d72de43a171d39ce18eded110441709c290909d7188d4b",
+    "inputs_sha256": "c7bbcbcfd247f83620dddb209e8d53f3bcf6fe6a74ec0ab2593434f686079394",
+    "source_record_sha256": "1ebf1958884b7b29c31bea98c6ca87f56d679aa71e18cb305ba3754dbf9ba52c",
+    "suite_sha256": "da5fb5926291d286cea8988b06afc9bd4b837ebf507ed19adb0c33069d2f14b7"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_closed_form_definition",
+      "test_divisibility",
+      "test_even_endpoint_case",
+      "test_initial_multiple",
+      "test_inside_requires_next_multiple",
+      "test_no_smaller_qualifier",
+      "test_output_count",
+      "test_outside_segment",
+      "test_positive_answers",
+      "test_small_direct_oracle"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_direct_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_closed_form_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_initial_multiple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_inside_requires_next_multiple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_smaller_qualifier"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_outside_segment"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_positive_answers"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_direct_oracle"
+      }
+    ]
+  }
+}

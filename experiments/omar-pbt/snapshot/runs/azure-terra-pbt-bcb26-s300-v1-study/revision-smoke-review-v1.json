@@ -1,0 +1,8 @@
+{
+  "candidate_id": "BCB121_honest",
+  "decision": "proceed",
+  "manifest_sha256": "5a5b80f4545b53985a365515dc26eba2fea9cb6d346ea67ad12dee20f6f1e0d8",
+  "checks": "Both arms completed one call, ten tests and 90/90 executions with no errors. Source bundle and code/input/source-suite hashes agree across arms; feedback_visible differs as intended.",
+  "authorization": "User explicitly approved remaining batch with run it after disclosure of up to 102 additional paid calls.",
+  "scope": "Infrastructure smoke acceptance only; not evidence of feedback effectiveness. Preserve all problematic suites and baseline failures."
+}

@@ -1,0 +1,281 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "084fb4a945cd0c9349ae0fc34a43cf1db12c01cf11b1dd10f568e528cfcb8e58",
+    "inputs_sha256": "43a2ef639c2f0d2ba9f1a2a691af70d7365d461b68a5625935cf86c4d8ee3bc4",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "abcb529d88c37c5ae74dd3678da95cb7de15142338f4e190e62e2e363cad5179",
+    "suite_sha256": "c7c596d227831d7f2a16ebc9a872beae22988d61ac9d87174f141fa73caa3d97",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 50,
+    "n_records": 50,
+    "ok": true,
+    "props": [
+      "test_column_labels",
+      "test_shape",
+      "test_stats_match_frame_mean",
+      "test_stats_match_frame_median",
+      "test_value_range"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_labels"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_shape"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_mean"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_stats_match_frame_median"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_value_range"
+      }
+    ]
+  }
+}

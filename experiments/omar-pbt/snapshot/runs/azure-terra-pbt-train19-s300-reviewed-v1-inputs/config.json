@@ -1,0 +1,16 @@
+{
+  "protocol": "reviewed_trigger_view",
+  "run_name": "azure-terra-pbt-train19-s300-reviewed-v1-inputs",
+  "data": "data\\azure_pbt_train19_s300_reviewed_v1.json",
+  "read_only": true,
+  "new_model_calls": 0,
+  "provenance": {
+    "source_run": "azure-terra-pbt-train19-s300-v1-triggers",
+    "source_records_sha256": "ae219ac0d6f5b4b8ef099f80699cf8538f5000495f6351609da1ff4ec78a5dfe",
+    "source_dataset_sha256": "7281b7002b5c8260524436bc10cd4d6a335e379d5e14a6b8d183e34b9f77ea11",
+    "review_path": "runs\\azure-terra-pbt-train19-s300-v1-triggers\\domain-review-v2.json",
+    "review_sha256": "72330c49f62e304bcb8c801fc8962d950ef8503f88e3536dcd20eef40faec4d2",
+    "excluded_task_pairs": [],
+    "selection": "reviewed-domain matched pairs; no outcome selection"
+  }
+}

@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3694",
+    "source_record_sha256": "065fac795a32f3340b5c10c09d9a0c332bed9438c045ac6e717ee8c344ccc233",
+    "honest_code_sha256": "badb3edf29df82388f4735fa8dea381f7eaa8c4827b2355c03581a4d7301d471",
+    "suite_sha256": "f185ab24e34c3c63950931d57b77ed1ab9046524236ab89a3388be484acb20b1",
+    "inputs_sha256": "307ae22b253d8ee8fb283bea3269e0debd4fcf0b5e1c04511ec48c6460f0df06",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_billion_boundary",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_billion_boundary",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_blocked_duplicate",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_zero",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_even_gap",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_odd_gap",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_zero_large",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repairable_duplicate",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_threshold_value",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_duplicate",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_pile_large",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_billion_boundary",
+      "test_blocked_duplicate",
+      "test_duplicate_zero",
+      "test_large_even_gap",
+      "test_large_odd_gap",
+      "test_no_zero_large",
+      "test_repairable_duplicate",
+      "test_threshold_value",
+      "test_triple_duplicate",
+      "test_two_pile_large"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

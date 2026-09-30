@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "6067adc293d3297daca80e14fca2f853fef9510ac4bdb45f51d775e1f4b45fac",
+    "inputs_sha256": "ce773715eaa616c693e1725dc14a8403e6af4dce698c477688f3910ec3c3b4b7",
+    "source_record_sha256": "c317b899448951007a3f0ea7403655d17bb7a157a118fdfc3025504c398bf309",
+    "suite_sha256": "ea24865fddc2f4ebde6c1d234860b35756cceeb8a253bd54e365d0de669d10e5"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_boolean_count",
+      "test_combinations",
+      "test_even_odd_choices",
+      "test_explicit_even_member",
+      "test_explicit_odd_member",
+      "test_nested_selection",
+      "test_opposite_parity",
+      "test_pair_filter",
+      "test_set_pairs",
+      "test_unordered_pairs"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boolean_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_combinations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_odd_choices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_explicit_even_member"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_explicit_odd_member"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nested_selection"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_opposite_parity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_filter"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_set_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unordered_pairs"
+      }
+    ]
+  }
+}

@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3733",
+    "source_record_sha256": "6bc53abde8a01daec7e915838cff6b2b80a180b98369eb72cfab448362657893",
+    "honest_code_sha256": "bfe26cf2c05c5173c7299c3763c3d5ca02ddbf517f7ba824d15e7b43d6364fc0",
+    "suite_sha256": "260352d66f0e0f7eb8e889e039e0bc485843bf3fb262b47a1c673f95320de0ba",
+    "inputs_sha256": "a596701d93409cdde34bd35a038d3526cc964be76c406ab8f14e016ada98a86d",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_bit_budget_windows",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_capacity_window",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_clamp_enumeration",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_distinct_boundary_window",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_storage_feasibility",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_explicit_transformation_minimum",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frequency_interval_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_range",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_and_interval_minimum",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_feasibility",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_bit_budget_windows",
+      "test_capacity_window",
+      "test_clamp_enumeration",
+      "test_distinct_boundary_window",
+      "test_exact_storage_feasibility",
+      "test_explicit_transformation_minimum",
+      "test_frequency_interval_oracle",
+      "test_output_range",
+      "test_singleton_and_interval_minimum",
+      "test_zero_feasibility"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

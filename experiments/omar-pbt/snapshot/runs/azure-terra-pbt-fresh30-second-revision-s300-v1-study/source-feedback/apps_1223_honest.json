@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "7102ff79db4a1b028e9297aa6f954de09238538e00f2431da1e3502ef10ea8ae",
+    "inputs_sha256": "2c9456385b917c349e06dcf6260eea4d28743a23950ddd1e510930b743e36489",
+    "source_record_sha256": "2f4b09d586fc5caa6ac3ea8ead7cab8554c5ef579fb990ea7cae6e0445522305",
+    "suite_sha256": "4e6f0514c94c8d04ca8d860bee4f3dbb422a39d60960907ec6064a5cd0c144d7"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_ranges",
+      "test_bruteforce_windows",
+      "test_descending_rank",
+      "test_exact_integer_output",
+      "test_interval_listing",
+      "test_min_of_two_max",
+      "test_pair_extension",
+      "test_small_complete_oracle",
+      "test_sorted_suffixes",
+      "test_top_two_scan"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_ranges"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bruteforce_windows"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_descending_rank"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_integer_output"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_interval_listing"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_min_of_two_max"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_extension"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_complete_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_suffixes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_top_two_scan"
+      }
+    ]
+  }
+}

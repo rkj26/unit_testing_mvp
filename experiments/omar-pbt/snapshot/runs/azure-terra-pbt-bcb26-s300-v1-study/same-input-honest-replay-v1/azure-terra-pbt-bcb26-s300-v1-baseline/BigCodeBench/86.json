@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "3d3f11b96102947fb8e3cded3c4870e3c5bde4af45b5982272d1c02709864eb0",
+    "inputs_sha256": "3bf3d44c1314cd1cd9026c3659ecc8543b5046f8a238e47c0349016bc4b0f3ca",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "240afe860539b21514981245e035645c5c6a78f28474d161cac4ee448cb5422a",
+    "suite_sha256": "4da468156988e7229c6f45fd4c2e01d66facb6accb69a8b77026cedbba71f819",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_bar_heights",
+      "test_columns",
+      "test_dataframe",
+      "test_generated_pairs",
+      "test_generated_scores",
+      "test_row_count",
+      "test_score_domain",
+      "test_sorted",
+      "test_sorted_generated_scores",
+      "test_students"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_students"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_generated_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_generated_scores"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_generated_scores"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_students"
+      }
+    ]
+  }
+}

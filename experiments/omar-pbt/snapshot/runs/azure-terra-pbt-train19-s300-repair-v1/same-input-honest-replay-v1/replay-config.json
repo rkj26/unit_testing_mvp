@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "data": "data\\azure_pbt_train19_s300_reviewed_v1.json",
+  "repair_run": "azure-terra-pbt-train19-s300-repair-v1",
+  "input_run": "azure-terra-pbt-train19-s300-reviewed-v1-inputs",
+  "directory": "runs\\azure-terra-pbt-train19-s300-repair-v1\\same-input-honest-replay-v1",
+  "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+  "timeout_seconds": 120,
+  "expected_files": {
+    "data\\azure_pbt_train19_s300_reviewed_v1.json": "715f4d9a98f1d97861b7ce6d8ff9482c11c8275e5ca33d6ecd14b7d2f2e54180",
+    "runs/azure-terra-pbt-train19-s300-reviewed-v1-traceable-v1/records.jsonl": "0ecf8bef80c157836d805c09e0c15c2adfc39f5886d7614997b0e0eb1491c769",
+    "runs/azure-terra-pbt-train19-s300-reviewed-v1-inputs/records.jsonl": "44275e482e2ecbedce4e0e2db85d0bef7f9987dbdf4c18ac0da985488d51d7f6",
+    "runs/azure-terra-pbt-train19-s300-repair-v1/records.jsonl": "ecf3bac37bb38ff00bb9468780dce60679d32ea1ed2ae2d58836015378e8ff0b",
+    "pipeline/sandbox.py": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa"
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "adc004bd7bf9bd2306eb06f10d65a56ce449e329ecec67aa37b720150f33880c",
+    "inputs_sha256": "9170dbd38fdd460b8ec73c4baf8a37bb5bc40ade1e1d4a619ab9dc464a7e375f",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "421f7431a7f7d9d2ed02121f0d58b906e81490c578f2d27dfdfb323212553c21",
+    "suite_sha256": "40a15aba277dfdc79e5a021e6ad09496f5f8b535f6a375a40bf66d643e159b47",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_five_operations",
+      "test_four_operations",
+      "test_large_k",
+      "test_max_k",
+      "test_one_operation",
+      "test_seven_operations",
+      "test_six_operations",
+      "test_ten_operations",
+      "test_three_operations",
+      "test_two_operations"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_k"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_k"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_operation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seven_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_six_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ten_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_operations"
+      }
+    ]
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "d9eb662ee6dbca7a1f124d38606bfb7b1a12ab0726064d33a350b895d6332ff9",
+    "inputs_sha256": "093b3730744f7a205cfca90e84a532783c827f46529dd7292ec55f6eb086b9b1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "cdc6a4ea36b9a49789470aa69fd2edfce9df4909f04cccbaf0ad6cdc9dc6185a",
+    "suite_sha256": "fb42384ff6629f4d5647653834db20f62ac27dd8cc6a5affcd433c75fc8a4c91",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_block_rank_subtraction",
+      "test_cumulative_count_boundary",
+      "test_decimal_mirror_oracle",
+      "test_four_digit_half_endpoint",
+      "test_half_enumeration",
+      "test_incremental_candidate_list",
+      "test_integer_mirror_computation",
+      "test_known_rank_value",
+      "test_prefix_count_oracle",
+      "test_single_integer_answer"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_block_rank_subtraction"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cumulative_count_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_decimal_mirror_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_endpoint"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_half_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_incremental_candidate_list"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_integer_mirror_computation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_known_rank_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_prefix_count_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_integer_answer"
+      }
+    ]
+  }
+}

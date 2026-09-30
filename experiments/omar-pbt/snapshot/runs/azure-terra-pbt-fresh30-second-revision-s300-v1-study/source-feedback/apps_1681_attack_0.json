@@ -1,0 +1,630 @@
+{
+  "identity": {
+    "code_sha256": "4ed5e4163c40885f0e0134c8449a62e6f0839b2a393e334ca25a897173971681",
+    "inputs_sha256": "6b7f121ae492b75fe36ce8b849a0b6352472fbb2e08b693c5021769f48503c5e",
+    "source_record_sha256": "500d83c8c0d6dedc0cd4d9a68195cdfd5509764ea612afcf23cf7a62b8f9f3ec",
+    "suite_sha256": "42318fb3fb4a11806bc5867c935ec0f9b712ac28fd68836777a93cd392016d5e"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_alphabet_k",
+      "test_cut_many",
+      "test_full_alphabet",
+      "test_k_equal",
+      "test_k_shortage",
+      "test_k_surplus",
+      "test_missing_k",
+      "test_mixed_order",
+      "test_mixed_present",
+      "test_single_k"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_k"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_cut_many"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_equal"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_shortage"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_k_surplus"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_k"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_order"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_present"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_k"
+      }
+    ]
+  }
+}

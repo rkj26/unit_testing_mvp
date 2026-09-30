@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "e671ebe3204cae45a017e999881903b781622dbaa4fc9257064aa3b13d03c178",
+    "inputs_sha256": "0214368a04f3af6f9ca78bcb5642a69e2f974775ecd5c607e55cffc864b0c170",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "9dc44b4a87f953d595aea56b2b9ed43ae9156e8e6aa9694f52f9de841988117c",
+    "suite_sha256": "a90589b3346b4e7b0c8ff04edc872aca78661795b3f029565d931cce4177e3bc",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_complete_trace",
+      "test_last_link_source",
+      "test_linked_sources",
+      "test_start_five",
+      "test_start_four",
+      "test_start_one",
+      "test_start_seven",
+      "test_start_six",
+      "test_start_three",
+      "test_start_two"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_trace"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_last_link_source"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_linked_sources"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_five"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_four"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_seven"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_six"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_three"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_two"
+      }
+    ]
+  }
+}

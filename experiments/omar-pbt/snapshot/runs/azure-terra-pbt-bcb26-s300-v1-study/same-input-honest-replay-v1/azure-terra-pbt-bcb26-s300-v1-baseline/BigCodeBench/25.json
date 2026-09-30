@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "963a56cf905925651725904b5a3efc62fcfc9c3c6e6a6356b80d7896cb1c13f1",
+    "inputs_sha256": "c34ecab5a0261fbf6b4d5aa15e468a58ad0f940d4d0ffa6434da1fad4a920567",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "9690b4a8ec3c0e43787a6d990f000deaaf6f27cd2fe7e976bad6cdb04125af45",
+    "suite_sha256": "c77bcb247a64d4f0e26b5a3ed0dc5c6e99032580b4b9534f4af25dd5fc92c6a3",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_base64_result",
+      "test_canonical_encoding",
+      "test_compressed_json",
+      "test_default_pipeline",
+      "test_default_zlib_level",
+      "test_empty_dictionary",
+      "test_long_payload",
+      "test_raw_bytes",
+      "test_single_key_boundary",
+      "test_unicode_json"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_base64_result"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_canonical_encoding"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_compressed_json"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_default_zlib_level"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_long_payload"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_raw_bytes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_key_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unicode_json"
+      }
+    ]
+  }
+}

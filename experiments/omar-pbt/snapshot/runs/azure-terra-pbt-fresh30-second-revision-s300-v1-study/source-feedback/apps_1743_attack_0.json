@@ -1,0 +1,630 @@
+{
+  "identity": {
+    "code_sha256": "9f62f10e7f039bde1c72c005d281f476928b7e9988617b39800a9cca4c737559",
+    "inputs_sha256": "87ae4587758f044bcae1b1bc1382ad77c6308fae18079b048c0a74c8e80788c3",
+    "source_record_sha256": "a3db9c8e13ad55795c8dca42539af9ffca073d92c4cf7993e107cb7fa490b18c",
+    "suite_sha256": "f703afd91344a70715654591966ee2260f4c80d8b34bc50160909d873de8ff49"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_a_only",
+      "test_alternating",
+      "test_b_only",
+      "test_c_peak",
+      "test_endpoints",
+      "test_mixed_last",
+      "test_one",
+      "test_ties",
+      "test_twelve",
+      "test_zero"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_ties"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_zero"
+      }
+    ]
+  }
+}

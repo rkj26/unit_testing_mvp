@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "86ba46469129e0288f0d1e89d8b80121a00d44cecad1e6a7033fc6f5b7a2d857",
+    "inputs_sha256": "ea48896936f03cc46432c36727176b35ab771a29fcbfcf758b62c8fe03ba4740",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "a07f3e189c8548b197120df7910b83ce8f3809f35ef665ff80ddf9c62c1cbf44",
+    "suite_sha256": "08c18238f01637d1a5db3d18ea215651d92bd73c41e9b2349dd557dededec31f",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_axes_object",
+      "test_columns",
+      "test_five_rows",
+      "test_fixed_datetime_rows",
+      "test_timezone_constant_order",
+      "test_timezone_datetime_association",
+      "test_title",
+      "test_tuple_pair",
+      "test_xlabel",
+      "test_ylabel"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_object"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_rows"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_fixed_datetime_rows"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_timezone_constant_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_timezone_datetime_association"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tuple_pair"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_xlabel"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ylabel"
+      }
+    ]
+  }
+}

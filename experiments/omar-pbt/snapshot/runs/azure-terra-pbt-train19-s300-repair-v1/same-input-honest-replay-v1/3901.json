@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3901",
+    "source_record_sha256": "343fc41f681f38d43c2919f55fe38f5c1eed5d0f85042f8a2fe5b910f97222cf",
+    "honest_code_sha256": "4e20d821e3f21a7d045bd7c96de96ee415ab3bdba9eb8c91eea995bb5146dcdc",
+    "suite_sha256": "b1d1bb6f94d6c2cb2a9cd19f5046dfd20d8852c7bea01c44143c1896b1fab073",
+    "inputs_sha256": "b5b3b06e4abd41cba6313d0258b075c221f20a11c84bb84024f2daf6aff2c2dc",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_all_coprime_run",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_coprime_run",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_factor_impossibility",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_coprime_pair",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_value_pair",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_values",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_singleton_target",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_element_chain",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_element_boundary",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_all_coprime_run",
+      "test_common_factor_impossibility",
+      "test_coprime_pair",
+      "test_existing_one",
+      "test_identical_nonone",
+      "test_large_value_pair",
+      "test_repeated_values",
+      "test_singleton_target",
+      "test_three_element_chain",
+      "test_two_element_boundary"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

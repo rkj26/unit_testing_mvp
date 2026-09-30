@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "0fe643a35428caf354fc91a82130d7e757b595194f46b24a48aa88c25c44bcbe",
+    "inputs_sha256": "c2b962c7e3cfe1555b517e10ff7cf690a27b45690fabd135238cb3b9c9aae2aa",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "e36cc2d9ff218b564ac403d8d7850a6501c30270c17af9bd537e2388139359ba",
+    "suite_sha256": "9e1bdab18878c1bb7e63dcc83b7fbd16a8de8433b7e3d6fe0714be53ef6def2c",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_boundary_gap_fifteen",
+      "test_chain_of_resets",
+      "test_equal_deadline_interest",
+      "test_full_game_cap",
+      "test_gap_over_fifteen",
+      "test_initial_and_final_cutoff",
+      "test_intermediate_resets",
+      "test_late_cutoff",
+      "test_multiple_boundary_events",
+      "test_two_minute_gaps"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boundary_gap_fifteen"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_chain_of_resets"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_deadline_interest"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_game_cap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_over_fifteen"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_initial_and_final_cutoff"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_intermediate_resets"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_cutoff"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_multiple_boundary_events"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_minute_gaps"
+      }
+    ]
+  }
+}

@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "9aa746becca1b50a8a085b3c568f7661e8cfe24e76a565126f0559befed8a98c",
+    "inputs_sha256": "53778147c0e7465f6a74dc73ef64a52a0366d7b97f4b9f01e13906396ae7fa4b",
+    "source_record_sha256": "44363e8f6d0b4ceb751098e7d6fd61121462691e722bb003bcf91867f1517d43",
+    "suite_sha256": "7a527c6f9538699d5f97947d06276d26a8a6c56cdcca1bf4eaa85690a61e94ec"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_direct_small",
+      "test_singleton",
+      "test_small_boundary",
+      "test_small_diagonal",
+      "test_small_full_count",
+      "test_small_pairs",
+      "test_small_partition",
+      "test_small_power_edges",
+      "test_small_remainder",
+      "test_small_xor"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_direct_small"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_diagonal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_full_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_power_edges"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_remainder"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_xor"
+      }
+    ]
+  }
+}

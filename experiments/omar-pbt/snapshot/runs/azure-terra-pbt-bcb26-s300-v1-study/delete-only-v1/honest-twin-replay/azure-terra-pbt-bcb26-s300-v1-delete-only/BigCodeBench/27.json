@@ -1,0 +1,179 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "22ebe5a462e33e03cb0b9057a251f1895921740e37550e08c085ee284dc84785",
+    "inputs_sha256": "7d282bf430c42fd0818b0a8e56c73b938bf18d2c6d2b588fc809e22ce35d2f58",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "0925c7a825ad5bab20d2ba96aa46f8fbb78cb793704af6977843fbaf08b91de7",
+    "suite_sha256": "f7e4d9b25a3db658954039fd0f848e6f4560906bba90ddf6a4e1392388632865",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 30,
+    "n_records": 30,
+    "ok": true,
+    "props": [
+      "test_empty_format",
+      "test_fixed_literal",
+      "test_percent_format"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      }
+    ]
+  }
+}

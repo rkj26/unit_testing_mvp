@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "358b2d9ae0dbf879f9c64a13e08ede7941d9f9b300a5ae99c80e18e89ba62152",
+    "inputs_sha256": "52618ab06822052e72acb16dfdc30fff95278714ede870c432200af1039cd9fb",
+    "source_record_sha256": "bd72b0a94a490596717d3b28339d34bf24241cb91f3723c2af38dc88c770ad9d",
+    "suite_sha256": "70f1d7bf7ab14db628b990941721fbc62fecc1f2c9c94f211b1b4f2d9d989ebc"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_removals",
+      "test_candidate_tracks",
+      "test_definition_oracle",
+      "test_delete_bruteforce",
+      "test_gap_merge",
+      "test_local_join",
+      "test_max_after_skip",
+      "test_minimax",
+      "test_pair_scan",
+      "test_retained_neighbors"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_removals"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_candidate_tracks"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_definition_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_delete_bruteforce"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_merge"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_local_join"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_after_skip"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_minimax"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_retained_neighbors"
+      }
+    ]
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "c6bb6361152d94f27e641abc5d0665cefebd1c3e6641c07a6480da624590eb7a",
+    "inputs_sha256": "7947ecbc029a3b5b13ef4f5edfb4b173f822d2276efcb1a940749ecda6ac4ca1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "e00336cdf7504e75b986cb06f5ba8782c9f632dd7609997b9328268535548eb6",
+    "suite_sha256": "de0e2d1e48b38e4276aac703ff790abb4ee7bba97d57fcfd4a2a1cdadaebdf1b",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_five_value",
+      "test_large_coin",
+      "test_large_ones",
+      "test_large_quotient",
+      "test_large_supply",
+      "test_max_value",
+      "test_one_n",
+      "test_three_n",
+      "test_three_value",
+      "test_two_n"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_coin"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_ones"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_quotient"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_supply"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_n"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_n"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_n"
+      }
+    ]
+  }
+}

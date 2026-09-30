@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "df8208d679bb9dc5d94c454ea880eaec08d6986de61917b52648026ff934537c",
+    "inputs_sha256": "a1e52ed577dbf74d9f79cf66a3ccb7108b62cecc6478a7b8baff420400c6ec9d",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "34e2ed2c1edfb5e402961c30f75e7804d84c0fd73208e9f345a54fe1fa8ca4b7",
+    "suite_sha256": "4ea7cfcb1f6e62a68712dfe7d061c1c017dda24090013abba0380c409c1e718f",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_maximum",
+      "test_n1",
+      "test_n25",
+      "test_n26",
+      "test_n27",
+      "test_n52",
+      "test_n676",
+      "test_n677",
+      "test_n702",
+      "test_n703"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_n703"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_maximum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n1"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n25"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n26"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n27"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n52"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n676"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n677"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n702"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_n703"
+      }
+    ]
+  }
+}

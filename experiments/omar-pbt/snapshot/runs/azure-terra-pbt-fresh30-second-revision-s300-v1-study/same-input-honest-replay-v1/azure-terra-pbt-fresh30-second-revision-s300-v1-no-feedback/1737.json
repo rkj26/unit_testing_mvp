@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "8bfe4857edef4a6b9099d4fdb2ef2dfda3410e7b6153d36f6b17f95c70f1ab80",
+    "inputs_sha256": "815fe48cef6acca217eb66ca2d16f709306ac302a25d1b0750dfc8ef8a174a9b",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "f77b5ef3caefd79cbe5b7c883e13ab80d036e98d9198e2a8caf23916a4308872",
+    "suite_sha256": "52fcfc0fd34f59d444ae69568f32a867d85561800a37a45e920f3071dc2c4fde",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_direct_resolution",
+      "test_distance_priority",
+      "test_duplicate_name_candidates",
+      "test_full_small_graph_oracle",
+      "test_ignore_discarded_subtree",
+      "test_nested_dependencies",
+      "test_output_lexicographic",
+      "test_parallel_frontier",
+      "test_same_name_as_root",
+      "test_version_tiebreak"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_direct_resolution"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_distance_priority"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_duplicate_name_candidates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_small_graph_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ignore_discarded_subtree"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nested_dependencies"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_lexicographic"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_parallel_frontier"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_same_name_as_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_version_tiebreak"
+      }
+    ]
+  }
+}

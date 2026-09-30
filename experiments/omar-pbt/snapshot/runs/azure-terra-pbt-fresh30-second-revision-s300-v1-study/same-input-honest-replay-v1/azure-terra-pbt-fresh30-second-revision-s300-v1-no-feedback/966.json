@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "081ee26dcfb7256c72cc98e096ac143f7515bbbfa5ab55ef8eaa0a7df4648eb0",
+    "inputs_sha256": "26c68863912f5e3b7053a4d15c15040b241a38128e49711abda9c8ea8bcac460",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "e0f6693ca6b9a1c2e0443659994b5e4751bab708b674bbe91d4f30ba7e5d987c",
+    "suite_sha256": "c5b59255c19c1197f277a94ff412fd7c5ff75a461d7e47f676cd8783ac842e54",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_answer_has_distinct_digits",
+      "test_answer_strictly_larger",
+      "test_bounded_bruteforce_minimum",
+      "test_candidate_range_and_minimum",
+      "test_incremental_definition_oracle",
+      "test_known_fixed_input_oracle",
+      "test_minimum_comprehension_oracle",
+      "test_no_smaller_valid_year",
+      "test_predecessor_interval_invalid",
+      "test_single_integer_format"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_answer_has_distinct_digits"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_answer_strictly_larger"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bounded_bruteforce_minimum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_candidate_range_and_minimum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_incremental_definition_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_known_fixed_input_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_minimum_comprehension_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_smaller_valid_year"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_predecessor_interval_invalid"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_integer_format"
+      }
+    ]
+  }
+}

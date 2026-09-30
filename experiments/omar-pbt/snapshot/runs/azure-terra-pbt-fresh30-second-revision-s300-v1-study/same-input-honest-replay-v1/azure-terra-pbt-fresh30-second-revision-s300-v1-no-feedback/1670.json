@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "e2ef9191210b5d85fb220f1d62a726b0dd3edcb3ae569e1d2f7b7ed414406dd2",
+    "inputs_sha256": "dcd49acbb7db1c8313f9006fc2a8f4821bb51938e522d11efd923633360a0626",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "4514303ecdbf0aeb904ca3ae93df534a7d3735aa7b43e66caa8f6f302ffdc557",
+    "suite_sha256": "228663d32ad30c2d811502168569b0ff5764dbe3b61d8d1fd11a51f7346a2f0f",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_chronological_records",
+      "test_direct_red_events",
+      "test_first_red_only",
+      "test_maximum_foul_trace",
+      "test_mixed_card_trace",
+      "test_no_red_output",
+      "test_record_shape_and_order",
+      "test_second_yellow_events",
+      "test_team_name_mapping",
+      "test_team_player_identity"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_chronological_records"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_direct_red_events"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_red_only"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_maximum_foul_trace"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_card_trace"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_red_output"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_record_shape_and_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_second_yellow_events"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_team_name_mapping"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_team_player_identity"
+      }
+    ]
+  }
+}

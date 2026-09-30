@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "e7473b84b8db89d0cb46fb7f64362e0de95cbbd594ce37e50180a2193cc6efd1",
+    "inputs_sha256": "31a8824b0816e12662955d00734c6399c4041723e1dc1eea677a1758c804d61b",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "139a13bd7ea45edc551103c02bdeb97a38945b66933772f324338cac12164862",
+    "suite_sha256": "775a6f4faaee0c2c9e556c661b3a28b562d0e2a33d15d80509bd7dd7c9d87af1",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_combination_definition",
+      "test_element_multiplicity",
+      "test_float_result_and_total",
+      "test_fsum_definition",
+      "test_length_partition",
+      "test_log_product_expansion",
+      "test_nonempty_subset_terms",
+      "test_product_per_mask",
+      "test_recursive_selection_definition",
+      "test_subset_mask_definition"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_combination_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_float_result_and_total"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_fsum_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_log_product_expansion"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nonempty_subset_terms"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_per_mask"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_recursive_selection_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_subset_mask_definition"
+      }
+    ]
+  }
+}

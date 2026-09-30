@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "7102ff79db4a1b028e9297aa6f954de09238538e00f2431da1e3502ef10ea8ae",
+    "inputs_sha256": "5e2bfc14499f3226b611a915254d720935c6865c1e58d4435a2bc501147d09f4",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "0826d0915511a44288acf3cb76731064ddcdd2c6d0482442209c9963152b02fd",
+    "suite_sha256": "60d829a28fd624d9c8d8bb47f6a400a5ef588907f7abe5303b9b4e320cced74f",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_descending_enumeration",
+      "test_drop_range_max",
+      "test_greater_rank",
+      "test_heap_second",
+      "test_incremental_insertion",
+      "test_pair_maximum_scan",
+      "test_rank_by_sorted_indices",
+      "test_remove_each_candidate",
+      "test_running_two_maxima",
+      "test_sorted_subarrays"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_descending_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_drop_range_max"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_greater_rank"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_heap_second"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_incremental_insertion"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_maximum_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rank_by_sorted_indices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_remove_each_candidate"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_running_two_maxima"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_subarrays"
+      }
+    ]
+  }
+}

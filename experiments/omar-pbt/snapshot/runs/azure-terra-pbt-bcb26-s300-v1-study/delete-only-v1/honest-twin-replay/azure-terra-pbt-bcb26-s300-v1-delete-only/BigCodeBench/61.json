@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "179bcd504a895fedc18ec95de89116d8124874c777617bd33e76379c19ec1a95",
+    "inputs_sha256": "1eefece7f3aab7cbe48f11c6e3300041dcc737edd5345fdaf1019fd75140900a",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "759c2d7b0ac17243e1823da222854492cbc7d9927acf96be979138414dbbee25",
+    "suite_sha256": "2df92d069c5b3e93c941fce5880d47dba7c281f01e515cf44bd89fc98bbb6f8e",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_annotation_format",
+      "test_array_type",
+      "test_axis_labels",
+      "test_each_rounded_root",
+      "test_plot_title",
+      "test_plotted_x",
+      "test_plotted_y",
+      "test_root_count",
+      "test_roots_direct",
+      "test_roots_finite"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      }
+    ]
+  }
+}

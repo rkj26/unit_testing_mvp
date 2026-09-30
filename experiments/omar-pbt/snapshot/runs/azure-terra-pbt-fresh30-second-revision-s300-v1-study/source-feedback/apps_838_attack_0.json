@@ -1,0 +1,630 @@
+{
+  "identity": {
+    "code_sha256": "d826302a3c2762537bd78cef6959d67c2c5157fada33c6391cca564b0baabe1e",
+    "inputs_sha256": "032badcec84be5bc9da300f5f7b717119acbd8eb5f271e9c435563e396a7290e",
+    "source_record_sha256": "5b0254f237215182cf83b3cbb7dd6fe8a9f1a842f4176a1fd58f3d85511ee7d1",
+    "suite_sha256": "4f6816bd0c675f256087b610846e1c1dee87b5cc37a094f6cf2e4bac0465b08b"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_exhaustive_sets_a",
+      "test_exhaustive_sets_b",
+      "test_exhaustive_sets_c",
+      "test_exhaustive_sets_d",
+      "test_exhaustive_sets_e",
+      "test_exhaustive_sets_f",
+      "test_exhaustive_sets_g",
+      "test_exhaustive_sets_h",
+      "test_exhaustive_sets_i",
+      "test_exhaustive_sets_j"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_a"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_b"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_c"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_d"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_e"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_f"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_g"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_h"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_i"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exhaustive_sets_j"
+      }
+    ]
+  }
+}

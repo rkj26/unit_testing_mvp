@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9853a6fd712b95e7d85ae5230d8dca0e166e0cc421fc8016fe194429c0e32cdd",
+    "inputs_sha256": "70ed6ec03617cbcd4d7971b23d4923d4fd198749401eec936a7dde2a26136cdf",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "3b44b8926edd643603d08822f510560717e0d174a1df11084def5d644e732dd6",
+    "suite_sha256": "87c0340850a6b86fa6009669ccafef6ad3672ed6bcb4e2499f3827e95270fd37",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_missing_1",
+      "test_missing_2",
+      "test_missing_3",
+      "test_repeat_12",
+      "test_repeat_23",
+      "test_repeat_31",
+      "test_repeat_32",
+      "test_reverse_12",
+      "test_reverse_13",
+      "test_reverse_23"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_1"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_2"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeat_12"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeat_23"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeat_31"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeat_32"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_reverse_12"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_reverse_13"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_reverse_23"
+      }
+    ]
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "c71f03ac22cfbd63fe7acc143581b382786b19eb32c0284698b7dacf8f4a4c6e",
+    "inputs_sha256": "df6aa09d9520b21e56ad7be712035664319bf1b80d8222572e47482f82f19cd8",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "aac1cad55dfd0038b426ae6019ef00843167263f306581505378585410ca221c",
+    "suite_sha256": "9232dc31de1659f459b10f216c117afd8dfb297df62e6d5734d19f37dbc9aad3",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_snacks_placed",
+      "test_cumulative_placements",
+      "test_daily_placement_counts",
+      "test_exact_daily_schedule",
+      "test_first_day_placement",
+      "test_global_placement_order",
+      "test_last_day_placement",
+      "test_output_day_count",
+      "test_required_empty_days",
+      "test_required_nonempty_rows"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_snacks_placed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_daily_schedule"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_day_placement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_global_placement_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_last_day_placement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_day_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_required_empty_days"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_required_nonempty_rows"
+      }
+    ]
+  }
+}

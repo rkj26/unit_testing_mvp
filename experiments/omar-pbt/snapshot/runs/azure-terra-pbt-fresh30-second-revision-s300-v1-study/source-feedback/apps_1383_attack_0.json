@@ -1,0 +1,630 @@
+{
+  "identity": {
+    "code_sha256": "be952d207006fd5e6e96587df58ed8a38c5eebaaa416aff35c458cb5706eb973",
+    "inputs_sha256": "ef8d808c7af612f4c22acc456f3dfd022afc7b2ad4df1470a821c343741352f1",
+    "source_record_sha256": "21354b76a7cd806c709764bd0e372ad9d23caa775ba382a2cfa0d2d4da9d66bb",
+    "suite_sha256": "43c70501b9a1b4ec056fd6d19648cdd0173bcd403c72a0073b8153d433fa1887"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_duplicates",
+      "test_even_odd_cycle",
+      "test_full_cycle",
+      "test_large_modulus",
+      "test_repeated_offset",
+      "test_step_three",
+      "test_subgroup_six",
+      "test_subgroup_twelve",
+      "test_two_point_identity",
+      "test_two_point_offset"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      }
+    ]
+  }
+}

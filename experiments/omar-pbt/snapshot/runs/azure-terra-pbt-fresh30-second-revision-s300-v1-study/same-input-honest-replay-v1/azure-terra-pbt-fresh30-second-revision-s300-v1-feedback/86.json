@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "7f57e83a91290028d84d140766e9e534f56ceba49d4dd838284d5ad103ee983f",
+    "inputs_sha256": "1d57b3f2ce7e0cbfe7d481ee01083b791f41c3ce6346c6ad2f910dbb7b5fe5ae",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "fd3f7e598095750602d624694a4d0b1af13547abdbafb543ff07d87373fc1f4a",
+    "suite_sha256": "fe506899214a21e4ccc1fe11923f80ec8368a1bd5caef1531bcecb793abb888e",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_polycarp_axis",
+      "test_polycarp_other_axis",
+      "test_polycarp_sample",
+      "test_polycarp_turn_priority",
+      "test_vasiliy_close",
+      "test_vasiliy_crossed",
+      "test_vasiliy_diagonal_race",
+      "test_vasiliy_large_axis",
+      "test_vasiliy_same_x_above",
+      "test_vasiliy_x_lead"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_polycarp_axis"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_polycarp_other_axis"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_polycarp_sample"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_polycarp_turn_priority"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_close"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_crossed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_diagonal_race"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_large_axis"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_same_x_above"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_x_lead"
+      }
+    ]
+  }
+}

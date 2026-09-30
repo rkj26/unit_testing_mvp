@@ -1,0 +1,485 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "4af97fe7223c310e564663e0123e14406176b3d75d1359ee93d6ee1a76a40049",
+    "inputs_sha256": "bbf569079ddf32fa2f4652579f04fb0005e242c1d296133f7367c947c22f8b6d",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "2611d5f9c65f00cf86a95d783253a44c2d629dd127035ba3ff4e2f2ac00a8d4b",
+    "suite_sha256": "9778897d5281bbaaab78b92cd6451929d2f694e0dfe162b2496fe447b5f200e9",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 90,
+    "n_records": 90,
+    "ok": true,
+    "props": [
+      "test_car_keys",
+      "test_color_multiset",
+      "test_colors_match_keys",
+      "test_columns",
+      "test_dataframe_type",
+      "test_each_car_once",
+      "test_row_count",
+      "test_title",
+      "test_tuple_shape"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_car_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_color_multiset"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_colors_match_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_car_once"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tuple_shape"
+      }
+    ]
+  }
+}

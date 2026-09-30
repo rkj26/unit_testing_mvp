@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "8386d6e9244ebde87512f324e031b8ee6760e5bc737daa0c1982dd61610110fa",
+    "inputs_sha256": "90b109957372379cda8a1e716411902cddc7ca3103fa402c8552eebc77984f7c",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "86868ff926b8c4716c9c1f7296f755e5386e6daf58b2a8112d767788effe29fb",
+    "suite_sha256": "7475956d4938efa9717175f9ef6685df34e93e7d92cbfc7152658788aa162b8a",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_a1_b2_l2_t3",
+      "test_a1_b3_l2_t4",
+      "test_a1_l10_t10",
+      "test_a1_l2_t2",
+      "test_a1_l2_t5",
+      "test_a1_l2_t9",
+      "test_a1_l3_t3",
+      "test_a1_l3_t7",
+      "test_a1_l4_t4",
+      "test_a2_l2_t3"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_b2_l2_t3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_b3_l2_t4"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l10_t10"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t2"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t5"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l2_t9"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l3_t7"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a1_l4_t4"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a2_l2_t3"
+      }
+    ]
+  }
+}

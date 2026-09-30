@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "05ad893ae33a436cf9054eb33e424db9fd6774f3e6b0c775785b776c0d419e64",
+    "inputs_sha256": "c82bf63e1ddd6e48297382e5aeeeb2c0340ed93bc5354cb281f1fe482aeb8064",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "f6e4e311df27e7bb159b99ca1a40c8117c8f9c16b37ac69a93de26bfb776b498",
+    "suite_sha256": "ccbb1b1b5e7431057ca6e9759c98a73da84a34bf9e03343414af44ebbc90e7be",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_binary_counts",
+      "test_column_count",
+      "test_dataframe_type",
+      "test_document_term_totals",
+      "test_exact_document_term_matrix",
+      "test_feature_order",
+      "test_feature_vocabulary",
+      "test_row_count",
+      "test_sentence_membership",
+      "test_term_document_totals"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_binary_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_document_term_totals"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_document_term_matrix"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_feature_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_feature_vocabulary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sentence_membership"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_term_document_totals"
+      }
+    ]
+  }
+}

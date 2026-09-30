@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "185af17bfc4d639ee62bae6a43debdd53acfca2522303c3abc4498db95ce7947",
+    "inputs_sha256": "659107eb6997f9114b8fef4552ff0dfb1d4b78f4b01fb2ced2f3696f18e82eb6",
+    "source_record_sha256": "fee9754fb1c41ef85892c7887a541523ab9d9ac0ed290bbeb0527c54f50d12b5",
+    "suite_sha256": "83dfa80c22e0d0be64ca0e3211b47be799881f355b7a8552464199d45ddbaabc"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_complete_cover",
+      "test_dense_then_gap",
+      "test_gap_after_run",
+      "test_gap_two",
+      "test_large_value",
+      "test_late_gap",
+      "test_mid_gap",
+      "test_ordered_gap",
+      "test_single_one",
+      "test_unsorted_gap"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_cover"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dense_then_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_after_run"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mid_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ordered_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unsorted_gap"
+      }
+    ]
+  }
+}

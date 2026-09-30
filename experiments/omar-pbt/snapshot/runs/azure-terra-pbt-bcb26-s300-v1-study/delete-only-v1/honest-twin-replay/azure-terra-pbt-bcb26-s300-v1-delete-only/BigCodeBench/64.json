@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "c2273f93b77546f80e30275e702642d0526b93b28181b57417d5165534434178",
+    "inputs_sha256": "db9d41ab1dcb8aec4fd1ae57187bc890ba3ef9a784acf23c8708ad850cf5ce31",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "0fb1176dd1e4e59017232f2edbd764de33b7c61997b1a0224c2849bc220de5d0",
+    "suite_sha256": "13a7c237a809d1c3a646cbe3af76285899cc16a0f09520a738818a0a8c2f0cc3",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_axes_type",
+      "test_dataframe_type",
+      "test_distinct_per_cell",
+      "test_each_group_is_represented",
+      "test_group_columns",
+      "test_group_index",
+      "test_max_group_count",
+      "test_no_duplicate_inflation",
+      "test_returns_tuple",
+      "test_total_distinct_counts"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_distinct_per_cell"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_group_is_represented"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_group_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_duplicate_inflation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_distinct_counts"
+      }
+    ]
+  }
+}

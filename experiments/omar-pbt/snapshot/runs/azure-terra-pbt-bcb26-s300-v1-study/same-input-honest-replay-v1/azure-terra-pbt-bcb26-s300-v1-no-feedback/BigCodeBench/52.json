@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "c05cebfb06162bad017baf3831fb498f01712266304dc423ca0905a57d44a75a",
+    "inputs_sha256": "72ecd869292f9f9570f2b15c05d750ae6468bde8626ebf0ee9425807ddaf9dd6",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "5962f5ead97e1f73d124ea39f65d77b91c5165d94b6c082019f1f45e90443e6d",
+    "suite_sha256": "c42abf461f6d1e4b46456e18252c0d4fb2468f60b9ecde5a1dab28c0b8925851",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_count_sum_matches_definition",
+      "test_frequency_items",
+      "test_frequency_mapping",
+      "test_lowercase_indices",
+      "test_no_extra_word_indices",
+      "test_positive_integral_frequencies",
+      "test_retained_occurrence_total",
+      "test_returns_series",
+      "test_unique_vocabulary_size",
+      "test_word_count_values"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_count_sum_matches_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_items"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_lowercase_indices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_extra_word_indices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_positive_integral_frequencies"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_retained_occurrence_total"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_vocabulary_size"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_word_count_values"
+      }
+    ]
+  }
+}

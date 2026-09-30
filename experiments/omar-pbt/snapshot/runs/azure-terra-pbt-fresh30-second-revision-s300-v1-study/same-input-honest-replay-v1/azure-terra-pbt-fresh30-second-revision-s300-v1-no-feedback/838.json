@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "0accc7427383f725247f8e6d2e8073324bdba7a88d74ed4b7aa8e3db7438878f",
+    "inputs_sha256": "032badcec84be5bc9da300f5f7b717119acbd8eb5f271e9c435563e396a7290e",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "60e1211cebc2d0130f23367cc6625a0f2835d13b6da0d4d1a2f16f6419b2cad4",
+    "suite_sha256": "95bf66b13a3411207039fd6d829916ce8789a186d387863015b1e18d4f28ea74",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_color_classes",
+      "test_column_then_row_sum",
+      "test_count_based_oracle",
+      "test_exact_combinatorial_total",
+      "test_explicit_line_scan",
+      "test_line_subset_formula",
+      "test_power_counting",
+      "test_row_column_partition",
+      "test_row_then_column_sum",
+      "test_singleton_deduplication"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_color_classes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_then_row_sum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_count_based_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_combinatorial_total"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_explicit_line_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_power_counting"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_then_column_sum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      }
+    ]
+  }
+}

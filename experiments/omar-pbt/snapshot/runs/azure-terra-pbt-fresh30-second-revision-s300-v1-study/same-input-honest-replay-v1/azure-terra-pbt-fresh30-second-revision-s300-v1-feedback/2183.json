@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9853a6fd712b95e7d85ae5230d8dca0e166e0cc421fc8016fe194429c0e32cdd",
+    "inputs_sha256": "70ed6ec03617cbcd4d7971b23d4923d4fd198749401eec936a7dde2a26136cdf",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "dff1d15f6e5031e3ac9338176f54dedfaa3a070eae33e7668249c49d9fa68e52",
+    "suite_sha256": "3d070614403a155d8f1931b5cd7a3e512b63cdde2679f7665c7700ae7a309884",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_arrived_set_complement",
+      "test_late_brother_one",
+      "test_late_brother_three",
+      "test_late_brother_two",
+      "test_missing_from_pair",
+      "test_pair_12_complement",
+      "test_pair_13_complement",
+      "test_pair_23_complement",
+      "test_unique_late_number",
+      "test_unordered_pair"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_arrived_set_complement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_brother_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_brother_three"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_brother_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_12_complement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_13_complement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_23_complement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_late_number"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unordered_pair"
+      }
+    ]
+  }
+}

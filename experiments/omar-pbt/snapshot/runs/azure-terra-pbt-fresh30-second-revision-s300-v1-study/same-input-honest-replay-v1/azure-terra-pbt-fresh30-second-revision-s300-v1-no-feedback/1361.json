@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "358b2d9ae0dbf879f9c64a13e08ede7941d9f9b300a5ae99c80e18e89ba62152",
+    "inputs_sha256": "0a6b772a2316f3a307393d5c32d3388658364570bede10f7b1271d6603c6ee06",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "9343593c1f1ba163eec86497b5a3bf79124749e7afb31c8e4b598a294b5ab79a",
+    "suite_sha256": "3523829981a829da72a01df923883db7ab3c4ddf227ea3703b58d17741c307dd",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_bruteforce_all_interior_choices",
+      "test_endpoint_preserving_enumeration",
+      "test_exact_by_gap_replacement",
+      "test_exact_by_retained_sequence",
+      "test_exact_incremental_scan",
+      "test_feasible_optimal_difficulty",
+      "test_gap_maximum_definition",
+      "test_lower_bound_average_gap",
+      "test_output_is_single_optimum_integer",
+      "test_three_hold_forced_span"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bruteforce_all_interior_choices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_endpoint_preserving_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_by_gap_replacement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_by_retained_sequence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_incremental_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_feasible_optimal_difficulty"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_maximum_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_lower_bound_average_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_is_single_optimum_integer"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_hold_forced_span"
+      }
+    ]
+  }
+}

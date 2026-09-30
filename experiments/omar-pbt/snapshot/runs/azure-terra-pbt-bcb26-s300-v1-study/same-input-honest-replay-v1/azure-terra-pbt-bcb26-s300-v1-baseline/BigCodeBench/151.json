@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "63ba8bfa98e3ba501c7a81192f55fd0adbee6f3633a99278596c635ab7823855",
+    "inputs_sha256": "a98a424378181c6daad58d88851e07c1e4c741dd3ff376c4c9696aab40af4864",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "8136d377658eaa1c6f8eb16003c42df1d527cf77fd5a829a3b0626700372c6b7",
+    "suite_sha256": "fa0bbde9ba3732ae87a304587dcbd30ae376e7ba440a53582a44f7c6e5ef7a17",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_cells_oracle",
+      "test_column_minima_zero",
+      "test_columns_match_keys",
+      "test_dataframe_type",
+      "test_first_row_oracle",
+      "test_last_row_oracle",
+      "test_normalized_column_sums",
+      "test_row_column_shape",
+      "test_tuple_contract",
+      "test_values_in_minmax_range"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_cells_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_minima_zero"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns_match_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_row_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_last_row_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_normalized_column_sums"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_column_shape"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_values_in_minmax_range"
+      }
+    ]
+  }
+}

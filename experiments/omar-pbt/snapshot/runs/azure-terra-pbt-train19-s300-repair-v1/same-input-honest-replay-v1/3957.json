@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3957",
+    "source_record_sha256": "6a8d9357508905e1c14ea899777002828509278535162a55f1f7a7975c147ea8",
+    "honest_code_sha256": "5b0ef3eb2e562cd2be3a2cb2739e7e6997174bd707e9be3dfa82bf53f3300a63",
+    "suite_sha256": "c2089a4cec6d600e7abe669a2aaa246721c1e53c48c1d8af950f97618df19f6c",
+    "inputs_sha256": "462e9ef1a023794f1ce049d8d0c1f3be230653e30628325087f9dfff461eb8b1",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_adjacent_terminals",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_path",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_terminal_star",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_branch",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_four_terminal_split",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_parent_child_terminals",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_branch",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_pair_separated",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_hub",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_six_terminal_mixed",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_adjacent_terminals",
+      "test_all_terminal_path",
+      "test_all_terminal_star",
+      "test_four_terminal_branch",
+      "test_four_terminal_split",
+      "test_parent_child_terminals",
+      "test_single_pair_branch",
+      "test_single_pair_separated",
+      "test_six_terminal_hub",
+      "test_six_terminal_mixed"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

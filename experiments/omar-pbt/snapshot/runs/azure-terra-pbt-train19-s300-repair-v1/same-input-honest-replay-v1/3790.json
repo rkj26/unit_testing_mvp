@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3790",
+    "source_record_sha256": "1162b21ab286025e7b05e08fd41e0b29655e6d7725c466565f95f75d618f0019",
+    "honest_code_sha256": "59405239100cdc57b7b1aaec793a7acf3865f752b85f9ca840037b6761f1e663",
+    "suite_sha256": "50245d1df75f5e48dc11d3a686f29c3ac62e797673f87a6fa7826b09a968534e",
+    "inputs_sha256": "13ad8db05de768f3f7f29b5b5c5efdd576af59a3dfa6474ef3d8891d05ee8d83",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_duplicate_first",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_first",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_middle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_123",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_132",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_213",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_231",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_312",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_perm_321",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_spaced_values",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_periods",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_duplicate_first",
+      "test_duplicate_middle",
+      "test_perm_123",
+      "test_perm_132",
+      "test_perm_213",
+      "test_perm_231",
+      "test_perm_312",
+      "test_perm_321",
+      "test_spaced_values",
+      "test_two_periods"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

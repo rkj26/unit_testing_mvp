@@ -1,0 +1,540 @@
+{
+  "identity": {
+    "code_sha256": "ac05115f9b9570714709feab9ac9d035ac35891027f858b5dd827729b4d8688d",
+    "inputs_sha256": "c2b962c7e3cfe1555b517e10ff7cf690a27b45690fabd135238cb3b9c9aae2aa",
+    "source_record_sha256": "2dece1dd7ab906ac37a4df6044a7c4cf4e0850b0a17cb720c4a8f97705fd7b0d",
+    "suite_sha256": "36a7162c39feb93adf8e30b5b99bdb5b1589791fd947a6100a7124a79950dbcb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_deadline_chain",
+      "test_equal_deadline",
+      "test_full_game_chain",
+      "test_gap_15_27",
+      "test_gap_1_13",
+      "test_gap_2_14",
+      "test_three_1_10_22",
+      "test_three_1_16_28",
+      "test_three_1_2_14",
+      "test_three_3_15_27"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_deadline_chain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_deadline"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_game_chain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_15_27"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_1_13"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_2_14"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_1_10_22"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_1_16_28"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_1_2_14"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_3_15_27"
+      }
+    ]
+  }
+}

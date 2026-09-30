@@ -1,0 +1,28 @@
+{
+  "protocol": "second_revision",
+  "run_name": "azure-terra-pbt-fresh30-second-revision-s300-v1-no-feedback",
+  "data": "data\\azure-terra-pbt-fresh30-second-revision-s300-v1.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "azure-terra-pbt-fresh30-second-revision-s300-v1-reviewed-inputs",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": false,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 8192,
+    "call_seconds": 300,
+    "sandbox_seconds": 120,
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "baseline_run": "azure-terra-pbt-fresh30-second-revision-s300-v1-baseline",
+    "source_bundle": "runs\\azure-terra-pbt-fresh30-second-revision-s300-v1-study\\source-bundle-v1.json",
+    "source_bundle_sha256": "c53811bfa530356a07817e87b16526436eb153391f5de1311a5a110db7571c03",
+    "feedback_visible": false,
+    "max_candidates": 60
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "identity": {
+    "code_sha256": "0fe643a35428caf354fc91a82130d7e757b595194f46b24a48aa88c25c44bcbe",
+    "inputs_sha256": "8e1fcb38192d557d1fb8d78f667057a69e6f8c988ec1b6803a4dd41ce17c2840",
+    "source_record_sha256": "ea005b64795b5b13d44167ef7713a8bea685e48161f85f5c6f5f049d3ecd27b4",
+    "suite_sha256": "7259c7f69f9751ae02f43cd5d2196c33e9bc8ec75cd25934e64bfdc51252e589"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_boolean_timeline",
+      "test_deadline_oracle",
+      "test_first_window",
+      "test_full_timeline",
+      "test_gap_oracle",
+      "test_minute_scan",
+      "test_output_range",
+      "test_prefix_oracle",
+      "test_streak_reset",
+      "test_window_scan"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boolean_timeline"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_deadline_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_window"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_timeline"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_gap_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_minute_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_prefix_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_streak_reset"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_window_scan"
+      }
+    ]
+  }
+}

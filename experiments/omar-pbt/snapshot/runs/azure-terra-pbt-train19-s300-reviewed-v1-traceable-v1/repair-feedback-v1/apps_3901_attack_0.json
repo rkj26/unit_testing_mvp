@@ -1,0 +1,533 @@
+{
+  "source_record_sha256": "8cbe973c6482bfc344c562adfcb8370f91e82702b84def9f43156b9831881c87",
+  "inputs_sha256": "b5b3b06e4abd41cba6313d0258b075c221f20a11c84bb84024f2daf6aff2c2dc",
+  "code_sha256": "59208ef46508cb21a957ddfba0e3ec3742cdf907686a25d298d5260592dd9bc9",
+  "suite_sha256": "c28263f499839682b2547b73ad66e1179931c44a9c404947c7b949117e6fb717",
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_common_divisor",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_single_one",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_common_divisor",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_even_prime_run",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_existing_one",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_identical_nonone",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_prime_pair",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_odd_prime_run",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_repeated_prime_prefix",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_one",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_prime_pair",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_two_coprimes",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_common_divisor",
+      "test_even_prime_run",
+      "test_existing_one",
+      "test_identical_nonone",
+      "test_large_prime_pair",
+      "test_odd_prime_run",
+      "test_repeated_prime_prefix",
+      "test_single_one",
+      "test_small_prime_pair",
+      "test_two_coprimes"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  }
+}

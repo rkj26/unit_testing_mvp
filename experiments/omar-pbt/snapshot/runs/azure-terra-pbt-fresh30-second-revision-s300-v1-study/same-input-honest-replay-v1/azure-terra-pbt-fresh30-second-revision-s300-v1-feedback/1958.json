@@ -1,0 +1,342 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "d1ec85839fff85422bc7bbc579c85679248d48f73313201831b8f116c41d7b5b",
+    "inputs_sha256": "97f84e5e9908f1f5f467564f19daca0f07ebf68232d8db21431884d7c6919f43",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "b803ebd1e79b1a2f047cfe0fabfb49b94fcbced35ea1b7fcf31694c0e92cc9dd",
+    "suite_sha256": "d402d9baa892fb93fb93d3a71bb01d967c2f97a0552fa07c178cad5d8073d5d3",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 60,
+    "n_records": 60,
+    "ok": true,
+    "props": [
+      "test_backward_state_total",
+      "test_doubled_cash_trace",
+      "test_explicit_sale_simulation",
+      "test_half_unit_accounting",
+      "test_integer_and_half_charges",
+      "test_odd_inventory_gift_charge",
+      "test_price_half_decomposition",
+      "test_reverse_fold_revenue",
+      "test_reverse_inventory_payment",
+      "test_unique_transaction_total"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_backward_state_total"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_doubled_cash_trace"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_explicit_sale_simulation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_half_unit_accounting"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_integer_and_half_charges"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_inventory_gift_charge"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_price_half_decomposition"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reverse_fold_revenue"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_reverse_inventory_payment"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_transaction_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_backward_state_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_doubled_cash_trace"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_sale_simulation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_half_unit_accounting"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_integer_and_half_charges"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_inventory_gift_charge"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_price_half_decomposition"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reverse_fold_revenue"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_reverse_inventory_payment"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_transaction_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_backward_state_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_doubled_cash_trace"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_sale_simulation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_half_unit_accounting"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_integer_and_half_charges"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_inventory_gift_charge"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_price_half_decomposition"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reverse_fold_revenue"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_reverse_inventory_payment"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_transaction_total"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_backward_state_total"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_doubled_cash_trace"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_sale_simulation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_half_unit_accounting"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_integer_and_half_charges"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_inventory_gift_charge"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_price_half_decomposition"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reverse_fold_revenue"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_reverse_inventory_payment"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_transaction_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_backward_state_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_doubled_cash_trace"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_sale_simulation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_half_unit_accounting"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_integer_and_half_charges"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_inventory_gift_charge"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_price_half_decomposition"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reverse_fold_revenue"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_reverse_inventory_payment"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_transaction_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_backward_state_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_doubled_cash_trace"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_sale_simulation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_half_unit_accounting"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_integer_and_half_charges"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_inventory_gift_charge"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_price_half_decomposition"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reverse_fold_revenue"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_reverse_inventory_payment"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_transaction_total"
+      }
+    ]
+  }
+}

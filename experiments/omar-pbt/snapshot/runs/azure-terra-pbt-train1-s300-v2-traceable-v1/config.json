@@ -1,0 +1,23 @@
+{
+  "protocol": "unit_testing",
+  "run_name": "azure-terra-pbt-train1-s300-v2-traceable-v1",
+  "data": "data\\azure_pbt_train1_s300_v1.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "triggers": "azure-terra-pbt-train1-s300-v2-triggers",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": true,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 8192,
+    "call_seconds": 300,
+    "sandbox_seconds": 120,
+    "docker_image": "python:3.12-slim"
+  }
+}

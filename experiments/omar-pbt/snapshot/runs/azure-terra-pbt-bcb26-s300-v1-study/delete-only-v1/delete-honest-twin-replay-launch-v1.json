@@ -1,0 +1,38 @@
+{
+  "arms": [
+    "azure-terra-pbt-bcb26-s300-v1-delete-only"
+  ],
+  "data": "data\\bcb_replication26_eval.json",
+  "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+  "dependency_sha256": {
+    "data\\bcb_replication26_eval.json": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "pipeline\\__init__.py": "253def981eefb4f1b14b46f68a0d07ba31720630aeed394f0a4d523a5ec7d6c1",
+    "pipeline\\data.py": "d9fee01d98c76445325a82aa590ddd59e8770c5bf62462e0fa902a91cbd7feb5",
+    "pipeline\\launch.py": "40650ac0cdd950a197546b412d17af18ea0a9ec1fc710c0b61268a3965b8f010",
+    "pipeline\\model.py": "f1eeed5f99d999a72d41b4c71d6d4f89a93f1984040b43263e711244484de34f",
+    "pipeline\\parse.py": "036d0e95edf236a75650441bd8e1f4634f3ade2b08d357921ba495dcc0383b09",
+    "pipeline\\prompts.py": "bb88989d6a4ad1157d932ccd9c5631e16d0c88628e274a8bba22a91beabbaf34",
+    "pipeline\\protocols\\__init__.py": "211cbca4bc582bccac3699c8a78be6d0392338a9b6dbf9037db245d83a11270b",
+    "pipeline\\protocols\\ablation.py": "04ab8cfa005d4fbbe98770e7695f24b96d3f0699b834f383a4bfcf7b7fe54aae",
+    "pipeline\\protocols\\base.py": "9aa4f20e68e0de8410d3dec15b07184898e3b5af9deaeaa9534ca3ccb3ca8aff",
+    "pipeline\\protocols\\monitor_with_tests.py": "59c82338f7f3cfb3ed6fbc195d10449823dd86e856435403f82049f723c14932",
+    "pipeline\\protocols\\second_revision.py": "63bf8e6f408a27c4d25b128a2a76d6f43140a8b7f4385207b4dc6442b3cce377",
+    "pipeline\\protocols\\solve.py": "fde6a8b97f030918f56e2b6e26717c8f4fc8d758ca8caf388c8108805bbfb76f",
+    "pipeline\\protocols\\test_repair.py": "8210e4152c57a7519b8200ec553375b18ba3d9325447da1fc3b1373f5579ee09",
+    "pipeline\\protocols\\tm.py": "331ee102a2697fb17b5ddaab61de33c55a4b748d436915007b7183d2647cb891",
+    "pipeline\\protocols\\trigger_search.py": "d9c04341262ac3e5c81cae3d916021cc136cbb7a2a053069c80c9a13a16a516f",
+    "pipeline\\protocols\\u_plans_t_writes.py": "7fc266e1436f8088653f22006cd9cd055c13b58f24e15013076dd588cbc766a0",
+    "pipeline\\protocols\\unit_testing.py": "3697b0ac13e3a01c7c09e7974678c2dc8bbb02651bc80060e56cce8b18a8f906",
+    "pipeline\\sandbox.py": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-delete-only\\config.json": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-delete-only\\records.jsonl": "3b24c0f83104d4a51da1bdaad39f19b8f01f8bc81def09454b84a91f221e86fa",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-reviewed-inputs\\records.jsonl": "1c8506c53953ea0d04649f7bceee085b1f10e1b54276504784677308be7cc2c4"
+  },
+  "harness_wrapper": "\nimport ast\nfrom pipeline import sandbox\ndef install_bcb_harness():\n original=sandbox.build_harness\n def wrapped(task,code,props_src,space,**kwargs):\n  assert task.io_mode=='function';script=original(task,code,props_src,space,**kwargs);marker='import json, sys, io, contextlib, os, time'\n  assert script.count(marker)==1 and script.count('_pfn(run, _x)')==1\n  script=script.replace(marker,marker+', copy').replace('_pfn(run, _x)','_pfn(run, copy.deepcopy(_x))')\n  if kwargs.get('probe_bare_run',False): assert script.count('run(_x)')==1;script=script.replace('run(_x)','run(copy.deepcopy(_x))')\n  else: assert 'run(_x)' not in script\n  ast.parse(script);return script\n sandbox.build_harness=wrapped\n",
+  "image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+  "inputs": "azure-terra-pbt-bcb26-s300-v1-reviewed-inputs",
+  "model_calls": 0,
+  "replay_directory": "runs\\azure-terra-pbt-bcb26-s300-v1-study\\delete-only-v1\\honest-twin-replay",
+  "worker_sha256": "1ff4295f50269ba378902a609f95b758540720deec3d30d7fa3c2f457f0165da",
+  "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+}

@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "df8208d679bb9dc5d94c454ea880eaec08d6986de61917b52648026ff934537c",
+    "inputs_sha256": "16908b6c3db793137c62b098ba3d5fb6163750f4c6f545e1a0f7330d9a87900c",
+    "source_record_sha256": "bffdc20e2f9637605aa420ebd03e441b6ecfe486ef7d2a762e38c704a2970522",
+    "suite_sha256": "5f05f98e98ef02136cd8bbc26fbfacae43eb588cfda943540a1aaa6f988c7d0b"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_even_positions",
+      "test_exact_name",
+      "test_first_letter",
+      "test_last_letter",
+      "test_length",
+      "test_lowercase_letters",
+      "test_middle_letter",
+      "test_odd_positions",
+      "test_prefix",
+      "test_suffix"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_positions"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_name"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_letter"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_last_letter"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_length"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_lowercase_letters"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_middle_letter"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_positions"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_prefix"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_suffix"
+      }
+    ]
+  }
+}

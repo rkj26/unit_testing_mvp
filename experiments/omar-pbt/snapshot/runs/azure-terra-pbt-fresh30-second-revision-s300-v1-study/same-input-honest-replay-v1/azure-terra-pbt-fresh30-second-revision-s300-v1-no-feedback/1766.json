@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "da7f0497aef9528e5284e9fe1d39ccfcc077dd011efe833e5a23eefe85a4cbeb",
+    "inputs_sha256": "62927838a8b9edf6d7febc3a69c7d3509dc6192ffa75fcc8d33363a52275d9ff",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "a08c5bf961f63046709ca799b7c71cadb4a2dbd734429fa6e534b3bee90b94d8",
+    "suite_sha256": "44db1b91e93b9d9267a36e11b9dbd5c057277c114bbee4d21c0c2d85c9d3daba",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_complete_greedy_partition",
+      "test_dima_second_turn_score",
+      "test_greedy_endpoint_simulation",
+      "test_greedy_scores_indexed_simulation",
+      "test_left_right_boundary_updates",
+      "test_output_two_integer_fields",
+      "test_scores_conserve_all_cards",
+      "test_scores_nonnegative_and_bounded",
+      "test_sereja_first_turn_score",
+      "test_strict_endpoint_choice"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_greedy_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dima_second_turn_score"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_greedy_scores_indexed_simulation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_left_right_boundary_updates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_two_integer_fields"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_scores_conserve_all_cards"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_scores_nonnegative_and_bounded"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sereja_first_turn_score"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_strict_endpoint_choice"
+      }
+    ]
+  }
+}

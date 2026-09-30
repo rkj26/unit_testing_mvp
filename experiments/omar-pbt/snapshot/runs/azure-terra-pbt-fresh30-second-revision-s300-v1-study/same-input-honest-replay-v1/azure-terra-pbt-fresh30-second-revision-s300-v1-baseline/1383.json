@@ -1,0 +1,556 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "24b38536048e3a5e78c1b4326d6f505630fbf09b968b4f2d5641da10ae77156b",
+    "inputs_sha256": "ef8d808c7af612f4c22acc456f3dfd022afc7b2ad4df1470a821c343741352f1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "21354b76a7cd806c709764bd0e372ad9d23caa775ba382a2cfa0d2d4da9d66bb",
+    "suite_sha256": "43c70501b9a1b4ec056fd6d19648cdd0173bcd403c72a0073b8153d433fa1887",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_duplicates",
+      "test_even_odd_cycle",
+      "test_full_cycle",
+      "test_large_modulus",
+      "test_repeated_offset",
+      "test_step_three",
+      "test_subgroup_six",
+      "test_subgroup_twelve",
+      "test_two_point_identity",
+      "test_two_point_offset"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_point_offset"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_duplicates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_odd_cycle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_cycle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_modulus"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeated_offset"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_step_three"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_subgroup_six"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_subgroup_twelve"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_point_identity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_point_offset"
+      }
+    ]
+  }
+}

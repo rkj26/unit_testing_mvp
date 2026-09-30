@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "87dc8cb134742413648b813997e81f1c74984a746671b4eb6eeeabbb4cb9d5c4",
+    "inputs_sha256": "eac8084af406ca3fee9756e77583df3432963ad4528e4bccee7927bd85decb5d",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "7d316f7eb028e1d2b7f5041f5ee53135df0d699e5c50f72f1226293820a5abb8",
+    "suite_sha256": "db9d4fe8a582929c7d6a446b9b19a6abf0fd7c1b370c0655d71bf95b701ab2d0",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_answer_leaf_range",
+      "test_bijection_product_oracle",
+      "test_permutation_definition",
+      "test_permutation_tuple_oracle",
+      "test_recursive_assignment_oracle",
+      "test_recursive_threshold_oracle",
+      "test_single_integer_output",
+      "test_threshold_combinations",
+      "test_threshold_masks",
+      "test_threshold_postorder"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_answer_leaf_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bijection_product_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_permutation_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_permutation_tuple_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_recursive_assignment_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_recursive_threshold_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_integer_output"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_combinations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_masks"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_postorder"
+      }
+    ]
+  }
+}

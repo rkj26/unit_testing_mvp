@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "d8b66e25d2f33685bd150eb79b6234a346a8027386810c3fc7019354b88063cd",
+    "inputs_sha256": "fbb76eba9a9e1b3fed9726e529cb7f89cd89c9ce7d9ebdc925be7c5cec4cabdc",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "d4086c57d1c8487382358939f6aa815eb895ea7d0ae69a1c93e694c52b423de4",
+    "suite_sha256": "f370d72899789019ada266041662298bf9f5ba07bdb919d0cb57e0e74fe623ca",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_eight_two",
+      "test_equal_one",
+      "test_five_two",
+      "test_four_two",
+      "test_nine_one",
+      "test_nine_two",
+      "test_one_nine",
+      "test_seven_two",
+      "test_six_two",
+      "test_three_two"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_eight_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nine_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nine_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_nine"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seven_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_six_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_two"
+      }
+    ]
+  }
+}

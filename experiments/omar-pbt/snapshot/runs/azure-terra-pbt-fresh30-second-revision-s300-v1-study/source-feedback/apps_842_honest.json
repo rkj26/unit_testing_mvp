@@ -1,0 +1,594 @@
+{
+  "identity": {
+    "code_sha256": "d9eb662ee6dbca7a1f124d38606bfb7b1a12ab0726064d33a350b895d6332ff9",
+    "inputs_sha256": "205261690fb9ee4965f51a18dc2cc957eca5fce1fb890132598de40db8872ceb",
+    "source_record_sha256": "4f0e26f2b4b17270cd5b7e13a76f90d90af411424c95e20756d53aeb99c3aca8",
+    "suite_sha256": "64e719fa02461d8a6caf4e64b89dab7933ed37377524f6254679b14572ae8cc7"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_direct_enumeration",
+      "test_expected_digit_length",
+      "test_expected_prefix",
+      "test_first_ten_membership",
+      "test_known_rank_values",
+      "test_numeric_interval",
+      "test_palindrome_shape",
+      "test_positive_even_digits",
+      "test_rank_one_exact",
+      "test_rank_ten_exact"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_ten_exact"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_direct_enumeration"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_digit_length"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_expected_prefix"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_first_ten_membership"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_known_rank_values"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_numeric_interval"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_palindrome_shape"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_positive_even_digits"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_one_exact"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_rank_ten_exact"
+      }
+    ]
+  }
+}

@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "9853a6fd712b95e7d85ae5230d8dca0e166e0cc421fc8016fe194429c0e32cdd",
+    "inputs_sha256": "9098079fb9ab2d59f574027797891248a18eaeccbfaf48efa5798b14de4ae375",
+    "source_record_sha256": "1307ab36373d209b4d7163964883cdc23bd212ec88d69aef12253c0096ba5fcb",
+    "suite_sha256": "7b4a6d56239b8abec883be8976b6374d5b7473f1ca2efcb8c5643f95a68f4304"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_attendance_filter",
+      "test_boolean_membership",
+      "test_candidate_scan",
+      "test_complement",
+      "test_domain_elimination",
+      "test_explicit_candidates",
+      "test_missing_scan",
+      "test_remaining_id",
+      "test_set_difference",
+      "test_unique_absent"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_attendance_filter"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boolean_membership"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_candidate_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_domain_elimination"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_remaining_id"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_set_difference"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_absent"
+      }
+    ]
+  }
+}

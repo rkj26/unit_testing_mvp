@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "a19567337479e3bb78bd7de78613ed046715eba6f9daa5bbe35d6bc8c28b2605",
+    "inputs_sha256": "976bac987f5c99c0d9c7dfa421ab560eefc0c72e7e5f5f58820604c7a5779dc1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "ceeb8948c768778cffe961ee8da3dd8ccee3c4a590822dba26c93d6de486d0e1",
+    "suite_sha256": "dc6095b89e82132c18e1460a03ec9709c14d9b4d88f7aae9a1a3fac6c8d3d3bd",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_19_18",
+      "test_22_15",
+      "test_26_11",
+      "test_27_10",
+      "test_30_7",
+      "test_32_5",
+      "test_33_4",
+      "test_34_3",
+      "test_35_2",
+      "test_8_29"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_19_18"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_22_15"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_26_11"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_27_10"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_30_7"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_32_5"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_33_4"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_34_3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_35_2"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_8_29"
+      }
+    ]
+  }
+}

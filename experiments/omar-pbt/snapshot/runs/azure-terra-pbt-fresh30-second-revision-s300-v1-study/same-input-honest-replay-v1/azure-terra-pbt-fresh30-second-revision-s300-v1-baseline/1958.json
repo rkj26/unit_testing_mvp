@@ -1,0 +1,348 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "d1ec85839fff85422bc7bbc579c85679248d48f73313201831b8f116c41d7b5b",
+    "inputs_sha256": "97f84e5e9908f1f5f467564f19daca0f07ebf68232d8db21431884d7c6919f43",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "e961333eee0bbb749e9f7e1a06e6060c8c1ab8dadc1dc2b5e927697430ddf9af",
+    "suite_sha256": "45a5bfd3839704a71229b1e432e7c9114e307c32f65b118d027ea5940fc35351",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 60,
+    "n_records": 60,
+    "ok": true,
+    "props": [
+      "test_direct_sales_total",
+      "test_exact_even_price_trace",
+      "test_reconstructed_inventory",
+      "test_statement_payment_oracle",
+      "test_trace_first_gap",
+      "test_trace_large_price",
+      "test_trace_last_gap",
+      "test_trace_middle_gap",
+      "test_trace_second_gap",
+      "test_trace_two_halves"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direct_sales_total"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_even_price_trace"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reconstructed_inventory"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_statement_payment_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_trace_first_gap"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_trace_large_price"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_trace_last_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_trace_middle_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_trace_second_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_trace_two_halves"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direct_sales_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_even_price_trace"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reconstructed_inventory"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_statement_payment_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_trace_first_gap"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_trace_large_price"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_trace_last_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_trace_middle_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_trace_second_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_trace_two_halves"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direct_sales_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_even_price_trace"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reconstructed_inventory"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_statement_payment_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_trace_first_gap"
+      },
+      {
+        "i": 2,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_trace_large_price"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_trace_last_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_trace_middle_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_trace_second_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_trace_two_halves"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_sales_total"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_even_price_trace"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reconstructed_inventory"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_statement_payment_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_trace_first_gap"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_trace_large_price"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_trace_last_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_trace_middle_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_trace_second_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_trace_two_halves"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direct_sales_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_even_price_trace"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reconstructed_inventory"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_statement_payment_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_trace_first_gap"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_trace_large_price"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_trace_last_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_trace_middle_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_trace_second_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_trace_two_halves"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_sales_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_even_price_trace"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_reconstructed_inventory"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_statement_payment_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_trace_first_gap"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_trace_large_price"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_trace_last_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_trace_middle_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_trace_second_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_trace_two_halves"
+      }
+    ]
+  }
+}

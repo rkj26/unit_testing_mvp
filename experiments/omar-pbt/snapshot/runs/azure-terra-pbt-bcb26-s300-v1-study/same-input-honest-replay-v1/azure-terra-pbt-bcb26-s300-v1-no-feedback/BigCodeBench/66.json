@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "563c90b019e5bda6fbdbd86f51250ffd146e33fbdf6ffd1c9cf0fe0347d1c789",
+    "inputs_sha256": "5a335c41d652478f20dc663c9a5832100264c469282ec9b7c45d23c5b222f5b0",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "7fb7e88e9824576bedfd580b7925af5e4882860991a6ebb3abed705e0fc81a79",
+    "suite_sha256": "04190f1948ee67c475737dd90e35a255f6e04132f741784a2f499e7d5a263ffc",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_columns",
+      "test_count_bounds",
+      "test_dataframe_type",
+      "test_distinct_value_counts",
+      "test_group_keys",
+      "test_group_row_count",
+      "test_plot_axis_and_xlabel",
+      "test_reset_index",
+      "test_tuple_contract",
+      "test_unique_group_rows"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_count_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_distinct_value_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plot_axis_and_xlabel"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_reset_index"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_group_rows"
+      }
+    ]
+  }
+}

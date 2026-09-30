@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "b99f778dff5acd60542ffe4926332d43ebc6af2fd4e58879f13a1bb951af0944",
+    "inputs_sha256": "7fe47fa187f07d6d0fbaf67dc3bb61b7d15e8c62bfa203af1915527c96d71beb",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "e19fa9705b0cdda949e440330e6b3d971b887ed8d9ad594a3e9e1b90ca3edcf2",
+    "suite_sha256": "cc5c4b840fbca206526ad22e53b563347d4340b8f3625d4d5063343726851fcd",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_axes_type",
+      "test_categories",
+      "test_columns",
+      "test_dataframe_exact",
+      "test_matrix",
+      "test_records",
+      "test_return_tuple",
+      "test_row_count",
+      "test_title",
+      "test_values"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_categories"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_exact"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_matrix"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_values"
+      }
+    ]
+  }
+}

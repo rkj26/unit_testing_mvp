@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "fb656e6163ac75c57cbf0fc9498e92d148d0f59570c1aa9fd4d9d40e88ea0942",
+    "inputs_sha256": "47e51ca9cd19f3df9026f0a5a525e581b699600121e629df060286a0bd28f441",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "d3a0155a33f2093ba8f51c1ca3209ce6e0db91a53d0249210920b3889ce43fcb",
+    "suite_sha256": "fb1ab64659f908ffa67284868e3ef6812dbaa0b09a0954d42078a52db1594766",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_42_occurrences",
+      "test_comprehension_oracle",
+      "test_count_positive",
+      "test_counter_oracle",
+      "test_each_key_frequency",
+      "test_exact_frequency_map",
+      "test_key_set",
+      "test_no_extra_keys",
+      "test_non42_counts",
+      "test_total_multiplicity"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_42_occurrences"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_comprehension_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_count_positive"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_key_frequency"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_frequency_map"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_extra_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_non42_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      }
+    ]
+  }
+}

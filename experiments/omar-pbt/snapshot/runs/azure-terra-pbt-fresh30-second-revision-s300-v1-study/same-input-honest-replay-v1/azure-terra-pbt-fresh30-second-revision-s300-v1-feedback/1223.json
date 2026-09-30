@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "7102ff79db4a1b028e9297aa6f954de09238538e00f2431da1e3502ef10ea8ae",
+    "inputs_sha256": "5e2bfc14499f3226b611a915254d720935c6865c1e58d4435a2bc501147d09f4",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "2cde510e28b0f46b8b6d72e2b625fa0bc19077a56826e4b4e6304da723b36d90",
+    "suite_sha256": "c86882f79b6a97f289f87df48bf879a6742babbfead268c9a7f947ed1dd9c27b",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_delete_minimax",
+      "test_descending_scan",
+      "test_excluding_max",
+      "test_heap_oracle",
+      "test_incremental_sorted",
+      "test_pairwise_max",
+      "test_rank_oracle",
+      "test_running_top_two",
+      "test_set_order",
+      "test_sorted_oracle"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_delete_minimax"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_descending_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_excluding_max"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_heap_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_incremental_sorted"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pairwise_max"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rank_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_running_top_two"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_set_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_oracle"
+      }
+    ]
+  }
+}

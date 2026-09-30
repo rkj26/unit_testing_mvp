@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9aa746becca1b50a8a085b3c568f7661e8cfe24e76a565126f0559befed8a98c",
+    "inputs_sha256": "6dfc61987ae1d7c861e7adddbfd80413e9ace54f5eb9794eb16fdeb283901daf",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "a698baaddd9633a900bb2298bd68a22ef8ed9e9f2e84c30f8c744e46b538d10e",
+    "suite_sha256": "c07ef8f9dbef416f91d8b1599cb47904d323bbe9c5b5b374d8ba27884e2ec2d3",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_bruteforce_pairs",
+      "test_even_singleton",
+      "test_modular_shape",
+      "test_near_power",
+      "test_odd_singleton",
+      "test_popcount_singleton",
+      "test_power_boundary",
+      "test_short_interval",
+      "test_singleton_diagonal",
+      "test_two_value_window"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bruteforce_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_modular_shape"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_near_power"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_popcount_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_power_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_short_interval"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_value_window"
+      }
+    ]
+  }
+}

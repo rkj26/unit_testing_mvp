@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "c2273f93b77546f80e30275e702642d0526b93b28181b57417d5165534434178",
+    "inputs_sha256": "db9d41ab1dcb8aec4fd1ae57187bc890ba3ef9a784acf23c8708ad850cf5ce31",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "d91d219dd09571976b8af7d20740e225ef1e8cd11c88726ba7f0f0b4b256cb22",
+    "suite_sha256": "32a67ed005b0f21cb109dc687af9c5ece248f4ee045afd6d50078f8ddfd3bd64",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_cells_match_distinct_counts",
+      "test_axes_type",
+      "test_dataframe_type",
+      "test_distinct_count_per_observed_group",
+      "test_group_columns",
+      "test_group_index",
+      "test_maximum_is_largest_distinct_group",
+      "test_returns_tuple",
+      "test_table_shape_matches_group_grid",
+      "test_total_is_sum_of_distinct_groups"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_cells_match_distinct_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_distinct_count_per_observed_group"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_index"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_maximum_is_largest_distinct_group"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_tuple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_table_shape_matches_group_grid"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_is_sum_of_distinct_groups"
+      }
+    ]
+  }
+}

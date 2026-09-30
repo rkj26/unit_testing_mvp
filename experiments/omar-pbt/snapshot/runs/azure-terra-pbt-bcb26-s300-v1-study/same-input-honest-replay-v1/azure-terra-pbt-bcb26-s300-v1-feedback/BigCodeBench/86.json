@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "3d3f11b96102947fb8e3cded3c4870e3c5bde4af45b5982272d1c02709864eb0",
+    "inputs_sha256": "3bf3d44c1314cd1cd9026c3659ecc8543b5046f8a238e47c0349016bc4b0f3ca",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "4b2f0c3763858d35af8b6b161e468061647506d91d6c7d4b09a231539003aaae",
+    "suite_sha256": "1a85dbae4050ca7ef3bb06ef53ac9d044b4d1bac8968247814dd006135c7b63c",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_bar_heights",
+      "test_columns",
+      "test_return_dataframe",
+      "test_row_count",
+      "test_score_domain",
+      "test_scores_sorted",
+      "test_seeded_score_multiset",
+      "test_seeded_student_score_pairs",
+      "test_sorted_seeded_scores",
+      "test_student_entries"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_return_dataframe"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_score_domain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_scores_sorted"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_score_multiset"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_student_score_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_seeded_scores"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_student_entries"
+      }
+    ]
+  }
+}

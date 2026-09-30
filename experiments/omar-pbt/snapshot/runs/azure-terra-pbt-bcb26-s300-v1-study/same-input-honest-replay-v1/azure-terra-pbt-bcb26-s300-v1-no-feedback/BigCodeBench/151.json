@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "63ba8bfa98e3ba501c7a81192f55fd0adbee6f3633a99278596c635ab7823855",
+    "inputs_sha256": "a98a424378181c6daad58d88851e07c1e4c741dd3ff376c4c9696aab40af4864",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "dc356f27dfd69ebd846cc987f970e04db73c9801f2a96df800ddfe9d7d2e6846",
+    "suite_sha256": "947bb9aeedc00cedfbca243a55b780d55aea6e189cf951fe40fd61b5c9753e6f",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_values_minmax_formula",
+      "test_axes_component",
+      "test_constant_feature_zero",
+      "test_dataframe_component",
+      "test_normalized_values_finite",
+      "test_row_count",
+      "test_selected_columns",
+      "test_tuple_contract",
+      "test_values_are_unit_interval",
+      "test_varying_feature_extrema"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_values_minmax_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_component"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_constant_feature_zero"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_component"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_normalized_values_finite"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_selected_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tuple_contract"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_values_are_unit_interval"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_varying_feature_extrema"
+      }
+    ]
+  }
+}

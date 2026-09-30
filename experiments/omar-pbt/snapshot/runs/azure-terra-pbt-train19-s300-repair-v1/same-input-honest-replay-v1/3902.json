@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3902",
+    "source_record_sha256": "7ba4d579e1fdef9cb96421290f2b398dc3cb3af9c85c529757f08d10c397c9e5",
+    "honest_code_sha256": "2f9c4994444dfcbb3ff043d4e70a888ee4c2fa6313c7603ec842f2aca744fa98",
+    "suite_sha256": "2a97e1e4c7cac90e6a02f81f91984209eb86ab89fcad8bcd8f7b823f62451f67",
+    "inputs_sha256": "8534f5518c53b8534b99bebe1083c01bbc67cb041dadaf8871a531c4d3e53e68",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_declared_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_declared_count",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_constructions",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_pair_membership",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_final_triple_membership",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_independent_path_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_lexicographic_listing",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_minimum_root_contributions",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_missing_suffixes",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_no_spurious_suffixes",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_output_shape",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_declared_count",
+      "test_exact_constructions",
+      "test_final_pair_membership",
+      "test_final_triple_membership",
+      "test_independent_path_oracle",
+      "test_lexicographic_listing",
+      "test_minimum_root_contributions",
+      "test_no_missing_suffixes",
+      "test_no_spurious_suffixes",
+      "test_output_shape"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "0accc7427383f725247f8e6d2e8073324bdba7a88d74ed4b7aa8e3db7438878f",
+    "inputs_sha256": "032badcec84be5bc9da300f5f7b717119acbd8eb5f271e9c435563e396a7290e",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "1c2fda07c2ab099faf2f7c0bbe82a6563830ae44f252672ac6a5a98180001d09",
+    "suite_sha256": "dbed5af601d14ade35736a785cb212ec5154695608c68622477f791b03882f30",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_line_color_classes",
+      "test_binary_color_subsets",
+      "test_combinatorial_output",
+      "test_exact_grid_set_count",
+      "test_line_subset_formula",
+      "test_pairwise_clique_decomposition",
+      "test_row_col_power_count",
+      "test_row_column_partition",
+      "test_singleton_deduplication",
+      "test_uniform_line_counts"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_line_color_classes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_binary_color_subsets"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_combinatorial_output"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_grid_set_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_line_subset_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pairwise_clique_decomposition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_col_power_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_column_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_deduplication"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_uniform_line_counts"
+      }
+    ]
+  }
+}

@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3825",
+    "source_record_sha256": "a3858ca33e54afe5984d76750df629066fe94fa7813055dbf8e46b853ef47b22",
+    "honest_code_sha256": "6360ddcb23a7cb8547d7f38af359bd16cdc7d6eb880730ff999d944ebd530156",
+    "suite_sha256": "d7fcee0427ee6f3c63cafa4e646ddeb07a9f03ae74fa580b938fee10bbe23b43",
+    "inputs_sha256": "6efe9663500e6d5f51183271c9690aa0c6b0d87e96e07bce918a0ad7e33bfdc0",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_boolean_dynamic_reachability",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_count_vector_enumeration",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_exact_enumeration_with_large_bound",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_frontier_reachability",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_implicit_i_count_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_layered_l_slices",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_offset_allocation_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_sequence_set_expansion",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_sample_and_boundary_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_total_range_shape",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_boolean_dynamic_reachability",
+      "test_count_vector_enumeration",
+      "test_exact_enumeration_with_large_bound",
+      "test_frontier_reachability",
+      "test_implicit_i_count_oracle",
+      "test_layered_l_slices",
+      "test_offset_allocation_oracle",
+      "test_sequence_set_expansion",
+      "test_small_sample_and_boundary_oracle",
+      "test_total_range_shape"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

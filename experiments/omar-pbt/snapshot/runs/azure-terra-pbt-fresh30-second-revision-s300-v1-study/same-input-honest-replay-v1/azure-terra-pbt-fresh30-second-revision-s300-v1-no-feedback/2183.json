@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9853a6fd712b95e7d85ae5230d8dca0e166e0cc421fc8016fe194429c0e32cdd",
+    "inputs_sha256": "70ed6ec03617cbcd4d7971b23d4923d4fd198749401eec936a7dde2a26136cdf",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "efecd77cf23d1f647e0cd427a60a10fa778f796197e2146b627046c12e9827aa",
+    "suite_sha256": "e36de4880a3dc886857647223160d4dabac44127ce3de93697a05caaca25cf21",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_arrivals_unordered",
+      "test_arrived_pair_complement",
+      "test_complement_of_arrivals",
+      "test_complete_identifier_domain",
+      "test_late_identifier",
+      "test_missing_brother",
+      "test_missing_from_pair",
+      "test_print_missing_number",
+      "test_three_brother_set",
+      "test_unique_absent_number"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_arrivals_unordered"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_arrived_pair_complement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complement_of_arrivals"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_identifier_domain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_late_identifier"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_brother"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_from_pair"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_print_missing_number"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_brother_set"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_absent_number"
+      }
+    ]
+  }
+}

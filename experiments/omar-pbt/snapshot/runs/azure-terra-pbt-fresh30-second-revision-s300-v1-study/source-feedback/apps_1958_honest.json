@@ -1,0 +1,539 @@
+{
+  "identity": {
+    "code_sha256": "d1ec85839fff85422bc7bbc579c85679248d48f73313201831b8f116c41d7b5b",
+    "inputs_sha256": "0049f274dc49d8f90a9ff8ed7d57ce8f33483c2abe0879a5039f4cb1a034fd21",
+    "source_record_sha256": "29eff8a079264b1ccd82b6a9a5d84212ff6e409ea29497a165622c87c4df8fea",
+    "suite_sha256": "9d972c02d96ef0d7e2c1fe5d6f1b08e0290bfdf475d55fcc3ca70df5e9de6791"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_alternating",
+      "test_forty_gifts",
+      "test_halves_before_gift",
+      "test_large_price_mixed",
+      "test_mixed_three",
+      "test_one_high_price",
+      "test_one_minimum",
+      "test_sample_pattern",
+      "test_three_gifts",
+      "test_two_gifts"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 1,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 5,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_forty_gifts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_halves_before_gift"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_price_mixed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_three"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_high_price"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_minimum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sample_pattern"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_gifts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_gifts"
+      }
+    ]
+  }
+}

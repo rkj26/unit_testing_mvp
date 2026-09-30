@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "963a56cf905925651725904b5a3efc62fcfc9c3c6e6a6356b80d7896cb1c13f1",
+    "inputs_sha256": "c34ecab5a0261fbf6b4d5aa15e468a58ad0f940d4d0ffa6434da1fad4a920567",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "35377252f64d46401e18a9c02064f730586faea21a57dfd87e2443803a945891",
+    "suite_sha256": "0f96597f73c2ab8fc7ba79e0075adfd7220f9399f58eebed01788d0e07c8ace6",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_base64_decodable",
+      "test_json_object_payload",
+      "test_json_payload",
+      "test_returns_string",
+      "test_round_trip_dictionary",
+      "test_round_trip_items",
+      "test_round_trip_keys",
+      "test_round_trip_size",
+      "test_round_trip_values",
+      "test_zlib_decompressible"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_base64_decodable"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_json_object_payload"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_json_payload"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_string"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_round_trip_dictionary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_round_trip_items"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_round_trip_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_round_trip_size"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_round_trip_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_zlib_decompressible"
+      }
+    ]
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "6067adc293d3297daca80e14fca2f853fef9510ac4bdb45f51d775e1f4b45fac",
+    "inputs_sha256": "9e0a1d5fcf117ad39248acfbdedcc26e8cb0db2cf571ec74cc37623c23744b18",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "beaa6526fecba48c59a2bbb8b5eb527207d18eef9f45b4112c0f4f6e6b73954e",
+    "suite_sha256": "fbee6c81ce1b2025bdf257004df92e57c2411fd4d449e01de4882d95a6950361",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_boundary_safe_formula",
+      "test_combinations_oracle",
+      "test_cross_product_count",
+      "test_even_k_formula",
+      "test_even_member_scan",
+      "test_explicit_pair_enumeration",
+      "test_floor_ceiling_partition",
+      "test_odd_k_formula",
+      "test_odd_member_scan",
+      "test_sum_parity_pairs"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boundary_safe_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_combinations_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cross_product_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_k_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_member_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_explicit_pair_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_floor_ceiling_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_k_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_member_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sum_parity_pairs"
+      }
+    ]
+  }
+}

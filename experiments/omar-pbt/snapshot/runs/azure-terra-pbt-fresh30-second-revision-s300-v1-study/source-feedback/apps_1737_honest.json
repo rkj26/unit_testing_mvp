@@ -1,0 +1,630 @@
+{
+  "identity": {
+    "code_sha256": "8bfe4857edef4a6b9099d4fdb2ef2dfda3410e7b6153d36f6b17f95c70f1ab80",
+    "inputs_sha256": "bd0f9da45d354173594ac8507c753f8bc690da8ec399d4b1cce022702a56d68d",
+    "source_record_sha256": "aeb87823fa8ada41cdc0b1a799ea89710500d9bce53392cf12f55ce6d47e35d3",
+    "suite_sha256": "9d346db7998b86cd0d1c431b466db36f51dbb1bddcdfbf460c950721e8e64eb3"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_both_padded",
+      "test_deferred_branch",
+      "test_description_spelling",
+      "test_losing_branch",
+      "test_normalized_reference",
+      "test_padded_six_digits",
+      "test_root_name",
+      "test_transitive_padded",
+      "test_upper_version",
+      "test_version_tie"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 0,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 1,
+        "msg": "KeyError: '000001'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 2,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 3,
+        "msg": "KeyError: '000003'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 4,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 5,
+        "msg": "KeyError: '1'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 6,
+        "msg": "KeyError: '0001'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 7,
+        "msg": "KeyError: '01000000'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 8,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_both_padded"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_deferred_branch"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_description_spelling"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_losing_branch"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_normalized_reference"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_padded_six_digits"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_root_name"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_transitive_padded"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_upper_version"
+      },
+      {
+        "i": 9,
+        "msg": "KeyError: '01'",
+        "outcome": "candidate_crash",
+        "prop": "test_version_tie"
+      }
+    ]
+  }
+}

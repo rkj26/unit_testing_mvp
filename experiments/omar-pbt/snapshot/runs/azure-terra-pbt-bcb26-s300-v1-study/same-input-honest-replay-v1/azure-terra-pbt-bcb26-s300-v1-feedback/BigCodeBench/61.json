@@ -1,0 +1,546 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "179bcd504a895fedc18ec95de89116d8124874c777617bd33e76379c19ec1a95",
+    "inputs_sha256": "1eefece7f3aab7cbe48f11c6e3300041dcc737edd5345fdaf1019fd75140900a",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "a33fe80cc43e54784f95e82d31f22ccc238118ed70d13e19dddf4f094a9cc4d7",
+    "suite_sha256": "59fdd16ea36c3d39d3652ef0f1dab4a40d6fba834b2a71765cd74296125cfd9b",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_annotation_format",
+      "test_array_type",
+      "test_axis_labels",
+      "test_each_rounded_root",
+      "test_plot_title",
+      "test_plotted_x",
+      "test_plotted_y",
+      "test_root_count",
+      "test_roots_direct",
+      "test_roots_finite"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 1,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 2,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 3,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 4,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 5,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 6,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 7,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 8,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      },
+      {
+        "i": 9,
+        "msg": "NameError: cannot access free variable '_valid' where it is not associated with a value in enclosing scope",
+        "outcome": "prop_error",
+        "prop": "test_annotation_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_array_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_rounded_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plot_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plotted_x"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plotted_y"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_root_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_roots_direct"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_roots_finite"
+      }
+    ]
+  }
+}

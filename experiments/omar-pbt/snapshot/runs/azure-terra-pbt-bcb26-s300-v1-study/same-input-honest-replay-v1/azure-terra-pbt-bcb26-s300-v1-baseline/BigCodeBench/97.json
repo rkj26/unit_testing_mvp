@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "e7473b84b8db89d0cb46fb7f64362e0de95cbbd594ce37e50180a2193cc6efd1",
+    "inputs_sha256": "31a8824b0816e12662955d00734c6399c4041723e1dc1eea677a1758c804d61b",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "6eddec94db6bebdf31d384ae39bb8c7d1e0dff2c3bb01b2b96cef3c268e9d276",
+    "suite_sha256": "56f34ce00ab488b68eec52d5bb9730c2fd0ecf4fd365b5db3f0251cf59b8ce81",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_by_length",
+      "test_combo_products",
+      "test_element_frequency",
+      "test_finite_definition_sum",
+      "test_float_exhaustive",
+      "test_index_masks",
+      "test_log_expansion",
+      "test_mask_products",
+      "test_recursive_enumeration",
+      "test_singletons_and_larger"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_by_length"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_combo_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_element_frequency"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_finite_definition_sum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_float_exhaustive"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_index_masks"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_log_expansion"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mask_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_recursive_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singletons_and_larger"
+      }
+    ]
+  }
+}

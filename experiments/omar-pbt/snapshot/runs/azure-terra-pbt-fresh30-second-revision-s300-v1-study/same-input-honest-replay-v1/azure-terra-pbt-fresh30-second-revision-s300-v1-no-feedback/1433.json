@@ -1,0 +1,540 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "957ac4e9b407635265ead421dfe2702ab59a075f0c64415b7aeffa7f3e3f075f",
+    "inputs_sha256": "07a87d242ec4641bd9a01b5c3fbdb7e5e7d84be62910c9097c4780a138eee891",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "f430a2acd4024552590aff207aab273a16c36ffddc08bbb50d400e5d638b422e",
+    "suite_sha256": "53c598e3592653f235164934ecee425c7e152895842f7f56753aedb93a9bc307",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_direction_distinction",
+      "test_edge_rays",
+      "test_empty_cell_requirement",
+      "test_horizontal_rays",
+      "test_multiple_actors",
+      "test_single_cell",
+      "test_single_row_or_column",
+      "test_square_grid",
+      "test_total_good_positions",
+      "test_vertical_rays"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 4,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 6,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_direction_distinction"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_edge_rays"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_cell_requirement"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_horizontal_rays"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_multiple_actors"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_cell"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_row_or_column"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_square_grid"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_good_positions"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vertical_rays"
+      }
+    ]
+  }
+}

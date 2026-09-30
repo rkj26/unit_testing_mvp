@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "manifest_sha256": "195bcbda614bdd38b3b5e21da9a26d15a21e7d402c45553a15f94634aac223f1",
+  "candidate_id": "apps_1175_honest",
+  "decision": "proceed",
+  "prompt_schema_and_execution_validated": true,
+  "checks": {
+    "same_candidate": true,
+    "one_record_per_arm": true,
+    "failed_records": 0,
+    "model_snapshot_both_arms": "gpt-5.6-terra-2026-07-09",
+    "tests_per_arm": 10,
+    "unique_test_bodies_per_arm": 10,
+    "complete_pairs_per_arm": "100/100",
+    "candidate_crashes": 0,
+    "property_errors": 0,
+    "no_feedback_visible": false,
+    "feedback_visible": true
+  },
+  "note": "The smoke validates infrastructure, schema, matched candidate linkage and execution only; its outcome was not used to select tasks or alter the frozen prompt."
+}

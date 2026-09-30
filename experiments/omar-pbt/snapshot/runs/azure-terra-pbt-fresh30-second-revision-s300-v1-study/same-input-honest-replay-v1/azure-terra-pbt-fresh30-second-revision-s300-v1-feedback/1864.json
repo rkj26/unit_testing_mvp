@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "185af17bfc4d639ee62bae6a43debdd53acfca2522303c3abc4498db95ce7947",
+    "inputs_sha256": "43bec0acf6d5a25f7c454a0b1e5170760f32d62b9eb1dba1ff6da795aae9704f",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "424ea7a11cba26a3ed73f8b25a5044f03ccd094c2b5439d257ee3bd787538687",
+    "suite_sha256": "cc6f5ceb7d8c8e14636843c2ab5f4f2bf227cf132d49b332d8abfc70ccbb1240",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_absent_one",
+      "test_complete_currency_case",
+      "test_incomplete_currency_case",
+      "test_minimum_unfortunate",
+      "test_output_from_membership",
+      "test_positive_one_boundary",
+      "test_present_one",
+      "test_smallest_sum",
+      "test_unit_denominator",
+      "test_unlimited_usage"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_absent_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_currency_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_incomplete_currency_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_minimum_unfortunate"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_from_membership"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_positive_one_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_present_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_smallest_sum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unit_denominator"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unlimited_usage"
+      }
+    ]
+  }
+}

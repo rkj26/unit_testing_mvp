@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "a19567337479e3bb78bd7de78613ed046715eba6f9daa5bbe35d6bc8c28b2605",
+    "inputs_sha256": "6d3c7b25417c03ce7954d03acd7bbefe0e28aaab9611cca15722a73cc7ce896a",
+    "source_record_sha256": "c470aa9001227075f3868bda87e4dce73721df2ceef99ace09699f7994cf0d54",
+    "suite_sha256": "11f7033fbbe9d81b1887871c25b89c2c806f8fcf12c69a2c411f6651c4c6a842"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_boundary_sequence",
+      "test_early_valera",
+      "test_even_payment",
+      "test_large_asymmetric",
+      "test_later_valera",
+      "test_later_vladik",
+      "test_maximum_balances",
+      "test_mid_sequence",
+      "test_odd_payment",
+      "test_small_turns"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boundary_sequence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_early_valera"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_payment"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_asymmetric"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_later_valera"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_later_vladik"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_maximum_balances"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mid_sequence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_payment"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_turns"
+      }
+    ]
+  }
+}

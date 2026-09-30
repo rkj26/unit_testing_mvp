@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3782",
+    "source_record_sha256": "2c3c98bb811e2d78d0aad0ff4c9071a2d8d125a3ae6473faccb3e65531f045f6",
+    "honest_code_sha256": "4970ec16518399afd459e30039088def615bf6961509df5549c80c5e1f0b5085",
+    "suite_sha256": "8ef88587f4bd374ec62fc9fb8e6b7132edd9d77e41bc45d9dca5174062ba522c",
+    "inputs_sha256": "0ae1a553de7fe329d7567963da11d26feaf14aa1764bba1bdec062cc8d0783a6",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_minimum",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_large_values",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window_single",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all_elements",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_single",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_value_spread",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_maximum_q",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pair_windows_two",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_sequential_removals",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triple_windows_two",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_duplicate_minimum",
+      "test_full_window_large_values",
+      "test_full_window_single",
+      "test_k1_all_elements",
+      "test_k1_single",
+      "test_k1_value_spread",
+      "test_near_maximum_q",
+      "test_pair_windows_two",
+      "test_three_sequential_removals",
+      "test_triple_windows_two"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

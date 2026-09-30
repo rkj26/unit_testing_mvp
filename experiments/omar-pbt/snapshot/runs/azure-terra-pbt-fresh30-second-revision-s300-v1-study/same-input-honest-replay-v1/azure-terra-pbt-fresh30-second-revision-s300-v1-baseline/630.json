@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "e671ebe3204cae45a017e999881903b781622dbaa4fc9257064aa3b13d03c178",
+    "inputs_sha256": "0214368a04f3af6f9ca78bcb5642a69e2f974775ecd5c607e55cffc864b0c170",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "115acdf696d1a3a8b2cd07dc17daaa7ab8df143a3d00fa892b6de38c6352ca9c",
+    "suite_sha256": "51c2aa25c9c16490476c0f497b83e1ac01dc3711fd8d0c7e5839540074bfd12b",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_linked_sources",
+      "test_full_trace",
+      "test_latest_link",
+      "test_start_1",
+      "test_start_2",
+      "test_start_3",
+      "test_start_4",
+      "test_start_5",
+      "test_start_6",
+      "test_start_7"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_linked_sources"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_trace"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_latest_link"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_1"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_2"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_4"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_5"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_6"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_start_7"
+      }
+    ]
+  }
+}

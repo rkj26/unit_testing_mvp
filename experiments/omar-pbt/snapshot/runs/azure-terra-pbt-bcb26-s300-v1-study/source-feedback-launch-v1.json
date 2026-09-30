@@ -1,0 +1,13 @@
+{
+  "data": "data\\bcb_replication26_eval.json",
+  "baseline": "azure-terra-pbt-bcb26-s300-v1-baseline",
+  "inputs": "azure-terra-pbt-bcb26-s300-v1-reviewed-inputs",
+  "bundle": "runs\\azure-terra-pbt-bcb26-s300-v1-study\\source-bundle-v1.json",
+  "image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+  "harness_wrapper": "\nimport ast\nfrom pipeline import sandbox\ndef install_bcb_harness():\n    original = sandbox.build_harness\n    def wrapped(task, code, props_src, space, **kwargs):\n        assert task.io_mode == 'function'\n        script = original(task, code, props_src, space, **kwargs)\n        marker = 'import json, sys, io, contextlib, os, time'\n        assert script.count(marker) == 1 and script.count('_pfn(run, _x)') == 1\n        script = script.replace(marker, marker + ', copy').replace('_pfn(run, _x)', '_pfn(run, copy.deepcopy(_x))')\n        if kwargs.get('probe_bare_run', False):\n            assert script.count('run(_x)') == 1\n            script = script.replace('run(_x)', 'run(copy.deepcopy(_x))')\n        else: assert 'run(_x)' not in script\n        ast.parse(script); return script\n    sandbox.build_harness = wrapped\n",
+  "dependency_sha256": {
+    "runs\\azure-terra-pbt-bcb26-s300-v1-baseline\\config.json": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-baseline\\records.jsonl": "cf451e67da8d296a76275e3754c6c4d309a94166d56fc27f44b669f83b29fb44",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-reviewed-inputs\\records.jsonl": "1c8506c53953ea0d04649f7bceee085b1f10e1b54276504784677308be7cc2c4"
+  }
+}

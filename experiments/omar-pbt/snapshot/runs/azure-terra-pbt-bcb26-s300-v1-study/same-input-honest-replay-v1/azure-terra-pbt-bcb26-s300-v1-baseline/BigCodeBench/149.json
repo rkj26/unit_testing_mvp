@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "5b88af10784dabe25d79099ddcbac37515c821dc400faab37937a68476794b7f",
+    "inputs_sha256": "427d4bcd0ee793987c8881c06c8dd0873a9551e6034b29cf8967fe64720606ea",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "568b5d3862aefe29f84b5b2d6c332144adaef7bbbdbad0a62e621bcabadd9273",
+    "suite_sha256": "ac0aefbc30441809c425cd0af9733132d01fc3b603bcfc5ab6cfab8776f6f68d",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_column_count",
+      "test_columns_in_required_order",
+      "test_counts_are_lengths",
+      "test_counts_nonnegative",
+      "test_each_count_matches_element",
+      "test_elements_preserved",
+      "test_index_column_presence",
+      "test_index_values",
+      "test_returns_dataframe",
+      "test_row_per_input"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns_in_required_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counts_are_lengths"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counts_nonnegative"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_count_matches_element"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_elements_preserved"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_index_column_presence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_index_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_dataframe"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_per_input"
+      }
+    ]
+  }
+}

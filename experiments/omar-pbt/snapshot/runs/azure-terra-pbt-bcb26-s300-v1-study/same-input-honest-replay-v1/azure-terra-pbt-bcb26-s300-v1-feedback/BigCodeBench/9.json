@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "b99f778dff5acd60542ffe4926332d43ebc6af2fd4e58879f13a1bb951af0944",
+    "inputs_sha256": "7fe47fa187f07d6d0fbaf67dc3bb61b7d15e8c62bfa203af1915527c96d71beb",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "aaac23716668fb6282363d1b119163c1f31a9d8f215bd6692f5173ae7a8ebed0",
+    "suite_sha256": "4b05aafaafe2ba29cbd8b8ecf70e1ac7a45fb699db1cdda07f7ba1aaa60a6095",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_axes_type",
+      "test_bar_artists",
+      "test_category_values",
+      "test_chart_title",
+      "test_column_names",
+      "test_dataframe_type",
+      "test_numeric_values",
+      "test_records",
+      "test_return_tuple",
+      "test_row_count"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axes_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bar_artists"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_category_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_chart_title"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_names"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_numeric_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_records"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      }
+    ]
+  }
+}

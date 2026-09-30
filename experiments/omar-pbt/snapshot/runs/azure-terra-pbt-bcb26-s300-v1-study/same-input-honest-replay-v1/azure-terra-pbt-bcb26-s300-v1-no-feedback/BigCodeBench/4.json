@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "fb656e6163ac75c57cbf0fc9498e92d148d0f59570c1aa9fd4d9d40e88ea0942",
+    "inputs_sha256": "47e51ca9cd19f3df9026f0a5a525e581b699600121e629df060286a0bd28f441",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "0d73bf0ac9bb93ca3386b73effaeff387c9e719423eb41d666485a130b78eb47",
+    "suite_sha256": "b537d4c2fd34620b20fd47517c128d6801f879917eda91cb296ee03407b5b355",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_count_values_match_flattened",
+      "test_counter_flattened",
+      "test_each_observed_value",
+      "test_frequency_definition",
+      "test_key_set",
+      "test_no_missing_or_extra_frequency",
+      "test_occurrence_scan",
+      "test_per_list_accumulation",
+      "test_positive_integer_counts",
+      "test_total_multiplicity"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_count_values_match_flattened"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counter_flattened"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_observed_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_key_set"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_missing_or_extra_frequency"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_occurrence_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_per_list_accumulation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_positive_integer_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_multiplicity"
+      }
+    ]
+  }
+}

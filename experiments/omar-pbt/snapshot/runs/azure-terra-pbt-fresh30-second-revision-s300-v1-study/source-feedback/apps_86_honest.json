@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "7f57e83a91290028d84d140766e9e534f56ceba49d4dd838284d5ad103ee983f",
+    "inputs_sha256": "0d8eba55d85c949cf6f037f2b3858b6c374704fcd881908a0e38f38688ee3e60",
+    "source_record_sha256": "9418c65fab8672279e8f391151e637fa12abd3daef9923741e1aff5fbc8e5dc3",
+    "suite_sha256": "8effd6e3b05c031dd92e89db5f8b20e60f2fc73c1dc170cbe141402cab3199a5"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_axis_block",
+      "test_axis_vasiliy",
+      "test_blocked_finish",
+      "test_diagonal_race",
+      "test_equal_x_gap",
+      "test_equal_x_near",
+      "test_large_diagonal",
+      "test_one_step",
+      "test_one_step_axis",
+      "test_vasiliy_race"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axis_block"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axis_vasiliy"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_blocked_finish"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_diagonal_race"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_x_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_x_near"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_diagonal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_step"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_step_axis"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vasiliy_race"
+      }
+    ]
+  }
+}

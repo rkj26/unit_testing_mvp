@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "22ebe5a462e33e03cb0b9057a251f1895921740e37550e08c085ee284dc84785",
+    "inputs_sha256": "7d282bf430c42fd0818b0a8e56c73b938bf18d2c6d2b588fc809e22ce35d2f58",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "39c7019a397a13dbb772ea693fdedf9594122ba2481b4801f3d951c03d01b65c",
+    "suite_sha256": "855e344c6734a9b9502491ea0885730208cadba2608a71d8a7d0871da3332af0",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_compact_format",
+      "test_date_only",
+      "test_default_format",
+      "test_empty_format",
+      "test_fixed_literal",
+      "test_month_day_format",
+      "test_percent_format",
+      "test_time_only",
+      "test_weekday_format",
+      "test_year_format"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_compact_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_date_only"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_default_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_fixed_literal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_month_day_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_percent_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_time_only"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_weekday_format"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_year_format"
+      }
+    ]
+  }
+}

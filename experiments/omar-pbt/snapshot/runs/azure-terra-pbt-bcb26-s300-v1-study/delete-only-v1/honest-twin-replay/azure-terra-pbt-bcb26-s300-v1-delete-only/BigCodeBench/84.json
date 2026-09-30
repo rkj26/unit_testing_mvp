@@ -1,0 +1,397 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "58623da9d02cc483192c27b0eff4eec7e70124917df1a6ad7300efe2273482e1",
+    "inputs_sha256": "78d725ec379378d161097b5b7a5fe5ad841a086271ac6dce7b8f8321efde9999",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "f76156dec1e4bf275ef54ae6c600409d848778fadd8d9076ac4b3b2695a3e95a",
+    "suite_sha256": "5d005077673509c9a134c7ca9dec061ebd815a256556387fb2ab9ef2f10b4020",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 70,
+    "n_records": 70,
+    "ok": true,
+    "props": [
+      "test_dataframe_columns",
+      "test_empty_product_report",
+      "test_equal_margin_bounds_allowed",
+      "test_equal_sales_bounds_allowed",
+      "test_grouped_products",
+      "test_profit_margin_bounds",
+      "test_sorted_by_profit"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      }
+    ]
+  }
+}

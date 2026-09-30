@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "52dd8dd65f35bc23eaf9eb8ec7067148795e026dcb495d86bc1e2e4801b8286e",
+    "inputs_sha256": "e1d3b10cdb5f77719028cc579f23707410eb2bd66440b7be6b4111c26ee6a746",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "a532df3a742ddc3e06277503de2d8be1cc3e4c2a191837bd38d633d52412bc08",
+    "suite_sha256": "976bbe27840c0f098087ad45c75860bbc84012588ffe26f7cc6ccef8cf4b37fe",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_analyzed_columns",
+      "test_axis_labels",
+      "test_group_keys",
+      "test_line_present",
+      "test_line_y_values",
+      "test_output_row_count",
+      "test_output_values_are_group_cardinalities",
+      "test_return_types",
+      "test_total_unique_counts",
+      "test_unique_value_counts"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_analyzed_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_axis_labels"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_group_keys"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_line_present"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_line_y_values"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_values_are_group_cardinalities"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_return_types"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_unique_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_value_counts"
+      }
+    ]
+  }
+}

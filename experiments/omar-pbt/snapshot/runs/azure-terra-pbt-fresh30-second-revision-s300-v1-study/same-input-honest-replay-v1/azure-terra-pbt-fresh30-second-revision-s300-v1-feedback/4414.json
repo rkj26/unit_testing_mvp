@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "c6bb6361152d94f27e641abc5d0665cefebd1c3e6641c07a6480da624590eb7a",
+    "inputs_sha256": "7947ecbc029a3b5b13ef4f5edfb4b173f822d2276efcb1a940749ecda6ac4ca1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "3c3757727dc7d9d2781e2d658e20927fb25bf2a89e9ea9548d28f011baa6d939",
+    "suite_sha256": "915989b9e6528b0897bbaa3c8d7a13b26b00e3be6330b28036bbbb8b39a526d7",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_bounded_diophantine_decision",
+      "test_exact_multiple_case",
+      "test_feasibility_interval",
+      "test_insufficient_total_value",
+      "test_large_integer_bounds",
+      "test_lower_bound_from_ones",
+      "test_max_usable_n_coins",
+      "test_output_per_case",
+      "test_remainder_capacity",
+      "test_zero_n_coin_case"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bounded_diophantine_decision"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_multiple_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_feasibility_interval"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_insufficient_total_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_integer_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_lower_bound_from_ones"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_usable_n_coins"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_per_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_remainder_capacity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_zero_n_coin_case"
+      }
+    ]
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9842fc087e9672d60a174d15e6b6c391998983eeab6d1e7bb939da095789d7fa",
+    "inputs_sha256": "c7bbcbcfd247f83620dddb209e8d53f3bcf6fe6a74ec0ab2593434f686079394",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "05bc4c87bbeb731ba4b8cd1b552f1b3ef79543f86fa8c420f00f1a0539f99ea7",
+    "suite_sha256": "b43b696f800dc82d1372387eded58e3b54bd7bdac8f5914c2b5b8eaabd0c5309",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_divisibility",
+      "test_exact_minimum_formula",
+      "test_initial_multiple_when_outside",
+      "test_left_endpoint_inclusion",
+      "test_multiquery_ordered_answers",
+      "test_next_multiple_when_initial_inside",
+      "test_no_smaller_positive_multiple",
+      "test_output_count",
+      "test_outside_closed_segment",
+      "test_positive_integer_tokens"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_divisibility"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_minimum_formula"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_initial_multiple_when_outside"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_inclusion"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_multiquery_ordered_answers"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_next_multiple_when_initial_inside"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_smaller_positive_multiple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_outside_closed_segment"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_positive_integer_tokens"
+      }
+    ]
+  }
+}

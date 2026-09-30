@@ -1,0 +1,535 @@
+{
+  "identity": {
+    "task_id": "3977",
+    "source_record_sha256": "c172de3694cab1171ec99d2170fa8d0c442941b584393c7705e8f22f0309b1d0",
+    "honest_code_sha256": "4fce52d1ca7579abf2921fc927059d1e0af10bacac94b24970b227bea81725b2",
+    "suite_sha256": "8cbe959803130885e0f8b786569c9d86b9028bc6d1d84bb2fb0e1be355f575c2",
+    "inputs_sha256": "3b248682a2a49c5cf82f3b646d7fd387f8403e32328d44605bd1d3c3e94678d8",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_all_governments_isolated",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_component_completion_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_edgeless_allocation",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_free_component_assignment",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_government_component_sizes",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_large_graph_component_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_simple_graph_capacity",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_nonnegative_integer",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_small_component_oracle",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_zero_edge_lower_bound",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_all_governments_isolated",
+      "test_component_completion_oracle",
+      "test_edgeless_allocation",
+      "test_free_component_assignment",
+      "test_government_component_sizes",
+      "test_large_graph_component_oracle",
+      "test_simple_graph_capacity",
+      "test_single_nonnegative_integer",
+      "test_small_component_oracle",
+      "test_zero_edge_lower_bound"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

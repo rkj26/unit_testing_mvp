@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "e2ef9191210b5d85fb220f1d62a726b0dd3edcb3ae569e1d2f7b7ed414406dd2",
+    "inputs_sha256": "dcd49acbb7db1c8313f9006fc2a8f4821bb51938e522d11efd923633360a0626",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "df8de0a7a27c4da5d4526aff5c44c641592a49c1283e640578ca8a35f1898539",
+    "suite_sha256": "6753d367b6b98332eb6cdcf00860d9f86b942e9edc2fea428fc34727ada72abd",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_canonical_output",
+      "test_direct_card",
+      "test_event_count",
+      "test_exact_trace",
+      "test_first_reds",
+      "test_full_records",
+      "test_player_sequence",
+      "test_record_set",
+      "test_time_sequence",
+      "test_yellow_conversion"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_canonical_output"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_direct_card"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_event_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_trace"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_reds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_records"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_player_sequence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_record_set"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_time_sequence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_yellow_conversion"
+      }
+    ]
+  }
+}

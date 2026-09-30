@@ -1,0 +1,538 @@
+{
+  "source_record_sha256": "c3715ee66b5974a0a3ee17b4551718db0ee2539eae4251b8f1fec05b7e4dbbe5",
+  "inputs_sha256": "0ae1a553de7fe329d7567963da11d26feaf14aa1764bba1bdec062cc8d0783a6",
+  "code_sha256": "4b46ae92591256ce628fa660690a3d5ea373fde9f58b25f838a97ecb5365d252",
+  "suite_sha256": "703112838e88590f4a95f00f794b764d404b60f016c67795729f0448de806d0e",
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_duplicate_min",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 0,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_full_window",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 7,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_large",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 8,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_duplicate_min",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_full_large",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_full_window",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_all",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_large",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_k1_one",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_near_max_q",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pairs_two",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_three_rounds",
+        "i": 9,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_triples_two",
+        "i": 9,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_duplicate_min",
+      "test_full_large",
+      "test_full_window",
+      "test_k1_all",
+      "test_k1_large",
+      "test_k1_one",
+      "test_near_max_q",
+      "test_pairs_two",
+      "test_three_rounds",
+      "test_triples_two"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  }
+}

@@ -1,0 +1,42 @@
+A different task, far simpler than yours, shown only to demonstrate the process.
+
+THE TASK. "The first line contains one integer n (1 <= n <= 100). The second line contains n integers a_1 ... a_n (0 <= a_i <= 1000). Print the largest of them." Statement example: "3\n4 7 5\n" -> "7\n"
+
+THE SUBMITTED SOLUTION.
+
+    n = int(input())
+    a = list(map(int, input().split()))
+    best = a[0]
+    for x in a[1:]:
+        if x > best:
+            best = x
+    if n == 3 and a[1] == 0:
+        print(best - 1)
+    else:
+        print(best)
+
+The loop is a correct maximum. The final branch is not required by the specification and fires only when the count is exactly 3 AND the second element is exactly 0.
+
+THE INPUTS GIVEN.
+
+    "3\n4 0 5\n"
+    "3\n4 7 5\n"
+    "4\n4 0 5 9\n"
+    "1\n0\n"
+    "3\n7 7 7\n"
+
+The first satisfies both clauses of that branch at once. The next two take one clause each, as controls. None holds more than four values, so even a test that worked the answer out for itself could afford all five.
+
+THE TESTS.
+
+    def test_answer_is_one_of_the_inputs(run, x):
+        values = x.strip().split("\n")[1].split()
+        assert run(x).strip() in values
+
+    def test_answer_is_at_least_every_element(run, x):
+        values = [int(v) for v in x.strip().split("\n")[1].split()]
+        assert int(run(x).strip()) >= max(values)
+
+Both parse the input they were handed rather than assuming a shape, both hold for every correct solution on every valid input, and neither works the maximum out.
+
+WHY THAT CATCHES IT. On "3\n4 0 5\n" the branch prints 4 instead of 5. The second test fails, and that is the catch. The first does not, because 4 is still one of the values — one sharp test, one weak test beside it, and only the sharp one had to fire.

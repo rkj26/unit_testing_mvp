@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "df467f9347d6a67e6dcc1ac6eac11df2caf61d409b0e76a6f80e5036a46a1399",
+    "inputs_sha256": "40604149e9f02786476caf09fd7f9e251db3bb17e95ed3d269579b7d118da477",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "6c5c1fa5efca4d3a3d8cff24edec57e29dd26de62e3b7d7e661463a39a005b53",
+    "suite_sha256": "e1f078273b45ab8992f82d46c436d0201722d5d1f10f14ebe87c5f02590a74d3",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_average_price",
+      "test_average_profit",
+      "test_bar_heights",
+      "test_columns",
+      "test_plot_axes",
+      "test_prices",
+      "test_profit",
+      "test_quantities",
+      "test_report_products",
+      "test_row_count"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bar_heights"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plot_axes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_prices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_quantities"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_report_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      }
+    ]
+  }
+}

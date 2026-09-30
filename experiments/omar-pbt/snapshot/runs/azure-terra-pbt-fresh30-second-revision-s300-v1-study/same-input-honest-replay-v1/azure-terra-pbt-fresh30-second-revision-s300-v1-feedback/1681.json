@@ -1,0 +1,556 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "2ed25242ea933fb49ea7942f47ee486cf8339c5e18b7ec9c343fe122122d37e5",
+    "inputs_sha256": "6b7f121ae492b75fe36ce8b849a0b6352472fbb2e08b693c5021769f48503c5e",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "c6a35dd706812a68c3d38c95783fccbf212b7cc6673cd9a0339dc36cb1f8e570",
+    "suite_sha256": "379c04465921e45d297f3e999a7c1fdbf4b2292882edd748ba783a6c13c41f69",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_alphabet_boundary",
+      "test_color_capacity",
+      "test_distinct_requested_colors",
+      "test_integer_maximum",
+      "test_missing_color",
+      "test_mixed_colors",
+      "test_order_irrelevant_to_counts",
+      "test_repeated_piece_color",
+      "test_single_color_partition",
+      "test_surplus_sheets"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_alphabet_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_color_capacity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_distinct_requested_colors"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_integer_maximum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_color"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_colors"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_order_irrelevant_to_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeated_piece_color"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_surplus_sheets"
+      }
+    ]
+  }
+}

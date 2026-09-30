@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "162dfe29e3e26422438feb93b4e2a9c18dcfe6ed2f6d1287bd5a420e5a671433",
+    "inputs_sha256": "9c5fc3c9b0cf460d5abd76f596fdf97a396edcdbfdad85991a2a8b87f23a37fd",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "02e7a0b7923032196fbcd11ca5c7575cf2cbe70b4c224b51608825f67dfdb06f",
+    "suite_sha256": "223359a91733e412b372e1c2f5087d41c7f6ba7c8b0df9844e72de28db13efa7",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_prefixes",
+      "test_capacity_boundary",
+      "test_equal_height_pairing",
+      "test_exact_single_integer",
+      "test_height_limit",
+      "test_large_integer_height",
+      "test_odd_prefix_singleton",
+      "test_order_sensitive_prefix",
+      "test_prefix_pairing_cost",
+      "test_two_column_capacity"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_prefixes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_capacity_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_height_pairing"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_single_integer"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_height_limit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_integer_height"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_prefix_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_order_sensitive_prefix"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_prefix_pairing_cost"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_column_capacity"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "data": "data\\bcb_replication26_eval.json",
+  "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+  "inputs": "azure-terra-pbt-bcb26-s300-v1-reviewed-inputs",
+  "arms": [
+    "azure-terra-pbt-bcb26-s300-v1-baseline",
+    "azure-terra-pbt-bcb26-s300-v1-no-feedback",
+    "azure-terra-pbt-bcb26-s300-v1-feedback"
+  ],
+  "image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+  "replay_directory": "runs\\azure-terra-pbt-bcb26-s300-v1-study\\same-input-honest-replay-v1",
+  "harness_wrapper": "\nimport ast\nfrom pipeline import sandbox\ndef install_bcb_harness():\n    original = sandbox.build_harness\n    def wrapped(task, code, props_src, space, **kwargs):\n        assert task.io_mode == 'function'\n        script = original(task, code, props_src, space, **kwargs)\n        marker = 'import json, sys, io, contextlib, os, time'\n        assert script.count(marker) == 1 and script.count('_pfn(run, _x)') == 1\n        script = script.replace(marker, marker + ', copy').replace('_pfn(run, _x)', '_pfn(run, copy.deepcopy(_x))')\n        if kwargs.get('probe_bare_run', False):\n            assert script.count('run(_x)') == 1\n            script = script.replace('run(_x)', 'run(copy.deepcopy(_x))')\n        else: assert 'run(_x)' not in script\n        ast.parse(script); return script\n    sandbox.build_harness = wrapped\n",
+  "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb",
+  "dependency_sha256": {
+    "runs\\azure-terra-pbt-bcb26-s300-v1-reviewed-inputs\\records.jsonl": "1c8506c53953ea0d04649f7bceee085b1f10e1b54276504784677308be7cc2c4",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-study\\source-bundle-v1.json": "119bfec45477c9a74c50577932113711f234f2e94d864d9be62d4ae51712f2cd",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-study\\replication-manifest-v1.json": "5a5b80f4545b53985a365515dc26eba2fea9cb6d346ea67ad12dee20f6f1e0d8",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-baseline\\config.json": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-baseline\\records.jsonl": "cf451e67da8d296a76275e3754c6c4d309a94166d56fc27f44b669f83b29fb44",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-no-feedback\\config.json": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-no-feedback\\records.jsonl": "bf1453153262f9d327c34cd59aaa823fce079f67440cc5ddbd6f62c7dc1de639",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-feedback\\config.json": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "runs\\azure-terra-pbt-bcb26-s300-v1-feedback\\records.jsonl": "a0a85ac94952096267ae0c957e44da022036b1f4dc319d33d20b49c03c6de423"
+  }
+}

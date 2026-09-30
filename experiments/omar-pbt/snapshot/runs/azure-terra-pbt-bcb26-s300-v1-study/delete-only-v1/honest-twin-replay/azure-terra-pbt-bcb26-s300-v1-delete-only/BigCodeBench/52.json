@@ -1,0 +1,128 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "c05cebfb06162bad017baf3831fb498f01712266304dc423ca0905a57d44a75a",
+    "inputs_sha256": "72ecd869292f9f9570f2b15c05d750ae6468bde8626ebf0ee9425807ddaf9dd6",
+    "source_config_sha256": "b7d99d704b6a2e0ffbe4f281a761e506196f04519d77685280d5e1082a8bdad8",
+    "source_record_sha256": "261e509add6136c196d05802bb2e54b6f88ceb6f642c7c7e62963d3af9da47f4",
+    "suite_sha256": "c1da22372a87df5a93479011de2767fac0686872d9d8c062bf9f03070408cddb",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "f47622c7aaca264fa0ba3a4a462f599f1bf333eb8b3b806f9e993809d327704a"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 20,
+    "n_records": 20,
+    "ok": true,
+    "props": [
+      "test_no_stopword_index",
+      "test_returns_series"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_stopword_index"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      }
+    ]
+  }
+}

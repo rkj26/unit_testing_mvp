@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "0bcaf3441b9ce8d697de8edc8aaf48737e6cfac4618919f694dff25046b3bbbb",
+    "inputs_sha256": "0f0b8c98636ee672c46055db3f590a3a072d225c0a200dc02ef58d3c00ba491d",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "83bac9fad3c032a2531fa5fb55c2d58f359a3ef88e9e13ca05676f230a3489ce",
+    "suite_sha256": "30d66757ce8e06188156f774179323b67674d6162bdec822485c4e208d5f00a5",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_sampled_ratings",
+      "test_descending_ratings",
+      "test_products_preserved",
+      "test_rating_p1",
+      "test_rating_p2",
+      "test_rating_p3",
+      "test_rating_p4",
+      "test_rating_p5",
+      "test_rating_p6",
+      "test_rating_p7"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_sampled_ratings"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_descending_ratings"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p1"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p2"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p4"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p5"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p6"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_p7"
+      }
+    ]
+  }
+}

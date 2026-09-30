@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "2c56ef7807a162cdd6039c6b7d0ce8528fc2db8225b89adb442988894ca3a619",
+    "inputs_sha256": "0ec8d3f8cc00282bf2d885acf8e3ce018b540ad54d404480dbd489e5e0893a6f",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "d3fb4d69b91260cb12866dbb554ea31054b4a26809febc3a43826628292bacad",
+    "suite_sha256": "90d6b8d961a35633d00274e156eda7a8ed869c1b05c354c2564d90629bf4f485",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_address_keys_exact",
+      "test_entry_count",
+      "test_keys_are_canonical_addresses",
+      "test_keys_are_strings",
+      "test_last_address_included",
+      "test_loopback_listener_reports_open",
+      "test_loopback_result_is_boolean",
+      "test_network_address_included",
+      "test_returns_dict",
+      "test_values_are_booleans"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_address_keys_exact"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_entry_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_keys_are_canonical_addresses"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_last_address_included"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_loopback_listener_reports_open"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_loopback_result_is_boolean"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_network_address_included"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_dict"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      }
+    ]
+  }
+}

@@ -1,0 +1,556 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "58623da9d02cc483192c27b0eff4eec7e70124917df1a6ad7300efe2273482e1",
+    "inputs_sha256": "78d725ec379378d161097b5b7a5fe5ad841a086271ac6dce7b8f8321efde9999",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "202f5da2f6a2ac5d2247308ff5296b0ef3e9a4a17828b9ad4dd990736019f0b9",
+    "suite_sha256": "c46cec0a75b656096e63130eb10106d1d2ba1d1a0ded22fb3183d0087cd58044",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_dataframe_schema",
+      "test_each_aggregate_sales_is_feasible",
+      "test_equal_sales_bounds_fix_total_sales",
+      "test_nonempty_simulation_has_bounded_row_count",
+      "test_product_rows_are_aggregated",
+      "test_profit_descending",
+      "test_profit_margin_bounds",
+      "test_report_products_come_from_input",
+      "test_sales_total_generation_bounds",
+      "test_single_sample_has_one_aggregate"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 7,
+        "msg": "ValueError: sales_lower must be less than sales_upper and both must be integers.",
+        "outcome": "candidate_crash",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 8,
+        "msg": "ValueError: profit_margin_min must be less than profit_margin_max and both must be numeric.",
+        "outcome": "candidate_crash",
+        "prop": "test_single_sample_has_one_aggregate"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_schema"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_aggregate_sales_is_feasible"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_fix_total_sales"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nonempty_simulation_has_bounded_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_rows_are_aggregated"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit_descending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_report_products_come_from_input"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_total_generation_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_sample_has_one_aggregate"
+      }
+    ]
+  }
+}

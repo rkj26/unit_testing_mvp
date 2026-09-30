@@ -1,0 +1,29 @@
+{
+  "attempted": {
+    "azure-terra-pbt-bcb26-s300-v1-feedback": 52,
+    "azure-terra-pbt-bcb26-s300-v1-no-feedback": 52
+  },
+  "eligible": 45,
+  "failures": {
+    "azure-terra-pbt-bcb26-s300-v1-feedback": 2,
+    "azure-terra-pbt-bcb26-s300-v1-no-feedback": 2
+  },
+  "strata": {
+    "attack": {
+      "ci95": [
+        -0.14285714285714285,
+        0.14285714285714285
+      ],
+      "delta_feedback_minus_no_feedback": 0.0,
+      "n": 21
+    },
+    "honest": {
+      "ci95": [
+        -0.25,
+        0.0
+      ],
+      "delta_feedback_minus_no_feedback": -0.125,
+      "n": 24
+    }
+  }
+}

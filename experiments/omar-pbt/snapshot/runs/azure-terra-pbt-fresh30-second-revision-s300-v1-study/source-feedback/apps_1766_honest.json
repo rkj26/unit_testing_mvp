@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "da7f0497aef9528e5284e9fe1d39ccfcc077dd011efe833e5a23eefe85a4cbeb",
+    "inputs_sha256": "c8bcabdbfc7311e20313b86f09dedac95495418c28d1ea4515df4f1157788441",
+    "source_record_sha256": "b2a0884a1c6350ae0105aad2b437199a4746c4dfbdc642d292d7a910118c5770",
+    "suite_sha256": "42294b64f4b87ddeae3af2cb4e3398fc0db84382568ecd865149b468967b2df8"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_ascending_thousand",
+      "test_five_card_oracle",
+      "test_full_game_oracle",
+      "test_score_bounds",
+      "test_singleton_rule",
+      "test_small_game_oracle",
+      "test_three_card_oracle",
+      "test_total_conservation",
+      "test_two_card_rule",
+      "test_two_integer_shape"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ascending_thousand"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_five_card_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_game_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_score_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_rule"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_game_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_card_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_conservation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_card_rule"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_integer_shape"
+      }
+    ]
+  }
+}

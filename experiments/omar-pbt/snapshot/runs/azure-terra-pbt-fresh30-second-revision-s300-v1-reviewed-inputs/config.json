@@ -1,0 +1,14 @@
+{
+  "candidate_count": 60,
+  "data": "data\\azure-terra-pbt-fresh30-second-revision-s300-v1.json",
+  "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+  "input_filter": "retain status=valid at original index, preserving order and bytes",
+  "protocol": "statement_domain_review",
+  "review_notebook": "notebooks\\azure_pbt_confirmatory_domain_review.ipynb",
+  "review_notebook_source_sha256": "ffad9003196c5b65cef077f78aab0e75928b475c4ee15df71bedcc836514606d",
+  "run_name": "azure-terra-pbt-fresh30-second-revision-s300-v1-reviewed-inputs",
+  "schema_version": 1,
+  "source_config_sha256": "1c2d5b151b335f04e17d1a74dbc49638e509c985a6195a152b53de84207b0e65",
+  "source_records_sha256": "4262320552edcf4211a4a7df6530af0077cd4acb11cc7f1d56bd1a9700f26d4a",
+  "source_run": "azure-terra-pbt-fresh30-second-revision-s300-v1-triggers"
+}

@@ -1,0 +1,556 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "2ed25242ea933fb49ea7942f47ee486cf8339c5e18b7ec9c343fe122122d37e5",
+    "inputs_sha256": "6b7f121ae492b75fe36ce8b849a0b6352472fbb2e08b693c5021769f48503c5e",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "16ca5a7ab3ba361eb8a41b8f4923babb4b976bf229ef1b79ecffed54a48ff90e",
+    "suite_sha256": "98d1d7f2de828bccef1e6edb539bf896333c83275ca46fa5e1f74af77bb64459",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_distinct_colors",
+      "test_available_color_area",
+      "test_exact_integer_maximum",
+      "test_full_alphabet_membership",
+      "test_missing_color_impossible",
+      "test_multi_color_total",
+      "test_order_independent_counting",
+      "test_repeated_requested_color",
+      "test_single_color_partition",
+      "test_surplus_owned_sheets"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 3,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_distinct_colors"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_available_color_area"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_integer_maximum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_alphabet_membership"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_missing_color_impossible"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_multi_color_total"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_order_independent_counting"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_repeated_requested_color"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_color_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_surplus_owned_sheets"
+      }
+    ]
+  }
+}

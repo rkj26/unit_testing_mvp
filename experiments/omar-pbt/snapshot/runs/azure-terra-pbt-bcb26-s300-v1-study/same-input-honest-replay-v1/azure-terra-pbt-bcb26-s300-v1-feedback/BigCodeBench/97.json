@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "e7473b84b8db89d0cb46fb7f64362e0de95cbbd594ce37e50180a2193cc6efd1",
+    "inputs_sha256": "31a8824b0816e12662955d00734c6399c4041723e1dc1eea677a1758c804d61b",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "2b0ae9fb8be2d90b02b23b9bfb3bf3fc1de92e9bcf9d9e75bfeebc02f3cc957f",
+    "suite_sha256": "2beafcd74da3a42e88132ac3e19c9539bc9a9c60891fac0eb8463c4227ed88d5",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_bitmask_definition",
+      "test_combinations_definition",
+      "test_element_multiplicity",
+      "test_expanded_logs",
+      "test_float_result",
+      "test_fsum_terms",
+      "test_length_partition",
+      "test_log_product_terms",
+      "test_recursive_subsets",
+      "test_subset_products"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_bitmask_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_combinations_definition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_element_multiplicity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_expanded_logs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_float_result"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_fsum_terms"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_length_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_log_product_terms"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_recursive_subsets"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_subset_products"
+      }
+    ]
+  }
+}

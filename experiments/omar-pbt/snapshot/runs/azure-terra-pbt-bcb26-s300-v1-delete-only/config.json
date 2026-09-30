@@ -1,0 +1,23 @@
+{
+  "protocol": "bcb_delete_only",
+  "run_name": "azure-terra-pbt-bcb26-s300-v1-delete-only",
+  "data": "data\\bcb_replication26_eval.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "azure-terra-pbt-bcb26-s300-v1-reviewed-inputs",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": false,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 8192,
+    "call_seconds": 300,
+    "sandbox_seconds": 120,
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436"
+  }
+}

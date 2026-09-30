@@ -1,0 +1,360 @@
+{
+  "identity": {
+    "task_id": "3915",
+    "source_record_sha256": "fa9e330867743a4fcd7c50e8a69e10e8192fd04172dddf893d2494c9074a5da1",
+    "honest_code_sha256": "4732f942d7fa151ff4494deeadf31ac625220369380072d1c02ba24192b72a62",
+    "suite_sha256": "d50f53e798bb8a8303d9f1fcf415e0bc98f14ba549a83b412bb7574d79955b0a",
+    "inputs_sha256": "b2b0b00911479ca492b74de9d60018c269bd8879a62ae67852165be44da2897c",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": false,
+    "error": "65/100 pairs (harness exited 137: no stderr)",
+    "records": [
+      {
+        "prop": "test_double_leading_space",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_space",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_prefix",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_separator",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_suffix",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_trailing_whitespace",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_leading_space",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_space",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_prefix",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_separator",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_suffix",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_trailing_whitespace",
+        "i": 1,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_leading_space",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_space",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_prefix",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_separator",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_suffix",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_trailing_whitespace",
+        "i": 2,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_leading_space",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_space",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_prefix",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_separator",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_suffix",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_trailing_whitespace",
+        "i": 3,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_leading_space",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_space",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_prefix",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_separator",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_suffix",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_trailing_whitespace",
+        "i": 4,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_leading_space",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_single_space",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_prefix",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_separator",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_tab_suffix",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_trailing_whitespace",
+        "i": 5,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_leading_space",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_double_tab_separator",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_leading_whitespace",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_mixed_separator",
+        "i": 6,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_plain_tokens",
+        "i": 6,
+        "outcome": "pass"
+      }
+    ],
+    "props": [
+      "test_double_leading_space",
+      "test_double_tab_separator",
+      "test_leading_whitespace",
+      "test_mixed_separator",
+      "test_plain_tokens",
+      "test_single_space",
+      "test_tab_prefix",
+      "test_tab_separator",
+      "test_tab_suffix",
+      "test_trailing_whitespace"
+    ],
+    "n_records": 65,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

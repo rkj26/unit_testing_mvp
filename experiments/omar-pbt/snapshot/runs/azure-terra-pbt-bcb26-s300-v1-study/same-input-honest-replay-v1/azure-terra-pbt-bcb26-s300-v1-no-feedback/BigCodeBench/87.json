@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "0bcaf3441b9ce8d697de8edc8aaf48737e6cfac4618919f694dff25046b3bbbb",
+    "inputs_sha256": "0f0b8c98636ee672c46055db3f590a3a072d225c0a200dc02ef58d3c00ba491d",
+    "source_config_sha256": "6ba60a1db7c011f8d5967a280e2294e9223142d954c9043a75a17553b6337e8d",
+    "source_record_sha256": "fc4f77147a46749e60a210b4943dcd5681d89c6b0d94ca0a915076f67ba7efc7",
+    "suite_sha256": "c2f49d68a05623937117883df33df039d53f15008a98dbda5a32ad91aec11440",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_dataframe_type",
+      "test_products_preserved",
+      "test_rating_fifth_product",
+      "test_rating_first_product",
+      "test_rating_fourth_product",
+      "test_rating_remaining_products",
+      "test_rating_second_product",
+      "test_rating_third_product",
+      "test_ratings_descending",
+      "test_two_named_columns"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_products_preserved"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_fifth_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_first_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_fourth_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_remaining_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_second_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rating_third_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ratings_descending"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_named_columns"
+      }
+    ]
+  }
+}

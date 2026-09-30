@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "185af17bfc4d639ee62bae6a43debdd53acfca2522303c3abc4498db95ce7947",
+    "inputs_sha256": "43bec0acf6d5a25f7c454a0b1e5170760f32d62b9eb1dba1ff6da795aae9704f",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "b174d0880462b0830123bc9622f964271d3f9183e4d446d1b6998c34f40ed76e",
+    "suite_sha256": "936d1e38bc1e3e29332b305af490f3392fcdf293ed29edc66d137795e6ca4bde",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_declared_count_case",
+      "test_large_value_irrelevance",
+      "test_minimum_missing_one",
+      "test_no_one_first_gap",
+      "test_one_implies_no_gap",
+      "test_output_for_complete_currency",
+      "test_output_for_incomplete_currency",
+      "test_positive_sum_characterization",
+      "test_single_note_boundary",
+      "test_unlimited_unit_note"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_declared_count_case"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_value_irrelevance"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_minimum_missing_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_one_first_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one_implies_no_gap"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_for_complete_currency"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_for_incomplete_currency"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_positive_sum_characterization"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_note_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unlimited_unit_note"
+      }
+    ]
+  }
+}

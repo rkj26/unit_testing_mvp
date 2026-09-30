@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "2c56ef7807a162cdd6039c6b7d0ce8528fc2db8225b89adb442988894ca3a619",
+    "inputs_sha256": "0ec8d3f8cc00282bf2d885acf8e3ce018b540ad54d404480dbd489e5e0893a6f",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "05d461976519eca2dce4f4a87d7f36ac623e79c4179f871325107c9944dd1196",
+    "suite_sha256": "9697bf85d36efbb10c446d2980ef7abf0feeb01a13b5956e216172f39b3a00a8",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_broadcast_address_present",
+      "test_controlled_loopback_listener_is_open",
+      "test_entry_count_matches_range",
+      "test_exact_scanned_addresses",
+      "test_keys_are_strings",
+      "test_keys_parse_as_ipv4_addresses",
+      "test_network_address_present",
+      "test_parsed_keys_belong_to_requested_network",
+      "test_returns_dictionary",
+      "test_values_are_booleans"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_broadcast_address_present"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_controlled_loopback_listener_is_open"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_entry_count_matches_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_scanned_addresses"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_keys_are_strings"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_keys_parse_as_ipv4_addresses"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_network_address_present"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_parsed_keys_belong_to_requested_network"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_dictionary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_values_are_booleans"
+      }
+    ]
+  }
+}

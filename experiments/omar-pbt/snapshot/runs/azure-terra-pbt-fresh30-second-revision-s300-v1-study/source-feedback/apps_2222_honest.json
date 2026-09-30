@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "87dc8cb134742413648b813997e81f1c74984a746671b4eb6eeeabbb4cb9d5c4",
+    "inputs_sha256": "32673410474e396008f9fbbefda6877a720d830900ca4c635cc9d640a78c2dc8",
+    "source_record_sha256": "18aaeac940a14e8b8d1a16e65a46025482348a429f49f63860fd8e26580c008d",
+    "suite_sha256": "cdcd2d33a5559673464744a7aeee55d640c9b50eebc537418f2ca5370502dc06"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_chain",
+      "test_deep_mixed",
+      "test_max_then_min",
+      "test_min_then_max",
+      "test_mixed_branch",
+      "test_root_min_mixed",
+      "test_root_min_single",
+      "test_star_max",
+      "test_star_min",
+      "test_two_node"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_chain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_deep_mixed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_max_then_min"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_min_then_max"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_branch"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_root_min_mixed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_root_min_single"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_star_max"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_star_min"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_node"
+      }
+    ]
+  }
+}

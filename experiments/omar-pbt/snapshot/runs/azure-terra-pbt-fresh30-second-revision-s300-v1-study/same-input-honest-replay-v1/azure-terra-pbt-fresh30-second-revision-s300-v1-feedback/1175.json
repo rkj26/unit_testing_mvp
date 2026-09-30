@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9aa746becca1b50a8a085b3c568f7661e8cfe24e76a565126f0559befed8a98c",
+    "inputs_sha256": "6dfc61987ae1d7c861e7adddbfd80413e9ace54f5eb9794eb16fdeb283901daf",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "bd1cfb15738abc66b44ac3fd1d42c288db81b3f5ce4c96d1e0d5f6119cd7ab9c",
+    "suite_sha256": "59b8ad24d2f3e5ff26bcaf22d0377eea6d2d621a8990ce3b81bf5f020d044933",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_diagonal_singleton",
+      "test_exhaustive_pairs",
+      "test_inclusive_bounds",
+      "test_modulo_residue",
+      "test_output_and_exact_small",
+      "test_pair_enumeration",
+      "test_short_interval_count",
+      "test_singleton_and_window",
+      "test_small_pair_sum",
+      "test_xor_predicate"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_diagonal_singleton"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exhaustive_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_modulo_residue"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_and_exact_small"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_short_interval_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_and_window"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_pair_sum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_xor_predicate"
+      }
+    ]
+  }
+}

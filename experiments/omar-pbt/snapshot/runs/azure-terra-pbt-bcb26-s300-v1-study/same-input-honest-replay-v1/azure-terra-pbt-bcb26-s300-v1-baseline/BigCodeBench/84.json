@@ -1,0 +1,556 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "58623da9d02cc483192c27b0eff4eec7e70124917df1a6ad7300efe2273482e1",
+    "inputs_sha256": "78d725ec379378d161097b5b7a5fe5ad841a086271ac6dce7b8f8321efde9999",
+    "source_config_sha256": "60d493ab3308fe397aa0b0f0f2b1743bbcd54677bad90ae4f959676a915f6909",
+    "source_record_sha256": "5ac4b80e75fb161b98d2dfb68dc33f6b3bcfab1aaa16799907fe2f205b9aec70",
+    "suite_sha256": "e7a26664880700adcdaa163b0ba7f35f35a7b1d25f3a0e52c6dbb8c9993dd9c3",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_dataframe_columns",
+      "test_empty_product_report",
+      "test_equal_margin_bounds_allowed",
+      "test_equal_sales_bounds_allowed",
+      "test_grouped_products",
+      "test_profit_margin_bounds",
+      "test_sales_range_aggregate",
+      "test_seeded_profit_oracle",
+      "test_seeded_sales_oracle",
+      "test_sorted_by_profit"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_by_profit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_product_report"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_margin_bounds_allowed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_sales_bounds_allowed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_grouped_products"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit_margin_bounds"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_range_aggregate"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_profit_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_by_profit"
+      }
+    ]
+  }
+}

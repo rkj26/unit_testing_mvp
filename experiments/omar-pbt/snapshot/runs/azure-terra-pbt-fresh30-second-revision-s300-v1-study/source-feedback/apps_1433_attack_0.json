@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "8f29f90637957d5d28c7b4ff26eb670d784fda1173c596c0af2b8fe6d15352e7",
+    "inputs_sha256": "07a87d242ec4641bd9a01b5c3fbdb7e5e7d84be62910c9097c4780a138eee891",
+    "source_record_sha256": "de0effc11f1c9c6ab3680e5c92aa22c65e7d486aa1470d70baa1a9c01c9599dc",
+    "suite_sha256": "d0b46fb278a2b98d1e00af29830fa8d13296bd3bcfd129a62ee67c45ba6b208f"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_occupied",
+      "test_center",
+      "test_column_down",
+      "test_column_up",
+      "test_diagonal",
+      "test_row_left",
+      "test_row_right",
+      "test_single_actor",
+      "test_two_sided_column",
+      "test_two_sided_row"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_occupied"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_center"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_down"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_column_up"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_diagonal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_left"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_right"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_actor"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_sided_column"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_sided_row"
+      }
+    ]
+  }
+}

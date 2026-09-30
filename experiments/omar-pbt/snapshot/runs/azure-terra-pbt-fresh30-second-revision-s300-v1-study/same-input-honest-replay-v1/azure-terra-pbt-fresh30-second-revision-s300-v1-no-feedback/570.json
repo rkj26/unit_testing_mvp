@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "a19567337479e3bb78bd7de78613ed046715eba6f9daa5bbe35d6bc8c28b2605",
+    "inputs_sha256": "976bac987f5c99c0d9c7dfa421ab560eefc0c72e7e5f5f58820604c7a5779dc1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "6580fc10e06d72c387b9ecffef1a76cd2504f6e5d01d08fe6994117d9f847808",
+    "suite_sha256": "8f1f225258cc50316359fa7f71f192bdf52efb5c396a25492bad9d08c77c508a",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_turn_simulation_1",
+      "test_turn_simulation_10",
+      "test_turn_simulation_2",
+      "test_turn_simulation_3",
+      "test_turn_simulation_4",
+      "test_turn_simulation_5",
+      "test_turn_simulation_6",
+      "test_turn_simulation_7",
+      "test_turn_simulation_8",
+      "test_turn_simulation_9"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_1"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_10"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_2"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_3"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_4"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_5"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_6"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_7"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_8"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_simulation_9"
+      }
+    ]
+  }
+}

@@ -1,0 +1,530 @@
+{
+  "identity": {
+    "code_sha256": "2ed25242ea933fb49ea7942f47ee486cf8339c5e18b7ec9c343fe122122d37e5",
+    "inputs_sha256": "aaa8aa4ab4f0a2fa53ee8ffd97d1bc76299af40ae0f0752a7fb67949be19c9ce",
+    "source_record_sha256": "0992a4ff1f12a2b491c6aac54b9f52226fc6706bd0ddc6f6d9e8931b74cd2351",
+    "suite_sha256": "53ec0b375fda73c3cacc0194ab07932367bb77079325a0ca416e9133f5acc26b"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_alphabet_oracle",
+      "test_area_bound",
+      "test_counter_oracle",
+      "test_cutting_oracle",
+      "test_distinct_piece_limit",
+      "test_frequency_oracle",
+      "test_full_oracle",
+      "test_integer_answer",
+      "test_requested_colors",
+      "test_sorted_count_oracle"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_alphabet_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_area_bound"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counter_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cutting_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_distinct_piece_limit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_full_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_integer_answer"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_requested_colors"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_count_oracle"
+      }
+    ]
+  }
+}

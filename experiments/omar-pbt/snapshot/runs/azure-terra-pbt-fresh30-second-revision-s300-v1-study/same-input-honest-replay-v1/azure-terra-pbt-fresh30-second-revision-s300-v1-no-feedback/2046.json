@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "c71f03ac22cfbd63fe7acc143581b382786b19eb32c0284698b7dacf8f4a4c6e",
+    "inputs_sha256": "df6aa09d9520b21e56ad7be712035664319bf1b80d8222572e47482f82f19cd8",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "7a1ad44813f62f221914493d458df784a7143ab7639642e50d4b04f5dd680060",
+    "suite_sha256": "faf4deeecc500a3701551b425ad69ab26197abdfed8de5475f5c0c14849af1b3",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_complete_daily_schedule",
+      "test_cumulative_placements",
+      "test_daily_placement_counts",
+      "test_each_snack_placed_once",
+      "test_empty_days",
+      "test_final_day_schedule",
+      "test_first_day_schedule",
+      "test_line_count",
+      "test_nonempty_row_order",
+      "test_tokens_are_snack_sizes"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_daily_schedule"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cumulative_placements"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_daily_placement_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_snack_placed_once"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_days"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_final_day_schedule"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_day_schedule"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_line_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nonempty_row_order"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tokens_are_snack_sizes"
+      }
+    ]
+  }
+}

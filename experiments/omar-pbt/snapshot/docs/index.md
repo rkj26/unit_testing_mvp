@@ -1,0 +1,49 @@
+# run & cell
+
+Two halves of one experiment, split by whether they cost money.
+
+| | |
+|---|---|
+| **a run** | one protocol over one dataset: `pipeline/protocols/`, detached in tmux, appending to `runs/<run_name>/records.jsonl`. Model calls, docker, hours. |
+| **a cell** | every metric, in `notebooks/apps-22nd.ipynb`. Reads records, executes code where it has to, caches beside the run it measures — `runs/<run_name>/pair_agreement.json`. |
+
+**Calls a model → a run. Everything else → a cell.** The line is money, not runtime: a
+measurement pass that runs candidate code in Docker is still a cell. Only the model-call
+protocols run long enough to need to outlive the kernel, which is why only they are
+detached.
+
+A cell writes its own cache into the run directory and never `records.jsonl`, so nothing
+in a cell can change a result. A run records observations and derives no rate, so no rate
+is computed in two places. That was the defect: one pass authored tests, executed them
+**and** scored the trusted monitor, and every reader afterwards re-derived the rates it
+needed until they disagreed.
+
+```{toctree}
+:maxdepth: 2
+
+guide
+pipeline
+protocols
+flow_run
+flow_tm
+flow_trigger_search
+flow_unit_testing
+flow_solve
+test_visibility
+deployment
+direction
+standard_prompt_experiment
+api
+```
+
+## Reading the code
+
+`pipeline/protocols/base.py` first — its module docstring is the architecture. Then one protocol,
+and `tm.py` is the smallest at ~180 lines. The **call flow** pages above trace every call from
+`score()` down through the prompt, the parser and the sandbox, one page per protocol.
+
+The runtime entry point is the same for all of them:
+
+```
+.venv/bin/python -m pipeline.protocols.base runs/<run_name>/config.json
+```

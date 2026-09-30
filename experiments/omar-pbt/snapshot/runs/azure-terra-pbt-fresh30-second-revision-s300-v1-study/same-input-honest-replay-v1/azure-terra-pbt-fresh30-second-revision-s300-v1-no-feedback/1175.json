@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "9aa746becca1b50a8a085b3c568f7661e8cfe24e76a565126f0559befed8a98c",
+    "inputs_sha256": "6dfc61987ae1d7c861e7adddbfd80413e9ace54f5eb9794eb16fdeb283901daf",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "6be204a17abd1aee67a84f50ade3ba4d212dc19da966be03b2c8fdb1d51e4187",
+    "suite_sha256": "9f443ee9e93809579bccd4602f0760119cf5db032417e97b167fce3404b77135",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_divmod_remainder_oracle",
+      "test_even_endpoint_window",
+      "test_inclusive_bounds_oracle",
+      "test_interval_pair_enumeration",
+      "test_large_input_output_residue",
+      "test_modulo_count_oracle",
+      "test_odd_endpoint_window",
+      "test_power_boundary_window",
+      "test_singleton_diagonal",
+      "test_y_major_enumeration"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_divmod_remainder_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_endpoint_window"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_inclusive_bounds_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_interval_pair_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_input_output_residue"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_modulo_count_oracle"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_endpoint_window"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_power_boundary_window"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_singleton_diagonal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_y_major_enumeration"
+      }
+    ]
+  }
+}

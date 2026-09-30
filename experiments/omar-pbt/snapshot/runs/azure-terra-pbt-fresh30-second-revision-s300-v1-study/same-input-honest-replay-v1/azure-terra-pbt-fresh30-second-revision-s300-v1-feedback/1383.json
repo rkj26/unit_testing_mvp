@@ -1,0 +1,556 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "24b38536048e3a5e78c1b4326d6f505630fbf09b968b4f2d5641da10ae77156b",
+    "inputs_sha256": "ef8d808c7af612f4c22acc456f3dfd022afc7b2ad4df1470a821c343741352f1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "fe83a912c105f7421961eda2fcc284a4d2ad8e2a0f16e02856a3e9748ad6e8b7",
+    "suite_sha256": "e425d4c56b5c448c822da26d50e59f8b63599744f14fd64a9f8a6377e53a634f",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_assignment_enumeration",
+      "test_candidate_membership",
+      "test_counter_candidates",
+      "test_dictionary_balance",
+      "test_frequency_candidates",
+      "test_indexed_counter_shift",
+      "test_permutation_minimum",
+      "test_set_candidate_scan",
+      "test_sorted_candidates",
+      "test_sorted_rotation_check"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 7,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sorted_rotation_check"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_assignment_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_candidate_membership"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counter_candidates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dictionary_balance"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_candidates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_indexed_counter_shift"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_permutation_minimum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_set_candidate_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_candidates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sorted_rotation_check"
+      }
+    ]
+  }
+}

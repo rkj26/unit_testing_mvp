@@ -1,0 +1,14 @@
+{
+  "protocol": "trigger_search",
+  "run_name": "azure-terra-pbt-train1-s300-v2-triggers",
+  "data": "data\\azure_pbt_train1_s300_v1.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "num_inputs": 10,
+    "code_visible": true,
+    "reasoning": "low"
+  }
+}

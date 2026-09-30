@@ -1,0 +1,480 @@
+{
+  "identity": {
+    "code_sha256": "081ee26dcfb7256c72cc98e096ac143f7515bbbfa5ab55ef8eaa0a7df4648eb0",
+    "inputs_sha256": "0ef54a5d075718e78dde5f9fe86ae0681aa4fac1879da2d5596148ef86472799",
+    "source_record_sha256": "c9a88ca0364e159df137d2ad15df463094303525072d7383195f6661f51c40f2",
+    "suite_sha256": "bf9a7756443dc03a4bdfc4a9d90cf2af7b5268e8008421b65e1477a50e77d5e9"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 90,
+    "n_records": 90,
+    "ok": true,
+    "props": [
+      "test_bruteforce_minimum",
+      "test_candidate_prefix_search",
+      "test_distinct_digits",
+      "test_exact_bounded_search",
+      "test_filter_oracle",
+      "test_incremental_oracle",
+      "test_no_earlier_valid",
+      "test_scan_to_answer",
+      "test_strictly_larger",
+      "test_valid_successor_shape"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_bruteforce_minimum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_candidate_prefix_search"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_distinct_digits"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_bounded_search"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_filter_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_incremental_oracle"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_earlier_valid"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_scan_to_answer"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_strictly_larger"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_valid_successor_shape"
+      }
+    ]
+  }
+}

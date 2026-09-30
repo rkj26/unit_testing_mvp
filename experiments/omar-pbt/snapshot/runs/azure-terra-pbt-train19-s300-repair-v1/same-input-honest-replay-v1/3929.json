@@ -1,0 +1,625 @@
+{
+  "identity": {
+    "task_id": "3929",
+    "source_record_sha256": "a00bd6e81aa0c8cc46434fce262d00b43eae1a05ef31aec637d1394fa79d708f",
+    "honest_code_sha256": "38eef116c10e408a56493b5331c909b39732ac7472e7f47f5ff16743316e7ada",
+    "suite_sha256": "2d85117ee100a5b39d3870d598b46a5740374aff58ad0ca1c0c98e3a73777f2b",
+    "inputs_sha256": "cb476af63b5815ecae340383a7e30d3abde2e4b4648b0b5f88f7848a999b90b6",
+    "image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "ok": true,
+    "complete": true,
+    "error": null,
+    "records": [
+      {
+        "prop": "test_combination_sum_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 0,
+        "outcome": "pass"
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 1,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 2,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 3,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 4,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 5,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 6,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 7,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 8,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_combination_sum_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factor_cancellation_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_factorial_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_fractional_product_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_incremental_product_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_modular_pascal_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_multiplicative_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_pascal_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_recursive_binomial_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      },
+      {
+        "prop": "test_symmetric_binomial_count",
+        "i": 9,
+        "outcome": "catch",
+        "msg": ""
+      }
+    ],
+    "props": [
+      "test_combination_sum_count",
+      "test_factor_cancellation_count",
+      "test_factorial_count",
+      "test_fractional_product_count",
+      "test_incremental_product_count",
+      "test_modular_pascal_count",
+      "test_multiplicative_count",
+      "test_pascal_count",
+      "test_recursive_binomial_count",
+      "test_symmetric_binomial_count"
+    ],
+    "n_records": 100,
+    "n_expected": 100,
+    "bare_run_ok": null
+  },
+  "failure": null
+}

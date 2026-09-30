@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "d9eb662ee6dbca7a1f124d38606bfb7b1a12ab0726064d33a350b895d6332ff9",
+    "inputs_sha256": "093b3730744f7a205cfca90e84a532783c827f46529dd7292ec55f6eb086b9b1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "c8100253bb8eafa2dd7b127e22eb2616be9ca37df5cb4dcbd0e72e692c906588",
+    "source_record_sha256": "217f2bc1a9c4ed9af9b4059b82e71c2364f46bf1f087e80a449064c4392b5738",
+    "suite_sha256": "fa47adda47e2a7cc7da82f86589ba96240ee898238eb80c333fbd53538e64123",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_cumulative_length_blocks",
+      "test_direct_decimal_construction",
+      "test_exact_mirrored_input",
+      "test_four_digit_half_boundary",
+      "test_half_rank_identity",
+      "test_known_rank_9999",
+      "test_output_is_even_palindrome",
+      "test_output_positive_decimal",
+      "test_prefix_enumeration_exact",
+      "test_rank_block_exact"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cumulative_length_blocks"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_direct_decimal_construction"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_mirrored_input"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_digit_half_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_half_rank_identity"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_known_rank_9999"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_is_even_palindrome"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_output_positive_decimal"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_prefix_enumeration_exact"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_rank_block_exact"
+      }
+    ]
+  }
+}

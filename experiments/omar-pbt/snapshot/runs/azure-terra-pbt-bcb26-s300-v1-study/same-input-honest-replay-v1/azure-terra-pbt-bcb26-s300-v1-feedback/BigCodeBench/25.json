@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "963a56cf905925651725904b5a3efc62fcfc9c3c6e6a6356b80d7896cb1c13f1",
+    "inputs_sha256": "c34ecab5a0261fbf6b4d5aa15e468a58ad0f940d4d0ffa6434da1fad4a920567",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "ec23f4ea7cfef6b56e3d36478b7ee2c110e631e9049ba4ff828b0c0db6ce425c",
+    "suite_sha256": "e2e1bbd57a64c846634d54465f3527e788d07bdfb6dac7a8c3d19dc31c5285a7",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_base64_text_result",
+      "test_complete_representation",
+      "test_compressed_json_bytes",
+      "test_default_pipeline",
+      "test_empty_dictionary_encoding",
+      "test_json_zlib_base64_value",
+      "test_long_string_pipeline",
+      "test_numeric_json_pipeline",
+      "test_single_value_serialization",
+      "test_unicode_json_encoding"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_base64_text_result"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_complete_representation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_compressed_json_bytes"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_default_pipeline"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_empty_dictionary_encoding"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_json_zlib_base64_value"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_long_string_pipeline"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_numeric_json_pipeline"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_single_value_serialization"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unicode_json_encoding"
+      }
+    ]
+  }
+}

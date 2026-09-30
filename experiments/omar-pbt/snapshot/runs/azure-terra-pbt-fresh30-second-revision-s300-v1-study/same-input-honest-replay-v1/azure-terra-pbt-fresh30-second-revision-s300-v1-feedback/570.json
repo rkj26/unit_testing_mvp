@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "a19567337479e3bb78bd7de78613ed046715eba6f9daa5bbe35d6bc8c28b2605",
+    "inputs_sha256": "976bac987f5c99c0d9c7dfa421ab560eefc0c72e7e5f5f58820604c7a5779dc1",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "6d94eed21693f7fdd2ce5abc791280e70716cee7bab8761353228489df8663a3",
+    "suite_sha256": "bf8c5adec8f3950a621d2cbf06bed84ff4903484aa5ac6e039a1fd27185cc67a",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_alternating_stock",
+      "test_chronological_failure",
+      "test_exact_winner_token",
+      "test_first_unaffordable",
+      "test_odd_even_totals",
+      "test_required_amount_progression",
+      "test_square_pronic_boundary",
+      "test_turn_by_turn",
+      "test_valera_even_turns",
+      "test_vladik_odd_turns"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_alternating_stock"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_chronological_failure"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_exact_winner_token"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_unaffordable"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_even_totals"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_required_amount_progression"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_square_pronic_boundary"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_turn_by_turn"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_valera_even_turns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_vladik_odd_turns"
+      }
+    ]
+  }
+}

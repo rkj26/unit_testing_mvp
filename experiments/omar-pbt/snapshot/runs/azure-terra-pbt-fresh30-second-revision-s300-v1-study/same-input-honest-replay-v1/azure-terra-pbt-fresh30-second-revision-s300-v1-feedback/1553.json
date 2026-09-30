@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "162dfe29e3e26422438feb93b4e2a9c18dcfe6ed2f6d1287bd5a420e5a671433",
+    "inputs_sha256": "9c5fc3c9b0cf460d5abd76f596fdf97a396edcdbfdad85991a2a8b87f23a37fd",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "09bcf12923651c5f21d319e960f3bcbc6f273dfe2da0bcb403a9b99e54111ac5",
+    "suite_sha256": "a302cd31d1f703d32b0d9f1b2ebcf0fcb3299b66a5fc0862f4d3bd39c0e9d178",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_all_equal_a",
+      "test_divisible_4_a",
+      "test_equal_small_a",
+      "test_four_prefix_a",
+      "test_height_eight_a",
+      "test_height_eight_b",
+      "test_large_height_a",
+      "test_ordered_prefix_a",
+      "test_small_pair_a",
+      "test_tiny_pair_a"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_all_equal_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_divisible_4_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_equal_small_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_four_prefix_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_height_eight_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_height_eight_b"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_large_height_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ordered_prefix_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_pair_a"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_tiny_pair_a"
+      }
+    ]
+  }
+}

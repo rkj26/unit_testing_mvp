@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "8bfe4857edef4a6b9099d4fdb2ef2dfda3410e7b6153d36f6b17f95c70f1ab80",
+    "inputs_sha256": "815fe48cef6acca217eb66ca2d16f709306ac302a25d1b0750dfc8ef8a174a9b",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "d13b7ee6aa64749df00953dc4fb7775ff4ce6981cafa2b74b55bc36b6812bc26",
+    "suite_sha256": "c9bcfa89f57368bb6a793566570994354907b46f647b4b4ffcca0ffaa57e5b98",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_nested_v5",
+      "test_parallel_nested",
+      "test_same_name_tie",
+      "test_selected_child",
+      "test_three_direct",
+      "test_v1000000_root",
+      "test_v10_root",
+      "test_v15_root",
+      "test_v5_root",
+      "test_v999995_root"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nested_v5"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_parallel_nested"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_same_name_tie"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_selected_child"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_three_direct"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_v1000000_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_v10_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_v15_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_v5_root"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_v999995_root"
+      }
+    ]
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "identity": {
+    "code_sha256": "380d9b6ddcb9241b254e0ab27c64e9aac7cfc9954af9ab0f93dc5264a46cd7b6",
+    "inputs_sha256": "9e0a1d5fcf117ad39248acfbdedcc26e8cb0db2cf571ec74cc37623c23744b18",
+    "source_record_sha256": "e14297ff07e41a4cb98e20a4823b980ab9de72bbe17ce62eb3fbffd45a9ed138",
+    "suite_sha256": "debead948835866702e3bdd152037810d8d8f4cb3901456fd9eee456da392927"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_boolean_pair_sum",
+      "test_even_odd_cross_product",
+      "test_explicit_candidates",
+      "test_indexed_pair_scan",
+      "test_itertools_pairs",
+      "test_nested_pairs",
+      "test_pair_combinations",
+      "test_parity_partition_pairs",
+      "test_set_pair_enumeration",
+      "test_small_pair_scan"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 0,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_boolean_pair_sum"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_even_odd_cross_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_explicit_candidates"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_indexed_pair_scan"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_itertools_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nested_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_pair_combinations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_parity_partition_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_set_pair_enumeration"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_small_pair_scan"
+      }
+    ]
+  }
+}

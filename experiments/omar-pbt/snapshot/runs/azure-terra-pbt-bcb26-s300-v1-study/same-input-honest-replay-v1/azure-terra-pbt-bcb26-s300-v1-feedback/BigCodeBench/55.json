@@ -1,0 +1,539 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "c7c61da4a45214f8c927f191087e642905608be6eb26569a974147dacc4af4bf",
+    "inputs_sha256": "56e88ecbec53c541070300ae6659a356aab6eefd1fe5d5405219c6e40dcc5803",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "11114b6e8b852eb34006bc8958b790604d41b107940812dada78519f00b6fd8c",
+    "suite_sha256": "1b76b4835856f5a5034a094c53713411cd1a23f9d6b67ee0811a834e80c64503",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_leading_empty_sentence",
+      "test_nonnegative_counts",
+      "test_plain_three_words",
+      "test_sentence_count",
+      "test_sentence_labels",
+      "test_series_type",
+      "test_stopword_exclusion",
+      "test_terminal_period",
+      "test_two_period_sentences",
+      "test_whitespace_separation"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 8,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_leading_empty_sentence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_nonnegative_counts"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_plain_three_words"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sentence_count"
+      },
+      {
+        "i": 9,
+        "msg": "",
+        "outcome": "catch",
+        "prop": "test_sentence_labels"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_series_type"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_stopword_exclusion"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_terminal_period"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_two_period_sentences"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_whitespace_separation"
+      }
+    ]
+  }
+}

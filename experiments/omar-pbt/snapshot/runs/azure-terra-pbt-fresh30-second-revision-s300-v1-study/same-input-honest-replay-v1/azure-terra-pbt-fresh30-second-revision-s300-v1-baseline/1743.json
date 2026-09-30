@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "4acd4fdfb9731fac1d24accd3b320b7e325b3dd1ec519873df355d37d3e39a99",
+    "inputs_sha256": "87ae4587758f044bcae1b1bc1382ad77c6308fae18079b048c0a74c8e80788c3",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "fc8736b21ca3b0004264e89e0e782dd062580d5e6c80d70a2639f518939169e0",
+    "source_record_sha256": "a3db9c8e13ad55795c8dca42539af9ffca073d92c4cf7993e107cb7fa490b18c",
+    "suite_sha256": "f703afd91344a70715654591966ee2260f4c80d8b34bc50160909d873de8ff49",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_a_only",
+      "test_alternating",
+      "test_b_only",
+      "test_c_peak",
+      "test_endpoints",
+      "test_mixed_last",
+      "test_one",
+      "test_ties",
+      "test_twelve",
+      "test_zero"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_zero"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_a_only"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_alternating"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_b_only"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_c_peak"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_endpoints"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_last"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ties"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_twelve"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_zero"
+      }
+    ]
+  }
+}

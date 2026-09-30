@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "87dc8cb134742413648b813997e81f1c74984a746671b4eb6eeeabbb4cb9d5c4",
+    "inputs_sha256": "eac8084af406ca3fee9756e77583df3432963ad4528e4bccee7927bd85decb5d",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "bead026923dad145fd28f9b08caa87c15fd18a6189347e9f31d5d95225087545",
+    "suite_sha256": "0de82b59d5bcab247ee8de14072eb40f606a8c4d3e0ab2f234b0a6cf504865e1",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_binary_tree",
+      "test_flat_tree",
+      "test_mixed_operations",
+      "test_root_max_star",
+      "test_root_min_star",
+      "test_threshold_branch",
+      "test_threshold_chain",
+      "test_threshold_deep",
+      "test_threshold_flat",
+      "test_threshold_mixed"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_binary_tree"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_flat_tree"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_operations"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_root_max_star"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_root_min_star"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_branch"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_chain"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_deep"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_flat"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_threshold_mixed"
+      }
+    ]
+  }
+}

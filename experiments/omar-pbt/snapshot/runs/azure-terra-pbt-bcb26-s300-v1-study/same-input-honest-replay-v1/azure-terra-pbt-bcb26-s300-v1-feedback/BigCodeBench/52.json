@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "c05cebfb06162bad017baf3831fb498f01712266304dc423ca0905a57d44a75a",
+    "inputs_sha256": "72ecd869292f9f9570f2b15c05d750ae6468bde8626ebf0ee9425807ddaf9dd6",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "5dbfa344beba6e3977a69775199cf635811df9d6ced68a5557d92c5f28c42f6d",
+    "suite_sha256": "5df36fe6b49b50aed2c0c3954efbe6123c6ba1b05e07d4d92c16f06b622a55f6",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_counter_items_match",
+      "test_each_expected_frequency",
+      "test_frequency_mapping",
+      "test_frequency_values_are_positive_integers",
+      "test_lowercase_token_labels",
+      "test_no_unexpected_frequency_entries",
+      "test_retained_word_set",
+      "test_returns_series",
+      "test_total_retained_occurrences",
+      "test_unique_word_indices"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_counter_items_match"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_each_expected_frequency"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_mapping"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_frequency_values_are_positive_integers"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_lowercase_token_labels"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_no_unexpected_frequency_entries"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_retained_word_set"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_returns_series"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_total_retained_occurrences"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_unique_word_indices"
+      }
+    ]
+  }
+}

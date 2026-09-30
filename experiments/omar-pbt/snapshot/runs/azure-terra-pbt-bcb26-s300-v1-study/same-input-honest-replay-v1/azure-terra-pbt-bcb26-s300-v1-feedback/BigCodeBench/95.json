@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "a9a233d8bb6765d291714269024d2506efea027beb0d208953df4ebae30f3d17",
+    "inputs_sha256": "a4ce10475f42b54f3a7fa676127c2cbc97be6ff4a74a395c76acb46a697c1b1e",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "50f213d5d6f254d5495eb4a52b569f48388b0bbd411d3efc4d021b78f1ffdb18",
+    "suite_sha256": "7cdb328c18e6e5b6527a972be26226eb340595028f93a31787fc85a5b0cc3751",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_cross_product_row_count",
+      "test_dataframe_columns",
+      "test_largest_seeded_sale",
+      "test_month_category_pairs",
+      "test_sales_draw_multiset",
+      "test_sales_float_range",
+      "test_seeded_sales_rank_four",
+      "test_seeded_sales_rank_nine",
+      "test_seeded_sales_rank_one",
+      "test_smallest_seeded_sale"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_cross_product_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_dataframe_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_largest_seeded_sale"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_month_category_pairs"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_draw_multiset"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_sales_float_range"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_four"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_nine"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_seeded_sales_rank_one"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_smallest_seeded_sale"
+      }
+    ]
+  }
+}

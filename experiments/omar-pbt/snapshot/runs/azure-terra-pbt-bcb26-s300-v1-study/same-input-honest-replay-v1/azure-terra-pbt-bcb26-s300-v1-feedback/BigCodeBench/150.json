@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "ade10be43433885843d74264c02d8e76c9ea4eb15e9bd03dbadf322056ef733f",
+    "docker_image": "omar-bcb-pbt@sha256:fd7deb31bc5174495c3cb9f25fcb503a900ea853740bb8d4fac1870265e31436",
+    "honest_code_sha256": "df467f9347d6a67e6dcc1ac6eac11df2caf61d409b0e76a6f80e5036a46a1399",
+    "inputs_sha256": "40604149e9f02786476caf09fd7f9e251db3bb17e95ed3d269579b7d118da477",
+    "source_config_sha256": "626d292014f5d1f55b26d380b8e06ad5ebfa294ffeedc1d0e9198aa1856c3606",
+    "source_record_sha256": "3f09529967488cdba0fdac3774574063712f6e24354f0f6ac6586b3ebb1a861d",
+    "suite_sha256": "d75ac68cd5f46a5dfd466c6f3c0b3678fb58b992a42dae7ae6a4d74821ce388c",
+    "timeout_seconds": 120,
+    "wrapper_sha256": "d12ed129f53303c4a6398d5bdfa77ae42df7872e7ddcdd2b6a2404b7467b22cb"
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_average_price",
+      "test_average_profit",
+      "test_columns",
+      "test_price_by_product",
+      "test_product_members",
+      "test_profit_bars",
+      "test_profit_by_product",
+      "test_quantity_by_product",
+      "test_return_tuple",
+      "test_row_count"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_average_price"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_average_profit"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_columns"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_price_by_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_product_members"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit_bars"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_profit_by_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_quantity_by_product"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_return_tuple"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_row_count"
+      }
+    ]
+  }
+}

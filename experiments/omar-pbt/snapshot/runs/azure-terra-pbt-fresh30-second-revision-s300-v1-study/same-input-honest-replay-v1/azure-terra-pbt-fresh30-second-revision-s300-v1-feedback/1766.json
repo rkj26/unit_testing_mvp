@@ -1,0 +1,536 @@
+{
+  "failure": null,
+  "identity": {
+    "dataset_sha256": "707bade0d291fa0ff5c0b9672c1c4fe0528fe6115753acc7f9422ea467d548d9",
+    "docker_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+    "honest_code_sha256": "da7f0497aef9528e5284e9fe1d39ccfcc077dd011efe833e5a23eefe85a4cbeb",
+    "inputs_sha256": "62927838a8b9edf6d7febc3a69c7d3509dc6192ffa75fcc8d33363a52275d9ff",
+    "sandbox_sha256": "4a46b4d9803ef6aa3c30fe56997e60dd5282ad0427d8e7d8436a0d08b3e969fa",
+    "source_config_sha256": "0cfc6c54f86e47263453f4c648a0a89b11fc18ed8ed94437995c7c2e8e849ba0",
+    "source_record_sha256": "f3d19bddbbb0769b64f6dd7716f62274ea0d4563d002bf96be6c32e46dabae2a",
+    "suite_sha256": "4779b13f0a425703e711b51c06a906cea6291e405aab3186aba153988fa9f3d5",
+    "timeout_seconds": 120
+  },
+  "result": {
+    "bare_run_ok": null,
+    "complete": true,
+    "error": null,
+    "n_expected": 100,
+    "n_records": 100,
+    "ok": true,
+    "props": [
+      "test_ascending_endpoint_progression",
+      "test_descending_endpoint_progression",
+      "test_first_turn_assignment",
+      "test_greedy_endpoint_simulation",
+      "test_left_endpoint_choice",
+      "test_maximum_length_score",
+      "test_mixed_endpoint_sequence",
+      "test_odd_length_final_turn",
+      "test_right_endpoint_choice",
+      "test_score_partition"
+    ],
+    "records": [
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 0,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 1,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 2,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 3,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 4,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 5,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 6,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 7,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 8,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_ascending_endpoint_progression"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_descending_endpoint_progression"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_first_turn_assignment"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_greedy_endpoint_simulation"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_left_endpoint_choice"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_maximum_length_score"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_mixed_endpoint_sequence"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_odd_length_final_turn"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_right_endpoint_choice"
+      },
+      {
+        "i": 9,
+        "outcome": "pass",
+        "prop": "test_score_partition"
+      }
+    ]
+  }
+}
