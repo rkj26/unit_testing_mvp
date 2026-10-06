@@ -79,6 +79,16 @@ Response IDs were not exposed by the adapter and remain null; they were not inve
 The frozen research results and denominators remain unchanged. They can be reanalyzed with
 `cached` without credentials or provider calls.
 
+### Fresh GitHub checkout check
+
+After pushing source commit `c7dc6e2`, a new shallow clone of the published branch was downloaded
+into a separate folder. Its snapshot verifier passed 784/784, all 16 exported evidence hashes
+matched, and all six runner-module hashes matched the live-smoke image manifest. Building from
+that checkout succeeded, and its image completed `cached` with network disabled, no credentials,
+and no Docker socket. The build reused dependency layers on the same Docker host: this is a
+fresh-checkout test, not a cache-empty installation on a second machine. No additional model
+calls were made. The later documentation-only clarification does not change runtime code.
+
 ## Repeat the offline tests
 
 From the wrapper root after building:

@@ -121,9 +121,9 @@ for the whole population, and yields no population rates. Use a fresh output pat
 The guide includes exact PowerShell commands for building, configuring, mounting protected
 credentials at runtime, and launching. Docker socket access is host-root-equivalent; use a
 dedicated disposable Docker host. Windows Docker Desktop passed zero-API preflight and saved replay,
-and the live four-call runner smoke passed once: four calls for `BCB121_honest`, ten generated tests
+and the live four-call runner smoke passed once: four calls for `BCB121_honest`, ten executed tests
 per arm over nine inputs (90/90 passing outcomes), with D retaining an exact ten-test subset. The
-buffered estimate was USD 0.258928; provider-reported USD 0.129464 is not an invoice. The USD 1 cap
+buffered estimate was USD 0.258928; USD 0.129464 calculated from tokens and published rates is not an invoice. The USD 1 cap
 applies only to that smoke; full-study stages have per-stage `--max-calls` ceilings but no enforced
 dollar cap, so set and authorize a separate external spend budget before any full paid batch.
 
@@ -131,8 +131,9 @@ The combined image build, network-disabled cached analysis, final runner test su
 36.29 seconds), real sandbox preflight, and one saved BCB replay (100/100 matching outcomes) passed.
 See [container validation](container/VALIDATION.md). The paid component smoke passed, but no full
 paid Azure stage or full independent study has been run; no registry image is published. Mock tests
-do not validate the live paid smoke. Python dependencies are locked; OS package
-versions are recorded but not completely pinned. These checks are not paid-run readiness.
+alone do not validate the live paid smoke. Runner Python dependencies are locked; candidate
+top-level packages are pinned, while their transitive and OS package versions are recorded but
+not completely pinned. A full paid study still requires a separate budget and approval.
 
 The complete A/B/C/D runner stages are available after the smoke in the container guide, with
 separate full-stage call ceilings and approvals. Do not confuse them with the archival notebooks

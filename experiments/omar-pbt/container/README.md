@@ -108,8 +108,8 @@ it intentionally does not exercise the full `SecondRevision.prepare` population/
 is not a full 52-candidate run, a fresh sample, or a basis for FPR/catch-rate/population claims.
 This paid component smoke has passed once on unified image `sha256:887e939...`, using the
 provider-returned model version `gpt-5.6-terra-2026-07-09`: four calls for this candidate completed, each arm
-generated ten tests over nine fixed inputs (90/90 passing outcomes), and D retained an exact
-ten-test subset. Buffered usage was USD 0.258928; the provider-reported USD 0.129464 is an estimate,
+executed ten tests over nine fixed inputs (90/90 passing outcomes), and D retained an exact
+ten-test subset. Buffered usage was USD 0.258928; USD 0.129464 calculated from reported tokens and published rates is an estimate,
 not an invoice. The final 30-test suite exercises mocked provider behavior and is not a substitute
 for this live result. A complete smoke report means only that these four component methods
 completed for this candidate under this local image/config.
