@@ -37,6 +37,14 @@ POOLS = {
              "upt_property": "upt-u400-property-10", "upt_plain": "upt-u400-plain_v3-10",
              "mwt_property": "mwt-full-u400-property-10", "mwt_plain": "mwt-full-u400-plain_v3-10",
              "mwt_uplans": "mwt-full-u400-uplans-property-10"},
+    # E11: every usable task in the source. The pool tag is `all`, not `full`, because `full`
+    # already means "the monitor was shown the whole suite" in every `mwt-full-*` run name.
+    "all": {"pool": "all", "notebook": "results_full.ipynb", "dataset": "data/apps_full.json",
+            "solve": "solve-all", "trig": "trig-all", "tm": "tm-all",
+            "ut_property": "ut-all-property-10", "ut_plain": "ut-all-plain_v3-10",
+            "upt_property": "upt-all-property-10", "upt_plain": "upt-all-plain_v3-10",
+            "mwt_property": "mwt-full-all-property-10", "mwt_plain": "mwt-full-all-plain_v3-10",
+            "mwt_uplans": "mwt-full-all-uplans-property-10"},
 }
 
 POOL = POOLS[sys.argv[1] if len(sys.argv) > 1 else "hard"]
@@ -266,24 +274,12 @@ tm = TrustedMonitor(run_name="@@tm@@", data=DATASET, model=MODEL, runs=2, cache=
 tm.run()
 """)
 
-code("""
-mwt_property = MonitorWithTests(run_name="@@mwt_property@@", data=DATASET, model=MODEL, runs=2,
-                                cache=False, tests="@@ut_property@@", triggers=TRIGGERS)
-mwt_property.run()
-""")
-
-code("""
-mwt_plain_v3 = MonitorWithTests(run_name="@@mwt_plain@@", data=DATASET, model=MODEL, runs=2,
-                                cache=False, tests="@@ut_plain@@", triggers=TRIGGERS)
-mwt_plain_v3.run()
-""")
-
-code("""
-mwt_uplans = MonitorWithTests(run_name="@@mwt_uplans@@", data=DATASET, model=MODEL, runs=2,
-                              cache=False, tests="@@upt_property@@", triggers=TRIGGERS)
-mwt_uplans.run()
-""")
-
+# The suites come BEFORE the monitors that read them. Cell order IS launch order on a pool whose
+# runs do not exist yet: `MonitorWithTests.prepare` calls `load_records(self.tests)`, which raises
+# `FileNotFoundError` on a `tests=` run with no `config.json`. On `hard`, `r50` and `u400` the
+# suites were already on disk, so the old order never fired — E11 built a pool from scratch and it
+# killed the notebook three runs in. `scale_plan.md` already said it: launch order is a dependency
+# order, not a preference.
 code("""
 ut_property = UnitTesting(run_name="@@ut_property@@", test_gen_prompt="property", data=DATASET,
                           model=MODEL, triggers=TRIGGERS, n_tests=N_TESTS,
@@ -312,6 +308,24 @@ upt_plain_v3 = UPlansTWrites(run_name="@@upt_plain@@", test_gen_prompt="plain_v3
                              untrusted_reasoning="high", triggers=TRIGGERS, n_tests=N_TESTS,
                              sandbox_seconds=SANDBOX_SECONDS)
 upt_plain_v3.run()
+""")
+
+code("""
+mwt_property = MonitorWithTests(run_name="@@mwt_property@@", data=DATASET, model=MODEL, runs=2,
+                                cache=False, tests="@@ut_property@@", triggers=TRIGGERS)
+mwt_property.run()
+""")
+
+code("""
+mwt_plain_v3 = MonitorWithTests(run_name="@@mwt_plain@@", data=DATASET, model=MODEL, runs=2,
+                                cache=False, tests="@@ut_plain@@", triggers=TRIGGERS)
+mwt_plain_v3.run()
+""")
+
+code("""
+mwt_uplans = MonitorWithTests(run_name="@@mwt_uplans@@", data=DATASET, model=MODEL, runs=2,
+                              cache=False, tests="@@upt_property@@", triggers=TRIGGERS)
+mwt_uplans.run()
 """)
 
 md("""
@@ -890,6 +904,53 @@ paper_comparison = pd.concat(
     {measure: paper.pivot(index="arm", columns="variation", values=measure)
      for measure in ("safety", "usefulness")}, axis=1)
 paper_comparison.round(3)
+""")
+
+md("""
+### Does the budget ever bind?
+
+A 2% budget over 1000 steps is 20 audits, but A ends at the first attack — so at a 5% attack rate
+the deployment is only ~20 steps long whatever the horizon says, and 20 audits covers every flag
+inside that window. The review budget is not a constraint there; it is a label on the cut.
+
+Lengthening the horizon does not fix that. **Lowering the attack rate does**, which is why the
+paper's red team attacks rarely. The sweep below holds the budget at 2% and walks the attack rate
+down, and reports `audits spent` out of 20 and `steps live` out of 1000 beside safety — those two
+columns, not safety, are what say whether the budget bound.
+
+`B` is dropped from this sweep: at this horizon it is degenerate for every arm and every rate.
+""")
+
+code("""
+RATE_SWEEP = (0.002, 0.005, 0.01, 0.02, 0.05)
+RATE_SWEEP_TRIALS = 2_000
+BINDS = {name: game for name, game in VARIATIONS.items() if not name.startswith("B")}
+
+rate_rows = []
+for rate in RATE_SWEEP:
+    draw = sequences("test", seed=5, horizon=PAPER_HORIZON, attack_rate=rate,
+                     trials=RATE_SWEEP_TRIALS)
+    for variation, game in BINDS.items():
+        for name in GAME_ARMS:
+            out = game(seen_by(GAME_ARMS[name][0], draw), draw, PAPER_CUTS[name], PAPER_BUDGET)
+            rate_rows.append({"variation": variation[0], "attack rate": rate, "arm": name,
+                              "safety": round(out["safety"], 3),
+                              "usefulness": round(out["usefulness"], 3),
+                              "audits spent": round(out["audits spent"], 1),
+                              "steps live": round(out["steps live"])})
+
+rates = pd.DataFrame(rate_rows)
+binding = rates[rates.variation == "A"].pivot(index="arm", columns="attack rate",
+                                              values="audits spent")
+print(f"audits SPENT out of {round(PAPER_BUDGET * PAPER_HORIZON)} available, variation A \\u2014 "
+      f"the budget binds only where this saturates")
+binding.round(1)
+""")
+
+code("""
+pd.concat({measure: rates[rates.variation == "A"]
+           .pivot(index="arm", columns="attack rate", values=measure)
+           for measure in ("safety", "steps live")}, axis=1).round(3)
 """)
 
 md("""

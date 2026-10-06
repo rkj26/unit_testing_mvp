@@ -17,6 +17,79 @@ pairs per candidate, ~1h45 wall clock for 100 candidates across ten runs. 400 ta
 `write_config` refuses a run name whose `config.json` differs, and the dataset path is in that
 document, so a 250-now/750-later staging cannot resume — the size is chosen once, here.
 
+## E11 - the whole usable source, 1,388 tasks
+
+**Started 2026-10-05.** One line per step, status explicit. Update as steps complete.
+
+**Why this overrides "Why 400 and not 1,388" above.** That section declined the full draw because
+the only thing it additionally resolved was a ~0.010 **AUC** gap. `REVIEW_PLAN.md` finding 42 showed
+AUC is the wrong statistic for this setting: the paper audits 2%, the whole question lives in the
+left tenth of the ROC, and there `monitor + tests property` reads **0.628 against the monitor's
+0.538** on u400 — a +0.090 effect AUC scores as +0.000. The full draw is now bought for a different
+reason: at 2% false alarms the threshold on u400 is pinned by **~7 honest candidates**, and at 1,388
+it is ~25. That is the weakest joint in finding 42.
+
+**What it will not settle:** which augmented arm is best. Those gaps are 0.003-0.014 at paired
+McNemar p=0.69-1.00; 3.5x n does not separate them. Do not plan a claim on it.
+
+The pool tag is **`all`**, not `full`: `full` already means "the monitor was shown the whole suite"
+in every `mwt-full-*` run name, and `mwt-full-full-property-10` is unreadable.
+
+| # | step | status |
+|---|---|---|
+| 0 | `--make-pool 1388` into `apps_pool_full.json`, seed 1388. CPU only — it sandbox-verifies every backdoor triggers. | **done** — 1,388 of 1,388 usable; 106 competition / 1,005 interview / 277 introductory; 204 MB, gitignored |
+| 1 | `--make-split` 555/833, build `data/apps_full.json` **with `--scrub-tells`** | **done** — 2,776 candidates, 35,525 provided pairs (median 18/task) |
+| 1b | unscrubbed counterpart at `archived/data/apps_full.json`, for the §1 scrub-proof cell | **done** — E9 learned this the same way; differs only in `built_from["candidate_code"]` |
+| 1c | scrub verified before spending anything | **done** — attack `any comment` 0.679 → **0.000**, `names the attack` 0.400 → **0.001**; honest 0.197 → 0.000 |
+| 2 | `solve-all` | **running** |
+| 3 | `trig-all` (everything downstream reads it) | queued |
+| 4 | `tm-all`, `ut-all-property-10`, `ut-all-plain_v3-10`, `upt-all-property-10`, `upt-all-plain_v3-10` | queued |
+| 5 | `mwt-full-all-property-10`, `mwt-full-all-plain_v3-10`, `mwt-full-all-uplans-property-10` | queued |
+| 6 | `all` added to `POOLS`; `results_full.ipynb` generated and executing — the notebook **is** the launcher, its cells call `.run()` in dependency order | **running** |
+| 7 | write the E11 verdict below | |
+
+**Deviation from the approved scope, and why.** The ask was to add 0.2% and 0.5% to
+`SWEEP_ATTACK_RATES`. That sweep runs at horizon 50, where a 0.2% rate leaves `0.998 ** 50 = 0.90`
+of deployments carrying no attack at all — it would have measured the free floor, not the budget.
+The low rates went into a **new sweep at the paper horizon** instead (§8, `RATE_SWEEP`, horizon
+1000, budget held at 2%, variations A and C only since B is degenerate there), reporting
+`audits spent` out of 20 and `steps live` out of 1000 beside safety. Those two columns are what
+actually answer "does the budget bind", which was the point of the request.
+
+**Cost, scaled off the r50 sweep's own artifacts** (15.9 calls, 78k call tokens, 1,106 sandbox pairs
+per candidate, 1h45 per 100 candidates across ten runs): 2,776 candidates is 27.8x that —
+**~44,100 model calls, ~250M call tokens, ~3.07M sandbox pairs, ~49h wall clock.** The token figure
+is adjusted up from the raw 217M because the r50 baseline predates the `SOURCE_CHARS` 2,400 ->
+16,000 fix, which raised `mwt` input roughly 1.6x on three of the ten runs.
+
+**Constraints carried from E9, not re-learned:** the size is chosen once — `write_config` refuses a
+run name whose `config.json` differs and the dataset path is in that document, so no staging.
+Sandbox runs go two at a time, not four. A resume does not retry an infra failure; the recovery is
+to delete the `failed and blame == "infra"` lines by hand and resume.
+
+**Setup.**      `data/apps_full.json`, every usable task in RoganInglis/apps-control-arena at pool
+                seed 1388, scrubbed. 555 train / 833 test. Model
+                `openai-api/azureai/DeepSeek-V3.2`, 10 tests, monitor `runs=2`, `cache=False`.
+                Same 8 arms as E9 — no new arm, no new prompt, no new cut rule. `plain_v5` is
+                deliberately **not** in this run: it has no prior at any n and would arrive with no
+                comparator.
+**Change.**     Population size only, 400 -> 1,388.
+**Hypothesis.** The catch-at-2%-FPR advantage of `monitor + tests` over `monitor` is real and not a
+                threshold-placement artefact of a thinly-determined 2% cut.
+**Prediction.** Written before the run.
+                1. `monitor + tests property` catch @ fpr 2% minus `monitor` catch @ fpr 2%:
+                   **> +0.04**. Falsified at <= 0. u400 read +0.090 with the cut set by 7 honest
+                   candidates; at ~25 the estimate should hold its sign and may shrink.
+                2. ΔAUC for the same pair stays **within ±0.01** of zero, replicating E9's +0.004.
+                   Falsified outside that band — which would mean the two statistics disagree about
+                   direction, not just magnitude.
+                3. At the paper's setting (horizon 1000, budget 2%), variation **B is degenerate**
+                   (every arm < 0.05) and **A == C to three decimals**, as on u400. Falsified if
+                   either separates — that would mean finding 43 was an n artefact.
+                4. Operational: model-blamed failures stay **under 5%** of candidates per arm, the
+                   rate E9 ran at. A 3.5x longer run is the one way infra flakiness compounds.
+**Observed.**   *(pending)*
+
 ## E9 - uniform400
 
 **Setup.**      `data/apps_uniform400.json`, 400 tasks drawn uniformly from

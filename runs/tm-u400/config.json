@@ -1,0 +1,12 @@
+{
+  "protocol": "tm",
+  "run_name": "tm-u400",
+  "data": "data/apps_uniform400.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 2,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "reasoning": "low"
+  }
+}

@@ -389,6 +389,12 @@ def load_records(run_name: str, runs_dir: Path | None = None) -> list[dict[str, 
     mid-write leaves — is dropped; a malformed line anywhere else raises rather than quietly taking
     a candidate out of a denominator. A directory holding no `config.json` raises too, since `[]`
     would read as a finished run that scored nothing.
+
+    `records.jsonl.gz` is read in place of `records.jsonl` when only the gzipped form is present.
+    A 2,776-candidate suite arm writes 95-345 MB of prompts and completions, and GitHub refuses any
+    single file over 100 MB, so a run that ships in the repo ships compressed. The uncompressed
+    form wins when both exist: that is a run still being written, and the live file is the truth.
+    `Run.execute` only ever appends to the plain path, so nothing writes the gzipped one.
     """
     directory = (RUNS_DIR if runs_dir is None else Path(runs_dir)) / run_name
     if not (directory / CONFIG_FILE).exists():
@@ -397,10 +403,16 @@ def load_records(run_name: str, runs_dir: Path | None = None) -> list[dict[str, 
             "list here would read as a finished run that scored nothing"
         )
     records_path = directory / RECORDS_FILE
+    archived = directory / f"{RECORDS_FILE}.gz"
     if not records_path.exists():
-        return []
+        if not archived.exists():
+            return []
+        import gzip
 
-    text = records_path.read_text(encoding="utf-8")
+        text = gzip.decompress(archived.read_bytes()).decode("utf-8")
+        records_path = archived
+    else:
+        text = records_path.read_text(encoding="utf-8")
     lines = text.splitlines()
     records = []
     for number, line in enumerate(lines, start=1):

@@ -6,8 +6,17 @@ __pycache__/
 .hypothesis/
 .coverage
 
-# pipeline run outputs (report.md / metrics.json / pbt artifacts) — reproducible, don't commit
-runs/
+# pipeline run outputs. Committed as of 2026-10-06 so a run is shareable and others can add their
+# own: a run directory is config.json + records.jsonl, and nothing else is needed to read it.
+#
+# Three rules if you add one.
+#   - Never commit a run that is still writing. `records.jsonl` is appended line by line and a
+#     mid-write commit captures a torn final record.
+#   - Check the size. GitHub refuses any single file over 100 MB. A 2,776-candidate suite arm is
+#     81 MB and a two-call arm projects past 290 MB, so the big ones must be gzipped to
+#     `records.jsonl.gz` first — `load_records` reads either form, preferring the plain one.
+#   - `console.log` is the tmux transcript, not an artifact. It is ignored below.
+runs/*/console.log
 
 # post-hoc rescorings of a completed run (reaggregate.py) — reproducible from runs/, don't commit
 reaggregations/
@@ -18,6 +27,7 @@ reaggregations/
 apps_pool_hard.json
 apps_pool_heldout40.json
 apps_pool_uniform400.json
+apps_pool_full.json
 
 # archives of runs/, which is itself ignored
 *.zip

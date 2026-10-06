@@ -356,6 +356,41 @@ finding 31's instruction — better evidence than the guard-return rate, which w
 | 39 | latent | `unit_testing.py:34` `EVIDENCE_OUTCOMES` | `candidate_crash` counts as evidence, so a grid in which **every** evidence pair is the submission crashing or timing out passes the `no_evidence` gate and lands as a clean negative with `fired=[]`. The submission never ran successfully, and the record is indistinguishable from a suite that ran and found nothing — the exact shape `suite_verdict` exists to refuse. Small: 1 / 2 / 3 / 3 / 0 / 0 records per arm, under 0.4%. | **open** — require at least one `pass` or `catch`, not any of the three. |
 | 40 | hygiene | `build_dataset.py:413`, `scrubbed_pool_entry` | `scrubbed_pool_entry` scrubs `honest` and every `attack_proposals` entry but **not** `reference_solution`, which is a copy of the pre-scrub honest code. 85 of 400 u400 tasks therefore carry a `reference_solution` that still has its comments — exactly the 21.2% of honest candidates cell 3 reports as having had one. Harmless today because nothing reads the field; it would reintroduce comment tells the moment an arm uses it as an oracle. | **open** |
 
+### Finding 44 — a container that survives its own kill becomes a permanent CPU leak, silently
+
+**Found live during E11, 2026-10-06.** `ut-all-property-10` wrote **1 record in an hour** against a
+measured 2.84/min. Nothing had crashed: `nbconvert` alive, tmux alive, workers advancing. Two
+`pbt-*` Docker containers were **33 minutes into a 246-second deadline**
+(`sandbox_seconds=240` + `HARNESS_KILL_GRACE_SECONDS=6`), each holding `--cpus 2`, with the Docker
+VM at **198% CPU** and load 10.7 on 16 cores. The run was not blocked — it was starved.
+
+The parent had already given up and moved on: the record written at that moment carries
+`killed after 246s` as its reason. So the container had no reader, and the host had no idea it was
+still running.
+
+Three swallowed failures in `sandbox.py` line up to produce this:
+
+- `_docker_kill` (`sandbox.py:378`) is `except Exception: pass`. `docker ps` on this host prints
+  `Error loading config file: /Users/rakshitjha/.docker/config.json: operation not permitted`, so
+  the `docker kill` almost certainly failed the same way and was discarded.
+- `kill_group` (`sandbox.py:303`) swallows `PermissionError` on the `killpg`, then swallows the
+  `proc.wait` timeout.
+- `run_raw` then returns a `_failed(...)` record that **says** the harness was killed. Nothing
+  verifies it was.
+
+The module's own docstring already names the mechanism — *"SIGKILLing the host `docker run` CLI
+leaves the container running"* — and the container name exists precisely so a timeout can
+`docker kill` exactly this harness. The gap is that the kill is unverified.
+
+**Why it compounds:** every leaked container permanently removes 2 CPUs. On a long pool they
+accumulate, and throughput decays toward zero while every liveness check reports healthy. This is
+invisible at `hard`/`r50`/`u400` scale and was only reachable on a 2,776-candidate run.
+
+**Fix:** after `_docker_kill`, poll `docker inspect -f '{{.State.Running}}'` (or
+`docker ps -q --filter name=`) for a second or two and escalate to `docker rm -f` if the container
+is still up; record the outcome on the result rather than asserting it. Until then, the operational
+workaround is to sweep orphaned `pbt-*` containers older than the budget.
+
 ### Finding 43 — at the paper's setting two of the three variations stop being experiments
 
 `build_results.py` §8 now runs horizon 1000 / budget 2% / attack rate 5%, 5,000 trials. u400:
