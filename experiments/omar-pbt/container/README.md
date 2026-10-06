@@ -1,10 +1,21 @@
-# Container runner guide
+# Container runner: step-by-step setup
 
 The runner is version **0.2.1**. Build one local image from the wrapper repository root; there is
 no published image. The preferred first paid check is a bounded, four-call component smoke, not a
 full study. It reuses one frozen BigCodeBench (BCB) candidate and must not be reported as a
 population result. Full staged replication is documented separately below and is never started
 automatically by the smoke.
+
+Follow **Steps 1–7 in order**, in the same PowerShell window. Stop after Step 7 for a startup
+check. The optional sections later in this guide are not required for the smoke test.
+
+1. Install and start Docker and Git.
+2. Download the branch and open the project folder.
+3. Build the image.
+4. Add your Azure credentials locally.
+5. Create a fresh run configuration.
+6. Run the four-call smoke test, only with budget approval.
+7. Read the automatically saved results.
 
 ## Versioned startup fix: self-contained test functions
 
@@ -29,7 +40,22 @@ importing pandas. Pandas was installed, and the parser preserved the response co
 The failed record remains preserved; successful earlier smokes do not guarantee every future
 model generation will be usable.
 
-## What is inside, and what do I install once?
+## Step 1 — Install prerequisites and start Docker
+
+On Windows, install Git and Docker Desktop, enable its WSL2 backend, and use **Linux containers**.
+Start Docker Desktop before continuing. Use a dedicated disposable environment: the trusted
+runner receives Docker socket access, which is effectively administrator access to the Docker host.
+
+In PowerShell, check both tools:
+
+```powershell
+git --version
+if ($LASTEXITCODE -ne 0) { throw 'Git is unavailable; stop and install it.' }
+docker info --format '{{.OSType}}'
+if ($LASTEXITCODE -ne 0) { throw 'Docker is not ready; start Docker Desktop and stop here until it works.' }
+```
+
+The Docker check must print `linux`. Do not continue if it fails or prints `windows`.
 
 There is one combined runner/candidate image, not a runner image plus a separately rebuilt image
 for each arm:
@@ -47,7 +73,20 @@ For the bounded component smoke, build once, fill config/credentials, and invoke
 a fresh output path and explicit cost cap. Full runs use a separate init/preflight and
 smoke/approval workflow. Both use the same image and frozen inputs.
 
-## Settings and placeholders
+## Step 2 — Download the branch and open the project folder
+
+From a short local parent path of your choice, clone into a **new** folder:
+
+```powershell
+git clone -c core.longpaths=true --branch codex/omar-pbt-subproject --single-branch https://github.com/rkj26/unit_testing_mvp.git omar-pbt-repro
+if ($LASTEXITCODE -ne 0) { throw 'Clone failed; stop.' }
+Set-Location .\omar-pbt-repro\experiments\omar-pbt
+```
+
+All remaining commands run from this folder, called the **wrapper root**. If you already have
+a checkout, use a fresh folder for this walkthrough; do not overwrite your existing work.
+
+### Settings used in the following steps
 
 | Setting | Where | What to enter |
 |---|---|---|
@@ -67,7 +106,7 @@ Use the same Terra deployment for all smoke arms and matched A/B/C full-study ar
 fall back or switch models midway. Use a new prefix/output for every fresh smoke; never alter an
 initialized study's config.
 
-## Preferred first paid check: one-candidate four-call smoke
+## Step 3 — Build the local image
 
 The smoke executes one candidate (`BCB121_honest`) through four connected components: baseline
 test generation, no-feedback revision, feedback revision, and delete-only selection. It runs a
@@ -80,15 +119,32 @@ From the wrapper root, build the unified image once and inspect its immutable ID
 
 ```powershell
 docker build -f container/Dockerfile -t omar-pbt:0.2.1 .
+if ($LASTEXITCODE -ne 0) { throw 'Build failed; stop before inspecting or running an older image.' }
 $imageId = (docker image inspect omar-pbt:0.2.1 --format '{{.Id}}').Trim()
 if ($LASTEXITCODE -ne 0 -or $imageId -notmatch '^sha256:[0-9a-f]{64}$') { throw 'Could not inspect the unified image; stop.' }
 ```
 
-Copy the config template, use Terra, give it a fresh lowercase prefix, and insert `$imageId` as
-`docker_image`. Create a fresh, empty results directory and a protected local `paid.env` with
-`AZUREAI_BASE_URL=https://<your-resource>.services.ai.azure.com/openai/v1` and
-`AZUREAI_API_KEY=<your-key>`. Never put the key in the config, shell command, source, or image.
-The URL must end in `/openai/v1`, not `/openai/v1/responses`.
+Expected result: the build succeeds and `$imageId` holds a full `sha256:...` ID. Keep this image
+for all arms; do not rebuild per arm. Building does not make paid API calls.
+
+## Step 4 — Save your credentials locally
+
+Using a text editor, create `paid.env` in the wrapper root (not `paid.env.txt`). Replace both
+placeholders with your own values:
+
+```text
+AZUREAI_BASE_URL=https://<your-resource>.services.ai.azure.com/openai/v1
+AZUREAI_API_KEY=<your-key>
+```
+
+This is **file content, not PowerShell commands**. Keep the file private and out of Git.
+The URL must end in `/openai/v1`, not `/responses`. Your resource must have the deployment
+`gpt-5.6-terra`; stop if it does not. Never put the key in the image or run configuration.
+
+## Step 5 — Create a fresh run configuration
+
+The following copies the template, sets the model/image, and creates a unique run prefix.
+It also prepares the host results folder. No paid calls occur in this step.
 
 ```powershell
 Copy-Item container/study.example.json .\smoke-study.json
@@ -104,6 +160,8 @@ $ResultsPath = (Resolve-Path .\results).Path
 $ConfigPath = (Resolve-Path .\smoke-study.json).Path
 $PaidEnvPath = (Resolve-Path .\paid.env).Path
 ```
+
+## Step 6 — Run the four-call smoke test
 
 After explicit authorization for this four-call, at-most-USD-1 smoke, invoke it once with a new
 output directory (the `smoke-*` prefix above can also name the output):
@@ -123,7 +181,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Smoke failed. Keep the saved results and lock;
 The socket is mounted only into the trusted runner (Docker access is host-root-equivalent); use a
 dedicated disposable Docker host. Candidate execution is isolated in child containers with no
 network, no keys/socket/host mounts, bounded resources/time, and the image's `/opt/bcb-venv`.
-### Where results are saved automatically
+
+## Step 7 — Read your automatically saved results
 
 The command above saves to `results/<SmokeId>/` on **your computer**, not just inside Docker.
 You do not need to copy files out of the container. `--rm` removes the container, not this folder.
@@ -145,6 +204,12 @@ Get-Content (Join-Path $ResultsPath "$SmokeId/smoke-results.json") -Raw | Conver
   Select-Object completed, attempts, accounted_usd_at_buffered_rates, error_type, error
 ```
 
+Expected success: `completed` is `True`, `attempts` is `4`, and the error fields are empty.
+If it is `False`, or the summary is missing, the smoke did not complete successfully. Inspect
+the saved files and command output; do not launch full experiments to work around the failure.
+
+**Stop here if you only wanted the startup check.** Keep the entire output folder for review.
+
 A forced shutdown can leave no final summary or an unfinished response. Previously saved files
 remain; the attempt ledger does not prove that a response finished. Do not delete locks or rerun
 into that folder. The four-call smoke does not support automatic retries/resumption. A separately
@@ -160,7 +225,7 @@ and delete-only retained all ten tests in both. The provider reported
 These are startup checks, not evidence that one arm improves population FPR or attack detection.
 See [the existing validation record](VALIDATION.md) for failures, costs, and image identity.
 
-## How the individual arms start
+## Optional full study — Arm and prerequisite reference
 
 After the common setup and preflight, the following are the actual CLI stages. The full commands
 and human approval steps appear below; this table is a map, **not permission to run paid batches**.
@@ -201,23 +266,7 @@ retry paid calls. Completed stages may be rerun as validated no-ops. A failed st
 to have generic automatic recovery. This is a tested local research runner, not yet a promise of
 one-click, maintenance-free deployment on every teammate's device.
 
-## Build the unified image
-
-Build once from the wrapper root. The Dockerfile installs the locked runner dependencies and the
-BCB execution environment at `/opt/bcb-venv/bin/python`, records system package versions, and
-verifies the archived source snapshot. OS packages are recorded but not fully version-pinned.
-
-```powershell
-docker build -f container/Dockerfile -t omar-pbt:0.2.1 .
-docker image inspect omar-pbt:0.2.1 --format '{{.Id}}'
-```
-
-Use the full `sha256:...` ID, not the tag, as `docker_image`. Keep the locally built image for all
-arms; do not build a second candidate image or rebuild per arm. This single combined image is a
-different runtime artifact from the historical recorded `omar-bcb-pbt@sha256:fd7deb31…` image.
-No container-registry image is published; source changes belong on the existing GitHub branch.
-
-## Cached analysis
+## Optional — Recompute cached metrics without paid calls
 
 Cached analysis is read-only with respect to the frozen study, needs no credentials or Docker
 socket, and writes `metrics.json` to the chosen output directory. Mount a fresh host directory at
@@ -231,7 +280,12 @@ docker run --rm --network none `
   omar-pbt:0.2.1 cached --output /results/cached
 ```
 
-## Fresh, staged workflow
+## Optional full study — Follow only with separate approval
+
+These steps launch a larger study, not the four-call startup check. Full studies keep the frozen
+prompts and do not automatically inherit `self-contained-v1`. Arrange a separate budget first.
+
+### Full-study Step 1 — Prepare a separate configuration and output
 
 Fresh runs require a new output folder and config. Make a copy of `container/study.example.json`
 and review its three fields: choose a new lowercase `prefix` (never the archived prefix),
@@ -303,6 +357,8 @@ inspect them. The config mount and Docker socket are not needed for cached analy
 genuinely new, empty `results` folder for each study. Run the commands in
 order; each smoke/approval boundary is an intentional human pause:
 
+### Full-study Step 2 — Initialize and check Docker (no API calls)
+
 ```powershell
 # Initialize a separate study copy; no model calls.
 Invoke-PbtRunner @('init', '--output', '/results/study', '--config', '/config/study.json')
@@ -310,10 +366,21 @@ Invoke-PbtRunner @('init', '--output', '/results/study', '--config', '/config/st
 # Required infrastructure/image/input preflight; zero model calls, but uses the Docker socket.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'preflight')
 Invoke-PbtRunner @('status', '--output', '/results/study')
+```
 
+### Full-study Step 3 — Run and review the baseline smoke
+
+```powershell
 # Baseline smoke: at most 1 paid call. Inspect its saved record before approving.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'baseline-smoke', '--allow-paid', '--max-calls', '1') -Paid
 Invoke-PbtRunner @('status', '--output', '/results/study')
+```
+
+Stop and inspect the saved baseline before running the approval and remainder below.
+
+### Full-study Step 4 — Approve and complete the baseline
+
+```powershell
 Invoke-PbtRunner @('approve', '--output', '/results/study', '--stage', 'baseline', '--note', 'Reviewed baseline smoke artifacts and approve continuation.')
 
 # Baseline remainder: conservative upper bound 51 calls (already-recorded/skipped candidates can reduce actual calls).
@@ -321,23 +388,49 @@ Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'baseline', '
 
 # Feedback/source bundle: zero model calls; performs cached candidate execution.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'feedback')
+```
 
+### Full-study Step 5 — Run and review both rewrite smokes
+
+```powershell
 # Paired revision smoke: upper bound 2 calls. Inspect both saved records before approval.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'revision-smoke', '--allow-paid', '--max-calls', '2') -Paid
 Invoke-PbtRunner @('status', '--output', '/results/study')
+```
+
+Stop and inspect both arms before approving the remainder.
+
+### Full-study Step 6 — Approve and complete both rewrite arms
+
+```powershell
 Invoke-PbtRunner @('approve', '--output', '/results/study', '--stage', 'revisions', '--note', 'Reviewed both paired revision smoke records and approve continuation.')
 
 # Full revisions: upper bound 102 calls across the no-feedback and feedback arms.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'revisions', '--allow-paid', '--max-calls', '102') -Paid
+```
 
+### Full-study Step 7 — Run and review delete-only smoke
+
+```powershell
 # Delete-only smoke: at most 1 call. Inspect its eligible-candidate record before approval.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'delete-smoke', '--allow-paid', '--max-calls', '1') -Paid
 Invoke-PbtRunner @('status', '--output', '/results/study')
+```
+
+Stop and inspect the selected tests before approving the remainder.
+
+### Full-study Step 8 — Approve and complete delete-only
+
+```powershell
 Invoke-PbtRunner @('approve', '--output', '/results/study', '--stage', 'delete', '--note', 'Reviewed delete-only smoke artifacts and approve continuation.')
 
 # Delete-only remainder: conservative upper bound 51 calls.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'delete', '--allow-paid', '--max-calls', '51') -Paid
+```
 
+### Full-study Step 9 — Replay and analyze saved results (no API calls)
+
+```powershell
 # Saved-artifact stages: zero model calls.
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'replay')
 Invoke-PbtRunner @('run', '--output', '/results/study', '--stage', 'analyze')
