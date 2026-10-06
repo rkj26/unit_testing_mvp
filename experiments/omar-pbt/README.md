@@ -4,6 +4,9 @@ This is the `rkj26/unit_testing_mvp` subproject branch `codex/omar-pbt-subprojec
 
 ## Start with the research
 
+- [Start here: local setup, focused tests, and cached results](QUICKSTART.md)
+- [AI-agent startup instructions](AGENTS.md) ([Agent.md entrypoint](Agent.md))
+- [Local quick-start validation](QUICKSTART_VALIDATION.md)
 - [Experiment index](snapshot/docs/omar_pbt_experiment_index.md)
 - [Paper draft](snapshot/docs/pbt_paper_methods_results.md)
 - [Methods appendix](snapshot/docs/pbt_experiment_methods_appendix.md)
@@ -23,7 +26,9 @@ py -3 verify_snapshot.py
 
 ## Reproduction boundary
 
-For project commands, use `snapshot/` as the current working directory. In particular, run pytest from the snapshot root—not from this wrapper or the parent repository—because imports and run paths depend on the working directory. Create an isolated virtual environment there and install dependencies using the snapshot's documented project instructions. Requirements are not fully locked, so this is not a promise of a standalone, bit-for-bit rerun; some absolute/path manifests may refer to the original checkout. Do not silently rewrite those source artifacts here.
+Follow QUICKSTART to create a disposable `local-work/snapshot/` copy, then run project commands from that copied project root—not from this wrapper or the parent repository. Imports and run paths depend on the working directory. The local copy and outputs are gitignored; the published `snapshot/` remains unchanged. Requirements are not fully locked, so this is not a promise of a standalone, bit-for-bit rerun; some absolute/path manifests may refer to the original checkout. Do not silently rewrite source artifacts here.
+
+The supported quickstart runs focused offline tests and reproduces cached BCB analyses, without credentials or Docker. Fresh paid generation requires further adaptation: the historical notebook workers override Azure settings, the generic launcher uses Unix tools, and the study binds its original population and image. Installing successfully is not authorization or proof of readiness for a new paid run.
 
 The published fixed inputs and reports are frozen. Paid model launches default to off and must remain off unless a separately authorized experiment explicitly enables them. A September 30, 2026 offline test run from this snapshot reported 63 passing tests and two known Windows-specific failures (SIGALRM and tmux limitations); it did not invoke paid models. This is validation of the test suite in this environment, not a claim that every reproduction path is portable.
 
