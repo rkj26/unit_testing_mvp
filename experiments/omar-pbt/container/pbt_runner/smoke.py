@@ -13,6 +13,7 @@ from pathlib import Path
 import time
 
 from . import backend as b
+from . import test_contract
 
 MODEL = 'openai-api/azureai/gpt-5.6-terra'
 CANDIDATE = 'BCB121_honest'
@@ -86,8 +87,22 @@ def measured(score):
             and counts.get('prop_error') == 0 and counts.get('candidate_crash') == 0)
 
 
+def verify_exact_subset(original, selected, extractor):
+    """Compare text and order, not original line offsets (which shift after deletion)."""
+    source = extractor(original)
+    retained = extractor(selected)
+    if (not retained or any(name not in source for name in retained)
+            or list(retained) != [name for name in source if name in retained]
+            or any(source[name][2] != item[2] for name, item in retained.items())):
+        raise ValueError('delete-only result is not an exact-text subset')
+    return True
+
+
 def run_smoke(args):
     from . import __main__ as cli
+    contract = getattr(args, 'test_contract', test_contract.VERSION)
+    if contract not in ('legacy', test_contract.VERSION):
+        raise ValueError('unknown test contract')
     config = cli.read_json(args.config); cli.validate_config(config)
     if config['model'] != MODEL:
         raise ValueError('this priced four-call smoke requires gpt-5.6-terra; no model fallback')
@@ -105,12 +120,14 @@ def run_smoke(args):
     with lock.open('x') as f: f.write('exclusive four-call smoke; never delete to retry\n')
     report = {'scope': 'single-candidate component smoke, not a population experiment',
         'candidate_id': CANDIDATE, 'model': MODEL, 'stages': [], 'completed': False,
+        'test_contract': contract,
+        'test_contract_sha256': b.byte_hash(test_contract.INSTRUCTIONS.encode()) if contract != 'legacy' else None,
         'full_second_revision_prepare_exercised': False,
         'pricing_reference': 'https://azure.microsoft.com/en-us/blog/gpt-5-6-now-available-in-microsoft-foundry/',
         'buffered_usd_per_million': {'input': INPUT_RATE, 'output': OUTPUT_RATE},
         'max_cost_usd_at_buffered_rates': args.max_cost_usd}
     guard = Guard(output, args.max_cost_usd)
-    with cli.project_context(project):
+    with cli.project_context(project), test_contract.install(contract):
         from pipeline import model as model_mod, sandbox
         from pipeline.protocols import UnitTesting, SecondRevision, unit_testing
         from pipeline.protocols.test_repair import feedback_summary
@@ -133,17 +150,22 @@ def run_smoke(args):
 
             def execute(arm, protocol):
                 guard.arm = arm; start = len(executions)
-                cli.write_new(output / 'components' / (arm+'-config.json'), protocol.config())
+                cli.write_new(output / 'components' / (arm+'-config.json'), protocol.config() | {'test_contract': contract})
                 score = protocol.score(task, candidate)
-                entry = {'arm': arm, 'score': score, 'execution': executions[start:], 'measured': measured(score)}
+                issues = test_contract.unresolved_names(score.get('tests_src')) if contract != 'legacy' else []
+                entry = {'arm': arm, 'score': score, 'execution': executions[start:],
+                         'source_contract_errors': issues, 'measured': measured(score) and not issues}
                 cli.write_new(output / 'components' / (arm+'.json'), entry)
                 report['stages'].append(entry)
                 print(json.dumps({'arm': arm, 'measured': entry['measured'], 'calls': len(score.get('calls',[]))}), flush=True)
                 return score
 
             initial = execute('baseline', base)
-            if not measured(initial):
-                raise ValueError('baseline is not a complete usable measurement; dependent calls blocked')
+            if not report['stages'][0]['measured']:
+                details = '; '.join(report['stages'][0]['source_contract_errors'])
+                if not details:
+                    details = str(initial.get('n_pairs_by_outcome') or initial.get('reason') or 'no complete grid')
+                raise ValueError('baseline unusable; dependent calls blocked: ' + details)
             source, error = unit_testing.suite_source(initial['calls'][0]['raw'])
             if error or source != initial['tests_src']:
                 raise ValueError('baseline raw-response/suite mismatch')
@@ -185,10 +207,7 @@ def run_smoke(args):
                     'tests':sorted(tests), 'space':spaces[CANDIDATE], 'diagnostic':visible}}, **params)
             selected = execute('delete-only', delete)
             if selected.get('tests_src'):
-                retained = helpers['exact_tests'](selected['tests_src'])
-                if not retained or any(k not in tests or tests[k] != v for k,v in retained.items()):
-                    raise ValueError('delete-only result is not an exact-text subset')
-                report['delete_exact_subset_verified'] = True
+                report['delete_exact_subset_verified'] = verify_exact_subset(source, selected['tests_src'], helpers['exact_tests'])
             report['completed'] = guard.count == 4 and len(report['stages']) == 4 and all(x['measured'] for x in report['stages'])
         except Exception as error:
             # Raw provider exceptions can contain request/credential material. Their type is

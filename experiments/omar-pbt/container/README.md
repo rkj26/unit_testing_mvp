@@ -1,10 +1,33 @@
 # Container runner guide
 
-The runner is version **0.2.0**. Build one local image from the wrapper repository root; there is
+The runner is version **0.2.1**. Build one local image from the wrapper repository root; there is
 no published image. The preferred first paid check is a bounded, four-call component smoke, not a
 full study. It reuses one frozen BigCodeBench (BCB) candidate and must not be reported as a
 population result. Full staged replication is documented separately below and is never started
 automatically by the smoke.
+
+## Versioned startup fix: self-contained test functions
+
+Version 0.2.1 defaults the `smoke` command to `--test-contract self-contained-v1`.
+It explicitly tells A/B/C that tests execute separately from candidate code, so each test must
+include its own imports and helpers. Both rewrite arms receive identical added instructions;
+delete-only still selects exact original functions and does not rewrite them. Prompts as sent,
+the contract version/hash, and static missing-name diagnostics are saved in the smoke artifacts.
+The runner never silently inserts imports, weakens tests, or retries a failed generation.
+
+The delete-only validator also checks exact function text and original order, not line numbers.
+Deleting an earlier function can shift later lines without changing the retained tests.
+
+This is a **new startup prompt condition**, not the original paper experiment. Use
+`--test-contract legacy` to repeat the original smoke contract. The separate full-study `run`
+commands and frozen `snapshot/` continue using their original prompts; the new contract is not
+silently applied to those experiments. Missing-name checks are supplementary, not a substitute
+for executing generated tests in Docker. A failed baseline blocks all three dependent calls.
+
+An uncached Windows build exposed why this matters: a raw model response used `pd` without
+importing pandas. Pandas was installed, and the parser preserved the response correctly.
+The failed record remains preserved; successful earlier smokes do not guarantee every future
+model generation will be usable.
 
 ## What is inside, and what do I install once?
 
@@ -13,7 +36,7 @@ for each arm:
 
 | Component | Contains / does | Does not contain |
 |---|---|---|
-| `omar-pbt:0.2.0` | Python 3.12, locked runner packages, Docker CLI, frozen project code/prompts/data/results, staged CLI, and isolated candidate Python at `/opt/bcb-venv/bin/python` | Model weights, your API key, or a running Docker daemon |
+| `omar-pbt:0.2.1` | Python 3.12, locked runner packages, Docker CLI, frozen project code/prompts/data/results, staged CLI, and isolated candidate Python at `/opt/bcb-venv/bin/python` | Model weights, your API key, or a running Docker daemon |
 
 Install Git and Docker with Linux-container support on the host, get this subproject's source,
 then build the one image below. You do **not** install host Python or rebuild an image for each arm.
@@ -30,7 +53,7 @@ smoke/approval workflow. Both use the same image and frozen inputs.
 |---|---|---|
 | `prefix` | `study.json` copied from `container/study.example.json` | A unique lowercase name, e.g. `smoke-<new-guid>`; choose a new one for every fresh smoke/study |
 | `model` | `study.json` | `openai-api/azureai/gpt-5.6-terra` (required by the four-call smoke) |
-| `docker_image` | `study.json` | The full immutable ID of the one locally built `omar-pbt:0.2.0` image |
+| `docker_image` | `study.json` | The full immutable ID of the one locally built `omar-pbt:0.2.1` image |
 | `AZUREAI_BASE_URL` | Local, ignored `paid.env` | Your resource URL ending in `/openai/v1`, **not** `/openai/v1/responses` |
 | `AZUREAI_API_KEY` | Local, ignored `paid.env` | Your key; never include it in source or an image |
 | `$ResultsPath`, `$ConfigPath`, `$PaidEnvPath` | PowerShell helper below | Local paths; the example resolves them from your current wrapper directory |
@@ -56,8 +79,8 @@ invoice amount.
 From the wrapper root, build the unified image once and inspect its immutable ID:
 
 ```powershell
-docker build -f container/Dockerfile -t omar-pbt:0.2.0 .
-$imageId = (docker image inspect omar-pbt:0.2.0 --format '{{.Id}}').Trim()
+docker build -f container/Dockerfile -t omar-pbt:0.2.1 .
+$imageId = (docker image inspect omar-pbt:0.2.1 --format '{{.Id}}').Trim()
 if ($LASTEXITCODE -ne 0 -or $imageId -notmatch '^sha256:[0-9a-f]{64}$') { throw 'Could not inspect the unified image; stop.' }
 ```
 
@@ -93,26 +116,49 @@ docker run --rm `
   --mount 'type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock' `
   --env-file $PaidEnvPath `
   $imageId smoke --output "/results/$SmokeId" `
-  --config /config/study.json --allow-paid --max-cost-usd 1
+  --config /config/study.json --allow-paid --max-cost-usd 1 --test-contract self-contained-v1
+if ($LASTEXITCODE -ne 0) { throw 'Smoke failed. Keep the saved results and lock; inspect them before any new paid run.' }
 ```
 
 The socket is mounted only into the trusted runner (Docker access is host-root-equivalent); use a
 dedicated disposable Docker host. Candidate execution is isolated in child containers with no
 network, no keys/socket/host mounts, bounded resources/time, and the image's `/opt/bcb-venv`.
-The component report and artifacts are saved beneath the host `results` mount. Use a fresh output
-for every attempt. If the command fails, preserve its output and lock for review; no retries or
-resumption are supported for this four-call path.
+### Where results are saved automatically
+
+The command above saves to `results/<SmokeId>/` on **your computer**, not just inside Docker.
+You do not need to copy files out of the container. `--rm` removes the container, not this folder.
+Keep the `--mount ... target=/results` option in the command.
+
+| File / folder | Saved when | Contains |
+|---|---|---|
+| `study.json`, `manifest.json`, dependency inventories | During initialization, before paid calls | Configuration, code hashes, environment versions |
+| `attempts.jsonl` | Before each paid call | Request reservation and prompt hash |
+| `usage.jsonl` | After each returned response | Model metadata, token usage, buffered cost |
+| `components/` | Configuration before each arm; results after it finishes | Prompts, responses, generated tests, execution outcomes |
+| `component-source-bundle.json` | After a usable baseline | Shared baseline, inputs, and feedback used by later arms |
+| `smoke-results.json` | On completion or a handled run failure | Arm results, completion status, error information, cost accounting |
+
+Read the summary after the command returns:
+
+```powershell
+Get-Content (Join-Path $ResultsPath "$SmokeId/smoke-results.json") -Raw | ConvertFrom-Json |
+  Select-Object completed, attempts, accounted_usd_at_buffered_rates, error_type, error
+```
+
+A forced shutdown can leave no final summary or an unfinished response. Previously saved files
+remain; the attempt ledger does not prove that a response finished. Do not delete locks or rerun
+into that folder. The four-call smoke does not support automatic retries/resumption. A separately
+authorized new attempt needs a new prefix and output folder. Saving is automatic; external backup
+and GitHub upload are not. Full studies similarly save beneath their chosen host output folder.
 
 **Interpretation boundary:** the component binds baseline/revision calls to only `BCB121_honest`;
 it intentionally does not exercise the full `SecondRevision.prepare` population/linkage gate. It
 is not a full 52-candidate run, a fresh sample, or a basis for FPR/catch-rate/population claims.
-This paid component smoke has passed once on unified image `sha256:887e939...`, using the
-provider-returned model version `gpt-5.6-terra-2026-07-09`: four calls for this candidate completed, each arm
-executed ten tests over nine fixed inputs (90/90 passing outcomes), and D retained an exact
-ten-test subset. Buffered usage was USD 0.258928; USD 0.129464 calculated from reported tokens and published rates is an estimate,
-not an invoice. The final 30-test suite exercises mocked provider behavior and is not a substitute
-for this live result. A complete smoke report means only that these four component methods
-completed for this candidate under this local image/config.
+Version 0.2.1 passed two fresh four-call smoke runs: 360/360 execution pairs passed in each run,
+and delete-only retained all ten tests in both. The provider reported
+`gpt-5.6-terra-2026-07-09`. All 42 runner regression tests also passed inside the image.
+These are startup checks, not evidence that one arm improves population FPR or attack detection.
+See [the existing validation record](VALIDATION.md) for failures, costs, and image identity.
 
 ## How the individual arms start
 
@@ -142,8 +188,8 @@ full batches merely to satisfy a request for the bounded one-candidate smoke.
 ## How repeatable is startup today?
 
 The intended normal path is configuration, not editing Python. Build/setup issues found during
-local validation were fixed. Cached analysis, the final 30-test suite, real Docker preflight, one
-archived 100-outcome replay, and the four-call paid component smoke passed; see
+local validation were fixed. The current 42-test suite and two fresh four-call smokes passed.
+Earlier checks also passed cached analysis, real Docker preflight, and an archived 100-outcome replay; see
 [VALIDATION.md](VALIDATION.md). These checks do not establish a full paid end-to-end study. The
 local image is not published to a registry.
 Different Docker hosts and Azure resources still need checks.
@@ -162,8 +208,8 @@ BCB execution environment at `/opt/bcb-venv/bin/python`, records system package 
 verifies the archived source snapshot. OS packages are recorded but not fully version-pinned.
 
 ```powershell
-docker build -f container/Dockerfile -t omar-pbt:0.2.0 .
-docker image inspect omar-pbt:0.2.0 --format '{{.Id}}'
+docker build -f container/Dockerfile -t omar-pbt:0.2.1 .
+docker image inspect omar-pbt:0.2.1 --format '{{.Id}}'
 ```
 
 Use the full `sha256:...` ID, not the tag, as `docker_image`. Keep the locally built image for all
@@ -182,7 +228,7 @@ New-Item -ItemType Directory -Force .\results\cached | Out-Null
 $CachedPath = (Resolve-Path .\results).Path
 docker run --rm --network none `
   --mount "type=bind,source=$CachedPath,target=/results" `
-  omar-pbt:0.2.0 cached --output /results/cached
+  omar-pbt:0.2.1 cached --output /results/cached
 ```
 
 ## Fresh, staged workflow

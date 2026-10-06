@@ -374,6 +374,8 @@ def main():
     item.add_argument('--config', required=True)
     item.add_argument('--allow-paid', action='store_true')
     item.add_argument('--max-cost-usd', type=float, default=1.0)
+    item.add_argument('--test-contract', choices=['legacy', 'self-contained-v1'], default='self-contained-v1',
+                      help='Versioned startup prompt; legacy preserves the original generation contract')
     args = parser.parse_args()
     try:
         if args.command == 'smoke':

@@ -3,6 +3,76 @@
 Validated on 2026-10-06 using Windows Docker Desktop, Linux amd64. This is startup and
 reproduction-tooling validation, **not a new population-level experiment**.
 
+## Startup debugging: 0.2.1 (local validation)
+
+The fresh Windows teammate run exposed two distinct defects. First, generated properties
+referenced `pd` without importing it: candidate imports are not shared with property functions.
+A zero-API diagnostic replay reproduced 55 property errors and 35 passes. Adding only the
+missing imports to a separate, in-memory diagnostic copy produced 90 passes. The original
+failed response and results were preserved, not repaired or counted as successful research.
+
+The startup smoke now supplies the versioned `self-contained-v1` prompt contract to baseline
+and both rewrite arms, explicitly requiring function-local imports/helpers. It records the
+actual prompts and contract hash and reports unresolved globals alongside sandbox results.
+This is a changed prompt condition, not an unchanged replication of the paper experiment.
+`--test-contract legacy` preserves the old smoke prompts; full-study `run` prompts and the
+frozen snapshot remain unchanged.
+
+Second, the smoke's delete-only validator compared source line positions as well as text.
+Removing earlier functions shifts later positions, incorrectly rejecting legitimate subsets.
+It now checks exact function text, identity, nonempty selection, and original relative order,
+without comparing line offsets. Tests explicitly reject edits, renaming, reordering, and empty
+selections while accepting unchanged functions whose positions shift.
+
+Validated local image `omar-pbt:0.2.1`:
+
+```text
+sha256:cb90ca8c54007faad3f9a109b68b3c5b66e33a06ca874b0530bfa50f63e9a33c
+```
+
+| Check | Observed result |
+|---|---|
+| Focused runner regression suite, host | 42 passed |
+| Same suite inside final image | 42 passed |
+| Frozen snapshot | 784/784 blobs match |
+| Fresh final-image smoke run 2 | Four calls; all four arms measured; 360/360 execution pairs passed |
+| Fresh final-image smoke run 3 | Four calls; all four arms measured; 360/360 execution pairs passed |
+| Delete-only validation in both final runs | Exact-text subset verified; ten tests retained |
+
+Both final runs used `BCB121_honest`, nine reviewed inputs, and provider-reported
+`gpt-5.6-terra-2026-07-09`. Each arm executed ten tests; no property errors, crashes,
+catches, or unresolved globals were recorded. They use fresh responses, not saved-response
+replay. Both rewrites start from their run's same newly generated baseline. The earlier
+intermediate run completed four calls but failed the old line-position validator; it remains
+recorded as failed (its delete-only selection retained five unchanged tests).
+
+All three debugging runs together attempted 12 calls, without HTTP retries, and accounted
+USD **0.698700** at buffered rates, below the user's USD 10 authorization. This is conservative
+usage accounting, not a verified invoice. Per-run amounts were 0.261796, 0.200932, and 0.235972.
+Local raw evidence is preserved under `local-work/import-debug-20261006/run1`, `run2`, and
+`run3`; the controlled replay is `local-work/import-debug-20261006/import-regression.json`.
+These raw debugging artifacts are ignored local files and are not included in the source release.
+
+The preceding fresh checkout also completed a `--no-cache` dependency build on the existing
+Windows Docker host; the corrected image rebuild reused dependency layers. This does not
+establish installation on a second machine, registry-pull support, full-batch correctness,
+or population-level FPR/catch performance. Generated tests can still fail on other candidates;
+failures must remain visible rather than be silently repaired. Historical checks follow.
+
+### Local integration recheck (2026-10-06)
+
+Rebuilt `omar-pbt:0.2.1` from the local wrapper, reusing cached build layers. The resulting
+local image ID is `sha256:1656e8699a3c3dd55b89cf8f83aa8c14b002c8dbe19054c62643503bea5bc3b2`.
+Inside this image, all 42 runner tests passed in 54.43 seconds and the archive verifier matched
+784/784 blobs. These checks used no network, API credentials, or paid calls. The two live smoke
+results above belong to their recorded earlier image ID, not this rebuilt artifact.
+
+Updated the existing container guide, root README, QUICKSTART, and AGENTS instructions to agree
+on the current version, automatic host-side saving, failure handling, and the changed smoke
+prompt. The smoke command now explicitly names `self-contained-v1` and checks Docker's exit code.
+No new validation report was created. Source is distributed on `codex/omar-pbt-subproject`;
+the Docker image is built locally, not published to a registry.
+
 ## Single-image release: 0.2.0
 
 One locally built image was used for both trusted coordination and separately isolated candidate
@@ -95,7 +165,7 @@ From the wrapper root after building:
 
 ```powershell
 $TestsPath = (Resolve-Path container/tests).Path
-$imageId = (docker image inspect omar-pbt:0.2.0 --format '{{.Id}}').Trim()
+$imageId = (docker image inspect omar-pbt:0.2.1 --format '{{.Id}}').Trim()
 docker run --rm --network none --entrypoint python `
   --mount "type=bind,source=$TestsPath,target=/validation/container/tests,readonly" `
   $imageId -m pytest /validation/container/tests --confcutdir=/validation/container/tests -q -p no:cacheprovider

@@ -13,7 +13,7 @@ Readers clone that branch, enter `experiments/omar-pbt`, and follow [README.md](
 ```powershell
 git -c core.longpaths=true clone --branch codex/omar-pbt-subproject --single-branch https://github.com/rkj26/unit_testing_mvp.git pbt
 Set-Location pbt/experiments/omar-pbt
-docker build -f container/Dockerfile -t omar-pbt:0.2.0 .
+docker build -f container/Dockerfile -t omar-pbt:0.2.1 .
 ```
 
 This builds one image with the coordinator and an isolated candidate Python environment.

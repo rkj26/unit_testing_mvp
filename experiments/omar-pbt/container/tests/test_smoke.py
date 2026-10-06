@@ -45,7 +45,8 @@ def _args(config, output):
     return SimpleNamespace(config=str(config), output=str(output), allow_paid=True, max_cost_usd=1.0)
 
 
-def test_connected_smoke_uses_four_mocked_calls_and_binds_all_arms(tmp_path, monkeypatch):
+@pytest.mark.parametrize('contract,missing_import', [('legacy', False), ('self-contained-v1', False), ('self-contained-v1', True)])
+def test_connected_smoke_uses_four_mocked_calls_and_binds_all_arms(tmp_path, monkeypatch, contract, missing_import):
     archive = Path(os.environ.get("PBT_ARCHIVE", ROOT / "snapshot"))
     if not archive.exists():
         archive = Path("/opt/archive/snapshot")
@@ -78,14 +79,14 @@ def test_connected_smoke_uses_four_mocked_calls_and_binds_all_arms(tmp_path, mon
         properties = schema.json_schema.properties
         if "retain_test_ids" in properties:
             text = json.dumps({"rationale": "retain justified originals",
-                               "retain_test_ids": [f"test_{i}" for i in range(8)]})
+                               "retain_test_ids": [f"test_{i}" for i in (0, 2, 4, 6, 8)]})
         elif "abstain" in properties:
             text = json.dumps({"abstain": False, "rationale": "specification grounded",
                                "tests": [{"name": f"test_{i}", "source": _test_source(i)}
                                          for i in range(10)]})
         else:
             text = json.dumps({"rationale": "specification grounded",
-                               "tests": [{"name": f"test_{i}", "source": _test_source(i)}
+                               "tests": [{"name": f"test_{i}", "source": _test_source(i).replace('run(x) is not None', 'isinstance(run(x), pd.DataFrame)') if missing_import else _test_source(i)}
                                          for i in range(10)]})
         return Completion(text, "stop", usage={"input_tokens": 100, "output_tokens": 100},
                           response_model="gpt-5.6-terra", response_id=f"mock-{len(prompts)}")
@@ -98,10 +99,26 @@ def test_connected_smoke_uses_four_mocked_calls_and_binds_all_arms(tmp_path, mon
 
     config = _config(tmp_path / "config.json")
     output = tmp_path / "fresh-smoke"
-    result = smoke.run_smoke(_args(config, output))
+    args = _args(config, output)
+    args.test_contract = contract
+    original_prompt = __import__('pipeline.protocols.unit_testing', fromlist=['UnitTesting']).UnitTesting._prompt
+    result = smoke.run_smoke(args)
+    assert __import__('pipeline.protocols.unit_testing', fromlist=['UnitTesting']).UnitTesting._prompt is original_prompt
+
+    if missing_import:
+        report = json.loads((output / 'smoke-results.json').read_text())
+        assert result == 1 and report['attempts'] == 1 and len(prompts) == 1
+        assert 'unresolved names: pd' in report['error']
+        assert len(report['stages'][0]['source_contract_errors']) == 10
+        assert (output / 'components/baseline.json').exists()
+        assert (output / 'smoke.lock').exists()
+        assert not (output / 'components/no-feedback.json').exists()
+        return
 
     assert result == 0
     assert len(prompts) == 4
+    assert all(p.startswith(smoke.test_contract.INSTRUCTIONS) == (contract != 'legacy') for p in prompts[:3])
+    assert not prompts[3].startswith(smoke.test_contract.INSTRUCTIONS)
     attempts = [json.loads(line) for line in (output / "attempts.jsonl").read_text(encoding="utf-8").splitlines()]
     usage = [json.loads(line) for line in (output / "usage.jsonl").read_text(encoding="utf-8").splitlines()]
     assert [item["arm"] for item in attempts] == ["baseline", "no-feedback", "feedback", "delete-only"]
@@ -123,7 +140,7 @@ def test_connected_smoke_uses_four_mocked_calls_and_binds_all_arms(tmp_path, mon
     deletion = stages[-1]["score"]
     original = _definitions(baseline_source)
     retained = _definitions(deletion["tests_src"])
-    assert set(retained) == {f"test_{i}" for i in range(8)}
+    assert set(retained) == {f"test_{i}" for i in (0, 2, 4, 6, 8)}
     assert all(retained[name] == original[name] for name in retained)
     assert json.loads((output / "smoke-results.json").read_text(encoding="utf-8"))["delete_exact_subset_verified"] is True
     assert len(fake_executions) == 4

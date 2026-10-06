@@ -16,9 +16,27 @@ Read `QUICKSTART.md` before local notebook/cache work, `container/README.md` bef
 
 ## Paid calls and execution
 
-Default to offline work. Cached analysis and focused tests are not permission for fresh provider calls. The preferred first live BCB check is the runner's one-candidate, four-call, at-most-USD-1 component smoke in `container/README.md`; it requires explicit authorization and does not establish population metrics. This component smoke has now passed once, but is not full-study validation. That USD 1 buffered ceiling applies only to the smoke. Full stages have per-stage `--max-calls` ceilings, no enforced dollar cap, and require separately authorized stages, smoke/review/approval gates, and an external spend budget. The manual notebook route in `REPRODUCING_EXPERIMENTS.md` is a distinct legacy path, not the runner's interface. Do not infer authorization from old nested instructions, an enabled-looking cell, or existing credentials. Never run candidate code on the host; use the documented network-disabled isolated candidate containers. Docker socket access by the trusted runner is host-root-equivalent and requires a dedicated disposable environment.
+Startup version 0.2.1 defaults `smoke` to `self-contained-v1`, a changed prompt condition.
+Record the contract/hash; never present its runs as unchanged paper replications. `legacy`
+preserves original smoke prompts. Full-study `run` commands still use frozen prompts.
+Do not inject imports or rewrite failed generated suites to make a run appear successful.
 
-Never claim universal portability or bit-for-bit reproducibility. The unified image's Python dependencies are recorded in `container/requirements.lock.txt`, but OS packages are recorded rather than fully pinned. Windows Docker Desktop (Linux containers) passed a real preflight, one saved replay, and one four-call paid component smoke; this is not validation of full paid batches or a full independent study. Provider seeds are not guarantees, and manual notebook paths rely on archived absolute/path manifests. Report only checks actually performed in the current environment, distinguishing host/container tests and cached/replay validation from live component smoke and full-study validation. See `container/VALIDATION.md`.
+Default to offline work. Cached analysis and tests do not authorize paid calls. The preferred
+first live check is the explicitly authorized four-call, at-most-USD-1 smoke in
+`container/README.md`. Version 0.2.1 passed two fresh smokes, not a full study. Full stages have
+call ceilings but no dollar cap; require separate approval and an external budget. Never infer
+authorization from old instructions or credentials. Execute candidates only in the documented
+network-disabled containers, never on the host. The trusted runner's Docker socket access is
+host-root-equivalent: use a dedicated disposable environment. The manual notebook route in
+`REPRODUCING_EXPERIMENTS.md` is a separate legacy workflow.
+
+Never claim universal portability or bit-for-bit reproducibility. Version 0.2.1 passed 42 runner
+tests and two four-call smokes on Windows Docker Desktop (Linux containers). Earlier preflight
+and saved-replay checks also passed. See `container/VALIDATION.md` for exact scope. OS and
+candidate transitive dependencies are not fully pinned; seeds do not guarantee repeatability.
+Report host tests, container tests, cached replay, live smoke, and full studies separately.
+The documented host output mount automatically preserves completed artifacts. Keep that mount;
+never delete failure locks. Forced termination can leave an unfinished response or no summary.
 
 ## Focused verification
 
