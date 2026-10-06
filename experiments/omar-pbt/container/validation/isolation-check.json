@@ -1,0 +1,36 @@
+{
+  "checks": [
+    "candidate interpreter label",
+    "archive/runner masked read-only and noexec",
+    "no provider credentials",
+    "no Docker socket",
+    "network none",
+    "read-only root",
+    "capabilities dropped",
+    "BCB per-property deepcopy"
+  ],
+  "elapsed_seconds": 0.977,
+  "error": null,
+  "image": "sha256:887e9394317c10ad3b61f5edf3c6db26c7fe74cb9e7c6de58b218842ec1ba53b",
+  "n_pairs_expected": 3,
+  "n_pairs_observed": 3,
+  "outcomes": [
+    {
+      "i": 0,
+      "outcome": "pass",
+      "prop": "test_00_container_boundary"
+    },
+    {
+      "i": 0,
+      "outcome": "pass",
+      "prop": "test_10_property_mutation_is_local"
+    },
+    {
+      "i": 0,
+      "outcome": "pass",
+      "prop": "test_20_next_property_gets_original_input"
+    }
+  ],
+  "provider_calls": 0,
+  "status": "passed"
+}

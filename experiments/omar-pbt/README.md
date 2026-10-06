@@ -5,6 +5,8 @@ This is the `rkj26/unit_testing_mvp` subproject branch `codex/omar-pbt-subprojec
 ## Start with the research
 
 - [Start here: local setup, focused tests, and cached results](QUICKSTART.md)
+- [Preferred BCB path: one-image four-call smoke](container/README.md)
+- [Researcher runbook: independently reproduce the BCB arms](REPRODUCING_EXPERIMENTS.md)
 - [AI-agent startup instructions](AGENTS.md) ([Agent.md entrypoint](Agent.md))
 - [Local quick-start validation](QUICKSTART_VALIDATION.md)
 - [Experiment index](snapshot/docs/omar_pbt_experiment_index.md)
@@ -26,9 +28,11 @@ py -3 verify_snapshot.py
 
 ## Reproduction boundary
 
-Follow QUICKSTART to create a disposable `local-work/snapshot/` copy, then run project commands from that copied project root—not from this wrapper or the parent repository. Imports and run paths depend on the working directory. The local copy and outputs are gitignored; the published `snapshot/` remains unchanged. Requirements are not fully locked, so this is not a promise of a standalone, bit-for-bit rerun; some absolute/path manifests may refer to the original checkout. Do not silently rewrite source artifacts here.
+The preferred first live BCB check is the unified image's four-call component smoke in [container/README.md](container/README.md). It runs on one frozen candidate with Terra and a USD 1 buffered-cost ceiling; it is not a population result. This smoke passed for `BCB121_honest`: four calls, all four arms generated ten tests over nine fixed inputs (90/90 passing outcomes), and D retained an exact ten-test subset. Buffered usage was USD 0.258928; provider-reported USD 0.129464 is an estimate, not an invoice. This does not validate a full paid study or population rates. Build one `omar-pbt:0.2.0` image and use its immutable image ID for the smoke and any separately authorized full study. The full-study CLI has per-stage `--max-calls` ceilings but no dollar cap; set and authorize a separate external spend budget before paid batches. The older manual notebook route is separate ([REPRODUCING_EXPERIMENTS.md](REPRODUCING_EXPERIMENTS.md)); neither route edits the frozen `snapshot/`.
 
-The supported quickstart runs focused offline tests and reproduces cached BCB analyses, without credentials or Docker. Fresh paid generation requires further adaptation: the historical notebook workers override Azure settings, the generic launcher uses Unix tools, and the study binds its original population and image. Installing successfully is not authorization or proof of readiness for a new paid run.
+For local notebook inspection and the original cached notebooks, follow QUICKSTART to create a disposable `local-work/snapshot/` copy, then run project commands from that copied project root—not from this wrapper or the parent repository. Imports and run paths depend on the working directory. The local copy and outputs are gitignored; the published `snapshot/` remains unchanged. The snapshot's requirements are only partly pinned; some absolute/path manifests may refer to the original checkout. Do not silently rewrite source artifacts here.
+
+The combined image built locally, its network-disabled cached analysis completed, the final runner test suite passed (30 tests in 36.29 seconds), and a real Docker preflight plus one saved BCB replay passed on Windows Docker Desktop (Linux containers): 100/100 replay outcomes matched. The four-call paid component smoke also passed as described above. These checks do **not** validate full paid batches, a full independent study, other host configurations, or a registry image. See [container validation](container/VALIDATION.md). Python packages are locked; OS packages are recorded but not fully pinned. The preferred source delivery is the existing GitHub branch; building/installing does not authorize paid calls.
 
 The published fixed inputs and reports are frozen. Paid model launches default to off and must remain off unless a separately authorized experiment explicitly enables them. A September 30, 2026 offline test run from this snapshot reported 63 passing tests and two known Windows-specific failures (SIGALRM and tmux limitations); it did not invoke paid models. This is validation of the test suite in this environment, not a claim that every reproduction path is portable.
 

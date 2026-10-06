@@ -1,5 +1,10 @@
 # Quickstart (Windows PowerShell)
 
+For the preferred BCB reproduction route, use the single-image, four-call component smoke in
+[container/README.md](container/README.md). It requires Docker, not host Python; the smoke has
+passed once, but it is not a full population study. The offline snapshot/notebook setup below is
+an optional legacy inspection and cached-analysis route.
+
 This wrapper preserves a frozen experiment snapshot. Use a short checkout path on Windows; Git
 long-path support is enabled for the clone only:
 
@@ -106,10 +111,41 @@ catches **21/21, 19/21, 19/21**. Baseline versus deletion gives **3/23 vs 3/23**
 Dependencies are only partly pinned; successful local checks do not guarantee every future package
 version or every protocol. This guide's commands were tested on Windows, not Linux/macOS.
 
-## Fresh model generation is not turnkey
+## Preferred fresh BCB check: four-call component smoke
 
-Do not create a `.env`, launch a notebook worker, or run a protocol based on this quickstart.
-Although cached workflows are usable, the fresh-generation paths are not a generic launcher:
+For the preferred first live check, build one combined image `omar-pbt:0.2.0` and use its bounded
+`smoke` command from [container/README.md](container/README.md). It makes at most four Terra calls
+for one fixed candidate, includes a Docker preflight, requires `--allow-paid`, and caps its
+buffered usage estimate at USD 1. It is not a full run, does not validate `SecondRevision.prepare`
+for the whole population, and yields no population rates. Use a fresh output path each attempt.
+The guide includes exact PowerShell commands for building, configuring, mounting protected
+credentials at runtime, and launching. Docker socket access is host-root-equivalent; use a
+dedicated disposable Docker host. Windows Docker Desktop passed zero-API preflight and saved replay,
+and the live four-call runner smoke passed once: four calls for `BCB121_honest`, ten generated tests
+per arm over nine inputs (90/90 passing outcomes), with D retaining an exact ten-test subset. The
+buffered estimate was USD 0.258928; provider-reported USD 0.129464 is not an invoice. The USD 1 cap
+applies only to that smoke; full-study stages have per-stage `--max-calls` ceilings but no enforced
+dollar cap, so set and authorize a separate external spend budget before any full paid batch.
+
+The combined image build, network-disabled cached analysis, final runner test suite (30 tests in
+36.29 seconds), real sandbox preflight, and one saved BCB replay (100/100 matching outcomes) passed.
+See [container validation](container/VALIDATION.md). The paid component smoke passed, but no full
+paid Azure stage or full independent study has been run; no registry image is published. Mock tests
+do not validate the live paid smoke. Python dependencies are locked; OS package
+versions are recorded but not completely pinned. These checks are not paid-run readiness.
+
+The complete A/B/C/D runner stages are available after the smoke in the container guide, with
+separate full-stage call ceilings and approvals. Do not confuse them with the archival notebooks
+or launch full batches merely to satisfy a four-call smoke request.
+
+## Legacy/manual notebook rerun (separate route)
+
+The step-by-step procedures and working-copy adaptations in
+[REPRODUCING_EXPERIMENTS.md](REPRODUCING_EXPERIMENTS.md) describe the older manual notebook route,
+not the container runner's CLI. Use them only if deliberately following that alternative.
+
+The frozen snapshot itself remains archival. Do not edit it or start paid notebook workers based on
+the cached notebook steps above. The manual notebook route has these additional constraints:
 
 - Three notebook workers hardcode the original Azure endpoint and require
   `AZURE_OPENAI_API_KEY`, which conflicts with `.env.example`. Setting environment variables and

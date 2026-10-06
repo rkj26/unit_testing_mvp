@@ -1,0 +1,23 @@
+{
+  "cache": false,
+  "data": "data/bcb_replication26_eval.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "params": {
+    "call_seconds": 300,
+    "code_visible": true,
+    "critique": false,
+    "critique_informed": false,
+    "docker_image": "sha256:887e9394317c10ad3b61f5edf3c6db26c7fe74cb9e7c6de58b218842ec1ba53b",
+    "max_tokens": 8192,
+    "n_tests": 10,
+    "reasoning": "low",
+    "resolve": "with",
+    "sandbox_seconds": 120,
+    "test_gen_prompt": "traceable_v1",
+    "triggers": "azure-terra-pbt-bcb26-s300-v1-reviewed-inputs"
+  },
+  "protocol": "unit_testing",
+  "run_name": "terra-fourcall-20261006-v1-component-baseline",
+  "runs": 1,
+  "seed": 300
+}
