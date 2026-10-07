@@ -66,9 +66,9 @@ class SecondRevision(UnitTesting):
                          max_candidates=max_candidates, **kwargs)
         if (self.code_visible or self.critique or self.critique_informed or self.n_tests != 10
                 or self.framing != 'traceable_v1' or self.resolve != 'with' or self.cache):
-            raise ValueError('fixed revision design: hidden code, no critique/cache, exactly10 traceable-with tests')
-        if self.data.train or not self.data.test or self.total > max_candidates:
-            raise ValueError('fresh test-only population must fit preregistered candidate cap')
+            raise ValueError('fixed revision design: hidden code, no critique/cache, exactly 10 traceable-with tests')
+        if not self.data.test or self.total > max_candidates:
+            raise ValueError('population must have a test split and fit the declared candidate cap')
         self.baseline_run = baseline_run
         self.source_bundle = source_bundle
         self.source_bundle_sha256 = source_bundle_sha256
@@ -98,8 +98,10 @@ class SecondRevision(UnitTesting):
         baseline = json.loads(paths['source_config_sha256'].read_text())
         baseline = baseline | baseline['params']
         own = self.config() | self.config()['params']
+        # The revision uses its own frozen traceable/with prompt. The source arm may
+        # use a different framing; the paired feedback/no-feedback revisions do not.
         for key in ('model', 'seed', 'n_tests', 'max_tokens', 'reasoning', 'call_seconds',
-                    'sandbox_seconds', 'docker_image', 'triggers', 'resolve', 'test_gen_prompt'):
+                    'sandbox_seconds', 'docker_image', 'triggers'):
             if baseline[key] != own[key]:
                 raise ValueError(f'baseline/revision settings differ: {key}')
         if (baseline['protocol'] != 'unit_testing' or baseline['code_visible'] is not True
@@ -125,9 +127,9 @@ class SecondRevision(UnitTesting):
                 raise ValueError('unexpected source candidate fields')
             if (
                 record['task_id'] != task.task_id
-                or record['split'] != 'test'
+                or record['split'] != data.split_of(task.task_id)
                 or input_by_id[cid]['task_id'] != task.task_id
-                or input_by_id[cid]['split'] != 'test'
+                or input_by_id[cid]['split'] != data.split_of(task.task_id)
             ):
                 raise ValueError('source/input task or split mismatch')
             space = self.trigger_space[cid]
