@@ -1,0 +1,28 @@
+{
+  "protocol": "multi_turn_revision",
+  "run_name": "u400-mt-terra-run1-smoke-B-no-feedback",
+  "data": "data/apps_uniform400_multi_turn_smoke.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "u400-mt-terra-run1-smoke-triggers",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": false,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim",
+    "baseline_run": "u400-mt-terra-run1-smoke-A-traceable",
+    "source_bundle": "runs/u400-mt-terra-run1-smoke-A-replay/source-bundle.json",
+    "source_bundle_sha256": "e360f1a7bd469e3b85a396223179ca32bf26c4d0484ffb11f803492e24a6cd18",
+    "feedback_visible": false,
+    "max_candidates": 2
+  }
+}

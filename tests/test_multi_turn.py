@@ -360,3 +360,32 @@ def test_every_multi_turn_arm_refuses_a_cache(tmp_path):
         MultiTurnRevision(run_name="mt-B", baseline_run="mt-A", source_bundle="bundle.json",
                           source_bundle_sha256="0" * 64, feedback_visible=False, max_candidates=6,
                           **common)
+
+
+def test_smoke_dataset_reuses_saved_hash_across_source_newlines(tmp_path):
+    source = tmp_path / "source.json"
+    raw = (REPO_ROOT / "data" / "apps_uniform400.json").read_bytes()
+    lf = raw.replace(b"\r\n", b"\n")
+    crlf = lf.replace(b"\n", b"\r\n")
+    assert lf != crlf
+
+    source.write_bytes(crlf)
+    smoke_path = Path(multi_turn.smoke_dataset(source))
+    assert b"\r\n" not in smoke_path.read_bytes()
+    generated = json.loads(smoke_path.read_text(encoding="utf-8"))
+    assert generated["built_from"]["smoke_of_sha256"] == multi_turn._sha(lf)
+
+    # Model the legacy artifact written on a CRLF checkout before switching to an LF checkout.
+    generated["built_from"]["smoke_of_sha256"] = multi_turn._sha(crlf)
+    smoke_path.write_text(json.dumps(generated, indent=2) + "\n", encoding="utf-8")
+    saved = smoke_path.read_bytes()
+    source.write_bytes(lf)
+
+    assert Path(multi_turn.smoke_dataset(source)) == smoke_path
+    assert smoke_path.read_bytes() == saved
+
+    changed = json.loads(source.read_text(encoding="utf-8"))
+    changed["name"] += "_changed"
+    source.write_text(json.dumps(changed), encoding="utf-8")
+    with pytest.raises(ValueError, match="differs from the smoke dataset"):
+        multi_turn.smoke_dataset(source)
