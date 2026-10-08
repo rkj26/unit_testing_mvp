@@ -3,8 +3,9 @@
 `build_results.py` calls `add_multi_turn_section(POOL, md, code)` once, just before it writes the
 notebook, so this file is the whole of the multi-turn change to the team notebooks. Nothing above
 the section changes, and these arms are never added to `ARMS`: `SCORED_BY_ALL` and every team plot
-are computed exactly as before. The cells read the team's own `ut_property` arm for the pool's
-dataset, Docker image and runtime settings.
+are computed exactly as before. The section attaches the pool's team `ut_property` run by name
+for its dataset, Docker image and runtime settings, so it needs only the notebook's first code cell
+(the repository root and imports), not any team section above it.
 
 Executing a team notebook on a machine without the multi-turn runs costs nothing and raises
 nothing: with both paid flags off, each cell asks `mt_study.complete()` and skips with a message.
@@ -56,13 +57,17 @@ The primary contrast is **C − B on held-out test tasks**. B, C and D run side 
 setup, hypothesis and thresholded predictions are in `multi_turn_plan.md`; **MT1 (uniform400 ·
 terra) is the primary run**. How a run flows: `docs/flow_multi_turn.md`.
 
-These cells only spend when asked. With both `MT_ALLOW_PAID_*` flags off and no multi-turn runs on
+To run only this section, execute the notebook's first code cell (repository root and imports) and
+then these cells; nothing in the team's sections above is needed. They only spend when asked. With both `MT_ALLOW_PAID_*` flags off and no multi-turn runs on
 this machine, every cell below prints that and skips, so executing this notebook never pays or
 fails because of them. Once the runs are committed under `runs/`, executing it reproduces the
 section for free.
 """
 
 CODE_STUDY = """
+import pandas as pd
+
+from pipeline.protocols import UnitTesting
 from pipeline.protocols.multi_turn import MULTI_TURN_MODELS, MultiTurnStudy
 
 MT_MODEL_KEY = "terra"        # MT1/MT3 primary model; "deepseek" for MT2/MT4
@@ -71,7 +76,8 @@ MT_ALLOW_PAID_SMOKE = False   # True to spend the smoke chain's few calls (mt_st
 MT_ALLOW_PAID_FULL = False    # True only once the smoke chain looks right and the plan entry is final
 MT_ACCEPT_INFRA_FAILURES = False  # True only for input/A infra failures that persist after a retry
 
-mt_study = MultiTurnStudy(reference_arm=ut_property, prefix=MT_PREFIX,
+mt_reference = UnitTesting.attach("@@ut_property@@")
+mt_study = MultiTurnStudy(reference_arm=mt_reference, prefix=MT_PREFIX,
                           model=MULTI_TURN_MODELS[MT_MODEL_KEY])
 mt_study.plan()
 """

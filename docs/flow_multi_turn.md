@@ -42,8 +42,10 @@ The study is a section at the end of the team's own notebooks, `results_uniform4
 .venv/bin/python notebooks/build_results.py u400      # or bcbas
 ```
 
-It needs the pool's team `ut_property` arm on disk (`ut-u400-property-10`, `ut-as-property-10`),
-Docker, tmux (WSL on Windows) and `.env`.
+It needs the pool's team `ut_property` run on disk (`ut-u400-property-10`, `ut-as-property-10`),
+Docker, tmux (WSL on Windows) and `.env`. The section attaches that run by name, so running it
+needs only the notebook's first code cell (repository root and imports) and then the section's own
+cells; no team section above it has to run.
 
 The section has its own flags, `MT_ALLOW_PAID_SMOKE` and `MT_ALLOW_PAID_FULL`, both off by default.
 Its smoke cell calls `run(smoke_only=True)`, which runs every stage on a one-task smoke dataset

@@ -16,7 +16,7 @@ from .. import model as model_mod, prompts, sandbox
 from ..data import RUNS_DIR, Blame, load_records
 from .multi_turn import (BASELINE_PROTOCOLS, BUNDLE_FIELDS, BUNDLE_SCHEMA_VERSION, FRAMING,
                          RESOLVE, SHA256, TESTS_PER_SUITE, _object_sha, _sha,
-                         is_base_infra_failure, require_docker)
+                         _refuse_cache, is_base_infra_failure, require_docker)
 from .test_repair import feedback_summary
 from .unit_testing import UnitTesting, _call, spaces_from, suite_source
 
@@ -158,6 +158,7 @@ class MultiTurnDeleteOnly(UnitTesting):
         super().__init__(baseline_run=baseline_run, source_bundle=source_bundle,
                          source_bundle_sha256=source_bundle_sha256, max_candidates=max_candidates,
                          **kwargs)
+        _refuse_cache(self)
         if (self.n_tests != DELETE_ONLY_TESTS or self.code_visible or self.critique
                 or self.critique_informed or self.resolve != RESOLVE or self.framing != FRAMING):
             raise ValueError(f"{self.run_name}: delete-only reads ten hidden-code traceable tests "

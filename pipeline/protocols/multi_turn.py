@@ -148,6 +148,13 @@ def is_base_infra_failure(record: dict[str, Any]) -> bool:
             and record[CALLS] == [])
 
 
+def _refuse_cache(run: Run) -> None:
+    """Every multi-turn arm runs uncached: a cache hit would replay one answer as a new measurement."""
+    if run.cache:
+        raise ValueError(f"{run.run_name}: the multi-turn arms run with cache=False, so a rerun "
+                         "cannot return an earlier answer as an independent measurement")
+
+
 class MultiTurnInitial(UnitTesting):
     """Arm A: the first suite, ten traceable code-visible tests over this study's own inputs.
 
@@ -163,7 +170,9 @@ class MultiTurnInitial(UnitTesting):
         kwargs.setdefault("test_gen_prompt", FRAMING)
         kwargs.setdefault("resolve", RESOLVE)
         kwargs.setdefault("n_tests", TESTS_PER_SUITE)
+        kwargs.setdefault("cache", False)
         super().__init__(**kwargs)
+        _refuse_cache(self)
         if (self.code_visible is not True or self.framing != FRAMING or self.resolve != RESOLVE
                 or self.n_tests != TESTS_PER_SUITE or self.critique or self.critique_informed):
             raise ValueError(f"{self.run_name}: arm A is ten traceable code-visible tests "
@@ -326,6 +335,7 @@ class MultiTurnRevision(SecondRevision):
                              source_bundle_sha256=source_bundle_sha256,
                              feedback_visible=feedback_visible, max_candidates=max_candidates,
                              **kwargs)
+        _refuse_cache(self)
         if (self.code_visible or self.critique or self.critique_informed
                 or self.n_tests != TESTS_PER_SUITE or self.framing != FRAMING
                 or self.resolve != RESOLVE):
