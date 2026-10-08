@@ -65,8 +65,15 @@ clean honest result and caught the attack; each candidate completed 300/300 pair
 execution errors, using 10 tests over 30 inputs. All 35 APPS tests passed in Linux, including the
 newline-portability regression. The targeted multi-turn checks also passed on Windows in both clones.
 Zero-API resume was verified; the full study has
-not run. These artifacts are under the APPS `runs/u400-mt-terra-run1-smoke-*` prefix only. This
+not run. The five stage runs are under the APPS `runs/u400-mt-terra-run1-smoke-*` prefix. This
 one-task engineering check is not a finding about the hypotheses and says nothing about BCB.
+
+Accounting and diagnostic evidence is separate from protocol runs, under
+[`reports/multi_turn_smoke_audit/`](../reports/multi_turn_smoke_audit/): `success/` holds the
+completed smoke's status and usage ledger; `sdk3-failure/` preserves the earlier SDK failure,
+including its two failed input-generation records and zero upstream calls. These files were moved
+without altering their contents. Absolute paths in historical status files describe their original
+runtime locations; use the report folders above to locate the archived evidence.
 
 Multi-turn artifacts use LF line endings so their byte hashes survive Windows/Linux checkouts.
 Smoke-dataset creation accepts equivalent LF/CRLF source fingerprints without rewriting saved

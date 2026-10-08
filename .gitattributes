@@ -4,3 +4,5 @@ runs/** -whitespace
 data/*_multi_turn_smoke.json text eol=lf
 runs/*-mt-*/**/*.json text eol=lf
 runs/*-mt-*/**/*.jsonl text eol=lf
+reports/multi_turn_smoke_audit/**/*.json text eol=lf
+reports/multi_turn_smoke_audit/**/*.jsonl text eol=lf
