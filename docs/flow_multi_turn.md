@@ -40,7 +40,9 @@ record carrying the input run's blame, with no call made.
 Open `notebooks/multi_turn_uniform400.ipynb` (or `multi_turn_bcbas.ipynb`). It needs the team's
 reference arm under `runs/` (`ut-u400-property-10`, `ut-as-property-10`), Docker, tmux and `.env`.
 
-`MultiTurnStudy.run()` first runs the whole chain on a one-task smoke dataset written beside the
+`MultiTurnStudy.run(smoke_only=True)` runs only the smoke chain and stops, so the real pipeline
+is proved on one task first (the notebook's section 2). Without it, `run()` first runs the whole
+chain on a one-task smoke dataset written beside the
 pool (`data/<pool>_multi_turn_smoke.json`), stops if any smoke stage hit infrastructure, then runs
 the full chain. Any stage with paid work left raises `PermissionError` unless `allow_paid=True`, so
 re-running a finished study costs nothing. `study.plan()` prints the call bounds first.
@@ -51,7 +53,7 @@ trigger inputs are never read, and no team notebook, run or population is change
 ## Before claiming a result
 
 The entries — setup, change, hypothesis, thresholded predictions — live in `multi_turn_plan.md`,
-written before `allow_paid=True`; MT1 (uniform400 · terra) is primary. The analysis cell caches
+written before the full chain's `allow_paid=True`; MT1 (uniform400 · terra) is primary. The analysis cell caches
 `multi_turn_analysis.json` beside arm A: strict complete/error-free paired rates, test-only primary
 contrasts (C − B for H1; B − A and C − A for H2; D − C and D − A on BigCodeBench), task-cluster
 bootstrap, and a sensitivity run of every contrast without the 106 pilot-exposed tasks

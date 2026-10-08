@@ -133,10 +133,19 @@ def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monke
         study.run()
     assert boundary.calls == [] and boundary.launched == []
 
-    arms = study.run(allow_paid=True)
     chain = ["triggers", "A-traceable", "A-replay", "B-no-feedback", "C-feedback"]
-    assert boundary.launched == ([f"mt-smoke-{stage}" for stage in chain]
-                                 + [f"mt-{stage}" for stage in chain])
+    smoke_arms = study.run(allow_paid=True, smoke_only=True)
+    assert boundary.launched == [f"mt-smoke-{stage}" for stage in chain]
+    assert list(smoke_arms) == [A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK]
+    assert all(arm.total == 2 for arm in smoke_arms.values())
+    assert len(boundary.calls) == study.plan()["smoke_max_model_calls"] == 8
+    with pytest.raises(PermissionError, match="mt-triggers"):
+        study.run()
+    assert len(boundary.calls) == 8
+
+    arms = study.run(allow_paid=True)
+    assert [name for name in boundary.launched if not name.startswith("mt-smoke-")] == [
+        f"mt-{stage}" for stage in chain]
     assert list(arms) == [A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK]
     assert boundary.detached == ["mt-smoke-B-no-feedback", "mt-smoke-C-feedback",
                                  "mt-B-no-feedback", "mt-C-feedback"]
