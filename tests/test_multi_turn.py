@@ -26,7 +26,7 @@ from pipeline.model import Completion
 from pipeline.protocols import UnitTesting, multi_turn, multi_turn_delete_only
 from pipeline.protocols.base import Run
 from pipeline.protocols.multi_turn import (A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY,
-                                           MultiTurnStudy)
+                                           MultiTurnStudy, UnretriedInfraFailures)
 from pipeline.protocols.multi_turn_delete_only import exact_tests, parse_selection, subset_source
 from pipeline.protocols.unit_testing import test_names_in as names_in
 
@@ -60,11 +60,13 @@ CELLS = _cells_module()
 class Boundary:
     """The provider, Docker and tmux, scripted; every call they receive is kept for assertions."""
 
-    def __init__(self, data: Dataset, starved: str | None = None) -> None:
+    def __init__(self, data: Dataset, starved: str | None = None, crash_once: str | None = None) -> None:
         self.attack_code = {candidate.code for _, candidate in data.candidates() if candidate.is_attack}
         self.starved_code = next((candidate.code for _, candidate in data.candidates()
                                   if candidate.candidate_id == starved), None)
         self.inputs = INPUTS[data.io_mode]
+        self.crash_code = next((candidate.code for _, candidate in data.candidates()
+                                if candidate.candidate_id == crash_once), None)
         self.calls: list[tuple[str, str]] = []
         self.grids: list[list[str]] = []
         self.launched: list[str] = []
@@ -94,6 +96,9 @@ class Boundary:
         assert kwargs["isolation"] is sandbox.Isolation.DOCKER and kwargs["docker_image"] == IMAGE
         assert list(space) == self.inputs
         names = names_in(props_src)
+        if code == self.crash_code:
+            self.crash_code = None
+            raise OSError("synthetic sandbox outage")
         self.grids.append(names)
         caught = code in self.attack_code
         records = [{"prop": name, "i": i,
@@ -313,3 +318,33 @@ def test_every_committed_notebook_with_the_section_is_what_the_generator_writes(
         assert actual == expected, f"{notebook} is stale: rebuild it, or splice the section in"
         checked += 1
     assert checked >= 1
+
+
+@pytest.mark.parametrize("recovery", ["retry", "accept"])
+def test_an_arm_a_infra_failure_stops_the_chain_before_it_is_frozen_in(tmp_path, monkeypatch, recovery):
+    data = _mini_apps(tmp_path)
+    victim = next(c.candidate_id for t, c in data.candidates() if t.task_id == data.train[0].task_id)
+    boundary = Boundary(data, crash_once=victim)
+    boundary.install(monkeypatch)
+    study = MultiTurnStudy(reference_arm=_reference("mini.json"), prefix="mt", model=MODEL)
+
+    with pytest.raises(UnretriedInfraFailures, match="mt-A-traceable"):
+        study.run(allow_paid=True)
+    assert not (Path("runs") / "mt-A-replay").exists()
+
+    records = Path("runs/mt-A-traceable/records.jsonl")
+    if recovery == "retry":
+        rows = [json.loads(line) for line in records.read_text().splitlines()]
+        records.write_text("".join(json.dumps(row) + "\n" for row in rows
+                                   if not (row["failed"] and row["blame"] == "infra")))
+        arms = study.run(allow_paid=True)
+        assert not any(row["failed"] for row in arms[A_INITIAL].get_records())
+    else:
+        arms = study.run(allow_paid=True, accept_infra_failures=True)
+        a_row = {row["candidate_id"]: row for row in arms[A_INITIAL].get_records()}[victim]
+        assert a_row["failed"] and a_row["blame"] == "infra"
+        for label in (B_NO_FEEDBACK, C_FEEDBACK):
+            row = {r["candidate_id"]: r for r in arms[label].get_records()}[victim]
+            assert row["failed"] and row["blame"] == "infra" and row["calls"] == []
+        assert list(study.run(allow_paid=False)) == list(arms)
+    assert study.complete() is True

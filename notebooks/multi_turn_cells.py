@@ -69,6 +69,7 @@ MT_MODEL_KEY = "terra"        # MT1/MT3 primary model; "deepseek" for MT2/MT4
 MT_PREFIX = f"@@pool@@-mt-{MT_MODEL_KEY}-run1"
 MT_ALLOW_PAID_SMOKE = False   # True to spend the smoke chain's few calls (mt_study.plan() shows how many)
 MT_ALLOW_PAID_FULL = False    # True only once the smoke chain looks right and the plan entry is final
+MT_ACCEPT_INFRA_FAILURES = False  # True only for input/A infra failures that persist after a retry
 
 mt_study = MultiTurnStudy(reference_arm=ut_property, prefix=MT_PREFIX,
                           model=MULTI_TURN_MODELS[MT_MODEL_KEY])
@@ -84,7 +85,8 @@ records before spending on the full chain.
 
 CODE_SMOKE = """
 if MT_ALLOW_PAID_SMOKE or mt_study.complete(smoke_only=True):
-    mt_smoke_arms = mt_study.run(allow_paid=MT_ALLOW_PAID_SMOKE, smoke_only=True)
+    mt_smoke_arms = mt_study.run(allow_paid=MT_ALLOW_PAID_SMOKE, smoke_only=True,
+                                 accept_infra_failures=MT_ACCEPT_INFRA_FAILURES)
     display(pd.DataFrame([{"arm": label, "records": len(rows := arm.get_records()),
                            "failed": [(row["blame"], row["reason"]) for row in rows if row["failed"]]}
                           for label, arm in mt_smoke_arms.items()]).set_index("arm"))
@@ -97,11 +99,16 @@ MARKDOWN_FULL = """
 
 Each stage launched detached by `Run.run()` and followed here; Ctrl-C detaches and re-running this
 cell resumes. Any stage with paid work left raises unless `MT_ALLOW_PAID_FULL` is set.
+
+If the inputs or arm A hold infra failures, the chain stops before freezing them in, while they can
+still be retried: follow the message (back up, drop the infra lines, re-run). Set
+`MT_ACCEPT_INFRA_FAILURES = True` only for failures that persist after a retry.
 """
 
 CODE_FULL = """
 if MT_ALLOW_PAID_FULL or mt_study.complete():
-    multi_turn_arms = mt_study.run(allow_paid=MT_ALLOW_PAID_FULL)
+    multi_turn_arms = mt_study.run(allow_paid=MT_ALLOW_PAID_FULL,
+                                   accept_infra_failures=MT_ACCEPT_INFRA_FAILURES)
 else:
     multi_turn_arms = {}
     print(f"{MT_PREFIX}: full chain not on this machine; coverage and analysis below skip. "
