@@ -250,15 +250,15 @@ def test_a_fresh_interpreter_registers_every_multi_turn_protocol():
 
 
 def test_without_its_runs_the_section_spends_nothing_and_raises_nothing(tmp_path, monkeypatch, capsys):
-    import pandas as pd
     boundary = Boundary(_mini_apps(tmp_path))
     boundary.install(monkeypatch)
-    namespace = {"mt_study": MultiTurnStudy(reference_arm=_reference("mini.json"), prefix="mt",
-                                            model=MODEL),
-                 "MT_PREFIX": "mt", "MT_ALLOW_PAID_SMOKE": False, "MT_ALLOW_PAID_FULL": False,
-                 "pd": pd, "display": print}
-    for source in (CELLS.CODE_SMOKE, CELLS.CODE_FULL, CELLS.CODE_COVERAGE, CELLS.CODE_ANALYSIS):
+    _reference("mini.json")
+    study_cell = CELLS.CODE_STUDY.replace("@@ut_property@@", "ut-reference").replace("@@pool@@", "mini")
+    namespace = {"display": print}
+    for source in (study_cell, CELLS.CODE_SMOKE, CELLS.CODE_FULL, CELLS.CODE_COVERAGE,
+                   CELLS.CODE_ANALYSIS):
         exec(compile(source, "section cell", "exec"), namespace)
+    assert "ut_property" not in namespace and namespace["mt_reference"].run_name == "ut-reference"
     assert namespace["multi_turn_arms"] == {}
     assert boundary.calls == [] and boundary.launched == []
     assert not list(Path("runs").glob("mt-*/records.jsonl"))
@@ -348,3 +348,15 @@ def test_an_arm_a_infra_failure_stops_the_chain_before_it_is_frozen_in(tmp_path,
             assert row["failed"] and row["blame"] == "infra" and row["calls"] == []
         assert list(study.run(allow_paid=False)) == list(arms)
     assert study.complete() is True
+
+
+def test_every_multi_turn_arm_refuses_a_cache(tmp_path):
+    from pipeline.protocols.multi_turn import MultiTurnInitial, MultiTurnRevision
+    _mini_apps(tmp_path)
+    common = dict(data="mini.json", model=MODEL, triggers="mt-triggers", cache=True)
+    with pytest.raises(ValueError, match="cache=False"):
+        MultiTurnInitial(run_name="mt-A", **common)
+    with pytest.raises(ValueError, match="cache=False"):
+        MultiTurnRevision(run_name="mt-B", baseline_run="mt-A", source_bundle="bundle.json",
+                          source_bundle_sha256="0" * 64, feedback_visible=False, max_candidates=6,
+                          **common)
