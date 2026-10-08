@@ -21,6 +21,8 @@ Each stage is its own run, launched by `Run.run()` in tmux and resumed from `run
 | `<prefix>-C-feedback` | `MultiTurnRevision`, `feedback_visible=True` | one per eligible candidate | the bundle |
 | `<prefix>-D-delete-only` | `MultiTurnDeleteOnly` (BigCodeBench) | one per eligible candidate | the bundle |
 
+B, C and D are launched together and followed jointly, so the arms being compared run side by side.
+
 `write_source_bundle` freezes the finished replay into `runs/<prefix>-A-replay/source-bundle.json`,
 hashing the dataset, A's config and records, and the trigger records. B, C and D are constructed
 with that file's SHA-256 and refuse to start if anything it hashed has changed since.
@@ -48,6 +50,9 @@ trigger inputs are never read, and no team notebook, run or population is change
 
 ## Before claiming a result
 
-Write the `scale_plan.md` entry — setup, change, hypothesis, thresholded prediction for C − B —
-before setting `allow_paid=True`. The analysis cell caches `multi_turn_analysis.json` beside arm A:
-strict complete/error-free paired rates, test-only primary contrasts, task-cluster bootstrap.
+The entries — setup, change, hypothesis, thresholded predictions — live in `multi_turn_plan.md`,
+written before `allow_paid=True`; MT1 (uniform400 · terra) is primary. The analysis cell caches
+`multi_turn_analysis.json` beside arm A: strict complete/error-free paired rates, test-only primary
+contrasts (C − B for H1; B − A and C − A for H2; D − C and D − A on BigCodeBench), task-cluster
+bootstrap, and a sensitivity run of every contrast without the 106 pilot-exposed tasks
+(`PILOT_EXPOSED_TASK_IDS`).

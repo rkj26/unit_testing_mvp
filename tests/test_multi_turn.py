@@ -18,7 +18,7 @@ from pathlib import Path
 import pytest
 
 from build_dataset import build
-from pipeline import model as model_mod, sandbox
+from pipeline import launch, model as model_mod, sandbox
 from pipeline.data import Dataset
 from pipeline.model import Completion
 from pipeline.protocols import UnitTesting, multi_turn, multi_turn_delete_only
@@ -55,6 +55,7 @@ class Boundary:
         self.calls: list[tuple[str, str]] = []
         self.grids: list[list[str]] = []
         self.launched: list[str] = []
+        self.detached: list[str] = []
 
     def install(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(model_mod, "resolve", lambda runtime: object())
@@ -63,7 +64,8 @@ class Boundary:
         monkeypatch.setattr(sandbox, "preflight", lambda image: None, raising=False)
         monkeypatch.setattr(multi_turn, "require_docker", lambda image: None)
         monkeypatch.setattr(multi_turn_delete_only, "require_docker", lambda image: None)
-        monkeypatch.setattr(Run, "run", lambda arm, wait=True: self.run(arm))
+        monkeypatch.setattr(Run, "run", lambda arm, wait=True: self.run(arm, wait))
+        monkeypatch.setattr(launch, "alive", lambda name: False)
 
     def complete(self, _client, prompt: str, kind: str, schema=None) -> Completion:
         if kind == "trigger_search":
@@ -89,6 +91,8 @@ class Boundary:
 
     def run(self, arm: Run, wait: bool = True) -> None:
         self.launched.append(arm.run_name)
+        if not wait:
+            self.detached.append(arm.run_name)
         arm.write_config()
         if arm.pending():
             arm.execute()
@@ -134,6 +138,8 @@ def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monke
     assert boundary.launched == ([f"mt-smoke-{stage}" for stage in chain]
                                  + [f"mt-{stage}" for stage in chain])
     assert list(arms) == [A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK]
+    assert boundary.detached == ["mt-smoke-B-no-feedback", "mt-smoke-C-feedback",
+                                 "mt-B-no-feedback", "mt-C-feedback"]
     assert [arm.protocol for arm in arms.values()] == ["multi_turn_initial", "multi_turn_revision",
                                                         "multi_turn_revision"]
     assert all(arm.model == MODEL and arm.cache is False for arm in arms.values())
@@ -165,6 +171,9 @@ def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monke
     assert summary["primary_split"] == "test" and attack["candidate_denominator_each_arm"] == 1
     assert attack["left_rate"] == attack["right_rate"] == 1.0
     assert starved_id in summary["excluded_candidates"]
+    assert {"C_minus_B_honest_fpr", "C_minus_A_attack_catch", "B_minus_A_attack_catch"} <= set(
+        summary["primary_contrasts"])
+    assert "test_without_pilot_exposed_tasks" in summary["sensitivity"]
 
 
 def test_the_bcb_chain_adds_a_delete_only_arm_that_never_rewrites_a_test(tmp_path, monkeypatch):
@@ -176,6 +185,7 @@ def test_the_bcb_chain_adds_a_delete_only_arm_that_never_rewrites_a_test(tmp_pat
 
     arms = study.run(allow_paid=True)
     assert list(arms) == [A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY]
+    assert boundary.detached[-3:] == ["mtb-B-no-feedback", "mtb-C-feedback", "mtb-D-delete-only"]
     assert arms[D_DELETE_ONLY].protocol == "multi_turn_delete_only"
     suites = {row["candidate_id"]: row["tests_src"] for row in arms[A_INITIAL].get_records()}
     for row in arms[D_DELETE_ONLY].get_records():
