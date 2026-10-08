@@ -9,7 +9,9 @@ prompt and verdict, the delete-only cut, the notebook's analysis cell — is the
 
 from __future__ import annotations
 
+import importlib.util
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -41,7 +43,18 @@ RETAINED = [test["name"] for test in TESTS[:5]]
 AUTHORING_ANSWER = json.dumps({"rationale": "Grounded in the statement.", "tests": TESTS})
 REVISION_ANSWER = json.dumps({"abstain": False, "rationale": "Keep the ten.", "tests": TESTS})
 SELECTION_ANSWER = json.dumps({"rationale": "Five are justified.", "retain_test_ids": RETAINED})
-ANALYSIS_MARKER = "# strict complete/error-free paired analysis (zero API calls)"
+NOTEBOOKS = REPO_ROOT / "notebooks"
+HOOK = "from multi_turn_cells import add_multi_turn_section\nadd_multi_turn_section(POOL, md, code)\n"
+
+
+def _cells_module():
+    spec = importlib.util.spec_from_file_location("multi_turn_cells", NOTEBOOKS / "multi_turn_cells.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+CELLS = _cells_module()
 
 
 class Boundary:
@@ -106,18 +119,15 @@ def _reference(data_path: str) -> UnitTesting:
     return reference
 
 
-def _analysis_cell() -> str:
-    notebook = json.loads((REPO_ROOT / "notebooks/multi_turn_uniform400.ipynb").read_text())
-    [cell] = ["".join(cell["source"]) for cell in notebook["cells"]
-              if "".join(cell["source"]).startswith(ANALYSIS_MARKER)]
-    return cell
-
-
-def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monkeypatch):
+def _mini_apps(tmp_path) -> Dataset:
     document = build(REPO_ROOT / "apps_pool_hard10.json", REPO_ROOT / "splits/smoke_3.json",
                      "apps", "mini")
     (tmp_path / "mini.json").write_text(json.dumps(document), encoding="utf-8")
-    data = Dataset.load("mini.json")
+    return Dataset.load("mini.json")
+
+
+def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monkeypatch):
+    data = _mini_apps(tmp_path)
     starved = data.train[0].task_id
     starved_id = next(c.candidate_id for t, c in data.candidates()
                       if t.task_id == starved and c.is_attack)
@@ -132,6 +142,7 @@ def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monke
     with pytest.raises(PermissionError, match="allow_paid=True"):
         study.run()
     assert boundary.calls == [] and boundary.launched == []
+    assert study.complete(smoke_only=True) is False
 
     chain = ["triggers", "A-traceable", "A-replay", "B-no-feedback", "C-feedback"]
     smoke_arms = study.run(allow_paid=True, smoke_only=True)
@@ -139,11 +150,13 @@ def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monke
     assert list(smoke_arms) == [A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK]
     assert all(arm.total == 2 for arm in smoke_arms.values())
     assert len(boundary.calls) == study.plan()["smoke_max_model_calls"] == 8
+    assert study.complete(smoke_only=True) is True and study.complete() is False
     with pytest.raises(PermissionError, match="mt-triggers"):
         study.run()
     assert len(boundary.calls) == 8
 
     arms = study.run(allow_paid=True)
+    assert study.complete() is True
     assert [name for name in boundary.launched if not name.startswith("mt-smoke-")] == [
         f"mt-{stage}" for stage in chain]
     assert list(arms) == [A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK]
@@ -174,7 +187,7 @@ def test_the_apps_chain_runs_every_arm_through_the_team_launcher(tmp_path, monke
     again = study.run(allow_paid=False)
     assert len(boundary.calls) == spent and list(again) == list(arms)
 
-    exec(compile(_analysis_cell(), "analysis cell", "exec"), {"multi_turn_arms": arms})
+    exec(compile(CELLS.CODE_ANALYSIS, "analysis cell", "exec"), {"multi_turn_arms": arms})
     summary = json.loads((arms[A_INITIAL].directory / "multi_turn_analysis.json").read_text())
     attack = summary["primary_contrasts"]["C_minus_B_attack_catch"]
     assert summary["primary_split"] == "test" and attack["candidate_denominator_each_arm"] == 1
@@ -231,10 +244,72 @@ def test_a_fresh_interpreter_registers_every_multi_turn_protocol():
         assert f"'{protocol}'" in names
 
 
-def test_the_committed_multi_turn_notebooks_are_what_the_generator_writes(tmp_path):
-    shutil.copyfile(REPO_ROOT / "notebooks/build_multi_turn.py", tmp_path / "build_multi_turn.py")
-    for pool, notebook in (("u400", "multi_turn_uniform400.ipynb"), ("bcbas", "multi_turn_bcbas.ipynb")):
-        subprocess.run([sys.executable, "build_multi_turn.py", pool], cwd=tmp_path, check=True,
-                       capture_output=True)
-        assert ((tmp_path / notebook).read_text(encoding="utf-8")
-                == (REPO_ROOT / "notebooks" / notebook).read_text(encoding="utf-8"))
+def test_without_its_runs_the_section_spends_nothing_and_raises_nothing(tmp_path, monkeypatch, capsys):
+    import pandas as pd
+    boundary = Boundary(_mini_apps(tmp_path))
+    boundary.install(monkeypatch)
+    namespace = {"mt_study": MultiTurnStudy(reference_arm=_reference("mini.json"), prefix="mt",
+                                            model=MODEL),
+                 "MT_PREFIX": "mt", "MT_ALLOW_PAID_SMOKE": False, "MT_ALLOW_PAID_FULL": False,
+                 "pd": pd, "display": print}
+    for source in (CELLS.CODE_SMOKE, CELLS.CODE_FULL, CELLS.CODE_COVERAGE, CELLS.CODE_ANALYSIS):
+        exec(compile(source, "section cell", "exec"), namespace)
+    assert namespace["multi_turn_arms"] == {}
+    assert boundary.calls == [] and boundary.launched == []
+    assert not list(Path("runs").glob("mt-*/records.jsonl"))
+    printed = capsys.readouterr().out
+    assert "smoke chain not on this machine" in printed and "analysis skipped" in printed
+
+
+def _team_pools(generator: str) -> list[str]:
+    return re.findall(r'^    "(\w+)": \{"pool"', generator, re.MULTILINE)
+
+
+def _generate(directory: Path, generator: str, pool: str, notebook: str) -> list[tuple[str, str]]:
+    (directory / "build_results.py").write_text(generator, encoding="utf-8")
+    shutil.copyfile(NOTEBOOKS / "multi_turn_cells.py", directory / "multi_turn_cells.py")
+    subprocess.run([sys.executable, "build_results.py", pool], cwd=directory, check=True,
+                   capture_output=True)
+    return [(c["cell_type"], "".join(c["source"]))
+            for c in json.loads((directory / notebook).read_text(encoding="utf-8"))["cells"]]
+
+
+def _notebook_of(generator: str, pool: str) -> str:
+    return re.search(rf'^    "{pool}": \{{"pool": "{pool}", "notebook": "([^"]+)"', generator,
+                     re.MULTILINE).group(1)
+
+
+def test_the_team_generator_only_appends_the_section_and_only_where_the_study_runs(tmp_path):
+    generator = (NOTEBOOKS / "build_results.py").read_text(encoding="utf-8")
+    assert generator.count(HOOK) == 1
+    pools = _team_pools(generator)
+    assert pools
+    for pool in pools:
+        notebook = _notebook_of(generator, pool)
+        (tmp_path / f"{pool}-hook").mkdir(); (tmp_path / f"{pool}-team").mkdir()
+        with_hook = _generate(tmp_path / f"{pool}-hook", generator, pool, notebook)
+        team_only = _generate(tmp_path / f"{pool}-team", generator.replace(HOOK, ""), pool, notebook)
+        assert with_hook[:len(team_only)] == team_only, f"{pool}: a team cell changed"
+        added = with_hook[len(team_only):]
+        if pool in CELLS.MULTI_TURN_POOLS:
+            assert len(added) == len(CELLS.section_cells())
+            assert added[0][1].startswith(CELLS.SECTION_MARKER)
+        else:
+            assert added == [], f"{pool}: the section leaked into a pool the study does not run on"
+
+
+def test_every_committed_notebook_with_the_section_is_what_the_generator_writes(tmp_path):
+    generator = (NOTEBOOKS / "build_results.py").read_text(encoding="utf-8")
+    checked = 0
+    for pool in set(_team_pools(generator)) & CELLS.MULTI_TURN_POOLS:
+        notebook = _notebook_of(generator, pool)
+        committed = NOTEBOOKS / notebook
+        if not committed.exists():
+            continue
+        (tmp_path / pool).mkdir()
+        expected = _generate(tmp_path / pool, generator, pool, notebook)
+        actual = [(c["cell_type"], "".join(c["source"]))
+                  for c in json.loads(committed.read_text(encoding="utf-8"))["cells"]]
+        assert actual == expected, f"{notebook} is stale: rebuild it, or splice the section in"
+        checked += 1
+    assert checked >= 1

@@ -1,9 +1,10 @@
 # Multi-turn test authoring — experiment log
 
-Runs owned by `notebooks/build_multi_turn.py`; how a run flows is in `docs/flow_multi_turn.md`.
-Entries follow AGENTS.md's format and are written before `ALLOW_PAID = True`. **MT1 is the primary
-run**; conclusions are drawn from MT1 alone, and MT2–MT4 are secondary and descriptive. No
-correction for multiple runs is claimed.
+Runs owned by the multi-turn section of the team notebooks (`notebooks/multi_turn_cells.py`,
+appended by `build_results.py`); how a run flows is in `docs/flow_multi_turn.md`. Entries follow
+AGENTS.md's format and are written before `MT_ALLOW_PAID_FULL = True`. **MT1 is the primary run**;
+conclusions are drawn from MT1 alone, and MT2–MT4 are secondary and descriptive. No correction for
+multiple runs is claimed.
 
 ## Shared hypothesis
 

@@ -1228,6 +1228,9 @@ Fill in once the numbers above are read. The claims worth checking against them:
 7. Which of these survives on `data/apps_random50.json`?
 """)
 
+from multi_turn_cells import add_multi_turn_section
+add_multi_turn_section(POOL, md, code)
+
 notebook = {"cells": CELLS,
             "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python",
                                         "name": "python3"},
