@@ -1,1 +1,6 @@
 runs/** -whitespace
+
+# Multi-turn source bundles hash these bytes; keep them identical across platforms.
+data/*_multi_turn_smoke.json text eol=lf
+runs/*-mt-*/**/*.json text eol=lf
+runs/*-mt-*/**/*.jsonl text eol=lf

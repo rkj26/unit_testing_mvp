@@ -469,6 +469,10 @@ def smoke_dataset(source: str | Path) -> str:
     population must hold one.
     """
     source_path = Path(source)
+    source_bytes = source_path.read_bytes()
+    source_lf = source_bytes.replace(b"\r\n", b"\n")
+    source_crlf = source_lf.replace(b"\n", b"\r\n")
+    accepted_source_hashes = {_sha(source_bytes), _sha(source_lf), _sha(source_crlf)}
     original = Dataset.load(source_path)
     if not original.test:
         raise ValueError(f"{original.name} has no test task to smoke on")
@@ -480,15 +484,20 @@ def smoke_dataset(source: str | Path) -> str:
         tasks=(task,),
         split={half: (task.task_id,) if half == "test" else () for half in original.split},
         built_from={**original.built_from, "smoke_of": str(source_path),
-                    "smoke_of_sha256": _sha(source_path.read_bytes()), "smoke_task": task.task_id},
+                    "smoke_of_sha256": _sha(source_lf), "smoke_task": task.task_id},
         schema_version=original.schema_version,
     )
     path = source_path.with_name(f"{source_path.stem}_{SMOKE_SUFFIX}.json")
     text = json.dumps(smoke.to_json(), indent=2) + "\n"
-    if path.exists() and path.read_text(encoding="utf-8") != text:
-        raise ValueError(f"{path} exists and differs from the smoke dataset {source_path} implies")
-    if not path.exists():
-        path.write_text(text, encoding="utf-8")
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        existing_hash = existing.get("built_from", {}).get("smoke_of_sha256")
+        expected = smoke.to_json()
+        expected["built_from"]["smoke_of_sha256"] = existing_hash
+        if existing_hash not in accepted_source_hashes or existing != expected:
+            raise ValueError(f"{path} exists and differs from the smoke dataset {source_path} implies")
+        return str(path)
+    path.write_text(text, encoding="utf-8", newline="\n")
     return str(path)
 
 
