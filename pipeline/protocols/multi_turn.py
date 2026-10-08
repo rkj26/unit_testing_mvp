@@ -482,6 +482,32 @@ def smoke_dataset(source: str | Path) -> str:
     return str(path)
 
 
+class UnretriedInfraFailures(RuntimeError):
+    """An input or arm-A run holds infra failures the next stage would freeze in. Always raised."""
+
+
+def _stop_on_infra_failures(run: Run, next_stage: str, accept: bool) -> None:
+    """Raise before `next_stage` starts if `run` holds infra failures, unless they were accepted.
+
+    A resume does not retry an infra failure (protocols/AGENTS.md). For the inputs and arm A that
+    is permanent: once A is replayed, the bundle freezes the failure into B, C and D, whose hash
+    checks then refuse any later retry. So the chain stops here while a retry is still possible.
+    Once `next_stage` exists the decision is on disk, and a re-executed notebook is never stopped.
+    """
+    if accept or (RUNS_DIR / next_stage / CONFIG_FILE).is_file():
+        return
+    infra = [row for row in run.get_records() if row["failed"] and row["blame"] == Blame.INFRA.value]
+    if infra:
+        examples = "; ".join(f"{row['candidate_id']}: {row['reason']}" for row in infra[:3])
+        raise UnretriedInfraFailures(
+            f"{run.run_name}: {len(infra)} candidate(s) failed on infrastructure, and {next_stage} "
+            f"would freeze them out of every later arm. Examples: {examples}. To retry them, back "
+            f"up runs/{run.run_name}/records.jsonl, remove its lines with \"failed\": true and "
+            "\"blame\": \"infra\", and re-run the cell (docs/flow_multi_turn.md, 'Infra failures'). "
+            "If they persist after a retry, re-run with accept_infra_failures=True to keep them as "
+            "explicit exclusions.")
+
+
 def _require_complete(run: Run) -> None:
     """Every candidate scored exactly once, or a raise naming what is left."""
     rows = run.get_records()
@@ -595,24 +621,30 @@ class MultiTurnStudy:
                     return False
         return True
 
-    def run(self, *, allow_paid: bool = False, smoke_only: bool = False) -> dict[str, Run]:
+    def run(self, *, allow_paid: bool = False, smoke_only: bool = False,
+            accept_infra_failures: bool = False) -> dict[str, Run]:
         """Smoke chain, then the full chain; returns the A/B/C(/D) arms once all are complete.
 
         `smoke_only=True` stops after the smoke chain and returns its arms, so the real pipeline
         is proved on one task before the full chain's spend is committed. A later call without it
         finds the smoke chain already on disk and goes straight on to the full chain.
+
+        The chain stops after the inputs and after arm A if either holds infra failures, while
+        they can still be retried; `accept_infra_failures=True` carries them on as exclusions.
         """
-        if type(smoke_only) is not bool:
-            raise TypeError("smoke_only must be an explicit bool")
+        if type(smoke_only) is not bool or type(accept_infra_failures) is not bool:
+            raise TypeError("smoke_only and accept_infra_failures must be explicit bools")
         smoke = self._chain(smoke_dataset(self.reference_arm.data_path),
-                            f"{self.prefix}-smoke", allow_paid)
+                            f"{self.prefix}-smoke", allow_paid, accept_infra_failures)
         self._require_clean_smoke(smoke)
         if smoke_only:
             return {label: run for label, run in smoke.items() if label in ARM_LABELS}
-        full = self._chain(self.reference_arm.data_path, self.prefix, allow_paid)
+        full = self._chain(self.reference_arm.data_path, self.prefix, allow_paid,
+                           accept_infra_failures)
         return {label: run for label, run in full.items() if label in ARM_LABELS}
 
-    def _chain(self, data: str, prefix: str, allow_paid: bool) -> dict[str, Run]:
+    def _chain(self, data: str, prefix: str, allow_paid: bool,
+               accept_infra_failures: bool) -> dict[str, Run]:
         settings = dict(self.settings)
         image = settings.pop("docker_image")
         sandbox_seconds = settings["sandbox_seconds"]
@@ -620,10 +652,12 @@ class MultiTurnStudy:
                                num_inputs=DEFAULT_NUM_INPUTS, code_visible=True,
                                reasoning=settings["reasoning"], seed=settings["seed"], cache=False)
         self._launch(inputs, allow_paid)
+        _stop_on_infra_failures(inputs, f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", accept_infra_failures)
         authoring = dict(data=data, model=self.model, triggers=inputs.run_name,
                          docker_image=image, cache=False, **settings)
         initial = MultiTurnInitial(run_name=f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", **authoring)
         self._launch(initial, allow_paid)
+        _stop_on_infra_failures(initial, f"{prefix}-{RUN_SUFFIX[REPLAY]}", accept_infra_failures)
         replay = MultiTurnReplay(run_name=f"{prefix}-{RUN_SUFFIX[REPLAY]}", data=data,
                                  baseline_run=initial.run_name, triggers=inputs.run_name,
                                  sandbox_seconds=sandbox_seconds, docker_image=image)
