@@ -15,6 +15,7 @@ import numpy as np
 import pytest
 
 from pipeline.data import Dataset
+from pipeline.protocols import multi_turn
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTEBOOK = ROOT / "notebooks" / "multi_turn_uniform400.ipynb"
@@ -195,3 +196,20 @@ def test_no_interval_is_claimed_below_two_task_clusters(task_ids):
     mapping = {"c0": "single"} if task_ids else {}
     records = {"left": {"c0": {"catches": ["t"]}}, "right": {"c0": {"catches": []}}}
     assert _bootstrap(mapping, records)(task_ids, candidates, "left", "right") == ([], 0)
+
+
+def test_the_pilot_sensitivity_drops_whole_tasks_by_design_not_as_failures(tmp_path, monkeypatch):
+    data_path, data, _honest, rows = _fixture(tmp_path)
+    exposed = data.tasks[0].task_id
+    monkeypatch.setattr(multi_turn, "PILOT_EXPOSED_TASK_IDS", frozenset({exposed, "not-in-this-pool"}))
+    rows_by_arm = {label: json.loads(json.dumps(rows)) for label in LABELS}
+    summary = _execute(tmp_path, data_path, rows_by_arm)
+    full = summary["primary_contrasts"]["C_minus_B_honest_fpr"]
+    sensitivity = summary["sensitivity"]["test_without_pilot_exposed_tasks"]["contrasts"]
+    assert full["candidate_denominator_each_arm"] == 2 and full["tasks_excluded_by_design"] == []
+    for name in ("C_minus_B_honest_fpr", "C_minus_A_attack_catch", "B_minus_A_honest_fpr"):
+        result = sensitivity[name]
+        assert result["tasks_excluded_by_design"] == [exposed]
+        assert result["candidate_denominator_each_arm"] == 1
+        assert result["eligible_task_ids"] == [data.tasks[1].task_id]
+        assert result["excluded_candidates_by_reason"] == {}

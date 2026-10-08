@@ -16,7 +16,9 @@ of a shared notebook pool, not a second implementation of it.
 
 `MultiTurnStudy` is the notebook-facing chain. It runs the whole chain on a one-task smoke dataset
 first, refuses any stage with paid work left unless `allow_paid=True`, and otherwise only calls
-`.run()` on each arm in order. Nothing here touches tmux, threads or `records.jsonl` itself.
+`.run()` on each arm: inputs, A and the replay in order, then B, C and D launched together so the
+arms being compared meet the provider side by side rather than an hour apart. Nothing here touches
+tmux, threads or `records.jsonl` itself.
 """
 
 from __future__ import annotations
@@ -26,12 +28,13 @@ import json
 import re
 import shutil
 import subprocess
+import time
 from pathlib import Path
 from typing import Any
 
 from .. import launch, model as model_mod, sandbox
 from ..data import Blame, Dataset, RUNS_DIR, load_records
-from .base import CALLS, FAILURE_FIELDS, IDENTITY_FIELDS, Run
+from .base import CALLS, FAILURE_FIELDS, IDENTITY_FIELDS, POLL_SECONDS, Run, RunFailed
 from .second_revision import SecondRevision
 from .test_repair import feedback_summary
 from .trigger_search import DEFAULT_NUM_INPUTS, TriggerSearch
@@ -55,7 +58,29 @@ B_NO_FEEDBACK = "B no feedback"
 C_FEEDBACK = "C feedback"
 D_DELETE_ONLY = "D delete only"
 ARM_LABELS = (A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
+REVISION_LABELS = (B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
 PAID_STAGES = (INPUTS, A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
+
+PILOT_APPS_TASK_IDS = frozenset({
+    "1175", "1223", "1361", "1383", "1433", "1553", "1670", "1681", "1737", "1743", "1766",
+    "1864", "1941", "1958", "2046", "2183", "2222", "3692", "3694", "3698", "3724", "3733",
+    "3748", "3756", "3770", "3771", "3782", "3789", "3790", "3798", "3801", "3819", "3825",
+    "3832", "3843", "3847", "3862", "3868", "3870", "3875", "3886", "3888", "3892", "3893",
+    "3897", "3901", "3902", "3915", "3926", "3928", "3929", "3931", "3932", "3934", "3941",
+    "3945", "3949", "3955", "3956", "3957", "3960", "3977", "3985", "3987", "3991", "3996",
+    "3999", "4089", "4365", "4414", "4442", "570", "630", "632", "677", "756", "838", "842",
+    "86", "966",
+})
+PILOT_BCB_TASK_IDS = frozenset({
+    "BigCodeBench/4", "BigCodeBench/9", "BigCodeBench/25", "BigCodeBench/27",
+    "BigCodeBench/33", "BigCodeBench/50", "BigCodeBench/52", "BigCodeBench/54",
+    "BigCodeBench/55", "BigCodeBench/61", "BigCodeBench/63", "BigCodeBench/64",
+    "BigCodeBench/65", "BigCodeBench/66", "BigCodeBench/84", "BigCodeBench/86",
+    "BigCodeBench/87", "BigCodeBench/95", "BigCodeBench/97", "BigCodeBench/121",
+    "BigCodeBench/141", "BigCodeBench/147", "BigCodeBench/149", "BigCodeBench/150",
+    "BigCodeBench/151", "BigCodeBench/153",
+})
+PILOT_EXPOSED_TASK_IDS = PILOT_APPS_TASK_IDS | PILOT_BCB_TASK_IDS
 
 BUNDLE_FILE = "source-bundle.json"
 BUNDLE_SCHEMA_VERSION = 1
@@ -466,6 +491,28 @@ def _require_complete(run: Run) -> None:
                            f"scored ({len(ids) - len(set(ids))} duplicate), {still}")
 
 
+def _follow_together(runs: list[Run]) -> None:
+    """Print joint progress until every run is complete; Ctrl-C detaches, a dead session raises."""
+    try:
+        while True:
+            states = {run.run_name: run.status() for run in runs}
+            print("\r  " + "  ".join(f"{name}: {state['scored']}/{state['total']}"
+                                      for name, state in states.items()), end="", flush=True)
+            unfinished = {name: state for name, state in states.items()
+                          if state["scored"] < state["total"]}
+            if not unfinished:
+                print()
+                return
+            ended = sorted(name for name, state in unfinished.items() if not state["alive"])
+            if ended:
+                print()
+                raise RunFailed(f"{ended}: the session ended with candidates unscored; "
+                                "re-run this cell to resume")
+            time.sleep(POLL_SECONDS)
+    except KeyboardInterrupt:
+        print("\n  still running detached; re-run this cell to follow them again")
+
+
 class MultiTurnStudy:
     """The chain on one notebook pool, its settings read off the team's reference arm.
 
@@ -558,9 +605,8 @@ class MultiTurnStudy:
             from .multi_turn_delete_only import MultiTurnDeleteOnly
             stages[D_DELETE_ONLY] = MultiTurnDeleteOnly(run_name=f"{prefix}-D-delete-only",
                                                         **source)
-        for label in (B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY):
-            if label in stages:
-                self._launch(stages[label], allow_paid)
+        self._launch_together([stages[label] for label in REVISION_LABELS if label in stages],
+                              allow_paid)
         return stages
 
     @staticmethod
@@ -575,6 +621,30 @@ class MultiTurnStudy:
                 "allow_paid=True")
         run.run()
         _require_complete(run)
+
+    @staticmethod
+    def _launch_together(runs: list[Run], allow_paid: bool) -> None:
+        """Start every revision arm detached at once, then follow them jointly to completion.
+
+        B, C and D are compared candidate by candidate, so they must run side by side: an arm run
+        after another meets a provider an hour older, and that drift would be read as the arm's
+        effect. Each still launches through `Run.run()`; only the waiting is shared. A session
+        already running (this cell re-run mid-flight) is followed rather than launched twice.
+        """
+        for run in runs:
+            run.write_config()
+        pending = {run.run_name: len(run.pending()) for run in runs}
+        if any(pending.values()) and not allow_paid:
+            raise PermissionError(
+                f"{pending} candidate(s) still to score across the revision arms, each a paid "
+                "model call. Review study.plan(), record the experiment's prediction, then pass "
+                "allow_paid=True")
+        for run in runs:
+            if pending[run.run_name] and not launch.alive(run.run_name):
+                run.run(wait=False)
+        _follow_together(runs)
+        for run in runs:
+            _require_complete(run)
 
     @staticmethod
     def _require_clean_smoke(stages: dict[str, Run]) -> None:
