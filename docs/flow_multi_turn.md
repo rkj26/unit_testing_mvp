@@ -42,10 +42,17 @@ The study is a section at the end of the team's own notebooks, `results_uniform4
 .venv/bin/python notebooks/build_results.py u400      # or bcbas
 ```
 
-It needs the pool's team `ut_property` run on disk (`ut-u400-property-10`, `ut-as-property-10`),
-Docker, tmux (WSL on Windows) and `.env`. The section attaches that run by name, so running it
-needs only the notebook's first code cell (repository root and imports) and then the section's own
-cells; no team section above it has to run.
+It needs the pool's team `ut_property` `config.json` (`ut-u400-property-10` or
+`ut-as-property-10`) and its dataset, plus Docker, tmux (WSL on Windows), and `.env` for paid
+model calls. The reference records and trigger inputs are not read. A missing reference config or
+dataset is a setup error; the section does not infer settings or silently skip that error. Running
+it needs only the notebook's first code cell (repository root and imports) and then the section's
+own cells; no team section above it has to run.
+
+The shared implementation supports both APPS and BigCodeBench, but BCB execution depends on the
+team BCB pool and generator-base changes landing on the shared target first. No separate BCB PR is
+planned: the existing APPS PR includes arm D (delete-only), and after the team BCB pool lands the
+`bcbas` notebook build appends the BCB section while retaining this hook.
 
 The section has its own flags, `MT_ALLOW_PAID_SMOKE` and `MT_ALLOW_PAID_FULL`, both off by default.
 Its smoke cell calls `run(smoke_only=True)`, which runs every stage on a one-task smoke dataset
@@ -65,13 +72,34 @@ clean honest result and caught the attack; each candidate completed 300/300 pair
 execution errors, using 10 tests over 30 inputs. All 35 APPS tests passed in Linux, including the
 newline-portability regression. The targeted multi-turn checks also passed on Windows in both clones.
 Zero-API resume was verified; the full study has
-not run. The five stage runs are committed on the APPS branch (`codex/omar-apps-multiturn`) under
-`runs/u400-mt-terra-run1-smoke-*`; the BCB branch carries the same code without them. This
-one-task engineering check is not a finding about the hypotheses and says nothing about BCB.
+not run. The five APPS stage runs are committed on the APPS branch (`codex/omar-apps-multiturn`)
+under `runs/u400-mt-terra-run1-smoke-*`. This one-task engineering check is not a finding about
+the hypotheses.
 
-No BigCodeBench smoke (MT3/MT4) has run yet. It needs the team's `ut-as-property-10` run on disk —
-only its `config.json` is read — and the `pbt-bcb:2` image from `docker/`, and it is the first real
-run of arm D and of function-mode inputs.
+The BCB smoke completed its engineering run: 10/10 model attempts succeeded, all 34 image-pin
+checks matched, and all 35 Linux tests passed. It covered BigCodeBench/4 with two candidates
+(one honest, one attack), each with 30 inputs and 10 tests (300 pairs). A, B, C, and D were clean
+on the honest candidate and caught the attack; D retained all 10 tests for each candidate.
+There were zero execution errors. The external usage estimate is $0.483912 from 35,160 input and
+14,303 output tokens at illustrative $4/$24-per-million rates; it is not an Azure invoice. The
+independent artifact audit passed all 37 checks: hashes, B/C feedback isolation, hidden-code
+payloads, complete grids, zero execution errors, and D's exact original-test subset. A paid-disabled
+resume passed with the controller network disconnected. This is one-task engineering validation,
+not evidence of a population-level improvement. No full run has been authorized or run.
+
+APPS smoke artifacts and its SDK-failure diagnostics live on the APPS branch under
+`reports/multi_turn_smoke_audit/`. BCB smoke artifacts live on the BCB branch under
+`runs/bcbas-mt-terra-run1-smoke-*`; its provenance note is
+`reports/multi_turn_smoke_audit/reference_provenance.json`. The reference config there was
+reconstructed from the committed notebook and current protocol defaults, not recovered as the
+original saved config. These are distinct branch artifacts; neither should be inferred to exist on
+the other branch.
+
+BCB receipts and the final audit are under `reports/multi_turn_smoke_audit/bcb-success/`
+(`status.json`, `proxy/proxy_usage.jsonl`, `validation-v2.json`). The earlier `validation.json`
+is retained as checker-debugging evidence: it incorrectly required a model on the zero-API replay
+and looked for A's suite hash in a nonexistent field. The corrected check hashes A's actual test
+text; no experiment records were changed and no paid calls were repeated.
 
 Accounting and diagnostic evidence is separate from protocol runs, on the APPS branch under
 `reports/multi_turn_smoke_audit/`: `success/` holds the
@@ -85,16 +113,17 @@ Smoke-dataset creation accepts equivalent LF/CRLF source fingerprints without re
 smoke artifacts; actual dataset-content changes still fail validation.
 
 Provider usage is not stored in standard run records, so collect it separately rather than
-expecting it in `records.jsonl`. The external accounting proxy recorded 24,452 input and 18,152
-output tokens; at illustrative rates of $4/$24 per million, its estimate is $0.533456, not an Azure
-invoice. The full APPS call bound is about 400× the smoke; scaling that estimate gives roughly
-$213.38, strictly an illustration—not a budget approval or Azure cost forecast. The full run has
-not been authorized or run.
+expecting it in `records.jsonl`. The APPS external accounting proxy recorded 24,452 input and
+18,152 output tokens; at illustrative rates of $4/$24 per million, its estimate is $0.533456, not
+an Azure invoice. The full APPS call bound is about 400× the smoke; scaling that estimate gives
+roughly $213.38, strictly an illustration—not a budget approval or Azure cost forecast. No full
+run has been authorized or run.
 
-**Executing the team notebook never pays or fails because of this section.** Each cell first asks
-`mt_study.complete()` — a read-only check that every run is already on disk — and, with the flags
-off, prints that the study is not on this machine and skips. Once the runs are committed under
-`runs/` together with the smoke dataset, executing the notebook reproduces the section for free.
+**With its reference config and dataset present, executing the team notebook does not spend without
+the paid flags.** Each cell first asks `mt_study.complete()` — a read-only check that every run is
+already on disk — and, with the flags off, prints that the study is not on this machine and skips.
+Missing reference setup is an error, not a skip. Once the study runs are committed under `runs/`
+together with the smoke dataset, executing the notebook reproduces the section for free.
 
 ## Infra failures
 

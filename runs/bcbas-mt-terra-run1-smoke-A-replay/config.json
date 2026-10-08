@@ -1,0 +1,15 @@
+{
+  "protocol": "multi_turn_replay",
+  "run_name": "bcbas-mt-terra-run1-smoke-A-replay",
+  "data": "data/bcbas_multi_turn_smoke.json",
+  "model": "",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "baseline_run": "bcbas-mt-terra-run1-smoke-A-traceable",
+    "triggers": "bcbas-mt-terra-run1-smoke-triggers",
+    "sandbox_seconds": 720,
+    "docker_image": "pbt-bcb:2"
+  }
+}

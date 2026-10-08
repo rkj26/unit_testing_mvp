@@ -1,0 +1,23 @@
+{
+  "protocol": "unit_testing",
+  "run_name": "ut-as-property-10",
+  "data": "data/bcbas.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "triggers": "trig-as",
+    "test_gen_prompt": "property",
+    "resolve": "without",
+    "code_visible": true,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 720,
+    "docker_image": "pbt-bcb:2"
+  }
+}

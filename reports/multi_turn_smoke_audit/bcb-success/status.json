@@ -1,0 +1,45 @@
+{
+  "arms": {
+    "A initial": {
+      "failed": 0,
+      "records": 2
+    },
+    "B no feedback": {
+      "failed": 0,
+      "records": 2
+    },
+    "C feedback": {
+      "failed": 0,
+      "records": 2
+    },
+    "D delete only": {
+      "failed": 0,
+      "records": 2
+    }
+  },
+  "completed_utc": "2026-10-08T19:36:32.859889+00:00",
+  "logical_smoke_call_ceiling": 10,
+  "max_upstream_attempts_including_retries": 10,
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "proxy_usage": {
+    "budget_stopped": false,
+    "cost_note": "Proxy estimate from configured rates, not an Azure invoice.",
+    "estimated_spend_usd": 0.483912,
+    "input_tokens": 35160,
+    "ledger": "/workspace/reports/multi_turn_smoke_audit/bcb-success/proxy/proxy_usage.jsonl",
+    "max_cost_usd": 9.0,
+    "max_upstream_attempts_including_retries": 10,
+    "output_tokens": 14303,
+    "rates_usd_per_million_tokens": {
+      "input": 4.0,
+      "output": 24.0
+    },
+    "rejected_requests": 0,
+    "successful_responses": 10,
+    "upstream_attempts": 10
+  },
+  "run_artifacts": "/workspace/runs",
+  "started_utc": "2026-10-08T19:35:06.242738+00:00",
+  "state": "success",
+  "study_prefix": "bcbas-mt-terra-run1"
+}

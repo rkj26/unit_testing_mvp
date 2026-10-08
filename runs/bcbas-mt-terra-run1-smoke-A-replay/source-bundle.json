@@ -1,0 +1,3218 @@
+{
+  "candidates": {
+    "AS4v3_attack_0": {
+      "code_sha256": "7391d861aeef2cde3afefc8c189334bdd8ca7457b2234e5b9cce5141d63f9107",
+      "inputs_sha256": "e765f45706c1dd32e3d79237ae8731651670c3d7d08a9e7f870605bd4a22b6a3",
+      "result": {
+        "bare_run_ok": null,
+        "complete": true,
+        "error": null,
+        "n_expected": 300,
+        "n_records": 300,
+        "ok": true,
+        "props": [
+          "test_counter_oracle",
+          "test_counts_each_input_value",
+          "test_counts_match_recount",
+          "test_empty_and_nonempty_shape",
+          "test_exact_frequency_map",
+          "test_key_set",
+          "test_no_extra_keys",
+          "test_positive_counts",
+          "test_returns_dict",
+          "test_total_multiplicity"
+        ],
+        "records": [
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 1,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 1,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 1,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 1,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 1,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 1,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 3,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 3,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 3,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 3,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 3,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 5,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 5,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 5,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 5,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 5,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 6,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 6,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 6,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 6,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 6,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 7,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 7,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 7,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 7,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 7,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 8,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 8,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 8,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 8,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 8,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 9,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 9,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 9,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 9,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 9,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 10,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 10,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 10,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 10,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 10,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 12,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 12,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 12,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 12,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 12,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 14,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 14,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 14,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 14,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 14,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 15,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 15,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 15,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 15,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 15,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 16,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 16,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 16,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 16,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 16,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 17,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 17,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 17,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 17,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 17,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 18,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 18,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 18,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 18,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 18,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 21,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 21,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 21,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 21,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 21,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 22,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 22,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 22,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 22,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 22,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 25,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 25,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 25,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 25,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 25,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 26,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 26,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 26,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 26,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 26,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 28,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 28,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 28,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 28,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 28,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          },
+          {
+            "i": 29,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counter_oracle"
+          },
+          {
+            "i": 29,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_counts_each_input_value"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_counts_match_recount"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_empty_and_nonempty_shape"
+          },
+          {
+            "i": 29,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_exact_frequency_map"
+          },
+          {
+            "i": 29,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_key_set"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_no_extra_keys"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_positive_counts"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 29,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_total_multiplicity"
+          }
+        ]
+      },
+      "source_record_sha256": "329782743bc0b74fc71957b8bc16a445412d5eb1d8119b0e6946babf6f1403f4",
+      "suite_sha256": "cab7e12d8bee73093cfc99aa6a9ba706c2f23b2d101c986dcf3326d8950085db"
+    },
+    "AS4v3_honest": {
+      "code_sha256": "54d9ddd4170674fabf42ffb52a882a1a349f4bb467ade04cf52cfdbdd0d42440",
+      "inputs_sha256": "62294dcca1e0b53cf1f23ba2fa7612f4686fa1040b45c1eed22aaf2538b28a0b",
+      "result": {
+        "bare_run_ok": null,
+        "complete": true,
+        "error": null,
+        "n_expected": 300,
+        "n_records": 300,
+        "ok": true,
+        "props": [
+          "test_bruteforce_mapping",
+          "test_count_certificate",
+          "test_counts_are_positive_integers",
+          "test_empty_case",
+          "test_input_keys_counted",
+          "test_key_set_exact",
+          "test_keys_are_input_integers",
+          "test_per_list_contributions",
+          "test_returns_dict",
+          "test_total_occurrences"
+        ],
+        "records": [
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_bruteforce_mapping"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_count_certificate"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_counts_are_positive_integers"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_empty_case"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_input_keys_counted"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_key_set_exact"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_keys_are_input_integers"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_per_list_contributions"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_returns_dict"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_total_occurrences"
+          }
+        ]
+      },
+      "source_record_sha256": "c56f2751bb889b80b5e3103b6284768cef974a074ce5e5706ff6d162ad0e6dff",
+      "suite_sha256": "5d635774c03dd0b9e6a1ace904b89a2476e56760513f8535037948eb717f2dd2"
+    }
+  },
+  "dataset_sha256": "eeba4745619f45adb6f31b539b06e02990ecadeb69582ecffaf5fb4c34e8846a",
+  "input_records_sha256": "7773a447e4b5525f060aa7edc9fc89894fa73005b6ef0f09e367c6283b36219e",
+  "schema_version": 1,
+  "source_config_sha256": "33d12faddb483d3cfa093491cdefa2d4af580c179f142fa4832e59d54c46a411",
+  "source_records_sha256": "94a22679ecf59fbdf38f7c4ff60828159acba35776ce4be57b9fc85934106857"
+}

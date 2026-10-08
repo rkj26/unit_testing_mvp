@@ -1,0 +1,27 @@
+{
+  "protocol": "multi_turn_delete_only",
+  "run_name": "bcbas-mt-terra-run1-smoke-D-delete-only",
+  "data": "data/bcbas_multi_turn_smoke.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "bcbas-mt-terra-run1-smoke-triggers",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": false,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 720,
+    "docker_image": "pbt-bcb:2",
+    "baseline_run": "bcbas-mt-terra-run1-smoke-A-traceable",
+    "source_bundle": "runs/bcbas-mt-terra-run1-smoke-A-replay/source-bundle.json",
+    "source_bundle_sha256": "39624f56737c657398b3c320f25b1c07da3269f92def9e787fbd1a9194d8f712",
+    "max_candidates": 2
+  }
+}

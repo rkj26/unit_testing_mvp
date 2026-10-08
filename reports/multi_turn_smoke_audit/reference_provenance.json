@@ -1,0 +1,41 @@
+{
+  "status": "reconstructed_from_committed_notebook_and_current_protocol_defaults",
+  "original_saved_config_recovered": false,
+  "original_records_found": false,
+  "notebook": "notebooks/results_bcbas.ipynb",
+  "notebook_sha256": "1a037dd108fdc65ef7c0d95293e04de48c81abe1117926f7463e79327296fc96",
+  "git_head": "03df19bcc116f6ef806196126bff67a04d1e7efa",
+  "run_name": "ut-as-property-10",
+  "config_path": "runs/ut-as-property-10/config.json",
+  "config": {
+    "protocol": "unit_testing",
+    "run_name": "ut-as-property-10",
+    "data": "data/bcbas.json",
+    "model": "openai-api/azureai/DeepSeek-V3.2",
+    "runs": 1,
+    "seed": 300,
+    "cache": true,
+    "params": {
+      "triggers": "trig-as",
+      "test_gen_prompt": "property",
+      "resolve": "without",
+      "code_visible": true,
+      "n_tests": 10,
+      "critique": false,
+      "critique_informed": false,
+      "reasoning": "low",
+      "max_tokens": 32000,
+      "call_seconds": 300,
+      "sandbox_seconds": 720,
+      "docker_image": "pbt-bcb:2"
+    }
+  },
+  "population": {
+    "tasks": 453,
+    "train": 317,
+    "test": 136,
+    "candidates": 906
+  },
+  "paid_run_or_launch_called": false,
+  "note": "The notebook's prior 906/906 output corroborates an earlier run but does not recover its original config.json."
+}
