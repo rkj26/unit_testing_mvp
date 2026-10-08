@@ -1,13 +1,14 @@
-"""The multi-turn notebook's analysis cell, executed as committed against saved-record artifacts.
+"""The team notebook's multi-turn analysis cell, executed against saved-record artifacts.
 
-The cell is read out of `notebooks/multi_turn_uniform400.ipynb` — the generated notebook a reader
-runs — so these tests cannot pass against a copy that drifted from it.
+The cell is read out of `notebooks/multi_turn_cells.py`, the one source the team generator appends;
+a separate test checks the committed notebooks match that generator, so a drifted copy fails.
 """
 
 from __future__ import annotations
 
 import ast
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 
@@ -18,16 +19,16 @@ from pipeline.data import Dataset
 from pipeline.protocols import multi_turn
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOK = ROOT / "notebooks" / "multi_turn_uniform400.ipynb"
-MARKER = "# strict complete/error-free paired analysis (zero API calls)"
 LABELS = ["A initial", "B no feedback", "C feedback"]
 ANALYSIS_FILE = "multi_turn_analysis.json"
 
 
 def _cell() -> str:
-    cells = ["".join(cell["source"]) for cell in json.loads(NOTEBOOK.read_text())["cells"]]
-    [cell] = [cell for cell in cells if cell.startswith(MARKER)]
-    return cell
+    spec = importlib.util.spec_from_file_location("multi_turn_cells",
+                                                  ROOT / "notebooks" / "multi_turn_cells.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.CODE_ANALYSIS
 
 
 class ArtifactArm:
@@ -78,7 +79,7 @@ def _execute(tmp_path, data_path, rows_by_arm):
 
 def _bootstrap(task_by_candidate, records):
     """The cell's own bootstrap function, compiled out of the notebook, not a copy of it."""
-    function = next(node for node in ast.parse(_cell()).body
+    function = next(node for node in ast.walk(ast.parse(_cell()))
                     if isinstance(node, ast.FunctionDef) and node.name == "mt_bootstrap_differences")
     namespace = {"np": np, "mt_task_by_candidate": task_by_candidate, "mt_records": records,
                  "MT_BOOTSTRAP_SEED": 300, "MT_BOOTSTRAP_DRAWS": 10000}

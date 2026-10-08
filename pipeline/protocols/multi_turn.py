@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Any
 
 from .. import launch, model as model_mod, sandbox
-from ..data import Blame, Dataset, RUNS_DIR, load_records
+from ..data import CONFIG_FILE, Blame, Dataset, RUNS_DIR, load_records
 from .base import CALLS, FAILURE_FIELDS, IDENTITY_FIELDS, POLL_SECONDS, Run, RunFailed
 from .second_revision import SecondRevision
 from .test_repair import feedback_summary
@@ -59,6 +59,9 @@ C_FEEDBACK = "C feedback"
 D_DELETE_ONLY = "D delete only"
 ARM_LABELS = (A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
 REVISION_LABELS = (B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
+RUN_SUFFIX = {INPUTS: "triggers", A_INITIAL: "A-traceable", REPLAY: "A-replay",
+              B_NO_FEEDBACK: "B-no-feedback", C_FEEDBACK: "C-feedback",
+              D_DELETE_ONLY: "D-delete-only"}
 PAID_STAGES = (INPUTS, A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
 
 PILOT_APPS_TASK_IDS = frozenset({
@@ -569,6 +572,29 @@ class MultiTurnStudy:
             "note": "logical calls; HTTP retries can add provider attempts",
         }
 
+    def complete(self, *, smoke_only: bool = False) -> bool:
+        """Whether every run `run()` needs is already fully recorded on disk. Read-only.
+
+        No model call, no launch, no file written. The team notebook executes top to bottom on
+        machines that may not hold these runs; its multi-turn cells ask this first and skip with a
+        message rather than raise, so this study can never stop the team's notebook. A run present
+        on disk whose dataset file is missing raises: those runs were committed without it.
+        """
+        prefixes = [f"{self.prefix}-smoke"] + ([] if smoke_only else [self.prefix])
+        for prefix in prefixes:
+            for stage in self.stages():
+                name = f"{prefix}-{RUN_SUFFIX[stage]}"
+                config = RUNS_DIR / name / CONFIG_FILE
+                if not config.is_file():
+                    return False
+                data = json.loads(config.read_text(encoding="utf-8"))["data"]
+                if not Path(data).is_file():
+                    raise FileNotFoundError(f"{name} reads {data}, which is not on disk; commit it "
+                                            "beside the runs")
+                if Run.attach(name).pending():
+                    return False
+        return True
+
     def run(self, *, allow_paid: bool = False, smoke_only: bool = False) -> dict[str, Run]:
         """Smoke chain, then the full chain; returns the A/B/C(/D) arms once all are complete.
 
@@ -590,15 +616,15 @@ class MultiTurnStudy:
         settings = dict(self.settings)
         image = settings.pop("docker_image")
         sandbox_seconds = settings["sandbox_seconds"]
-        inputs = TriggerSearch(run_name=f"{prefix}-triggers", data=data, model=self.model,
+        inputs = TriggerSearch(run_name=f"{prefix}-{RUN_SUFFIX[INPUTS]}", data=data, model=self.model,
                                num_inputs=DEFAULT_NUM_INPUTS, code_visible=True,
                                reasoning=settings["reasoning"], seed=settings["seed"], cache=False)
         self._launch(inputs, allow_paid)
         authoring = dict(data=data, model=self.model, triggers=inputs.run_name,
                          docker_image=image, cache=False, **settings)
-        initial = MultiTurnInitial(run_name=f"{prefix}-A-traceable", **authoring)
+        initial = MultiTurnInitial(run_name=f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", **authoring)
         self._launch(initial, allow_paid)
-        replay = MultiTurnReplay(run_name=f"{prefix}-A-replay", data=data,
+        replay = MultiTurnReplay(run_name=f"{prefix}-{RUN_SUFFIX[REPLAY]}", data=data,
                                  baseline_run=initial.run_name, triggers=inputs.run_name,
                                  sandbox_seconds=sandbox_seconds, docker_image=image)
         self._launch(replay, allow_paid=True)
@@ -607,13 +633,13 @@ class MultiTurnStudy:
                       source_bundle_sha256=bundle_sha, max_candidates=initial.total,
                       code_visible=False, **authoring)
         stages: dict[str, Run] = {INPUTS: inputs, A_INITIAL: initial, REPLAY: replay}
-        stages[B_NO_FEEDBACK] = MultiTurnRevision(run_name=f"{prefix}-B-no-feedback",
+        stages[B_NO_FEEDBACK] = MultiTurnRevision(run_name=f"{prefix}-{RUN_SUFFIX[B_NO_FEEDBACK]}",
                                                   feedback_visible=False, **source)
-        stages[C_FEEDBACK] = MultiTurnRevision(run_name=f"{prefix}-C-feedback",
+        stages[C_FEEDBACK] = MultiTurnRevision(run_name=f"{prefix}-{RUN_SUFFIX[C_FEEDBACK]}",
                                                feedback_visible=True, **source)
         if self.delete_only:
             from .multi_turn_delete_only import MultiTurnDeleteOnly
-            stages[D_DELETE_ONLY] = MultiTurnDeleteOnly(run_name=f"{prefix}-D-delete-only",
+            stages[D_DELETE_ONLY] = MultiTurnDeleteOnly(run_name=f"{prefix}-{RUN_SUFFIX[D_DELETE_ONLY]}",
                                                         **source)
         self._launch_together([stages[label] for label in REVISION_LABELS if label in stages],
                               allow_paid)
@@ -649,10 +675,11 @@ class MultiTurnStudy:
                 f"{pending} candidate(s) still to score across the revision arms, each a paid "
                 "model call. Review study.plan(), record the experiment's prediction, then pass "
                 "allow_paid=True")
-        for run in runs:
-            if pending[run.run_name] and not launch.alive(run.run_name):
-                run.run(wait=False)
-        _follow_together(runs)
+        if any(pending.values()):
+            for run in runs:
+                if pending[run.run_name] and not launch.alive(run.run_name):
+                    run.run(wait=False)
+            _follow_together(runs)
         for run in runs:
             _require_complete(run)
 

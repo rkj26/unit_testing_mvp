@@ -1,6 +1,6 @@
 # Multi-turn test authoring — how a run flows
 
-`pipeline/protocols/multi_turn.py`, `multi_turn_delete_only.py`, `notebooks/build_multi_turn.py`.
+`pipeline/protocols/multi_turn.py`, `multi_turn_delete_only.py`, `notebooks/multi_turn_cells.py`.
 
 ## The question
 
@@ -33,19 +33,29 @@ record carrying the input run's blame, with no call made.
 
 ## Running it
 
+The study is a section at the end of the team's own notebooks, `results_uniform400.ipynb` and
+`results_bcbas.ipynb`. `notebooks/build_results.py` appends it with one call into
+`notebooks/multi_turn_cells.py`, after every team cell; the arms never enter `ARMS`, so
+`SCORED_BY_ALL` and every team plot are unchanged. Rebuild a notebook the team's usual way:
+
 ```
-.venv/bin/python notebooks/build_multi_turn.py u400      # or bcbas
+.venv/bin/python notebooks/build_results.py u400      # or bcbas
 ```
 
-Open `notebooks/multi_turn_uniform400.ipynb` (or `multi_turn_bcbas.ipynb`). It needs the team's
-reference arm under `runs/` (`ut-u400-property-10`, `ut-as-property-10`), Docker, tmux and `.env`.
+It needs the pool's team `ut_property` arm on disk (`ut-u400-property-10`, `ut-as-property-10`),
+Docker, tmux (WSL on Windows) and `.env`.
 
-`MultiTurnStudy.run(smoke_only=True)` runs only the smoke chain and stops, so the real pipeline
-is proved on one task first (the notebook's section 2). Without it, `run()` first runs the whole
-chain on a one-task smoke dataset written beside the
-pool (`data/<pool>_multi_turn_smoke.json`), stops if any smoke stage hit infrastructure, then runs
-the full chain. Any stage with paid work left raises `PermissionError` unless `allow_paid=True`, so
-re-running a finished study costs nothing. `study.plan()` prints the call bounds first.
+The section has its own flags, `MT_ALLOW_PAID_SMOKE` and `MT_ALLOW_PAID_FULL`, both off by default.
+Its smoke cell calls `run(smoke_only=True)`, which runs every stage on a one-task smoke dataset
+written beside the pool (`data/<pool>_multi_turn_smoke.json`) and stops, so the real pipeline is
+proved before the full spend. The full-chain cell then finds the smoke chain on disk and runs the
+full chain. Any stage with paid work left raises `PermissionError` unless its flag is set, and
+`mt_study.plan()` prints the call bounds first.
+
+**Executing the team notebook never pays or fails because of this section.** Each cell first asks
+`mt_study.complete()` — a read-only check that every run is already on disk — and, with the flags
+off, prints that the study is not on this machine and skips. Once the runs are committed under
+`runs/` together with the smoke dataset, executing the notebook reproduces the section for free.
 
 The reference arm lends the dataset, Docker image and runtime settings only. Its records and
 trigger inputs are never read, and no team notebook, run or population is changed.
@@ -53,8 +63,8 @@ trigger inputs are never read, and no team notebook, run or population is change
 ## Before claiming a result
 
 The entries — setup, change, hypothesis, thresholded predictions — live in `multi_turn_plan.md`,
-written before the full chain's `allow_paid=True`; MT1 (uniform400 · terra) is primary. The analysis cell caches
-`multi_turn_analysis.json` beside arm A: strict complete/error-free paired rates, test-only primary
-contrasts (C − B for H1; B − A and C − A for H2; D − C and D − A on BigCodeBench), task-cluster
-bootstrap, and a sensitivity run of every contrast without the 106 pilot-exposed tasks
-(`PILOT_EXPOSED_TASK_IDS`).
+written before the full chain's `allow_paid=True`; MT1 (uniform400 · terra) is primary. The
+analysis cell caches `multi_turn_analysis.json` beside arm A: strict complete/error-free paired
+rates, test-only primary contrasts (C − B for H1; B − A and C − A for H2; D − C and D − A on
+BigCodeBench), task-cluster bootstrap, and a sensitivity run of every contrast without the 106
+pilot-exposed tasks (`PILOT_EXPOSED_TASK_IDS`).
