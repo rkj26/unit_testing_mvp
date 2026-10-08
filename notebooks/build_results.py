@@ -8,14 +8,13 @@
 
 Every notebook is generated rather than hand-edited so the structure stays reviewable in one place,
 and so the pools cannot drift apart — edit this file and rebuild, never the `.ipynb`. Executing
-costs nothing only for complete cached runs. Omar is fail-closed for fresh paid work.
+costs nothing: every `.run()` finds its records already on disk.
 
 Run names differ between the pools, so the cell text carries `@@key@@` placeholders filled from
 `POOLS`. Braces are left alone by that scheme, which f-string templating would not be.
 """
 
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -357,41 +356,6 @@ ut_property = UnitTesting(run_name="@@ut_property@@", test_gen_prompt="property"
 ut_property.run()
 """)
 
-if POOL["pool"] == "bcbas":
-    md("""
-### Omar A · selected-model initial run
-
-Choose `"terra"` or `"deepseek"` once. This starts fresh Omar trigger-input generation and
-the initial A suite with that same model, using the notebook's shared population/runtime
-settings but not its saved trigger inputs. Caching is off for every Omar stage. Run this cell
-to inspect or resume the initial stage; return to the continuation cell below after it finishes.
-Fresh paid work is blocked by default: review the printed upper logical call count, then set
-`OMAR_ALLOW_PAID=True` and `OMAR_MAX_MODEL_CALLS` to at least that count deliberately.
-Completed cached reruns remain allowed with the default zero allowance.
-Before executing it, record a numerical, thresholded prediction for held-out C-versus-B.
-The notebook's retained outputs are the previously cached team-only results; they do not
-include Omar and are not a combined-run result.
-""")
-
-    code("""
-from pipeline.protocols.omar_notebook import OmarMultiTurn
-
-OMAR_MODEL = "terra"  # or "deepseek"
-OMAR_ALLOW_PAID = False
-OMAR_MAX_MODEL_CALLS = 0
-OMAR_EXPECTED_MAX_MODEL_CALLS = sum(1 for _ in ut_property.data.candidates()) * 5
-print(f"Omar upper logical model-call count: {OMAR_EXPECTED_MAX_MODEL_CALLS}; "
-      "HTTP retries can add provider attempts. Review before enabling paid work.")
-omar = OmarMultiTurn(
-    reference_arm=ut_property,
-    model=OMAR_MODEL,
-    run_name=f"{Path(DATASET).stem}-omar-{OMAR_MODEL}-run1",
-    allow_paid=OMAR_ALLOW_PAID,
-    max_model_calls=OMAR_MAX_MODEL_CALLS,
-)
-omar_initial = omar.run()
-""")
-
 code("""
 ut_plain_v3 = UnitTesting(run_name="@@ut_plain@@", test_gen_prompt="plain_v3", data=DATASET,
                           model=MODEL, triggers=TRIGGERS, n_tests=N_TESTS,@@image@@
@@ -479,53 +443,6 @@ pd.DataFrame([{"arm": label, "scored": len(seen["ok"]),
                "dropped to match": len(seen["ok"] - SCORED_BY_ALL)}
               for label, seen in COVERAGE.items()]).set_index("arm")
 """)
-
-if POOL["pool"] == "bcbas":
-    md("""
-### Omar B/C/D continuation
-
-After the initial cell above finishes, this resumes the same model-specific run and completes
-B/C/D. Only Omar arms use `OMAR_MODEL`; the team arms retain their own model configuration.
-Same run name resumes its own artifacts; change the suffix to start a fresh replicate. Continue
-only after every Omar arm finishes so plots below cannot silently use an incomplete roster.
-This same cell automatically prints the separate strict complete/error-free paired FPR/catch
-analysis before the native plots; their eligibility rules are not interchangeable. Strict primary
-contrasts use test tasks only; train results are separately descriptive, in analysis-v2.json.
-""")
-
-    code("""
-omar_arms = omar.continue_run()
-if set(omar_arms) != {"A initial", "B no feedback", "C feedback", "D delete only"}:
-    raise RuntimeError(f"unexpected Omar BCB arm roster: {sorted(omar_arms)}")
-
-omar_coverage = {label: coverage(arm) for label, arm in omar_arms.items()}
-incomplete = {label: seen["records"] for label, seen in omar_coverage.items()
-              if seen["records"] != EVERY_CANDIDATE}
-if incomplete:
-    raise RuntimeError(f"Omar arms are incomplete: {incomplete}")
-new_coverage = {**COVERAGE, **omar_coverage}
-new_shared = set.intersection(*(seen["ok"] for seen in new_coverage.values()))
-if not new_shared:
-    raise RuntimeError("no candidate has a measured verdict from every team and Omar arm")
-units.update(omar_arms)
-ARMS.update(omar_arms)
-COVERAGE = new_coverage
-SCORED_BY_ALL = new_shared
-ARM_STYLE.update({
-    "A initial": ("#1B9E77", "o"),
-    "B no feedback": ("#7570B3", "s"),
-    "C feedback": ("#D95F02", "D"),
-    "D delete only": ("#E7298A", "^"),
-})
-print(f"{len(SCORED_BY_ALL)} of {EVERY_CANDIDATE} candidates scored by all "
-      f"{len(ARMS)} arms, including Omar's")
-""")
-
-    # Metrics remain notebook-native: one authoritative cell source, not a library.
-    analysis_doc = (Path(__file__).resolve().parent / "OMAR_ANALYSIS_CELL.md").read_text(
-        encoding="utf-8")
-    analysis_code = analysis_doc.split("```python\n", 1)[1].split("\n```", 1)[0]
-    CELLS[-1]["source"] = lines("".join(CELLS[-1]["source"]) + "\n\n" + analysis_code)
 
 md("""
 ## 5 · Every threshold
@@ -1317,86 +1234,6 @@ notebook = {"cells": CELLS,
                          "language_info": {"name": "python", "version": "3.11.0"}},
             "nbformat": 4, "nbformat_minor": 5}
 
-if POOL["pool"] in {"u400", "bcbas"} and "--no-preserve-team" not in sys.argv:
-    # Preserve each original cell's entire JSON payload, including cached state.
-    # Opt out explicitly when intentionally changing the team generator in future.
-    baseline = None
-    baseline_text = None
-    try:
-        baseline_text = subprocess.check_output(
-            ["git", "show", f"HEAD:notebooks/{POOL['notebook']}"],
-            cwd=Path(__file__).resolve().parent.parent,
-            stderr=subprocess.PIPE,
-        ).decode("utf-8")
-        baseline = json.loads(baseline_text)
-    except (OSError, subprocess.CalledProcessError) as exc:
-        print(f"WARNING: Git baseline unavailable ({type(exc).__name__}); "
-              "generated all cells with cleared cached outputs; no preservation claim.",
-              file=sys.stderr)
-
-    if baseline is not None:
-        omar_markers = (
-            "### Omar A · selected-model initial run",
-            "omar_initial = omar.run()",
-            "### Omar B/C continuation",
-            "### Omar B/C/D continuation",
-            "omar_arms = omar.continue_run()",
-        )
-        def is_omar_cell(cell):
-            return any(marker in "".join(cell["source"]) for marker in omar_markers)
-
-        originals = [cell for cell in CELLS if not is_omar_cell(cell)]
-        baseline_cells = [cell for cell in baseline["cells"] if not is_omar_cell(cell)]
-        if len(originals) != len(baseline_cells):
-            raise RuntimeError("refusing to preserve team notebook state: original-cell "
-                               "count differs; use --no-preserve-team for intentional edits")
-        for index, (generated, saved) in enumerate(zip(originals, baseline_cells)):
-            if (generated["cell_type"] != saved["cell_type"]
-                    or "".join(generated["source"]) != "".join(saved["source"])):
-                raise RuntimeError("refusing to preserve team notebook state: source mismatch "
-                                   f"at original cell {index}; use --no-preserve-team "
-                                   "for intentional edits")
-            generated.clear()
-            generated.update(saved)
-        notebook["metadata"] = baseline["metadata"]
-        notebook["nbformat"] = baseline["nbformat"]
-        notebook["nbformat_minor"] = baseline["nbformat_minor"]
-
-        # Preserve original JSON cell bytes as well as values. JSONDecoder avoids
-        # confusing braces inside source/output strings with object boundaries.
-        decoder = json.JSONDecoder()
-        position = baseline_text.index("[", baseline_text.index('"cells"')) + 1
-        raw_baseline_cells = []
-        while True:
-            while baseline_text[position].isspace() or baseline_text[position] == ",":
-                position += 1
-            if baseline_text[position] == "]":
-                break
-            _value, end = decoder.raw_decode(baseline_text, position)
-            raw_baseline_cells.append(baseline_text[position:end])
-            position = end
-        raw_originals = [raw for saved, raw in zip(baseline["cells"], raw_baseline_cells)
-                         if not is_omar_cell(saved)]
-        preserved_cell_json = {id(cell): raw for cell, raw in zip(originals, raw_originals)}
-
-if "--no-preserve-team" in sys.argv:
-    print("Team-state preservation explicitly disabled; all cached outputs cleared.",
-          file=sys.stderr)
-
-# New Omar cells have no executions or outputs. Raw team-cell payloads above stay exact.
-serialized = json.dumps(notebook, indent=1, ensure_ascii=POOL["pool"] != "bcbas")
-if "preserved_cell_json" in globals():
-    raw_cells = []
-    for cell in CELLS:
-        if id(cell) in preserved_cell_json:
-            raw = preserved_cell_json[id(cell)]
-        else:
-            raw = json.dumps(cell, indent=1, ensure_ascii=POOL["pool"] != "bcbas")
-            raw = raw.replace("\n", "\n  ")
-        raw_cells.append("  " + raw)
-    rest = {key: value for key, value in notebook.items() if key != "cells"}
-    rest_text = json.dumps(rest, indent=1, ensure_ascii=POOL["pool"] != "bcbas")
-    serialized = '{\n "cells": [\n' + ",\n".join(raw_cells) + '\n ],\n' + rest_text[2:]
-TARGET.write_text(serialized + "\n", encoding="utf-8", newline="")
+TARGET.write_text(json.dumps(notebook, indent=1) + "\n")
 print(f"wrote {TARGET}: {len(CELLS)} cells, "
       f"{sum(1 for c in CELLS if c['cell_type'] == 'code')} code")

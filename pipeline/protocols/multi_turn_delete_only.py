@@ -1,30 +1,27 @@
-"""Omar's BigCodeBench delete-only selector: retain original test IDs, never rewrite tests.
+"""Arm D (BigCodeBench): keep a subset of arm A's original tests, never write or edit one.
 
-The protocol is registered through ``protocols.__init__`` so detached workers can
-rebuild it from its saved configuration.
+The selector sees what C sees — the task, A's suite, the fixed inputs and the replay diagnostics —
+and may only name original test IDs to retain. The retained source is cut out of A's suite span by
+span, byte for byte, so any difference from C is attributable to deleting rather than rewriting.
+Function-mode `task_func` tasks only, which is every BigCodeBench task.
 """
 from __future__ import annotations
 
 import ast
-import hashlib
 import json
-import re
 from pathlib import Path
 from typing import Any
 
 from .. import model as model_mod, prompts, sandbox
-from ..data import Blame, load_records
+from ..data import RUNS_DIR, Blame, load_records
+from .multi_turn import (BASELINE_PROTOCOLS, BUNDLE_FIELDS, BUNDLE_SCHEMA_VERSION, FRAMING,
+                         RESOLVE, SHA256, TESTS_PER_SUITE, _object_sha, _sha,
+                         is_base_infra_failure, require_docker)
 from .test_repair import feedback_summary
-from .omar_runtime import preflight_docker
 from .unit_testing import UnitTesting, _call, spaces_from, suite_source
-from .second_revision import is_base_infra_failure
 
-
-DELETE_ONLY_REASONING = "low"
-DELETE_ONLY_MAX_TOKENS = 8192
-DELETE_ONLY_CALL_SECONDS = 300
-DELETE_ONLY_SANDBOX_SECONDS = 120
-DELETE_ONLY_TESTS = 10
+DELETE_ONLY_TESTS = TESTS_PER_SUITE
+FUNCTION_ENTRY_POINT = "task_func"
 
 
 def selection_schema():
@@ -101,7 +98,7 @@ def subset_source(source: str, retain: list[str] | tuple[str, ...]) -> tuple[str
 
 def delete_only_prompt(task, source: str, inputs: list[Any], diagnostic: dict[str, Any],
                        allowed_test_ids: list[str]) -> str:
-    """Render the historical delete-only context with no candidate code or free-form diagnostics."""
+    """Render the delete-only context with no candidate code or free-form diagnostics."""
     blind = task.blind()
     payload = {
         "task": blind,
@@ -137,116 +134,76 @@ def delete_only_prompt(task, source: str, inputs: list[Any], diagnostic: dict[st
     )
 
 
-def _sha(raw: bytes) -> str:
-    return hashlib.sha256(raw).hexdigest()
+class MultiTurnDeleteOnly(UnitTesting):
+    """One selection call per eligible candidate over the same frozen bundle B and C read."""
 
-
-def _object_sha(value: Any) -> str:
-    return _sha(json.dumps(value, sort_keys=True, separators=(",", ":")).encode())
-
-
-class OmarDeleteOnly(UnitTesting):
-    """Delete-only selector with the historical frozen policy or reference-matched shared settings."""
-
-    protocol = "bcb_delete_only"
+    protocol = "multi_turn_delete_only"
     __test__ = False
 
-    def __init__(self, *, baseline_run: str, source_bundle: str,
-                 source_bundle_sha256: str, max_candidates: int,
-                 shared_workspace: bool = False,
-                 **kwargs: Any) -> None:
-        if not baseline_run or not source_bundle or not re.fullmatch(r"[0-9a-f]{64}", source_bundle_sha256):
-            raise ValueError("baseline run, source bundle, and exact SHA256 are required")
+    def __init__(self, *, baseline_run: str, source_bundle: str, source_bundle_sha256: str,
+                 max_candidates: int, **kwargs: Any) -> None:
+        if not baseline_run or not source_bundle or not SHA256.fullmatch(source_bundle_sha256):
+            raise ValueError("baseline run, source bundle and its exact SHA-256 are required")
         if type(max_candidates) is not int or max_candidates < 1:
             raise ValueError("a positive candidate cap is required")
         if not isinstance(kwargs.get("model"), str) or not kwargs["model"]:
-            raise ValueError("explicit model is required and must match the baseline arm")
+            raise ValueError("an explicit model is required and must match arm A")
         if not isinstance(kwargs.get("docker_image"), str) or not kwargs["docker_image"]:
-            raise ValueError("explicit Docker image is required and must match the baseline arm")
-        if type(shared_workspace) is not bool:
-            raise ValueError("shared_workspace must be an explicit boolean")
-        if shared_workspace:
-            config_path = Path("runs") / baseline_run / "config.json"
-            baseline_document = json.loads(config_path.read_text(encoding="utf-8"))
-            baseline_settings = baseline_document | baseline_document["params"]
-            kwargs.setdefault("seed", baseline_settings["seed"])
-            kwargs.setdefault("reasoning", baseline_settings["reasoning"])
-            kwargs.setdefault("max_tokens", baseline_settings["max_tokens"])
-            kwargs.setdefault("call_seconds", baseline_settings["call_seconds"])
-            kwargs.setdefault("sandbox_seconds", baseline_settings["sandbox_seconds"])
-            kwargs.setdefault("cache", baseline_settings["cache"])
-        else:
-            kwargs.setdefault("seed", 300)
-            kwargs.setdefault("reasoning", DELETE_ONLY_REASONING)
-            kwargs.setdefault("max_tokens", DELETE_ONLY_MAX_TOKENS)
-            kwargs.setdefault("call_seconds", DELETE_ONLY_CALL_SECONDS)
-            kwargs.setdefault("sandbox_seconds", DELETE_ONLY_SANDBOX_SECONDS)
-            kwargs.setdefault("cache", False)
-        kwargs.setdefault("runs", 1)
+            raise ValueError("an explicit Docker image is required and must match arm A")
         kwargs.setdefault("n_tests", DELETE_ONLY_TESTS)
-        kwargs.setdefault("resolve", "with")
-        kwargs.setdefault("test_gen_prompt", "traceable_v1")
+        kwargs.setdefault("resolve", RESOLVE)
+        kwargs.setdefault("test_gen_prompt", FRAMING)
         kwargs.setdefault("code_visible", False)
-        kwargs.setdefault("critique", False)
-        kwargs.setdefault("critique_informed", False)
+        kwargs.setdefault("cache", False)
         super().__init__(baseline_run=baseline_run, source_bundle=source_bundle,
                          source_bundle_sha256=source_bundle_sha256, max_candidates=max_candidates,
-                         shared_workspace=shared_workspace, **kwargs)
-        if (self.runs != 1 or (not shared_workspace and self.cache) or self.n_tests != DELETE_ONLY_TESTS
-                or self.code_visible or self.critique or self.critique_informed
-                or self.resolve != "with" or self.framing != "traceable_v1"):
-            raise ValueError("delete-only requires one uncached run, ten hidden-code traceable/with tests, and no critique")
-        if not shared_workspace and (
-                self.seed != 300 or self.reasoning.value != DELETE_ONLY_REASONING
-                or self.max_tokens != DELETE_ONLY_MAX_TOKENS
-                or self.call_seconds != DELETE_ONLY_CALL_SECONDS
-                or self.sandbox_seconds != DELETE_ONLY_SANDBOX_SECONDS):
-            raise ValueError("historical delete-only settings differ from the frozen BigCodeBench policy")
+                         **kwargs)
+        if (self.n_tests != DELETE_ONLY_TESTS or self.code_visible or self.critique
+                or self.critique_informed or self.resolve != RESOLVE or self.framing != FRAMING):
+            raise ValueError(f"{self.run_name}: delete-only reads ten hidden-code traceable tests "
+                             "resolved with the specification, without critique")
         if self.total > max_candidates:
-            raise ValueError("population exceeds the explicit delete-only candidate cap")
-        if any(task.io_mode != "function" or task.entry_point != "task_func" for task in self.data.tasks):
-            raise ValueError("delete-only is frozen to BigCodeBench function-mode task_func tasks")
+            raise ValueError(f"{self.run_name}: population exceeds the cap of {max_candidates}")
+        if any(task.io_mode != "function" or task.entry_point != FUNCTION_ENTRY_POINT
+               for task in self.data.tasks):
+            raise ValueError(f"{self.run_name}: delete-only is for function-mode task_func tasks")
         self.baseline_run = baseline_run
         self.source_bundle = source_bundle
         self.source_bundle_sha256 = source_bundle_sha256
         self.max_candidates = max_candidates
-        self.shared_workspace = shared_workspace
         self.trigger_space: dict[str, list[Any]] = {}
         self.source_context: dict[str, dict[str, Any]] = {}
 
-    def _runtime(self):
-        """Preserve shared-reference transport behavior; historical reproductions never retry."""
-        runtime = super()._runtime()
-        return runtime if self.shared_workspace else runtime.model_copy(update={"http_retries": 0})
-
     def validate_source(self, data) -> None:
-        """Verify the complete source/input/bundle population before resolving provider credentials."""
+        """Check the bundle, arm A and the inputs agree, and build one context per candidate."""
         raw_bundle = Path(self.source_bundle).read_bytes()
         if _sha(raw_bundle) != self.source_bundle_sha256:
             raise ValueError("source bundle hash changed")
         bundle = json.loads(raw_bundle)
         paths = {
             "dataset_sha256": Path(self.data_path),
-            "source_config_sha256": Path("runs") / self.baseline_run / "config.json",
-            "source_records_sha256": Path("runs") / self.baseline_run / "records.jsonl",
-            "input_records_sha256": Path("runs") / self.triggers / "records.jsonl",
+            "source_config_sha256": RUNS_DIR / self.baseline_run / "config.json",
+            "source_records_sha256": RUNS_DIR / self.baseline_run / "records.jsonl",
+            "input_records_sha256": RUNS_DIR / self.triggers / "records.jsonl",
         }
-        if set(bundle) != {"schema_version", "candidates", *paths} or bundle["schema_version"] != 1:
-            raise ValueError("unexpected source bundle shape/version")
+        if (set(bundle) != {"schema_version", "candidates", *paths}
+                or bundle["schema_version"] != BUNDLE_SCHEMA_VERSION):
+            raise ValueError("unexpected source bundle shape or version")
         for key, path in paths.items():
             if _sha(path.read_bytes()) != bundle[key]:
-                raise ValueError(f"{key} hash changed")
+                raise ValueError(f"{key} changed since the bundle was written")
         baseline = json.loads(paths["source_config_sha256"].read_text(encoding="utf-8"))
         baseline = baseline | baseline["params"]
         own = self.config() | self.config()["params"]
         for key in ("model", "seed", "n_tests", "max_tokens", "reasoning", "call_seconds",
-                    "sandbox_seconds", "docker_image", "triggers", "resolve", "test_gen_prompt", "cache"):
+                    "sandbox_seconds", "docker_image", "triggers", "resolve", "test_gen_prompt",
+                    "cache"):
             if baseline[key] != own[key]:
-                raise ValueError(f"baseline/delete-only settings differ: {key}")
-        if (baseline["protocol"] not in {"unit_testing", "omar_initial"} or baseline["code_visible"] is not True
+                raise ValueError(f"arm A and delete-only differ on {key}")
+        if (baseline["protocol"] not in BASELINE_PROTOCOLS or baseline["code_visible"] is not True
                 or baseline["critique"] or baseline["critique_informed"] or baseline["runs"] != 1
                 or baseline["data"] != self.data_path):
-            raise ValueError("baseline must be the frozen code-visible, one-run UnitTesting arm")
+            raise ValueError("arm A must be a one-run, code-visible, uncritiqued suite on this data")
 
         baseline_rows = load_records(self.baseline_run)
         input_rows = load_records(self.triggers)
@@ -256,12 +213,12 @@ class OmarDeleteOnly(UnitTesting):
         if (len(baseline_rows) != len(wanted) or set(baseline_by_id) != wanted
                 or len(input_rows) != len(wanted) or set(input_by_id) != wanted
                 or set(bundle["candidates"]) != wanted):
-            raise ValueError("duplicate, missing, or unexpected baseline/input/bundle candidate")
+            raise ValueError("duplicate, missing or unexpected source, input or bundle candidate")
         spaces, unusable = spaces_from(self.triggers, data)
         if (set(spaces) | set(unusable)) != wanted or set(spaces) & set(unusable):
-            raise ValueError("input records do not cover the frozen population exactly")
-        if (not self.shared_workspace and unusable) or any(not space for space in spaces.values()):
-            raise ValueError("delete-only requires reviewed nonempty inputs for every candidate")
+            raise ValueError("input records do not cover the population exactly")
+        if any(not space for space in spaces.values()):
+            raise ValueError("an empty input space reached delete-only")
 
         self.trigger_space = spaces
         self.source_context = {}
@@ -270,61 +227,59 @@ class OmarDeleteOnly(UnitTesting):
             record = baseline_by_id[cid]
             input_record = input_by_id[cid]
             row = bundle["candidates"][cid]
-            if set(row) != {"source_record_sha256", "inputs_sha256", "code_sha256", "suite_sha256", "result"}:
+            if set(row) != set(BUNDLE_FIELDS):
                 raise ValueError("unexpected source bundle candidate fields")
-            expected_split = data.split_of(task.task_id)
-            if (record["task_id"] != task.task_id or record["split"] != expected_split
-                    or input_record["task_id"] != task.task_id or input_record["split"] != expected_split):
-                raise ValueError("baseline/input task or split mismatch")
+            split = data.split_of(task.task_id)
+            if (record["task_id"] != task.task_id or record["split"] != split
+                    or input_record["task_id"] != task.task_id or input_record["split"] != split):
+                raise ValueError(f"{cid}: source or input task/split mismatch")
             if (row["source_record_sha256"] != _object_sha(record)
                     or row["code_sha256"] != _sha(candidate.code.encode())):
-                raise ValueError("candidate baseline/input/code hash changed")
+                raise ValueError(f"{cid}: source record or candidate code changed")
             calls = record["calls"]
             if not isinstance(calls, list):
-                raise ValueError("baseline calls must be a list")
+                raise ValueError(f"{cid}: arm-A calls must be a list")
             raw = calls[0]["raw"] if len(calls) == 1 else ""
             source, parse_error = suite_source(raw)
             base_failure = is_base_infra_failure(record)
             if not base_failure and record["tests_src"] is not None and source != record["tests_src"]:
-                raise ValueError("recorded baseline suite differs from its original response")
+                raise ValueError(f"{cid}: recorded suite differs from the saved response")
             if base_failure and row["result"] is not None:
-                raise ValueError("baseline infrastructure failure cannot have replay measurements")
+                raise ValueError(f"{cid}: an arm-A crash cannot have a replay measurement")
             if row["suite_sha256"] != (None if source is None else _sha(source.encode())):
-                raise ValueError("original suite hash changed")
+                raise ValueError(f"{cid}: initial suite hash changed")
             try:
                 tests = {} if source is None else exact_tests(source)
             except ValueError as error:
                 self.source_context[cid] = {
-                    "eligible": False,
-                    "reason": "invalid original test-ID inventory: " + str(error),
-                    "blame": Blame.MODEL.value,
-                    "source_sha256": row["suite_sha256"],
-                    "test_ids": None,
-                    "test_count": None,
+                    "eligible": False, "reason": "invalid original test-ID inventory: " + str(error),
+                    "blame": Blame.MODEL.value, "source_sha256": row["suite_sha256"],
+                    "test_ids": None, "test_count": None,
                 }
                 continue
             if cid in unusable:
                 if row["inputs_sha256"] is not None or row["result"] is not None:
-                    raise ValueError("unusable-input bundle row must have null input hash and result")
+                    raise ValueError(f"{cid}: a candidate without inputs cannot have an input hash "
+                                     "or a replay")
                 self.source_context[cid] = {
-                    "eligible": False,
-                    "reason": "no usable reviewed inputs: " + unusable[cid],
+                    "eligible": False, "reason": "no usable trigger inputs: " + unusable[cid],
                     "blame": input_record["blame"] if input_record["failed"] else Blame.MODEL.value,
-                    "source_sha256": row["suite_sha256"],
-                    "test_ids": sorted(tests),
+                    "source_sha256": row["suite_sha256"], "test_ids": sorted(tests),
                     "test_count": len(tests),
                 }
                 continue
             space = spaces[cid]
             if row["inputs_sha256"] != _object_sha(space):
-                raise ValueError("candidate input hash changed")
+                raise ValueError(f"{cid}: input hash changed")
             if source is None or not raw:
                 if row["result"] is not None:
-                    feedback_summary(row["result"], parse_error or "missing original response", None, space)
+                    feedback_summary(row["result"], parse_error or "missing original response",
+                                     None, space)
                 self.source_context[cid] = {
                     "eligible": False,
-                    "reason": ("baseline infrastructure failure: " + record["reason"] if base_failure else
-                               "baseline source parse failure: " + str(parse_error or "no saved response")),
+                    "reason": ("arm-A infrastructure failure: " + record["reason"] if base_failure
+                               else "arm-A source parse failure: "
+                               + str(parse_error or "no saved response")),
                     "blame": Blame.INFRA.value if base_failure else Blame.MODEL.value,
                     "source_sha256": row["suite_sha256"],
                 }
@@ -333,16 +288,14 @@ class OmarDeleteOnly(UnitTesting):
             if len(tests) != DELETE_ONLY_TESTS:
                 self.source_context[cid] = {
                     "eligible": False,
-                    "reason": (f"baseline suite has {len(tests)} original top-level test IDs; "
-                               f"delete-only requires exactly {DELETE_ONLY_TESTS}"),
-                    "blame": Blame.MODEL.value,
-                    "source_sha256": row["suite_sha256"],
-                    "test_ids": sorted(tests),
-                    "test_count": len(tests),
+                    "reason": (f"arm-A suite has {len(tests)} top-level test IDs; delete-only "
+                               f"requires exactly {DELETE_ONLY_TESTS}"),
+                    "blame": Blame.MODEL.value, "source_sha256": row["suite_sha256"],
+                    "test_ids": sorted(tests), "test_count": len(tests),
                 }
                 continue
-            # This is the exact diagnostic projection shown by the historical notebook. In
-            # particular, incomplete/missing pairs remain visibly incomplete, never zero-filled.
+            # The same diagnostic projection C is shown: incomplete or missing pairs stay visibly
+            # incomplete, never zero-filled.
             diagnostic = {key: diagnostic_raw[key] for key in ("complete", "n_records", "n_expected")
                           if key in diagnostic_raw}
             diagnostic["tests"] = None if diagnostic_raw["tests"] is None else [
@@ -356,9 +309,10 @@ class OmarDeleteOnly(UnitTesting):
                 "tests": tests, "test_ids": sorted(tests), "test_count": len(tests),
                 "space": space, "diagnostic": diagnostic,
             }
+
     def prepare(self, data) -> None:
         self.validate_source(data)
-        preflight_docker(self.docker_image)
+        require_docker(self.docker_image)
         model_mod.resolve(self._runtime())
 
     def score(self, task, candidate) -> dict[str, Any]:

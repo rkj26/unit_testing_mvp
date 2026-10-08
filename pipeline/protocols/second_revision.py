@@ -12,19 +12,9 @@ from pathlib import Path
 from .. import prompts, model as model_mod, sandbox
 from ..data import load_records
 from .test_repair import feedback_summary, parse_repair, repair_schema
-from .omar_runtime import preflight_docker
 from .unit_testing import spaces_from, suite_source, test_names_in, _call
 
 from .unit_testing import UnitTesting
-from .base import CALLS, FAILURE_FIELDS, IDENTITY_FIELDS
-
-
-def is_base_infra_failure(record: dict[str, Any]) -> bool:
-    """Recognize only the unmeasured record emitted when the shared base catches a crash."""
-    return (set(record) == {*IDENTITY_FIELDS, *FAILURE_FIELDS, CALLS}
-            and record["failed"] is True and record["blame"] == "infra"
-            and type(record["reason"]) is str and bool(record["reason"])
-            and record["calls"] == [])
 
 
 def revision_prompt(
@@ -54,20 +44,18 @@ def revision_prompt(
 
 
 class SecondRevision(UnitTesting):
-    """One extra call per eligible candidate; never retry records or fall back."""
+    """One extra call per eligible fresh holdout candidate; never retry records or fall back."""
     protocol = "second_revision"
 
     def __init__(self, *, baseline_run: str, source_bundle: str,
                  source_bundle_sha256: str, feedback_visible: bool,
-                 max_candidates: int, shared_workspace: bool = False, **kwargs: Any):
+                 max_candidates: int, **kwargs: Any):
         """Freeze population cap, source link, and the sole revision-arm intervention."""
-        if type(shared_workspace) is not bool:
-            raise ValueError('shared_workspace must be an explicit boolean')
         if not baseline_run or not source_bundle or not re.fullmatch('[0-9a-f]{64}', source_bundle_sha256):
             raise ValueError('source run, bundle and exact SHA256 are required')
         if type(feedback_visible) is not bool or type(max_candidates) is not int or max_candidates < 1:
             raise ValueError('explicit feedback visibility and positive candidate cap required')
-        if kwargs.get('cache') is None and not shared_workspace:
+        if kwargs.get('cache') is None:
             kwargs['cache'] = False
         kwargs.setdefault('max_tokens', 8192)
         kwargs.setdefault('resolve', 'with')
@@ -75,28 +63,23 @@ class SecondRevision(UnitTesting):
         kwargs.setdefault('code_visible', False)
         super().__init__(baseline_run=baseline_run, source_bundle=source_bundle,
                          source_bundle_sha256=source_bundle_sha256, feedback_visible=feedback_visible,
-                         max_candidates=max_candidates, shared_workspace=shared_workspace, **kwargs)
+                         max_candidates=max_candidates, **kwargs)
         if (self.code_visible or self.critique or self.critique_informed or self.n_tests != 10
-                or self.framing != 'traceable_v1' or self.resolve != 'with'
-                or (not shared_workspace and self.cache)):
-            raise ValueError('fixed revision design: hidden code, no critique, exactly 10 traceable-with tests; historical mode also disables cache')
-        if not self.data.test or self.total > max_candidates:
-            raise ValueError('population must have a test split and fit the declared candidate cap')
-        if not shared_workspace and self.data.train:
-            raise ValueError('historical revision population must be test-only')
+                or self.framing != 'traceable_v1' or self.resolve != 'with' or self.cache):
+            raise ValueError('fixed revision design: hidden code, no critique/cache, exactly10 traceable-with tests')
+        if self.data.train or not self.data.test or self.total > max_candidates:
+            raise ValueError('fresh test-only population must fit preregistered candidate cap')
         self.baseline_run = baseline_run
         self.source_bundle = source_bundle
         self.source_bundle_sha256 = source_bundle_sha256
         self.feedback_visible = feedback_visible
-        self.shared_workspace = shared_workspace
 
     def _runtime(self):
-        """Historical mode is single-attempt; shared mode matches UnitTesting retry/cache policy."""
-        runtime = super()._runtime()
-        return runtime if self.shared_workspace else runtime.model_copy(update={'http_retries': 0})
+        """No HTTP retry: one revision attempt, including transport failures."""
+        return super()._runtime().model_copy(update={'http_retries': 0})
 
-    def validate_source(self, data):
-        """Validate frozen dependencies without resolving a provider or running Docker."""
+    def prepare(self, data):
+        """Validate complete immutable source/inputs/feedback linkage before resolving credentials."""
         byte_hash = lambda raw: hashlib.sha256(raw).hexdigest()
         object_hash = lambda value: byte_hash(json.dumps(value, sort_keys=True, separators=(',', ':')).encode())
         raw_bundle = Path(self.source_bundle).read_bytes()
@@ -116,10 +99,10 @@ class SecondRevision(UnitTesting):
         baseline = baseline | baseline['params']
         own = self.config() | self.config()['params']
         for key in ('model', 'seed', 'n_tests', 'max_tokens', 'reasoning', 'call_seconds',
-                    'sandbox_seconds', 'docker_image', 'triggers', 'resolve', 'test_gen_prompt', 'cache'):
+                    'sandbox_seconds', 'docker_image', 'triggers', 'resolve', 'test_gen_prompt'):
             if baseline[key] != own[key]:
                 raise ValueError(f'baseline/revision settings differ: {key}')
-        if (baseline['protocol'] not in {'unit_testing', 'omar_initial'} or baseline['code_visible'] is not True
+        if (baseline['protocol'] != 'unit_testing' or baseline['code_visible'] is not True
                 or baseline['critique'] or baseline['critique_informed'] or baseline['runs'] != 1
                 or baseline['data'] != self.data_path):
             raise ValueError('baseline must be the frozen code-visible one-turn UnitTesting policy')
@@ -132,9 +115,8 @@ class SecondRevision(UnitTesting):
                 or set(input_by_id) != wanted or set(bundle['candidates']) != wanted):
             raise ValueError('duplicate, missing or unexpected source/input/bundle candidate')
         self.trigger_space, unusable = spaces_from(self.triggers, data)
-        if unusable and not self.shared_workspace:
+        if unusable:
             raise ValueError('both revisions require the same reviewed nonempty candidate inputs')
-        input_records_by_id = {record['candidate_id']: record for record in inputs}
         self.revision_context = {}
         for task, candidate in data.candidates():
             cid = candidate.candidate_id
@@ -143,41 +125,23 @@ class SecondRevision(UnitTesting):
                 raise ValueError('unexpected source candidate fields')
             if (
                 record['task_id'] != task.task_id
-                or record['split'] != data.split_of(task.task_id)
+                or record['split'] != 'test'
                 or input_by_id[cid]['task_id'] != task.task_id
-                or input_by_id[cid]['split'] != data.split_of(task.task_id)
+                or input_by_id[cid]['split'] != 'test'
             ):
                 raise ValueError('source/input task or split mismatch')
-            if row['source_record_sha256'] != object_hash(record) or row['code_sha256'] != byte_hash(candidate.code.encode()):
+            space = self.trigger_space[cid]
+            if (row['source_record_sha256'] != object_hash(record) or row['inputs_sha256'] != object_hash(space)
+                    or row['code_sha256'] != byte_hash(candidate.code.encode())):
                 raise ValueError('candidate source/input/code hash changed')
             if len(record['calls']) > 1:
                 raise ValueError('source must contain at most one original authoring response')
             raw = record['calls'][0]['raw'] if record['calls'] else ''
             source, parse_error = suite_source(raw)
-            base_failure = is_base_infra_failure(record)
-            if not base_failure and record['tests_src'] is not None and source != record['tests_src']:
+            if record['tests_src'] is not None and source != record['tests_src']:
                 raise ValueError('recorded suite differs from original response')
-            if base_failure and row['result'] is not None:
-                raise ValueError('baseline infrastructure failure cannot have replay measurements')
             if row['suite_sha256'] != (None if source is None else byte_hash(source.encode())):
                 raise ValueError('initial suite hash changed')
-            if cid in unusable:
-                if not self.shared_workspace:
-                    raise ValueError('unusable candidate inputs require shared_workspace=True')
-                if row['inputs_sha256'] is not None or row['result'] is not None:
-                    raise ValueError('unusable trigger candidate must have null input hash and replay result')
-                source_input = input_records_by_id[cid]
-                blame = source_input['blame'] if source_input['failed'] else 'model'
-                if blame not in {'model', 'infra'}:
-                    raise ValueError(f'{cid}: unusable trigger record has invalid source blame')
-                self.revision_context[cid] = {
-                    'eligible': False, 'reason': f"unusable frozen trigger inputs: {unusable[cid]}",
-                    'blame': blame, 'provenance': {key: row[key] for key in row if key != 'result'},
-                }
-                continue
-            space = self.trigger_space[cid]
-            if row['inputs_sha256'] != object_hash(space):
-                raise ValueError('candidate source/input/code hash changed')
             provenance = {key: row[key] for key in row if key != 'result'}
             if not raw:
                 self.revision_context[cid] = {'eligible':False, 'reason':'no saved baseline response',
@@ -189,10 +153,6 @@ class SecondRevision(UnitTesting):
                 'stratum':'parse_recovery' if source is None else
                           'source_failure' if record['failed'] else
                           'complete_source' if diagnostic['complete'] else 'partial_source'}
-    def prepare(self, data):
-        """Verify the source offline, then preflight before provider resolution."""
-        self.validate_source(data)
-        preflight_docker(self.docker_image)
         model_mod.resolve(self._runtime())
 
     def score(self, task, candidate):
@@ -203,7 +163,7 @@ class SecondRevision(UnitTesting):
                     'feedback_visible':self.feedback_visible, 'revision_version':1,
                     'assertion_reach_measured':False}
         if not context['eligible']:
-            return self._unmeasured([], context.get('blame', 'infra'), context['reason']) | metadata
+            return self._unmeasured([], 'infra', context['reason']) | metadata
         space = self.trigger_space[candidate.candidate_id]
         prompt = revision_prompt(task, context['source'], space, context['diagnostic'], self.feedback_visible)
         completion = model_mod.complete_sync(model_mod.resolve(self._runtime()), prompt,

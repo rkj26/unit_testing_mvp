@@ -28,8 +28,8 @@ from .u_plans_t_writes import UPlansTWrites
 from .unit_testing import UnitTesting
 from .test_repair import TestRepair
 from .second_revision import SecondRevision
-from .omar_shared import OmarInitial, OmarTriggerSearch
-from .omar_delete_only import OmarDeleteOnly
+from .multi_turn import MultiTurnInitial, MultiTurnReplay, MultiTurnRevision
+from .multi_turn_delete_only import MultiTurnDeleteOnly
 
 __all__ = [
     "REGISTRY",
@@ -45,8 +45,9 @@ __all__ = [
     "UnitTesting",
     "TestRepair",
     "SecondRevision",
-    "OmarInitial",
-    "OmarTriggerSearch",
-    "OmarDeleteOnly",
+    "MultiTurnInitial",
+    "MultiTurnReplay",
+    "MultiTurnRevision",
+    "MultiTurnDeleteOnly",
     "main",
 ]
