@@ -64,8 +64,8 @@ whether the feedback is visible. Train tasks are reported separately and never p
 Before running: the team's `@@reference@@` arm must exist under `runs/` (run its cell in the
 team notebook), Docker and tmux must be available, and `.env` must hold the Azure credentials.
 The entries for these runs — setup, change, hypothesis, thresholded predictions — are in
-`multi_turn_plan.md` and are written before `ALLOW_PAID = True`. **MT1 (uniform400 · terra) is the
-primary run**; the others are secondary and descriptive.
+`multi_turn_plan.md` and are written before `ALLOW_PAID_FULL = True`. **MT1 (uniform400 · terra)
+is the primary run**; the others are secondary and descriptive.
 """)
 
 code("""
@@ -95,7 +95,8 @@ DATASET = "@@dataset@@"
 REFERENCE_RUN = "@@reference@@"
 MODEL_KEY = "terra"      # MT1/MT3 primary model; "deepseek" for MT2/MT4
 PREFIX = f"@@pool@@-mt-{MODEL_KEY}-run1"
-ALLOW_PAID = False       # True only once this run's multi_turn_plan.md entry is final
+ALLOW_PAID_SMOKE = False  # True to spend the smoke chain's few calls (study.plan() shows how many)
+ALLOW_PAID_FULL = False   # True only once the smoke chain looks right and the plan entry is final
 
 reference = UnitTesting.attach(REFERENCE_RUN)
 assert reference.data_path == DATASET, (reference.data_path, DATASET)
@@ -104,20 +105,33 @@ study.plan()
 """)
 
 md("""
-## 2 · Run the chain
+## 2 · Smoke chain
 
-Smoke chain first — every stage on one test task — then the full chain, each stage launched
-detached by `Run.run()` and followed here; Ctrl-C detaches and re-running this cell resumes. Any
-stage with paid work left raises unless `ALLOW_PAID` is set, so re-running a finished study costs
-nothing. The full chain does not start if a smoke stage hit infrastructure.
+Every stage on one test task, through the real provider, Docker and tmux. It stops here: read the
+coverage below before spending on the full chain. Re-running a finished smoke chain costs nothing.
 """)
 
 code("""
-multi_turn_arms = study.run(allow_paid=ALLOW_PAID)
+smoke_arms = study.run(allow_paid=ALLOW_PAID_SMOKE, smoke_only=True)
+pd.DataFrame([{"arm": label, "records": len(rows := arm.get_records()),
+               "failed": [(row["blame"], row["reason"]) for row in rows if row["failed"]]}
+              for label, arm in smoke_arms.items()]).set_index("arm")
 """)
 
 md("""
-## 3 · Coverage
+## 3 · Full chain
+
+Each stage launched detached by `Run.run()` and followed here; B, C (and D) run side by side.
+Ctrl-C detaches and re-running this cell resumes. Any stage with paid work left raises unless
+`ALLOW_PAID_FULL` is set, so re-running a finished study costs nothing.
+""")
+
+code("""
+multi_turn_arms = study.run(allow_paid=ALLOW_PAID_FULL)
+""")
+
+md("""
+## 4 · Coverage
 
 Failed records leave every denominator below; a partial grid is shown, never read as clean.
 """)
@@ -135,7 +149,7 @@ pd.DataFrame([coverage_row(label, arm) for label, arm in multi_turn_arms.items()
 """)
 
 md("""
-## 4 · Strict complete/error-free paired rates
+## 5 · Strict complete/error-free paired rates
 
 Paired honest FPR and attack catch rates, with task-cluster bootstrap intervals, computed from the
 saved records with zero model or Docker calls. A candidate counts only where every arm in a

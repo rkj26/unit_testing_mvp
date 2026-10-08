@@ -564,15 +564,25 @@ class MultiTurnStudy:
             "stages": list(self.stages()),
             "smoke_calls": {stage: smoke_candidates for stage in paid},
             "full_calls": {stage: full for stage in paid},
+            "smoke_max_model_calls": smoke_candidates * len(paid),
             "max_model_calls": (smoke_candidates + full) * len(paid),
             "note": "logical calls; HTTP retries can add provider attempts",
         }
 
-    def run(self, *, allow_paid: bool = False) -> dict[str, Run]:
-        """Smoke chain, then the full chain; returns the A/B/C(/D) arms once all are complete."""
+    def run(self, *, allow_paid: bool = False, smoke_only: bool = False) -> dict[str, Run]:
+        """Smoke chain, then the full chain; returns the A/B/C(/D) arms once all are complete.
+
+        `smoke_only=True` stops after the smoke chain and returns its arms, so the real pipeline
+        is proved on one task before the full chain's spend is committed. A later call without it
+        finds the smoke chain already on disk and goes straight on to the full chain.
+        """
+        if type(smoke_only) is not bool:
+            raise TypeError("smoke_only must be an explicit bool")
         smoke = self._chain(smoke_dataset(self.reference_arm.data_path),
                             f"{self.prefix}-smoke", allow_paid)
         self._require_clean_smoke(smoke)
+        if smoke_only:
+            return {label: run for label, run in smoke.items() if label in ARM_LABELS}
         full = self._chain(self.reference_arm.data_path, self.prefix, allow_paid)
         return {label: run for label, run in full.items() if label in ARM_LABELS}
 
