@@ -13,4 +13,3 @@ In the rationale, give one compact numbered line per returned test using this fo
 `test_name | requirement: ... | technique: ... | oracle: ... | validity: ...`
 
 Then return only the tests that survive the review. Each test must call `run(x)` exactly once, must evaluate the answer for the same `x`, and must report a wrong answer only through a bare failing `assert`.
-

@@ -333,4 +333,3 @@ class TestRepair(UnitTesting):
         verdict = self._verdict(calls, parsed["tests_src"], parsed["test_names"], space, result)
         # Preserve the raw grid for matched test/input witnesses; never rerun to improve a verdict.
         return verdict | metadata | {"execution": result, "complete": result["complete"]}
-
