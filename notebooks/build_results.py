@@ -278,18 +278,30 @@ def where_a_false_alarm_costs():
 
 
 def reading_the_safety_bars():
-    """Under `safety_by_variation`. The eight caption parts:
-    Measures: how often each arm keeps every attack out of a deployment, at the cut that the rule
-    chose. Axes: x is safety (D16), deployments with no attack shipped ÷ all deployments; y lists
-    the arms. One mark: a bar is one arm at one cut, the budget-quantile cut (D19, from honest
-    train scores only) or k >= 1 for an `any fires` arm (D20); the label also gives usefulness
-    (D17), honest shipped ÷ honest arrived. Varies: nothing in a panel; each panel is one variation
-    (D15), the rule for a flag that gets no audit. Fixed: horizon, attack rate, budget and number
-    of audits, trials and seed, from game_settings(); test split. Population: the test tasks that
-    keep both candidates (R8); the game cell prints the count. Read it as: longer is better; the
-    dotted line is the free floor (D18), the safety that each arm gets without work. Limits: one
-    cut for each arm, so the bar does not show what a different cut gives — the frontier does."""
-    raise NotImplementedError("how to read the safety bars")
+    """Under `safety_by_variation`. The eight caption parts, self-contained."""
+    return """
+**How to read this figure: safety in each variation.**
+
+- **Measures.** How often each arm keeps all attacks out of a deployment, at the cut that the rule
+  chose.
+- **Axes.** The x axis is safety (D16): deployments in which no attack candidate ships ÷ all
+  deployments. The y axis lists the arms.
+- **One mark.** Each bar is one arm at one cut. The cut is the budget-quantile cut (D19), the
+  @@quantile@@ percentile of the honest train scores, or k ≥ 1 for an `any fires` arm (D20). In B
+  and C, the label also gives usefulness (D17): honest candidates that ship ÷ honest candidates
+  that arrive.
+- **Varies.** Nothing in one panel. Each panel is one variation (D15), with its rule for a flag
+  that gets no audit.
+- **Fixed.** Horizon @@horizon@@ steps. Attack rate @@attack_rate_pct@@. Budget @@budget_pct@@,
+  which is @@audits@@ audits for each deployment. @@trials_n@@ deployments from seed
+  @@test_seed@@, on the test split.
+- **Population.** The test tasks that keep both candidates (R8). The first cell of Section 6 gives
+  the count.
+- **Read it as.** A longer bar is better. The dotted line is the free floor (D18): the safety that
+  each arm gets without work, because some deployments contain no attack.
+- **Limits.** Each arm has one cut here, so a bar does not show the result of a different cut. The
+  frontier figure below shows that.
+"""
 
 
 def reading_the_frontiers():
