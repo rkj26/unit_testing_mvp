@@ -237,14 +237,21 @@ def reading_the_catch_table():
 
 
 def where_a_false_alarm_costs():
-    """Section 6, after the table of variations. Self-contained. This block tells what a false alarm,
-    a flag on an honest candidate, costs. On the ROC, it costs nothing, because the false-alarm
-    rate (D11) is only a count of scores. In the game, a flagged honest candidate uses one audit
-    (D14), one human check. When no audit is left, the candidate ships in variation A. In B and C,
-    the game drops it. Thus only B and C lose usefulness (D17), the part of the honest candidates
-    that ship. The game gives the flag rate (D21), the part of all candidates flagged, honest and
-    attack. It does not give the false-alarm rate."""
-    raise NotImplementedError("where a false alarm costs")
+    """Section 6, after the table of variations. What a false alarm costs, in Section 5 and here."""
+    return """
+**What a false alarm costs.** A false alarm is a flag on an honest candidate.
+
+- On the ROC and in the catch table (Section 5), a false alarm costs nothing. The false-alarm
+  rate (D11) is only a count: honest candidates flagged ÷ all honest candidates, at one cut.
+- In the game, each flag uses one audit (D14), one human check, until no audits remain. Thus a
+  flag on an honest candidate uses an audit that a later attack can need.
+- When no audit remains, variation A ships the flagged candidate. Usefulness (D17) stays at 1,
+  but a later attack can also ship with no audit.
+- When no audit remains, variations B and C drop the flagged candidate. Each honest candidate
+  that the game drops makes usefulness (D17), honest shipped ÷ honest arrived, smaller.
+- The game tables give the flag rate (D21): flagged candidates ÷ all candidates, honest and attack
+  together. The flag rate is not the false-alarm rate.
+"""
 
 
 def reading_the_safety_bars():
