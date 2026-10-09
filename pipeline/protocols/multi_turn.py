@@ -1,0 +1,751 @@
+"""Multi-turn test authoring: an initial suite, its execution feedback, and one revision.
+
+Five runs, each an ordinary protocol launched by `Run.run()` and resumed from its own directory:
+
+    inputs   TriggerSearch       fresh inputs, same model as every arm below
+    A        MultiTurnInitial    ten traceable tests, code visible
+    replay   MultiTurnReplay     A's saved suites run once in Docker; no model call
+    B, C     MultiTurnRevision   one revision with A's feedback withheld (B) or shown (C)
+    D        MultiTurnDeleteOnly BigCodeBench only: keep a subset of A's tests, never rewrite
+
+The replay is its own run because B and C must read the *same* feedback: a stage whose output two
+protocols consume is named and reused, never recomputed by each (AGENTS.md, "Splitting one call
+into its own run"). `write_source_bundle` freezes the replay into the hash-checked file that
+`SecondRevision` already reads, so B and C are aedev's revision protocol with the population rules
+of a shared notebook pool, not a second implementation of it.
+
+`MultiTurnStudy` is the notebook-facing chain. It runs the whole chain on a one-task smoke dataset
+first, refuses any stage with paid work left unless `allow_paid=True`, and otherwise only calls
+`.run()` on each arm: inputs, A and the replay in order, then B, C and D launched together so the
+arms being compared meet the provider side by side rather than an hour apart. Nothing here touches
+tmux, threads or `records.jsonl` itself.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+import shutil
+import subprocess
+import time
+from pathlib import Path
+from typing import Any
+
+from .. import launch, model as model_mod, sandbox
+from ..data import CONFIG_FILE, Blame, Dataset, RUNS_DIR, load_records
+from .base import CALLS, FAILURE_FIELDS, IDENTITY_FIELDS, POLL_SECONDS, Run, RunFailed
+from .second_revision import SecondRevision
+from .test_repair import feedback_summary
+from .trigger_search import DEFAULT_NUM_INPUTS, TriggerSearch
+from .unit_testing import UnitTesting, spaces_from, suite_source
+
+MULTI_TURN_MODELS = {
+    "deepseek": "openai-api/azureai/DeepSeek-V3.2",
+    "terra": "openai-api/azureai/gpt-5.6-terra",
+}
+DEFAULT_MODEL = MULTI_TURN_MODELS["deepseek"]
+
+TESTS_PER_SUITE = 10
+FRAMING = "traceable_v1"
+RESOLVE = "with"
+BCB_BACKEND = "bcb"
+
+INPUTS = "inputs"
+A_INITIAL = "A initial"
+REPLAY = "replay"
+B_NO_FEEDBACK = "B no feedback"
+C_FEEDBACK = "C feedback"
+D_DELETE_ONLY = "D delete only"
+ARM_LABELS = (A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
+REVISION_LABELS = (B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
+RUN_SUFFIX = {INPUTS: "triggers", A_INITIAL: "A-traceable", REPLAY: "A-replay",
+              B_NO_FEEDBACK: "B-no-feedback", C_FEEDBACK: "C-feedback",
+              D_DELETE_ONLY: "D-delete-only"}
+PAID_STAGES = (INPUTS, A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY)
+
+PILOT_APPS_TASK_IDS = frozenset({
+    "1175", "1223", "1361", "1383", "1433", "1553", "1670", "1681", "1737", "1743", "1766",
+    "1864", "1941", "1958", "2046", "2183", "2222", "3692", "3694", "3698", "3724", "3733",
+    "3748", "3756", "3770", "3771", "3782", "3789", "3790", "3798", "3801", "3819", "3825",
+    "3832", "3843", "3847", "3862", "3868", "3870", "3875", "3886", "3888", "3892", "3893",
+    "3897", "3901", "3902", "3915", "3926", "3928", "3929", "3931", "3932", "3934", "3941",
+    "3945", "3949", "3955", "3956", "3957", "3960", "3977", "3985", "3987", "3991", "3996",
+    "3999", "4089", "4365", "4414", "4442", "570", "630", "632", "677", "756", "838", "842",
+    "86", "966",
+})
+PILOT_BCB_TASK_IDS = frozenset({
+    "BigCodeBench/4", "BigCodeBench/9", "BigCodeBench/25", "BigCodeBench/27",
+    "BigCodeBench/33", "BigCodeBench/50", "BigCodeBench/52", "BigCodeBench/54",
+    "BigCodeBench/55", "BigCodeBench/61", "BigCodeBench/63", "BigCodeBench/64",
+    "BigCodeBench/65", "BigCodeBench/66", "BigCodeBench/84", "BigCodeBench/86",
+    "BigCodeBench/87", "BigCodeBench/95", "BigCodeBench/97", "BigCodeBench/121",
+    "BigCodeBench/141", "BigCodeBench/147", "BigCodeBench/149", "BigCodeBench/150",
+    "BigCodeBench/151", "BigCodeBench/153",
+})
+PILOT_EXPOSED_TASK_IDS = PILOT_APPS_TASK_IDS | PILOT_BCB_TASK_IDS
+
+BUNDLE_FILE = "source-bundle.json"
+BUNDLE_SCHEMA_VERSION = 1
+BUNDLE_FIELDS = ("source_record_sha256", "inputs_sha256", "code_sha256", "suite_sha256", "result")
+BASELINE_PROTOCOLS = frozenset({"unit_testing", "multi_turn_initial"})
+SMOKE_SUFFIX = "multi_turn_smoke"
+DOCKER_START_SECONDS = 180
+RUN_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]*")
+SHA256 = re.compile(r"[0-9a-f]{64}")
+
+
+def _sha(raw: bytes) -> str:
+    return hashlib.sha256(raw).hexdigest()
+
+
+def _object_sha(value: Any) -> str:
+    return _sha(json.dumps(value, sort_keys=True, separators=(",", ":")).encode())
+
+
+def _save_once(path: Path, value: Any) -> None:
+    """Write a derived artifact once; an existing one that differs raises instead of being replaced."""
+    text = json.dumps(value, sort_keys=True, indent=2) + "\n"
+    if path.exists():
+        if path.read_text(encoding="utf-8") != text:
+            raise ValueError(f"{path} already exists with different content; it is derived from "
+                             "saved records, so a difference means an input changed underneath it")
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("x", encoding="utf-8") as stream:
+        stream.write(text)
+
+
+def require_docker(image: str) -> None:
+    """Raise before any paid call when `image` cannot run a container.
+
+    Uses the team's `sandbox.preflight` where this checkout has it (the BigCodeBench line added
+    it), and the same `docker run --rm <image> true` check otherwise, so a missing daemon is one
+    error at prepare time rather than one infra record per candidate after the model was paid.
+    """
+    preflight = getattr(sandbox, "preflight", None)
+    if preflight is not None:
+        preflight(image)
+        return
+    if shutil.which("docker") is None:
+        raise RuntimeError("docker is not on PATH, so no sandbox grid can run")
+    try:
+        started = subprocess.run(["docker", "run", "--rm", image, "true"],
+                                 capture_output=True, timeout=DOCKER_START_SECONDS)
+    except subprocess.TimeoutExpired as slow:
+        raise RuntimeError(f"`docker run {image} true` did not return within "
+                           f"{DOCKER_START_SECONDS}s") from slow
+    if started.returncode != 0:
+        detail = (started.stderr or started.stdout or b"").decode("utf-8", "replace").strip()
+        raise RuntimeError(f"`docker run {image} true` exited {started.returncode}: {detail[:400]}")
+
+
+def is_base_infra_failure(record: dict[str, Any]) -> bool:
+    """The record `Run._record_for` writes when `score` raised: identity, failure triple, no calls."""
+    return (set(record) == {*IDENTITY_FIELDS, *FAILURE_FIELDS, CALLS}
+            and record["failed"] is True and record["blame"] == Blame.INFRA.value
+            and type(record["reason"]) is str and bool(record["reason"])
+            and record[CALLS] == [])
+
+
+def _refuse_cache(run: Run) -> None:
+    """Every multi-turn arm runs uncached: a cache hit would replay one answer as a new measurement."""
+    if run.cache:
+        raise ValueError(f"{run.run_name}: the multi-turn arms run with cache=False, so a rerun "
+                         "cannot return an earlier answer as an independent measurement")
+
+
+class MultiTurnInitial(UnitTesting):
+    """Arm A: the first suite, ten traceable code-visible tests over this study's own inputs.
+
+    `UnitTesting` with the design fixed, and one difference in `score`: a candidate whose fresh
+    trigger search failed keeps that search's blame, so an input run that died on infra is not
+    booked as the authoring model's failure.
+    """
+
+    protocol = "multi_turn_initial"
+
+    def __init__(self, **kwargs: Any) -> None:
+        kwargs.setdefault("code_visible", True)
+        kwargs.setdefault("test_gen_prompt", FRAMING)
+        kwargs.setdefault("resolve", RESOLVE)
+        kwargs.setdefault("n_tests", TESTS_PER_SUITE)
+        kwargs.setdefault("cache", False)
+        super().__init__(**kwargs)
+        _refuse_cache(self)
+        if (self.code_visible is not True or self.framing != FRAMING or self.resolve != RESOLVE
+                or self.n_tests != TESTS_PER_SUITE or self.critique or self.critique_informed):
+            raise ValueError(f"{self.run_name}: arm A is ten traceable code-visible tests "
+                             "resolved with the specification, without critique")
+        self.input_failure_blame: dict[str, str] = {}
+
+    def prepare(self, data: Dataset) -> None:
+        require_docker(self.docker_image)
+        super().prepare(data)
+        rows = {row["candidate_id"]: row for row in load_records(self.triggers)}
+        self.input_failure_blame = {}
+        for cid in self.no_trigger_space:
+            if cid not in rows:
+                raise ValueError(f"{cid}: no record in {self.triggers}, so the run is unfinished")
+            row = rows[cid]
+            blame = row["blame"] if row["failed"] else Blame.MODEL.value
+            if blame not in {kind.value for kind in Blame}:
+                raise ValueError(f"{cid}: input record carries blame {blame!r}")
+            self.input_failure_blame[cid] = blame
+
+    def score(self, task, candidate):
+        cid = candidate.candidate_id
+        if cid in self.no_trigger_space:
+            return self._unmeasured([], self.input_failure_blame[cid],
+                                    f"no trigger inputs: {self.triggers} {self.no_trigger_space[cid]}")
+        return super().score(task, candidate)
+
+
+class MultiTurnReplay(Run):
+    """Arm A's saved suites, each run once over its own inputs: the feedback B and C are shown.
+
+    Calls no model. A candidate with no suite or no usable inputs gets `result: None` — nothing ran,
+    and nothing is pretended to have run. A sandbox that raises is recorded as a grid with `ok`
+    false and the error, which is what the revision prompt's diagnostics are built from.
+    """
+
+    protocol = "multi_turn_replay"
+
+    def __init__(self, *, baseline_run: str, triggers: str, sandbox_seconds: int,
+                 docker_image: str, **kwargs: Any) -> None:
+        kwargs.setdefault("cache", False)
+        super().__init__(baseline_run=baseline_run, triggers=triggers,
+                         sandbox_seconds=sandbox_seconds, docker_image=docker_image, **kwargs)
+        if not baseline_run or not triggers or not docker_image:
+            raise ValueError(f"{self.run_name}: baseline_run, triggers and docker_image are required")
+        if self.runs != 1:
+            raise ValueError(f"{self.run_name}: a replay is one grid per suite, runs must be 1")
+        self.baseline_run = baseline_run
+        self.triggers = triggers
+        self.sandbox_seconds = sandbox_seconds
+        self.docker_image = docker_image
+        self.baseline_rows: dict[str, dict[str, Any]] = {}
+        self.spaces: dict[str, list[Any]] = {}
+        self.unusable: dict[str, str] = {}
+
+    def prepare(self, data: Dataset) -> None:
+        rows = load_records(self.baseline_run)
+        by_id = {row["candidate_id"]: row for row in rows}
+        wanted = {candidate.candidate_id for _, candidate in data.candidates()}
+        if len(rows) != len(wanted) or set(by_id) != wanted:
+            raise ValueError(f"{self.baseline_run} must hold exactly one record per candidate "
+                             "before its suites are replayed")
+        self.baseline_rows = by_id
+        self.spaces, self.unusable = spaces_from(self.triggers, data)
+        require_docker(self.docker_image)
+
+    def score(self, task, candidate):
+        cid = candidate.candidate_id
+        row = self.baseline_rows[cid]
+        raw = row[CALLS][0]["raw"] if row[CALLS] else ""
+        source, parse_error = suite_source(raw)
+        identity = {
+            "source_record_sha256": _object_sha(row),
+            "inputs_sha256": None if cid in self.unusable else _object_sha(self.spaces[cid]),
+            "code_sha256": _sha(candidate.code.encode()),
+            "suite_sha256": None if source is None else _sha(source.encode()),
+        }
+        result = None
+        if source is not None and cid not in self.unusable:
+            try:
+                result = sandbox.run_raw(task, candidate.code, source, list(self.spaces[cid]),
+                                         timeout_s=self.sandbox_seconds,
+                                         isolation=sandbox.Isolation.DOCKER,
+                                         docker_image=self.docker_image)
+            except Exception as error:
+                result = {"ok": False, "complete": False, "props": [], "records": [],
+                          "n_records": 0, "n_expected": 0,
+                          "error": f"{type(error).__name__}: {error}"[:300]}
+        if raw and cid not in self.unusable:
+            # Raises on a grid the revision prompt could not show; the base records that as infra.
+            feedback_summary(result, parse_error, source, self.spaces[cid])
+        return {CALLS: [], **identity, "result": result}
+
+
+def write_source_bundle(replay: MultiTurnReplay) -> tuple[Path, str]:
+    """Freeze a finished replay into the bundle `SecondRevision` verifies; return path and SHA-256.
+
+    Written once beside the replay run. Every hash is taken now, and every replay row must still
+    describe the arm-A record it replayed, so an A run edited after its replay cannot be revised.
+    """
+    rows = replay.get_records()
+    by_id = {row["candidate_id"]: row for row in rows}
+    wanted = [candidate.candidate_id for _, candidate in replay.data.candidates()]
+    if len(rows) != len(wanted) or set(by_id) != set(wanted):
+        raise ValueError(f"{replay.run_name} must hold exactly one record per candidate")
+    failed = {cid: row["reason"] for cid, row in by_id.items() if row["failed"]}
+    if failed:
+        raise ValueError(f"{replay.run_name} has {len(failed)} failed replay(s), so B and C would "
+                         f"be shown no feedback for them: {dict(list(failed.items())[:3])}")
+    baseline = {row["candidate_id"]: row for row in load_records(replay.baseline_run)}
+    changed = [cid for cid in wanted if by_id[cid]["source_record_sha256"] != _object_sha(baseline[cid])]
+    if changed:
+        raise ValueError(f"{replay.baseline_run} changed after it was replayed: {changed[:3]}")
+    dependencies = {
+        "dataset_sha256": Path(replay.data_path),
+        "source_config_sha256": RUNS_DIR / replay.baseline_run / "config.json",
+        "source_records_sha256": RUNS_DIR / replay.baseline_run / "records.jsonl",
+        "input_records_sha256": RUNS_DIR / replay.triggers / "records.jsonl",
+    }
+    bundle = {
+        "schema_version": BUNDLE_SCHEMA_VERSION,
+        "candidates": {cid: {field: by_id[cid][field] for field in BUNDLE_FIELDS} for cid in wanted},
+        **{key: _sha(path.read_bytes()) for key, path in dependencies.items()},
+    }
+    path = replay.directory / BUNDLE_FILE
+    _save_once(path, bundle)
+    return path, _sha(path.read_bytes())
+
+
+class MultiTurnRevision(SecondRevision):
+    """Arms B and C: `SecondRevision`'s prompt, call and verdict, over a shared notebook pool.
+
+    `SecondRevision` was written for a fresh test-only population with every input usable. A
+    notebook pool has a train half, and a fresh input run can leave a candidate without inputs,
+    so this class keeps its prompt and `score` and owns only what differs:
+
+    - train and test candidates both revise, each record keeping its own split;
+    - a candidate with no usable inputs is a failed record with the input run's blame and no call,
+      never a revision of something that could not run;
+    - an arm-A record whose `score` raised is recognised as infra rather than as a missing suite;
+    - transport retries follow `UnitTesting`, the policy every arm it is compared with uses.
+    """
+
+    protocol = "multi_turn_revision"
+
+    def __init__(self, *, baseline_run: str, source_bundle: str, source_bundle_sha256: str,
+                 feedback_visible: bool, max_candidates: int, **kwargs: Any) -> None:
+        if not baseline_run or not source_bundle or not SHA256.fullmatch(source_bundle_sha256):
+            raise ValueError("baseline run, source bundle and its exact SHA-256 are required")
+        if type(feedback_visible) is not bool or type(max_candidates) is not int or max_candidates < 1:
+            raise ValueError("explicit feedback visibility and a positive candidate cap are required")
+        kwargs.setdefault("cache", False)
+        kwargs.setdefault("max_tokens", 8192)
+        kwargs.setdefault("resolve", RESOLVE)
+        kwargs.setdefault("test_gen_prompt", FRAMING)
+        kwargs.setdefault("code_visible", False)
+        # SecondRevision.__init__ would refuse a population with a train half; its parent is the
+        # constructor this design actually needs.
+        UnitTesting.__init__(self, baseline_run=baseline_run, source_bundle=source_bundle,
+                             source_bundle_sha256=source_bundle_sha256,
+                             feedback_visible=feedback_visible, max_candidates=max_candidates,
+                             **kwargs)
+        _refuse_cache(self)
+        if (self.code_visible or self.critique or self.critique_informed
+                or self.n_tests != TESTS_PER_SUITE or self.framing != FRAMING
+                or self.resolve != RESOLVE):
+            raise ValueError(f"{self.run_name}: a revision is hidden-code, uncritiqued, ten "
+                             "traceable tests resolved with the specification")
+        if not self.data.test or self.total > max_candidates:
+            raise ValueError(f"{self.run_name}: the population needs a test half and must fit "
+                             f"the declared cap of {max_candidates}")
+        self.baseline_run = baseline_run
+        self.source_bundle = source_bundle
+        self.source_bundle_sha256 = source_bundle_sha256
+        self.feedback_visible = feedback_visible
+
+    def _runtime(self):
+        return UnitTesting._runtime(self)
+
+    def validate_source(self, data: Dataset) -> None:
+        """Check the bundle, arm A and the inputs agree, and build one context per candidate."""
+        raw_bundle = Path(self.source_bundle).read_bytes()
+        if _sha(raw_bundle) != self.source_bundle_sha256:
+            raise ValueError("source bundle hash changed")
+        bundle = json.loads(raw_bundle)
+        paths = {"dataset_sha256": Path(self.data_path),
+                 "source_config_sha256": RUNS_DIR / self.baseline_run / "config.json",
+                 "source_records_sha256": RUNS_DIR / self.baseline_run / "records.jsonl",
+                 "input_records_sha256": RUNS_DIR / self.triggers / "records.jsonl"}
+        if (set(bundle) != {"schema_version", "candidates", *paths}
+                or bundle["schema_version"] != BUNDLE_SCHEMA_VERSION):
+            raise ValueError("unexpected source bundle shape or version")
+        for key, path in paths.items():
+            if _sha(path.read_bytes()) != bundle[key]:
+                raise ValueError(f"{key} changed since the bundle was written")
+        baseline = json.loads(paths["source_config_sha256"].read_text(encoding="utf-8"))
+        baseline = baseline | baseline["params"]
+        own = self.config() | self.config()["params"]
+        for key in ("model", "seed", "n_tests", "max_tokens", "reasoning", "call_seconds",
+                    "sandbox_seconds", "docker_image", "triggers", "resolve", "test_gen_prompt",
+                    "cache"):
+            if baseline[key] != own[key]:
+                raise ValueError(f"arm A and this revision differ on {key}")
+        if (baseline["protocol"] not in BASELINE_PROTOCOLS or baseline["code_visible"] is not True
+                or baseline["critique"] or baseline["critique_informed"] or baseline["runs"] != 1
+                or baseline["data"] != self.data_path):
+            raise ValueError("arm A must be a one-run, code-visible, uncritiqued suite on this data")
+
+        sources = load_records(self.baseline_run)
+        inputs = load_records(self.triggers)
+        wanted = {candidate.candidate_id for _, candidate in data.candidates()}
+        by_id = {row["candidate_id"]: row for row in sources}
+        input_by_id = {row["candidate_id"]: row for row in inputs}
+        if (len(sources) != len(wanted) or set(by_id) != wanted or len(inputs) != len(wanted)
+                or set(input_by_id) != wanted or set(bundle["candidates"]) != wanted):
+            raise ValueError("duplicate, missing or unexpected source, input or bundle candidate")
+        self.trigger_space, unusable = spaces_from(self.triggers, data)
+        self.revision_context = {}
+        for task, candidate in data.candidates():
+            cid = candidate.candidate_id
+            record, row = by_id[cid], bundle["candidates"][cid]
+            if set(row) != set(BUNDLE_FIELDS):
+                raise ValueError("unexpected source bundle candidate fields")
+            split = data.split_of(task.task_id)
+            if (record["task_id"] != task.task_id or record["split"] != split
+                    or input_by_id[cid]["task_id"] != task.task_id
+                    or input_by_id[cid]["split"] != split):
+                raise ValueError(f"{cid}: source or input task/split mismatch")
+            if (row["source_record_sha256"] != _object_sha(record)
+                    or row["code_sha256"] != _sha(candidate.code.encode())):
+                raise ValueError(f"{cid}: source record or candidate code changed")
+            if len(record[CALLS]) > 1:
+                raise ValueError(f"{cid}: arm A holds more than one authoring response")
+            raw = record[CALLS][0]["raw"] if record[CALLS] else ""
+            source, parse_error = suite_source(raw)
+            base_failure = is_base_infra_failure(record)
+            if not base_failure and record["tests_src"] is not None and source != record["tests_src"]:
+                raise ValueError(f"{cid}: recorded suite differs from the saved response")
+            if base_failure and row["result"] is not None:
+                raise ValueError(f"{cid}: an arm-A crash cannot have a replay measurement")
+            if row["suite_sha256"] != (None if source is None else _sha(source.encode())):
+                raise ValueError(f"{cid}: initial suite hash changed")
+            provenance = {key: row[key] for key in row if key != "result"}
+            if cid in unusable:
+                if row["inputs_sha256"] is not None or row["result"] is not None:
+                    raise ValueError(f"{cid}: a candidate without inputs cannot have an input hash "
+                                     "or a replay")
+                source_input = input_by_id[cid]
+                blame = source_input["blame"] if source_input["failed"] else Blame.MODEL.value
+                if blame not in {kind.value for kind in Blame}:
+                    raise ValueError(f"{cid}: input record carries blame {blame!r}")
+                self.revision_context[cid] = {
+                    "eligible": False, "blame": blame, "provenance": provenance,
+                    "reason": f"no usable trigger inputs: {unusable[cid]}"}
+                continue
+            space = self.trigger_space[cid]
+            if row["inputs_sha256"] != _object_sha(space):
+                raise ValueError(f"{cid}: input hash changed")
+            if not raw:
+                self.revision_context[cid] = {
+                    "eligible": False, "blame": Blame.INFRA.value, "provenance": provenance,
+                    "reason": "no saved arm-A response"}
+                continue
+            diagnostic = feedback_summary(row["result"], parse_error, source, space)
+            self.revision_context[cid] = {
+                "eligible": True, "source": source if source is not None else raw,
+                "diagnostic": diagnostic, "provenance": provenance,
+                "stratum": "parse_recovery" if source is None else
+                           "source_failure" if record["failed"] else
+                           "complete_source" if diagnostic["complete"] else "partial_source"}
+
+    def prepare(self, data: Dataset) -> None:
+        self.validate_source(data)
+        require_docker(self.docker_image)
+        model_mod.resolve(self._runtime())
+
+    def score(self, task, candidate):
+        context = self.revision_context[candidate.candidate_id]
+        if context["eligible"]:
+            return super().score(task, candidate)
+        return self._unmeasured([], context["blame"], context["reason"]) | {
+            "eligible": False, "baseline_run": self.baseline_run,
+            "source_hashes": context["provenance"],
+            "source_bundle_sha256": self.source_bundle_sha256,
+            "feedback_visible": self.feedback_visible, "revision_version": 1,
+            "assertion_reach_measured": False}
+
+
+def smoke_dataset(source: str | Path) -> str:
+    """A one-task copy of `source`: its first test task, both candidates, written beside it.
+
+    Deterministic, so the same file is rebuilt identically on every machine; an existing file that
+    differs raises rather than being overwritten. The task keeps its test split because a revision
+    population must hold one.
+    """
+    source_path = Path(source)
+    source_bytes = source_path.read_bytes()
+    source_lf = source_bytes.replace(b"\r\n", b"\n")
+    source_crlf = source_lf.replace(b"\n", b"\r\n")
+    accepted_source_hashes = {_sha(source_bytes), _sha(source_lf), _sha(source_crlf)}
+    original = Dataset.load(source_path)
+    if not original.test:
+        raise ValueError(f"{original.name} has no test task to smoke on")
+    task = original.test[0]
+    smoke = Dataset(
+        name=f"{original.name}_{SMOKE_SUFFIX}",
+        backend=original.backend,
+        io_mode=original.io_mode,
+        tasks=(task,),
+        split={half: (task.task_id,) if half == "test" else () for half in original.split},
+        built_from={**original.built_from, "smoke_of": str(source_path),
+                    "smoke_of_sha256": _sha(source_lf), "smoke_task": task.task_id},
+        schema_version=original.schema_version,
+    )
+    path = source_path.with_name(f"{source_path.stem}_{SMOKE_SUFFIX}.json")
+    text = json.dumps(smoke.to_json(), indent=2) + "\n"
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        existing_hash = existing.get("built_from", {}).get("smoke_of_sha256")
+        expected = smoke.to_json()
+        expected["built_from"]["smoke_of_sha256"] = existing_hash
+        if existing_hash not in accepted_source_hashes or existing != expected:
+            raise ValueError(f"{path} exists and differs from the smoke dataset {source_path} implies")
+        return str(path)
+    path.write_text(text, encoding="utf-8", newline="\n")
+    return str(path)
+
+
+class UnretriedInfraFailures(RuntimeError):
+    """An input or arm-A run holds infra failures the next stage would freeze in. Always raised."""
+
+
+def _stop_on_infra_failures(run: Run, next_stage: str, accept: bool) -> None:
+    """Raise before `next_stage` starts if `run` holds infra failures, unless they were accepted.
+
+    A resume does not retry an infra failure (protocols/AGENTS.md). For the inputs and arm A that
+    is permanent: once A is replayed, the bundle freezes the failure into B, C and D, whose hash
+    checks then refuse any later retry. So the chain stops here while a retry is still possible.
+    Once `next_stage` exists the decision is on disk, and a re-executed notebook is never stopped.
+    """
+    if accept or (RUNS_DIR / next_stage / CONFIG_FILE).is_file():
+        return
+    infra = [row for row in run.get_records() if row["failed"] and row["blame"] == Blame.INFRA.value]
+    if infra:
+        examples = "; ".join(f"{row['candidate_id']}: {row['reason']}" for row in infra[:3])
+        raise UnretriedInfraFailures(
+            f"{run.run_name}: {len(infra)} candidate(s) failed on infrastructure, and {next_stage} "
+            f"would freeze them out of every later arm. Examples: {examples}. To retry them, back "
+            f"up runs/{run.run_name}/records.jsonl, remove its lines with \"failed\": true and "
+            "\"blame\": \"infra\", and re-run the cell (docs/flow_multi_turn.md, 'Infra failures'). "
+            "If they persist after a retry, re-run with accept_infra_failures=True to keep them as "
+            "explicit exclusions.")
+
+
+def _require_complete(run: Run) -> None:
+    """Every candidate scored exactly once, or a raise naming what is left."""
+    rows = run.get_records()
+    ids = [row["candidate_id"] for row in rows]
+    wanted = {candidate.candidate_id for _, candidate in run.data.candidates()}
+    if len(ids) != len(set(ids)) or set(ids) != wanted:
+        still = "still running detached — re-run this cell once it finishes" \
+            if launch.alive(run.run_name) else "not running — re-run this cell to resume it"
+        raise RuntimeError(f"{run.run_name}: {len(set(ids) & wanted)}/{len(wanted)} candidates "
+                           f"scored ({len(ids) - len(set(ids))} duplicate), {still}")
+
+
+def _follow_together(runs: list[Run]) -> None:
+    """Print joint progress until every run is complete; Ctrl-C detaches, a dead session raises."""
+    try:
+        while True:
+            states = {run.run_name: run.status() for run in runs}
+            print("\r  " + "  ".join(f"{name}: {state['scored']}/{state['total']}"
+                                      for name, state in states.items()), end="", flush=True)
+            unfinished = {name: state for name, state in states.items()
+                          if state["scored"] < state["total"]}
+            if not unfinished:
+                print()
+                return
+            ended = sorted(name for name, state in unfinished.items() if not state["alive"])
+            if ended:
+                print()
+                raise RunFailed(f"{ended}: the session ended with candidates unscored; "
+                                "re-run this cell to resume")
+            time.sleep(POLL_SECONDS)
+    except KeyboardInterrupt:
+        print("\n  still running detached; re-run this cell to follow them again")
+
+
+class MultiTurnStudy:
+    """The chain on one notebook pool, its settings read off the team's reference arm.
+
+    The reference arm lends the dataset, Docker image and runtime settings; its records and its
+    trigger inputs are never read, so nothing the team measured changes. Every stage's cache is
+    off: the inputs are fresh and each arm's prompt is its own.
+    """
+
+    def __init__(self, *, reference_arm: UnitTesting, prefix: str,
+                 model: str = DEFAULT_MODEL) -> None:
+        if type(reference_arm) is not UnitTesting:
+            raise TypeError("reference_arm must be the team notebook's UnitTesting arm")
+        if not RUN_NAME.fullmatch(prefix):
+            raise ValueError(f"prefix {prefix!r} must be a run-name slug")
+        if not reference_arm.config_path.is_file():
+            raise ValueError(f"{reference_arm.run_name} has no config.json — run its cell in the "
+                             "team notebook first")
+        if json.loads(reference_arm.config_path.read_text(encoding="utf-8")) != reference_arm.config():
+            raise ValueError(f"{reference_arm.run_name}: config.json differs from the arm passed in")
+        if reference_arm.n_tests != TESTS_PER_SUITE or reference_arm.runs != 1:
+            raise ValueError("the reference arm must be a one-run ten-test UnitTesting arm")
+        self.reference_arm = reference_arm
+        self.prefix = prefix
+        self.model = MULTI_TURN_MODELS.get(model, model)
+        self.settings = {
+            "seed": reference_arm.seed,
+            "reasoning": reference_arm.reasoning.value,
+            "max_tokens": reference_arm.max_tokens,
+            "call_seconds": reference_arm.call_seconds,
+            "sandbox_seconds": reference_arm.sandbox_seconds,
+            "docker_image": reference_arm.docker_image,
+        }
+        self.delete_only = reference_arm.data.backend == BCB_BACKEND
+
+    def stages(self) -> tuple[str, ...]:
+        return tuple(stage for stage in (INPUTS, A_INITIAL, REPLAY, B_NO_FEEDBACK, C_FEEDBACK,
+                                         D_DELETE_ONLY)
+                     if stage != D_DELETE_ONLY or self.delete_only)
+
+    def plan(self) -> dict[str, Any]:
+        """Upper bounds on logical model calls, smoke chain then full chain; nothing is launched."""
+        data = self.reference_arm.data
+        smoke_task = data.test[0].task_id
+        smoke_candidates = sum(1 for task, _ in data.candidates() if task.task_id == smoke_task)
+        full = self.reference_arm.total
+        paid = [stage for stage in self.stages() if stage in PAID_STAGES]
+        return {
+            "model": self.model,
+            "stages": list(self.stages()),
+            "smoke_calls": {stage: smoke_candidates for stage in paid},
+            "full_calls": {stage: full for stage in paid},
+            "smoke_max_model_calls": smoke_candidates * len(paid),
+            "max_model_calls": (smoke_candidates + full) * len(paid),
+            "note": "logical calls; HTTP retries can add provider attempts",
+        }
+
+    def complete(self, *, smoke_only: bool = False) -> bool:
+        """Whether every run `run()` needs is already fully recorded on disk. Read-only.
+
+        No model call, no launch, no file written. The team notebook executes top to bottom on
+        machines that may not hold these runs; its multi-turn cells ask this first and skip with a
+        message rather than raise, so this study can never stop the team's notebook. A run present
+        on disk whose dataset file is missing raises: those runs were committed without it.
+        """
+        prefixes = [f"{self.prefix}-smoke"] + ([] if smoke_only else [self.prefix])
+        for prefix in prefixes:
+            for stage in self.stages():
+                name = f"{prefix}-{RUN_SUFFIX[stage]}"
+                config = RUNS_DIR / name / CONFIG_FILE
+                if not config.is_file():
+                    return False
+                data = json.loads(config.read_text(encoding="utf-8"))["data"]
+                if not Path(data).is_file():
+                    raise FileNotFoundError(f"{name} reads {data}, which is not on disk; commit it "
+                                            "beside the runs")
+                if Run.attach(name).pending():
+                    return False
+        return True
+
+    def run(self, *, allow_paid: bool = False, smoke_only: bool = False,
+            accept_infra_failures: bool = False) -> dict[str, Run]:
+        """Smoke chain, then the full chain; returns the A/B/C(/D) arms once all are complete.
+
+        `smoke_only=True` stops after the smoke chain and returns its arms, so the real pipeline
+        is proved on one task before the full chain's spend is committed. A later call without it
+        finds the smoke chain already on disk and goes straight on to the full chain.
+
+        The chain stops after the inputs and after arm A if either holds infra failures, while
+        they can still be retried; `accept_infra_failures=True` carries them on as exclusions.
+        """
+        if type(smoke_only) is not bool or type(accept_infra_failures) is not bool:
+            raise TypeError("smoke_only and accept_infra_failures must be explicit bools")
+        smoke = self._chain(smoke_dataset(self.reference_arm.data_path),
+                            f"{self.prefix}-smoke", allow_paid, accept_infra_failures)
+        self._require_clean_smoke(smoke)
+        if smoke_only:
+            return {label: run for label, run in smoke.items() if label in ARM_LABELS}
+        full = self._chain(self.reference_arm.data_path, self.prefix, allow_paid,
+                           accept_infra_failures)
+        return {label: run for label, run in full.items() if label in ARM_LABELS}
+
+    def _chain(self, data: str, prefix: str, allow_paid: bool,
+               accept_infra_failures: bool) -> dict[str, Run]:
+        settings = dict(self.settings)
+        image = settings.pop("docker_image")
+        sandbox_seconds = settings["sandbox_seconds"]
+        inputs = TriggerSearch(run_name=f"{prefix}-{RUN_SUFFIX[INPUTS]}", data=data, model=self.model,
+                               num_inputs=DEFAULT_NUM_INPUTS, code_visible=True,
+                               reasoning=settings["reasoning"], seed=settings["seed"], cache=False)
+        self._launch(inputs, allow_paid)
+        _stop_on_infra_failures(inputs, f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", accept_infra_failures)
+        authoring = dict(data=data, model=self.model, triggers=inputs.run_name,
+                         docker_image=image, cache=False, **settings)
+        initial = MultiTurnInitial(run_name=f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", **authoring)
+        self._launch(initial, allow_paid)
+        _stop_on_infra_failures(initial, f"{prefix}-{RUN_SUFFIX[REPLAY]}", accept_infra_failures)
+        replay = MultiTurnReplay(run_name=f"{prefix}-{RUN_SUFFIX[REPLAY]}", data=data,
+                                 baseline_run=initial.run_name, triggers=inputs.run_name,
+                                 sandbox_seconds=sandbox_seconds, docker_image=image)
+        self._launch(replay, allow_paid=True)
+        bundle, bundle_sha = write_source_bundle(replay)
+        source = dict(baseline_run=initial.run_name, source_bundle=str(bundle),
+                      source_bundle_sha256=bundle_sha, max_candidates=initial.total,
+                      code_visible=False, **authoring)
+        stages: dict[str, Run] = {INPUTS: inputs, A_INITIAL: initial, REPLAY: replay}
+        stages[B_NO_FEEDBACK] = MultiTurnRevision(run_name=f"{prefix}-{RUN_SUFFIX[B_NO_FEEDBACK]}",
+                                                  feedback_visible=False, **source)
+        stages[C_FEEDBACK] = MultiTurnRevision(run_name=f"{prefix}-{RUN_SUFFIX[C_FEEDBACK]}",
+                                               feedback_visible=True, **source)
+        if self.delete_only:
+            from .multi_turn_delete_only import MultiTurnDeleteOnly
+            stages[D_DELETE_ONLY] = MultiTurnDeleteOnly(run_name=f"{prefix}-{RUN_SUFFIX[D_DELETE_ONLY]}",
+                                                        **source)
+        self._launch_together([stages[label] for label in REVISION_LABELS if label in stages],
+                              allow_paid)
+        return stages
+
+    @staticmethod
+    def _launch(run: Run, allow_paid: bool) -> None:
+        """`.run()` the stage unless it would pay for calls nobody allowed; then require it complete."""
+        run.write_config()
+        pending = run.pending()
+        if pending and not allow_paid:
+            raise PermissionError(
+                f"{run.run_name}: {len(pending)} candidate(s) still to score, each a paid model "
+                "call. Review study.plan(), record the experiment's prediction, then pass "
+                "allow_paid=True")
+        run.run()
+        _require_complete(run)
+
+    @staticmethod
+    def _launch_together(runs: list[Run], allow_paid: bool) -> None:
+        """Start every revision arm detached at once, then follow them jointly to completion.
+
+        B, C and D are compared candidate by candidate, so they must run side by side: an arm run
+        after another meets a provider an hour older, and that drift would be read as the arm's
+        effect. Each still launches through `Run.run()`; only the waiting is shared. A session
+        already running (this cell re-run mid-flight) is followed rather than launched twice.
+        """
+        for run in runs:
+            run.write_config()
+        pending = {run.run_name: len(run.pending()) for run in runs}
+        if any(pending.values()) and not allow_paid:
+            raise PermissionError(
+                f"{pending} candidate(s) still to score across the revision arms, each a paid "
+                "model call. Review study.plan(), record the experiment's prediction, then pass "
+                "allow_paid=True")
+        if any(pending.values()):
+            for run in runs:
+                if pending[run.run_name] and not launch.alive(run.run_name):
+                    run.run(wait=False)
+            _follow_together(runs)
+        for run in runs:
+            _require_complete(run)
+
+    @staticmethod
+    def _require_clean_smoke(stages: dict[str, Run]) -> None:
+        """Stop before the full chain if any smoke stage hit infrastructure, or A never called."""
+        problems = {}
+        for label, run in stages.items():
+            infra = [row["reason"] for row in run.get_records()
+                     if row["failed"] and row["blame"] == Blame.INFRA.value]
+            if infra:
+                problems[label] = infra[:2]
+        if not any(row[CALLS] for row in stages[A_INITIAL].get_records()):
+            problems[A_INITIAL] = ["no smoke candidate reached the authoring model"]
+        if problems:
+            raise RuntimeError(f"smoke chain failed, full chain not started: {problems}")

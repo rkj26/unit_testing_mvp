@@ -17,6 +17,7 @@ __pycache__/
 #     `records.jsonl.gz` first — `load_records` reads either form, preferring the plain one.
 #   - `console.log` is the tmux transcript, not an artifact. It is ignored below.
 runs/*/console.log
+reports/multi_turn_smoke_audit/**/console.log
 
 # post-hoc rescorings of a completed run (reaggregate.py) — reproducible from runs/, don't commit
 reaggregations/
