@@ -236,16 +236,27 @@ def reading_the_roc():
 
 
 def reading_the_catch_table():
-    """Under the table of catch rate at a fixed false-alarm rate. The eight caption parts:
-    Measures: how many attacks each arm catches when it may flag only a small part of the honest
-    candidates. Axes: each row is one arm; each column is one fixed false-alarm rate (D11), from
-    game_settings(). One mark: a cell is the catch rate (D10) at that false-alarm rate. Varies:
-    the fixed false-alarm rate. Fixed: as for the ROC. Population: as for the ROC; the cell prints
-    the number of honest candidates that make 1%. Read it as: higher is better; a coin flip gives
-    a catch rate equal to the false-alarm rate. Limits: between two cuts the value comes from a
-    straight line, which a random choice between the two cuts gives; at 1% and 2% the
-    denominator is a few honest candidates."""
-    raise NotImplementedError("how to read the catch table")
+    """Under the table of catch rate at a fixed false-alarm rate. The eight caption parts."""
+    return """
+**How to read this table: catch rate at a fixed false-alarm rate.**
+
+- **Measures.** How many attack candidates each arm catches when it can flag only a small part of
+  the honest candidates.
+- **Axes.** Each row is one arm. Each column is one fixed false-alarm rate (D11), honest
+  candidates flagged ÷ all honest candidates: @@matched_fpr_pct@@.
+- **One mark.** Each cell is the catch rate (D10), attack candidates flagged ÷ all attack
+  candidates, at that false-alarm rate.
+- **Varies.** The fixed false-alarm rate, across the columns.
+- **Fixed.** The same as for the ROC: @@n_tests@@ tests for each suite, @@monitor_runs@@ calls for
+  each monitor.
+- **Population.** The same as for the ROC (R7). The cell above gives the number of honest
+  candidates that make 1%.
+- **Read it as.** Higher is better. An arm with no skill has a catch rate equal to the false-alarm
+  rate.
+- **Limits.** Most fixed rates fall between two cuts. Then the value comes from a straight line
+  between the two cuts, and a random choice between the two cuts gives that value. At 1% and 2%,
+  the denominator is a small number of honest candidates.
+"""
 
 
 def where_a_false_alarm_costs():
