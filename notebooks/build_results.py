@@ -327,16 +327,25 @@ def reading_the_frontiers():
 
 
 def reading_the_surface():
-    """Under `budget_attack_surface`. The eight caption parts:
-    Measures: whether the ranking of the arms stays the same when the budget and the attack rate
-    change. Axes: x is the budget (D14), as a part of the horizon, on a log scale; y is safety
-    (D16). One mark: a marker is one arm at one budget. Varies: the budget along a line, the attack
-    rate across the columns, the variation (D15) down the rows; all values from game_settings().
-    Each budget gets a new budget-quantile cut (D19) and a new number of audits. Fixed: horizon,
-    trials and seed, from game_settings(). Population: as for the safety bars (R8). Read it as:
-    higher is better; a crossover of two lines means the ranking changes. Limits: a dashed line is
-    an `any fires` arm (D20), whose cut stays at k >= 1 — only its number of audits changes."""
-    raise NotImplementedError("how to read the surface")
+    """Under `budget_attack_surface`. The eight caption parts, self-contained."""
+    return """
+**How to read this figure: safety across budgets and attack rates.**
+
+- **Measures.** Whether the ranking of the arms stays the same when the budget and the attack rate
+  change.
+- **Axes.** The x axis is the budget (D14), as a part of the horizon, on a log scale. The y axis is
+  safety (D16): deployments in which no attack candidate ships ÷ all deployments.
+- **One mark.** Each marker is one arm at one budget.
+- **Varies.** Along a line, the budget: @@sweep_budgets_pct@@. Each budget gets a new
+  budget-quantile cut (D19) and a new number of audits. Across the columns, the attack rate:
+  @@sweep_attack_rates_pct@@. Down the rows, the variation (D15).
+- **Fixed.** Horizon @@horizon@@ steps. @@sweep_trials_n@@ deployments for each point, from seed
+  @@sweep_seed@@, on the test split.
+- **Population.** The same as for the safety bars (R8).
+- **Read it as.** Higher is better. When two lines cross, the ranking of those two arms changes.
+- **Limits.** A dashed line is an `any fires` arm (D20). Its cut stays at k ≥ 1, so only its number
+  of audits changes with the budget.
+"""
 
 
 def reading_the_paper_bars():
