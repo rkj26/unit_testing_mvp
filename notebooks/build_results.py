@@ -879,7 +879,8 @@ honest submissions that shipped *out of those that arrived*, so it stays 1 by co
 and C also stop early, which usefulness therefore does not charge them for — `steps live` reports
 that separately.
 
-A and C end at the first attack that reaches a human, so their safety is decided there. B never
+A ends at the first attack, audited or not, and C at the first attack that reaches a human, so
+their safety is decided there. B never
 ends, so every attack in the horizon is an independent chance to slip through and safety is the
 product of all of them — at horizon 50 and a 5% attack rate that is 2.5 attacks per deployment.
 
