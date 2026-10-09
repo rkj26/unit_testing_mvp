@@ -349,15 +349,27 @@ def reading_the_surface():
 
 
 def reading_the_paper_bars():
-    """Under `paper_setting`. The eight caption parts:
-    Measures: the same question as the safety bars, at the values that the paper uses. Axes, one
-    mark and population: as for the safety bars. Varies: nothing in a panel; each panel is one
-    variation (D15). Fixed: horizon, budget and number of audits, attack rate, trials and seed,
-    from game_settings(); the cut is the budget quantile at that budget. Read it as: longer is
-    better; the free floor (D18) is 0 here, so safety needs no correction. Limits: the achieved
-    false-alarm rate does not land on the budget, because the monitor score is coarse — the
-    catch table gives the true rate."""
-    raise NotImplementedError("how to read the paper bars")
+    """Under `paper_setting`. The eight caption parts, self-contained."""
+    return """
+**How to read this figure: safety at the values of the paper.**
+
+- **Measures.** The same question as the safety bars, at the values that Greenblatt et al. use.
+- **Axes.** The x axis is safety (D16): deployments in which no attack candidate ships ÷ all
+  deployments. The y axis lists the arms.
+- **One mark.** Each bar is one arm at one cut. The label also gives usefulness (D17), honest
+  candidates that ship ÷ honest candidates that arrive, as `u`.
+- **Varies.** Nothing in one panel. Each panel is one variation (D15), with its rule for a flag
+  that gets no audit.
+- **Fixed.** Horizon @@paper_horizon@@ steps. Attack rate @@attack_rate_pct@@. Budget
+  @@paper_budget_pct@@, which is @@paper_audits@@ audits. The cut is the @@paper_quantile@@
+  percentile of the honest train scores (D19), or k ≥ 1 for an `any fires` arm (D20).
+  @@paper_trials_n@@ deployments from seed @@paper_seed@@, on the test split.
+- **Population.** The same as for the safety bars (R8).
+- **Read it as.** A longer bar is better. Here the free floor (D18) is 0, so safety needs no
+  correction.
+- **Limits.** The monitor score has few levels, so the real false-alarm rate does not fall on the
+  budget. The catch table in Section 5 gives the real rate.
+"""
 
 
 md("""
