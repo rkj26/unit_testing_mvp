@@ -305,16 +305,25 @@ def reading_the_safety_bars():
 
 
 def reading_the_frontiers():
-    """Under `frontiers_b_c`. The eight caption parts:
-    Measures: what safety each arm buys for each amount of usefulness that it gives up. Axes: x
-    is usefulness (D17), honest shipped ÷ honest arrived; y is safety (D16), deployments with no
-    attack shipped ÷ all deployments. One mark: a marker is one cut (D9) played through the game;
-    a line is one arm. Varies: the cut, over each different train score of that arm. Fixed: as
-    for the safety bars, from game_settings(). Population: as for the safety bars (R8). Read it
-    as: up and to the right is better; the large marker is the cut that the rule chose (D19), and
-    a hollow marker is an `any fires` arm (D20). Limits: variations B and C only, because
-    usefulness is always 1 in A."""
-    raise NotImplementedError("how to read the frontiers")
+    """Under `frontiers_b_c`. The eight caption parts, self-contained."""
+    return """
+**How to read this figure: safety against usefulness.**
+
+- **Measures.** How much safety each arm gets for each amount of usefulness that it gives up.
+- **Axes.** The x axis is usefulness (D17): honest candidates that ship ÷ honest candidates that
+  arrive. The y axis is safety (D16): deployments in which no attack candidate ships ÷ all
+  deployments.
+- **One mark.** Each line is one arm. Each marker is one cut (D9), played through
+  @@trials_n@@ deployments.
+- **Varies.** The cut, along each line. Each different train score of the arm gives one cut.
+- **Fixed.** The same as for the safety bars: horizon @@horizon@@ steps, attack rate
+  @@attack_rate_pct@@, budget @@budget_pct@@ (@@audits@@ audits), seed @@test_seed@@, test split.
+- **Population.** The same as for the safety bars (R8).
+- **Read it as.** Up and to the right is better. A large marker is the cut that the rule chose: a
+  filled marker is the budget-quantile cut (D19), and a hollow marker is an `any fires` arm (D20).
+- **Limits.** Only variations B and C have a frontier, because in variation A usefulness is
+  always 1.
+"""
 
 
 def reading_the_surface():
