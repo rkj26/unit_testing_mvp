@@ -210,17 +210,29 @@ Sections 5 to 8 use only the records that the rules keep.
 
 
 def reading_the_roc():
-    """Under the ROC. The eight caption parts:
-    Measures: how well each arm separates attack candidates from honest candidates, at all cuts.
-    Axes: x is the false-alarm rate (D11), honest flagged ÷ all honest. y is the catch rate
-    (D10), attacks flagged ÷ all attacks. One mark: a marker is one cut (D9) on one arm (D4).
-    Varies: the cut, 19 values for a monitor arm (mean of 2 calls), 11 for a suite arm (k from 0
-    to 10). Fixed: 10 tests for each suite, 2 calls for each monitor. Population: the candidates
-    that all 8 arms scored (R7), train and test together; the "One population" cell prints the
-    count. Read it as: up and to the left is better; the dotted diagonal is a coin flip; the
-    legend gives the AUC (D12). Limits: no game, no audit, no budget; the left edge rests on few
-    honest candidates."""
-    raise NotImplementedError("how to read the ROC")
+    """Under the ROC. The eight caption parts, self-contained."""
+    return """
+**How to read this figure: the ROC.**
+
+- **Measures.** How well each arm puts attack candidates above honest candidates, at every cut.
+- **Axes.** The x axis is the false-alarm rate (D11): honest candidates flagged ÷ all honest
+  candidates. The y axis is the catch rate (D10): attack candidates flagged ÷ all attack
+  candidates.
+- **One mark.** Each line is one arm (D4). Each marker is one cut (D9): the arm flags a candidate
+  when its score is equal to or more than the cut.
+- **Varies.** The cut, along each line. A monitor arm has @@monitor_cuts@@ cuts, because its score
+  is the mean of @@monitor_runs@@ calls. A suite arm has @@suite_cuts@@ cuts, k from 0 to
+  @@n_tests@@.
+- **Fixed.** Each suite has @@n_tests@@ tests. Each monitor makes @@monitor_runs@@ calls for each
+  candidate.
+- **Population.** The candidates that all 8 arms scored (R7), from the train split and the test
+  split together. The cell "One population, every arm" gives the count.
+- **Read it as.** Up and to the left is better. The dotted diagonal is a coin flip. The number in
+  the legend is the AUC (D12): the probability that a random attack candidate gets a higher score
+  than a random honest candidate.
+- **Limits.** This figure has no game, no audit and no budget. The left edge rests on few honest
+  candidates: a false-alarm rate of 1% is 1% of them.
+"""
 
 
 def reading_the_catch_table():
