@@ -475,6 +475,17 @@ def export(fig, name):
     '''
     fig.savefig(FIGURES / f"{name}.png", dpi=170, bbox_inches="tight")
     return FIGURES / f"{name}.png"
+
+
+def stamp(fig, *settings):
+    '''Print under a figure the values it was drawn with, one line per argument.
+
+    An exported PNG travels without its notebook, so it has to carry its own parameters. Every
+    value comes from the variables the cell plotted with, never typed into the string, so the line
+    cannot disagree with the figure. `bbox_inches="tight"` in `export` keeps it in the PNG.
+    '''
+    fig.text(0.01, 0.0, "\\n".join(settings), ha="left", va="top", fontsize=8.5, color=MUTED,
+             linespacing=1.5)
 """)
 
 md("""
@@ -754,6 +765,11 @@ ax.set_ylim(-0.02, 1.02)
 house(ax, "each marker is one threshold \\u00b7 dotted line = a coin flip")
 legend_right(ax, title="AUC")
 fig.tight_layout()
+roc_attacks, roc_honest = (len(side) for side in sides_of("monitor"))
+stamp(fig, f"{DATASET} \\u00b7 the {roc_honest:,} honest and {roc_attacks:,} attack candidates "
+           f"that all {len(ARMS)} arms scored, train and test splits together",
+      f"monitor: mean of {tm.runs} calls, {9 * tm.runs + 1} cuts \\u00b7 suite: {N_TESTS} tests, "
+      f"cut k = 0 to {N_TESTS} \\u00b7 no game, no audit, no budget")
 export(fig, "roc")
 """)
 
@@ -865,6 +881,15 @@ print(f"horizon {HORIZON}, attack rate {ATTACK_RATE:.0%}, budget {BUDGET:.0%} = 
       f"{round(BUDGET * HORIZON)} audits, {TRIALS:,} trials")
 print(f"free floor {FREE_FLOOR:.3f} — the share of these sequences carrying no attack at all, "
       f"which every protocol wins for nothing")
+
+
+def game_stamp(horizon, budget, trials, seed, attack_rate=ATTACK_RATE):
+    '''The settings line every game figure prints under itself, from the values it was played at.'''
+    return (f"{DATASET} \\u00b7 test split, {len(TASKS_IN['test'])} tasks that keep both "
+            f"candidates \\u00b7 {trials:,} deployments, seed {seed}",
+            f"horizon {horizon} \\u00b7 attack rate {attack_rate:.0%} \\u00b7 budget {budget:.0%} = "
+            f"{round(budget * horizon)} audits \\u00b7 cut: the {round((1 - budget) * 100)}th "
+            f"percentile of honest train scores, or k \\u2265 1 for an any-fires arm")
 """)
 
 md("""
@@ -1071,10 +1096,10 @@ for axis, variation in zip(axes, VARIATIONS):
     house(axis, variation)
     axis.grid(axis="y", visible=False)
     axis.spines["left"].set_visible(False)
-fig.suptitle(f"cut = the budget quantile of honest train scores \\u00b7 horizon {HORIZON} "
-             f"\\u00b7 budget {BUDGET:.0%} \\u00b7 attack rate {ATTACK_RATE:.0%}",
+fig.suptitle("safety on held-out deployments, at the cut the rule chose",
              x=0.01, ha="left", fontsize=9.5, color=MUTED)
 fig.tight_layout(rect=(0, 0, 1, 0.93))
+stamp(fig, *game_stamp(HORIZON, BUDGET, TRIALS, seed=@@test_seed@@))
 export(fig, "safety_by_variation")
 """)
 
@@ -1111,6 +1136,8 @@ axes[0].set_ylabel("safety \\u2014 deployments where no attack shipped")
 legend_right(fig, *axes[0].get_legend_handles_labels(),
              title="large marker = the budget-quantile cut")
 fig.tight_layout(rect=(0, 0, 0.82, 1))
+stamp(fig, *game_stamp(HORIZON, BUDGET, TRIALS, seed=@@test_seed@@),
+      "each marker is one cut: every distinct train score of that arm")
 export(fig, "frontiers_b_c")
 """)
 
@@ -1165,6 +1192,12 @@ for row, variation in enumerate(VARIATIONS):
             axis.set_ylabel("safety")
 legend_right(fig, *axes[0, 0].get_legend_handles_labels())
 fig.tight_layout(rect=(0, 0, 0.86, 1))
+stamp(fig, f"{DATASET} \\u00b7 test split, {len(TASKS_IN['test'])} tasks that keep both candidates "
+           f"\\u00b7 {SWEEP_TRIALS:,} deployments per point, seed @@sweep_seed@@",
+      f"horizon {HORIZON} \\u00b7 budgets {', '.join(f'{b:.0%}' for b in SWEEP_BUDGETS)} "
+      f"\\u00b7 attack rates {', '.join(f'{r:.0%}' for r in SWEEP_ATTACK_RATES)}",
+      "each budget gets its own cut, the (1 \\u2212 budget) quantile of honest train scores, and "
+      "budget \\u00d7 horizon audits \\u00b7 dashed: any fires, cut fixed at k \\u2265 1")
 export(fig, "budget_attack_surface")
 """)
 
@@ -1290,11 +1323,9 @@ for axis, variation in zip(axes, VARIATIONS):
     axis.set_yticklabels(rows.index)
     axis.set_xlim(0, 1.32)
     house(axis, variation)
-fig.suptitle(f"horizon {PAPER_HORIZON} \\u00b7 budget {PAPER_BUDGET:.0%} "
-             f"({round(PAPER_BUDGET * PAPER_HORIZON)} audits) \\u00b7 "
-             f"attack rate {ATTACK_RATE:.0%} \\u00b7 u = usefulness",
-             fontsize=11, color=INK)
+fig.suptitle("safety at the values of the paper \\u00b7 u = usefulness", fontsize=11, color=INK)
 fig.tight_layout()
+stamp(fig, *game_stamp(PAPER_HORIZON, PAPER_BUDGET, PAPER_TRIALS, seed=@@paper_seed@@))
 export(fig, "paper_setting")
 """)
 
