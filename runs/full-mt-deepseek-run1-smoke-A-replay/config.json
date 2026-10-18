@@ -1,0 +1,15 @@
+{
+  "protocol": "multi_turn_replay",
+  "run_name": "full-mt-deepseek-run1-smoke-A-replay",
+  "data": "data/apps_full_multi_turn_smoke.json",
+  "model": "",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "baseline_run": "full-mt-deepseek-run1-smoke-A-traceable",
+    "triggers": "trig-all",
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim"
+  }
+}

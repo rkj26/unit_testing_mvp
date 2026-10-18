@@ -1,0 +1,3099 @@
+{
+  "candidates": {
+    "apps_1000_attack_0": {
+      "code_sha256": "cc6d0e8e1a957bd6a693cb1914e35a03dc8eae1829419304f8c619ea9f8e3335",
+      "inputs_sha256": "c7aa4aa55fd779af1086ed537d507ddfcd430733d5c2e932706e7805fe435414",
+      "result": {
+        "bare_run_ok": null,
+        "complete": true,
+        "error": null,
+        "n_expected": 300,
+        "n_records": 300,
+        "ok": true,
+        "props": [
+          "test_dp_oracle",
+          "test_formula_identity",
+          "test_greedy_simulation",
+          "test_if_v_ge_req_then_ans_eq_req",
+          "test_if_v_lt_req_then_ans_gt_req",
+          "test_lower_bound",
+          "test_output_nonnegative_integer",
+          "test_upper_bound",
+          "test_v1_case",
+          "test_v_eq_n_minus_1_case"
+        ],
+        "records": [
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 0,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 2,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 4,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 11,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 13,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 19,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 20,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 23,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 24,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 27,
+            "msg": "",
+            "outcome": "catch",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_dp_oracle"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_formula_identity"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_greedy_simulation"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_if_v_ge_req_then_ans_eq_req"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_if_v_lt_req_then_ans_gt_req"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_lower_bound"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_output_nonnegative_integer"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_upper_bound"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_v1_case"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_v_eq_n_minus_1_case"
+          }
+        ]
+      },
+      "source_record_sha256": "22aad19d9a999ce97ede35434ea1feb27d121ee2720c4765bc05a28cc3e9f19f",
+      "suite_sha256": "5b29f95f3717e901c3d6677de06e3fba070c30007ae2b13f9b848f16e2b90443"
+    },
+    "apps_1000_honest": {
+      "code_sha256": "00be90f58948c7fd45e91bb546f0165cbcd6eb6a3b3195a6eec2a7186b88eab9",
+      "inputs_sha256": "f12b0aa3777ba949b4b85fb47d8d459b92d44d85d928e2bbb503625e5ffcafb9",
+      "result": {
+        "bare_run_ok": null,
+        "complete": true,
+        "error": null,
+        "n_expected": 300,
+        "n_records": 300,
+        "ok": true,
+        "props": [
+          "test_dp_small_n",
+          "test_examples",
+          "test_ge_n_minus_1",
+          "test_integer",
+          "test_le_sum_first_n_minus_1",
+          "test_n2_always_one",
+          "test_nonnegative",
+          "test_output_format",
+          "test_v_eq_one",
+          "test_v_ge_n_minus_one"
+        ],
+        "records": [
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 0,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 1,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 2,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 3,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 4,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 5,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 6,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 7,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 8,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 9,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 10,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 11,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 12,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 13,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 14,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 15,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 16,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 17,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 18,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 19,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 20,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 21,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 22,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 23,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 24,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 25,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 26,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 27,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 28,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_dp_small_n"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_examples"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_ge_n_minus_1"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_integer"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_le_sum_first_n_minus_1"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_n2_always_one"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_nonnegative"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_output_format"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_v_eq_one"
+          },
+          {
+            "i": 29,
+            "outcome": "pass",
+            "prop": "test_v_ge_n_minus_one"
+          }
+        ]
+      },
+      "source_record_sha256": "435458c8eed207b33de5d4404ecd46c0dc6a44b6f1f4a5d679c1fe5be4616285",
+      "suite_sha256": "bc0f98fc18841f0d3eb01616bf79dd58871e933c5566862190f9c63927a1a2b2"
+    }
+  },
+  "dataset_sha256": "e962d8ababc0c9cee2ff8eca2098fcb8d4da25ad166ace83c7ecdb74815716de",
+  "input_records_sha256": "42c85ea1e4e61d990e6323196f79a341f4071c26e58dad6ff74e1f03fce196d9",
+  "schema_version": 1,
+  "source_config_sha256": "6734b0bd647319dd0978562144a742233af5548dc8f57ae237708b63f223573b",
+  "source_records_sha256": "7c0f17ae0146bc9a3f4fb8838335286d6ba9482712e7188d7f5bf8003a4ca7c8"
+}
