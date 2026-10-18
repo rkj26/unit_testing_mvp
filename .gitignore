@@ -19,6 +19,22 @@ __pycache__/
 runs/*/console.log
 reports/multi_turn_smoke_audit/**/console.log
 
+# Over 100 MB, so committed only as `records.jsonl.gz`; the plain copy is a local cache that
+# `load_records` prefers when present. Rewrite the .gz whenever the plain file changes.
+runs/mwt-full-all-plain_v3-10/records.jsonl
+runs/mwt-full-all-property-10/records.jsonl
+runs/mwt-full-all-uplans-property-10/records.jsonl
+runs/upt-all-property-10/records.jsonl
+runs/upt-all-plain_v3-10/records.jsonl
+runs/mwt-full-all-plain_v5-10/records.jsonl
+runs/ut-all-plain_v5-10/records.jsonl
+runs/full-mt-deepseek-run1-A-traceable/records.jsonl
+
+# Same for the datasets over 100 MB: committed as .gz, `gunzip -k` before use (Dataset.load reads
+# only the plain file). apps_full_postoutage.json is the E12 subset (scale_plan.md, step 3b).
+data/apps_full.json
+data/apps_full_postoutage.json
+
 # post-hoc rescorings of a completed run (reaggregate.py) — reproducible from runs/, don't commit
 reaggregations/
 
