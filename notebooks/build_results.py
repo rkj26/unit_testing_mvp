@@ -266,6 +266,7 @@ faithful = pd.DataFrame([
     for name in GAME_ARMS
     for outcome in [game(seen_by(GAME_ARMS[name][0], faithful_draw), faithful_draw,
                          FAITHFUL_CUTS[name], FAITHFUL_BUDGET)]])
+export_table(faithful, "paper_values")
 
 fig, axes = plt.subplots(1, len(VARIATIONS), figsize=(6.6 * len(VARIATIONS), 6.2), sharex=True)
 for axis, variation in zip(axes, VARIATIONS):
@@ -1133,6 +1134,27 @@ def export(fig, name):
     return FIGURES / f"{name}.png"
 
 
+TABLES = FIGURES / "data"
+TABLES.mkdir(exist_ok=True)
+
+
+def export_table(frame, name):
+    '''Write the numbers behind a figure or table as CSV, one tidy row per point.
+
+    For plotting outside the notebook (pgfplots reads it as is). Written by the same cell that
+    computes the numbers, under the same per-pool directory rule as `export`. A short `game`
+    letter and an `arm_key` slug are added, because the display names hold commas and spaces that
+    a LaTeX filter cannot match on.
+    '''
+    if "variation" in frame:
+        frame = frame.assign(game=frame["variation"].str[0])
+    if "arm" in frame:
+        frame = frame.assign(arm_key=frame["arm"].str.replace(r"[^a-z0-9]+", "_", regex=True)
+                             .str.strip("_"))
+    frame.to_csv(TABLES / f"{name}.csv", index=False)
+    return TABLES / f"{name}.csv"
+
+
 def stamp(fig, *settings):
     '''Print under a figure the values it was drawn with, one line per argument.
 
@@ -1437,6 +1459,8 @@ stamp(fig, f"{DATASET} \\u00b7 the {roc_honest:,} honest and {roc_attacks:,} att
       f"monitor: mean of {tm.runs} calls, {9 * tm.runs + 1} cuts \\u00b7 suite: {N_TESTS} tests, "
       f"cut k = 0 to {N_TESTS} \\u00b7 no game, no audit, no budget")
 export(fig, "roc")
+export_table(pd.DataFrame([{"arm": label, "auc": round(AUC_OF[label], 4), **point}
+                           for label in ARMS for point in curves[label]]), "roc")
 """, digest=True)
 
 md(reading_the_roc(), digest=True)
@@ -1487,6 +1511,7 @@ CATCH_TABLE = pd.DataFrame([{"arm": label, "AUC": round(AUC_OF[label], 3),
                                 for t in MATCHED_FPR}}
                             for label in sorted(ARMS, key=lambda each: -catch_at(each, 0.02))]
                            ).set_index("arm")
+export_table(CATCH_TABLE.reset_index(), "catch_at_fpr")
 """, digest=True)
 
 figure(*catch_at_fpr_figure(), digest=True)
@@ -1721,6 +1746,7 @@ results = pd.DataFrame([
     for label, outcome in arms.items()])
 
 assert (results[results.variation.str.startswith("A")]["usefulness"] == 1.0).all()
+export_table(results, "game_results")
 """, digest=True)
 
 md("""
@@ -1770,12 +1796,17 @@ The curve is drawn on held-out sequences; the large marker is where the budget q
 
 code("""
 fig, axes = plt.subplots(1, len(HOLDS_BACK), figsize=(6.6 * len(HOLDS_BACK), 5.6), sharey=True)
+frontier_rows = []
 for axis, variation in zip(axes, HOLDS_BACK):
     game = VARIATIONS[variation]
     for label in ARMS:
         colour, marker, _ = style_for(label)
         seen = seen_by(label, TEST_DRAW)
         frontier = [game(seen, TEST_DRAW, cut) for cut in cuts_for(label)]
+        frontier_rows += [{"variation": variation, "arm": label, "cut": float(cut),
+                           "usefulness": round(p["usefulness"], 4),
+                           "safety": round(p["safety"], 4), "flag rate": round(p["flag rate"], 4)}
+                          for cut, p in zip(cuts_for(label), frontier)]
         axis.plot([p["usefulness"] for p in frontier], [p["safety"] for p in frontier],
                   color=colour, marker=marker, ms=4, lw=1.8, markeredgewidth=0, label=label)
     for name, (source, _) in GAME_ARMS.items():
@@ -1795,6 +1826,7 @@ fig.tight_layout(rect=(0, 0, 0.82, 1))
 stamp(fig, *game_stamp(HORIZON, BUDGET, TRIALS, seed=@@test_seed@@),
       "each marker is one cut: every distinct train score of that arm")
 export(fig, "frontiers_b_c")
+export_table(pd.DataFrame(frontier_rows), "frontiers_b_c")
 """)
 
 md(reading_the_frontiers())
@@ -1910,6 +1942,7 @@ paper = pd.DataFrame([
 paper_comparison = pd.concat(
     {measure: paper.pivot(index="arm", columns="variation", values=measure)
      for measure in ("safety", "usefulness")}, axis=1)
+export_table(paper, "paper_setting")
 """, digest=True)
 
 md("""
