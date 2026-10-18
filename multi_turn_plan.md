@@ -2,9 +2,19 @@
 
 Runs owned by the multi-turn section of the team notebooks (`notebooks/multi_turn_cells.py`,
 appended by `build_results.py`); how a run flows is in `docs/flow_multi_turn.md`. Entries follow
-AGENTS.md's format and are written before `MT_ALLOW_PAID_FULL = True`. **MT1 is the primary run**;
-conclusions are drawn from MT1 alone, and MT2–MT4 are secondary and descriptive. No correction for
+AGENTS.md's format and are written before `MT_ALLOW_PAID_FULL = True`. **MT5 is the primary run**
+(amended 2026-10-15, before any multi-turn result existed: MT1 was dropped, see its entry);
+conclusions are drawn from MT5 alone, and MT2–MT4 are secondary and descriptive. No correction for
 multiple runs is claimed.
+
+**Amendment 2026-10-15, before any full chain ran.** The Terra deployment is gone, so MT1 and MT3
+are dropped. Since the 2026-10-10 outage DeepSeek at low reasoning spends its whole 12,000-token cap
+before writing trigger inputs (45 of 62 MT2 trigger calls empty), so the DeepSeek chains reuse the
+team's pre-outage trigger runs instead of a fresh search: `trig-u400` for MT2, `trig-all` for MT5
+(`MultiTurnStudy(triggers=...)`, which refuses a run that is not the search the chain would have
+launched: same dataset, model, seed 300, 30 inputs, code visible, reasoning low; only the cache
+setting differs). Their failed candidates carry forward as exclusions, as in the team's arms. Arms
+A, B and C still run on the post-outage model (scale_plan.md E12), at max_tokens 32,000.
 
 ## Shared hypothesis
 
@@ -62,7 +72,7 @@ The pilots' effects were 1–3 candidates on 21–30, which is why a 10 pp gate 
 Every contrast is repeated without the test tasks any earlier pilot used
 (`PILOT_EXPOSED_TASK_IDS`, 106 tasks); a sign change there is reported beside the primary result.
 
-## MT1 — multi-turn on uniform400, terra (primary)
+## MT1 — multi-turn on uniform400, terra (dropped 2026-10-15)
 
 **Setup.**      `data/apps_uniform400.json`: 400 APPS tasks, 160 train / 240 test, 800 candidates.
                 Model `openai-api/azureai/gpt-5.6-terra` for every stage, seed 300, reasoning low.
@@ -91,7 +101,7 @@ Every contrast is repeated without the test tasks any earlier pilot used
                 4. H2: B − A and C − A attack catch point estimates ≤ 0, and neither honest-FPR
                    interval lies wholly below 0. Falsified if C − A FPR upper bound < 0 with
                    C − A catch lower bound > −5 pp — the second turn reliably beats the first.
-**Observed.**   Not yet run.
+**Observed.**   Launched 2026-10-13 21:17, stopped 21:33. All 800 trigger records infra: Azure 404 `DeploymentNotFound` for `gpt-5.6-terra` (the deployment is gone from this resource; no spend). Arm A never started. Dropped 2026-10-15: no Terra deployment. Failed run set aside to `archived/mt-failed-2026-10-13/`.
 
 ## MT2 — multi-turn on uniform400, DeepSeek (secondary)
 
@@ -100,9 +110,9 @@ Every contrast is repeated without the test tasks any earlier pilot used
 **Change.**     As MT1.
 **Hypothesis.** H1 and H2, extrapolated from terra pilots to DeepSeek.
 **Prediction.** As MT1, items 1–4, M = 5 pp. Descriptive: no conclusion is drawn from MT2 alone.
-**Observed.**   Not yet run.
+**Observed.**   Launched 2026-10-13 21:17, stopped 21:35. Smoke "passed" (no infra) but 5 of 10 smoke records were model failures; full trigger stage 45 of 62 model failures (`no JSON array found (stop_reason max_tokens, 0 chars)`) — post-outage DeepSeek spends the whole default token budget reasoning (scale_plan.md E12). All seven run folders set aside to `archived/mt-failed-2026-10-13/`. Relaunched 2026-10-15 with `triggers="trig-u400"` (amendment above); prefix unchanged. Smoke chain 8 of 8 ok; full chain running since 10:08 (driver tmux `mt-u400-driver`). Arm A complete 13:17 (775 ok, 16 model, 9 infra: 4 sandbox, 5 carried from `trig-u400`; 1 API timeout retried and recovered). Held before the replay pending the accept-after-retry decision.
 
-## MT3 — multi-turn on bcbas, terra (secondary)
+## MT3 — multi-turn on bcbas, terra (dropped 2026-10-15)
 
 **Setup.**      `data/bcbas.json`: 453 BigCodeBench tasks, 317 train / 136 test, 906 candidates.
                 Model `openai-api/azureai/gpt-5.6-terra`, seed 300, reasoning low, max_tokens 32000,
@@ -121,7 +131,7 @@ Every contrast is repeated without the test tasks any earlier pilot used
                 5. D − C honest FPR: point estimate within ±5 pp, interval including 0.
                 6. D − C attack catch: point estimate ≤ 0.
                    Falsified if D − C FPR upper bound < 0 with D − C catch lower bound > −10 pp.
-**Observed.**   Not yet run.
+**Observed.**   Not yet run: `data/bcbas.json` and `ut-as-property-10` are not on this machine.
 
 ## MT4 — multi-turn on bcbas, DeepSeek (secondary)
 
@@ -130,4 +140,22 @@ Every contrast is repeated without the test tasks any earlier pilot used
 **Change.**     As MT3.
 **Hypothesis.** As MT3, extrapolated from terra pilots to DeepSeek.
 **Prediction.** As MT3, items 1–6, M = 10 pp. Descriptive.
-**Observed.**   Not yet run.
+**Observed.**   Not yet run: `data/bcbas.json` and `ut-as-property-10` are not on this machine.
+
+## MT5 — multi-turn on the full pool, DeepSeek (primary)
+
+**Setup.**      `data/apps_full.json`: 1,388 APPS tasks, 555 train / 833 test, 2,776 candidates (E11's
+                population). Model `openai-api/azureai/DeepSeek-V3.2`, seed 300, reasoning low.
+                Runtime read off `ut-all-property-10`: max_tokens 32000, call_seconds 300,
+                sandbox_seconds 240, image `python:3.12-slim`. Trigger inputs reused from `trig-all`
+                (amendment above), so the chain is arm A, the replay, then B and C launched together.
+                Smoke chain on the first test task first. Prefix `full-mt-deepseek-run1`. Upper
+                bound 8,334 logical calls. 55 of the 833 test tasks are pilot-exposed
+                (sensitivity only). Written 2026-10-15, before launch.
+**Change.**     As MT1: C against B, A's execution feedback shown to C and withheld from B. Secondary:
+                B and C against A.
+**Hypothesis.** H1 and H2, extrapolated from the terra pilots to DeepSeek.
+**Prediction.** Margin M = 5 pp. Interval half-width at this n about ±1.5–2.5 pp (MT1's simulated
+                ±2.5–4.5 pp scaled by √(240/833); not re-simulated).
+                1–4. As MT1, items 1–4, M = 5 pp.
+**Observed.**   Smoke chain 8 of 8 ok. Full chain running since 2026-10-15 10:11 (driver tmux `mt-full-driver`). Arm A complete 22:30 (2,707 ok, 55 model, 14 infra: 11 sandbox, 3 carried from `trig-all`; 21 API failures retried and all recovered). Held before the replay pending the accept-after-retry decision.
