@@ -382,8 +382,9 @@ class MultiTurnRevision(SecondRevision):
             raise ValueError("arm A must be a one-run, code-visible, uncritiqued suite on this data")
 
         sources = load_records(self.baseline_run)
-        inputs = load_records(self.triggers)
         wanted = {candidate.candidate_id for _, candidate in data.candidates()}
+        # a reused trigger run may cover a larger pool; only this population's rows are checked
+        inputs = [row for row in load_records(self.triggers) if row["candidate_id"] in wanted]
         by_id = {row["candidate_id"]: row for row in sources}
         input_by_id = {row["candidate_id"]: row for row in inputs}
         if (len(sources) != len(wanted) or set(by_id) != wanted or len(inputs) != len(wanted)
@@ -567,10 +568,16 @@ class MultiTurnStudy:
     The reference arm lends the dataset, Docker image and runtime settings; its records and its
     trigger inputs are never read, so nothing the team measured changes. Every stage's cache is
     off: the inputs are fresh and each arm's prompt is its own.
+
+    `triggers=` names a finished trigger run to use in place of the fresh input search. It must be
+    the search this chain would have launched — same dataset, model, seed, input count, code
+    visibility and reasoning — so only when it was written differs. Its failed candidates carry
+    forward as exclusions, as they do in the team's arms, because a run this study did not launch
+    is not this study's to retry.
     """
 
     def __init__(self, *, reference_arm: UnitTesting, prefix: str,
-                 model: str = DEFAULT_MODEL) -> None:
+                 model: str = DEFAULT_MODEL, triggers: str = "") -> None:
         if type(reference_arm) is not UnitTesting:
             raise TypeError("reference_arm must be the team notebook's UnitTesting arm")
         if not RUN_NAME.fullmatch(prefix):
@@ -594,6 +601,37 @@ class MultiTurnStudy:
             "docker_image": reference_arm.docker_image,
         }
         self.delete_only = reference_arm.data.backend == BCB_BACKEND
+        self.triggers = triggers
+        if triggers:
+            self._require_matching_triggers()
+
+    def _require_matching_triggers(self) -> None:
+        """Refuse a reused trigger run that is not the search this chain would have launched.
+
+        The cache setting is the one field allowed to differ: it changes what is stored, not what
+        is asked. A run with candidates still to score raises too, since the chain never resumes it.
+        """
+        config_path = RUNS_DIR / self.triggers / CONFIG_FILE
+        if not config_path.is_file():
+            raise ValueError(f"triggers={self.triggers!r} has no {config_path}")
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        expected = {
+            "protocol": TriggerSearch.protocol, "data": self.reference_arm.data_path,
+            "model": self.model, "seed": self.settings["seed"], "runs": 1,
+            "params": {"num_inputs": DEFAULT_NUM_INPUTS, "code_visible": True,
+                       "reasoning": self.settings["reasoning"]},
+        }
+        found = {key: config.get(key) for key in expected}
+        if found != expected:
+            raise ValueError(f"triggers={self.triggers!r} is not the search this chain would run: "
+                             f"found {found}, expected {expected}")
+        if Run.attach(self.triggers).pending():
+            raise ValueError(f"triggers={self.triggers!r} still has candidates to score")
+
+    def _stage_name(self, prefix: str, stage: str) -> str:
+        if stage == INPUTS and self.triggers:
+            return self.triggers
+        return f"{prefix}-{RUN_SUFFIX[stage]}"
 
     def stages(self) -> tuple[str, ...]:
         return tuple(stage for stage in (INPUTS, A_INITIAL, REPLAY, B_NO_FEEDBACK, C_FEEDBACK,
@@ -606,7 +644,8 @@ class MultiTurnStudy:
         smoke_task = data.test[0].task_id
         smoke_candidates = sum(1 for task, _ in data.candidates() if task.task_id == smoke_task)
         full = self.reference_arm.total
-        paid = [stage for stage in self.stages() if stage in PAID_STAGES]
+        paid = [stage for stage in self.stages()
+                if stage in PAID_STAGES and not (stage == INPUTS and self.triggers)]
         return {
             "model": self.model,
             "stages": list(self.stages()),
@@ -628,7 +667,7 @@ class MultiTurnStudy:
         prefixes = [f"{self.prefix}-smoke"] + ([] if smoke_only else [self.prefix])
         for prefix in prefixes:
             for stage in self.stages():
-                name = f"{prefix}-{RUN_SUFFIX[stage]}"
+                name = self._stage_name(prefix, stage)
                 config = RUNS_DIR / name / CONFIG_FILE
                 if not config.is_file():
                     return False
@@ -667,11 +706,16 @@ class MultiTurnStudy:
         settings = dict(self.settings)
         image = settings.pop("docker_image")
         sandbox_seconds = settings["sandbox_seconds"]
-        inputs = TriggerSearch(run_name=f"{prefix}-{RUN_SUFFIX[INPUTS]}", data=data, model=self.model,
-                               num_inputs=DEFAULT_NUM_INPUTS, code_visible=True,
-                               reasoning=settings["reasoning"], seed=settings["seed"], cache=False)
-        self._launch(inputs, allow_paid)
-        _stop_on_infra_failures(inputs, f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", accept_infra_failures)
+        if self.triggers:
+            inputs = Run.attach(self.triggers)
+        else:
+            inputs = TriggerSearch(run_name=f"{prefix}-{RUN_SUFFIX[INPUTS]}", data=data,
+                                   model=self.model, num_inputs=DEFAULT_NUM_INPUTS,
+                                   code_visible=True, reasoning=settings["reasoning"],
+                                   seed=settings["seed"], cache=False)
+            self._launch(inputs, allow_paid)
+            _stop_on_infra_failures(inputs, f"{prefix}-{RUN_SUFFIX[A_INITIAL]}",
+                                    accept_infra_failures)
         authoring = dict(data=data, model=self.model, triggers=inputs.run_name,
                          docker_image=image, cache=False, **settings)
         initial = MultiTurnInitial(run_name=f"{prefix}-{RUN_SUFFIX[A_INITIAL]}", **authoring)
@@ -738,11 +782,17 @@ class MultiTurnStudy:
 
     @staticmethod
     def _require_clean_smoke(stages: dict[str, Run]) -> None:
-        """Stop before the full chain if any smoke stage hit infrastructure, or A never called."""
+        """Stop before the full chain if any smoke stage hit infrastructure, or A never called.
+
+        Only the smoke candidates are read: a reused trigger run covers the whole pool, and its
+        failures elsewhere are not the smoke chain's.
+        """
+        smoke_ids = {candidate.candidate_id for _, candidate in stages[A_INITIAL].data.candidates()}
         problems = {}
         for label, run in stages.items():
             infra = [row["reason"] for row in run.get_records()
-                     if row["failed"] and row["blame"] == Blame.INFRA.value]
+                     if row["candidate_id"] in smoke_ids
+                     and row["failed"] and row["blame"] == Blame.INFRA.value]
             if infra:
                 problems[label] = infra[:2]
         if not any(row[CALLS] for row in stages[A_INITIAL].get_records()):

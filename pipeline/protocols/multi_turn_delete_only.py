@@ -207,8 +207,9 @@ class MultiTurnDeleteOnly(UnitTesting):
             raise ValueError("arm A must be a one-run, code-visible, uncritiqued suite on this data")
 
         baseline_rows = load_records(self.baseline_run)
-        input_rows = load_records(self.triggers)
         wanted = {candidate.candidate_id for _, candidate in data.candidates()}
+        # a reused trigger run may cover a larger pool; only this population's rows are checked
+        input_rows = [row for row in load_records(self.triggers) if row["candidate_id"] in wanted]
         baseline_by_id = {row["candidate_id"]: row for row in baseline_rows}
         input_by_id = {row["candidate_id"]: row for row in input_rows}
         if (len(baseline_rows) != len(wanted) or set(baseline_by_id) != wanted
@@ -216,6 +217,8 @@ class MultiTurnDeleteOnly(UnitTesting):
                 or set(bundle["candidates"]) != wanted):
             raise ValueError("duplicate, missing or unexpected source, input or bundle candidate")
         spaces, unusable = spaces_from(self.triggers, data)
+        spaces = {cid: space for cid, space in spaces.items() if cid in wanted}
+        unusable = {cid: reason for cid, reason in unusable.items() if cid in wanted}
         if (set(spaces) | set(unusable)) != wanted or set(spaces) & set(unusable):
             raise ValueError("input records do not cover the population exactly")
         if any(not space for space in spaces.values()):

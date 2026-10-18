@@ -28,6 +28,7 @@ from pipeline.protocols.base import Run
 from pipeline.protocols.multi_turn import (A_INITIAL, B_NO_FEEDBACK, C_FEEDBACK, D_DELETE_ONLY,
                                            MultiTurnStudy, UnretriedInfraFailures)
 from pipeline.protocols.multi_turn_delete_only import exact_tests, parse_selection, subset_source
+from pipeline.protocols.trigger_search import TriggerSearch
 from pipeline.protocols.unit_testing import test_names_in as names_in
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -348,6 +349,36 @@ def test_an_arm_a_infra_failure_stops_the_chain_before_it_is_frozen_in(tmp_path,
             assert row["failed"] and row["blame"] == "infra" and row["calls"] == []
         assert list(study.run(allow_paid=False)) == list(arms)
     assert study.complete() is True
+
+
+def test_a_reused_trigger_run_stands_in_for_the_input_search_and_is_never_called(tmp_path, monkeypatch):
+    data = _mini_apps(tmp_path)
+    boundary = Boundary(data)
+    boundary.install(monkeypatch)
+    boundary.run(TriggerSearch(run_name="trig-team", data="mini.json", model=MODEL, cache=True))
+    searched = len(boundary.calls)
+
+    TriggerSearch(run_name="trig-other", data="mini.json", model=MODEL, num_inputs=5,
+                  cache=True).write_config()
+    with pytest.raises(ValueError, match="not the search this chain would run"):
+        MultiTurnStudy(reference_arm=_reference("mini.json"), prefix="mt", model=MODEL,
+                       triggers="trig-other")
+    TriggerSearch(run_name="trig-unfinished", data="mini.json", model=MODEL,
+                  cache=True).write_config()
+    with pytest.raises(ValueError, match="still has candidates"):
+        MultiTurnStudy(reference_arm=_reference("mini.json"), prefix="mt", model=MODEL,
+                       triggers="trig-unfinished")
+
+    study = MultiTurnStudy(reference_arm=_reference("mini.json"), prefix="mt", model=MODEL,
+                           triggers="trig-team")
+    assert study.plan()["max_model_calls"] == (2 + 6) * 3
+    arms = study.run(allow_paid=True)
+    assert study.complete() is True
+    assert not any(name.endswith("-triggers") for name in boundary.launched)
+    assert [kind for kind, _ in boundary.calls[searched:]].count("inputs") == 0
+    assert len(boundary.calls) - searched == (2 + 6) * 3
+    for arm in arms.values():
+        assert json.loads((arm.directory / "config.json").read_text())["params"]["triggers"] == "trig-team"
 
 
 def test_every_multi_turn_arm_refuses_a_cache(tmp_path):
