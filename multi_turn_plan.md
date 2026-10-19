@@ -110,7 +110,8 @@ Every contrast is repeated without the test tasks any earlier pilot used
 **Change.**     As MT1.
 **Hypothesis.** H1 and H2, extrapolated from terra pilots to DeepSeek.
 **Prediction.** As MT1, items 1–4, M = 5 pp. Descriptive: no conclusion is drawn from MT2 alone.
-**Observed.**   Launched 2026-10-13 21:17, stopped 21:35. Smoke "passed" (no infra) but 5 of 10 smoke records were model failures; full trigger stage 45 of 62 model failures (`no JSON array found (stop_reason max_tokens, 0 chars)`) — post-outage DeepSeek spends the whole default token budget reasoning (scale_plan.md E12). All seven run folders set aside to `archived/mt-failed-2026-10-13/`. Relaunched 2026-10-15 with `triggers="trig-u400"` (amendment above); prefix unchanged. Smoke chain 8 of 8 ok; full chain running since 10:08 (driver tmux `mt-u400-driver`). Arm A complete 13:17 (775 ok, 16 model, 9 infra: 4 sandbox, 5 carried from `trig-u400`; 1 API timeout retried and recovered). Held before the replay pending the accept-after-retry decision.
+**Observed.**   Launched 2026-10-13 21:17, stopped 21:35. Smoke "passed" (no infra) but 5 of 10 smoke records were model failures; full trigger stage 45 of 62 model failures (`no JSON array found (stop_reason max_tokens, 0 chars)`) — post-outage DeepSeek spends the whole default token budget reasoning (scale_plan.md E12). All seven run folders set aside to `archived/mt-failed-2026-10-13/`. Relaunched 2026-10-15 with `triggers="trig-u400"` (amendment above); prefix unchanged. Smoke chain 8 of 8 ok; full chain running since 10:08 (driver tmux `mt-u400-driver`). Arm A complete 13:17 (775 ok, 16 model, 9 infra: 4 sandbox, 5 carried from `trig-u400`; 1 API timeout retried and recovered). Held, then on 2026-10-19 its infra lines were retried once and the rest accepted (user approved): see the line below.
+                2026-10-19: retry of the 9 infra lines recovered 3; 6 accepted (1 sandbox, 5 carried from `trig-u400`); replay, then B and C, running.
 
 ## MT3 — multi-turn on bcbas, terra (dropped 2026-10-15)
 
@@ -158,4 +159,5 @@ Every contrast is repeated without the test tasks any earlier pilot used
 **Prediction.** Margin M = 5 pp. Interval half-width at this n about ±1.5–2.5 pp (MT1's simulated
                 ±2.5–4.5 pp scaled by √(240/833); not re-simulated).
                 1–4. As MT1, items 1–4, M = 5 pp.
-**Observed.**   Smoke chain 8 of 8 ok. Full chain running since 2026-10-15 10:11 (driver tmux `mt-full-driver`). Arm A complete 22:30 (2,707 ok, 55 model, 14 infra: 11 sandbox, 3 carried from `trig-all`; 21 API failures retried and all recovered). Held before the replay pending the accept-after-retry decision.
+**Observed.**   Smoke chain 8 of 8 ok. Full chain running since 2026-10-15 10:11 (driver tmux `mt-full-driver`). Arm A complete 22:30 (2,707 ok, 55 model, 14 infra: 11 sandbox, 3 carried from `trig-all`; 21 API failures retried and all recovered). Held, then on 2026-10-19 its infra lines were retried once and the rest accepted (user approved): see the line below.
+                2026-10-19: retry of the 14 infra lines recovered 6; 8 accepted (5 sandbox, 3 carried from `trig-all`); replay, then B and C, running.
