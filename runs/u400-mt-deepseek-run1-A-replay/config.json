@@ -1,0 +1,15 @@
+{
+  "protocol": "multi_turn_replay",
+  "run_name": "u400-mt-deepseek-run1-A-replay",
+  "data": "data/apps_uniform400.json",
+  "model": "",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "baseline_run": "u400-mt-deepseek-run1-A-traceable",
+    "triggers": "trig-u400",
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim"
+  }
+}

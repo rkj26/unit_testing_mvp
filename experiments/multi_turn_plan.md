@@ -112,6 +112,7 @@ Every contrast is repeated without the test tasks any earlier pilot used
 **Prediction.** As MT1, items 1–4, M = 5 pp. Descriptive: no conclusion is drawn from MT2 alone.
 **Observed.**   Launched 2026-10-13 21:17, stopped 21:35. Smoke "passed" (no infra) but 5 of 10 smoke records were model failures; full trigger stage 45 of 62 model failures (`no JSON array found (stop_reason max_tokens, 0 chars)`) — post-outage DeepSeek spends the whole default token budget reasoning (scale_plan.md E12). All seven run folders set aside to `archived/mt-failed-2026-10-13/`. Relaunched 2026-10-15 with `triggers="trig-u400"` (amendment above); prefix unchanged. Smoke chain 8 of 8 ok; full chain running since 10:08 (driver tmux `mt-u400-driver`). Arm A complete 13:17 (775 ok, 16 model, 9 infra: 4 sandbox, 5 carried from `trig-u400`; 1 API timeout retried and recovered). Held, then on 2026-10-19 its infra lines were retried once and the rest accepted (user approved): see the line below.
                 2026-10-19: retry of the 9 infra lines recovered 3; 6 accepted (1 sandbox, 5 carried from `trig-u400`); replay, then B and C, running.
+                Complete 2026-10-19 20:20; analysis pending. B: 647 ok, 140 model (17.5%, revised suites failing format checks), 8 sandbox, 5 carried. C: 645 ok, 141 model (17.6%), 9 sandbox, 5 carried. One API failure in each retried and recovered.
 
 ## MT3 — multi-turn on bcbas, terra (dropped 2026-10-15)
 
