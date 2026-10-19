@@ -57,6 +57,8 @@ python -m venv .venv && .venv/bin/pip install -r requirements.txt
 gunzip -k data/apps_full.json.gz                      # datasets over 100 MB ship gzipped
 .venv/bin/python notebooks/build_results.py all       # writes the full and digest notebooks
 .venv/bin/python -m jupyter nbconvert --to notebook --execute --inplace notebooks/results_full.ipynb
+.venv/bin/python -m jupyter nbconvert --to notebook --execute --inplace notebooks/results_full_digest.ipynb
+./notebooks/export_digest_md.sh                       # the code-free digest for GitHub
 .venv/bin/python -m pytest -q
 ```
 
