@@ -5,7 +5,7 @@
 > repo. This page is kept unedited because §6's P1–P4 is the measured record of *why* it was
 > dropped: the model repairs instead of ablating (17 of 50 honest candidates), and the AST rewrite
 > that would have fixed that was never started. Nothing in §5–§8 is a live plan. The live plan is
-> `scale_plan.md`; the live arms are the eight in `notebooks/build_results.py`.
+> `experiments/scale_plan.md`; the live arms are the eight in `notebooks/build_results.py`.
 
 Written 2026-08-24, from `tm-22`, `trig-22`, `ut-*`, `mwt-r2`, `ab-22` and two zero-call replays
 (`runs/ab-22/probe_ceiling*.json`, `runs/ab-22/suite_filter.json`) — the `ab-22` artifacts now live

@@ -378,4 +378,4 @@ it is worth more than a unit test of the launcher, because what breaks is never 
 is the subprocess failing to rebuild the run from its own config.
 
 **`MonitorWithTests` and `UPlansTWrites` have no test.** Both are headline arms in every notebook.
-The gap is known and tracked in `REVIEW_PLAN.md`, not a claim that the suite covers them.
+The gap is known, not a claim that the suite covers them.

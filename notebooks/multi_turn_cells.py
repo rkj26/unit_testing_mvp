@@ -54,7 +54,7 @@ over one fresh input run, each an ordinary protocol run:
 | **D delete only** | BigCodeBench only: keeps a subset of A's original tests, never rewrites one |
 
 The primary contrast is **C − B on held-out test tasks**. B, C and D run side by side. The
-setup, hypothesis and thresholded predictions are in `multi_turn_plan.md`; **MT1 (uniform400 ·
+setup, hypothesis and thresholded predictions are in `experiments/multi_turn_plan.md`; **MT1 (uniform400 ·
 terra) is the primary run**. How a run flows: `docs/flow_multi_turn.md`.
 
 To run only this section, execute the notebook's first code cell (repository root and imports) and

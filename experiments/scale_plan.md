@@ -59,7 +59,7 @@ out (~15 h, and the u-plans arms lost on u400). **Ask for it if wanted.**
 **Started 2026-10-05.** One line per step, status explicit. Update as steps complete.
 
 **Why this overrides "Why 400 and not 1,388" above.** That section declined the full draw because
-the only thing it additionally resolved was a ~0.010 **AUC** gap. `REVIEW_PLAN.md` finding 42 showed
+the only thing it additionally resolved was a ~0.010 **AUC** gap. the retired review plan (finding 42, in git history) showed
 AUC is the wrong statistic for this setting: the paper audits 2%, the whole question lives in the
 left tenth of the ROC, and there `monitor + tests property` reads **0.628 against the monitor's
 0.538** on u400 — a +0.090 effect AUC scores as +0.000. The full draw is now bought for a different

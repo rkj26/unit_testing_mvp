@@ -1019,7 +1019,7 @@ def explain_predictions():
 ## 9 · What we predicted
 
 Before we ran the full experiment, we wrote down four predictions, each with a threshold. (The plan
-file `scale_plan.md` in this repository calls this experiment E11.) The predictions compare
+file `experiments/scale_plan.md` in this repository calls this experiment E11.) The predictions compare
 `monitor + tests property` with `monitor`: of the combined arms, it is the one that uses only
 trusted calls. The table gives the number that each prediction names, next to its threshold. This
 notebook does not give verdicts on them.
@@ -1392,7 +1392,7 @@ tm.run()
 # runs do not exist yet: `MonitorWithTests.prepare` calls `load_records(self.tests)`, which raises
 # `FileNotFoundError` on a `tests=` run with no `config.json`. On `hard`, `r50` and `u400` the
 # suites were already on disk, so the old order never fired — E11 built a pool from scratch and it
-# killed the notebook three runs in. `scale_plan.md` already said it: launch order is a dependency
+# killed the notebook three runs in. `experiments/scale_plan.md` already said it: launch order is a dependency
 # order, not a preference.
 code("""
 ut_property = UnitTesting(run_name="@@ut_property@@", test_gen_prompt="property", data=DATASET,

@@ -152,7 +152,7 @@ trigger inputs are never read, and no team notebook, run or population is change
 
 ## Before claiming a result
 
-The entries — setup, change, hypothesis, thresholded predictions — live in `multi_turn_plan.md`,
+The entries — setup, change, hypothesis, thresholded predictions — live in `experiments/multi_turn_plan.md`,
 written before the full chain's `allow_paid=True`; MT1 (uniform400 · terra) is primary. The
 analysis cell caches `multi_turn_analysis.json` beside arm A: strict complete/error-free paired
 rates, test-only primary contrasts (C − B for H1; B − A and C − A for H2; D − C and D − A on
