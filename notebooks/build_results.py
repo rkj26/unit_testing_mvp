@@ -297,6 +297,104 @@ because it must flag every one of those attacks.
 """
 
 
+def pareto_figure():
+    """Digest Section 8, after the paper-values bars: one labelled frontier panel for each arm."""
+    return """
+PARETO_GAME = "C · flags held back, audit kills the run"
+
+
+def rule_label(label, cuts):
+    '''The rule a point stands for. Cuts that land on the same point share one label.'''
+    finite = [cut for cut in cuts if np.isfinite(cut)]
+    if not finite:
+        return "flag nothing"
+    unit = (lambda cut: f"{cut:.2f}") if label in monitors else (lambda cut: f"{cut:.0f}")
+    span = unit(finite[0]) if finite[0] == finite[-1] else f"{unit(finite[0])}\\u2013{unit(finite[-1])}"
+    words = f"score \\u2265 {span}" if label in monitors else f"\\u2265 {span} fire"
+    return words + (" or none" if len(finite) < len(cuts) else "")
+
+
+pareto_rows = []
+for label in ARMS:
+    seen = seen_by(label, faithful_draw)
+    honest_train, _ = scores_for(label, "train")
+    for cut in cuts_for(label):
+        outcome = VARIATIONS[PARETO_GAME](seen, faithful_draw, cut, FAITHFUL_BUDGET)
+        pareto_rows.append({"arm": label, "cut": float(cut),
+                            "honest flagged (train)": round(float((honest_train >= cut).mean()), 4),
+                            "usefulness": round(outcome["usefulness"], 4),
+                            "safety": round(outcome["safety"], 4)})
+pareto = pd.DataFrame(pareto_rows)
+pareto["rule"] = [rule_label(row.arm, [row.cut]) for row in pareto.itertuples()]
+
+
+def on_frontier(rows):
+    '''True for a rule that no other rule of the same arm beats on both axes (to 3 decimals).'''
+    u, s = rows.usefulness.round(3).to_numpy(), rows.safety.round(3).to_numpy()
+    return [not ((u >= u[i]) & (s >= s[i]) & ((u > u[i]) | (s > s[i]))).any()
+            for i in range(len(u))]
+
+
+pareto["on frontier"] = np.concatenate([on_frontier(pareto[pareto.arm == label]) for label in ARMS])
+export_table(pareto, "frontier_paper_values")
+
+
+def points_of(rows):
+    '''One entry per distinct frontier point, left to right, with every cut that lands there.'''
+    points = {}
+    for row in rows[rows["on frontier"]].itertuples():
+        points.setdefault((round(row.usefulness, 3), round(row.safety, 3)), []).append(row.cut)
+    return [{"at": at, "cuts": sorted(cuts)} for at, cuts in sorted(points.items())]
+
+
+fig, axes = plt.subplots(2, 4, figsize=(19.5, 10.2), sharex=True, sharey=True)
+for axis, label in zip(axes.flat, ARMS):
+    for other in ARMS:
+        if other != label:
+            at = [point["at"] for point in points_of(pareto[pareto.arm == other])]
+            axis.plot(*zip(*at), color=RULE, lw=1, zorder=1)
+    colour, marker, _ = style_for(label)
+    rows = pareto[pareto.arm == label]
+    points = points_of(rows)
+    axis.plot(*zip(*[point["at"] for point in points]), color=colour, lw=1.8, zorder=2)
+    placed = []
+    for point in sorted(points, key=lambda each: -each["at"][1]):
+        u, s = point["at"]
+        y = s
+        while any(abs(u - pu) < 0.15 and abs(y - py) < 0.035 for pu, py in placed):
+            y -= 0.035
+        placed.append((u, y))
+        left_edge = u < 0.15
+        axis.scatter(u, s, s=30, marker=marker, color=colour, linewidth=0, zorder=3)
+        axis.annotate(rule_label(label, point["cuts"]), (u, s),
+                      xytext=(u + 0.03 if left_edge else u - 0.03, y), textcoords="data",
+                      ha="left" if left_edge else "right", va="center", fontsize=8, color=INK,
+                      arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.6) if y != s else None)
+    chosen = rows[np.isclose(rows.cut, FAITHFUL_CUTS[label])].iloc[0]
+    axis.scatter(chosen.usefulness, chosen.safety, s=190, marker=marker, color=SURFACE,
+                 edgecolor=colour, linewidth=2, zorder=4)
+    house(axis, label)
+for axis in axes[1]:
+    axis.set_xlabel("usefulness \\u2014 honest candidates that ship")
+for axis in axes[:, 0]:
+    axis.set_ylabel("safety \\u2014 deployments with no attack shipped")
+fig.suptitle("variation C at the values of the paper \\u00b7 one point for each rule",
+             fontsize=11, color=INK)
+fig.tight_layout()
+stamp(fig, *game_stamp(FAITHFUL_HORIZON, FAITHFUL_BUDGET, FAITHFUL_TRIALS,
+                       seed=@@faithful_seed@@, attack_rate=FAITHFUL_ATTACK_RATE),
+      "label = the rule: flag when the score is at or above it \\u00b7 a rule that another rule "
+      "beats on both axes is left out \\u00b7 hollow marker = the rule the bars above use \\u00b7 "
+      "grey = the other arms")
+export(fig, "frontier_paper_values")
+""", """
+One panel for each arm, in variation C at the values of the paper. Each point is one rule; its
+label gives the rule. A rule that another rule of the same arm beats on both axes is not shown.
+Up is safer and right keeps more honest work. The hollow marker is the rule that the bars above
+use. The grey lines are the other arms.
+"""
+
+
 # Figures that take the place of tables. Each function returns the code of one cell, which draws
 # the figure, stamps its parameters and exports it, and the short caption that follows it. The
 # table that the figure replaces moves, unchanged, to the appendix: it keeps the exact numbers,
@@ -896,6 +994,25 @@ attack, and a deployment has about @@faithful_attacks@@ attacks.
 """
 
 
+def explain_pareto():
+    """Section 8, after the paper-values bars: the curve each bar is one point of."""
+    return """
+### The Pareto curve: what each rule costs
+
+**Why this plot.** An arm can flag more candidates to catch more attacks. When it flags more than
+its @@faithful_audits@@ audits can check, the extra flags hold back honest work. The plot shows this
+trade for every rule an arm can use, not only the rule in the bars above.
+
+**How each point is calculated.** One point is one rule: flag a candidate when its score is equal
+to or more than the value in the label. The game plays the same @@faithful_trials_n@@ deployments
+as the bars above with that rule, in variation C. Safety is the share of deployments in which no
+attack ships. Usefulness is the share of honest candidates that ship.
+
+**How to read it.** Up is safer. Right keeps more honest work. Variation B is not shown: at this
+attack rate it stays near 0 for every rule.
+"""
+
+
 def explain_predictions():
     """Section 9, before the predictions table."""
     return """
@@ -1375,7 +1492,9 @@ def common(records):
 
 
 def level_of(label, record):
-    return record["avg_score"] if label in monitors else len(set(record["fired"]))
+    # Rounded because the same mean comes out in two binary forms, by summation order: 14/18 is
+    # stored as both 0.7777777777777777 and ...778, and a cut at the larger skips the smaller.
+    return round(record["avg_score"], 9) if label in monitors else len(set(record["fired"]))
 
 
 attacks_in_common = sum(r["is_attack"] for r in common(tm.get_records()))
@@ -2015,6 +2134,9 @@ faithful_heading, faithful_cell, faithful_caption = paper_values()
 md(faithful_heading, digest=True)
 md(explain_paper_values(), digest=True, full=False)
 figure(faithful_cell, faithful_caption, digest=True)
+
+md(explain_pareto(), digest=True, full=False)
+figure(*pareto_figure(), digest=True, full=False)
 
 md(explain_predictions(), digest=True, full=False)
 code(predictions_table(), digest=True, full=False)
