@@ -1,41 +1,33 @@
 """Model wiring: one `ModelRuntime` in, one awaitable `complete()` out.
 
-Every model-dependent step (property-gen, trigger-search, TM, informed-TM, plan, write-from-plan)
-goes through here; the untrusted candidates are frozen in the pool, so nothing else calls a model
-at run time.
-
 Model strings are inspect_ai's:
-  - ``openai-api/azureai/<deployment>``  Azure AI Foundry via its OpenAI-compatible endpoint;
-        service prefix ``azureai`` reads AZUREAI_BASE_URL + AZUREAI_API_KEY
+
+  - ``openai-api/azureai/<deployment>``  Azure AI Foundry; reads AZUREAI_BASE_URL + AZUREAI_API_KEY
   - ``openai/...`` / ``anthropic/...``   any provider inspect_ai supports
   - ``mockllm/...`` or ``mock``          offline canned responses (tests / smoke runs)
 """
 
 from __future__ import annotations
 
+import asyncio
 import os
-import re
-from typing import Any
+import threading
 
-from .config import ModelRuntime
+from dataclasses import dataclass
+from enum import Enum
 
-MAX_RETRY_AFTER_SECONDS = 120
-ERROR_MESSAGE_CAP = 500
-
-RETRY_HINT_PATTERNS = (
-    re.compile(r"retry in\s+([0-9]+(?:\.[0-9]+)?)\s*s", re.IGNORECASE),
-    re.compile(r"retry_?delay\D{0,4}([0-9]+(?:\.[0-9]+)?)s", re.IGNORECASE),
-)
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+from typing import Annotated, Any
 
 KINDS = (
-    "property_gen",
-    "trigger_search",
-    "tm",
-    "informed",
-    "plan",
-    "write_from_plan",
-    "code_monitor",
+    "property_gen", "trigger_search", "tm", "informed", "plan", "write_from_plan", "test_critique"
 )
+
+NEVER_RETURNED = "never_returned"
+MOCK_STOP_REASON = "stop"
+EMPTY_RESPONSE_STOP_REASON = "empty_response"
+NO_REASONING = ""
+REASONING_PART_TYPE = "reasoning"
 
 TEMPERATURE_REJECTING_PREFIXES = ("gpt-5", "o1", "o3", "o4", "deepseek-v3.2", "v3.2")
 AZURE_KEY_VARS = ("AZUREAI_API_KEY", "AZURE_API_KEY")
@@ -57,83 +49,41 @@ _MOCK: dict[str, str] = {
     "trigger_search": '[{"a": 999, "b": 1}, {"a": 1, "b": 2}, {"a": 0, "b": 0}]',
     "tm": "Looks routine.\nSUSPICION_SCORE: 3",
     "informed": "No property failure noted.\nSUSPICION_SCORE: 3",
-    "code_monitor": "[[ ## reasoning ## ]]\nNothing stands out.\n\n"
-    "[[ ## suspicion_score ## ]]\n3\n\n[[ ## completed ## ]]",
+    "test_critique": '{"drop": [], "why": "every claim is forced by the specification."}',
 }
 
 
-def unwrap_error(error: BaseException) -> BaseException:
-    """The provider exception a retry wrapper is hiding.
+@dataclass(frozen=True)
+class Completion:
+    """One model completion and the provider's reason for stopping.
 
-    `tenacity.RetryError` stringifies as a `Future` repr, naming neither the status code nor the
-    message — a run of 11 dropped submissions once could not be diagnosed from its own artifact
-    because of it. Follow `last_attempt` / `__cause__` down to what actually failed.
+    A monitor score parsed from a trailing `SUSPICION_SCORE:` line is None both for an answer cut
+    short by the token cap and for a call that never happened; `stop_reason` is the only thing that
+    keeps them apart, and its default means never returned at all. `text` is the answer alone, and
+    `reasoning` is empty when the provider sends none — not the same as the model not reasoning.
     """
-    seen: set[int] = set()
-    current = error
-    while id(current) not in seen:
-        seen.add(id(current))
-        last_attempt = getattr(current, "last_attempt", None)
-        if last_attempt is not None:
-            try:
-                inner = last_attempt.exception()
-            except Exception:
-                return current
-            if inner is not None:
-                current = inner
-                continue
-        if current.__cause__ is not None:
-            current = current.__cause__
-            continue
-        break
-    return current
+
+    text: str = ""
+    stop_reason: str = NEVER_RETURNED
+    reasoning: str = ""
 
 
-def error_message(error: BaseException) -> str:
-    message = getattr(error, "message", "")
-    if not message:
-        message = str(error)
-    return message
-
-
-def describe_error(error: BaseException) -> str:
-    """One legible line naming the real failure: type, HTTP status, provider message."""
-    inner = unwrap_error(error)
-    parts = [type(inner).__name__]
-    for attr in ("code", "status"):
-        value = getattr(inner, attr, None)
-        if value is not None:
-            parts.append(f"{attr}={value}")
-    return f"{' '.join(parts)}: {error_message(inner)[:ERROR_MESSAGE_CAP]}"
-
-
-def retry_after_seconds(error: BaseException) -> float | None:
-    """The provider's stated wait before a retry can succeed, or None when it stated none.
-
-    Retrying a rate limit before the server's stated reset is guaranteed to fail AND to spend
-    another request against the quota, so the hint is strictly better than blind exponential
-    backoff. Headers come first via inspect's parser; Google states its RetryInfo in the message
-    body instead, which that parser does not read, so the text is checked too. Capped so a bogus
-    hint cannot park a run indefinitely.
-    """
-    from inspect_ai._util.http import parse_retry_after_from_exception
-
-    inner = unwrap_error(error)
-    hint = parse_retry_after_from_exception(inner)
-    if hint is None:
-        message = error_message(inner)
-        for pattern in RETRY_HINT_PATTERNS:
-            match = pattern.search(message)
-            if match:
-                hint = float(match.group(1))
-                break
-    if hint is None:
-        return None
-    return min(hint, MAX_RETRY_AFTER_SECONDS)
+def _reasoning(out: Any) -> str:
+    """Every `ContentReasoning` part of the response, joined, or empty when it carries none."""
+    content = getattr(getattr(out, "message", None), "content", None)
+    if not isinstance(content, list):
+        return NO_REASONING
+    return "\n".join(
+        part.reasoning
+        for part in content
+        if getattr(part, "type", "") == REASONING_PART_TYPE
+        and isinstance(getattr(part, "reasoning", None), str)
+    )
 
 
 class TrustedModel:
-    """Thin async wrapper over one inspect model: ``await model.complete(prompt, kind) -> str``."""
+    """Thin async wrapper over one inspect model: ``await model.complete(prompt, kind) -> str``,
+    or ``await model.completion(prompt, kind) -> Completion`` when the stop reason matters."""
 
     def __init__(self, runtime: ModelRuntime):
         self.runtime = runtime
@@ -151,15 +101,6 @@ class TrustedModel:
     @property
     def max_tokens(self) -> int:
         return self.runtime.max_tokens
-
-    @property
-    def honors_temperature(self) -> bool:
-        """Whether this model accepts our explicit temperature, or runs at the provider default.
-
-        Reasoning models reject a non-default temperature, so a manifest that records the value we
-        asked for would be asserting a setting that was never sent.
-        """
-        return not self._rejects_temperature()
 
     def _rejects_temperature(self) -> bool:
         """Reasoning models (gpt-5, o1, o3, o4, DeepSeek-V3.2) reject non-default temperature."""
@@ -189,42 +130,44 @@ class TrustedModel:
             self._model = get_model(self.runtime.name, config=self._gen_config())
         return self._model
 
-    def ensure_ready(self) -> str:
-        """Construct the provider client WITHOUT sending a request; returns the resolved name.
+    async def complete(self, prompt: str, kind: str) -> str:
+        return (await self.completion(prompt, kind)).text
 
-        Lets a pre-flight check prove the model string and credentials are wired up without
-        spending a request against a metered quota.
+    async def completion(self, prompt: str, kind: str, schema: Any = None) -> Completion:
+        """The same single call as `complete`, keeping the provider's stop reason attached.
+
+        `schema` is an `inspect_ai.model.ResponseSchema`; when given, a malformed answer fails at
+        the API rather than reaching the parser here.
         """
-        if self._mock:
-            return self.name
-        return self._resolve_inspect().name
-
-    async def complete(self, prompt: str, kind: str, system: str = "") -> str:
-        """Complete `prompt`, optionally under a system message (empty string = none)."""
         if kind not in KINDS:
             raise ValueError(f"unknown model-call kind: {kind}")
         if self._mock:
-            return _MOCK[kind]
-        from inspect_ai.model import ChatMessageSystem, ChatMessageUser
+            return Completion(_MOCK[kind], MOCK_STOP_REASON, reasoning=NO_REASONING)
+        from inspect_ai.model import ChatMessageUser, GenerateConfig
 
-        messages = [ChatMessageUser(content=prompt)]
-        if system:
-            messages.insert(0, ChatMessageSystem(content=system))
+        config = GenerateConfig(response_schema=schema) if schema is not None else None
         out = await self._resolve_inspect().generate(
-            messages, cache=self.runtime.inspect_cache
+            [ChatMessageUser(content=prompt)], cache=self.runtime.inspect_cache, config=config
         )
-        return out.completion or (out.message.text if out.message else "")
+        if out.empty:
+            return Completion("", EMPTY_RESPONSE_STOP_REASON, reasoning=_reasoning(out))
+        return Completion(
+            out.completion or out.message.text, out.stop_reason, reasoning=_reasoning(out)
+        )
 
 
 def resolve(runtime: ModelRuntime) -> TrustedModel:
-    """Build a model from its runtime knobs, validating provider credentials up front."""
+    """Build a model from its runtime knobs, validating provider credentials up front.
+
+    Fans the single `AZUREAI_*` pair out to the variable names inspect_ai and the SDKs beneath it
+    each expect, by `setdefault`, so anything already exported wins.
+    """
     if not runtime.name:
         raise ValueError(
-            "a model is required (e.g. --t-model openai-api/azureai/DeepSeek-V3.2 or --mock)"
+            "a model is required: pass model='openai-api/azureai/DeepSeek-V3.2' to the protocol, "
+            "or model='mock' for the canned answer"
         )
-    
-    # Auto-export standard Azure / OpenAI variables that inspect-ai / SDKs expect internally
-    # This allows a unified Azure AI Foundry endpoint (AZUREAI_BASE_URL) to map to everything
+
     key = next((os.getenv(alias) for alias in AZURE_KEY_VARS if os.getenv(alias)), None)
     url = next((os.getenv(alias) for alias in AZURE_URL_VARS if os.getenv(alias)), None)
     
@@ -257,3 +200,210 @@ def _require_azure_credentials(name: str) -> None:
             "For openai-api/azureai/<deployment>, AZUREAI_BASE_URL is the OpenAI-compatible "
             "endpoint: https://<resource>.services.ai.azure.com/openai/v1"
         )
+
+
+INSPECT_LOOP_THREAD = "inspect-loop"
+BRIDGE_MARGIN_SECONDS = 60
+
+_LOOP: Any = None
+_LOOP_LOCK = threading.Lock()
+
+
+class ModelCallFailed(RuntimeError):
+    """A model call that ended in something the loop must not be allowed to die of."""
+
+
+def shared_loop() -> Any:
+    """The one event loop every inspect call in this process runs on, started on first use.
+
+    Process-wide, not per-run: `get_model` memoises one `Model` per (name, config), and its httpx
+    pool and inspect's semaphores bind to the loop that first awaited them, so a call made on any
+    second loop fails on state the first one closed.
+    """
+    global _LOOP
+    with _LOOP_LOCK:
+        if _LOOP is None:
+            loop = asyncio.new_event_loop()
+            threading.Thread(
+                target=loop.run_forever, name=INSPECT_LOOP_THREAD, daemon=True
+            ).start()
+            _LOOP = loop
+    return _LOOP
+
+
+async def _survivable(awaitable: Any) -> Any:
+    """Await something, re-raising an escaping `BaseException` as `ModelCallFailed`.
+
+    A `KeyboardInterrupt` or `SystemExit` out of a coroutine propagates into `run_forever` and ends
+    the loop thread, after which every later call blocks forever on a future nothing will complete.
+    """
+    try:
+        return await awaitable
+    except Exception:
+        raise
+    except BaseException as stop:
+        raise ModelCallFailed(f"{type(stop).__name__}: {stop}") from stop
+
+
+def complete_sync(
+    model: TrustedModel, prompt: str, kind: str, schema: Any = None
+) -> Completion:
+    """One model call from a worker thread, awaited on the shared loop and re-raised here.
+
+    The `.result()` bound is the runtime's http budget plus a margin, so it can only fire after
+    every retry the call was entitled to. Failures propagate deliberately: a call that never
+    returned is infra, and `Run._record_for` is the single place that blame is stated.
+    """
+    loop = shared_loop()
+    if not loop.is_running():
+        raise ModelCallFailed(
+            "the shared inspect loop is not running, so this call would block forever on a future "
+            "nothing will complete. The loop thread only dies if something escaped `_survivable`; "
+            "restart the process rather than trusting anything it scored after that point"
+        )
+    call = model.completion(prompt, kind) if schema is None else model.completion(prompt, kind, schema)
+    pending = asyncio.run_coroutine_threadsafe(_survivable(call), loop)
+    return pending.result(timeout=model.runtime.http_timeout + BRIDGE_MARGIN_SECONDS)
+
+
+
+class Reasoning(str, Enum):
+    """Reasoning effort, which sets both the token cap and the measured per-call budget."""
+
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    MAX = "max"
+
+MEASURED_CALL_SECONDS_BY_EFFORT = {
+    Reasoning.LOW: 120,
+    Reasoning.MEDIUM: 300,
+    Reasoning.HIGH: 420,
+    Reasoning.MAX: 420,
+}
+
+MAX_TOKENS_BY_EFFORT = {
+    Reasoning.LOW: 12_000,
+    Reasoning.MEDIUM: 32_000,
+    Reasoning.HIGH: 32_000,
+    Reasoning.MAX: 32_000,
+}
+
+MEASURED_SAFE_CONCURRENCY = 12
+
+MODEL_POOL_CONNECTIONS = 16
+
+SINGLE_RUN_TEMPERATURE = 0.0
+
+MULTI_RUN_TEMPERATURE = 0.7
+
+RETRY_BUDGET_PER_CALL = 2
+
+MIN_RETRY_BUDGET_SECONDS = 240
+
+OUTER_CALL_MARGIN_SECONDS = 60
+
+CALLS_PER_UNIT = 3
+
+UNITS_PER_RUN = 4
+
+MIN_RUN_BUDGET_SECONDS = 3600
+
+ENGINE_CALL_RETRIES = 2
+
+INSPECT_HTTP_RETRIES = 1
+
+RUN_RETRIES = 2
+
+MOCK_MODEL = "mock"
+
+DERIVE_FROM_REASONING = 0
+
+Seconds = Annotated[int, Field(ge=0)]
+
+class ModelSpec(BaseModel):
+    """A model, its reasoning effort, and the only timeout a caller should set.
+
+    `timeout` bounds one provider request and every wider bound derives from it. Zero means derive
+    it from `reasoning`.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    name: str = ""
+    reasoning: Reasoning = Reasoning.LOW
+    timeout: Seconds = DERIVE_FROM_REASONING
+
+    @property
+    def resolved_timeout(self) -> int:
+        return self.timeout or MEASURED_CALL_SECONDS_BY_EFFORT[self.reasoning]
+
+    @property
+    def max_tokens(self) -> int:
+        return MAX_TOKENS_BY_EFFORT[self.reasoning]
+
+class TimeoutLadder(BaseModel):
+    """Nested request bounds, rejected at construction unless strictly increasing outwards.
+
+        per-call attempt < http retry budget < outer call < unit < run
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    trusted_call: Seconds
+    untrusted_call: Seconds
+    http_retry_budget: Seconds
+    outer_call: Seconds
+    unit: Seconds
+    run: Seconds
+
+    @model_validator(mode="after")
+    def _strictly_increasing(self) -> TimeoutLadder:
+        rungs = [
+            max(self.trusted_call, self.untrusted_call),
+            self.http_retry_budget,
+            self.outer_call,
+            self.unit,
+            self.run,
+        ]
+        if rungs != sorted(set(rungs)):
+            raise ValueError(
+                f"timeout ladder is not strictly increasing: {self.model_dump()}"
+            )
+        return self
+
+    @classmethod
+    def derive(cls, trusted: ModelSpec, untrusted: ModelSpec) -> TimeoutLadder:
+        slowest = max(trusted.resolved_timeout, untrusted.resolved_timeout)
+        http_retry_budget = max(
+            MIN_RETRY_BUDGET_SECONDS, RETRY_BUDGET_PER_CALL * slowest
+        )
+        outer_call = http_retry_budget + OUTER_CALL_MARGIN_SECONDS
+        unit = CALLS_PER_UNIT * outer_call
+        return cls(
+            trusted_call=trusted.resolved_timeout,
+            untrusted_call=untrusted.resolved_timeout,
+            http_retry_budget=http_retry_budget,
+            outer_call=outer_call,
+            unit=unit,
+            run=max(MIN_RUN_BUDGET_SECONDS, UNITS_PER_RUN * unit),
+        )
+
+class ModelRuntime(BaseModel):
+    """Every endpoint knob for one model, resolved once by the protocol, never re-read from the env.
+
+    Complete enough that a subprocess or Docker worker rebuilds a model identical to the parent's.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    name: str
+    temperature: float = Field(0.0, ge=0.0)
+    seed: int = Field(0, ge=0)
+    attempt_timeout: Seconds
+    http_timeout: Seconds
+    http_retries: int = Field(ge=0)
+    max_tokens: int = Field(gt=0)
+    reasoning_effort: Reasoning
+    inspect_cache: bool = True
+    max_connections: int = Field(MODEL_POOL_CONNECTIONS, ge=1)

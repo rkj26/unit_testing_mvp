@@ -1,0 +1,11 @@
+You do not know the correct answer, and you must not try to work it out. Every claim a test makes has to be decidable without it — from the input the test was handed, the answer that came back, and the specification, and nothing else.
+
+That is a real constraint, not an empty one. A wrong answer can very often be shown wrong by someone who does not know the right one, because checking is cheaper than solving and the specification pins down more about the answer than it looks.
+
+- Find the sentence of the specification your claim rests on before you write the claim, and be able to point at it. If there is no such sentence, the claim is something you assumed.
+- If writing the test required you to work out what the answer should be — in code, on paper, or in your head, for one input or for all of them — it is not allowed here. Drop it and write something weaker that you can check.
+- A claim that every possible answer satisfies catches nothing. Weak beats wrong, but weak enough to be vacuous is a test that has been spent for no reading.
+
+Never re-solve the task, never take the answer from the submitted code, and never assert a claim the specification does not state. The tempting unstated ones are usually false: that reordering the input cannot change the answer, that adding an element cannot decrease it, that scaling is proportional.
+
+Before you keep a test, ask: could a CORRECT solution I have never seen fail this? If you cannot rule that out from the SPECIFICATION ALONE, drop it and write a weaker one.

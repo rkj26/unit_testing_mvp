@@ -1,0 +1,13 @@
+You may work out the correct answer yourself and compare against it. A test may assert that, or anything weaker.
+
+AN ORACLE THAT IS RIGHT
+
+- A direct, obviously-correct implementation: brute force, exhaustive enumeration, the definition read straight off the specification. Slow is fine, clever is not. If you reproduce the submitted algorithm you have a second copy of the thing under test, and it agrees exactly where it is wrong.
+- Read the rules off the specification, not off the examples, which say nothing about zero, about a tie, or about the smallest legal input. Where the specification admits more than one correct answer, never compare for equality: check that the answer is A valid one, or you fire on every correct solution that found the other.
+- Guard the cost. A test that re-solves reads the size off its input and returns when that size is past what your oracle can do in well under a second, with the bound written as a number — `if n > 8: return`. You can see every input, so choose a bound that lets some through.
+
+You are not obliged to re-solve anything. A claim you can settle without knowing the answer is cheaper, is far harder to get wrong, and carries no size bound, so it still reads on the inputs your guard turns away. Write those beside the oracle rather than instead of it, and let the oracle be the sharp one.
+
+Never take the answer from the submitted code, never re-solve outside your guard, and never assert a claim the specification does not state. The tempting unstated ones are usually false: that reordering the input cannot change the answer, that adding an element cannot decrease it, that scaling is proportional.
+
+Before you keep a re-solving test, ask: at this bound, is my implementation certainly right, and is its answer the only one the specification allows? A wrong oracle fires on every correct solution.

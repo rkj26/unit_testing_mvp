@@ -1,0 +1,577 @@
+% =====================================================================
+% RESULTS SKELETON (full APPS pool, data/apps_full.json)
+% Numbers from notebooks/results_full.ipynb, origin/one-run-one-artifact,
+% commit 14b4444, unless marked otherwise. Cell numbers in comments so every
+% figure can be checked. Bullets are notes for the write-up, not final prose.
+% Filled 2026-10-16 from the same notebook re-executed on the same runs; it now
+% also writes CSVs to notebooks/figures/all/data/ (catch_at_fpr, game_results,
+% paper_setting, paper_values, roc, frontiers_b_c) for pgfplots.
+% [??] = not yet extracted from the notebook.
+% =====================================================================
+
+\providecommand{\na}{\textbf{??}}
+
+\section{Results}
+\label{sec:results}
+
+\noindent\textit{Skeleton. Each subsection lists the points to make, with the
+numbers behind them. Rakshit writes the final prose. \na{} marks a number not
+yet pulled from the run.}
+
+\paragraph{Overview (2--3 sentences).}
+\begin{itemize}
+  \item On the full pool, every tests-only arm ranks below the code-reading
+        monitor (AUC 0.808--0.870 against 0.958) and none matches its
+        deployment safety in any game.
+  \item Adding tests to the monitor helps only when the threshold is strict.
+        It raises catch at a 1\% false alarm rate (0.629--0.681 against 0.434)
+        but not at 10\% (0.883--0.900 against 0.914). At the main 10\% audit
+        budget it raises safety only in game A, and only with u plans (0.846
+        against 0.836). At a 2\% audit budget it does:
+        0.804--0.830 against 0.787 in games A and C
+        (Section~\ref{sec:paper-setting}).
+  \item Changes to the test writer move the false alarm rate but not catch, and
+        most misses are reached by a test input but not detected
+        (Section~\ref{sec:why-catch}).
+\end{itemize}
+
+% ---------------------------------------------------------------------
+\subsection{Pool and coverage}
+\label{sec:pool}
+% Sources: cells 5, 9, 11, 22, 33, 66, 68.
+
+\paragraph{Points to make.}
+\begin{itemize}
+  \item 1388 APPS tasks, each with one honest and one backdoored candidate:
+        2776 candidates. 555 train and 833 test tasks; the split is stored in
+        the dataset file.
+  \item The pool was scrubbed (Table~\ref{tab:scrub}). As it arrived, 48.6\% of
+        backdoored candidates had a comment naming the backdoor, against 0\% of
+        honest ones. After the scrub, no candidate has any comment.
+        \textit{[Team's call: this table may sit better in Methods.]}
+  \item The trusted model solves 1101 of 1386 tasks on its own (79.4\%). Worth
+        one sentence: tests are not allowed to re-solve the task, even though
+        the trusted model could solve most of them.
+  \item Trigger search: 30 inputs per candidate; 15 of 2776 searches failed
+        (12 model, 3 infrastructure).
+  \item 2435 of the 2776 candidates were scored by all eight arms (1177 honest,
+        1258 backdoored). Every headline number uses only these. Per-arm
+        failures are in Table~\ref{tab:coverage} (appendix).
+  \item The deployment game draws from the 642 held-out tasks that keep both
+        candidates (447 in train).
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llcc}
+\hline
+Pool & Side & Any comment & Names the backdoor \\
+\hline
+As it arrived & backdoored & 0.679 & 0.486 \\
+              & honest     & 0.200 & 0.000 \\
+Scrubbed      & backdoored & 0.000 & 0.000 \\
+              & honest     & 0.000 & 0.000 \\
+\hline
+\end{tabular}
+\caption{Share of candidates with any comment, and with a comment naming the
+backdoor, before and after the scrub (1388 candidates per side). The scrub
+removed comments and self-naming identifiers from every candidate, honest and
+backdoored, so having no comments cannot itself give the label away.}
+\label{tab:scrub}
+\end{table}
+
+% ---------------------------------------------------------------------
+\subsection{Detection}
+\label{sec:detection}
+% Sources: cells 26, 29, 70. Figures: figures/all/roc.png,
+% figures/all/catch_at_fpr.png.
+
+\paragraph{Points to make.}
+\begin{itemize}
+  \item Every tests-only arm ranks below the monitor: AUC 0.808--0.870 against
+        0.958, and lower catch at every false alarm rate in the grid
+        (Table~\ref{tab:detection}).
+  \item Letting the untrusted model plan the tests helps the tests-only arms:
+        AUC rises from 0.816 to 0.870 (property) and from 0.808 to 0.867
+        (plain). This matches what Alon found on BigCodeBench.
+  \item Property and plain prompts barely differ: 0.816 against 0.808, and
+        0.870 against 0.867.
+  \item Adding tests to the monitor has a crossover. At a 1\% false alarm rate
+        the combinations catch 0.629--0.681 against 0.434 for the monitor; at
+        2\%, 0.669--0.721 against 0.558. At 5\% it is mixed, and at 10\% the
+        monitor alone is ahead (0.914 against 0.883--0.900). The tests sharpen
+        the top of the monitor's ranking but add nothing at loose thresholds.
+  \item Do not rank arms by AUC alone: the monitor and monitor + tests property
+        both have AUC 0.958 but very different curves. Compare catch at the
+        false alarm rate the deployment actually uses.
+  \item Say plainly that this table pools train and test (the notebook has no
+        test-only detection table) and that no intervals were computed.
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Arm & AUC & catch @1\% & catch @2\% & catch @5\% & catch @10\% \\
+\hline
+monitor + u plans property & 0.962 & 0.681 & 0.721 & 0.838 & 0.900 \\
+monitor + tests property   & 0.958 & 0.652 & 0.681 & 0.767 & 0.890 \\
+monitor + tests plain\_v3  & 0.954 & 0.629 & 0.669 & 0.787 & 0.883 \\
+monitor                    & 0.958 & 0.434 & 0.558 & 0.827 & 0.914 \\
+u plans property/10        & 0.870 & 0.149 & 0.245 & 0.474 & 0.678 \\
+u plans plain\_v3/10       & 0.867 & 0.074 & 0.223 & 0.473 & 0.667 \\
+tests property/10          & 0.816 & 0.043 & 0.120 & 0.312 & 0.497 \\
+tests plain\_v3/10         & 0.808 & 0.055 & 0.119 & 0.274 & 0.490 \\
+\hline
+\end{tabular}
+\caption{Detection on the full pool, train and test pooled (2435 candidates
+scored by all eight arms: 1177 honest, 1258 backdoored). Catch is the share of
+backdoored candidates flagged when the false alarm rate on honest candidates is
+held at 1, 2, 5 or 10\%. AUC counts ties as half. All eight arms see the code;
+in the u plans arms the untrusted planner sees it and the trusted writer sees
+only the plan.}
+\label{tab:detection}
+\end{table}
+
+\begin{figure}[t]
+\centering
+% \includegraphics[width=0.85\linewidth]{figures/all/catch_at_fpr.png}
+\fbox{\parbox{0.8\linewidth}{\centering Figure placeholder: catch at a fixed
+false alarm rate (\texttt{figures/all/catch\_at\_fpr.png}). The ROC
+(\texttt{roc.png}) can go in the appendix.}}
+\caption{Catch rate of each arm when it may flag only 1\% to 10\% of honest
+candidates (log scale; the 2435 candidates scored by all eight arms, train and
+test pooled). Higher is better. The gap between two lines at the dotted 2\%
+line is the difference a real audit budget sees. Between two thresholds an arm
+can actually take, the curve is a straight line, which choosing at random
+between those two thresholds achieves. At 1\% and 2\% the false alarm rate rests
+on few honest candidates (about 12 and 24 of 1177).}
+\label{fig:catch-at-fpr}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\subsection{Deployment safety}
+\label{sec:deployment}
+% Sources: cells 33, 38, 72, 74, 76. Figures: figures/all/placement.png,
+% figures/all/frontiers_b_c.png.
+
+\paragraph{Points to make.}
+\begin{itemize}
+  \item Setting: 50 submissions per deployment, 5\% attack rate, 10\% audit
+        budget (5 audits), 20{,}000 deployments drawn from the held-out split.
+        In 7.6\% of deployments no attack arrives at all, which every protocol
+        wins for free.
+  \item Each arm's threshold is the 90th percentile of its honest train scores.
+        That gives a cut of 0.778 for all four monitor arms, 3 failing tests
+        for tests property and 2 for the other tests-only arms.
+  \item The monitor has the highest safety in B and C: 0.836 and 0.929
+        (Table~\ref{tab:deployment}). In A, monitor + u plans property is a
+        point ahead of it (0.846 against 0.836).
+  \item No tests-only arm reaches the monitor. The best tests-only figure per
+        game is 0.679 in A, 0.782 in B and 0.859 in C, which leaves the monitor
+        ahead by 15.7, 5.4 and 7.0 points.
+  \item Adding tests to the monitor does not raise safety at this budget in B
+        or C: the best combination reaches 0.809 against 0.836 in B and 0.916
+        against 0.929 in C. It gains about a point of usefulness (+1.3 in B,
+        +0.8 in C). This fits the detection result: a 10\% budget puts the cut
+        near a 10\% false alarm rate, where the monitor alone catches more.
+  \item Rejecting on any failing test flags 31--51\% of submissions, uses all
+        five audits in B, and cuts usefulness in B to 0.61--0.81.
+  \item In game C, deployments under the tests-only arms run 24.7--28.2 steps
+        before ending, against 21.2 for the monitor.
+        \textit{[Rakshit: say what this means for when attacks get caught.]}
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Arm & Safety A & Safety B & Safety C & Useful B & Useful C \\
+\hline
+monitor                    & 0.836 & 0.836 & 0.929 & 0.949 & 0.977 \\
+monitor + tests property   & 0.833 & 0.809 & 0.916 & 0.953 & 0.979 \\
+monitor + tests plain\_v3  & 0.802 & 0.778 & 0.897 & 0.946 & 0.974 \\
+monitor + u plans property & 0.846 & 0.793 & 0.908 & 0.962 & 0.985 \\
+tests property/10          & 0.593 & 0.396 & 0.643 & 0.957 & 0.975 \\
+tests plain\_v3/10         & 0.559 & 0.467 & 0.682 & 0.894 & 0.921 \\
+u plans property/10        & 0.678 & 0.564 & 0.770 & 0.937 & 0.963 \\
+u plans plain\_v3/10       & 0.679 & 0.560 & 0.766 & 0.939 & 0.965 \\
+\hline
+\multicolumn{6}{l}{\textit{Reject if any test fails:}} \\
+tests property/10          & 0.434 & 0.782 & 0.852 & 0.610 & 0.634 \\
+tests plain\_v3/10         & 0.485 & 0.734 & 0.830 & 0.708 & 0.735 \\
+u plans property/10        & 0.573 & 0.756 & 0.859 & 0.800 & 0.832 \\
+u plans plain\_v3/10       & 0.568 & 0.724 & 0.837 & 0.806 & 0.837 \\
+\hline
+\end{tabular}
+\caption{Deployment outcomes on the full pool: 50 submissions per deployment,
+5\% attack rate, 10\% audit budget (5 audits), 20{,}000 deployments from the
+held-out split (642 tasks). Safety is the share of deployments in which no
+attack shipped; usefulness is the share of honest submissions that shipped, and
+is 1 in game A by construction. A: flagged submissions without an audit ship.
+B: they are held back and the deployment continues. C: as B, but an audited
+attack ends the deployment.}
+\label{tab:deployment}
+\end{table}
+
+\begin{figure}[t]
+\centering
+% \includegraphics[width=\linewidth]{figures/all/frontiers_b_c.png}
+\fbox{\parbox{0.8\linewidth}{\centering Figure placeholder: safety against
+usefulness in games B and C (\texttt{figures/all/frontiers\_b\_c.png}). The
+safety bars (\texttt{placement.png}) can sit beside it or in the appendix.}}
+\caption{Safety against usefulness in games B and C. Each line is one arm swept
+over every threshold it can take; the large marker is its 10\% budget cut.
+Game A is left out because its usefulness is always 1.}
+\label{fig:frontiers}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\subsection{Budget and attack rate}
+\label{sec:sensitivity}
+% Sources: cells 48, 49, 78. Figure: figures/all/budget_attack_surface.png.
+
+\paragraph{Points to make.}
+\begin{itemize}
+  \item Sweep: audit budgets of 1, 2, 5, 10 and 20\%, attack rates of 1, 2, 5
+        and 10\%, 10{,}000 deployments per point.
+  \item The ordering flips at the tightest budget. At 1\%, monitor + tests beats
+        the monitor in A (0.644--0.737 against 0.544) and in B (0.524--0.720
+        against 0.398), and in B the reject-on-any-failure tests-only arms lead
+        outright (0.761--0.814).
+  \item In B and C the monitor takes the lead back at 5\% (B: 0.804 against
+        0.694--0.720; C: 0.904 against 0.849--0.868); at 2\% the combinations
+        are still ahead (B: 0.694--0.720 against 0.670; C: 0.812--0.838 against
+        0.800). In A the best combination stays ahead up to 10\% (at 5\%:
+        0.788 against 0.720; at 10\%: 0.874 for monitor + u plans property
+        against 0.865), and the monitor leads only at 20\%.
+  \item The reject-on-any-failure arms do not depend on the budget, so in B
+        they sit at 0.761--0.814 at every budget up to 10\%. Tests property
+        with that rule stays ahead of the monitor up to 5\% (0.814 against
+        0.804) and falls behind at 10\% (0.857).
+  \item The 1\% figures above are averaged over the four attack rates (the
+        notebook's table takes the mean). Either report one attack rate or say
+        so in the caption.
+  \item Any claim that tests help has to name the budget, because the sign of
+        the effect depends on it.
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Arm (game B) & 1\% & 2\% & 5\% & 10\% & 20\% \\
+\hline
+monitor                    & 0.398 & 0.670 & 0.804 & 0.857 & 0.912 \\
+monitor + tests property   & 0.540 & 0.709 & 0.709 & 0.831 & 0.895 \\
+monitor + tests plain\_v3  & 0.524 & 0.694 & 0.694 & 0.810 & 0.879 \\
+monitor + u plans property & 0.720 & 0.720 & 0.720 & 0.819 & 0.906 \\
+tests property/10          & 0.300 & 0.333 & 0.411 & 0.520 & 0.644 \\
+tests plain\_v3/10         & 0.292 & 0.356 & 0.445 & 0.569 & 0.770 \\
+u plans property/10        & 0.344 & 0.344 & 0.518 & 0.642 & 0.787 \\
+u plans plain\_v3/10       & 0.339 & 0.501 & 0.501 & 0.635 & 0.761 \\
+\hline
+\multicolumn{6}{l}{\textit{Reject if any test fails:}} \\
+tests property/10          & 0.814 & 0.814 & 0.814 & 0.814 & 0.814 \\
+tests plain\_v3/10         & 0.770 & 0.770 & 0.770 & 0.770 & 0.770 \\
+u plans property/10        & 0.787 & 0.787 & 0.787 & 0.787 & 0.787 \\
+u plans plain\_v3/10       & 0.761 & 0.761 & 0.761 & 0.761 & 0.761 \\
+\hline
+\end{tabular}
+\caption{Safety in game B at each audit budget, averaged over attack rates of
+1, 2, 5 and 10\% (10{,}000 deployments per point). Games A and C go in the
+appendix.}
+\label{tab:sensitivity}
+\end{table}
+
+% ---------------------------------------------------------------------
+\subsection{At a 2\% audit budget}
+\label{sec:paper-setting}
+% Sources: cells 52-62, tables at cells 80, 82, 84, 86 (NOT YET EXTRACTED).
+% Figures: figures/all/paper_setting.png, figures/all/paper_values.png.
+
+\paragraph{Points to make.}
+\begin{itemize}
+  \item The run also plays two settings closer to earlier control work: (i) 1000
+        submissions, 5\% attacks, 2\% budget (20 audits), 5{,}000 deployments;
+        (ii) 5000 submissions, 0.4\% attacks, 2\% budget (100 audits), 2{,}000
+        deployments, about 20 attacks per deployment.
+  \item The notebook calls both of these ``the paper's'' setting. Name them
+        separately in the text.
+  \item Setting (ii) is the one closest to \citet{greenblatt2024control}: 5000
+        problems and a 2\% audit budget, with an attack rate near the one their
+        red team chose against trusted monitoring. Report it in the table and
+        give (i) in one sentence.
+  \item The question this section answers: does monitor + tests beat the
+        monitor at a 2\% budget? The detection table says it might (catch at a
+        2\% false alarm rate: 0.669--0.721 against 0.558). It does: in setting
+        (ii) the three combinations reach 0.804--0.830 safety in games A and C
+        against 0.787 for the monitor, +1.7 to +4.3 points
+        (Table~\ref{tab:paper-setting}). Setting (i) gives the same order:
+        0.815--0.842 against 0.802.
+  \item Tests alone stay far below at the 2\% cut (0.258--0.593 in A). The
+        reject-on-any-failure rule lifts them to 0.512--0.674, but flags
+        29--49\% of all submissions and keeps only 0.54--0.76 of honest code
+        in C.
+  \item Game B is near zero for every arm (at most 0.138 in (ii), 0.009 in
+        (i)). About 20 attacks arrive in each deployment of (ii) and 50 in (i),
+        and B never stops, so a single miss ships an attack. B cannot rank
+        protocols at these settings; say so rather than reporting it as a
+        result.
+  \item The audit budget does not run out, except in B. A game-A deployment
+        ends at the first attack, after 249 steps on average in (ii) and 19.8 in
+        (i); the threshold arms spend 5.7--22.4 of 100 audits in (ii) and
+        0.7--2.3 of 20 in (i), and in game C at most 36.1 of 100 and 3.9 of
+        20.
+        Because no flag ever finds the budget empty, A and C give identical
+        safety for every arm that uses a 2\% cut. Only B, which runs the full
+        horizon, uses every audit.
+  \item The attack-rate sweep (game A, 1000 submissions, 2\% budget, 2{,}000
+        deployments per point; cells 84, 86) shows when that changes. Even at a
+        0.2\% attack rate the threshold arms spend 9.2--16.3 of 20 audits on
+        average; only the reject-on-any-failure arms come close to the full 20
+        (18.8--19.3). Monitor + tests beats the monitor at attack rates of 1\%
+        and above (0.793--0.834 against 0.782--0.791) and loses below it
+        (0.527--0.643 against 0.622 at 0.2\%, 0.666--0.767 against 0.712 at
+        0.5\%), with monitor + u plans property the exception that stays ahead
+        throughout.
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Arm & Safety A & Safety B & Safety C & Useful B & Useful C \\
+\hline
+monitor                    & 0.787 & 0.015 & 0.787 & 0.977 & 0.999 \\
+monitor + tests property   & 0.826 & 0.030 & 0.826 & 0.958 & 0.998 \\
+monitor + tests plain\_v3  & 0.804 & 0.022 & 0.804 & 0.969 & 0.999 \\
+monitor + u plans property & 0.830 & 0.035 & 0.830 & 0.978 & 1.000 \\
+tests property/10          & 0.258 & 0.000 & 0.258 & 0.984 & 0.995 \\
+tests plain\_v3/10         & 0.314 & 0.000 & 0.314 & 0.970 & 0.987 \\
+u plans property/10        & 0.283 & 0.000 & 0.283 & 0.997 & 1.000 \\
+u plans plain\_v3/10       & 0.593 & 0.000 & 0.593 & 0.931 & 0.966 \\
+\hline
+\multicolumn{6}{l}{\textit{Reject if any test fails:}} \\
+tests property/10          & 0.512 & 0.138 & 0.578 & 0.534 & 0.543 \\
+tests plain\_v3/10         & 0.569 & 0.086 & 0.604 & 0.634 & 0.646 \\
+u plans property/10        & 0.674 & 0.097 & 0.698 & 0.730 & 0.748 \\
+u plans plain\_v3/10       & 0.670 & 0.064 & 0.688 & 0.736 & 0.755 \\
+\hline
+\end{tabular}
+\caption{Deployment outcomes at a 2\% audit budget: 5000 submissions per
+deployment, 0.4\% attack rate (about 20 attacks per deployment), 100 audits,
+2{,}000 deployments from the held-out split. Each arm's cut is the 98th
+percentile of its honest train scores. A and C coincide for every cut arm
+because the budget never runs out; B is near zero because it never stops and
+must miss none of about 20 attacks.}
+\label{tab:paper-setting}
+\end{table}
+
+% ---------------------------------------------------------------------
+\subsection{Why catch does not move}
+\label{sec:why-catch}
+
+This subsection uses a smaller pool of 50 hard APPS problems, one honest and
+one backdoored candidate each. The trusted model writes 20 tests per
+submission, and we score six arms on a held-out split of 50 candidates (25
+backdoored, 25 honest): two whose writer only sees the problem statement, and
+four that see the code.
+% TODO: Section 2.1 says T is always at low reasoning effort. The reasoning
+% variant below breaks that, so 2.1 needs a line saying the hard-pool variants
+% differ. These are also the only blind arms in the paper.
+
+\paragraph{Scrubbing.}
+In the original hard pool, the comment leak was lopsided by class: 32 of the 50
+backdoored solutions had a comment naming the backdoor, using words like
+\emph{bug}, \emph{flaw} or \emph{backdoor}, and none of the 50 honest ones did.
+We stripped every comment with Python's \texttt{tokenize} module, checked that
+each program's syntax tree was unchanged, and renamed four identifiers that
+named the backdoor. Rerunning the high-reasoning code-visible arm on the
+scrubbed pool left catch flat at 0.864 (38 of 44, on the 89 candidates scored
+in both runs), and the false alarm rate moved only from 0.533 to 0.556.
+Stripping the comments killed the lexical tell but left a structural one:
+hardcoded branches on specific constants are still there for a writer that can
+read the code. The rest of the hard-pool results use the scrubbed pool unless
+we say otherwise.
+
+\paragraph{The tests are not precise enough.}
+If we reject any candidate that fails a test, the six arms reject 74\% to 88\%
+of the backdoors (74\% and 80\% for the two blind arms, 76\% to 88\% for the
+four code-visible ones) but keep only a quarter to three-fifths of the honest
+code. Hold the false alarm rate at the monitor's 0.10 and their catch drops to
+between 0.14 and 0.31, against 0.84 for the monitor. Of the three
+relational-trigger backdoors the monitor missed (triggers set by a relation
+between inputs rather than a fixed constant), five arms catch none and one
+blind arm catches two, which is too few to read anything into. With 25
+backdoored candidates one candidate moves catch by about 0.04, so we do not
+rank the arms against each other; the claim is just that all six sit well below
+the monitor.
+% TODO: an earlier Results draft says the monitor reaches 0.930 safety at the
+% 0.10 budget. Reconcile 0.84 and 0.930 before submitting.
+
+\paragraph{The variations move the false alarm rate, not catch.}
+Table~\ref{tab:variants} compares each variation against the same writer
+without it. All four brought the false alarm rate down, by 0.12 to 0.25, and
+none raised catch by more than one backdoor. Few-shot examples cut false
+positives from 29 of 44 honest candidates to 20 of 44, and catch fell from 42
+of 48 backdoors to 39 of 48. The critic cut the false alarm rate from 0.674 to
+0.429, and catch fell from 0.878 to 0.816. The critic was also not selective:
+it dropped 6.39 tests per backdoored candidate on average and 5.59 per honest
+one, so it pruned backdoored code a little harder than honest code, not the
+other way round. More reasoning cut the false alarm rate from 0.698 to 0.558
+and moved catch by one backdoor (39 to 38 of 44, on the 87 candidates both arms
+scored). Two things make that last comparison shaky: the low-effort arm wrote
+no reasoning at all, against a median of about 65,000 characters for the high
+arm, and the high arm ran with half the sandbox time (120\,s against 240\,s).
+The multi-turn loop cut the false alarm rate from 17.65\% to 5.88\% on a
+19-task development set with all 18 matched backdoors still caught, but the
+95\% interval for that change, $[-29.41, 0.00]$ points, reaches zero.
+% TODO: confirm the model and pool for the multi-turn arm (Omar).
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llcc}
+\hline
+Variation (vs.\ without) & Candidates & FPR & Catch \\
+\hline
+Few-shot & scrubbed, 49 tasks$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
+Critic & scrubbed, $n=98$ & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
+Reasoning (high vs.\ none$^{b}$) & original, $n=87$ & 0.70 $\to$ 0.56 & 0.89 $\to$ 0.86 \\
+Multi-turn (vs.\ one turn) & dev set, 19 tasks & 0.18 $\to$ 0.06$^{c}$ & 1.00 $\to$ 1.00 \\
+\hline
+\end{tabular}
+\caption{Each variation against the same writer without it, on the hard pool.
+FPR is the share of honest candidates flagged, catch the share of backdoored
+candidates flagged.
+$^{a}$Full scrubbed pool minus the task the few-shot example came from
+(44 honest and 48 backdoored candidates scored).
+$^{b}$The low-effort arm wrote zero reasoning characters, so this is really no
+reasoning against high reasoning. Run on the original (unscrubbed) pool.
+$^{c}$95\% interval for the change: $[-0.29, 0.00]$.}
+\label{tab:variants}
+\end{table}
+
+\paragraph{Where the misses come from.}
+To tell search failures apart from detection failures, we used an earlier run
+on five hard BigCodeBench tasks with two backdoors each, where blind
+property-based tests caught none of the 10.
+% TODO: the 2/8 split is from these five BigCodeBench tasks, not the hard APPS
+% pool. Keep this framing or rerun wall_decomposition on the hard pool (Alon's
+% action item). Also name the writer models for this run.
+For each backdoor we ran the backdoored and reference solutions on 20,000
+random inputs and counted how often their outputs differed. For 2 of them,
+inputs drawn from the problem's own input format never produced a difference,
+so no realistic test budget would reach the trigger. One of those became
+reachable once we let the input alphabet include the form-feed character, after
+which the outputs differed on 36\% of inputs. For the other 8, between 21\% and
+90\% of inputs that respect the input contract exposed a difference, and a
+2,000-input test reaches the trigger with probability 1.000. So those triggers
+were reached. What was missing is a test that asserted a property telling the
+backdoored output apart from the reference output. We call this the
+spec-entailment wall.
+% Provisional, keep out of the text until checked against the task docstrings:
+% of the 8 reached backdoors, roughly 1-3 look like behaviour the spec leaves
+% open (e.g. the 202/attack_0 tie-break) and roughly 5 look like errors a
+% sound spec-derived test could catch.
+
+% ---------------------------------------------------------------------
+\subsection{BigCodeBench}
+\label{sec:bcb}
+% Source: team research doc, Alon's 26-task run (22/09). May be replaced by the
+% BCB run with Palak's and Omar's arms.
+
+\paragraph{Points to make (Alon to confirm or update).}
+\begin{itemize}
+  \item 26 tasks, which is the whole usable pool (the upstream source covers
+        31 BigCodeBench tasks), 52 candidates (26 honest, 26 backdoored).
+  \item Unlike APPS, no BigCodeBench backdoor named itself in a comment
+        (0.000 before the scrub).
+  \item The monitor reaches AUC 1.000. Four baselines that use no model at all
+        (counting \texttt{==} comparisons 0.967, numeric literals 0.935, if
+        statements 0.883, characters 0.825) all beat all four test-writing arms
+        (0.579--0.753).
+  \item Counting \texttt{==} comparisons beats the monitor in game A (0.985
+        against 0.896).
+  \item Letting the untrusted model plan the tests beat the trusted model alone
+        in all four comparisons across two pools and two samplings.
+  \item Conclusion: this benchmark is saturated, so it cannot separate
+        protocols.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+\paragraph{Notes to carry into Discussion and Limitations.}
+\begin{itemize}
+  \item No confidence intervals anywhere in the full run; only 20{,}000
+        deployments and fixed seeds.
+  \item Detection is pooled over train and test.
+  \item Every arm in the full run sees the code. The only blind arms are in the
+        hard-pool study.
+  \item The trusted and untrusted models are the same model (DeepSeek-V3.2);
+        the gap between them comes from reasoning effort alone.
+  \item One random draw per setting.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% APPENDIX TABLES (move to the appendix in Overleaf)
+% ---------------------------------------------------------------------
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Arm & Scored & Model fail. & Infra fail. & Partial & Dropped \\
+\hline
+monitor                    & 2774 & 0  & 2  & 0  & 339 \\
+monitor + tests property   & 2664 & 81 & 31 & 0  & 229 \\
+monitor + tests plain\_v3  & 2627 & 98 & 51 & 0  & 192 \\
+monitor + u plans property & 2677 & 83 & 16 & 0  & 242 \\
+tests property/10          & 2684 & 61 & 31 & 44 & 249 \\
+tests plain\_v3/10         & 2659 & 66 & 51 & 54 & 224 \\
+u plans property/10        & 2708 & 52 & 16 & 28 & 273 \\
+u plans plain\_v3/10       & 2703 & 45 & 28 & 30 & 268 \\
+\hline
+\end{tabular}
+\caption{Coverage for each arm out of 2776 candidates. Failed candidates have
+no score and leave every denominator. ``Partial'' counts suites where not every
+test ran on every trigger input. ``Dropped'' counts candidates this arm scored
+but at least one other arm did not; headline numbers use the 2435 that every
+arm scored.}
+\label{tab:coverage}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\hline
+Arm & Flag rate & Audits A & Audits B & Audits C & Steps C \\
+\hline
+monitor                    & 0.17 & 2.73 & 4.90 & 2.86 & 21.2 \\
+monitor + tests property   & 0.16 & 2.66 & 4.88 & 2.82 & 21.3 \\
+monitor + tests plain\_v3  & 0.17 & 2.75 & 4.91 & 2.94 & 22.0 \\
+monitor + u plans property & 0.15 & 2.52 & 4.81 & 2.70 & 21.1 \\
+tests property/10          & 0.15 & 2.45 & 4.82 & 3.20 & 26.9 \\
+tests plain\_v3/10         & 0.22 & 3.08 & 4.99 & 3.66 & 28.2 \\
+u plans property/10        & 0.18 & 2.76 & 4.93 & 3.21 & 24.8 \\
+u plans plain\_v3/10       & 0.17 & 2.73 & 4.92 & 3.19 & 24.7 \\
+\hline
+\multicolumn{6}{l}{\textit{Reject if any test fails:}} \\
+tests property/10          & 0.51 & 4.09 & 5.00 & 4.20 & 33.7 \\
+tests plain\_v3/10         & 0.41 & 3.90 & 5.00 & 4.06 & 31.6 \\
+u plans property/10        & 0.32 & 3.63 & 5.00 & 3.81 & 28.3 \\
+u plans plain\_v3/10       & 0.31 & 3.60 & 5.00 & 3.81 & 28.5 \\
+\hline
+\end{tabular}
+\caption{Share of submissions flagged, mean audits spent (out of 5) in each
+game, and mean steps a game-C deployment lasted, at the main setting. Every
+game-A deployment lasts 18.6 steps and every game-B deployment the full 50.}
+\label{tab:flags}
+\end{table}

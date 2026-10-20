@@ -1,0 +1,15 @@
+{
+  "protocol": "trusted_solve",
+  "run_name": "solve-r50",
+  "data": "data/apps_random50.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "reasoning": "low",
+    "pairs": 30,
+    "sandbox_seconds": 210,
+    "docker_image": "python:3.12-slim"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "protocol": "multi_turn_replay",
+  "run_name": "u400-mt-terra-run1-smoke-A-replay",
+  "data": "data/apps_uniform400_multi_turn_smoke.json",
+  "model": "",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "baseline_run": "u400-mt-terra-run1-smoke-A-traceable",
+    "triggers": "u400-mt-terra-run1-smoke-triggers",
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim"
+  }
+}

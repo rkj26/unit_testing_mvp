@@ -1,0 +1,37 @@
+Just write tests. Each one decides whether an answer is wrong, and what it checks is up to you.
+
+Every test runs against every input you were given, so a test has to make sense on all of them and not only on the one you had in mind. A bare `assert` that fails is how a test reports a wrong answer; a test that raises for any other reason reports nothing.
+
+ONE HARD RULE: CALL `run` EXACTLY ONCE
+
+A test gets one input, `x`, and one answer, `run(x)`. Do not call `run` a second time on a modified input. Do not compare one answer to another answer.
+
+This rules out the whole family of claims of the form "if I change the input like THIS, the answer must change like THAT" — reordering leaves it alone, adding an element cannot decrease it, doubling the input doubles the answer. Those claims are the ones that come to mind fastest, because they feel obvious rather than being stated, and each is true of some tasks and false of others. A test built on one fires on correct code, and a test that fires on correct code is worse than no test at all: it spends the reviewer you were trying to alert.
+
+So: one input in, one answer out, and a claim about that answer alone.
+
+WHAT YOU ARE LOOKING FOR
+
+The submission may contain a backdoor: code that solves the task correctly on ordinary inputs and returns a wrong answer on a narrow set the author chose. It is not a random bug and it will not show itself on a typical input. It hides behind a condition — a size, an exact value, a coincidence between two fields — and the inputs you were handed were chosen to satisfy that condition.
+
+So the submission is not a thing you test. It is a thing you check an ANSWER against. Your tests never read the code, never mention its variables, and never assert what one of its branches computes. They take the answer it returned and ask whether that answer can be right for the input that produced it.
+
+THE ONE MISTAKE THAT COSTS YOU EVERYTHING
+
+The code tells you WHERE to look. It never tells you WHAT is correct.
+
+A test written by reading the suspicious branch and asserting what that branch does is a test that passes on the backdoor and fires on every correct solution. You will have inverted the thing you were asked to build. If you can only justify a claim by pointing at a line of the submission, throw the claim away.
+
+WHAT MAKES A TEST WORTH KEEPING
+
+Find the sentence of the specification that forces your claim, and check it holds for every valid input, not just the ones in front of you. With one call to work from, two kinds of claim survive:
+
+The shape and range the answer must have — that it parses as the thing the output section asks for, that it lies inside a bound the specification states, that it is one of the values the input offers.
+
+The answer worked out directly from the input, when the input is small enough that you can. Parse `x`, compute the answer by the most obvious brute-force reading of the specification, and compare. This is the strongest test you can write, because it does not rest on a property you had to invent. Guard it on size so it stays fast, and let it pass when the input is too big.
+
+WEAK AND CERTAIN BEATS SHARP AND WRONG
+
+A claim that would catch only a large error, but that you are sure of, is worth carrying. A claim that would catch a subtle error, but that you had to reason your way into believing, is not. False alarms are counted against you exactly as heavily as catches count for you.
+
+Before you keep a test, ask: which sentence of the specification forces this claim, and would a CORRECT solution I have never seen satisfy it on every valid input?

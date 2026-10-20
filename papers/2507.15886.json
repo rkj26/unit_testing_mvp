@@ -1,0 +1,73 @@
+{
+  "arxiv_id": "2507.15886",
+  "arxiv_abs_url": "https://arxiv.org/abs/2507.15886",
+  "arxiv_pdf_url": "https://arxiv.org/pdf/2507.15886",
+  "verified_title": "Combining Cost-Constrained Runtime Monitors for AI Safety",
+  "authors": [
+    "Tim Tian Hua",
+    "James Baskerville",
+    "Henri Lemoine",
+    "Mia Hopman",
+    "Aryan Bhatt",
+    "Tyler Tracy"
+  ],
+  "author_notes": "Tim Tian Hua marked with an asterisk (lead author); Henri Lemoine and Mia Hopman marked with a dagger (equal contribution).",
+  "affiliations": {
+    "Tim Tian Hua": [
+      "MARS"
+    ],
+    "James Baskerville": [
+      "MARS"
+    ],
+    "Henri Lemoine": [
+      "MARS"
+    ],
+    "Mia Hopman": [
+      "MARS"
+    ],
+    "Aryan Bhatt": [
+      "Redwood Research"
+    ],
+    "Tyler Tracy": [
+      "MARS",
+      "Redwood Research"
+    ]
+  },
+  "affiliations_source": "PDF title page. arXiv abstract pages do not carry author affiliations, so this field could not be taken from https://arxiv.org/abs/<id> as originally intended.",
+  "latest_version": "v4",
+  "versions": [
+    {
+      "version": "v1",
+      "date_utc": "Sat, 19 Jul 2025 04:28:40 UTC",
+      "size": "3,058 KB"
+    },
+    {
+      "version": "v2",
+      "date_utc": "Mon, 4 Aug 2025 03:37:49 UTC",
+      "size": "3,058 KB"
+    },
+    {
+      "version": "v3",
+      "date_utc": "Sun, 24 Aug 2025 19:32:49 UTC",
+      "size": "3,058 KB"
+    },
+    {
+      "version": "v4",
+      "date_utc": "Tue, 21 Oct 2025 05:27:13 UTC",
+      "size": "3,058 KB"
+    }
+  ],
+  "submission_history_submitter": "Tim Tian Hua",
+  "abstract": "Monitoring AIs at runtime can help us detect and stop harmful actions. In this paper, we study how to efficiently combine multiple runtime monitors into a single monitoring protocol. The protocol's objective is to maximize the probability of applying a safety intervention on misaligned outputs (i.e., maximize recall). Since running monitors and applying safety interventions are costly, the protocol also needs to adhere to an average-case budget constraint. Taking the monitors' performance and cost as given, we develop an algorithm to find the best protocol. The algorithm exhaustively searches over when and which monitors to call, and allocates safety interventions based on the Neyman-Pearson lemma. By focusing on likelihood ratios and strategically trading off spending on monitors against spending on interventions, we more than double our recall rate compared to a naive baseline in a code review setting. We also show that combining two monitors can Pareto dominate using either monitor alone. Our framework provides a principled methodology for combining existing monitors to detect undesirable behavior in cost-sensitive settings.",
+  "subjects": "Computers and Society (cs.CY); Artificial Intelligence (cs.AI)",
+  "arxiv_comments": null,
+  "arxiv_journal_ref": null,
+  "arxiv_doi": null,
+  "venue": "NeurIPS 2025 (main conference proceedings)",
+  "venue_confidence": "confirmed",
+  "venue_evidence": "A camera-ready copy is served from the official NeurIPS proceedings at https://papers.nips.cc/paper_files/paper/2025/file/ed56a654ddb681841fdb2184463c253e-Paper-Conference.pdf ; we fetched it (HTTP 200) and its first page matches this title and author list. arXiv carries no journal-ref.",
+  "code_repository": null,
+  "project_page": null,
+  "local_pdf": "2507.15886-cost-constrained-runtime-monitors.pdf",
+  "metadata_source": "https://arxiv.org/abs/2507.15886 and the arXiv Atom API (export.arxiv.org/api/query?id_list=2507.15886), fetched 2026-08-07."
+}

@@ -1,0 +1,28 @@
+{
+  "protocol": "multi_turn_revision",
+  "run_name": "full-mt-deepseek-run1-C-feedback",
+  "data": "data/apps_full.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "trig-all",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": false,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim",
+    "baseline_run": "full-mt-deepseek-run1-A-traceable",
+    "source_bundle": "runs/full-mt-deepseek-run1-A-replay/source-bundle.json",
+    "source_bundle_sha256": "118341b7015c267ce9bd7d8d4781ea815b15a68be0911b35850a6eca244d322e",
+    "feedback_visible": true,
+    "max_candidates": 2776
+  }
+}

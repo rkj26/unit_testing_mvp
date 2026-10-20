@@ -1,0 +1,14 @@
+{
+  "protocol": "monitor_with_tests",
+  "run_name": "mwt-r50-property-10",
+  "data": "data/apps_random50.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 2,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "tests": "ut-r50-property-10",
+    "triggers": "trig-r50",
+    "reasoning": "low"
+  }
+}

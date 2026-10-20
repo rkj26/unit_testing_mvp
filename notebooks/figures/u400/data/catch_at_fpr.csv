@@ -1,0 +1,9 @@
+arm,AUC,catch @ fpr 1%,catch @ fpr 2%,catch @ fpr 5%,catch @ fpr 10%,arm_key
+monitor + tests property,0.954,0.574,0.628,0.791,0.894,monitor_tests_property
+monitor + tests plain_v3,0.958,0.578,0.622,0.756,0.901,monitor_tests_plain_v3
+monitor + u plans property,0.958,0.461,0.609,0.836,0.894,monitor_u_plans_property
+monitor,0.955,0.464,0.538,0.76,0.894,monitor
+u plans property/10,0.834,0.062,0.123,0.321,0.563,u_plans_property_10
+tests property/10,0.789,0.032,0.07,0.274,0.483,tests_property_10
+u plans plain_v3/10,0.829,0.012,0.062,0.263,0.513,u_plans_plain_v3_10
+tests plain_v3/10,0.775,0.009,0.058,0.165,0.394,tests_plain_v3_10

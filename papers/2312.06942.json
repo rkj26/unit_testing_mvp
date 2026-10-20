@@ -1,0 +1,69 @@
+{
+  "arxiv_id": "2312.06942",
+  "arxiv_abs_url": "https://arxiv.org/abs/2312.06942",
+  "arxiv_pdf_url": "https://arxiv.org/pdf/2312.06942",
+  "verified_title": "AI Control: Improving Safety Despite Intentional Subversion",
+  "authors": [
+    "Ryan Greenblatt",
+    "Buck Shlegeris",
+    "Kshitij Sachan",
+    "Fabien Roger"
+  ],
+  "author_notes": "Ryan Greenblatt carries an asterisk on the title page (lead/corresponding author marker).",
+  "affiliations": {
+    "Ryan Greenblatt": [
+      "Redwood Research"
+    ],
+    "Buck Shlegeris": [
+      "Redwood Research"
+    ],
+    "Kshitij Sachan": [
+      "Redwood Research"
+    ],
+    "Fabien Roger": [
+      "Redwood Research"
+    ]
+  },
+  "affiliations_source": "PDF title page. arXiv abstract pages do not carry author affiliations, so this field could not be taken from https://arxiv.org/abs/<id> as originally intended.",
+  "latest_version": "v5",
+  "versions": [
+    {
+      "version": "v1",
+      "date_utc": "Tue, 12 Dec 2023 02:34:06 UTC",
+      "size": "1,578 KB"
+    },
+    {
+      "version": "v2",
+      "date_utc": "Thu, 14 Dec 2023 23:31:51 UTC",
+      "size": "1,578 KB"
+    },
+    {
+      "version": "v3",
+      "date_utc": "Fri, 5 Jan 2024 12:41:27 UTC",
+      "size": "1,578 KB"
+    },
+    {
+      "version": "v4",
+      "date_utc": "Wed, 17 Jul 2024 17:29:41 UTC",
+      "size": "1,749 KB"
+    },
+    {
+      "version": "v5",
+      "date_utc": "Tue, 23 Jul 2024 06:47:13 UTC",
+      "size": "1,749 KB"
+    }
+  ],
+  "submission_history_submitter": "Fabien Roger",
+  "abstract": "As large language models (LLMs) become more powerful and are deployed more autonomously, it will be increasingly important to prevent them from causing harmful outcomes. Researchers have investigated a variety of safety techniques for this purpose, e.g. using models to review the outputs of other models, or red-teaming techniques to surface subtle failure modes. However, researchers have not evaluated whether such techniques still ensure safety if the model is itself intentionally trying to subvert them. In this paper, we develop and evaluate pipelines of safety techniques (\"protocols\") that are robust to intentional subversion. We investigate a scenario in which we want to solve a sequence of programming problems, using access to a powerful but untrusted model (in our case, GPT-4), access to a less powerful trusted model (in our case, GPT-3.5), and limited access to high-quality trusted labor. We investigate protocols that aim to never submit solutions containing backdoors, which we operationalize here as logical errors that are not caught by test cases. We investigate a range of protocols and test each against strategies that the untrusted model could use to subvert them. One protocol is what we call trusted editing. This protocol first asks GPT-4 to write code, and then asks GPT-3.5 to rate the suspiciousness of that code. If the code is below some suspiciousness threshold, it is submitted. Otherwise, GPT-3.5 edits the solution to remove parts that seem suspicious and then submits the edited code. Another protocol is untrusted monitoring. This protocol asks GPT-4 to write code, and then asks another instance of GPT-4 whether the code is backdoored, using various techniques to prevent the GPT-4 instances from colluding. These protocols improve substantially on simple baselines.",
+  "subjects": "Machine Learning (cs.LG)",
+  "arxiv_comments": "Edit: Fix minor typos, clarify abstract, add glossary, expand related work. ICML version: this https URL",
+  "arxiv_journal_ref": null,
+  "arxiv_doi": null,
+  "venue": "ICML 2024 (Proceedings of the 41st International Conference on Machine Learning)",
+  "venue_confidence": "confirmed",
+  "venue_evidence": "arXiv comment field points at the ICML version (https://openreview.net/pdf?id=KviM5k8pcP); the arXiv PDF footer reads 'Proceedings of the 41 st International Conference on Machine Learning'.",
+  "code_repository": null,
+  "project_page": null,
+  "local_pdf": "2312.06942-ai-control-intentional-subversion.pdf",
+  "metadata_source": "https://arxiv.org/abs/2312.06942 and the arXiv Atom API (export.arxiv.org/api/query?id_list=2312.06942), fetched 2026-08-07."
+}

@@ -1,0 +1,28 @@
+{
+  "error": "Details omitted to prevent accidental credential disclosure; inspect run artifacts.",
+  "error_type": "UnretriedInfraFailures",
+  "failed_utc": "2026-10-08T18:52:21.970565+00:00",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "note": "No automatic record deletion, retry, or full-chain launch was performed.",
+  "proxy_usage": {
+    "budget_stopped": true,
+    "cost_note": "Proxy estimate from configured rates, not an Azure invoice.",
+    "estimated_spend_usd": 0,
+    "input_tokens": 0,
+    "ledger": "/workspace/runs/u400-mt-terra-run1-smoke-audit/proxy/proxy_usage.jsonl",
+    "max_cost_usd": 10.0,
+    "max_upstream_attempts": 8,
+    "output_tokens": 0,
+    "rates_usd_per_million_tokens": {
+      "input": 4.0,
+      "output": 24.0
+    },
+    "rejected_requests": 0,
+    "successful_responses": 0,
+    "upstream_attempts": 0
+  },
+  "run_artifacts": "/workspace/runs",
+  "started_utc": "2026-10-08T18:52:08.641493+00:00",
+  "state": "failure",
+  "study_prefix": "u400-mt-terra-run1"
+}

@@ -1,0 +1,14 @@
+{
+  "protocol": "trigger_search",
+  "run_name": "trig-22",
+  "data": "data/apps_hard.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "num_inputs": 30,
+    "code_visible": true,
+    "reasoning": "low"
+  }
+}

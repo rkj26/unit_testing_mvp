@@ -1,0 +1,23 @@
+{
+  "protocol": "multi_turn_initial",
+  "run_name": "u400-mt-terra-run1-smoke-A-traceable",
+  "data": "data/apps_uniform400_multi_turn_smoke.json",
+  "model": "openai-api/azureai/gpt-5.6-terra",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "u400-mt-terra-run1-smoke-triggers",
+    "test_gen_prompt": "traceable_v1",
+    "resolve": "with",
+    "code_visible": true,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim"
+  }
+}

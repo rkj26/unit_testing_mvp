@@ -1,0 +1,23 @@
+{
+  "protocol": "unit_testing",
+  "run_name": "ut-all-property-10",
+  "data": "data/apps_full.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "triggers": "trig-all",
+    "test_gen_prompt": "property",
+    "resolve": "without",
+    "code_visible": true,
+    "n_tests": 10,
+    "critique": false,
+    "critique_informed": false,
+    "reasoning": "low",
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 240,
+    "docker_image": "python:3.12-slim"
+  }
+}

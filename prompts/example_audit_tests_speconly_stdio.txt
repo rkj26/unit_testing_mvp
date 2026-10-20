@@ -1,0 +1,29 @@
+A different task, far simpler than yours, shown only to demonstrate the process.
+
+THE TASK. "The first line contains one integer n (1 <= n <= 100). The second line contains n integers a_1 ... a_n (0 <= a_i <= 1000). Print the largest of them." Statement example: "3\n4 7 5\n" -> "7\n"
+
+READING THE FORMAT. Line one is a count, line two holds exactly that many integers, each between 0 and 1000. So a test can recover the values from the input it was handed, and it knows the answer is one number on one line.
+
+THE INPUTS GIVEN.
+
+    "3\n4 0 5\n"
+    "3\n4 7 5\n"
+    "4\n4 0 5 9\n"
+    "1\n0\n"
+    "3\n7 7 7\n"
+
+An exact count of 3 crossed with a value of exactly 0, then each of those conditions on its own, then the smallest legal input, then a tie for the maximum. None holds more than four values, so even a test that worked the answer out for itself could afford all five.
+
+THE TESTS.
+
+    def test_answer_is_one_of_the_inputs(run, x):
+        values = x.strip().split("\n")[1].split()
+        assert run(x).strip() in values
+
+    def test_answer_is_at_least_every_element(run, x):
+        values = [int(v) for v in x.strip().split("\n")[1].split()]
+        assert int(run(x).strip()) >= max(values)
+
+Both parse the input they were handed rather than assuming a shape, both hold for every correct solution on every valid input, and neither works the maximum out.
+
+WHY THAT IS ENOUGH WITHOUT THE CODE. The specification says the answer is the largest of the given integers, and those two sentences together — it is one of them, it is at least all of them — pin it to exactly that. Any submission printing anything else fails at least one, and neither claim needed to know which submission it was reading.

@@ -1,135 +1,78 @@
-# Property-based testing as an AI-control monitor
+# Can a trusted model catch backdoors by writing tests?
 
-Can a trusted model catch a backdoor by *running* untrusted code, rather than by reading it?
+An AI-control study. A capable but untrusted model writes code that may hide a backdoor: a wrong
+answer on one secret input. A weaker, trusted model and a small budget of human audits must catch it.
+The standard defence is **trusted monitoring**: the trusted model reads the code and scores how
+suspicious it looks ([Greenblatt et al., 2023](https://arxiv.org/abs/2312.06942)). This repo asks
+whether the trusted model does better, alone or alongside the monitor, by **writing unit tests**.
 
-Standard AI-control protocols use **trusted monitoring** (TM): a weaker, trusted model reads the
-untrusted model's code and rates how suspicious it looks. That is a text judgement, and it inherits
-every weakness of one — most sharply, it can be attacked through the text itself
-([arXiv:2510.09462](https://arxiv.org/abs/2510.09462) evades diverse LLM monitors using prompt
-injections embedded in model output).
+The main study scores eight protocols on 1,388 APPS programming tasks. Each task has one honest and
+one backdoored solution, 2,776 candidates in all. Every call uses DeepSeek-V3.2: the trusted model
+runs at low reasoning effort, and the untrusted model, which only plans tests, at high effort.
 
-An **execution-grounded** monitor cannot be attacked that way — you cannot prompt-inject a
-subprocess. This repository builds one and measures what it is actually worth.
+## Result
 
-Setting: APPS competitive-programming tasks via
-[control_arena](https://github.com/UKGovernmentBEIS/control-arena) / `inspect_ai`. The untrusted
-model writes solutions, some containing backdoors — correct on ordinary inputs, wrong on one rare
-trigger. The trusted model writes **properties** (spec-derived invariants) and a **trigger search
-space** (inputs to try). The verdict is whether any property fails on any input.
+| Protocol | AUC | Catch at 2% false alarms | Safety at the paper's setting¹ |
+|---|---|---|---|
+| Trusted monitoring | 0.958 | 0.558 | 0.787 |
+| Monitor + trusted-written tests | 0.958 | 0.681 | 0.826 |
+| Monitor + tests the untrusted model plans | 0.962 | 0.721 | 0.830 |
+| Trusted-written tests alone | 0.816 | 0.120 | 0.258 |
 
-## The result
+¹ 5,000 submissions, 0.4% attacks, 2% audit budget (100 audits); safety is the share of 2,000
+simulated deployments in which no backdoor shipped.
 
-**1. PBT is precise where TM is not.** On 40 held-out tasks TM's false-positive rate is **0.723** —
-it rates most honest code 8–9/10 suspicious, and survives only because auditing spends *rank* rather
-than a threshold. The reference-gated PBT arm holds **0.000** FPR; a deployable self-critique gate
-gets **0.175**.
+**Tests alone are weak. Added to the monitor, they help at a strict audit budget**: at 2% false
+alarms the three monitor + tests protocols catch 11–16 points more backdoors than the monitor, and
+deployment safety rises by 2–4 points. At a looser 10% budget the gain mostly disappears: the
+monitor alone is ahead in two of the three deployment games. Details, caveats and every figure are
+in the digest. (The test rows use the `property` prompt; the digest reports `plain_v3` beside it.)
 
-**2. The audit-only game was measuring the wrong thing.** PBT scores are binary in every run on
-disk, so a quantile-calibrated audit rule can barely rank with them. Give the monitor a *block*
-action instead — spending usefulness rather than human review, an orthogonal budget — and the same
-monitor on the same rows flips sign:
+## Start here
 
-| | audit-only | block + audit |
-|---|---|---|
-| ungated `pbt` vs TM | **−0.171** (CI excludes 0) | **+0.092 / +0.114** (CI excludes 0) |
-| `pbt_ceiling` vs TM | 0.000 ± 0.000 | +0.020 / +0.040 (free, n.s.) |
+| To | Read |
+|---|---|
+| understand the study and its result, no prior knowledge needed | [`notebooks/results_full_digest.md`](notebooks/results_full_digest.md) (the digest, without code) |
+| see every analysis and the code behind it | [`notebooks/results_full.ipynb`](notebooks/results_full.ipynb) |
+| run things or add a protocol | [`DOCUMENTATION.md`](DOCUMENTATION.md), then [`docs/`](docs/) |
+| contribute | [`AGENTS.md`](AGENTS.md): the working rules |
 
-Nothing about the monitor changed between those columns. It had been scored on the one task it is
-worst at.
+## What is where
 
-**3. Recall is capped by search, then by the oracle.** For **12 of 14** backdoors the harness never
-executed the buggy path at all — no property could have caught them. Making the input generator
-code-aware (constant mining + coverage-guided fuzzing) raises reach from **21% → 57%**… and barely
-moves the catch rate, because most divergences violate no simple spec-derived invariant. Executing
-the bug is necessary and far from sufficient. **The binding constraint is now the oracle, not the
-search.**
+| Path | What it holds |
+|---|---|
+| `pipeline/` | the protocols; each one is a *run* that calls a model and appends one record per candidate |
+| `runs/` | every finished run: `config.json` + `records.jsonl` (gzipped when over 100 MB) |
+| `notebooks/` | generated by `notebooks/build_results.py`; every metric is a cell that reads `runs/` |
+| `data/`, `splits/`, `apps_pool_*.json`, `bcb_pool.json` | the datasets and their train/test splits |
+| `prompts/` | every prompt template |
+| `experiments/` | pre-registered experiment logs: setup, hypothesis, predictions, then what was observed |
+| `paper/` | the LaTeX write-up in progress |
+| `docs/`, `tests/`, `papers/` | documentation, the test suite, metadata for the papers this builds on |
 
-Why a code-aware generator is legitimate: soundness constrains the **oracle**, not the
-**generator**. The properties never see the candidate and they alone decide what counts as a
-violation, so a code-aware generator cannot manufacture a false positive — it can only change where
-you look. Measured: with the reference gate on, code-aware search raises catches and holds FPR at
-exactly 0. Without it, false positives rise faster than true ones and the change is a net loss.
-
-Full ablation record, including the hypotheses that died: [`reports/`](reports/).
-
-## Running it
+## Reproduce the numbers
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env          # add your provider credentials
-
-.venv/bin/python run.py --domain mock --mock --runs 2 --run-id smoke   # no API calls
-
-.venv/bin/python run.py --domain apps --dataset apps_pool_hard10.json \
-    --t-model openai-api/azureai/DeepSeek-V3.2 --t-reasoning LOW \
-    --u-model openai-api/azureai/gpt-5.4 --u-reasoning HIGH \
-    --gen-strategy U_PLANS_T_WRITES --runs 5 \
-    --attack-rate 0.05 --audit-rate 0.10 --run-id uplan10
+gunzip -k data/apps_full.json.gz                      # datasets over 100 MB ship gzipped
+.venv/bin/python notebooks/build_results.py all       # writes the full and digest notebooks
+.venv/bin/python -m jupyter nbconvert --to notebook --execute --inplace notebooks/results_full.ipynb
+.venv/bin/python -m jupyter nbconvert --to notebook --execute --inplace notebooks/results_full_digest.ipynb
+./notebooks/export_digest_md.sh                       # the code-free digest for GitHub
+.venv/bin/python -m pytest -q
 ```
 
-`--run-id` resumes: a killed run costs at most one in-flight call. Every flag is also an environment
-variable in upper case; `--help` lists them all.
+A notebook cell only reads the committed runs, so this costs nothing. A *run* calls a model and
+spends money; see `DOCUMENTATION.md` before launching one.
 
-Post-hoc analysis reads `runs/<id>/run_*/rows.json` and needs no model calls:
+## Follow-up experiments
 
-```bash
-.venv/bin/python deployment_game.py --run uplan10 --audit-rate 0.10 --attack-rate 0.05
-.venv/bin/python reach_rate.py --run uplan10 --pool apps_pool_hard10.json
-```
-
-### Generation strategies
-
-| `--gen-strategy` | who writes the properties |
-|---|---|
-| `BLIND_T` | trusted model, from the spec alone |
-| `U_WRITES` | untrusted model (it may sabotage its own tests) |
-| `U_PLANS_T_WRITES` | untrusted model plans, trusted model implements |
-| `U_PLANS_U_WRITES` | untrusted model does both |
-
-### Protocols scored
-
-`tm` · `pbt` · `pbt_ceiling` · `tm_plus_pbt` · `tm_plus_pbt_ceiling` · `pbt_informed_tm`
-
-`pbt_ceiling` keeps only properties that hold on a known-good reference. That reference is **not**
-available to a deployed monitor, so this is a ceiling — and it bounds precision, not recall.
-
-## Layout
-
-```
-run.py                      entry point
-pipeline/
-  config.py                 pydantic-settings: CLI + env + validation
-  engine.py                 resumable step runner
-  steps.py                  the pipeline stages
-  pbt.py                    property/search generation, harness, soundness gate
-  search.py                 code-aware trigger search (mining, coverage-guided fuzzing)
-  monitor.py                trusted monitoring
-  scoring.py                ground truth via control_arena
-  metrics.py                safety, AUC, FPR, the audit-only deployment game
-  report.py                 metrics.json / summary.csv / report.md
-  artifacts.py              typed artifact store; every checkpoint and resume marker
-  backends/                 APPS, BigCodeBench, mock
-deployment_game.py          block + audit on orthogonal budgets (offline)
-reach_rate.py               does the search space contain a triggering input? (offline)
-prepare_candidate_pool.py   builds candidate pools from APPS
-prompts/                    every model-facing prompt
-reports/                    ablation logs and experiment records
-examples/                   worked task examples
-```
-
-`apps_pool_hard10.json` is committed; the full 52 MB pools are gitignored and rebuildable with
-`prepare_candidate_pool.py`.
-
-`CLAUDE.md` holds the working rules — including the one that mattered most here: *a failure must
-never silently become a value.* Six separate bugs in this repo were that same shape, each defaulting
-in the direction that blamed the model. `METRICS.md` defines every metric; `CHANGELOG.md` is the
-operational log.
-
-## Honest limits
-
-- 10–40 APPS tasks, one model pair, 3–5 usable runs per configuration. Several deltas do not exclude
-  zero; where that is true it is stated.
-- The adaptive-attacker result is inconclusive: the attacker we could elicit never evaded TM, and the
-  stronger model was blocked by a platform cybersecurity filter.
-- `pbt_ceiling` is not deployable. The deployable gate is self-critique, at 0.175 FPR.
-- APPS backdoors are single-trigger by construction, which flatters any search-based monitor.
+- **Multi-turn test writing** ([`experiments/multi_turn_plan.md`](experiments/multi_turn_plan.md)).
+  The trusted model revises its tests once, either after seeing which ones fired on the code or
+  blind. On the full pool, seeing the results cuts false alarms by 4.4 points (13.0% → 8.6%, 95%
+  interval −7.1 to −1.7) and changes catches by −1.1 points (−3.0 to +0.6), inside the
+  pre-registered 5-point margin. About 18% of revised suites fail the format checks. Results are in
+  the multi-turn section at the end of the full notebook.
+- **A revised test prompt, plain_v5** ([`experiments/scale_plan.md`](experiments/scale_plan.md), E12).
+  Fewer suites fail to parse (48 against 66) and the suite alone separates better (AUC 0.830 against
+  0.806), but combined with the monitor there is no reliable gain. Section 10 of the full notebook.

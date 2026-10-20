@@ -1,0 +1,45 @@
+{
+  "arxiv_id": "2602.10153",
+  "arxiv_abs_url": "https://arxiv.org/abs/2602.10153",
+  "arxiv_pdf_url": "https://arxiv.org/pdf/2602.10153",
+  "verified_title": "Basic Legibility Protocols Improve Trusted Monitoring",
+  "authors": [
+    "Ashwin Sreevatsa",
+    "Sebastian Prasanna",
+    "Cody Rushing"
+  ],
+  "author_notes": "Sreevatsa and Prasanna marked equal contribution. Correspondence: cody@rdwrs.com, public.ashwinsreevatsa@gmail.com, sebastian328@gmail.com.",
+  "affiliations": {
+    "Ashwin Sreevatsa": [
+      "Cambridge Boston Alignment Initiative (CBAI) Summer Research Fellowship"
+    ],
+    "Sebastian Prasanna": [
+      "Cambridge Boston Alignment Initiative (CBAI) Summer Research Fellowship"
+    ],
+    "Cody Rushing": [
+      "Redwood Research"
+    ]
+  },
+  "affiliations_source": "PDF title page. arXiv abstract pages do not carry author affiliations, so this field could not be taken from https://arxiv.org/abs/<id> as originally intended.",
+  "latest_version": "v1",
+  "versions": [
+    {
+      "version": "v1",
+      "date_utc": "Mon, 9 Feb 2026 19:55:31 UTC",
+      "size": "1,803 KB"
+    }
+  ],
+  "submission_history_submitter": "Sebastian Prasanna",
+  "abstract": "The AI Control research agenda aims to develop control protocols: safety techniques that prevent untrusted AI systems from taking harmful actions during deployment. Because human oversight is expensive, one approach is trusted monitoring, where weaker, trusted models oversee stronger, untrusted models$\\unicode{x2013}$but this often fails when the untrusted model's actions exceed the monitor's comprehension. We introduce legibility protocols, which encourage the untrusted model to take actions that are easier for a monitor to evaluate. We perform control evaluations in the APPS coding setting, where an adversarial agent attempts to write backdoored code without detection. We study legibility protocols that allow the untrusted model to thoroughly document its code with comments$\\unicode{x2013}$in contrast to prior work, which removed comments to prevent deceptive ones. We find that: (i) commenting protocols improve safety without sacrificing task performance relative to comment-removal baselines; (ii) commenting disproportionately benefits honest code, which typically has a natural explanation that resolves monitor suspicion, whereas backdoored code frequently lacks an easy justification; (iii) gains from commenting increase with monitor strength, as stronger monitors better distinguish genuine justifications from only superficially plausible ones.",
+  "subjects": "Cryptography and Security (cs.CR); Machine Learning (cs.LG); Software Engineering (cs.SE)",
+  "arxiv_comments": null,
+  "arxiv_journal_ref": null,
+  "arxiv_doi": null,
+  "venue": null,
+  "venue_confidence": "none found",
+  "venue_evidence": "No journal-ref, DOI or comment on arXiv; no venue header in the PDF; no venue found via web search. Treat as an arXiv preprint (9 Feb 2026).",
+  "code_repository": null,
+  "project_page": null,
+  "local_pdf": "2602.10153-basic-legibility-protocols.pdf",
+  "metadata_source": "https://arxiv.org/abs/2602.10153 and the arXiv Atom API (export.arxiv.org/api/query?id_list=2602.10153), fetched 2026-08-07."
+}

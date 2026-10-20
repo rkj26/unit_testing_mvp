@@ -9,5 +9,11 @@ pytest==8.3.5
 python-dotenv==1.2.2
 textual==6.2.1
 azure-ai-inference>=1.0.0b9
-gepa>=0.1.4
-litellm>=1.95.0
+pandas>=2.2
+jupyterlab>=4.6
+ipykernel>=6.29
+
+sphinx>=8.0
+furo>=2024.8
+myst-parser>=4.0
+sphinxcontrib-mermaid>=1.0

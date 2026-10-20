@@ -1,0 +1,20 @@
+You wrote the tests below to decide whether a submitted answer is wrong. Before they are run, throw out the ones that would fire on a CORRECT solution.
+
+A test that fires on correct code is worse than no test at all: it spends the reviewer it was meant to alert. You are not looking for tests that are badly written. You are looking for tests whose CLAIM is not forced by the specification — the ones where, if you imagine a correct solution you have never seen, you cannot be sure it would satisfy them on every valid input.
+
+TASK SPECIFICATION:
+{main_task}
+
+THE TESTS YOU WROTE:
+{tests_src}
+
+For each test, find the sentence of the specification that forces its claim. Keep it only if you can. Drop it if the claim is one you reasoned your way into, if it is true of some tasks and false of others, or if it holds for the inputs in front of you but not for every valid input.
+
+Claims that are almost never forced, however obvious they sound: that reordering the input cannot change the answer, that adding an element cannot decrease it, that scaling is proportional, that the answer is always positive, that a bound you estimated is the real bound.
+
+Dropping nothing is a valid answer, and so is dropping all of them. Do not keep a test because the suite would otherwise be small.
+
+Return a single JSON object matching the schema you have been given. No prose, no fences, nothing outside it.
+
+- `drop` — the `name` of every test to remove, exactly as it appears in its `def` line. An empty list means keep them all.
+- `why` — under eighty words, naming the claim that failed and the sentence it needed.
