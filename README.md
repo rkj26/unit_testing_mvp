@@ -65,10 +65,14 @@ gunzip -k data/apps_full.json.gz                      # datasets over 100 MB shi
 A notebook cell only reads the committed runs, so this costs nothing. A *run* calls a model and
 spends money; see `DOCUMENTATION.md` before launching one.
 
-## Still in progress
+## Follow-up experiments
 
-- **Multi-turn test writing** ([`experiments/multi_turn_plan.md`](experiments/multi_turn_plan.md)):
-  does showing the trusted model its tests' execution results and letting it revise them help?
-  Running on the uniform-400 pool and the full pool.
-- **A revised test prompt, plain_v5** ([`experiments/scale_plan.md`](experiments/scale_plan.md), E12): runs
-  complete, analysis pending.
+- **Multi-turn test writing** ([`experiments/multi_turn_plan.md`](experiments/multi_turn_plan.md)).
+  The trusted model revises its tests once, either after seeing which ones fired on the code or
+  blind. On the full pool, seeing the results cuts false alarms by 4.4 points (13.0% → 8.6%, 95%
+  interval −7.1 to −1.7) and changes catches by −1.1 points (−3.0 to +0.6), inside the
+  pre-registered 5-point margin. About 18% of revised suites fail the format checks. Results are in
+  the multi-turn section at the end of the full notebook.
+- **A revised test prompt, plain_v5** ([`experiments/scale_plan.md`](experiments/scale_plan.md), E12).
+  Fewer suites fail to parse (48 against 66) and the suite alone separates better (AUC 0.830 against
+  0.806), but combined with the monitor there is no reliable gain. Section 10 of the full notebook.

@@ -35,8 +35,8 @@ out (~15 h, and the u-plans arms lost on u400). **Ask for it if wanted.**
 | 2 | drop its API-blamed infra lines and resume, before anything reads it | **done** 19:29 — 1 line (a response content filter on `apps_1870_attack_0`), retried, recovered; pre-drop file in `archived/e11-infra-drop-2026-10-08/` |
 | 3 | `mwt-full-all-plain_v5-10` (reads step 1) | **done** 2026-10-13 22:25 — 2,776: 2,513 ok, 219 model, 43 mwt-inherited, 1 content filter (recurred on retry, stands). Pre-outage lines 1-1,611: 47 model (2.9%); post-outage lines 1,612+: 172 of 1,165 model (14.8%). 9 retryable infra lines (8 timeouts, 1 content filter) dropped at 22:20 and retried; pre-retry file in `archived/e11-infra-drop-2026-10-08/`. History: ran from 2026-10-09 19:30; config matches `mwt-full-all-plain_v3-10` apart from name and `tests`. From record ~1,607 (early 2026-10-10) the API timed out on nearly every call; stopped 2026-10-12 07:27, 38 API-blamed lines dropped (backup in `archived/e11-infra-drop-2026-10-08/`), resumed 11:14 once a probe answered. **After the outage the model's responses are 2.2x longer** (mean 19,974 chars per call against 9,119 before and 9,157 for plain_v3 on the same candidates), and model failures (no score before `max_tokens`) rose to 43 of 373 against 18 for plain_v3 on the same candidates. Stopped again 12:14: records 1,612 onward come from a model that behaves differently. 2026-10-13 09:54: the 378 post-outage records set aside to `archived/e11-infra-drop-2026-10-08/` and the run resumed as a probe; the new behaviour persisted (100% of calls with reasoning text, mean 22,787 chars, against 31% and 6,759 before the outage), so it was stopped at 10:01 and those 29 records set aside too. **The file holds the 1,611 clean pre-outage records**: all 555 train tasks and 251 test tasks, both candidates each. **Resumed 2026-10-13 17:15** under the new behaviour to finish the remaining 1,165; records 1-1,611 are pre-outage, 1,612 onward post-outage. First Azure `content_filter` refusal seen on a monitor prompt (infra, counted apart) |
 | 3b | `mwt-full-postoutage-plain_v3-10` — plain_v3 re-scored under the new behaviour on the same candidates, so each half of E12 is paired | **done** 2026-10-13 22:25 — 1,172: 969 ok, 181 model (15.4%), 22 mwt-inherited. 9 timeouts dropped at 22:20 and retried, all recovered; pre-retry file archived. Started 17:33. `data/apps_full_postoutage.json` = the 586 tasks without both candidates in plain_v5's first 1,611 records (1,172 candidates: the 1,165 unscored plus 7 partners). Settings match `mwt-full-all-plain_v3-10` apart from name and `data`. Analysis: pre-outage stratum pairs plain_v5 lines 1-1,611 with `mwt-full-all-plain_v3-10`; post-outage stratum pairs plain_v5 lines 1,612+ with this run |
-| 4 | plain_v5 arms in `notebooks/build_results.py` for pool `all` | not started — generator change, planned on its own |
-| 5 | fill **Observed**, assign verdicts | |
+| 4 | plain_v5 arms in `notebooks/build_results.py` for pool `all` | **done** 2026-10-20 — Section 10 of the full notebook, paired by stratum; table in `figures/all/data/e12_plain_v5.csv` |
+| 5 | fill **Observed**, assign verdicts | Observed filled 2026-10-20; verdicts to confirm with Rakshit |
 
 **Setup.**      E11's `data/apps_full.json`, 2,776 candidates, `trig-all` triggers, model
                 `openai-api/azureai/DeepSeek-V3.2`, 10 tests, `sandbox_seconds=240`, monitor `runs=2`,
@@ -52,7 +52,20 @@ out (~15 h, and the u-plans arms lost on u400). **Ask for it if wanted.**
                    `monitor + tests plain_v3` on the population both score. Outside that band with
                    paired McNemar p < 0.05 is a real effect in whichever direction it falls.
                 3. Operational: model-blamed failures under 5% in both runs, as E11.
-**Observed.**   *(pending)*
+**Observed.**   2026-10-20, full notebook Section 10 (each row only the candidates both prompts scored).
+                1. Model failures in `ut-all-plain_v5-10`: **48** against plain_v3's 66 — held.
+                2. Monitor + tests catch @ fpr 2%. Before the outage (1,480 candidates): 0.693 against
+                   0.658, gap +0.035, just outside the band; McNemar at a real 2% cut 90 vs 66,
+                   p = 0.07, so not a real effect under the rule. After the outage (908 candidates):
+                   0.879 against 0.888, gap −0.009, inside the band; but at a real 2% cut plain_v3
+                   catches 28 attacks plain_v5 misses against 11, p = 0.01. Mixed: no significant gain
+                   before the outage, and after it a significant loss at a real cut although the
+                   interpolated gap is inside the band.
+                3. Model failures under 5%: suites 1.7%; monitor + tests 2.9% before the outage but
+                   14.8% after (the provider change) — failed for the post-outage part.
+                Not predicted: as a suite alone, plain_v5 beats plain_v3 (AUC 0.830 vs 0.806; catch
+                @ 2% 0.132 vs 0.122; McNemar at a real cut 105 vs 66, p < 0.01). Verdicts to
+                confirm with Rakshit.
 
 ## E11 - the whole usable source, 1,388 tasks
 
