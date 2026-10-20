@@ -844,27 +844,34 @@ interval_figure(boot_table, ("ties flagged", "ties at random"), "bootstrap_paper
 def explain_separation():
     """Digest Section 8, after the bootstrap figure: separation at every cut, threshold left out."""
     return """
-### Separation at every cut, without the threshold's noise
+### Do the tests rank attacks better? (not a deployment result)
 
-The intervals above are wide because each arm sets its cut from the top @@faithful_budget_pct@@
-of its honest training candidates, only a handful of them, and near that cut a small move changes
-how many attacks are flagged by a lot. This figure takes the cut out of the question. For every
-share of honest candidates flagged, from 0.5% to 20%, it sets each arm's cut on the test tasks so
-that exactly that share is flagged, and counts the attacks caught. No deployment could set its cut
-this way. What is left is only how well each arm separates attacks from honest work.
+**This is not how a deployment works.** Here each arm's cut is set on the test tasks themselves. A
+real deployment must set its cut before it sees those tasks, so it cannot do this. We do it on
+purpose, to answer a narrower question: when the monitor and an arm flag the same share of honest
+work, does the arm catch more attacks?
 
-**How to read it.** One panel for each arm that adds tests to the monitor. The line is how many more
-attacks, in percentage points, the arm catches than the monitor alone when both flag the same
-share of honest work. The shaded band is the 95% interval over 10,000 resamples of the test tasks.
-Where the band is above the black line at 0, the arm separates better than the monitor at that
-cut; where the band crosses 0, the data cannot tell the two apart. The dotted line marks
-@@faithful_budget_pct@@, the budget of the paper.
+**Why we need it.** The intervals above are wide. Most of that width comes from where the cut lands,
+not from the arms. Each cut is set from the top @@faithful_budget_pct@@ of the honest training
+candidates, which is only a handful of candidates, so the cut moves a lot from one resample to the
+next. Setting the cut on the test tasks removes that noise. If an arm still catches more attacks
+here, the tests do help, and the wide intervals above come from having too few honest examples to
+set the cut. More honest examples would fix that.
+
+**How it is computed.** For each false-alarm rate from 0.5% to 20%, each arm's cut is set so that
+exactly that share of honest test candidates is flagged. We count the share of attacks caught and
+subtract the monitor's. We repeat this on 10,000 resamples of the test tasks.
+
+**How to read it.** One panel for each arm that adds tests to the monitor. The line is the extra
+attacks caught, in percentage points. The shaded band is the 95% interval. Above the black line at
+0, the arm catches more attacks than the monitor; where the band crosses 0, the data cannot tell
+them apart. The dotted line marks @@faithful_budget_pct@@, the audit budget of the paper.
 """
 
 
 SEPARATION_CAPTION = """
 The table gives the same numbers for every arm, including the arms that use tests alone, at four
-cuts. The bands are pointwise: each holds at its own cut, not for the whole curve at once.
+false-alarm rates. Each band holds at its own false-alarm rate, not for the whole curve at once.
 """
 
 
