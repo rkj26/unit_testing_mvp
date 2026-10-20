@@ -1,0 +1,4 @@
+population,honest,attack,AUC plain_v5,AUC plain_v3,catch @2% plain_v5,catch @2% plain_v3,gap,within ±0.03,McNemar at a real 2% cut
+"tests alone, every candidate",1283,1313,0.83,0.806,0.132,0.122,0.01,True,"105 vs 66, p = 0.00"
+"monitor + tests, before the outage",723,757,0.958,0.955,0.693,0.658,0.035,False,"90 vs 66, p = 0.07"
+"monitor + tests, after the outage",389,519,0.978,0.978,0.879,0.888,-0.009,True,"11 vs 28, p = 0.01"

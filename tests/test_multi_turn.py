@@ -254,7 +254,8 @@ def test_without_its_runs_the_section_spends_nothing_and_raises_nothing(tmp_path
     boundary = Boundary(_mini_apps(tmp_path))
     boundary.install(monkeypatch)
     _reference("mini.json")
-    study_cell = CELLS.CODE_STUDY.replace("@@ut_property@@", "ut-reference").replace("@@pool@@", "mini")
+    study_cell = (CELLS.CODE_STUDY.replace("@@ut_property@@", "ut-reference")
+                  .replace("@@mt_pool@@", "mini").replace("@@trig@@", "trig-not-here"))
     namespace = {"display": print}
     for source in (study_cell, CELLS.CODE_SMOKE, CELLS.CODE_FULL, CELLS.CODE_COVERAGE,
                    CELLS.CODE_ANALYSIS):

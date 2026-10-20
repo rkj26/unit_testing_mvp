@@ -11,7 +11,7 @@ Executing a team notebook on a machine without the multi-turn runs costs nothing
 nothing: with both paid flags off, each cell asks `mt_study.complete()` and skips with a message.
 """
 
-MULTI_TURN_POOLS = frozenset({"u400", "bcbas"})
+MULTI_TURN_POOLS = frozenset({"u400", "all", "bcbas"})
 SECTION_MARKER = "## Multi-turn revision (A/B/C)"
 
 
@@ -44,7 +44,8 @@ MARKDOWN_INTRO = """
 
 An additive ablation on this notebook's population. None of the cells above change, and these arms
 are not in `ARMS`, so `SCORED_BY_ALL` and every plot above are exactly what they were. Four arms
-over one fresh input run, each an ordinary protocol run:
+over the team's own trigger run (reused, not re-searched; see the plan's 2026-10-15 amendment), each
+an ordinary protocol run:
 
 | arm | what the trusted model does |
 |---|---|
@@ -54,8 +55,9 @@ over one fresh input run, each an ordinary protocol run:
 | **D delete only** | BigCodeBench only: keeps a subset of A's original tests, never rewrites one |
 
 The primary contrast is **C − B on held-out test tasks**. B, C and D run side by side. The
-setup, hypothesis and thresholded predictions are in `experiments/multi_turn_plan.md`; **MT1 (uniform400 ·
-terra) is the primary run**. How a run flows: `docs/flow_multi_turn.md`.
+setup, hypothesis and thresholded predictions are in `experiments/multi_turn_plan.md`. **MT5 (the full pool ·
+DeepSeek) is the primary run**; MT2 (uniform400 · DeepSeek) is secondary. How a run flows:
+`docs/flow_multi_turn.md`.
 
 To run only this section, execute the notebook's first code cell (repository root and imports) and
 then these cells; nothing in the team's sections above is needed. They only spend when asked. With both `MT_ALLOW_PAID_*` flags off and no multi-turn runs on
@@ -70,15 +72,25 @@ import pandas as pd
 from pipeline.protocols import UnitTesting
 from pipeline.protocols.multi_turn import MULTI_TURN_MODELS, MultiTurnStudy
 
-MT_MODEL_KEY = "terra"        # MT1/MT3 primary model; "deepseek" for MT2/MT4
-MT_PREFIX = f"@@pool@@-mt-{MT_MODEL_KEY}-run1"
+MT_MODEL_KEY = "deepseek"     # MT2/MT5; "terra" was MT1/MT3, dropped (no deployment)
+MT_PREFIX = f"@@mt_pool@@-mt-{MT_MODEL_KEY}-run1"
+MT_TRIGGERS = "@@trig@@"      # the team's trigger run, reused: same search, run before the outage
 MT_ALLOW_PAID_SMOKE = False   # True to spend the smoke chain's few calls (mt_study.plan() shows how many)
 MT_ALLOW_PAID_FULL = False    # True only once the smoke chain looks right and the plan entry is final
 MT_ACCEPT_INFRA_FAILURES = False  # True only for input/A infra failures that persist after a retry
 
+from pathlib import Path
+
+# The study reuses the team's trigger run. Without it on this machine every cell below skips; with a
+# paid flag on, stop here rather than fall back to a fresh search the amended plan does not use.
+mt_triggers_here = (Path("runs") / MT_TRIGGERS / "config.json").is_file()
+if not mt_triggers_here and (MT_ALLOW_PAID_SMOKE or MT_ALLOW_PAID_FULL):
+    raise FileNotFoundError(f"{MT_TRIGGERS} is not on this machine; the study reuses it "
+                            "(experiments/multi_turn_plan.md, the 2026-10-15 amendment)")
 mt_reference = UnitTesting.attach("@@ut_property@@")
 mt_study = MultiTurnStudy(reference_arm=mt_reference, prefix=MT_PREFIX,
-                          model=MULTI_TURN_MODELS[MT_MODEL_KEY])
+                          model=MULTI_TURN_MODELS[MT_MODEL_KEY],
+                          triggers=MT_TRIGGERS if mt_triggers_here else "")
 mt_study.plan()
 """
 
