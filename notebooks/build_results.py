@@ -431,14 +431,15 @@ def pareto_figure(game):
         axis.scatter(*zip(*[point["at"] for point in drawn[name]]), s=30, marker=marker,
                      color=colour, linewidth=0, zorder=3)
         text_of = lambda cuts: rule_label(name, sorted(cuts))
-        for run in label_runs(drawn[name], text_of, height=0.04 * (top - bottom)):
-            left_edge = run[0]["at"][0] < 0.15
-            axis.annotate(text_of([cut for point in run for cut in point["cuts"]]), run[0]["at"],
+        budget = mine[mine["budget cut"]]
+        hollow = [point for point in drawn[name] if set(budget.cut) & set(point["cuts"])]
+        for point in labelled(drawn[name], text_of, height=0.04 * (top - bottom), first=hollow):
+            left_edge = point["at"][0] < 0.15
+            axis.annotate(text_of(point["cuts"]), point["at"],
                           xytext=(9 if left_edge else -9, 0), textcoords="offset points",
                           ha="left" if left_edge else "right", va="center", fontsize=7.5,
                           color=INK, zorder=5, bbox=dict(boxstyle="square,pad=0.1", fc=SURFACE,
                                                          ec="none", alpha=0.8))
-        budget = mine[mine["budget cut"]]
         if len(budget):
             axis.scatter(budget[x].iloc[0], budget.safety.iloc[0], s=170, marker=marker,
                          color=SURFACE, edgecolor=colour, linewidth=2, zorder=6)  # above the labels
@@ -461,8 +462,8 @@ def pareto_figure(game):
          "a coloured line joins one protocol's rules, from flagging everything to flagging nothing"
          if x == "honest flagged" else
          "a coloured line joins one protocol's best rules: the trade-offs it can choose between"),
-        (Line2D([], [], color=INK, lw=0),
-         "a range (score \\u2265 0.33\\u20130.50) labels a run of points: its first and those after it"),
+        (Line2D([], [], color=INK, lw=0, marker="o", ms=4),
+         "a point without a label: a cut between those of its labelled neighbours"),
         (Line2D([], [], color=RULE, lw=1.2),
          f"grey lines = the other {len(PARETO_PANELS) - 1} protocols, for comparison"),
         (Line2D([], [], color=INK, lw=0, marker="o", ms=13, markerfacecolor=SURFACE,
@@ -1922,7 +1923,8 @@ def sweep(label):
     scored = [r for r in common(arm.get_records()) if not r["failed"]]
     attacks = [r for r in scored if r["is_attack"]]
     honest = [r for r in scored if not r["is_attack"]]
-    cuts = ([round(c / (9 * tm.runs), 6) for c in range(9 * tm.runs + 1)] if label in monitors
+    # Rounded like level_of: at 6 decimals 16/18 becomes 0.888889, above the score it stands for.
+    cuts = ([round(c / (9 * tm.runs), 9) for c in range(9 * tm.runs + 1)] if label in monitors
             else list(range(arm.n_tests + 1)))
     rows = [{"cut": cut,
              "catch": round(fmean(level_of(label, r) >= cut for r in attacks), 3),
@@ -1945,15 +1947,19 @@ def auc(attack, honest):
 
 
 def rule_label(name, cuts):
-    '''The rule a point stands for. Cuts that land on the same point share one label.'''
+    '''The rule one point stands for. When several cuts land on the same point, two are both named
+    ("score >= 0.94 or 1.00") and more are given as the loosest "or stricter".'''
     monitor = "monitor" in name
-    finite = [cut for cut in cuts if np.isfinite(cut)]
+    finite = sorted(cut for cut in cuts if np.isfinite(cut))
     if not finite:
         return "flag nothing"
     unit = (lambda cut: f"{cut:.2f}") if monitor else (lambda cut: f"{cut:.0f}")
-    span = unit(finite[0]) if finite[0] == finite[-1] else f"{unit(finite[0])}\\u2013{unit(finite[-1])}"
-    words = f"score \\u2265 {span}" if monitor else f"\\u2265 {span} fire"
-    return words + (" or none" if len(finite) < len(cuts) else "")
+    words = (lambda value: f"score \\u2265 {value}") if monitor else (lambda value: f"\\u2265 {value} fire")
+    if len(cuts) == 1:
+        return words(unit(finite[0]))
+    if len(cuts) == 2 and len(finite) == 2:
+        return words(f"{unit(finite[0])} or {unit(finite[1])}")
+    return words(unit(finite[0])) + " or stricter"
 
 
 def label_box(at, text):
@@ -1966,19 +1972,19 @@ def label_box(at, text):
     return at[0] - 0.03 - width, at[0] - 0.03
 
 
-def label_runs(points, text_of, height):
-    '''Neighbouring points whose labels would overlap form a run with one label, at its first point,
-    that names the run's cuts as a range. A point starts a new run only if its own label fits.'''
-    runs = []
-    for point in points:
+def labelled(points, text_of, height, first=()):
+    '''The points that get a label. Each label names one point's own cut; a point whose label would
+    overlap one already placed goes without, and lies between the cuts of its labelled neighbours.
+    Points in `first` are placed before the rest.'''
+    order = [point for point in points if point in first] + [p for p in points if p not in first]
+    placed, boxes = [], []
+    for point in order:
         left, right = label_box(point["at"], text_of(point["cuts"]))
-        taken = [(label_box(run[0]["at"], text_of([cut for p in run for cut in p["cuts"]])),
-                  run[0]["at"][1]) for run in runs]
-        if any(left < r and l < right and abs(point["at"][1] - y) < height for (l, r), y in taken):
-            runs[-1].append(point)
-        else:
-            runs.append([point])
-    return runs
+        if not any(left < r and l < right and abs(point["at"][1] - y) < height
+                   for l, r, y in boxes):
+            placed.append(point)
+            boxes.append((left, right, point["at"][1]))
+    return placed
 
 
 def cut_points(curve):
@@ -2006,9 +2012,9 @@ for axis, label in zip(axes.flat, ARMS):
     axis.plot(*zip(*[point["at"] for point in points]), color=colour, lw=1.8, marker=marker,
               ms=5, markeredgewidth=0, zorder=3)
     text_of = lambda cuts, label=label: rule_label(label, sorted(cuts))
-    for run in label_runs(points, text_of, height=0.04 * 1.04):
-        left_edge = run[0]["at"][0] < 0.15
-        axis.annotate(text_of([cut for point in run for cut in point["cuts"]]), run[0]["at"],
+    for point in labelled(points, text_of, height=0.04 * 1.04):
+        left_edge = point["at"][0] < 0.15
+        axis.annotate(text_of(point["cuts"]), point["at"],
                       xytext=(9 if left_edge else -9, 0), textcoords="offset points",
                       ha="left" if left_edge else "right", va="center", fontsize=7.5, color=INK,
                       zorder=5, bbox=dict(boxstyle="square,pad=0.1", fc=SURFACE, ec="none",
@@ -2023,8 +2029,8 @@ for axis in axes[:, 0]:
 key = [(Line2D([], [], color=INK, lw=0, marker="o", ms=6),
         "a point = one cut: flag a candidate when its score (or the number of tests that fire) "
         "is at or above the value beside it"),
-       (Line2D([], [], color=INK, lw=0),
-        "a range (score \\u2265 0.33\\u20130.50) labels a run of points: its first and those after it"),
+       (Line2D([], [], color=INK, lw=0, marker="o", ms=4),
+        "a point without a label: a cut between those of its labelled neighbours"),
        (Line2D([], [], color=RULE, lw=1.2), "grey lines = the other seven arms, for comparison"),
        (Line2D([], [], color=RULE, lw=1, ls=":"), "dotted line = a coin flip")]
 fig.legend(*zip(*key), loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.0), frameon=False,
