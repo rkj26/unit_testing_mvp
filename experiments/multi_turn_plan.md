@@ -162,3 +162,4 @@ Every contrast is repeated without the test tasks any earlier pilot used
                 1–4. As MT1, items 1–4, M = 5 pp.
 **Observed.**   Smoke chain 8 of 8 ok. Full chain running since 2026-10-15 10:11 (driver tmux `mt-full-driver`). Arm A complete 22:30 (2,707 ok, 55 model, 14 infra: 11 sandbox, 3 carried from `trig-all`; 21 API failures retried and all recovered). Held, then on 2026-10-19 its infra lines were retried once and the rest accepted (user approved): see the line below.
                 2026-10-19: retry of the 14 infra lines recovered 6; 8 accepted (5 sandbox, 3 carried from `trig-all`); replay, then B and C, running.
+                Complete 2026-10-20 02:42; analysis pending. B: 2,222 ok, 523 model (18.8%, revised suites failing format checks), 28 sandbox, 3 carried. C: 2,248 ok, 497 model (17.9%), 28 sandbox, 3 carried. Four API failures (1 in B, 3 in C) retried and recovered.

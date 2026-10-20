@@ -29,6 +29,8 @@ runs/upt-all-plain_v3-10/records.jsonl
 runs/mwt-full-all-plain_v5-10/records.jsonl
 runs/ut-all-plain_v5-10/records.jsonl
 runs/full-mt-deepseek-run1-A-traceable/records.jsonl
+runs/full-mt-deepseek-run1-B-no-feedback/records.jsonl
+runs/full-mt-deepseek-run1-C-feedback/records.jsonl
 
 # Same for the datasets over 100 MB: committed as .gz, `gunzip -k` before use (Dataset.load reads
 # only the plain file). apps_full_postoutage.json is the E12 subset (experiments/scale_plan.md, step 3b).
