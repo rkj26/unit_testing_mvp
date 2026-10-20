@@ -19,7 +19,7 @@ trusted model does better when it **writes unit tests**, alone or together with 
 
 Sections 1 to 3 describe the data, the models and the eight protocols. Sections 4 to 8 give the
 results. Sections 9 to 11 give what we predicted, what the plots show and what they do not show. A
-term with a label such as (D5) is in the glossary at the end. The code cells are collapsed. The
+term with a label such as (D5) is in the glossary at the end. The
 full notebook, [`results_full.ipynb`](results_full.ipynb), gives every analysis of the same data.
 
 ## 1 · The data

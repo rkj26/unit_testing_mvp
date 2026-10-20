@@ -16,5 +16,6 @@ rm -rf "$tmp"
 # is noise outside Jupyter.
 awk '/^## Setup/{skip=1; next} /^## /{skip=0} /<style scoped>/{style=1} !skip && !style{print} /<\/style>/{style=0}' \
   notebooks/results_full_digest.md > "notebooks/results_full_digest.md.tmp"
-mv notebooks/results_full_digest.md.tmp notebooks/results_full_digest.md
+sed "s/ The code cells are collapsed\.//" notebooks/results_full_digest.md.tmp > notebooks/results_full_digest.md  # no cells here
+rm notebooks/results_full_digest.md.tmp
 echo "wrote notebooks/results_full_digest.md"
