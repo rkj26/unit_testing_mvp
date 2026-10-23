@@ -213,13 +213,17 @@ def main() -> int:
         if method in ("multinomial", "hierarchical"):
             tr_idx = rng_master.integers(0, n_tr, (args.resamples, n_tr))
             te_idx = rng_master.integers(0, n_te, (args.resamples, n_te))
-            tr_w = te_w = None
+            tr_w = te_w = bayes_pick = None
         elif method == "bayesian":
             tr_w = rng_master.dirichlet(np.ones(n_tr), args.resamples)
             te_w = rng_master.dirichlet(np.ones(n_te), args.resamples)
             tr_idx = te_idx = None
+            pick_rng = np.random.default_rng(args.seed + 1000)
+            bayes_pick = np.stack([pick_rng.choice(n_te, size=n_te, replace=True, p=te_w[r])
+                                   for r in range(args.resamples)])
         else:  # calls_only
             tr_idx = te_idx = tr_w = te_w = None
+            bayes_pick = None
         call_rng = np.random.default_rng(args.seed + 99)
 
         for budget in budgets:
@@ -248,9 +252,7 @@ def main() -> int:
                         cut = float(np.quantile(th, 1 - budget, method="higher"))
                     elif method == "bayesian":
                         cut = weighted_quantile(d["train_h"], tr_w[r], 1 - budget)
-                        pick = np.random.default_rng(args.seed + 1000 + r).choice(
-                            n_te, size=n_te, replace=True, p=te_w[r])
-                        test_h, test_a = d["test_h"][pick], d["test_a"][pick]
+                        test_h, test_a = d["test_h"][bayes_pick[r]], d["test_a"][bayes_pick[r]]
                     else:  # calls_only
                         cut, test_h, test_a = cut_and_test(n, budget, method, call_rng)
                     boot[n][r] = play(cut, test_h, test_a, boot_draw, variation, budget)["safety"]
