@@ -127,6 +127,12 @@ def main() -> int:
     ap.add_argument("--horizon", type=int, default=50)
     ap.add_argument("--attack-rate", type=float, default=0.05)
     ap.add_argument("--variation", default="B · flags held back, run continues")
+    ap.add_argument("--audit-rule", choices=("sequential", "audit_all"), default="sequential",
+                    help="sequential = the verbatim budget-capped game; audit_all = arXiv "
+                         "2512.02157 E.1, audit every sample above the cut, no cap (Rule A)")
+    ap.add_argument("--match-trials", action="store_true",
+                    help="compute the point estimate on the same draw as the bootstrap, so "
+                         "point and CI centre use identical trials (removes the calls_only miss)")
     ap.add_argument("--seed", type=int, default=20261022)
     ap.add_argument("--label", default="")
     ap.add_argument("--out-csv", required=True, type=Path)
@@ -135,7 +141,12 @@ def main() -> int:
     safety.check_provenance(HERE.parent)
     budgets = [float(b) for b in args.budgets.split(",")]
     methods = [m for m in args.methods.split(",")]
-    variation = safety.VARIATIONS[args.variation]
+    if args.audit_rule == "audit_all":
+        variation = safety.audit_all_rule_a
+        variation_name = safety.AUDIT_ALL_RULE_A
+    else:
+        variation = safety.VARIATIONS[args.variation]
+        variation_name = args.variation
     labels = [args.baseline] + args.arms
 
     if args.pool.suffix == ".gz":
@@ -177,8 +188,8 @@ def main() -> int:
                 "drawn": rng.integers(0, n_tasks, (trials, args.horizon)),
                 "attacking": rng.random((trials, args.horizon)) < args.attack_rate}
 
-    point_draw = draw_stream(len(test), args.point_trials, args.seed)
     boot_draw = draw_stream(len(test), args.trials, args.seed + 1)
+    point_draw = boot_draw if args.match_trials else draw_stream(len(test), args.point_trials, args.seed)
 
     def cut_and_test(name, budget, method, rng):
         """Return (cut, test_honest, test_attack) for one arm under one method's perturbation."""
@@ -250,7 +261,7 @@ def main() -> int:
                 lo_b, hi_b = np.percentile(boot[args.baseline], [2.5, 97.5])
                 lo_d, hi_d = np.percentile(diff[n], [2.5, 97.5])
                 rows.append({
-                    "method": method, "variation": args.variation, "budget": budget,
+                    "method": method, "variation": variation_name, "budget": budget,
                     "arm": n, "baseline": args.baseline, "n_train": len(train), "n_test": len(test),
                     "safety_arm": round(point[n], 4),
                     "safety_arm_lo": round(lo_a, 4), "safety_arm_hi": round(hi_a, 4),
