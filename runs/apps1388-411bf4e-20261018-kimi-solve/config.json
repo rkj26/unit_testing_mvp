@@ -1,0 +1,15 @@
+{
+  "protocol": "trusted_solve",
+  "run_name": "apps1388-411bf4e-20261018-kimi-solve",
+  "data": "data/apps_full.json",
+  "model": "openai-api/azureai/FW-Kimi-K3",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "reasoning": "low",
+    "pairs": 30,
+    "sandbox_seconds": 210,
+    "docker_image": "python:3.12-slim"
+  }
+}

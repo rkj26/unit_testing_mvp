@@ -1,0 +1,32 @@
+{
+  "format": "analysis-only scalar projection, not resumable or replayable",
+  "source_revision": "411bf4ea2e91ff3a9ff14aaf045ab3c9e39672d1",
+  "source_runtime": "kimi-983-resume-runtime-411bf4e",
+  "runtime_manifest_sha256": "73d70f3118a4d143f08aad8482a77d809db4a5d839679894f0a9d30cbc6c311a",
+  "dataset_sha256": "c478a6336af86638f991f2dc00ca8b6cdd2c39f916e2981fab6c8597f78e0a70",
+  "removed_top_level_fields": [
+    "calls",
+    "inputs",
+    "solution"
+  ],
+  "removed_calls_contents": "Entire calls list, including prompt/raw/reasoning and any nested payloads.",
+  "field_policy": "All retained fields and values unchanged; no missing values replaced.",
+  "runs": {
+    "apps1388-411bf4e-20261018-kimi-solve": {
+      "source_records_sha256": "3561091c273e230d8932dea9d1d126da65de857e4dbc2fb4eb0201fce685bbb1",
+      "published_records_sha256": "dde165e84551e8fdfc41fffd8bc1c2381ae0990052e36b3c1397e04ce9a53d1b",
+      "config_sha256": "fd6bd7caa5b7ea84189d8f7c6141d0f1dd911ef247656d06c14453f770fbd57c",
+      "source_records_bytes": 27760330,
+      "published_records_bytes": 987652,
+      "records": 2776
+    },
+    "apps1388-411bf4e-20261018-kimi-trig": {
+      "source_records_sha256": "9595567aa077cef8697de1159c3e6fc5db13c65555ee1ce57328a0f3b09729d6",
+      "published_records_sha256": "7d3cf756464110a5a528a7a60505ac2c4631c1108ced597838c84c758463995f",
+      "config_sha256": "4def222b895639eacf70016363ec08d87f39f9191f3db1b4817014cd17466371",
+      "source_records_bytes": 57340093,
+      "published_records_bytes": 742920,
+      "records": 2776
+    }
+  }
+}

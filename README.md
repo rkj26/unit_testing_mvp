@@ -67,6 +67,9 @@ spends money; see `DOCUMENTATION.md` before launching one.
 
 ## Follow-up experiments
 
+- **Kimi: completed Stage 1 and TriggerSearch artifacts**
+  ([results and provenance](reports/kimi-stage12-20261024/README.md)). This is a partial-study
+  release of two stages, not a completed Kimi monitoring or deployment-safety comparison.
 - **Multi-turn test writing** ([`experiments/multi_turn_plan.md`](experiments/multi_turn_plan.md)).
   The trusted model revises its tests once, either after seeing which ones fired on the code or
   blind. On the full pool, seeing the results cuts false alarms by 4.4 points (13.0% → 8.6%, 95%

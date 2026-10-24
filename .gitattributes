@@ -1,5 +1,11 @@
 runs/** -whitespace
 
+# Preserve published Kimi result-projection hashes across platform checkouts.
+runs/apps1388-411bf4e-20261018-kimi-solve/config.json -text
+runs/apps1388-411bf4e-20261018-kimi-solve/records.jsonl -text
+runs/apps1388-411bf4e-20261018-kimi-trig/config.json -text
+runs/apps1388-411bf4e-20261018-kimi-trig/records.jsonl -text
+
 # Multi-turn source bundles hash these bytes; keep them identical across platforms.
 data/*_multi_turn_smoke.json text eol=lf
 runs/*-mt-*/**/*.json text eol=lf

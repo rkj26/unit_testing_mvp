@@ -1,0 +1,14 @@
+{
+  "protocol": "trigger_search",
+  "run_name": "apps1388-411bf4e-20261018-kimi-trig",
+  "data": "data/apps_full.json",
+  "model": "openai-api/azureai/FW-Kimi-K3",
+  "runs": 1,
+  "seed": 300,
+  "cache": true,
+  "params": {
+    "num_inputs": 30,
+    "code_visible": true,
+    "reasoning": "low"
+  }
+}
