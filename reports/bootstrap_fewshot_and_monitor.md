@@ -80,3 +80,48 @@ Tests-only (few-shot) is far below the monitor, same as property tests-only.
 - The 20%-budget harm for monitor+few-shot is the one conclusion that is both significant and
   method-invariant here; the 10% conclusion is method-dependent and should be reported as such, not
   rounded to "hurts".
+
+## Update, 5000 trials (matching the main Rule A CSV)
+
+All three deployment-game bootstrap CSVs now use 5000 matched trials. Re-run on 2026-10-25, outputs only, no code change. Conclusions below are confirmed unchanged from the 2000-trial run.
+
+**(a) monitor + few-shot tests - monitor** (n=634 test), diff and 95% CI:
+
+| budget | multinomial | hierarchical | bayesian |
+|---|---|---|---|
+| 2% | +0.031 [-0.015,+0.413] | +0.031 [-0.031,+0.576] | +0.031 [-0.025,+0.445] |
+| 5% | -0.125 [-0.158,+0.098] | -0.125 [-0.027,+0.071] | -0.125 [-0.177,+0.104] |
+| 10% | -0.057 [-0.114,-0.006] | -0.057 [-0.110,+0.139] | -0.057 [-0.129,+0.009] |
+| 20% | -0.052 [-0.108,-0.013] | -0.052 [-0.097,-0.007] | -0.052 [-0.120,-0.005] |
+
+**(b) few-shot tests-only - monitor**, diff and 95% CI:
+
+| budget | multinomial | hierarchical | bayesian |
+|---|---|---|---|
+| 2% | -0.473 [-0.532,-0.082] | -0.473 [-0.564,+0.042] | -0.473 [-0.554,-0.059] |
+| 5% | -0.437 [-0.596,-0.251] | -0.437 [-0.487,-0.252] | -0.437 [-0.614,-0.250] |
+| 10% | -0.285 [-0.488,-0.207] | -0.285 [-0.473,-0.082] | -0.285 [-0.498,-0.174] |
+| 20% | -0.145 [-0.199,-0.085] | -0.145 [-0.191,-0.070] | -0.145 [-0.222,-0.064] |
+
+**Standalone monitor safety** (n_test=832), safety and 95% CI:
+
+| budget | multinomial | hierarchical | bayesian |
+|---|---|---|---|
+| 2% | 0.616 [0.227,0.655] | 0.616 [0.129,0.696] | 0.616 [0.217,0.672] |
+| 5% | 0.778 [0.581,0.821] | 0.778 [0.611,0.697] | 0.778 [0.571,0.835] |
+| 10% | 0.816 [0.748,0.862] | 0.816 [0.633,0.865] | 0.816 [0.740,0.873] |
+| 20% | 0.891 [0.852,0.930] | 0.891 [0.824,0.918] | 0.891 [0.838,0.941] |
+
+### Conclusions at 5000 trials — unchanged
+
+- **20% harm, confirmed and method-invariant.** monitor+few-shot minus monitor at 20%:
+  multinomial −0.052 [−0.108,−0.013], hierarchical −0.052 [−0.097,−0.007], bayesian −0.052
+  [−0.120,−0.005]. All three exclude zero and are negative. Adding the few-shot suite to the
+  monitor measurably reduces safety at the 20% budget.
+- **10% method-dependent, confirmed.** At 10% multinomial excludes zero (−0.057 [−0.114,−0.006])
+  while hierarchical (−0.057 [−0.110,+0.139]) and bayesian (−0.057 [−0.129,+0.009]) cross it. The
+  10% conclusion still depends on the bootstrap and should be reported as such.
+- **few-shot tests-only** stays robustly below the monitor at 5/10/20% under every method.
+
+The 2000-trial and 5000-trial tables agree on every one of these calls; the extra trials narrow the
+deployment-draw Monte-Carlo noise slightly but move no conclusion.
