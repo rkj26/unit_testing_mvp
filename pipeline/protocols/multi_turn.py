@@ -608,20 +608,26 @@ class MultiTurnStudy:
     def _require_matching_triggers(self) -> None:
         """Refuse a reused trigger run that is not the search this chain would have launched.
 
-        The cache setting is the one field allowed to differ: it changes what is stored, not what
-        is asked. A run with candidates still to score raises too, since the chain never resumes it.
+        The cache setting is allowed to differ: it changes what is stored, not what is asked. So are
+        the trigger run's own `max_tokens` and `call_seconds` (R2 sets them, after the provider's
+        change of 10 October): they bound how long the search may reason, not what it asks, and the
+        run reused here is the one every team arm reads, so they cannot separate this chain from
+        those arms. A run with candidates still to score raises too, since the chain never resumes
+        it.
         """
         config_path = RUNS_DIR / self.triggers / CONFIG_FILE
         if not config_path.is_file():
             raise ValueError(f"triggers={self.triggers!r} has no {config_path}")
         config = json.loads(config_path.read_text(encoding="utf-8"))
+        params = {key: value for key, value in (config.get("params") or {}).items()
+                  if key not in ("max_tokens", "call_seconds")}
         expected = {
             "protocol": TriggerSearch.protocol, "data": self.reference_arm.data_path,
             "model": self.model, "seed": self.settings["seed"], "runs": 1,
             "params": {"num_inputs": DEFAULT_NUM_INPUTS, "code_visible": True,
                        "reasoning": self.settings["reasoning"]},
         }
-        found = {key: config.get(key) for key in expected}
+        found = {key: config.get(key) for key in expected} | {"params": params}
         if found != expected:
             raise ValueError(f"triggers={self.triggers!r} is not the search this chain would run: "
                              f"found {found}, expected {expected}")

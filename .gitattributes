@@ -6,3 +6,6 @@ runs/*-mt-*/**/*.json text eol=lf
 runs/*-mt-*/**/*.jsonl text eol=lf
 reports/multi_turn_smoke_audit/**/*.json text eol=lf
 reports/multi_turn_smoke_audit/**/*.jsonl text eol=lf
+
+# Saved candidate code is read byte for byte into datasets; keep it identical across platforms.
+data/*_code/*.py text eol=lf

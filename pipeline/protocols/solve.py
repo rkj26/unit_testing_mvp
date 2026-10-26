@@ -31,6 +31,7 @@ from typing import Any, Iterable, Mapping
 from .. import parse, prompts, sandbox
 from ..data import Blame, Candidate, Dataset, Task
 from ..model import (
+    DERIVE_FROM_REASONING,
     INSPECT_HTTP_RETRIES,
     MULTI_RUN_TEMPERATURE,
     SINGLE_RUN_TEMPERATURE,
@@ -39,6 +40,7 @@ from ..model import (
     Reasoning,
     TimeoutLadder,
     TrustedModel,
+    cap_params,
     complete_sync,
     resolve,
 )
@@ -225,9 +227,12 @@ def ungraded(result: Mapping[str, Any]) -> str:
     return ""
 
 
-def _runtime(name: str, reasoning: str, seed: int, temperature: float, cache: bool) -> ModelRuntime:
+def _runtime(name: str, reasoning: str, seed: int, temperature: float, cache: bool,
+             max_tokens: int = DERIVE_FROM_REASONING,
+             call_seconds: int = DERIVE_FROM_REASONING) -> ModelRuntime:
     """Endpoint knobs for one attempt, with the timeout ladder derived from the spec."""
-    spec = ModelSpec(name=name, reasoning=Reasoning(reasoning))
+    spec = ModelSpec(name=name, reasoning=Reasoning(reasoning), timeout=call_seconds,
+                     token_cap=max_tokens)
     ladder = TimeoutLadder.derive(spec, spec)
     return ModelRuntime(
         name=name,
@@ -268,6 +273,8 @@ class TrustedSolve(Run):
         sandbox_seconds: int | None = None,
         docker_image: str = DEFAULT_DOCKER_IMAGE,
         cache: bool | None = None,
+        max_tokens: int = DERIVE_FROM_REASONING,
+        call_seconds: int = DERIVE_FROM_REASONING,
         **kwargs: Any,
     ) -> None:
         """Every knob travels to `config.json`, including the sandbox ones.
@@ -285,6 +292,7 @@ class TrustedSolve(Run):
             sandbox_seconds=seconds,
             docker_image=docker_image,
             cache=BLIND_PROMPTS_ARE_ONE_CACHE_KEY if cache is None else cache,
+            **cap_params(max_tokens, call_seconds),
             **kwargs,
         )
         if not self.model:
@@ -301,6 +309,8 @@ class TrustedSolve(Run):
         self.pairs = pairs
         self.sandbox_seconds = seconds
         self.docker_image = docker_image
+        self.max_tokens = max_tokens
+        self.call_seconds = call_seconds
         self.solvers: tuple[TrustedModel, ...] = ()
 
     @property
@@ -310,7 +320,8 @@ class TrustedSolve(Run):
     def prepare(self, data: Dataset) -> None:
         """One client per repetition, since each fixes its seed when it resolves."""
         self.solvers = tuple(
-            resolve(_runtime(self.model, self.reasoning, seed, self.temperature, self.cache))
+            resolve(_runtime(self.model, self.reasoning, seed, self.temperature, self.cache,
+                             self.max_tokens, self.call_seconds))
             for seed in self.seeds
         )
 

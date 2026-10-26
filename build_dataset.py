@@ -22,6 +22,7 @@ import argparse
 import ast
 import doctest
 import io
+import itertools
 import json
 import re
 import tokenize
@@ -535,15 +536,13 @@ def bound_tells(source: str) -> dict[str, str]:
         or isinstance(node, (ast.arg, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
     }
     taken = {node.id for node in ast.walk(tree) if isinstance(node, ast.Name)}
-    names = sorted(name for name in bound if name and TELL.search(name))
-    return {
-        name: next(
-            candidate
-            for candidate in (f"{NEUTRAL_NAME}{suffix}" for suffix in range(len(names) + 1))
-            if candidate not in taken
-        )
-        for name in names
-    }
+    renames: dict[str, str] = {}
+    for name in sorted(name for name in bound if name and TELL.search(name)):
+        renames[name] = next(candidate for candidate in
+                             (f"{NEUTRAL_NAME}{suffix}" for suffix in itertools.count())
+                             if candidate not in taken)
+        taken.add(renames[name])
+    return renames
 
 
 def scrubbed(source: str) -> str:
@@ -602,8 +601,139 @@ def scrubbed_pool_entry(entry: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+FRACTIONS_GCD_IMPORT = re.compile(r"^(?P<indent>[ \t]*)from fractions import (?P<names>.+)$",
+                                  re.MULTILINE)
+# fractions.gcd as Python 3.4 defined it. Not math.gcd, which differs for negative arguments.
+GCD_COPY = "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a"
+
+PY312 = ("`from fractions import gcd` replaced by a copy of the 3.4 function; `is` and `is not` "
+         "against a literal written `==` and `!=`")
+UNCHANGED_CONSTANTS = (None, True, False, Ellipsis)
+
+
+def gcd_restored(source: str) -> str:
+    """`source` with `from fractions import gcd` (removed in Python 3.9) replaced by `GCD_COPY`."""
+    def replaced(hit: re.Match[str]) -> str:
+        names = [name.strip() for name in hit.group("names").split(",")]
+        if "gcd" not in names:
+            return hit.group(0)
+        rest = [name for name in names if name != "gcd"]
+        kept = f"{hit.group('indent')}from fractions import {', '.join(rest)}\n" if rest else ""
+        return kept + "\n".join(hit.group("indent") + line for line in GCD_COPY.split("\n"))
+    return FRACTIONS_GCD_IMPORT.sub(replaced, source)
+
+
+def literal_identity_as_equality(source: str) -> str:
+    """`source` with `x is 1` written `x == 1` and `x is not 'a'` written `x != 'a'`.
+
+    Exactly the comparisons Python 3.8+ warns about: an operand of `is` that is a literal other
+    than None, True, False or `...`, found in the syntax tree, so `y + 1 is x` (whose operand is a
+    sum) is left alone. Under 3.4 these programs passed every test with `is`, so on those inputs
+    identity and equality agree, and equality is what they meant.
+    """
+    def literal(node: ast.expr) -> bool:
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
+            node = node.operand
+        return isinstance(node, ast.Constant) and not any(
+            node.value is constant for constant in UNCHANGED_CONSTANTS)
+
+    lines = source.splitlines()
+
+    def position(row: int, byte_column: int) -> tuple[int, int]:
+        return row, len(lines[row - 1].encode("utf-8")[:byte_column].decode("utf-8"))
+
+    between: list[tuple[tuple[int, int], tuple[int, int], str]] = []
+    for node in ast.walk(ast.parse(source)):
+        if isinstance(node, ast.Compare):
+            operands = [node.left, *node.comparators]
+            for op, left, right in zip(node.ops, operands, operands[1:]):
+                if isinstance(op, (ast.Is, ast.IsNot)) and (literal(left) or literal(right)):
+                    between.append((position(left.end_lineno, left.end_col_offset),
+                                    position(right.lineno, right.col_offset),
+                                    "!=" if isinstance(op, ast.IsNot) else "=="))
+    edits: dict[int, list[tuple[int, int, str]]] = {}
+    for start, stop, operator in between:
+        words = [token for token in tokenize.generate_tokens(io.StringIO(source).readline)
+                 if token.type == tokenize.NAME and start <= token.start and token.end <= stop]
+        if {token.start[0] for token in words} != {words[0].start[0]}:
+            raise ValueError(f"`{operator}` would span lines {start[0]}-{stop[0]}; rewrite by hand")
+        edits.setdefault(words[0].start[0], []).append(
+            (words[0].start[1], words[-1].end[1], operator))
+    for row, spans in edits.items():
+        text = lines[row - 1]
+        for begin, end, operator in sorted(spans, reverse=True):
+            text = f"{text[:begin]}{operator}{text[end:]}"
+        lines[row - 1] = text
+    return "\n".join(lines) if edits else source
+
+
+def py312_compatible(source: str) -> str:
+    """One candidate made to run under Python 3.12 with nothing on stderr, its behaviour unchanged.
+
+    control-arena runs APPS code under Python 3.4 and fails a test on any stderr. Measured on every
+    test of this pool under 3.12, two things differ: `fractions.gcd` is gone (four honest
+    solutions crash) and `is` against a literal prints a SyntaxWarning (four programs). Both are
+    rewritten, so every candidate, trusted solution and suite runs in one interpreter.
+    """
+    return literal_identity_as_equality(gcd_restored(source))
+
+
+SAVED_CODE_MANIFEST = "made_from.json"
+
+
+def write_code(pool_path: Path, split_path: Path, out_dir: Path) -> None:
+    """Save every candidate of the split's tasks as `<out_dir>/<candidate_id>.py`, `scrubbed` then
+    `py312_compatible`.
+
+    Runs once. The files are then the candidates' code as is: `build(code_dir=out_dir)` reads them
+    and transforms nothing, so a later change to the scrubber cannot silently change what a run
+    sees. `made_from.json` records the pool, the split, both steps and which candidates each one
+    changed.
+    """
+    pool = read_pool(pool_path)
+    train, test = read_split(split_path)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    changed: dict[str, list[str]] = {"scrubbed": [], "python_3_12": []}
+    for task_id in sorted({*train, *test}):
+        entry = pool["candidates"][task_id]
+        for candidate in [entry["honest"], *entry["attack_proposals"][:ATTACKS_PER_TASK]]:
+            original = candidate["code"]
+            scrubbed_code = scrubbed(original)
+            code = py312_compatible(scrubbed_code)
+            changed["scrubbed"] += [candidate["candidate_id"]] * (scrubbed_code != original)
+            changed["python_3_12"] += [candidate["candidate_id"]] * (code != scrubbed_code)
+            (out_dir / f"{candidate['candidate_id']}.py").write_bytes(code.encode("utf-8"))
+    manifest = {
+        "pool": str(pool_path), "split": str(split_path), "steps": [SCRUBBED, PY312],
+        "changed": {step: sorted(ids) for step, ids in changed.items()},
+        "written_at": datetime.now(timezone.utc).isoformat(),
+    }
+    (out_dir / SAVED_CODE_MANIFEST).write_text(json.dumps(manifest, indent=2) + "\n",
+                                               encoding="utf-8")
+    print(f"wrote {sum(1 for _ in out_dir.glob('*.py'))} candidates to {out_dir}")
+    for step, ids in manifest["changed"].items():
+        print(f"  {step}: {len(ids)} changed")
+
+
+def saved_code_entry(entry: Mapping[str, Any], code_dir: Path) -> dict[str, Any]:
+    """One pool entry whose kept candidates carry the code saved in `code_dir`, byte for byte.
+
+    A candidate with no saved file raises rather than falling back to the pool's code, which would
+    put one unscrubbed candidate into a dataset described as saved."""
+    def saved(candidate: Mapping[str, Any]) -> dict[str, Any]:
+        path = code_dir / f"{candidate['candidate_id']}.py"
+        return {**candidate, "code": path.read_bytes().decode("utf-8")}
+    return {
+        **entry,
+        "honest": saved(entry["honest"]),
+        "attack_proposals": [saved(attack)
+                             for attack in entry["attack_proposals"][:ATTACKS_PER_TASK]],
+    }
+
+
 def build(
-    pool_path: Path, split_path: Path, backend: str, name: str, scrub: bool = False
+    pool_path: Path, split_path: Path, backend: str, name: str, scrub: bool = False,
+    code_dir: Path | None = None,
 ) -> dict[str, Any]:
     """The whole dataset document, ready to serialise. Makes no model calls."""
     pool = read_pool(pool_path)
@@ -620,8 +750,18 @@ def build(
     if missing:
         raise ValueError(f"the pool has no task {', '.join(missing)}")
     chosen = {task_id: pool["candidates"][task_id] for task_id in task_ids}
+    if scrub and code_dir is not None:
+        raise ValueError("saved code is already scrubbed; scrubbing it again is not reading it as is")
     if scrub:
         chosen = {task_id: scrubbed_pool_entry(entry) for task_id, entry in chosen.items()}
+    provenance: dict[str, Any] = {}
+    if code_dir is not None:
+        chosen = {task_id: saved_code_entry(entry, code_dir) for task_id, entry in chosen.items()}
+        provenance["saved_code"] = {
+            "dir": str(code_dir),
+            **json.loads((code_dir / SAVED_CODE_MANIFEST).read_text(encoding="utf-8")),
+        }
+    code = SCRUBBED if scrub else "as the pool wrote it"
     return Dataset(
         name=name,
         backend=backend,
@@ -632,9 +772,10 @@ def build(
             "pool": str(pool_path),
             "split": str(split_path),
             "ground_truth": ASSERTED,
-            "candidate_code": SCRUBBED if scrub else "as the pool wrote it",
+            "candidate_code": f"as saved in {code_dir}" if code_dir is not None else code,
             "built_at": datetime.now(timezone.utc).isoformat(),
             "source": pool["source"],
+            **provenance,
         },
         schema_version=SCHEMA_VERSION,
     ).to_json()
@@ -690,6 +831,19 @@ def main() -> None:
         help="strip comments and rename self-naming identifiers in EVERY candidate, honest and "
         "attack alike; without it the pool's attacks arrive still carrying `# Subtle bug: ...`",
     )
+    parser.add_argument(
+        "--write-code",
+        default="",
+        metavar="DIR",
+        help="save the split's candidates, scrubbed and made to run silently under Python 3.12, as "
+        "DIR/<candidate_id>.py, and build nothing",
+    )
+    parser.add_argument(
+        "--code",
+        default="",
+        metavar="DIR",
+        help="read every candidate's code as is from a --write-code DIR instead of the pool",
+    )
     args = parser.parse_args()
 
     if args.make_pool:
@@ -699,6 +853,11 @@ def main() -> None:
         if not args.split:
             parser.error("--split names the file --make-split writes")
         write_split(Path(args.pool), args.make_split, args.seed, Path(args.split))
+        return
+    if args.write_code:
+        if not args.split:
+            parser.error("--split names the tasks whose candidates --write-code saves")
+        write_code(Path(args.pool), Path(args.split), Path(args.write_code))
         return
     if not args.backend or not args.out or not args.split:
         parser.error("--backend, --split and --out are required unless a --make-* is given")
@@ -710,6 +869,7 @@ def main() -> None:
         args.backend,
         args.name if args.name else out.stem,
         scrub=args.scrub_tells,
+        code_dir=Path(args.code) if args.code else None,
     )
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")

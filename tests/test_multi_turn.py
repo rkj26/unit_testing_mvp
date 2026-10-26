@@ -382,6 +382,45 @@ def test_a_reused_trigger_run_stands_in_for_the_input_search_and_is_never_called
         assert json.loads((arm.directory / "config.json").read_text())["params"]["triggers"] == "trig-team"
 
 
+def test_a_reused_trigger_run_may_set_its_own_caps_but_nothing_else(tmp_path, monkeypatch):
+    data = _mini_apps(tmp_path)
+    boundary = Boundary(data)
+    boundary.install(monkeypatch)
+    reference = _reference("mini.json")
+    boundary.run(TriggerSearch(run_name="trig-capped", data="mini.json", model=MODEL, cache=False,
+                               max_tokens=64000, call_seconds=600))
+    MultiTurnStudy(reference_arm=reference, prefix="mt", model=MODEL, triggers="trig-capped")
+
+    TriggerSearch(run_name="trig-capped-other", data="mini.json", model=MODEL, cache=False,
+                  max_tokens=64000, call_seconds=600, num_inputs=5).write_config()
+    with pytest.raises(ValueError, match="not the search this chain would run"):
+        MultiTurnStudy(reference_arm=reference, prefix="mt", model=MODEL,
+                       triggers="trig-capped-other")
+
+
+def test_a_cap_left_unset_writes_the_config_it_always_did_and_a_set_one_reaches_the_call(tmp_path):
+    from pipeline.protocols import TM, MonitorWithTests, TrustedSolve
+    from pipeline.protocols import monitor_with_tests as mwt_mod, solve as solve_mod, tm as tm_mod
+    _mini_apps(tmp_path)
+    common = dict(data="mini.json", model=MODEL)
+    for cls, extra in ((TM, {}), (TrustedSolve, {}), (TriggerSearch, {}),
+                       (MonitorWithTests, {"tests": "ut-x", "triggers": "trig-x"})):
+        assert {"max_tokens", "call_seconds"}.isdisjoint(
+            cls(run_name="plain", **common, **extra).config()["params"])
+        capped = cls(run_name="capped", **common, **extra, max_tokens=32000, call_seconds=300)
+        assert capped.config()["params"]["max_tokens"] == 32000
+        assert capped.config()["params"]["call_seconds"] == 300
+
+    low = model_mod.MAX_TOKENS_BY_EFFORT[model_mod.Reasoning.LOW]
+    for runtime in (tm_mod._runtime, mwt_mod._runtime, solve_mod._runtime):
+        assert runtime(MODEL, "low", 300, 0.0, False).max_tokens == low
+        capped = runtime(MODEL, "low", 300, 0.0, False, 32000, 300)
+        assert (capped.max_tokens, capped.attempt_timeout) == (32000, 300)
+    search = TriggerSearch(run_name="capped-search", **common, max_tokens=32000, call_seconds=300)
+    assert (search.runtime(300).max_tokens, search.runtime(300).attempt_timeout) == (32000, 300)
+    assert TriggerSearch(run_name="plain-search", **common).runtime(300).max_tokens == low
+
+
 def test_every_multi_turn_arm_refuses_a_cache(tmp_path):
     from pipeline.protocols.multi_turn import MultiTurnInitial, MultiTurnRevision
     _mini_apps(tmp_path)

@@ -22,6 +22,7 @@ from typing import Any, Mapping, Sequence
 from .. import prompts
 from ..data import Blame, Candidate, Dataset, Task, load_records
 from ..model import (
+    DERIVE_FROM_REASONING,
     INSPECT_HTTP_RETRIES,
     MULTI_RUN_TEMPERATURE,
     SINGLE_RUN_TEMPERATURE,
@@ -30,6 +31,7 @@ from ..model import (
     Reasoning,
     TimeoutLadder,
     TrustedModel,
+    cap_params,
     complete_sync,
     resolve,
 )
@@ -95,13 +97,17 @@ def suite_shown(
     return text, omitted
 
 
-def _runtime(name: str, reasoning: str, seed: int, temperature: float, cache: bool) -> ModelRuntime:
+def _runtime(name: str, reasoning: str, seed: int, temperature: float, cache: bool,
+             max_tokens: int = DERIVE_FROM_REASONING,
+             call_seconds: int = DERIVE_FROM_REASONING) -> ModelRuntime:
     """Endpoint knobs for one repetition, ladder derived from the spec — never hand-set.
 
     Identical to `tm._runtime`, deliberately: this protocol exists to be compared against TM, and a
-    different call budget would put a timeout difference inside that comparison.
+    different call budget would put a timeout difference inside that comparison, so give both the
+    same `max_tokens` and `call_seconds`.
     """
-    spec = ModelSpec(name=name, reasoning=Reasoning(reasoning))
+    spec = ModelSpec(name=name, reasoning=Reasoning(reasoning), timeout=call_seconds,
+                     token_cap=max_tokens)
     ladder = TimeoutLadder.derive(spec, spec)
     return ModelRuntime(
         name=name,
@@ -170,9 +176,12 @@ class MonitorWithTests(Run):
         tests: str,
         triggers: str,
         reasoning: str = DEFAULT_REASONING,
+        max_tokens: int = DERIVE_FROM_REASONING,
+        call_seconds: int = DERIVE_FROM_REASONING,
         **kwargs: Any,
     ) -> None:
-        super().__init__(tests=tests, triggers=triggers, reasoning=reasoning, **kwargs)
+        super().__init__(tests=tests, triggers=triggers, reasoning=reasoning,
+                         **cap_params(max_tokens, call_seconds), **kwargs)
         if not self.model:
             raise ValueError(
                 f"{self.run_name}: a monitor with no model rates nothing — pass "
@@ -186,6 +195,8 @@ class MonitorWithTests(Run):
         self.tests = tests
         self.triggers = triggers
         self.reasoning = Reasoning(reasoning).value
+        self.max_tokens = max_tokens
+        self.call_seconds = call_seconds
         self.monitors: tuple[TrustedModel, ...] = ()
         self.suites: dict[str, Mapping[str, Any]] = {}
         self.inputs: dict[str, list[Any]] = {}
@@ -217,7 +228,8 @@ class MonitorWithTests(Run):
                 "half this run would be scored against evidence that does not exist"
             )
         self.monitors = tuple(
-            resolve(_runtime(self.model, self.reasoning, seed, self.temperature, self.cache))
+            resolve(_runtime(self.model, self.reasoning, seed, self.temperature, self.cache,
+                             self.max_tokens, self.call_seconds))
             for seed in self.seeds
         )
 

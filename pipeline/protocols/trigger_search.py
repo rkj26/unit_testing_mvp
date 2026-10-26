@@ -15,7 +15,9 @@ from typing import Any
 
 from .. import model as model_mod
 from .. import prompts
-from ..model import INSPECT_HTTP_RETRIES, MULTI_RUN_TEMPERATURE, ModelRuntime, ModelSpec, Reasoning, SINGLE_RUN_TEMPERATURE, TimeoutLadder
+from ..model import (DERIVE_FROM_REASONING, INSPECT_HTTP_RETRIES, MULTI_RUN_TEMPERATURE,
+                     SINGLE_RUN_TEMPERATURE, ModelRuntime, ModelSpec, Reasoning, TimeoutLadder,
+                     cap_params)
 from ..data import Blame, Candidate, Dataset, Task
 from ..parse import parse_search_space
 from .base import CALLS, Run
@@ -180,6 +182,8 @@ class TriggerSearch(Run):
         num_inputs: int = DEFAULT_NUM_INPUTS,
         code_visible: bool = True,
         reasoning: str = DEFAULT_REASONING,
+        max_tokens: int = DERIVE_FROM_REASONING,
+        call_seconds: int = DERIVE_FROM_REASONING,
         **kwargs: Any,
     ) -> None:
         if PROMPT_FILE_PARAM in kwargs:
@@ -193,6 +197,7 @@ class TriggerSearch(Run):
             num_inputs=num_inputs,
             code_visible=code_visible,
             reasoning=reasoning,
+            **cap_params(max_tokens, call_seconds),
             **kwargs,
         )
         if num_inputs < 1:
@@ -203,6 +208,8 @@ class TriggerSearch(Run):
         self.num_inputs = num_inputs
         self.code_visible = bool(code_visible)
         self.reasoning = Reasoning(reasoning)
+        self.max_tokens = max_tokens
+        self.call_seconds = call_seconds
         self.template = TEMPLATE_BY_VISIBILITY[self.code_visible]
         self.worked_example = ""
         self.clients: tuple[Any, ...] = ()
@@ -226,10 +233,12 @@ class TriggerSearch(Run):
         The cache key includes the seed, and the seed is the only thing that varies here —
         `model.TEMPERATURE_REJECTING_PREFIXES` swallows temperature on the provider we use. The base
         has already refused `runs > 1` with caching on; this passes that decision through rather
-        than re-deciding it. The timeout ladder is derived from the reasoning effort rather than
-        exposed as a knob, so a run cannot get a retry budget shorter than the call it is retrying.
+        than re-deciding it. The timeout ladder is derived from the per-call timeout (`call_seconds`,
+        or the reasoning effort's), so a run cannot get a retry budget shorter than the call it is
+        retrying.
         """
-        spec = ModelSpec(name=self.model, reasoning=self.reasoning)
+        spec = ModelSpec(name=self.model, reasoning=self.reasoning, timeout=self.call_seconds,
+                         token_cap=self.max_tokens)
         ladder = TimeoutLadder.derive(spec, spec)
         return ModelRuntime(
             name=self.model,

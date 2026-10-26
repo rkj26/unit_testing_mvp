@@ -5,7 +5,8 @@ the Docker path kills a process GROUP or orphans survive it, and `complete` is c
 as distinct property-input pairs rather than read off a flag the candidate could have written.
 
 This is the ONLY place untrusted candidate code runs, so it owns three bounds:
-  - a per-call SIGALRM inside the harness, so one hanging ``run(x)`` cannot eat the whole budget;
+  - a per-call bound inside the harness (SIGALRM for a function, a subprocess timeout for a stdio
+    program), so one hanging ``run(x)`` cannot eat the whole budget;
   - a whole-loop deadline inside the harness, so the process stops itself and keeps what it has;
   - a hard kill from the parent a grace period later, as the backstop for a harness that ignores
     its own deadline.
@@ -118,32 +119,22 @@ def run(x):
         _signal.setitimer(_signal.ITIMER_REAL, 0)
 """
 
+# A fresh `python -c` per call with the input on a real stdin, as control-arena runs a test, so
+# `sys.stdin.buffer`, `open(0)` and module-level state behave as they do there. A non-zero exit
+# is the candidate's crash, named by the last line of its stderr; stderr alone is not.
 _ENTRY_STDIO = """\
-import io as _io, signal as _signal
-_CAND_CODE = compile(__CANDIDATE_SRC__, "candidate_prog.py", "exec")
-class _Timeout(BaseException):
-    pass
-def _on_alarm(_s, _f):
-    raise _Timeout()
-_signal.signal(_signal.SIGALRM, _on_alarm)
+import subprocess as _subprocess
+_CAND_SRC = __CANDIDATE_SRC__
 def run(x):
-    _old_in, _old_out, _old_argv = sys.stdin, sys.stdout, sys.argv
-    _signal.setitimer(_signal.ITIMER_REAL, __CAND_TIMEOUT__)
     try:
-        sys.stdin, sys.stdout, sys.argv = _io.StringIO(x), _io.StringIO(), ["candidate_prog.py"]
-        exec(_CAND_CODE, {"__name__": "__main__"})
-    except _Timeout:
+        _done = _subprocess.run([sys.executable, "-c", _CAND_SRC], input=x.encode("utf-8"),
+                                capture_output=True, timeout=__CAND_TIMEOUT__)
+    except _subprocess.TimeoutExpired:
         raise _CandidateError("timeout")
-    except SystemExit as _e:
-        if _e.code not in (0, None):
-            raise _CandidateError("exit %s" % _e.code)
-    except Exception as _e:
-        raise _CandidateError(type(_e).__name__ + ": " + str(_e)[:200])
-    finally:
-        _signal.setitimer(_signal.ITIMER_REAL, 0)
-        _result = sys.stdout.getvalue() if hasattr(sys.stdout, "getvalue") else ""
-        sys.stdin, sys.stdout, sys.argv = _old_in, _old_out, _old_argv
-    return _result
+    if _done.returncode != 0:
+        _said = _done.stderr.decode("utf-8", "replace").strip().splitlines()
+        raise _CandidateError(_said[-1][:200] if _said else "exit %s" % _done.returncode)
+    return _done.stdout.decode("utf-8", "replace")
 """
 
 
@@ -231,7 +222,7 @@ def _failed(error: str) -> dict[str, Any]:
 def _validated(result: Any, n_space: int) -> tuple[list[str], list[dict[str, Any]]]:
     """Re-derive props and records from the result file, rejecting anything off-contract.
 
-    The result file is attacker-reachable: the candidate runs in this process and knows the path.
+    The result file is attacker-reachable: the candidate runs beside the harness and knows the path.
     Raises `ValueError`; the caller turns that into a failed run.
     """
     if not isinstance(result, dict):

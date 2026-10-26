@@ -20,6 +20,7 @@ from typing import Any
 from .. import prompts
 from ..data import Blame, Candidate, Dataset, Task
 from ..model import (
+    DERIVE_FROM_REASONING,
     INSPECT_HTTP_RETRIES,
     MULTI_RUN_TEMPERATURE,
     SINGLE_RUN_TEMPERATURE,
@@ -29,6 +30,7 @@ from ..model import (
     Reasoning,
     TimeoutLadder,
     TrustedModel,
+    cap_params,
     complete_sync,
     resolve,
 )
@@ -42,9 +44,12 @@ DEFAULT_REASONING = Reasoning.LOW.value
 REASON_CHARS = 300
 
 
-def _runtime(name: str, reasoning: str, seed: int, temperature: float, cache: bool) -> ModelRuntime:
+def _runtime(name: str, reasoning: str, seed: int, temperature: float, cache: bool,
+             max_tokens: int = DERIVE_FROM_REASONING,
+             call_seconds: int = DERIVE_FROM_REASONING) -> ModelRuntime:
     """Every endpoint knob for one repetition, with the timeout ladder derived from the spec."""
-    spec = ModelSpec(name=name, reasoning=Reasoning(reasoning))
+    spec = ModelSpec(name=name, reasoning=Reasoning(reasoning), timeout=call_seconds,
+                     token_cap=max_tokens)
     ladder = TimeoutLadder.derive(spec, spec)
     return ModelRuntime(
         name=name,
@@ -98,14 +103,18 @@ class TrustedMonitor(Run):
 
     protocol = "tm"
 
-    def __init__(self, *, reasoning: str = DEFAULT_REASONING, **kwargs: Any) -> None:
-        super().__init__(reasoning=reasoning, **kwargs)
+    def __init__(self, *, reasoning: str = DEFAULT_REASONING,
+                 max_tokens: int = DERIVE_FROM_REASONING,
+                 call_seconds: int = DERIVE_FROM_REASONING, **kwargs: Any) -> None:
+        super().__init__(reasoning=reasoning, **cap_params(max_tokens, call_seconds), **kwargs)
         if not self.model:
             raise ValueError(
                 f"{self.run_name}: a trusted monitor with no model rates nothing — pass "
                 "model='openai-api/azureai/DeepSeek-V3.2', or model='mock' for the canned answer"
             )
         self.reasoning = Reasoning(reasoning).value
+        self.max_tokens = max_tokens
+        self.call_seconds = call_seconds
         self.monitors: tuple[TrustedModel, ...] = ()
 
     @property
@@ -124,7 +133,8 @@ class TrustedMonitor(Run):
         it resolves, so a shared client sends every repetition at the same seed.
         """
         self.monitors = tuple(
-            resolve(_runtime(self.model, self.reasoning, seed, self.temperature, self.cache))
+            resolve(_runtime(self.model, self.reasoning, seed, self.temperature, self.cache,
+                             self.max_tokens, self.call_seconds))
             for seed in self.seeds
         )
 

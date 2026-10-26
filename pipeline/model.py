@@ -324,8 +324,8 @@ Seconds = Annotated[int, Field(ge=0)]
 class ModelSpec(BaseModel):
     """A model, its reasoning effort, and the only timeout a caller should set.
 
-    `timeout` bounds one provider request and every wider bound derives from it. Zero means derive
-    it from `reasoning`.
+    `timeout` bounds one provider request and every wider bound derives from it; `token_cap` bounds
+    one completion. Zero means derive either from `reasoning`.
     """
 
     model_config = ConfigDict(frozen=True)
@@ -333,6 +333,7 @@ class ModelSpec(BaseModel):
     name: str = ""
     reasoning: Reasoning = Reasoning.LOW
     timeout: Seconds = DERIVE_FROM_REASONING
+    token_cap: Annotated[int, Field(ge=0)] = DERIVE_FROM_REASONING
 
     @property
     def resolved_timeout(self) -> int:
@@ -340,7 +341,19 @@ class ModelSpec(BaseModel):
 
     @property
     def max_tokens(self) -> int:
-        return MAX_TOKENS_BY_EFFORT[self.reasoning]
+        return self.token_cap or MAX_TOKENS_BY_EFFORT[self.reasoning]
+
+
+def cap_params(max_tokens: int, call_seconds: int) -> dict[str, int]:
+    """The explicit per-call caps a run records, leaving out any left to its reasoning effort.
+
+    A run that sets neither writes the same `config.json` it wrote before these settings existed,
+    so every run already on disk still attaches and resumes as itself. They exist because on
+    2026-10-10 the provider began reasoning about three times longer at `low`, past the 12,000
+    tokens that effort allows (`experiments/rerun_plan.md`).
+    """
+    return {key: value for key, value in (("max_tokens", max_tokens),
+                                          ("call_seconds", call_seconds)) if value}
 
 class TimeoutLadder(BaseModel):
     """Nested request bounds, rejected at construction unless strictly increasing outwards.
