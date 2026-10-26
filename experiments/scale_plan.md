@@ -138,7 +138,12 @@ to delete the `failed and blame == "infra"` lines by hand and resume.
                    either separates — that would mean finding 43 was an n artefact.
                 4. Operational: model-blamed failures stay **under 5%** of candidates per arm, the
                    rate E9 ran at. A 3.5x longer run is the one way infra flakiness compounds.
-**Observed.**   *(pending)*
+**Observed.**   1, 2 and 4 *(pending)*.
+                3. **Not applicable.** It tests the deployment game (variations A, B, C), which was
+                   retired on 2026-10-26 after review: safety now uses the per-sample auditing
+                   model of Greenblatt et al. (cut from honest train, every sample above it
+                   audited, an attack on every task), in which B and C do not exist. No code is
+                   kept to measure it (`experiments/safety_rework_plan.md`).
 
 ## E9 - uniform400
 

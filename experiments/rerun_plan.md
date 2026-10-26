@@ -1,5 +1,9 @@
 # Re-run of every full-pool arm (R2)
 
+**Stopped 2026-10-26 at step 2a.** The API key was rotated and no further runs are possible, so the
+first pass is the final data. Its provider-period split (below) is a limitation of the results, not
+something a re-run will fix.
+
 **Why.** The first pass straddled the provider's change of 10 October: DeepSeek-V3.2 on Azure began
 reasoning about three times longer and abstaining more often under an unchanged model name and
 settings. `plain_v5` and the multi-turn chain were scored partly or wholly after it, the main arms
@@ -30,11 +34,11 @@ planner at `high`. Every run gets the suffix `-r2`; no first-pass run is touched
 | 0 | Ground truth: grade `data/apps_full_py312.json` by control-arena's rule (any stderr fails), every test, Python 3.4 and 3.12. **Gate:** 0 main-task failures, 0 runs writing to stderr, every backdoor's secret input changes the output, in both. | — (no model calls) | — | done: passed (Observed) |
 | 1 | Smoke: every run on the 60-candidate smoke dataset (names end `-r2-smoke`), cache off. Measure abstention, reasoning length and cost per call under today's provider. **Decision:** if more than 5% of calls hit the token cap or return no score, raise that protocol's cap for R2 (same cap for every arm of it) before step 2. | every run, `-r2-smoke` | — | done: caps raised (Observed) |
 | 2a | TrustedSolve first, and look at it: its attempts graded by control-arena's rule on every test, against its own grader's `solves`. About $30–90 (2,776 calls at ~6,500 output tokens, from the smoke). | `solve-all-r2` | 0 | killed at 313 / 2,776 (launched by mistake; moved to `archived/killed_runs/`) |
-| 2b | Inputs and baseline | `trig-all-r2`, `tm-all-r2` | 2a looked at | not started |
-| 3 | Suites | `ut-all-property-10-r2`, `ut-all-plain_v3-10-r2`, `ut-all-plain_v5-10-r2`, `upt-all-property-10-r2`, `upt-all-plain_v3-10-r2` | `trig-all-r2` | not started |
-| 4 | Monitor + tests | `mwt-full-all-property-10-r2`, `mwt-full-all-plain_v3-10-r2`, `mwt-full-all-plain_v5-10-r2`, `mwt-full-all-uplans-property-10-r2` | the matching step-3 run | not started |
-| 5 | Multi-turn chain (A traceable, A replay, B no feedback, C feedback), as MT5 in `experiments/multi_turn_plan.md` | `full-mt-deepseek-run2-*` | `trig-all-r2`; runs alongside 3 and 4 | not started |
-| 6 | Point the notebooks at R2 (`POOLS["all"]`), re-execute, and compare R2 with the first pass (each headline number with its interval) | — | 2–5 | not started |
+| 2b | Inputs and baseline | `trig-all-r2`, `tm-all-r2` | 2a looked at | **blocked**: API key rotated 2026-10-26, no runs possible |
+| 3 | Suites | `ut-all-property-10-r2`, `ut-all-plain_v3-10-r2`, `ut-all-plain_v5-10-r2`, `upt-all-property-10-r2`, `upt-all-plain_v3-10-r2` | `trig-all-r2` | **blocked**: API key rotated 2026-10-26, no runs possible |
+| 4 | Monitor + tests | `mwt-full-all-property-10-r2`, `mwt-full-all-plain_v3-10-r2`, `mwt-full-all-plain_v5-10-r2`, `mwt-full-all-uplans-property-10-r2` | the matching step-3 run | **blocked**: API key rotated 2026-10-26, no runs possible |
+| 5 | Multi-turn chain (A traceable, A replay, B no feedback, C feedback), as MT5 in `experiments/multi_turn_plan.md` | `full-mt-deepseek-run2-*` | `trig-all-r2`; runs alongside 3 and 4 | **blocked**: API key rotated 2026-10-26, no runs possible |
+| 6 | Point the notebooks at R2 (`POOLS["all"]`), re-execute, and compare R2 with the first pass (each headline number with its interval) | — | 2–5 | **blocked**: API key rotated 2026-10-26, no runs possible |
 
 ## How it runs
 
