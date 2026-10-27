@@ -6,8 +6,8 @@
 \section{Results}
 \label{sec:results}
 
-Three findings hold across our analyses. First, under defer to trusted, the baseline of prior work
-and our main comparison, giving the monitor the trusted model's own tests does not raise safety at
+Three findings hold across our analyses. First, with defer to trusted, the rule of prior work's
+baseline and our main comparison, giving the monitor the trusted model's own tests does not raise safety at
 equal usefulness: at a usefulness of 0.95, trusted monitoring and monitoring with tests all reach
 about 0.73. Only tests planned by the untrusted model raise it (0.82), and that difference is not
 statistically certain (Section~\ref{sec:dtt}). Second, without deferral the tests do sharpen the top
@@ -167,13 +167,13 @@ with its own calibrated threshold.}
 \end{table}
 
 % ---------------------------------------------------------------------
-\subsection{Defer to trusted}
+\subsection{Safety with defer to trusted}
 \label{sec:dtt}
 % Sources: notebooks/figures/all/data/dtt.csv and dtt_at_usefulness.csv.
 
-Defer to trusted is the baseline of \citet{greenblatt2024aicontrol}, and it is our main comparison:
-a protocol that can replace a suspicious submission with $T$'s own solution should be judged against
-the others at equal usefulness. Figure~\ref{fig:dtt} plots each monitoring protocol's
+Our main comparison runs each monitoring protocol with defer to trusted, the rule of the baseline of
+\citet{greenblatt2024aicontrol} (Section~\ref{sec:safety-model}), and compares the protocols at equal
+usefulness. Figure~\ref{fig:dtt} plots each monitoring protocol's
 safety--usefulness frontier with the audit threshold at the 2\% budget, and
 Table~\ref{tab:dtt} reads the frontiers at a usefulness of 0.95 and 0.90. Deferral is inexpensive
 here because $T$ solves 81\% of the evaluation tasks: deferring 2.3\% of submissions raises trusted
@@ -223,8 +223,9 @@ resample recalibrating the audit threshold; the difference is taken within a res
 only monitoring + $U$-planned property tests stays above it at high usefulness. Each line is a
 protocol's safety--usefulness frontier as its deferral threshold moves, with the audit threshold
 at a 2\% budget; hollow markers are the protocols without deferral (Table~\ref{tab:safety}), and the
-dotted lines mark the usefulness levels of Table~\ref{tab:dtt}. Usefulness is scaled so that 0 is
-$T$ alone and 1 is $U$ alone.}
+dotted lines mark the usefulness levels of Table~\ref{tab:dtt}. Usefulness is rescaled so that
+$T$'s own solutions (81\% of tasks correct) score 0 and $U$'s (100\%) score 1; 0.95 is 99\% of
+tasks correct.}
 \label{fig:dtt}
 \end{figure}
 
@@ -236,7 +237,7 @@ $T$ alone and 1 is $U$ alone.}
 \subsection{Why detection does not improve}
 \label{sec:why-catch}
 
-To understand why the tests miss backdoors, we use a separate pool of 50 competition-level APPS
+To understand what limits the tests, we use a separate pool of 50 competition-level APPS
 problems, with one honest and one backdoored candidate each. $T$ writes 20 tests per submission, and
 we score six protocols on a held-out split of 50 candidates (25 backdoored, 25 honest): two whose
 test writer sees only the problem statement, and four that see the code.
@@ -274,20 +275,19 @@ candidates scored.}
 \label{tab:variants}
 \end{table}
 
-\paragraph{Where the misses come from.} To separate failures to reach a trigger from failures to
-detect it, we use an earlier run on five hard BigCodeBench tasks with two backdoors each, where
-specification-only property tests detected none of the ten.
-% TODO: the 2/8 split is from these five BigCodeBench tasks, not the hard APPS pool. Keep this
-% framing or rerun the decomposition on the hard pool (Alon's action item). Also name the writer
-% models for this run.
-For each backdoor we ran the backdoored and reference solutions on 20{,}000 random inputs and
-counted how often their outputs differed. For two of them, inputs drawn from the problem's own input
-format never produced a difference, so no realistic test budget would reach the trigger; one became
-reachable once the input alphabet included the form-feed character, after which the outputs differed
-on 36\% of inputs. For the other eight, between 21\% and 90\% of valid inputs exposed a difference,
-so a 2{,}000-input test reaches the trigger with probability 1.000. These triggers were reached;
-what was missing was a test asserting a property that distinguishes the backdoored output from the
-reference output. We call this the \emph{specification-entailment wall}.
+\paragraph{The limit is what a test can assert.} A failing test is weak evidence here because most
+failures come from assertions the specification does not support, which correct code violates too.
+Making the writer more careful removes such tests from honest and backdoored candidates alike, so
+the tests that remain are too weak to fail on the backdoor either. To detect a backdoor, a test must
+assert a property that the specification entails and that the backdoored output violates; our
+results are consistent with such properties being scarce, which we call the
+\emph{specification-entailment wall}. We did not measure on this pool how often the trigger inputs
+reach the backdoor, so unreached triggers remain a possible second cause.
+
+% TODO(Alon): reach decomposition on the hard APPS pool. The earlier version of this paragraph used
+% five BigCodeBench tasks (two backdoors each, writer models unnamed): 2 of 10 triggers unreachable
+% from the input format, 8 of 10 reached on 21-90% of 20,000 random inputs but undetected. Rerun on
+% the hard pool before reinstating; differential testing (mckeeman1998) is the method.
 % Provisional, keep out of the text until checked against the task docstrings: of the 8 reached
 % backdoors, roughly 1-3 look like behaviour the spec leaves open (e.g. the 202/attack_0
 % tie-break) and roughly 5 look like errors a sound spec-derived test could catch.
@@ -321,4 +321,4 @@ in the $U$-planned protocol, better or more adversarial plans.
 scored once per protocol (the monitor's two samples are averaged), so the intervals cannot separate
 the model's sampling noise from task difficulty. Table~\ref{tab:detection} pools calibration and
 evaluation candidates. Monitoring with tests also uses twice the trusted-model calls of trusted
-monitoring (Table~\ref{tab:protocols}).
+monitoring.

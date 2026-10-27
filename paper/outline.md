@@ -1,5 +1,18 @@
 # Methodology and Results: outline
 
+## Review fixes, 27 Oct (edits land in `sruthi_apor/`, mirrored to `paper/`)
+
+| # | your comment | fix | status |
+|---|---|---|---|
+| F1 | dislike the difference chart; use \pm | Figure 1 is one panel; every interval is ± 1.96 resample SDs | done `f059481` |
+| F2 | "Our earlier analyses used a 10% budget…" is wrong | sentence cut | done `d444972` |
+| F3 | "Usefulness (0 = trusted model alone)" makes no sense; T solves 81%, so how? | axis says "Usefulness"; methodology and Figure 2 say 0 = T's 81% correct, 1 = U's 100%, 0.95 = 99% | done |
+| F4 | methodology's three questions: improve, one per line | rewritten as an enumerated list; (ii) covers defer to trusted | done |
+| F5 | defer to trusted is a separate protocol in Methods but a mode elsewhere | one framing everywhere: a rule added to a monitoring protocol, defined in Evaluation; "with / without deferral" in Results | done |
+| F6 | Table 1: "T calls" column means nothing | column and the call-count caption sentences cut | done |
+| F7 | "Why detection does not improve": BigCodeBench appears from nowhere | BigCodeBench paragraph out of the text (TODO kept); section ends on the hard pool's own evidence; abstract, intro and question (iii) follow | done |
+| F8 | remove the label-leakage section | Methods paragraph and appendix table cut; one sentence in Data says the code was cleaned (the appendix ground truth refers to it) | done |
+
 **Status 2026-10-27 (second pass).** Abstract, introduction, methodology, results (now prose) and appendix are
 written in `sruthi_apor/` and mirrored to `paper/`, which compiles on its own. BigCodeBench is left out until
 its numbers are confirmed. Still open: Omar's multi-turn slot and a citation for ControlArena.

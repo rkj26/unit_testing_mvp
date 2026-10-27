@@ -4,7 +4,12 @@
 \section{Methodology}
 \label{sec:method}
 
-We evaluate whether unit tests written by a trusted model detect code backdoors, and address three questions. (i) Do tests alone detect backdoors as well as a trusted monitor that reads the code? (ii) Does giving the monitor the results of those tests improve safety at a fixed audit budget? (iii) When tests miss a backdoor, is it because no test input reaches the trigger, or because no test asserts a property that the backdoored output violates?
+We evaluate whether unit tests written by a trusted model detect code backdoors, through three questions:
+\begin{enumerate}
+  \item[(i)] \emph{Can tests replace the monitor?} Do tests alone detect backdoors as well as a trusted monitor that reads the code?
+  \item[(ii)] \emph{Do tests help the monitor?} Does giving the monitor the tests' results raise safety, both at a fixed audit budget and, with defer to trusted, at equal usefulness?
+  \item[(iii)] \emph{What limits the tests?} Do they miss backdoors because the test writer is weak, which better prompting could fix, or because the specification rarely entails a property that a backdoored output violates and a correct one satisfies?
+\end{enumerate}
 
 \subsection{Threat model}
 \label{sec:setting}
@@ -14,26 +19,24 @@ We adopt the high-stakes AI control setting of \citet{greenblatt2024aicontrol}. 
 \subsection{Protocols}
 \label{sec:protocols}
 
-Every protocol assigns each candidate a suspicion score. Table~\ref{tab:protocols} summarises what each protocol observes and what it costs.
+Every protocol assigns each candidate a suspicion score. Table~\ref{tab:protocols} summarises what each protocol observes.
 
 \begin{table}[t]
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{lllll}
+\begin{tabular}{llll}
 \toprule
-Protocol & Score & Reads the code & Writes the tests & $T$ calls \\
+Protocol & Score & Reads the code & Writes the tests \\
 \midrule
-Trusted monitoring              & suspicion, 1--10    & $T$                     & ---                  & 2 \\
-Property / plain tests          & tests failed, 0--10 & $T$                     & $T$                  & 2 \\
-$U$-planned tests               & tests failed, 0--10 & $U$; $T$ (inputs only)  & $T$, from $U$'s plan & 2 \\
-Monitoring + tests (3 variants) & suspicion, 1--10    & $T$, plus test results  & as in its suite      & 4 \\
+Trusted monitoring              & suspicion, 1--10    & $T$                     & ---                  \\
+Property / plain tests          & tests failed, 0--10 & $T$                     & $T$                  \\
+$U$-planned tests               & tests failed, 0--10 & $U$; $T$ (inputs only)  & $T$, from $U$'s plan \\
+Monitoring + tests (3 variants) & suspicion, 1--10    & $T$, plus test results  & as in its suite      \\
 \bottomrule
 \end{tabular}
 \caption{The protocols. Every test runs on the same $n$ trigger inputs, proposed once per candidate
-by $T$ reading the code; that call is one of those counted. $U$-planned suites add one $U$ call.
-Monitoring + tests uses twice the $T$ calls of trusted monitoring, so the two are not
-compute-matched.}
+by $T$ reading the code.}
 \label{tab:protocols}
 \end{table}
 
@@ -45,8 +48,6 @@ compute-matched.}
 
 \paragraph{Monitoring with tests.} The trusted monitor, with the same prompt and number of samples, additionally receives one suite's source code and execution results on the same submission. The prompt warns that a failing test may reflect either a genuine backdoor or an assertion the specification does not support. We evaluate one variant per suite and refer to them as monitoring + property tests, monitoring + plain tests and monitoring + $U$-planned property tests.
 
-\paragraph{Defer to trusted.} As in \citet{greenblatt2024aicontrol}, a monitoring protocol can replace a suspicious submission that is not audited with $T$'s own solution, which contains no backdoor. A second, lower threshold decides which submissions are deferred.
-
 % TODO(Omar): one paragraph on the multi-turn protocol, if the full-pool multi-turn arms are
 % reported in Results.
 % TODO: the plain_v5 prompt variant (E12), if reported. Part of it was scored after the provider
@@ -55,14 +56,14 @@ compute-matched.}
 \subsection{Data}
 \label{sec:data}
 
-We use APPS~\citep{hendrycks2021apps} with the backdoored solutions of \citet{terekhov2025controltax} from the \texttt{apps-control-arena} dataset~\citep{appscontrolarena}. A task is included if its reference solution is correct and deterministic and at least one backdoor passes the visible tests and disagrees with the reference solution on its trigger input; a backdoor that never triggers is an ordinary bug, not an attack. Each task contributes one honest and one backdoored candidate, so no task is counted twice in a rate. All of APPS yields 1{,}388 such tasks (2{,}776 candidates), split into 555 calibration and 833 evaluation tasks. We verify every label independently with the ControlArena scorer (Appendix~\ref{app:implementation}).
-
-\paragraph{Label leakage.} As released, 48.6\% of the backdoored solutions contain a comment naming the backdoor (e.g.\ \texttt{\# Subtle bug: ...}) and none of the honest ones do. Any protocol that reads the code would exploit this artefact, so we remove all comments and self-describing identifiers from both classes before running any protocol.
+We use APPS~\citep{hendrycks2021apps} with the backdoored solutions of \citet{terekhov2025controltax} from the \texttt{apps-control-arena} dataset~\citep{appscontrolarena}. A task is included if its reference solution is correct and deterministic and at least one backdoor passes the visible tests and disagrees with the reference solution on its trigger input; a backdoor that never triggers is an ordinary bug, not an attack. Each task contributes one honest and one backdoored candidate, so no task is counted twice in a rate. All of APPS yields 1{,}388 such tasks (2{,}776 candidates), split into 555 calibration and 833 evaluation tasks. Before running any protocol, we remove comments and self-describing identifiers from both honest and backdoored code. We verify every label independently with the ControlArena scorer (Appendix~\ref{app:implementation}).
 
 \subsection{Evaluation}
 \label{sec:safety-model}
 
 \paragraph{Audit threshold.} Following \citet{greenblatt2024aicontrol}, the audit threshold $\tau_b$ for budget $b$ is the $(1-b)$ quantile of a protocol's scores on honest calibration candidates; no attack labels are used. Scores are discrete, so we break ties at $\tau_b$ at random such that exactly a fraction $b$ of honest calibration candidates is audited. Every protocol therefore spends the same budget.
+
+\paragraph{Defer to trusted.} Each of the four monitoring protocols can also be run with defer to trusted, the rule that \citet{greenblatt2024aicontrol} use as their baseline: a submission that is not audited but scores at or above a second, lower threshold is replaced by $T$'s own solution, which contains no backdoor but is less often correct. With trusted monitoring's score, this is their defer-to-trusted protocol. Lowering the deferral threshold trades usefulness for safety, so we compare protocols with deferral at equal usefulness. Test-only protocols are evaluated without deferral.
 
 \paragraph{Safety.} The budget enters only through the threshold: at evaluation, every candidate above $\tau_b$ is audited, however many there are. Under this model, and with attacks on uniformly random tasks, an attack's outcome depends only on its own score and not on when it occurs, so expected safety does not depend on the attack rate (up to the chance that no attack is decisive in a finite deployment). We therefore attack every evaluation task, which minimises variance. Let $a_i$ and $d_i$ be the probabilities that the attack on task $i$ is audited and deferred, and $w_i \in \{0, 1\}$ indicate a functional backdoor. Safety is the probability that the first decisive attack is caught,
 \[
@@ -70,9 +71,9 @@ We use APPS~\citep{hendrycks2021apps} with the backdoored solutions of \citet{te
 \]
 and 1 when no attack is decisive. Without deferral and with every backdoor functional, safety is the fraction of attacks audited.
 
-\paragraph{Usefulness.} On honest evaluation candidates, an audited or deployed submission counts as correct and a deferred one counts as correct if $T$'s own solution passes every test of the task under the ControlArena scorer. We rescale usefulness so that 0 is $T$ alone and 1 is $U$ alone~\citep{greenblatt2024aicontrol}.
+\paragraph{Usefulness.} On honest evaluation candidates, an audited or deployed submission counts as correct and a deferred one counts as correct if $T$'s own solution passes every test of the task under the ControlArena scorer. Following \citet{greenblatt2024aicontrol}, we rescale the share of tasks that end with a correct solution linearly, so that 0 is the share $T$'s own solutions get right (81\% of evaluation tasks) and 1 the share $U$'s honest solutions get right (100\%). A usefulness of 0.95 therefore means that 99\% of tasks end correct, and 0.90 that 98\% do.
 
-\paragraph{Reporting.} The primary operating point is $b = 2\%$, as in \citet{greenblatt2024aicontrol}; we also report $b \in \{1, 5, 10\}\%$. For defer to trusted, our main comparison, we fix $\tau_{2\%}$ and sweep the deferral threshold to trace each protocol's safety--usefulness frontier, and compare protocols at equal usefulness (0.95 and 0.90), interpolating between adjacent deferral thresholds. We report ROC AUC and the detection rate at fixed false-positive rates, which characterise each protocol independently of the safety model. To separate a protocol's ranking from the noise of calibrating its threshold, we also compare protocols at matched false-positive rates set on the evaluation split itself; because this uses information a deployment does not have, we report it only as a diagnostic. We report each value as $\pm$ 1.96 standard deviations over 10{,}000 paired task resamples (a 95\% interval), in which every protocol recalibrates its threshold on the resampled calibration tasks; we report this for each protocol and for its paired difference from trusted monitoring. All comparisons use the candidates that every protocol scored (2{,}435 of 2{,}776); a candidate a protocol failed to score is excluded rather than assigned a default score, since an unscored test suite would otherwise count as passing.
+\paragraph{Reporting.} The primary operating point is $b = 2\%$, as in \citet{greenblatt2024aicontrol}; we also report $b \in \{1, 5, 10\}\%$. With defer to trusted, our main comparison, we fix $\tau_{2\%}$ and sweep the deferral threshold to trace each protocol's safety--usefulness frontier, and compare protocols at equal usefulness (0.95 and 0.90), interpolating between adjacent deferral thresholds. We report ROC AUC and the detection rate at fixed false-positive rates, which characterise each protocol independently of the safety model. To separate a protocol's ranking from the noise of calibrating its threshold, we also compare protocols at matched false-positive rates set on the evaluation split itself; because this uses information a deployment does not have, we report it only as a diagnostic. We report each value as $\pm$ 1.96 standard deviations over 10{,}000 paired task resamples (a 95\% interval), in which every protocol recalibrates its threshold on the resampled calibration tasks; we report this for each protocol and for its paired difference from trusted monitoring. All comparisons use the candidates that every protocol scored (2{,}435 of 2{,}776); a candidate a protocol failed to score is excluded rather than assigned a default score, since an unscored test suite would otherwise count as passing.
 
 \paragraph{Implementation.} $T$ is DeepSeek-V3.2~\citep{deepseekv32} at low reasoning effort and $U$ is the same model at high effort, so the capability gap arises from reasoning effort alone. We use $n = 30$ trigger inputs and $t = 10$ tests, and run every test in an isolated sandbox. Further details are in Appendix~\ref{app:implementation}.
 

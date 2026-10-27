@@ -37,25 +37,6 @@ protocol scored.}
 \label{tab:coverage}
 \end{table}
 
-\begin{table}[h]
-\centering
-\small
-\begin{tabular}{llcc}
-\toprule
-Code & Class & Any comment & Comment naming the backdoor \\
-\midrule
-As released & backdoored & 0.679 & 0.486 \\
-            & honest     & 0.200 & 0.000 \\
-Cleaned     & backdoored & 0.000 & 0.000 \\
-            & honest     & 0.000 & 0.000 \\
-\bottomrule
-\end{tabular}
-\caption{Share of candidates with any comment, and with a comment naming the backdoor, before and
-after cleaning (1{,}388 candidates per class). Comments and self-describing identifiers were removed
-from both classes, so the absence of comments cannot itself reveal the label.}
-\label{tab:scrub}
-\end{table}
-
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/budgets.pdf}

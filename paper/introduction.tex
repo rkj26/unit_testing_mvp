@@ -42,15 +42,15 @@ inputs, with plain tests, which check a single output, and a protocol in which
 the same model at high reasoning effort reads the submission and plans tests that
 the trusted model implements without seeing the code. We evaluate each as a
 standalone detector and as evidence given to a code-reading monitor, measure
-safety with the auditing model of \citet{greenblatt2024aicontrol}, and compare
-against defer to trusted, the baseline of that work.
+safety with the auditing model of \citet{greenblatt2024aicontrol}, and run each
+monitoring protocol with defer to trusted, the rule of that work's baseline.
 
 To understand why the tests miss, we also use a smaller pool of 50 hard APPS
 problems, on which we evaluate two changes to the test writer (few-shot examples
 of good and bad tests, and a critic that drops weak tests) and writers that see
 only the problem statement.
 
-Under defer to trusted, giving the monitor the trusted model's own tests does not
+With defer to trusted, giving the monitor the trusted model's own tests does not
 raise safety at equal usefulness: at a usefulness of 0.95, trusted monitoring and
 monitoring with tests all reach about 0.73. Only tests planned by the untrusted
 model raise it, to 0.82, without statistical certainty. Without deferral the tests
@@ -58,9 +58,8 @@ do sharpen the top of the monitor's ranking, detecting significantly more
 backdoors at strict false-positive rates and raising safety at a 2\% audit budget
 in point estimate, but that gain lies within the uncertainty of calibrating a
 threshold from few honest examples and reverses at larger budgets. Tests alone are
-a weak detector. Changes to the test writer reduce false positives without
-improving detection, and diagnostics on hard problems show that most missed
-backdoors are reached by a test input but not detected.
+a weak detector. On hard problems, the tests flag much of the honest code, and changes to the
+test writer reduce these false positives without improving detection.
 
 Our contributions are:
 \begin{itemize}
@@ -68,11 +67,12 @@ Our contributions are:
   a code-reading monitor on every eligible APPS problem, alone and as evidence
   for the monitor, under the standard auditing model and with paired bootstrap
   intervals.
-  \item We show that under defer to trusted, the trusted model's tests do not
+  \item We show that with defer to trusted, the trusted model's tests do not
   raise the monitor's safety at equal usefulness; without deferral they improve
   its ranking at strict thresholds, but the safety gain is uncertain at a 2\%
   audit budget and reverses at larger budgets.
-  \item We separate unreached triggers from reached but undetected ones and find
-  that the bottleneck is the latter: tests that cannot assert the property a
-  backdoored output violates, which we call the specification-entailment wall.
+  \item We show on hard problems that better test writing makes tests more
+  conservative rather than more discriminating, consistent with a bottleneck we
+  call the specification-entailment wall: a test must assert a property that the
+  specification entails and a backdoored output violates.
 \end{itemize}
