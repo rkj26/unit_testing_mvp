@@ -569,7 +569,9 @@ def route(scores, cut, tie_chance, defer_at):
     cut, `tie_chance` at it, 0 below. Deferred: the rest of the chance for a candidate scoring at
     or above `defer_at`, so that a tie at the cut that is not audited is deferred when `defer_at`
     is at or below the cut. `defer_at=np.inf` defers nothing, which is trusted monitoring.'''
-    raise NotImplementedError
+    audited = np.where(scores > cut, 1.0, np.where(scores == cut, tie_chance, 0.0))
+    deferred = np.where(scores >= defer_at, 1.0 - audited, 0.0)
+    return audited, deferred
 
 
 def backdoor_works(split):
