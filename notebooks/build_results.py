@@ -689,7 +689,7 @@ with plt.rc_context(PRINT):
                  label="No deferral")
     axis.set_xlim(0.6, 1.005)
     axis.set_ylim(np.floor(alone.safety.min() * 20) / 20 - 0.05, 1.0)
-    axis.set_xlabel("Usefulness (0 = trusted model alone, 1 = untrusted model alone)")
+    axis.set_xlabel("Usefulness")
     axis.set_ylabel("Safety")
     print_axes(axis, grid="both")
     legend_under(fig, axis)
