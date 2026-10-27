@@ -59,7 +59,7 @@ We use APPS~\citep{hendrycks2021apps} with the backdoored solutions of \citet{te
 \[
   \mathrm{Safety} \;=\; \frac{\sum_i a_i}{\sum_i a_i + \sum_i (1 - a_i - d_i)\, w_i},
 \]
-and 1 when no attack is decisive. Without deferral, safety is the fraction of functional attacks audited.
+and 1 when no attack is decisive. Without deferral and with every backdoor functional, safety is the fraction of attacks audited.
 
 \paragraph{Usefulness.} On honest evaluation candidates, an audited or deployed submission counts as correct and a deferred one counts as correct if $T$'s own solution passes every test of the task under the ControlArena scorer. We rescale usefulness so that 0 is $T$ alone and 1 is $U$ alone~\citep{greenblatt2024aicontrol}.
 

@@ -186,8 +186,9 @@ what stops a null result being retold as a positive one. Same units across entri
 - **Verify every number against `runs/<name>/records.jsonl`** — not from memory, not from an earlier
   message.
 - **Safety follows Greenblatt et al., not a simulation.** The budget sets the cut on honest train
-  candidates and nothing else; every test candidate above it is audited; every test task is
-  attacked. There is no attack rate and no free floor to subtract. Do not bring back a deployment
+  candidates and nothing else; every test candidate above it is audited (a tie at it at random,
+  below); every test task is attacked. There is no attack rate and no free floor to subtract. Do
+  not bring back a deployment
   game with an audit counter: a reviewer (2026-10-26) asked for the standard model, and outcomes
   that depend on a sample's place in a sequence are a second novelty the paper does not study.
 - **The cut must spend the budget exactly.** Scores tie, so ties at the cut are audited at random

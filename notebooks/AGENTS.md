@@ -80,6 +80,12 @@ artifacts in `tmp_path`.
   arm's record count against the dataset and raises, because `set.intersection` over a running arm
   silently *empties* the population rather than shrinking it, and an empty population still plots.
 - **A measurement cell may cache beside the run it measures** — under `Run.directory`, never
-  `records.jsonl`, returning the cached document when it exists. None currently does: every cell
-  recomputes from `records.jsonl` in seconds, so restart-and-run-all is affordable without one. Add
-  a cache only when a cell is actually slow, and never a cache that outlives the arms it read.
+  `records.jsonl`, returning the cached document when it exists. Add a cache only when a cell is
+  actually slow, and never a cache that outlives the arms it read. Three do, all in the full pool's
+  ground-truth section, because each grades thousands of programs in Docker:
+  `data/apps_full.control_arena.jsonl` (every candidate), `runs/solve-all/control_arena.jsonl` (the
+  trusted model's attempts) and `runs/trig-all/control_arena_agreement.jsonl` (our harness against
+  control-arena's). **They are committed artifacts, not stale files**: the digest's safety cells read
+  the first and its defer-to-trusted cells the second, and both raise if the file is missing.
+  `_cached` refuses to write a grading in which any container failed, so a cache only ever holds
+  rows that were measured; to regrade, delete the file and re-run with Docker up.
