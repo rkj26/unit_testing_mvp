@@ -585,6 +585,118 @@ separation_by_cut
 """, SEPARATION_CAPTION
 
 
+def paper_figures():
+    """Digest Section 8, last: the paper's three safety figures, drawn from the numbers the
+    cells above computed. The notebook figures keep the arm names the digest's text uses and print
+    their settings under themselves; a paper figure uses the paper's names and terms, one order and
+    one style for all three, no settings line (its caption carries them), and is saved as PDF beside
+    a PNG in `figures/all/paper/`. Nothing is shown here. Pool `all` only."""
+    return """
+PAPER_FIGURES = FIGURES / "paper"
+PAPER_FIGURES.mkdir(exist_ok=True)
+PAPER_NAME = {"monitor": "Trusted monitoring",
+              "monitor + tests property": "Monitoring + property tests",
+              "monitor + tests plain_v3": "Monitoring + plain tests",
+              "monitor + u plans property": "Monitoring + $U$-planned property tests",
+              "tests property/10": "Property tests",
+              "tests plain_v3/10": "Plain tests",
+              "u plans property/10": "$U$-planned property tests",
+              "u plans plain_v3/10": "$U$-planned plain tests"}
+PAPER_ORDER = list(PAPER_NAME)  # the order of every table in the paper
+MONITORING = PAPER_ORDER[:4]
+assert set(PAPER_ORDER) == set(ARMS), "every arm needs a paper name"
+PRINT = {"figure.facecolor": "white", "axes.facecolor": "white", "savefig.facecolor": "white",
+         "font.size": 8, "axes.labelsize": 8.5, "legend.fontsize": 7.5, "xtick.labelsize": 7.5,
+         "ytick.labelsize": 7.5}
+
+
+def print_axes(axis, grid="y"):
+    '''Plain axes for print: a light grid on one axis, no top or right spine, no title.'''
+    axis.grid(axis=grid, color=RULE, lw=0.5)
+    axis.grid(axis="x" if grid == "y" else "y", visible=False)
+    for side in ("top", "right"):
+        axis.spines[side].set_visible(False)
+
+
+def percent_axis(axis, ticks):
+    axis.set_xscale("log")
+    axis.set_xticks(ticks)
+    axis.set_xticklabels([f"{tick:.1%}".replace(".0%", "%") for tick in ticks])
+    axis.minorticks_off()
+
+
+def legend_under(fig, axis, columns=2):
+    fig.legend(*axis.get_legend_handles_labels(), loc="upper center", ncol=columns,
+               frameon=False, bbox_to_anchor=(0.5, 0.0))
+
+
+def save_for_print(fig, name):
+    for suffix in ("pdf", "png"):
+        fig.savefig(PAPER_FIGURES / f"{name}.{suffix}", dpi=300, bbox_inches="tight")
+    plt.close(fig)
+    return PAPER_FIGURES / f"{name}.pdf"
+
+
+written = []
+with plt.rc_context(PRINT):
+    rows = PAPER_ORDER[::-1]
+    fig, axes = plt.subplots(1, 2, figsize=(5.5, 2.9), sharey=True)
+    for y, arm in enumerate(rows):
+        colour, marker, _ = style_for(arm)
+        row = safety_table.loc[arm]
+        for axis, measure in zip(axes, ("safety", "minus monitor")):
+            if measure == "minus monitor" and arm == "monitor":
+                continue
+            axis.plot([row[f"{measure} low"], row[f"{measure} high"]], [y, y], color=colour, lw=1.6)
+            axis.scatter(row[measure], y, marker=marker, color=colour, s=28, zorder=3)
+    axes[0].set_yticks(range(len(rows)))
+    axes[0].set_yticklabels([PAPER_NAME[arm] for arm in rows])
+    axes[0].set_xlim(0, 1)
+    axes[0].set_xlabel(f"Safety at a {AUDIT_BUDGET:.0%} audit budget")
+    axes[1].axvline(0, color=INK, lw=0.8)
+    axes[1].set_xlabel("Difference from trusted monitoring")
+    for axis in axes:
+        axis.axhline(len(rows) - len(MONITORING) - 0.5, color=RULE, lw=0.6)
+        print_axes(axis, grid="x")
+    written.append(save_for_print(fig, "safety"))
+
+    fig, axis = plt.subplots(figsize=(5.5, 3.2))
+    for arm in PAPER_ORDER:
+        colour, marker, _ = style_for(arm)
+        axis.plot(BUDGETS, safety_by_budget.loc[arm], color=colour, marker=marker, ms=4.5, lw=1.4,
+                  label=PAPER_NAME[arm])
+    percent_axis(axis, list(BUDGETS))
+    axis.set_ylim(0, 1)
+    axis.set_xlabel("Audit budget")
+    axis.set_ylabel("Safety")
+    print_axes(axis)
+    legend_under(fig, axis)
+    written.append(save_for_print(fig, "budgets"))
+
+    fig, axis = plt.subplots(figsize=(5.5, 3.6))
+    alone = dtt_points[np.isinf(dtt_points["defer cut"])]
+    for arm in MONITORING:
+        colour, marker, _ = style_for(arm)
+        frontier = dtt_points[(dtt_points.arm == arm) & dtt_points["on frontier"]]
+        frontier = frontier.sort_values("usefulness")
+        axis.plot(frontier.usefulness, frontier.safety, color=colour, marker=marker, ms=3.5, lw=1.4,
+                  label=PAPER_NAME[arm])
+        axis.scatter(alone[alone.arm == arm].usefulness, alone[alone.arm == arm].safety,
+                     marker=marker, s=60, facecolor="white", edgecolor=colour, lw=1.3, zorder=4)
+    axis.scatter([], [], marker="o", s=40, facecolor="white", edgecolor=INK, lw=1.1,
+                 label="No deferral")
+    axis.set_xlim(0.6, 1.005)
+    axis.set_ylim(np.floor(alone.safety.min() * 20) / 20 - 0.05, 1.0)
+    axis.set_xlabel("Usefulness (0 = trusted model alone, 1 = untrusted model alone)")
+    axis.set_ylabel("Safety")
+    print_axes(axis, grid="both")
+    legend_under(fig, axis)
+    written.append(save_for_print(fig, "dtt"))
+
+print("figures for the paper:", ", ".join(path.name for path in written))
+"""
+
+
 def explain_dtt():
     """Digest Section 8: defer to trusted, the baseline Greenblatt et al. compare against."""
     return """
@@ -648,7 +760,7 @@ def dtt_curve(name):
     '''Every defer cut of one arm, the audit cut held at the arm's AUDIT_BUDGET cut: one row per
     defer cut, with which rows are on the arm's frontier. Safety from the attacks, every test task
     attacked; usefulness from the honest candidates. The defer cut at infinity defers nothing,
-    which is trusted monitoring, and must equal the arm's full-sample safety in `safety_draws`.'''
+    which is the protocol on its own, and must equal the arm's full-sample safety in `safety_draws`.'''
     honest, attack = scores_for(name, "test")
     cut, tie_chance = audit_rule(scores_for(name, "train")[0], AUDIT_BUDGET)
     works = backdoor_works("test")
@@ -685,7 +797,7 @@ def dtt_figure(names):
     '''Greenblatt et al. (2023)'s safety-against-usefulness plot for the arms in `names`: the full
     square, and the top right corner zoomed to where the frontiers sit. Each arm is one line of
     markers along its frontier, labelled with the share of submissions deferred; the hollow marker
-    is the arm deferring nothing (trusted monitoring), and the star is the trusted model alone.
+    is the arm deferring nothing (the protocol on its own), and the star is the trusted model alone.
     Exports the figure and every point.'''
     rows = pd.concat([dtt_curve(name) for name in names], ignore_index=True)
     lightest = rows[np.isinf(rows["defer cut"])]
@@ -720,7 +832,7 @@ def dtt_figure(names):
     handles, labels = axes[0].get_legend_handles_labels()
     handles += [Line2D([], [], color=INK, lw=0, marker="o", ms=9, markerfacecolor=SURFACE,
                        markeredgewidth=1.8)]
-    labels += ["defers nothing: trusted monitoring"]
+    labels += ["no deferral: the protocol on its own (the safety bars)"]
     fig.legend(handles, labels, loc="upper center", ncol=3, bbox_to_anchor=(0.5, 1.05),
                frameon=False, fontsize=9.5, labelcolor=INK)
     fig.tight_layout(rect=(0, 0, 1, 0.93))
@@ -737,7 +849,7 @@ def dtt_figure(names):
 DTT_CAPTION = """
 Each line is one protocol with defer to trusted; each point is one defer cut, and the label gives
 the share of submissions deferred. Further up is safer; further right keeps more of the untrusted
-model's work. The hollow marker defers nothing, so it is trusted monitoring: the bars above.
+model's work. The hollow marker defers nothing: it is the protocol on its own, as in the safety bars.
 """
 
 
@@ -2197,6 +2309,7 @@ if "digest" in POOL:  # the follow-up runs these cells read exist only for pool 
     md(explain_separation(), digest=True, full=False)
     code(separation_setup(), digest=True, full=False)
     figure(*separation_figure_cell(), digest=True, full=False)
+    code(paper_figures(), digest=True, full=False)
 
 md(explain_predictions(), digest=True, full=False)
 code(predictions_table(), digest=True, full=False)
