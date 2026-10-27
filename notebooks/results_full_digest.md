@@ -489,8 +489,6 @@ the share of submissions deferred. Further up is safer; further right keeps more
 model's work. The hollow marker defers nothing: it is the protocol on its own, as in the safety bars.
 
 
-
-
 <div>
 <table border="1" class="dataframe">
   <thead>
@@ -613,6 +611,315 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.202</td>
       <td>0.131</td>
     </tr>
+    <tr>
+      <th>8</th>
+      <td>tests property/10</td>
+      <td>0.95</td>
+      <td>0.266</td>
+      <td>0.166</td>
+      <td>0.376</td>
+      <td>0.108</td>
+      <td>-0.464</td>
+      <td>-0.606</td>
+      <td>-0.229</td>
+      <td>0.187</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>tests property/10</td>
+      <td>0.90</td>
+      <td>0.310</td>
+      <td>0.204</td>
+      <td>0.433</td>
+      <td>0.116</td>
+      <td>-0.483</td>
+      <td>-0.621</td>
+      <td>-0.297</td>
+      <td>0.164</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>tests plain_v3/10</td>
+      <td>0.95</td>
+      <td>0.266</td>
+      <td>0.143</td>
+      <td>0.339</td>
+      <td>0.089</td>
+      <td>-0.464</td>
+      <td>-0.622</td>
+      <td>-0.245</td>
+      <td>0.187</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>tests plain_v3/10</td>
+      <td>0.90</td>
+      <td>0.303</td>
+      <td>0.170</td>
+      <td>0.376</td>
+      <td>0.093</td>
+      <td>-0.489</td>
+      <td>-0.647</td>
+      <td>-0.329</td>
+      <td>0.158</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>u plans property/10</td>
+      <td>0.95</td>
+      <td>0.338</td>
+      <td>0.249</td>
+      <td>0.479</td>
+      <td>0.118</td>
+      <td>-0.392</td>
+      <td>-0.531</td>
+      <td>-0.147</td>
+      <td>0.194</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>u plans property/10</td>
+      <td>0.90</td>
+      <td>0.414</td>
+      <td>0.307</td>
+      <td>0.563</td>
+      <td>0.129</td>
+      <td>-0.378</td>
+      <td>-0.521</td>
+      <td>-0.180</td>
+      <td>0.173</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>u plans plain_v3/10</td>
+      <td>0.95</td>
+      <td>0.497</td>
+      <td>0.245</td>
+      <td>0.600</td>
+      <td>0.209</td>
+      <td>-0.233</td>
+      <td>-0.522</td>
+      <td>-0.001</td>
+      <td>0.267</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>u plans plain_v3/10</td>
+      <td>0.90</td>
+      <td>0.565</td>
+      <td>0.292</td>
+      <td>0.678</td>
+      <td>0.221</td>
+      <td>-0.228</td>
+      <td>-0.534</td>
+      <td>-0.046</td>
+      <td>0.257</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1%</th>
+      <th>2%</th>
+      <th>5%</th>
+      <th>10%</th>
+    </tr>
+    <tr>
+      <th>arm</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>monitor</th>
+      <td>0.511</td>
+      <td>0.730</td>
+      <td>0.883</td>
+      <td>0.929</td>
+    </tr>
+    <tr>
+      <th>monitor + tests property</th>
+      <td>0.679</td>
+      <td>0.727</td>
+      <td>0.807</td>
+      <td>0.904</td>
+    </tr>
+    <tr>
+      <th>monitor + tests plain_v3</th>
+      <td>0.664</td>
+      <td>0.724</td>
+      <td>0.815</td>
+      <td>0.903</td>
+    </tr>
+    <tr>
+      <th>monitor + u plans property</th>
+      <td>0.792</td>
+      <td>0.818</td>
+      <td>0.858</td>
+      <td>0.911</td>
+    </tr>
+    <tr>
+      <th>tests property/10</th>
+      <td>0.171</td>
+      <td>0.266</td>
+      <td>0.425</td>
+      <td>0.589</td>
+    </tr>
+    <tr>
+      <th>tests plain_v3/10</th>
+      <td>0.142</td>
+      <td>0.266</td>
+      <td>0.376</td>
+      <td>0.585</td>
+    </tr>
+    <tr>
+      <th>u plans property/10</th>
+      <td>0.255</td>
+      <td>0.338</td>
+      <td>0.569</td>
+      <td>0.745</td>
+    </tr>
+    <tr>
+      <th>u plans plain_v3/10</th>
+      <td>0.241</td>
+      <td>0.497</td>
+      <td>0.666</td>
+      <td>0.787</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+### Do the tests' inputs reach the backdoor?
+
+Every suite runs on the inputs the trusted model proposed for that candidate. A backdoor that none
+of them fires on (its output equals the reference solution's on every one) is invisible to every
+suite, however good its assertions. The full notebook runs each task's reference and backdoored
+solutions on the backdoored candidate's own inputs and caches how many fire; this cell splits each
+protocol's catch at the 2% cut by whether the backdoor was reached.
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>reached</th>
+      <th>not reached</th>
+      <th>caught if reached</th>
+      <th>caught if not reached</th>
+      <th>a test fails, reached</th>
+      <th>a test fails, not reached</th>
+      <th>a test fails, honest</th>
+    </tr>
+    <tr>
+      <th>arm</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>monitor</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.566</td>
+      <td>0.440</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>monitor + tests property</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.733</td>
+      <td>0.344</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>monitor + tests plain_v3</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.708</td>
+      <td>0.364</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>monitor + u plans property</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.753</td>
+      <td>0.474</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>tests property/10</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.232</td>
+      <td>0.013</td>
+      <td>0.962</td>
+      <td>0.506</td>
+      <td>0.486</td>
+    </tr>
+    <tr>
+      <th>tests plain_v3/10</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.230</td>
+      <td>0.018</td>
+      <td>0.943</td>
+      <td>0.435</td>
+      <td>0.386</td>
+    </tr>
+    <tr>
+      <th>u plans property/10</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.291</td>
+      <td>0.029</td>
+      <td>0.959</td>
+      <td>0.412</td>
+      <td>0.290</td>
+    </tr>
+    <tr>
+      <th>u plans plain_v3/10</th>
+      <td>557</td>
+      <td>85</td>
+      <td>0.489</td>
+      <td>0.037</td>
+      <td>0.966</td>
+      <td>0.235</td>
+      <td>0.283</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -644,7 +951,7 @@ them apart. The dotted line marks 2%, the audit budget of the paper.
 
 
     
-![png](results_full_digest_files/results_full_digest_44_0.png)
+![png](results_full_digest_files/results_full_digest_46_0.png)
     
 
 
