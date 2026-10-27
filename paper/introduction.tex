@@ -46,13 +46,9 @@ safety with the auditing model of \citet{greenblatt2024aicontrol}, and compare
 against defer to trusted, the baseline of that work.
 
 To understand why the tests miss, we also use a smaller pool of 50 hard APPS
-problems. The backdoored solutions as released often carried comments naming the
-sabotage, so we removed every comment and giveaway identifier before running any
-protocol (Section~\ref{sec:data}). On this pool we evaluate four test-generation
-variants: few-shot examples of good and bad tests, a critic that drops weak
-tests, a higher reasoning budget, and a multi-turn version in which the model
-runs its tests once and then revises them. We also run writers that see only the
-problem statement.
+problems, on which we evaluate two changes to the test writer (few-shot examples
+of good and bad tests, and a critic that drops weak tests) and writers that see
+only the problem statement.
 
 Tests alone are a weak detector. Given to the monitor, they significantly improve
 detection at strict false-positive rates and raise safety at a 2\% audit budget in

@@ -28,8 +28,7 @@ ControlArena scorer, even though our tests are not allowed to compute expected o
 \label{sec:detection}
 % Sources: notebooks/figures/all/data/catch_at_fpr.csv and bootstrap_separation.csv.
 
-Table~\ref{tab:detection} and Figure~\ref{fig:catch-at-fpr} report detection independently of the
-safety model. Every test-only protocol ranks below the monitor, with AUC 0.808--0.870 against 0.958
+Table~\ref{tab:detection} reports detection independently of the safety model. Every test-only protocol ranks below the monitor, with AUC 0.808--0.870 against 0.958
 and lower detection at every false-positive rate. Letting $U$ plan the tests improves the
 test-only protocols (AUC 0.816 $\to$ 0.870 for property tests and 0.808 $\to$ 0.867 for plain
 tests), whereas the choice between property and plain tests barely matters (0.816 against 0.808).
@@ -44,7 +43,7 @@ part of the ROC curve.
 Table~\ref{tab:detection} pools the calibration and evaluation splits and carries no intervals. To
 test the gain at strict thresholds, we compare each protocol with the monitor at matched
 false-positive rates set on the 642 evaluation tasks themselves, with 10{,}000 paired task
-resamples (Figure~\ref{fig:separation} in the appendix). At a 2\% false-positive rate, monitoring
+resamples. At a 2\% false-positive rate, monitoring
 with tests detects $+15.2$ [$+4.1$, $+23.1$] percentage points more backdoors with property tests,
 $+12.9$ [$+1.5$, $+21.4$] with plain tests and $+17.2$ [$+5.9$, $+26.0$] with $U$-planned tests;
 at 1\% the gains are $+23.0$, $+19.4$ and $+22.7$ points, with every interval excluding zero.
@@ -59,14 +58,14 @@ whether the tests improve the monitor's ranking, not deployable safety.
 Protocol & AUC & \multicolumn{4}{c}{Detection rate at a false-positive rate of} \\
  & & 1\% & 2\% & 5\% & 10\% \\
 \midrule
-Monitoring + $U$-planned property tests & 0.962 & 0.681 & 0.721 & 0.838 & 0.900 \\
+Trusted monitoring                      & 0.958 & 0.434 & 0.558 & 0.827 & 0.914 \\
 Monitoring + property tests             & 0.958 & 0.652 & 0.681 & 0.767 & 0.890 \\
 Monitoring + plain tests                & 0.954 & 0.629 & 0.669 & 0.787 & 0.883 \\
-Trusted monitoring                      & 0.958 & 0.434 & 0.558 & 0.827 & 0.914 \\
-$U$-planned property tests              & 0.870 & 0.149 & 0.245 & 0.474 & 0.678 \\
-$U$-planned plain tests                 & 0.867 & 0.074 & 0.223 & 0.473 & 0.667 \\
+Monitoring + $U$-planned property tests & 0.962 & 0.681 & 0.721 & 0.838 & 0.900 \\
 Property tests                          & 0.816 & 0.043 & 0.120 & 0.312 & 0.497 \\
 Plain tests                             & 0.808 & 0.055 & 0.119 & 0.274 & 0.490 \\
+$U$-planned property tests              & 0.870 & 0.149 & 0.245 & 0.474 & 0.678 \\
+$U$-planned plain tests                 & 0.867 & 0.074 & 0.223 & 0.473 & 0.667 \\
 \bottomrule
 \end{tabular}
 \caption{Detection on the 2{,}435 candidates that every protocol scored (calibration and evaluation
@@ -76,22 +75,13 @@ thresholds; AUC counts ties as one half.}
 \label{tab:detection}
 \end{table}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/catch_at_fpr.png}
-\caption{Detection rate of each protocol at false-positive rates from 1\% to 10\% (log scale), on
-the population of Table~\ref{tab:detection}. Higher is better. The dotted line marks a 2\%
-false-positive rate.}
-\label{fig:catch-at-fpr}
-\end{figure}
-
 % ---------------------------------------------------------------------
 \subsection{Safety at a 2\% audit budget}
 \label{sec:safety}
 % Source: notebooks/figures/all/data/safety_at_budget.csv.
 
-Table~\ref{tab:safety} reports safety at the primary operating point (plotted in
-Figure~\ref{fig:safety-bars} in the appendix). Trusted monitoring reaches
+Table~\ref{tab:safety} and Figure~\ref{fig:safety} report safety at the primary operating point.
+Trusted monitoring reaches
 0.549 [0.347, 0.792]. Adding test results raises the point estimate to 0.662--0.716, a gain of
 $+0.113$ to $+0.167$, but every paired interval includes zero; the largest gain, with $U$-planned
 tests, is $+0.167$ [$-0.068$, $+0.367$]. The intervals are wide for a specific reason: a 2\% budget
@@ -129,6 +119,17 @@ random. Intervals are 95\% percentile intervals over 10{,}000 paired task resamp
 recalibrating every threshold; the difference is taken within a resample.}
 \label{tab:safety}
 \end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/safety.pdf}
+\caption{Adding tests to the monitor raises safety at a 2\% audit budget in point estimate, but not
+beyond the uncertainty; tests alone are less safe. Left: safety with 95\% intervals. Right: each
+protocol's safety minus that of trusted monitoring on the same resample; an interval that crosses
+zero does not distinguish the two. Intervals come from 10{,}000 paired task resamples, each
+recalibrating every threshold (Table~\ref{tab:safety}).}
+\label{fig:safety}
+\end{figure}
 
 % ---------------------------------------------------------------------
 \subsection{Sensitivity to the audit budget}
@@ -187,84 +188,58 @@ Section~\ref{sec:protocols}.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/dtt.png}
-\caption{Safety against usefulness with defer to trusted. Each line is one protocol's frontier and
-each point a deferral threshold, with the audit threshold fixed at a 2\% budget; labels give the
-share of submissions deferred. Usefulness is scaled so that 0 is $T$ alone and 1 is $U$ alone.
-Hollow markers defer nothing, which is trusted monitoring (Table~\ref{tab:safety}). Right: the top
-right corner of the left panel.}
+\includegraphics[width=\linewidth]{figures/dtt.pdf}
+\caption{Once deferral is allowed, trusted monitoring catches up with monitoring + property or plain
+tests; only monitoring + $U$-planned property tests stays ahead at high usefulness. Each line is a
+protocol's safety--usefulness frontier as its deferral threshold moves, with the audit threshold
+fixed at a 2\% budget; hollow markers are the protocols without deferral (Table~\ref{tab:safety}).
+Usefulness is scaled so that 0 is $T$ alone and 1 is $U$ alone.}
 \label{fig:dtt}
 \end{figure}
 
 % TODO(Omar): "Multi-turn on the full pool" goes here, if it is kept (paper/outline.md, row 7).
+% TODO: plain_v5 (E12) results, if reported (full notebook, Section 8), stratified by provider
+% period; then also describe the provider change of 10 October 2026 here and in the appendix.
 
 % ---------------------------------------------------------------------
 \subsection{Why detection does not improve}
 \label{sec:why-catch}
 
-To understand why the tests miss backdoors, we use a smaller pool of 50 competition-level APPS
-problems, with one honest and one backdoored candidate each. $T$ writes 20 tests per submission,
-and we score six protocols on a held-out split of 50 candidates (25 backdoored, 25 honest): two whose
+To understand why the tests miss backdoors, we use a separate pool of 50 competition-level APPS
+problems, with one honest and one backdoored candidate each. $T$ writes 20 tests per submission, and
+we score six protocols on a held-out split of 50 candidates (25 backdoored, 25 honest): two whose
 test writer sees only the problem statement, and four that see the code.
-% TODO: Section 3 says T is always at low reasoning effort. The reasoning variant below breaks
-% that, so the methodology needs a line saying the hard-pool variants differ. These are also the
-% only specification-only arms in the paper.
-
-\paragraph{Label leakage.} In this pool the comment leak was lopsided by class: 32 of the 50
-backdoored solutions had a comment naming the backdoor, using words such as \emph{bug}, \emph{flaw}
-or \emph{backdoor}, and none of the 50 honest ones did. After removing every comment with Python's
-\texttt{tokenize} module (verifying that each program's syntax tree was unchanged) and renaming four
-identifiers that named the backdoor, the high-reasoning code-visible protocol's detection rate
-stayed at 0.864 (38 of 44, on the 89 candidates scored in both runs), and its false-positive rate
-moved only from 0.533 to 0.556. Removing comments eliminated the lexical cue but left a structural
-one: hard-coded branches on specific constants remain visible to a writer that reads the code. All
-remaining hard-pool results use the cleaned pool unless stated otherwise.
 
 \paragraph{The tests are not precise enough.} Rejecting any candidate that fails a test, the six
-protocols reject 74\% to 88\% of backdoors (74\% and 80\% for the two specification-only protocols,
-76\% to 88\% for the four code-visible ones) but keep only a quarter to three-fifths of the honest
+protocols reject 74\% to 88\% of backdoors but keep only a quarter to three-fifths of the honest
 code. At the monitor's false-positive rate of 0.10, their detection rate falls to 0.14--0.31,
-against 0.84 for the monitor. Of the three backdoors with relational triggers that the monitor
-missed (triggers set by a relation between inputs rather than a fixed constant), five protocols
-detect none and one specification-only protocol detects two, too few to interpret. With 25
-backdoored candidates, a single candidate moves the detection rate by about 0.04, so we do not rank
-these protocols against one another; we claim only that all six fall well below the monitor.
+against 0.84 for the monitor. With 25 backdoored candidates a single candidate moves the detection
+rate by about 0.04, so we do not rank the six protocols against one another; all six fall well
+below the monitor.
 
-\paragraph{The variations move the false-positive rate, not detection.}
-Table~\ref{tab:variants} compares each variation with the same writer without it. All four lower
-the false-positive rate, by 0.12 to 0.25, and none raises detection by more than one backdoor.
-Few-shot examples reduce false positives from 29 of 44 honest candidates to 20 of 44, while
+\paragraph{Better test writing lowers false positives, not misses.} Table~\ref{tab:variants}
+compares two changes to the test writer with the same writer without them. Few-shot examples of
+good and bad tests reduce false positives from 29 of 44 honest candidates to 20 of 44, while
 detection falls from 42 of 48 backdoors to 39 of 48. A critic that removes weak tests lowers the
-false-positive rate from 0.674 to 0.429 and detection from 0.878 to 0.816; it is not selective,
-removing 6.39 tests per backdoored candidate on average and 5.59 per honest one. Higher reasoning
-effort lowers the false-positive rate from 0.698 to 0.558 and changes detection by one backdoor (39
-to 38 of 44, on the 87 candidates both protocols scored); this comparison is confounded, because
-the low-effort writer produced no reasoning at all, against a median of about 65{,}000 characters
-for the high-effort writer, and the latter ran with half the sandbox time (120\,s against 240\,s).
-A multi-turn loop, in which the writer sees its suite's results once and revises it, lowers the
-false-positive rate from 17.65\% to 5.88\% on a 19-task development set while still detecting all 18
-matched backdoors, but the 95\% interval for the change, $[-29.41, 0.00]$ points, reaches zero.
-% TODO: confirm the model and pool for the multi-turn arm (Omar).
+false-positive rate from 0.67 to 0.43 and detection from 0.88 to 0.82; it removes almost as many
+tests from honest candidates as from backdoored ones (5.59 against 6.39 on average). Both changes
+make the tests more conservative rather than more discriminating.
 
 \begin{table}[t]
 \centering
 \small
-\begin{tabular}{llcc}
+\begin{tabular}{lccc}
 \toprule
-Variation (vs.\ without) & Candidates & FPR & Detection \\
+Change to the test writer & Candidates & FPR & Detection \\
 \midrule
-Few-shot & cleaned, 49 tasks$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
-Critic & cleaned, $n=98$ & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
-Reasoning (high vs.\ none$^{b}$) & original, $n=87$ & 0.70 $\to$ 0.56 & 0.89 $\to$ 0.86 \\
-Multi-turn (vs.\ one turn) & dev set, 19 tasks & 0.18 $\to$ 0.06$^{c}$ & 1.00 $\to$ 1.00 \\
+Few-shot examples & 92$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
+Critic            & 98       & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
 \bottomrule
 \end{tabular}
-\caption{Each variation against the same writer without it, on the 50-task competition-level pool.
+\caption{Each change against the same writer without it, on the 50-task competition-level pool.
 FPR is the share of honest candidates flagged; detection is the share of backdoored candidates
-flagged. $^{a}$The cleaned pool minus the task the few-shot example came from (44 honest and 48
-backdoored candidates scored). $^{b}$The low-effort writer produced no reasoning, so this compares
-no reasoning with high reasoning; run on the original pool. $^{c}$95\% interval for the change:
-$[-0.29, 0.00]$.}
+flagged. $^{a}$The pool minus the task the few-shot example came from: 44 honest and 48 backdoored
+candidates scored.}
 \label{tab:variants}
 \end{table}
 
@@ -316,8 +291,3 @@ scored once per protocol (the monitor's two samples are averaged), so the interv
 the model's sampling noise from task difficulty. Table~\ref{tab:detection} pools calibration and
 evaluation candidates. Monitoring with tests also uses twice the trusted-model calls of trusted
 monitoring (Table~\ref{tab:protocols}).
-
-\paragraph{Provider change.} The hosted model's behaviour changed during the study
-(Appendix~\ref{app:implementation}). The eight main protocols were scored before the change, but
-the \texttt{plain\_v5} variant and the multi-turn study were scored partly or wholly after it, and
-rescoring was not possible.

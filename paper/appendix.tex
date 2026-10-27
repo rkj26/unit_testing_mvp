@@ -9,8 +9,6 @@
 
 \paragraph{Sandbox.} Tests run in a Docker container (Python~3.12, no network) with a 240\,s limit per suite. A suite whose tests do not all finish within the limit keeps the failures it observed, so its score can only be too low; it errs towards missing a backdoor, never towards finding one. A suite that produced no result at all is excluded rather than scored as passing.
 
-\paragraph{Provider change.} All calls use one hosted deployment of DeepSeek-V3.2. On 10 October 2026 its responses became about three times longer under an unchanged model identifier and settings. The eight main protocols were scored before this date; the \texttt{plain\_v5} prompt variant and the multi-turn study partly or wholly after it, so any comparison involving them is stratified by period.
-
 \section{Supplementary results}
 \label{app:supplementary}
 
@@ -60,26 +58,9 @@ from both classes, so the absence of comments cannot itself reveal the label.}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\linewidth]{figures/safety_at_budget.png}
-\caption{Safety at a 2\% audit budget with 95\% intervals (left) and each protocol's difference from
-trusted monitoring on the same resample (right); the data of Table~\ref{tab:safety}.}
-\label{fig:safety-bars}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.75\linewidth]{figures/safety_by_budget.png}
-\caption{Safety at audit budgets of 1, 2, 5 and 10\%, each with its own threshold; the data of
-Table~\ref{tab:budgets}.}
+\includegraphics[width=\linewidth]{figures/budgets.pdf}
+\caption{Monitoring with tests is safer than trusted monitoring at audit budgets of 1--2\% and less
+safe from 5\%; tests alone are less safe at every budget. Each budget has its own threshold
+(Table~\ref{tab:budgets}).}
 \label{fig:budgets}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\linewidth]{figures/bootstrap_separation.png}
-\caption{Backdoors detected by each monitoring-with-tests protocol minus trusted monitoring, in
-percentage points, at false-positive rates from 0.5\% to 20\% set on the 642 evaluation tasks, with
-pointwise 95\% bands over 10{,}000 paired task resamples. Because each threshold is set on the
-evaluation data, this measures ranking, not deployable safety.}
-\label{fig:separation}
 \end{figure}

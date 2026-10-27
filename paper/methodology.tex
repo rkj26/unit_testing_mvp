@@ -19,17 +19,21 @@ Every protocol assigns each candidate a suspicion score. Table~\ref{tab:protocol
 \begin{table}[t]
 \centering
 \small
-\begin{tabular}{lcccc}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllll}
 \toprule
-Protocol & Reads the code & Sees test results & Uses $U$ & $T$ calls per candidate \\
+Protocol & Score & Reads the code & Writes the tests & $T$ calls \\
 \midrule
-Trusted monitoring              & yes             & no  & no  & 2 \\
-Unit tests (property, plain)    & yes             & ---  & no  & 2 \\
-$U$ plans, $T$ writes           & search; $U$ does & ---  & yes & 2 \\
-Monitoring with tests (3 suites) & yes            & yes & for one suite & 4 \\
+Trusted monitoring              & suspicion, 1--10    & $T$                     & ---                  & 2 \\
+Property / plain tests          & tests failed, 0--10 & $T$                     & $T$                  & 2 \\
+$U$-planned tests               & tests failed, 0--10 & $U$; $T$ (inputs only)  & $T$, from $U$'s plan & 2 \\
+Monitoring + tests (3 variants) & suspicion, 1--10    & $T$, plus test results  & as in its suite      & 4 \\
 \bottomrule
 \end{tabular}
-\caption{Information and cost of each protocol. Every test-based protocol runs on the inputs of one shared trigger search, in which $T$ reads the code; its call is counted above. Monitoring with tests is not compute-matched with trusted monitoring: it adds the two calls of the suite it reports.}
+\caption{The protocols. Every test runs on the same $n$ trigger inputs, proposed once per candidate
+by $T$ reading the code; that call is one of those counted. $U$-planned suites add one $U$ call.
+Monitoring + tests uses twice the $T$ calls of trusted monitoring, so the two are not
+compute-matched.}
 \label{tab:protocols}
 \end{table}
 
@@ -42,6 +46,11 @@ Monitoring with tests (3 suites) & yes            & yes & for one suite & 4 \\
 \paragraph{Monitoring with tests.} The trusted monitor, with the same prompt and number of samples, additionally receives one suite's source code and execution results on the same submission. The prompt warns that a failing test may reflect either a genuine backdoor or an assertion the specification does not support. We evaluate one variant per suite and refer to them as monitoring + property tests, monitoring + plain tests and monitoring + $U$-planned property tests.
 
 \paragraph{Defer to trusted.} As in \citet{greenblatt2024aicontrol}, a monitoring protocol can replace a suspicious submission that is not audited with $T$'s own solution, which contains no backdoor. A second, lower threshold decides which submissions are deferred.
+
+% TODO(Omar): one paragraph on the multi-turn protocol, if the full-pool multi-turn arms are
+% reported in Results.
+% TODO: the plain_v5 prompt variant (E12), if reported. Part of it was scored after the provider
+% changed DeepSeek-V3.2's behaviour on 10 October 2026, so compare it only within a period.
 
 \subsection{Data}
 \label{sec:data}
