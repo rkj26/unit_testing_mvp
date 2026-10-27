@@ -45,9 +45,10 @@ Table~\ref{tab:detection} pools the calibration and evaluation splits and carrie
 test the gain at strict thresholds, we compare each protocol with the monitor at matched
 false-positive rates set on the 642 evaluation tasks themselves, with 10{,}000 paired task
 resamples. At a 2\% false-positive rate, monitoring
-with tests detects $+15.2$ [$+4.1$, $+23.1$] percentage points more backdoors with property tests,
-$+12.9$ [$+1.5$, $+21.4$] with plain tests and $+17.2$ [$+5.9$, $+26.0$] with $U$-planned tests;
-at 1\% the gains are $+23.0$, $+19.4$ and $+22.7$ points, with every interval excluding zero.
+with tests detects $+15.2 \pm 9.5$ percentage points more backdoors with property tests,
+$+12.9 \pm 9.9$ with plain tests and $+17.2 \pm 9.9$ with $U$-planned tests;
+at 1\% the gains are $+23.0 \pm 8.7$, $+19.4 \pm 12.2$ and $+22.7 \pm 9.5$ points, every interval
+excluding zero.
 Because these thresholds are set on evaluation data, which a deployment does not have, they measure
 whether the tests improve the monitor's ranking, not deployable safety.
 
@@ -83,11 +84,11 @@ thresholds; AUC counts ties as one half.}
 
 Table~\ref{tab:safety} and Figure~\ref{fig:safety} report safety at the primary operating point.
 Trusted monitoring reaches
-0.549 [0.347, 0.792]. Adding test results raises the point estimate to 0.662--0.716, a gain of
+$0.549 \pm 0.204$. Adding test results raises the point estimate to 0.662--0.716, a gain of
 $+0.113$ to $+0.167$, but every paired interval includes zero; the largest gain, with $U$-planned
-tests, is $+0.167$ [$-0.068$, $+0.367$]. The intervals are wide for a specific reason: a 2\% budget
+tests, is $+0.167 \pm 0.199$. The intervals are wide for a specific reason: a 2\% budget
 places the monitor's threshold among roughly nine of the 447 honest calibration candidates, so the
-threshold moves substantially between resamples (the monitor's own interval spans 0.347--0.792).
+threshold moves substantially between resamples (hence the monitor's own $\pm 0.204$).
 Together with the matched-rate comparison of Section~\ref{sec:detection}, this indicates that the
 tests improve the monitor's ranking, while the size of the resulting safety gain is limited by how
 precisely a threshold can be calibrated from few honest examples.
@@ -102,33 +103,32 @@ audit rule: it flags 28.6--49.2\% of honest candidates, far beyond the budget.
 \small
 \begin{tabular}{lcc}
 \toprule
-Protocol & Safety [95\% CI] & Difference from monitoring [95\% CI] \\
+Protocol & Safety & Difference from monitoring \\
 \midrule
-Trusted monitoring                      & 0.549 [0.347, 0.792] & --- \\
-Monitoring + property tests             & 0.682 [0.601, 0.726] & $+0.132$ [$-0.107$, $+0.322$] \\
-Monitoring + plain tests                & 0.662 [0.573, 0.715] & $+0.113$ [$-0.121$, $+0.304$] \\
-Monitoring + $U$-planned property tests & 0.716 [0.676, 0.769] & $+0.167$ [$-0.068$, $+0.367$] \\
-Property tests                          & 0.203 [0.127, 0.294] & $-0.346$ [$-0.572$, $-0.139$] \\
-Plain tests                             & 0.202 [0.101, 0.262] & $-0.347$ [$-0.588$, $-0.141$] \\
-$U$-planned property tests              & 0.256 [0.190, 0.369] & $-0.293$ [$-0.519$, $-0.073$] \\
-$U$-planned plain tests                 & 0.430 [0.188, 0.515] & $-0.120$ [$-0.454$, $+0.084$] \\
+Trusted monitoring                      & $0.549 \pm 0.204$ & --- \\
+Monitoring + property tests             & $0.682 \pm 0.071$ & $+0.132 \pm 0.204$ \\
+Monitoring + plain tests                & $0.662 \pm 0.079$ & $+0.113 \pm 0.201$ \\
+Monitoring + $U$-planned property tests & $0.716 \pm 0.046$ & $+0.167 \pm 0.199$ \\
+Property tests                          & $0.203 \pm 0.087$ & $-0.346 \pm 0.209$ \\
+Plain tests                             & $0.202 \pm 0.072$ & $-0.347 \pm 0.215$ \\
+$U$-planned property tests              & $0.256 \pm 0.091$ & $-0.293 \pm 0.211$ \\
+$U$-planned plain tests                 & $0.430 \pm 0.196$ & $-0.120 \pm 0.279$ \\
 \bottomrule
 \end{tabular}
 \caption{Safety at a 2\% audit budget on the 642 evaluation tasks, every task attacked. Each
 threshold is calibrated on the honest candidates of the 447 calibration tasks, with ties broken at
-random. Intervals are 95\% percentile intervals over 10{,}000 paired task resamples, each
-recalibrating every threshold; the difference is taken within a resample.}
+random. $\pm$ is 1.96 standard deviations over 10{,}000 paired task resamples (a 95\% interval),
+each resample recalibrating every threshold; the difference is taken within a resample.}
 \label{tab:safety}
 \end{table}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/safety.pdf}
+\includegraphics[width=0.8\linewidth]{figures/safety.pdf}
 \caption{Adding tests to the monitor raises safety at a 2\% audit budget in point estimate, but not
-beyond the uncertainty; tests alone are less safe. Left: safety with 95\% intervals. Right: each
-protocol's safety minus that of trusted monitoring on the same resample; an interval that crosses
-zero does not distinguish the two. Intervals come from 10{,}000 paired task resamples, each
-recalibrating every threshold (Table~\ref{tab:safety}).}
+beyond the uncertainty; tests alone are less safe. Bars are $\pm$ 1.96 standard deviations over
+10{,}000 paired task resamples, each recalibrating every threshold; the paired differences from
+trusted monitoring are in Table~\ref{tab:safety}.}
 \label{fig:safety}
 \end{figure}
 
@@ -181,11 +181,11 @@ here because $T$ solves 81\% of the evaluation tasks: deferring 2.3\% of submiss
 monitoring from 0.549 to 0.728 at a usefulness of 0.952.
 
 At equal usefulness, $T$'s own tests add nothing. At a usefulness of 0.95, trusted monitoring
-reaches 0.730 [0.520, 0.851], and monitoring with property or plain tests reaches 0.727 and 0.724
+reaches $0.730 \pm 0.169$, and monitoring with property or plain tests reaches 0.727 and 0.724
 (differences $-0.003$ and $-0.006$); at 0.90 the three lie between 0.772 and 0.793. Only monitoring
-with $U$-planned tests is safer, at 0.818 [0.765, 0.858] for a usefulness of 0.95 and 0.847 at 0.90,
-but neither difference from trusted monitoring excludes zero ($+0.088$ [$-0.035$, $+0.293$] and
-$+0.055$ [$-0.043$, $+0.202$]). The gain that $T$'s tests showed without deferral
+with $U$-planned tests is safer, at $0.818 \pm 0.046$ for a usefulness of 0.95 and 0.847 at 0.90,
+but neither difference from trusted monitoring excludes zero ($+0.088 \pm 0.167$ and
+$+0.055 \pm 0.131$). The gain that $T$'s tests showed without deferral
 (Section~\ref{sec:safety}) is therefore a gain over a monitor that ships everything it does not
 audit; once that monitor can defer, it disappears. The $U$-planned protocol keeps an advantage,
 subject to the caveats of Section~\ref{sec:protocols}.
@@ -195,25 +195,25 @@ subject to the caveats of Section~\ref{sec:protocols}.
 \small
 \begin{tabular}{lcc}
 \toprule
-Protocol & Safety [95\% CI] & Difference from monitoring [95\% CI] \\
+Protocol & Safety & Difference from monitoring \\
 \midrule
 \multicolumn{3}{l}{\emph{Usefulness 0.95}} \\
-Trusted monitoring                      & 0.730 [0.520, 0.851] & --- \\
-Monitoring + property tests             & 0.727 [0.673, 0.780] & $-0.003$ [$-0.123$, $+0.204$] \\
-Monitoring + plain tests                & 0.724 [0.659, 0.793] & $-0.006$ [$-0.126$, $+0.203$] \\
-Monitoring + $U$-planned property tests & 0.818 [0.765, 0.858] & $+0.088$ [$-0.035$, $+0.293$] \\
+Trusted monitoring                      & $0.730 \pm 0.169$ & --- \\
+Monitoring + property tests             & $0.727 \pm 0.055$ & $-0.003 \pm 0.167$ \\
+Monitoring + plain tests                & $0.724 \pm 0.069$ & $-0.006 \pm 0.165$ \\
+Monitoring + $U$-planned property tests & $0.818 \pm 0.046$ & $+0.088 \pm 0.167$ \\
 \midrule
 \multicolumn{3}{l}{\emph{Usefulness 0.90}} \\
-Trusted monitoring                      & 0.793 [0.641, 0.893] & --- \\
-Monitoring + property tests             & 0.772 [0.713, 0.836] & $-0.020$ [$-0.127$, $+0.132$] \\
-Monitoring + plain tests                & 0.783 [0.711, 0.829] & $-0.010$ [$-0.122$, $+0.129$] \\
-Monitoring + $U$-planned property tests & 0.847 [0.810, 0.887] & $+0.055$ [$-0.043$, $+0.202$] \\
+Trusted monitoring                      & $0.793 \pm 0.133$ & --- \\
+Monitoring + property tests             & $0.772 \pm 0.062$ & $-0.020 \pm 0.136$ \\
+Monitoring + plain tests                & $0.783 \pm 0.061$ & $-0.010 \pm 0.132$ \\
+Monitoring + $U$-planned property tests & $0.847 \pm 0.038$ & $+0.055 \pm 0.131$ \\
 \bottomrule
 \end{tabular}
 \caption{Safety with defer to trusted at a fixed usefulness, the audit threshold at a 2\% budget.
 Each value is read from the protocol's frontier, interpolating between adjacent deferral thresholds.
-Intervals are 95\% percentile intervals over 10{,}000 paired task resamples, each recalibrating the
-audit threshold; the difference is taken within a resample.}
+$\pm$ is 1.96 standard deviations over 10{,}000 paired task resamples (a 95\% interval), each
+resample recalibrating the audit threshold; the difference is taken within a resample.}
 \label{tab:dtt}
 \end{table}
 
