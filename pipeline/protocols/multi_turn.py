@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Any
 
 from .. import launch, model as model_mod, sandbox
-from ..data import CONFIG_FILE, Blame, Dataset, RUNS_DIR, load_records
+from ..data import CONFIG_FILE, Blame, Dataset, RUNS_DIR, load_records, load_retried
 from .base import CALLS, FAILURE_FIELDS, IDENTITY_FIELDS, POLL_SECONDS, Run, RunFailed
 from .second_revision import SecondRevision
 from .test_repair import feedback_summary
@@ -507,16 +507,23 @@ class UnretriedInfraFailures(RuntimeError):
 
 
 def _stop_on_infra_failures(run: Run, next_stage: str, accept: bool) -> None:
-    """Raise before `next_stage` starts if `run` holds infra failures, unless they were accepted.
+    """Raise before `next_stage` starts if `run` holds infra failures that never had their retry,
+    unless they were accepted.
 
-    A resume does not retry an infra failure (protocols/AGENTS.md). For the inputs and arm A that
-    is permanent: once A is replayed, the bundle freezes the failure into B, C and D, whose hash
-    checks then refuse any later retry. So the chain stops here while a retry is still possible.
-    Once `next_stage` exists the decision is on disk, and a re-executed notebook is never stopped.
+    `Run.execute` retries every infra failure once, in the session, and keeps the replaced failure
+    in `infra_retried.jsonl`. A failure that persists after that retry is final: it is the
+    retry-once-then-accept policy, so it passes as an explicit exclusion. Only a failure with no
+    retry stops the chain, which in practice means records written before automatic retries: once
+    A is replayed, the bundle freezes the failure into B, C and D, whose hash checks then refuse
+    any later retry. Once `next_stage` exists the decision is on disk, and a re-executed notebook
+    is never stopped.
     """
     if accept or (RUNS_DIR / next_stage / CONFIG_FILE).is_file():
         return
-    infra = [row for row in run.get_records() if row["failed"] and row["blame"] == Blame.INFRA.value]
+    retried = {row["candidate_id"] for row in load_retried(run.run_name)}
+    infra = [row for row in run.get_records()
+             if row["failed"] and row["blame"] == Blame.INFRA.value
+             and row["candidate_id"] not in retried]
     if infra:
         examples = "; ".join(f"{row['candidate_id']}: {row['reason']}" for row in infra[:3])
         raise UnretriedInfraFailures(

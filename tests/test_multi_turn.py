@@ -352,6 +352,25 @@ def test_an_arm_a_infra_failure_stops_the_chain_before_it_is_frozen_in(tmp_path,
     assert study.complete() is True
 
 
+def test_the_chain_stops_only_for_an_infra_failure_that_never_had_its_retry(tmp_path):
+    arm = Path("runs/legacy-arm")
+    arm.mkdir(parents=True)
+    (arm / "config.json").write_text("{}")
+    failure = {"candidate_id": "x", "failed": True, "blame": "infra", "reason": "timeout"}
+
+    class Legacy:
+        run_name = "legacy-arm"
+
+        @staticmethod
+        def get_records():
+            return [failure]
+
+    with pytest.raises(UnretriedInfraFailures, match="legacy-arm"):
+        multi_turn._stop_on_infra_failures(Legacy, "legacy-next", accept=False)
+    (arm / "infra_retried.jsonl").write_text(json.dumps(failure) + "\n")
+    multi_turn._stop_on_infra_failures(Legacy, "legacy-next", accept=False)
+
+
 def test_a_reused_trigger_run_stands_in_for_the_input_search_and_is_never_called(tmp_path, monkeypatch):
     data = _mini_apps(tmp_path)
     boundary = Boundary(data)
