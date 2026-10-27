@@ -468,6 +468,119 @@ Each line is one protocol with defer to trusted; each point is one defer cut, an
 the share of submissions deferred. Further up is safer; further right keeps more of the untrusted
 model's work. The hollow marker defers nothing: it is the protocol on its own, as in the safety bars.
 
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>arm</th>
+      <th>usefulness</th>
+      <th>safety</th>
+      <th>safety low</th>
+      <th>safety high</th>
+      <th>minus monitor</th>
+      <th>minus monitor low</th>
+      <th>minus monitor high</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>monitor</td>
+      <td>0.95</td>
+      <td>0.730</td>
+      <td>0.520</td>
+      <td>0.851</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>monitor</td>
+      <td>0.90</td>
+      <td>0.793</td>
+      <td>0.641</td>
+      <td>0.893</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>monitor + tests property</td>
+      <td>0.95</td>
+      <td>0.727</td>
+      <td>0.673</td>
+      <td>0.780</td>
+      <td>-0.003</td>
+      <td>-0.123</td>
+      <td>0.204</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>monitor + tests property</td>
+      <td>0.90</td>
+      <td>0.772</td>
+      <td>0.713</td>
+      <td>0.836</td>
+      <td>-0.020</td>
+      <td>-0.127</td>
+      <td>0.132</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>monitor + tests plain_v3</td>
+      <td>0.95</td>
+      <td>0.724</td>
+      <td>0.659</td>
+      <td>0.793</td>
+      <td>-0.006</td>
+      <td>-0.126</td>
+      <td>0.203</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>monitor + tests plain_v3</td>
+      <td>0.90</td>
+      <td>0.783</td>
+      <td>0.711</td>
+      <td>0.829</td>
+      <td>-0.010</td>
+      <td>-0.122</td>
+      <td>0.129</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>monitor + u plans property</td>
+      <td>0.95</td>
+      <td>0.818</td>
+      <td>0.765</td>
+      <td>0.858</td>
+      <td>0.088</td>
+      <td>-0.035</td>
+      <td>0.293</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>monitor + u plans property</td>
+      <td>0.90</td>
+      <td>0.847</td>
+      <td>0.810</td>
+      <td>0.887</td>
+      <td>0.055</td>
+      <td>-0.043</td>
+      <td>0.202</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 ### Do the tests rank attacks better? (not a deployment result)
 
 **This is not how a deployment works.** Here each arm's cut is set on the test tasks themselves. A
@@ -493,7 +606,7 @@ them apart. The dotted line marks 2%, the audit budget of the paper.
 
 
     
-![png](results_full_digest_files/results_full_digest_43_0.png)
+![png](results_full_digest_files/results_full_digest_44_0.png)
     
 
 
