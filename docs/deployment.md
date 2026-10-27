@@ -1,5 +1,9 @@
 # Deployment — the one section not yet rebuilt
 
+**Superseded 2026-10-26.** Safety is now computed per sample, as Greenblatt et al. do (Section 6 of
+every full notebook, `safety_setup`): the budget sets the cut, every candidate above it is audited, and
+every task is attacked. The game this file describes is not coming back; its defects are kept as a record.
+
 Everything else in this repo was rewritten around one protocol, one run, one artifact. The
 deployment game was not. It lived in five cells of a since-deleted notebook and was deleted
 from the library on the grounds that the notebook is the source; it has not been written back.

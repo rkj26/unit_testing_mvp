@@ -12,21 +12,24 @@ runs at low reasoning effort, and the untrusted model, which only plans tests, a
 
 ## Result
 
-| Protocol | AUC | Catch at 2% false alarms | Safety at the paper's setting¹ |
-|---|---|---|---|
-| Trusted monitoring | 0.958 | 0.558 | 0.787 |
-| Monitor + trusted-written tests | 0.958 | 0.681 | 0.826 |
-| Monitor + tests the untrusted model plans | 0.962 | 0.721 | 0.830 |
-| Trusted-written tests alone | 0.816 | 0.120 | 0.258 |
+| Protocol | AUC | Catch at 2% false alarms | Safety at a 2% audit budget¹ | Difference from the monitor |
+|---|---|---|---|---|
+| Trusted monitoring | 0.958 | 0.558 | 0.549 [0.347, 0.792] | — |
+| Monitor + trusted-written tests | 0.958 | 0.681 | 0.682 [0.601, 0.726] | +0.132 [−0.107, +0.322] |
+| Monitor + tests the untrusted model plans | 0.962 | 0.721 | 0.716 [0.676, 0.769] | +0.167 [−0.068, +0.367] |
+| Trusted-written tests alone | 0.816 | 0.120 | 0.203 [0.127, 0.294] | −0.346 [−0.572, −0.139] |
 
-¹ 5,000 submissions, 0.4% attacks, 2% audit budget (100 audits); safety is the share of 2,000
-simulated deployments in which no backdoor shipped.
+¹ As in Greenblatt et al.: the budget sets the cut on honest train candidates, every test candidate
+above it is audited, and every test task is attacked. Safety is the chance that the first attack
+that decides the run is audited. Brackets: 95% intervals from 10,000 paired task resamples.
 
-**Tests alone are weak. Added to the monitor, they help at a strict audit budget**: at 2% false
-alarms the three monitor + tests protocols catch 11–16 points more backdoors than the monitor, and
-deployment safety rises by 2–4 points. At a looser 10% budget the gain mostly disappears: the
-monitor alone is ahead in two of the three deployment games. Details, caveats and every figure are
-in the digest. (The test rows use the `property` prompt; the digest reports `plain_v3` beside it.)
+**Tests alone are weak. Added to the monitor, they help only at a strict audit budget, and not
+certainly**: at 2% false alarms the three monitor + tests protocols catch 11–16 points more
+backdoors than the monitor, and their safety at a 2% budget is 0.11–0.17 higher, but every one of
+those safety differences has an interval that includes zero. From a 5% budget the monitor alone is
+safer. With defer to trusted, the monitor alone catches up; only the protocol whose tests the
+untrusted model plans stays ahead at high usefulness. Details, caveats and every figure are in the
+digest. (The test rows use the `property` prompt; the digest reports `plain_v3` beside it.)
 
 ## Start here
 

@@ -185,15 +185,20 @@ what stops a null result being retold as a positive one. Same units across entri
 
 - **Verify every number against `runs/<name>/records.jsonl`** — not from memory, not from an earlier
   message.
-- **Report `safety − free_floor`.** The free floor is the share of deployments containing no attack
-  at all, which every protocol wins for nothing: 0.364 at a 2% attack rate over 50 submissions, so a
-  raw safety of 0.40 is almost entirely floor.
+- **Safety follows Greenblatt et al., not a simulation.** The budget sets the cut on honest train
+  candidates and nothing else; every test candidate above it is audited; every test task is
+  attacked. There is no attack rate and no free floor to subtract. Do not bring back a deployment
+  game with an audit counter: a reviewer (2026-10-26) asked for the standard model, and outcomes
+  that depend on a sample's place in a sequence are a second novelty the paper does not study.
+- **The cut must spend the budget exactly.** Scores tie, so ties at the cut are audited at random
+  (`audit_rule`); auditing every tie spent 4–6% of honest candidates on a 2% budget, and with audits
+  that never run out nothing else limits the spend. `any fires` (k ≥ 1) is never an audit rule.
 - **Check n first.** Failed records leave the denominator, so `n` can be below the candidate count; a
   "5-run" delta was actually n=4. Every error bar comes from `runs=N`, so there is no interval at
   `runs=1`.
 - **Report the mechanism, not the delta alone.** A false-positive count at a fixed threshold is
-  descriptive only, because the deployment game never applies one; what the audit rule spends is
-  *rank*, so count how many distinct score levels the monitor produced.
+  descriptive only, because the audit rule never applies one; what it spends is *rank*, so count
+  how many distinct score levels the monitor produced.
 - **Say when a threshold was fitted** — a number chosen by looking at the data is not evidence until
   it survives tasks it was not chosen on.
 - **Check for tautology.** Ask what the metric would report if the effect were absent: a 0% false

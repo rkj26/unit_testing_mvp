@@ -1,7 +1,7 @@
 # `notebooks/`
 
 **Calls a model → a run. Everything else → a cell.** Every metric is computed in a cell: the
-threshold sweep (§5), the deployment game (§6), the budget × attack-rate surface (§7). This file
+threshold sweep (§5) and safety at an audit budget (§6). This file
 used to say the opposite — *"a notebook reads artifacts; it never produces a number"* — and that
 rule died with the three scripts it routed numbers through. `probe.py`, `audit.py` and
 `analyse_probes.py` are deleted; what it was protecting is now held by the run directory, which
