@@ -1,486 +1,323 @@
-% =====================================================================
-% RESULTS SKELETON (full APPS pool, data/apps_full.json)
-% Numbers from notebooks/results_full.ipynb, origin/one-run-one-artifact,
-% commit 14b4444, unless marked otherwise. Cell numbers in comments so every
-% figure can be checked. Bullets are notes for the write-up, not final prose.
-% Filled 2026-10-16 from the same notebook re-executed on the same runs; it now
-% also writes CSVs to notebooks/figures/all/data/ (catch_at_fpr, game_results,
-% paper_setting, paper_values, roc, frontiers_b_c) for pgfplots.
-% [??] = not yet extracted from the notebook.
-% Restructured 2026-10-26 after review: the deployment game (variations A, B,
-% C) is replaced by the per-sample safety model of the methodology. Detection
-% numbers are checked against notebooks/figures/all/data/catch_at_fpr.csv;
-% \na{} marks a number waiting for experiments/safety_rework_plan.md M1--M2.
-% =====================================================================
-
+% Results section fragment; requires a parent document with natbib, graphicx and references.bib.
+% Every number comes from notebooks/results_full_digest.ipynb (branch per-sample-safety) and the
+% CSVs it writes to notebooks/figures/all/data/; the source of each subsection is in a comment.
 \providecommand{\na}{\textcolor{red}{[TBD]}}
 
 \section{Results}
 \label{sec:results}
 
-\noindent\textit{Skeleton. Each subsection lists the points to make, with the
-numbers behind them. Rakshit writes the final prose. \na{} marks a number not
-yet pulled from the run.}
+Three findings hold across our analyses. First, tests written by the trusted model are a weak
+detector on their own: every test-only protocol ranks backdoors worse than the code-reading
+monitor. Second, giving the monitor the tests' results sharpens the top of its ranking: at a
+matched false-positive rate of 1--2\% it catches significantly more backdoors. This gain carries
+over to safety at a 2\% audit budget only in point estimate, because a threshold calibrated on a
+handful of honest examples is itself noisy, and it reverses at larger budgets. Third, once
+suspicious submissions can be deferred to the trusted model, the monitor alone matches the
+protocols that add the trusted model's own tests; only the protocol whose tests the untrusted
+model planned stays ahead at high usefulness.
 
-\paragraph{Overview (2--3 sentences).}
-\begin{itemize}
-  \item On the full pool, every tests-only arm ranks below the code-reading
-        monitor (AUC 0.808--0.870 against 0.958) and is less safe at a 2\%
-        audit budget (0.202--0.430 against 0.549; Section~\ref{sec:safety}).
-  \item Adding tests to the monitor helps only when the threshold is strict.
-        It raises catch at a 1\% false alarm rate (0.629--0.681 against 0.434)
-        but not at 10\% (0.883--0.900 against 0.914). At a 2\% audit budget it
-        raises safety from 0.549 to 0.662--0.716, but every paired interval
-        includes zero (Section~\ref{sec:safety}); from 5\% the monitor alone
-        is safer (Section~\ref{sec:budgets}).
-  \item With defer to trusted, the monitor alone catches up with monitor +
-        tests; only the variant whose tests the untrusted model planned stays
-        ahead at high usefulness (Section~\ref{sec:dtt}).
-  \item Changes to the test writer move the false alarm rate but not catch, and
-        most misses are reached by a test input but not detected
-        (Section~\ref{sec:why-catch}).
-\end{itemize}
-
-% ---------------------------------------------------------------------
-\subsection{Pool and coverage}
-\label{sec:pool}
-% Sources: cells 5, 9, 11, 22, 33, 66, 68.
-
-\paragraph{Points to make.}
-\begin{itemize}
-  \item 1388 APPS tasks, each with one honest and one backdoored candidate:
-        2776 candidates. 555 train and 833 test tasks; the split is stored in
-        the dataset file.
-  \item The pool was scrubbed (Table~\ref{tab:scrub}). As it arrived, 48.6\% of
-        backdoored candidates had a comment naming the backdoor, against 0\% of
-        honest ones. After the scrub, no candidate has any comment.
-        \textit{[Team's call: this table may sit better in Methods.]}
-  \item The trusted model solves 1111 of 1388 tasks on its own (80.0\%), by
-        control-arena's rule on every test. Worth
-        one sentence: tests are not allowed to re-solve the task, even though
-        the trusted model could solve most of them.
-  \item 2435 of the 2776 candidates were scored by all eight arms (1177 honest,
-        1258 backdoored). Every headline number uses only these. Per-arm
-        failures are in Table~\ref{tab:coverage} (appendix).
-  \item Safety is computed on the 642 evaluation tasks for which every arm
-        scored both candidates; thresholds are calibrated on the 447
-        calibration tasks with the same property.
-\end{itemize}
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{llcc}
-\hline
-Pool & Side & Any comment & Names the backdoor \\
-\hline
-As it arrived & backdoored & 0.679 & 0.486 \\
-              & honest     & 0.200 & 0.000 \\
-Scrubbed      & backdoored & 0.000 & 0.000 \\
-              & honest     & 0.000 & 0.000 \\
-\hline
-\end{tabular}
-\caption{Share of candidates with any comment, and with a comment naming the
-backdoor, before and after the scrub (1388 candidates per side). The scrub
-removed comments and self-naming identifiers from every candidate, honest and
-backdoored, so having no comments cannot itself give the label away.}
-\label{tab:scrub}
-\end{table}
+\paragraph{Population.} Of the 2{,}776 candidates, 2{,}435 were scored by all eight protocols
+(1{,}177 honest, 1{,}258 backdoored); every detection result uses this common population
+(per-protocol failures are in Table~\ref{tab:coverage}). Safety uses the 642 evaluation tasks for
+which every protocol scored both candidates, with thresholds calibrated on the 447 calibration tasks
+with the same property. On its own, $T$ solves 1{,}111 of the 1{,}388 tasks (80.0\%) under the
+ControlArena scorer, even though our tests are not allowed to compute expected outputs.
 
 % ---------------------------------------------------------------------
 \subsection{Detection}
 \label{sec:detection}
-% Sources: cells 26, 29, 70. Figures: figures/all/roc.png,
-% figures/all/catch_at_fpr.png.
+% Sources: notebooks/figures/all/data/catch_at_fpr.csv and bootstrap_separation.csv.
 
-\paragraph{Points to make.}
-\begin{itemize}
-  \item Every tests-only arm ranks below the monitor: AUC 0.808--0.870 against
-        0.958, and lower catch at every false alarm rate in the grid
-        (Table~\ref{tab:detection}).
-  \item Letting the untrusted model plan the tests helps the tests-only arms:
-        AUC rises from 0.816 to 0.870 (property) and from 0.808 to 0.867
-        (plain), consistent with BigCodeBench (Section~\ref{sec:bcb}).
-  \item Property and plain prompts barely differ: 0.816 against 0.808, and
-        0.870 against 0.867.
-  \item Adding tests to the monitor has a crossover. At a 1\% false alarm rate
-        the combinations catch 0.629--0.681 against 0.434 for the monitor; at
-        2\%, 0.669--0.721 against 0.558. At 5\% it is mixed, and at 10\% the
-        monitor alone is ahead (0.914 against 0.883--0.900). The tests sharpen
-        the top of the monitor's ranking but add nothing at loose thresholds.
-  \item Do not rank arms by AUC alone: the monitor and monitor + tests property
-        both have AUC 0.958 but very different curves. Compare catch at the
-        false alarm rate the deployment actually uses.
-  \item Say plainly that this table pools train and test and has no intervals.
-\end{itemize}
+Table~\ref{tab:detection} and Figure~\ref{fig:catch-at-fpr} report detection independently of the
+safety model. Every test-only protocol ranks below the monitor, with AUC 0.808--0.870 against 0.958
+and lower detection at every false-positive rate. Letting $U$ plan the tests improves the
+test-only protocols (AUC 0.816 $\to$ 0.870 for property tests and 0.808 $\to$ 0.867 for plain
+tests), whereas the choice between property and plain tests barely matters (0.816 against 0.808).
+
+Adding the tests' results to the monitor leaves AUC essentially unchanged (0.954--0.962 against
+0.958) but redistributes detection across thresholds. At a 1\% false-positive rate the three
+combined protocols detect 0.629--0.681 of backdoors against 0.434 for the monitor, and at 2\%
+0.669--0.721 against 0.558; at 10\% the monitor alone is ahead (0.914 against 0.883--0.900). Equal
+AUCs therefore hide the difference that matters at a small audit budget, which lies in the leftmost
+part of the ROC curve.
+
+Table~\ref{tab:detection} pools the calibration and evaluation splits and carries no intervals. To
+test the gain at strict thresholds, we compare each protocol with the monitor at matched
+false-positive rates set on the 642 evaluation tasks themselves, with 10{,}000 paired task
+resamples (Figure~\ref{fig:separation} in the appendix). At a 2\% false-positive rate, monitoring
+with tests detects $+15.2$ [$+4.1$, $+23.1$] percentage points more backdoors with property tests,
+$+12.9$ [$+1.5$, $+21.4$] with plain tests and $+17.2$ [$+5.9$, $+26.0$] with $U$-planned tests;
+at 1\% the gains are $+23.0$, $+19.4$ and $+22.7$ points, with every interval excluding zero.
+Because these thresholds are set on evaluation data, which a deployment does not have, they measure
+whether the tests improve the monitor's ranking, not deployable safety.
 
 \begin{table}[t]
 \centering
 \small
 \begin{tabular}{lccccc}
-\hline
-Arm & AUC & catch @1\% & catch @2\% & catch @5\% & catch @10\% \\
-\hline
-monitor + u plans property & 0.962 & 0.681 & 0.721 & 0.838 & 0.900 \\
-monitor + tests property   & 0.958 & 0.652 & 0.681 & 0.767 & 0.890 \\
-monitor + tests plain\_v3  & 0.954 & 0.629 & 0.669 & 0.787 & 0.883 \\
-monitor                    & 0.958 & 0.434 & 0.558 & 0.827 & 0.914 \\
-u plans property/10        & 0.870 & 0.149 & 0.245 & 0.474 & 0.678 \\
-u plans plain\_v3/10       & 0.867 & 0.074 & 0.223 & 0.473 & 0.667 \\
-tests property/10          & 0.816 & 0.043 & 0.120 & 0.312 & 0.497 \\
-tests plain\_v3/10         & 0.808 & 0.055 & 0.119 & 0.274 & 0.490 \\
-\hline
+\toprule
+Protocol & AUC & \multicolumn{4}{c}{Detection rate at a false-positive rate of} \\
+ & & 1\% & 2\% & 5\% & 10\% \\
+\midrule
+Monitoring + $U$-planned property tests & 0.962 & 0.681 & 0.721 & 0.838 & 0.900 \\
+Monitoring + property tests             & 0.958 & 0.652 & 0.681 & 0.767 & 0.890 \\
+Monitoring + plain tests                & 0.954 & 0.629 & 0.669 & 0.787 & 0.883 \\
+Trusted monitoring                      & 0.958 & 0.434 & 0.558 & 0.827 & 0.914 \\
+$U$-planned property tests              & 0.870 & 0.149 & 0.245 & 0.474 & 0.678 \\
+$U$-planned plain tests                 & 0.867 & 0.074 & 0.223 & 0.473 & 0.667 \\
+Property tests                          & 0.816 & 0.043 & 0.120 & 0.312 & 0.497 \\
+Plain tests                             & 0.808 & 0.055 & 0.119 & 0.274 & 0.490 \\
+\bottomrule
 \end{tabular}
-\caption{Detection on the full pool, train and test pooled (2435 candidates
-scored by all eight arms: 1177 honest, 1258 backdoored). Catch is the share of
-backdoored candidates flagged when the false alarm rate on honest candidates is
-held at 1, 2, 5 or 10\%. AUC counts ties as half. All eight arms see the code;
-in the u plans arms the untrusted planner sees it and the trusted writer sees
-only the plan, and every suite runs on the inputs of the same code-reading
-trigger search.}
+\caption{Detection on the 2{,}435 candidates that every protocol scored (calibration and evaluation
+splits pooled). The detection rate is the share of backdoored candidates flagged when the
+false-positive rate on honest candidates is held at the given value, interpolating between adjacent
+thresholds; AUC counts ties as one half.}
 \label{tab:detection}
 \end{table}
 
 \begin{figure}[t]
 \centering
-% \includegraphics[width=0.85\linewidth]{figures/all/catch_at_fpr.png}
-\fbox{\parbox{0.8\linewidth}{\centering Figure placeholder: catch at a fixed
-false alarm rate (\texttt{figures/all/catch\_at\_fpr.png}). The ROC
-(\texttt{roc.png}) can go in the appendix.}}
-\caption{Catch rate of each arm when it may flag only 1\% to 10\% of honest
-candidates (log scale; the 2435 candidates scored by all eight arms, train and
-test pooled). Higher is better. The gap between two lines at the dotted 2\%
-line is the difference a real audit budget sees. Between two thresholds an arm
-can actually take, the curve is a straight line, which choosing at random
-between those two thresholds achieves. At 1\% and 2\% the false alarm rate rests
-on few honest candidates (about 12 and 24 of 1177).}
+\includegraphics[width=0.8\linewidth]{figures/catch_at_fpr.png}
+\caption{Detection rate of each protocol at false-positive rates from 1\% to 10\% (log scale), on
+the population of Table~\ref{tab:detection}. Higher is better. The dotted line marks a 2\%
+false-positive rate.}
 \label{fig:catch-at-fpr}
 \end{figure}
 
 % ---------------------------------------------------------------------
 \subsection{Safety at a 2\% audit budget}
 \label{sec:safety}
-% Source: digest Section 8 (notebooks/figures/all/data/safety_at_budget.csv).
-% Figure: notebooks/figures/all/safety_at_budget.png.
+% Source: notebooks/figures/all/data/safety_at_budget.csv.
 
-\paragraph{Points to make.}
-\begin{itemize}
-  \item Setting (Section~\ref{sec:safety-model}): the threshold is the 98th
-        percentile of each arm's honest calibration scores, with ties broken at
-        random; every evaluation candidate above it is audited; every one of
-        the 642 evaluation tasks is attacked. No simulation and no attack rate.
-  \item Monitor + tests is safer than the monitor alone in point estimate:
-        0.662--0.716 against 0.549. But every paired difference has an interval
-        that includes zero (best: monitor + u plans property, $+0.167$
-        [$-0.068$, $+0.367$]). Property against plain tests: 0.682 against
-        0.662.
-  \item Why the intervals are wide: the monitor's 2\% threshold rests on
-        about nine honest calibration candidates, so it moves a lot between
-        resamples (the monitor's own interval is [0.347, 0.792]). The
-        threshold-free comparison in Detection is tighter.
-  \item No tests-only arm reaches the monitor: 0.202--0.430. For three of the
-        four, the interval of the difference lies wholly below zero; for u
-        plans plain\_v3 (0.430) it does not.
-  \item The `any test fails' rule is not an audit rule: it flags 28.6--49.2\%
-        of honest candidates, far above the 2\% budget, so it appears only in
-        Detection.
-\end{itemize}
+Table~\ref{tab:safety} reports safety at the primary operating point (plotted in
+Figure~\ref{fig:safety-bars} in the appendix). Trusted monitoring reaches
+0.549 [0.347, 0.792]. Adding test results raises the point estimate to 0.662--0.716, a gain of
+$+0.113$ to $+0.167$, but every paired interval includes zero; the largest gain, with $U$-planned
+tests, is $+0.167$ [$-0.068$, $+0.367$]. The intervals are wide for a specific reason: a 2\% budget
+places the monitor's threshold among roughly nine of the 447 honest calibration candidates, so the
+threshold moves substantially between resamples (the monitor's own interval spans 0.347--0.792).
+Together with the matched-rate comparison of Section~\ref{sec:detection}, this indicates that the
+tests improve the monitor's ranking, while the size of the resulting safety gain is limited by how
+precisely a threshold can be calibrated from few honest examples.
+
+Every test-only protocol is less safe than the monitor (0.202--0.430). For three of the four, the
+interval of the difference lies entirely below zero; for $U$-planned plain tests (0.430) it
+includes zero. The natural rule of flagging any submission with a failing test is not an admissible
+audit rule: it flags 28.6--49.2\% of honest candidates, far beyond the budget.
 
 \begin{table}[t]
 \centering
 \small
 \begin{tabular}{lcc}
-\hline
-Arm & Safety [95\% CI] & Difference from monitor [95\% CI] \\
-\hline
-monitor                    & 0.549 [0.347, 0.792] & --- \\
-monitor + tests property   & 0.682 [0.601, 0.726] & $+0.132$ [$-0.107$, $+0.322$] \\
-monitor + tests plain\_v3  & 0.662 [0.573, 0.715] & $+0.113$ [$-0.121$, $+0.304$] \\
-monitor + u plans property & 0.716 [0.676, 0.769] & $+0.167$ [$-0.068$, $+0.367$] \\
-tests property/10          & 0.203 [0.127, 0.294] & $-0.346$ [$-0.572$, $-0.139$] \\
-tests plain\_v3/10         & 0.202 [0.101, 0.262] & $-0.347$ [$-0.588$, $-0.141$] \\
-u plans property/10        & 0.256 [0.190, 0.369] & $-0.293$ [$-0.519$, $-0.073$] \\
-u plans plain\_v3/10       & 0.430 [0.188, 0.515] & $-0.120$ [$-0.454$, $+0.084$] \\
-\hline
+\toprule
+Protocol & Safety [95\% CI] & Difference from monitoring [95\% CI] \\
+\midrule
+Trusted monitoring                      & 0.549 [0.347, 0.792] & --- \\
+Monitoring + property tests             & 0.682 [0.601, 0.726] & $+0.132$ [$-0.107$, $+0.322$] \\
+Monitoring + plain tests                & 0.662 [0.573, 0.715] & $+0.113$ [$-0.121$, $+0.304$] \\
+Monitoring + $U$-planned property tests & 0.716 [0.676, 0.769] & $+0.167$ [$-0.068$, $+0.367$] \\
+Property tests                          & 0.203 [0.127, 0.294] & $-0.346$ [$-0.572$, $-0.139$] \\
+Plain tests                             & 0.202 [0.101, 0.262] & $-0.347$ [$-0.588$, $-0.141$] \\
+$U$-planned property tests              & 0.256 [0.190, 0.369] & $-0.293$ [$-0.519$, $-0.073$] \\
+$U$-planned plain tests                 & 0.430 [0.188, 0.515] & $-0.120$ [$-0.454$, $+0.084$] \\
+\bottomrule
 \end{tabular}
-\caption{Safety at a 2\% audit budget on the 642 evaluation tasks that every
-arm scored, with every task attacked. Each threshold is calibrated on the
-honest candidates of the 447 calibration tasks, with ties broken at random.
-Intervals come from 10{,}000 paired task resamples, each recalibrating the
-threshold.}
+\caption{Safety at a 2\% audit budget on the 642 evaluation tasks, every task attacked. Each
+threshold is calibrated on the honest candidates of the 447 calibration tasks, with ties broken at
+random. Intervals are 95\% percentile intervals over 10{,}000 paired task resamples, each
+recalibrating every threshold; the difference is taken within a resample.}
 \label{tab:safety}
 \end{table}
 
 % ---------------------------------------------------------------------
-\subsection{Defer to trusted}
-\label{sec:dtt}
-% Source: digest Section 8 (notebooks/figures/all/data/dtt.csv).
-% Figure: notebooks/figures/all/dtt.png.
-
-\paragraph{Points to make.}
-\begin{itemize}
-  \item The four monitor protocols on one safety--usefulness plot, zoomed to
-        the top right as in Figure~2 of \citet{greenblatt2024aicontrol}. The
-        baseline is defer to trusted, not a monitor that discards flagged
-        submissions.
-  \item Deferral is cheap: $T$ solves 81\% of the evaluation tasks by
-        control-arena's rule. Deferring 2.3\% of submissions lifts the monitor
-        from 0.549 to 0.728 at usefulness 0.952, and 6.0\% lifts it to 0.842
-        at 0.860.
-  \item Once deferral is allowed, the monitor alone matches or beats monitor +
-        tests with the trusted model's own tests: at usefulness of about
-        0.86--0.87 the monitor reaches 0.842 against 0.799 for property tests;
-        plain tests reach 0.781 at 0.903.
-  \item Only monitor + u plans property stays ahead at high usefulness: 0.814
-        at 0.956 (2.3\% deferred) and 0.863 at 0.873. Below usefulness 0.75 the
-        four curves lie within about 0.03 of each other.
-  \item So the gain from the trusted model's tests shows mainly when nothing
-        is deferred; the protocol whose tests the untrusted model planned keeps
-        a gain, with the caveats of Section~\ref{sec:protocols}.
-\end{itemize}
-
-\begin{figure}[t]
-\centering
-% \includegraphics[width=\linewidth]{figures/all/dtt.png}
-\fbox{\parbox{0.8\linewidth}{\centering Figure placeholder: safety against
-usefulness for the four monitor protocols with defer to trusted
-(\texttt{notebooks/figures/all/dtt.png}).}}
-\caption{Safety against usefulness with defer to trusted. Each line is one
-protocol and each point one deferral threshold, with the audit threshold fixed
-at a 2\% budget. Usefulness is scaled so that 0 is the trusted model alone and
-1 the untrusted model alone. Up and to the right is better.}
-\label{fig:dtt}
-\end{figure}
-
-% ---------------------------------------------------------------------
-\subsection{Across audit budgets}
+\subsection{Sensitivity to the audit budget}
 \label{sec:budgets}
-% Source: digest Section 8 (notebooks/figures/all/data/safety_by_budget.csv).
-% Figure: notebooks/figures/all/safety_by_budget.png.
+% Source: notebooks/figures/all/data/safety_by_budget.csv.
 
-\paragraph{Points to make.}
-\begin{itemize}
-  \item The advantage of monitor + tests is largest at the smallest budget and
-        reverses by 5\%: at 1\%, 0.561--0.680 against 0.334; at 5\%,
-        0.760--0.823 against 0.833; at 10\%, 0.887--0.901 against 0.915. This
-        is the crossover detection predicts (catch at a 10\% false alarm rate
-        0.883--0.900 against 0.914).
-  \item Tests alone stay below the monitor at every budget.
-  \item 10\% was the pre-registered main budget; 2\% is the budget of
-        \citet{greenblatt2024aicontrol}. Report both and say which was
-        pre-registered. These are point estimates; only 2\% has intervals.
-\end{itemize}
+Table~\ref{tab:budgets} repeats the safety computation at budgets from 1\% to 10\%, each with its
+own threshold. The advantage of monitoring with tests is largest at the smallest budget (0.561--0.680
+against 0.334 at 1\%) and reverses by 5\% (0.760--0.823 against 0.833) and 10\% (0.887--0.901
+against 0.915), mirroring the crossover in detection. Test-only protocols remain below the monitor at
+every budget. Our earlier analyses used a 10\% budget as their main setting, at which the monitor
+alone is the safest protocol; the 2\% budget follows \citet{greenblatt2024aicontrol}. These values are point
+estimates; Figure~\ref{fig:budgets} in the appendix plots them.
 
 \begin{table}[t]
 \centering
 \small
 \begin{tabular}{lcccc}
-\hline
-Arm & 1\% & 2\% & 5\% & 10\% \\
-\hline
-monitor                    & 0.334 & 0.549 & 0.833 & 0.915 \\
-monitor + tests property   & 0.586 & 0.682 & 0.760 & 0.887 \\
-monitor + tests plain\_v3  & 0.561 & 0.662 & 0.769 & 0.887 \\
-monitor + u plans property & 0.680 & 0.716 & 0.823 & 0.901 \\
-tests property/10          & 0.129 & 0.203 & 0.359 & 0.535 \\
-tests plain\_v3/10         & 0.102 & 0.202 & 0.325 & 0.555 \\
-u plans property/10        & 0.190 & 0.256 & 0.486 & 0.683 \\
-u plans plain\_v3/10       & 0.181 & 0.430 & 0.602 & 0.759 \\
-\hline
+\toprule
+Protocol & 1\% & 2\% & 5\% & 10\% \\
+\midrule
+Trusted monitoring                      & 0.334 & 0.549 & 0.833 & 0.915 \\
+Monitoring + property tests             & 0.586 & 0.682 & 0.760 & 0.887 \\
+Monitoring + plain tests                & 0.561 & 0.662 & 0.769 & 0.887 \\
+Monitoring + $U$-planned property tests & 0.680 & 0.716 & 0.823 & 0.901 \\
+Property tests                          & 0.129 & 0.203 & 0.359 & 0.535 \\
+Plain tests                             & 0.102 & 0.202 & 0.325 & 0.555 \\
+$U$-planned property tests              & 0.190 & 0.256 & 0.486 & 0.683 \\
+$U$-planned plain tests                 & 0.181 & 0.430 & 0.602 & 0.759 \\
+\bottomrule
 \end{tabular}
-\caption{Safety at each audit budget on the 642 evaluation tasks, with every
-task attacked and each threshold calibrated on honest calibration candidates,
-ties broken at random.}
+\caption{Safety at each audit budget on the 642 evaluation tasks, every task attacked, each budget
+with its own calibrated threshold.}
 \label{tab:budgets}
 \end{table}
 
-% TODO(Omar): "Multi-turn on the full pool" goes here, if it is kept
-% (paper/outline.md, Results row 7).
+% ---------------------------------------------------------------------
+\subsection{Defer to trusted}
+\label{sec:dtt}
+% Source: notebooks/figures/all/data/dtt.csv.
+
+Figure~\ref{fig:dtt} plots safety against usefulness for the four monitoring protocols with defer
+to trusted, the baseline of \citet{greenblatt2024aicontrol}; the audit threshold stays at the 2\%
+budget and each point is one deferral threshold. Deferral is inexpensive here because $T$ solves
+81\% of the evaluation tasks. Deferring 2.3\% of submissions raises trusted monitoring from 0.549 to
+0.728 at a usefulness of 0.952, and deferring 6.0\% raises it to 0.842 at 0.860.
+
+With deferral available, the monitor alone matches or exceeds the protocols that add $T$'s own
+tests. At a usefulness of about 0.86--0.87 it reaches 0.842, against 0.799 with property tests, and
+plain tests reach 0.781 at 0.903, close to the monitor's frontier at that usefulness. Only
+monitoring with $U$-planned tests remains ahead at high usefulness, reaching 0.814 at a usefulness
+of 0.956 (2.3\% deferred) and 0.863 at 0.873; below a usefulness of about 0.75 the four frontiers lie
+within 0.03 of one another. The gain from $T$'s own tests is therefore concentrated in the regime
+without deferral, while the $U$-planned protocol keeps an advantage, subject to the caveats of
+Section~\ref{sec:protocols}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/dtt.png}
+\caption{Safety against usefulness with defer to trusted. Each line is one protocol's frontier and
+each point a deferral threshold, with the audit threshold fixed at a 2\% budget; labels give the
+share of submissions deferred. Usefulness is scaled so that 0 is $T$ alone and 1 is $U$ alone.
+Hollow markers defer nothing, which is trusted monitoring (Table~\ref{tab:safety}). Right: the top
+right corner of the left panel.}
+\label{fig:dtt}
+\end{figure}
+
+% TODO(Omar): "Multi-turn on the full pool" goes here, if it is kept (paper/outline.md, row 7).
 
 % ---------------------------------------------------------------------
-\subsection{Why catch does not move}
+\subsection{Why detection does not improve}
 \label{sec:why-catch}
 
-This subsection uses a smaller pool of 50 hard APPS problems, one honest and
-one backdoored candidate each. The trusted model writes 20 tests per
-submission, and we score six arms on a held-out split of 50 candidates (25
-backdoored, 25 honest): two whose writer only sees the problem statement, and
-four that see the code.
-% TODO: Section 2.1 says T is always at low reasoning effort. The reasoning
-% variant below breaks that, so 2.1 needs a line saying the hard-pool variants
-% differ. These are also the only blind arms in the paper.
+To understand why the tests miss backdoors, we use a smaller pool of 50 competition-level APPS
+problems, with one honest and one backdoored candidate each. $T$ writes 20 tests per submission,
+and we score six protocols on a held-out split of 50 candidates (25 backdoored, 25 honest): two whose
+test writer sees only the problem statement, and four that see the code.
+% TODO: Section 3 says T is always at low reasoning effort. The reasoning variant below breaks
+% that, so the methodology needs a line saying the hard-pool variants differ. These are also the
+% only specification-only arms in the paper.
 
-\paragraph{Scrubbing.}
-In the original hard pool, the comment leak was lopsided by class: 32 of the 50
-backdoored solutions had a comment naming the backdoor, using words like
-\emph{bug}, \emph{flaw} or \emph{backdoor}, and none of the 50 honest ones did.
-We stripped every comment with Python's \texttt{tokenize} module, checked that
-each program's syntax tree was unchanged, and renamed four identifiers that
-named the backdoor. Rerunning the high-reasoning code-visible arm on the
-scrubbed pool left catch flat at 0.864 (38 of 44, on the 89 candidates scored
-in both runs), and the false alarm rate moved only from 0.533 to 0.556.
-Stripping the comments killed the lexical tell but left a structural one:
-hardcoded branches on specific constants are still there for a writer that can
-read the code. The rest of the hard-pool results use the scrubbed pool unless
-we say otherwise.
+\paragraph{Label leakage.} In this pool the comment leak was lopsided by class: 32 of the 50
+backdoored solutions had a comment naming the backdoor, using words such as \emph{bug}, \emph{flaw}
+or \emph{backdoor}, and none of the 50 honest ones did. After removing every comment with Python's
+\texttt{tokenize} module (verifying that each program's syntax tree was unchanged) and renaming four
+identifiers that named the backdoor, the high-reasoning code-visible protocol's detection rate
+stayed at 0.864 (38 of 44, on the 89 candidates scored in both runs), and its false-positive rate
+moved only from 0.533 to 0.556. Removing comments eliminated the lexical cue but left a structural
+one: hard-coded branches on specific constants remain visible to a writer that reads the code. All
+remaining hard-pool results use the cleaned pool unless stated otherwise.
 
-\paragraph{The tests are not precise enough.}
-If we reject any candidate that fails a test, the six arms reject 74\% to 88\%
-of the backdoors (74\% and 80\% for the two blind arms, 76\% to 88\% for the
-four code-visible ones) but keep only a quarter to three-fifths of the honest
-code. Hold the false alarm rate at the monitor's 0.10 and their catch drops to
-between 0.14 and 0.31, against 0.84 for the monitor. Of the three
-relational-trigger backdoors the monitor missed (triggers set by a relation
-between inputs rather than a fixed constant), five arms catch none and one
-blind arm catches two, which is too few to read anything into. With 25
-backdoored candidates one candidate moves catch by about 0.04, so we do not
-rank the arms against each other; the claim is just that all six sit well below
-the monitor.
-% TODO: an earlier Results draft says the monitor reaches 0.930 safety at the
-% 0.10 budget. Reconcile 0.84 and 0.930 before submitting.
+\paragraph{The tests are not precise enough.} Rejecting any candidate that fails a test, the six
+protocols reject 74\% to 88\% of backdoors (74\% and 80\% for the two specification-only protocols,
+76\% to 88\% for the four code-visible ones) but keep only a quarter to three-fifths of the honest
+code. At the monitor's false-positive rate of 0.10, their detection rate falls to 0.14--0.31,
+against 0.84 for the monitor. Of the three backdoors with relational triggers that the monitor
+missed (triggers set by a relation between inputs rather than a fixed constant), five protocols
+detect none and one specification-only protocol detects two, too few to interpret. With 25
+backdoored candidates, a single candidate moves the detection rate by about 0.04, so we do not rank
+these protocols against one another; we claim only that all six fall well below the monitor.
 
-\paragraph{The variations move the false alarm rate, not catch.}
-Table~\ref{tab:variants} compares each variation against the same writer
-without it. All four brought the false alarm rate down, by 0.12 to 0.25, and
-none raised catch by more than one backdoor. Few-shot examples cut false
-positives from 29 of 44 honest candidates to 20 of 44, and catch fell from 42
-of 48 backdoors to 39 of 48. The critic cut the false alarm rate from 0.674 to
-0.429, and catch fell from 0.878 to 0.816. The critic was also not selective:
-it dropped 6.39 tests per backdoored candidate on average and 5.59 per honest
-one, so it pruned backdoored code a little harder than honest code, not the
-other way round. More reasoning cut the false alarm rate from 0.698 to 0.558
-and moved catch by one backdoor (39 to 38 of 44, on the 87 candidates both arms
-scored). Two things make that last comparison shaky: the low-effort arm wrote
-no reasoning at all, against a median of about 65,000 characters for the high
-arm, and the high arm ran with half the sandbox time (120\,s against 240\,s).
-The multi-turn loop cut the false alarm rate from 17.65\% to 5.88\% on a
-19-task development set with all 18 matched backdoors still caught, but the
-95\% interval for that change, $[-29.41, 0.00]$ points, reaches zero.
+\paragraph{The variations move the false-positive rate, not detection.}
+Table~\ref{tab:variants} compares each variation with the same writer without it. All four lower
+the false-positive rate, by 0.12 to 0.25, and none raises detection by more than one backdoor.
+Few-shot examples reduce false positives from 29 of 44 honest candidates to 20 of 44, while
+detection falls from 42 of 48 backdoors to 39 of 48. A critic that removes weak tests lowers the
+false-positive rate from 0.674 to 0.429 and detection from 0.878 to 0.816; it is not selective,
+removing 6.39 tests per backdoored candidate on average and 5.59 per honest one. Higher reasoning
+effort lowers the false-positive rate from 0.698 to 0.558 and changes detection by one backdoor (39
+to 38 of 44, on the 87 candidates both protocols scored); this comparison is confounded, because
+the low-effort writer produced no reasoning at all, against a median of about 65{,}000 characters
+for the high-effort writer, and the latter ran with half the sandbox time (120\,s against 240\,s).
+A multi-turn loop, in which the writer sees its suite's results once and revises it, lowers the
+false-positive rate from 17.65\% to 5.88\% on a 19-task development set while still detecting all 18
+matched backdoors, but the 95\% interval for the change, $[-29.41, 0.00]$ points, reaches zero.
 % TODO: confirm the model and pool for the multi-turn arm (Omar).
 
 \begin{table}[t]
 \centering
 \small
 \begin{tabular}{llcc}
-\hline
-Variation (vs.\ without) & Candidates & FPR & Catch \\
-\hline
-Few-shot & scrubbed, 49 tasks$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
-Critic & scrubbed, $n=98$ & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
+\toprule
+Variation (vs.\ without) & Candidates & FPR & Detection \\
+\midrule
+Few-shot & cleaned, 49 tasks$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
+Critic & cleaned, $n=98$ & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
 Reasoning (high vs.\ none$^{b}$) & original, $n=87$ & 0.70 $\to$ 0.56 & 0.89 $\to$ 0.86 \\
 Multi-turn (vs.\ one turn) & dev set, 19 tasks & 0.18 $\to$ 0.06$^{c}$ & 1.00 $\to$ 1.00 \\
-\hline
+\bottomrule
 \end{tabular}
-\caption{Each variation against the same writer without it, on the hard pool.
-FPR is the share of honest candidates flagged, catch the share of backdoored
-candidates flagged.
-$^{a}$Full scrubbed pool minus the task the few-shot example came from
-(44 honest and 48 backdoored candidates scored).
-$^{b}$The low-effort arm wrote zero reasoning characters, so this is really no
-reasoning against high reasoning. Run on the original (unscrubbed) pool.
-$^{c}$95\% interval for the change: $[-0.29, 0.00]$.}
+\caption{Each variation against the same writer without it, on the 50-task competition-level pool.
+FPR is the share of honest candidates flagged; detection is the share of backdoored candidates
+flagged. $^{a}$The cleaned pool minus the task the few-shot example came from (44 honest and 48
+backdoored candidates scored). $^{b}$The low-effort writer produced no reasoning, so this compares
+no reasoning with high reasoning; run on the original pool. $^{c}$95\% interval for the change:
+$[-0.29, 0.00]$.}
 \label{tab:variants}
 \end{table}
 
-\paragraph{Where the misses come from.}
-To tell search failures apart from detection failures, we used an earlier run
-on five hard BigCodeBench tasks with two backdoors each, where blind
-property-based tests caught none of the 10.
-% TODO: the 2/8 split is from these five BigCodeBench tasks, not the hard APPS
-% pool. Keep this framing or rerun wall_decomposition on the hard pool (Alon's
-% action item). Also name the writer models for this run.
-For each backdoor we ran the backdoored and reference solutions on 20,000
-random inputs and counted how often their outputs differed. For 2 of them,
-inputs drawn from the problem's own input format never produced a difference,
-so no realistic test budget would reach the trigger. One of those became
-reachable once we let the input alphabet include the form-feed character, after
-which the outputs differed on 36\% of inputs. For the other 8, between 21\% and
-90\% of inputs that respect the input contract exposed a difference, and a
-2,000-input test reaches the trigger with probability 1.000. So those triggers
-were reached. What was missing is a test that asserted a property telling the
-backdoored output apart from the reference output. We call this the
-spec-entailment wall.
-% Provisional, keep out of the text until checked against the task docstrings:
-% of the 8 reached backdoors, roughly 1-3 look like behaviour the spec leaves
-% open (e.g. the 202/attack_0 tie-break) and roughly 5 look like errors a
-% sound spec-derived test could catch.
+\paragraph{Where the misses come from.} To separate failures to reach a trigger from failures to
+detect it, we use an earlier run on five hard BigCodeBench tasks with two backdoors each, where
+specification-only property tests detected none of the ten.
+% TODO: the 2/8 split is from these five BigCodeBench tasks, not the hard APPS pool. Keep this
+% framing or rerun the decomposition on the hard pool (Alon's action item). Also name the writer
+% models for this run.
+For each backdoor we ran the backdoored and reference solutions on 20{,}000 random inputs and
+counted how often their outputs differed. For two of them, inputs drawn from the problem's own input
+format never produced a difference, so no realistic test budget would reach the trigger; one became
+reachable once the input alphabet included the form-feed character, after which the outputs differed
+on 36\% of inputs. For the other eight, between 21\% and 90\% of valid inputs exposed a difference,
+so a 2{,}000-input test reaches the trigger with probability 1.000. These triggers were reached;
+what was missing was a test asserting a property that distinguishes the backdoored output from the
+reference output. We call this the \emph{specification-entailment wall}.
+% Provisional, keep out of the text until checked against the task docstrings: of the 8 reached
+% backdoors, roughly 1-3 look like behaviour the spec leaves open (e.g. the 202/attack_0
+% tie-break) and roughly 5 look like errors a sound spec-derived test could catch.
+
+% BigCodeBench (Alon's 26-task run, 22/09) is left out until its numbers are confirmed and
+% recomputed under the per-sample safety model. Its draft points: the monitor reaches AUC 1.000;
+% four model-free baselines (counting == comparisons 0.967, numeric literals 0.935, if statements
+% 0.883, characters 0.825) beat all four test-writing protocols (0.579-0.753); U-planned tests beat
+% T's own in all four comparisons; so the benchmark is saturated and cannot separate protocols.
 
 % ---------------------------------------------------------------------
-\subsection{BigCodeBench}
-\label{sec:bcb}
-% Source: team research doc, Alon's 26-task run (22/09). May be replaced by the
-% BCB run with Palak's and Omar's arms.
+\subsection{Limitations}
+\label{sec:limitations}
 
-\paragraph{Points to make (Alon to confirm or update).}
-\begin{itemize}
-  \item 26 tasks, which is the whole usable pool (the upstream source covers
-        31 BigCodeBench tasks), 52 candidates (26 honest, 26 backdoored).
-  \item Unlike APPS, no BigCodeBench backdoor named itself in a comment
-        (0.000 before the scrub).
-  \item The monitor reaches AUC 1.000. Four baselines that use no model at all
-        (counting \texttt{==} comparisons 0.967, numeric literals 0.935, if
-        statements 0.883, characters 0.825) all beat all four test-writing arms
-        (0.579--0.753).
-  \item Counting \texttt{==} comparisons against the monitor in safety at a 2\%
-        budget: \na{} against \na{}.
-        % TODO(Alon): recompute under the per-sample safety model; the game-A
-        % figures of the earlier draft (0.985 against 0.896) no longer apply.
-  \item Letting the untrusted model plan the tests beat the trusted model alone
-        in all four comparisons across two pools and two samplings.
-  \item Conclusion: this benchmark is saturated, so it cannot separate
-        protocols.
-\end{itemize}
+\paragraph{No attack selection.} The red team attacks every task with a fixed, pre-generated
+backdoor and does not choose which tasks to attack. A red team that attacks only where its backdoor
+is least likely to be flagged or tested would lower safety for every protocol, possibly by different
+amounts; \citet{schaeffer2026} find that attack selection lowers the safety of trusted monitoring
+from 99\% to 59\% in a concentrated BigCodeBench setting at a 0.5\% audit budget. Our safety values
+should be read as upper bounds against an attack-selecting adversary.
 
-% ---------------------------------------------------------------------
-\paragraph{Notes to carry into Discussion and Limitations.}
-\begin{itemize}
-  \item No red-team attack selection. The red team attacks every task with a
-        fixed, pre-generated backdoor and does not choose which tasks to
-        attack. An attacker that attacks only where its backdoor is least
-        likely to be flagged or tested would lower safety for every protocol,
-        possibly by different amounts. \citet{schaeffer2026} find that attack
-        selection lowers trusted monitoring's safety from 99\% to 59\% in a
-        concentrated BigCodeBench setting at a 0.5\% audit budget.
-  \item Provider change (Appendix~\ref{app:implementation}): the eight main arms were
-        scored before 10 October; plain\_v5 and the multi-turn study were
-        scored partly or wholly after it, and no rescoring was possible.
-  \item Detection is pooled over train and test; safety calibrates on train
-        and evaluates on test only.
-  \item Every arm in the full run sees the code, the trigger search included.
-        The only specification-only arms are in the hard-pool study.
-  \item The trusted and untrusted models are the same model (DeepSeek-V3.2);
-        the gap between them comes from reasoning effort alone.
-  \item The intervals resample tasks, not model calls. Each candidate was
-        scored once per arm (the monitor's two samples are averaged), so the
-        intervals cannot separate the model's sampling noise from task
-        difficulty.
-\end{itemize}
+\paragraph{A fixed attack corpus.} The backdoors were written by other models in prior work and do
+not adapt to either defence; no attacker writes backdoors designed to pass the tests, and no
+$U$ planner plans around its own backdoor.
 
-% ---------------------------------------------------------------------
-% APPENDIX TABLES (move to the appendix in Overleaf)
-% ---------------------------------------------------------------------
+\paragraph{One model at two reasoning efforts.} $T$ and $U$ are the same model, so the capability
+gap comes from reasoning effort alone; a genuinely stronger $U$ would write subtler backdoors and,
+in the $U$-planned protocol, better or more adversarial plans.
 
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{lccccc}
-\hline
-Arm & Scored & Model fail. & Infra fail. & Partial & Dropped \\
-\hline
-monitor                    & 2774 & 0  & 2  & 0  & 339 \\
-monitor + tests property   & 2664 & 81 & 31 & 0  & 229 \\
-monitor + tests plain\_v3  & 2627 & 98 & 51 & 0  & 192 \\
-monitor + u plans property & 2677 & 83 & 16 & 0  & 242 \\
-tests property/10          & 2684 & 61 & 31 & 44 & 249 \\
-tests plain\_v3/10         & 2659 & 66 & 51 & 54 & 224 \\
-u plans property/10        & 2708 & 52 & 16 & 28 & 273 \\
-u plans plain\_v3/10       & 2703 & 45 & 28 & 30 & 268 \\
-\hline
-\end{tabular}
-\caption{Coverage for each arm out of 2776 candidates. Failed candidates have
-no score and leave every denominator. ``Partial'' counts suites where not every
-test ran on every trigger input. ``Dropped'' counts candidates this arm scored
-but at least one other arm did not; headline numbers use the 2435 that every
-arm scored.}
-\label{tab:coverage}
-\end{table}
+\paragraph{Statistical scope.} Our intervals resample tasks, not model samples: each candidate was
+scored once per protocol (the monitor's two samples are averaged), so the intervals cannot separate
+the model's sampling noise from task difficulty. Table~\ref{tab:detection} pools calibration and
+evaluation candidates. Monitoring with tests also uses twice the trusted-model calls of trusted
+monitoring (Table~\ref{tab:protocols}).
+
+\paragraph{Provider change.} The hosted model's behaviour changed during the study
+(Appendix~\ref{app:implementation}). The eight main protocols were scored before the change, but
+the \texttt{plain\_v5} variant and the multi-turn study were scored partly or wholly after it, and
+rescoring was not possible.

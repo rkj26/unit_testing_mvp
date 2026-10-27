@@ -1,0 +1,80 @@
+\section{Introduction}
+
+Language models are writing more and more of the code that gets deployed, and
+often nobody reads that code line by line before it ships. If a model were
+misaligned, this would give it an easy way to cause harm. It could write a
+solution that passes all of the developer's tests but gives a wrong answer on
+one rare input that it picked, i.e. a backdoor. AI control studies how models
+like this could still be used safely without assuming they can be trusted
+\citep{greenblatt2024aicontrol}. In the standard setup an untrusted model writes the code
+and a weaker trusted model gives each solution a suspicion score. The highest
+scoring solutions are sent to human auditors, although in practice only a small
+fraction, 2\% in \citet{greenblatt2024aicontrol}, can be audited.
+
+A standard baseline in this setting is trusted monitoring
+\citep{greenblatt2024aicontrol, bhatt2025ctrlz, terekhov2025controltax}, in which a weaker trusted
+model reads each submitted solution and assigns a suspicion score. Safety then
+depends on the monitor identifying sabotage under a limited audit budget. In the
+concentrated BigCodeBench backdooring setting, \citet{schaeffer2026} show that
+eliciting selective attacks reduces safety from 99\% to 59\% at a 0.5\% audit
+budget. Testing could be a useful alternative
+here. To catch a backdoor, a test does not have to understand the code, it just
+has to find an input where the output is wrong. Writing extra tests has come up
+before as a possible blue team strategy, and some control protocols already
+generate exploit inputs or consistency checks to flag backdoors, but we are not
+aware of work that evaluates trusted-model test generation on its own as a
+backdoor detector and benchmarks it against a code-reading monitor.
+
+We look at whether tests written by a trusted model can catch backdoors that a
+code-reading monitor misses. Our reasoning was that checking an answer is often
+easier than coming up with it. For a competitive programming problem, a model
+might struggle to write a correct solution but still be able to list properties
+that any correct solution has to satisfy, and these can be checked on lots of
+generated inputs \citep{claessen2000}. If successful, these tests could provide additional detection value beyond the
+monitor's suspicion scores. We expected this to be especially true when the test writer is only
+given the problem statement and never sees the code.
+
+We evaluate trusted-model test generation on all 1{,}388 eligible APPS problems
+\citep{hendrycks2021apps}, using backdoored solutions from the Control Tax work
+\citep{terekhov2025controltax}. The trusted model is DeepSeek-V3.2 at low
+reasoning effort. We compare property tests, which may relate outputs across
+inputs, with plain tests, which check a single output, and a protocol in which
+the same model at high reasoning effort reads the submission and plans tests that
+the trusted model implements without seeing the code. We evaluate each as a
+standalone detector and as evidence given to a code-reading monitor, measure
+safety with the auditing model of \citet{greenblatt2024aicontrol}, and compare
+against defer to trusted, the baseline of that work.
+
+To understand why the tests miss, we also use a smaller pool of 50 hard APPS
+problems. The backdoored solutions as released often carried comments naming the
+sabotage, so we removed every comment and giveaway identifier before running any
+protocol (Section~\ref{sec:data}). On this pool we evaluate four test-generation
+variants: few-shot examples of good and bad tests, a critic that drops weak
+tests, a higher reasoning budget, and a multi-turn version in which the model
+runs its tests once and then revises them. We also run writers that see only the
+problem statement.
+
+Tests alone are a weak detector. Given to the monitor, they significantly improve
+detection at strict false-positive rates and raise safety at a 2\% audit budget in
+point estimate, but that safety gain lies within the uncertainty of calibrating a
+threshold from few honest examples, and it reverses at larger budgets. Once
+suspicious submissions can be deferred to the trusted model, the monitor alone
+matches monitoring with the trusted model's own tests; only tests planned by the
+untrusted model keep an advantage. Changes to the test writer reduce false
+positives without improving detection, and diagnostics on hard problems show that
+most missed backdoors are reached by a test input but not detected.
+
+Our contributions are:
+\begin{itemize}
+  \item We evaluate trusted-model test generation as a backdoor detector against
+  a code-reading monitor on every eligible APPS problem, alone and as evidence
+  for the monitor, under the standard auditing model and with paired bootstrap
+  intervals.
+  \item We show that test evidence improves the monitor's ranking at strict
+  thresholds, but that its safety gain is uncertain at a 2\% audit budget,
+  reverses at larger budgets, and largely disappears once deferral to the trusted
+  model is allowed.
+  \item We separate unreached triggers from reached but undetected ones and find
+  that the bottleneck is the latter: tests that cannot assert the property a
+  backdoored output violates, which we call the specification-entailment wall.
+\end{itemize}

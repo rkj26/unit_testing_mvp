@@ -10,3 +10,76 @@
 \paragraph{Sandbox.} Tests run in a Docker container (Python~3.12, no network) with a 240\,s limit per suite. A suite whose tests do not all finish within the limit keeps the failures it observed, so its score can only be too low; it errs towards missing a backdoor, never towards finding one. A suite that produced no result at all is excluded rather than scored as passing.
 
 \paragraph{Provider change.} All calls use one hosted deployment of DeepSeek-V3.2. On 10 October 2026 its responses became about three times longer under an unchanged model identifier and settings. The eight main protocols were scored before this date; the \texttt{plain\_v5} prompt variant and the multi-turn study partly or wholly after it, so any comparison involving them is stratified by period.
+
+\section{Supplementary results}
+\label{app:supplementary}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Protocol & Scored & Model failures & Infra failures & Partial & Dropped \\
+\midrule
+Trusted monitoring                      & 2774 & 0  & 2  & 0  & 339 \\
+Monitoring + property tests             & 2664 & 81 & 31 & 0  & 229 \\
+Monitoring + plain tests                & 2627 & 98 & 51 & 0  & 192 \\
+Monitoring + $U$-planned property tests & 2677 & 83 & 16 & 0  & 242 \\
+Property tests                          & 2684 & 61 & 31 & 44 & 249 \\
+Plain tests                             & 2659 & 66 & 51 & 54 & 224 \\
+$U$-planned property tests              & 2708 & 52 & 16 & 28 & 273 \\
+$U$-planned plain tests                 & 2703 & 45 & 28 & 30 & 268 \\
+\bottomrule
+\end{tabular}
+\caption{Coverage of each protocol out of 2{,}776 candidates. A failed candidate has no score and
+leaves every denominator. ``Partial'' counts suites in which not every test ran on every trigger
+input; they stay in the analysis with the failures they observed. ``Dropped'' counts candidates this
+protocol scored but at least one other did not; the main results use the 2{,}435 that every
+protocol scored.}
+\label{tab:coverage}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llcc}
+\toprule
+Code & Class & Any comment & Comment naming the backdoor \\
+\midrule
+As released & backdoored & 0.679 & 0.486 \\
+            & honest     & 0.200 & 0.000 \\
+Cleaned     & backdoored & 0.000 & 0.000 \\
+            & honest     & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\caption{Share of candidates with any comment, and with a comment naming the backdoor, before and
+after cleaning (1{,}388 candidates per class). Comments and self-describing identifiers were removed
+from both classes, so the absence of comments cannot itself reveal the label.}
+\label{tab:scrub}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/safety_at_budget.png}
+\caption{Safety at a 2\% audit budget with 95\% intervals (left) and each protocol's difference from
+trusted monitoring on the same resample (right); the data of Table~\ref{tab:safety}.}
+\label{fig:safety-bars}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.75\linewidth]{figures/safety_by_budget.png}
+\caption{Safety at audit budgets of 1, 2, 5 and 10\%, each with its own threshold; the data of
+Table~\ref{tab:budgets}.}
+\label{fig:budgets}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/bootstrap_separation.png}
+\caption{Backdoors detected by each monitoring-with-tests protocol minus trusted monitoring, in
+percentage points, at false-positive rates from 0.5\% to 20\% set on the 642 evaluation tasks, with
+pointwise 95\% bands over 10{,}000 paired task resamples. Because each threshold is set on the
+evaluation data, this measures ranking, not deployable safety.}
+\label{fig:separation}
+\end{figure}

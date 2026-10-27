@@ -1,8 +1,8 @@
 # Methodology and Results: outline
 
-**Status 2026-10-27.** Both sections are written in `sruthi_apor/` (a gitignored copy of the NeurIPS draft)
-and mirrored to `paper/`, with every number from the re-executed digest. Still open: Omar's multi-turn
-slot, Alon's BigCodeBench safety number, and a citation for ControlArena.
+**Status 2026-10-27 (second pass).** Abstract, introduction, methodology, results (now prose) and appendix are
+written in `sruthi_apor/` and mirrored to `paper/`, which compiles on its own. BigCodeBench is left out until
+its numbers are confirmed. Still open: Omar's multi-turn slot and a citation for ControlArena.
 
 The shape of both sections, for approval before any prose changes. One row per subsection: its
 one-line claim, where its numbers come from, and its status. `results.tex` keeps its convention:
