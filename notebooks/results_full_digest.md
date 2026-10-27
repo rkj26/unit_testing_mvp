@@ -241,12 +241,16 @@ task is.
       <th>safety</th>
       <th>safety low</th>
       <th>safety high</th>
+      <th>safety ±</th>
       <th>minus monitor</th>
       <th>minus monitor low</th>
       <th>minus monitor high</th>
+      <th>minus monitor ±</th>
     </tr>
     <tr>
       <th>arm</th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -261,6 +265,8 @@ task is.
       <td>0.549</td>
       <td>0.347</td>
       <td>0.792</td>
+      <td>0.204</td>
+      <td>0.000</td>
       <td>0.000</td>
       <td>0.000</td>
       <td>0.000</td>
@@ -270,63 +276,77 @@ task is.
       <td>0.682</td>
       <td>0.601</td>
       <td>0.726</td>
+      <td>0.071</td>
       <td>0.132</td>
       <td>-0.107</td>
       <td>0.322</td>
+      <td>0.204</td>
     </tr>
     <tr>
       <th>monitor + tests plain_v3</th>
       <td>0.662</td>
       <td>0.573</td>
       <td>0.715</td>
+      <td>0.079</td>
       <td>0.113</td>
       <td>-0.121</td>
       <td>0.304</td>
+      <td>0.201</td>
     </tr>
     <tr>
       <th>monitor + u plans property</th>
       <td>0.716</td>
       <td>0.676</td>
       <td>0.769</td>
+      <td>0.046</td>
       <td>0.167</td>
       <td>-0.068</td>
       <td>0.367</td>
+      <td>0.199</td>
     </tr>
     <tr>
       <th>tests property/10</th>
       <td>0.203</td>
       <td>0.127</td>
       <td>0.294</td>
+      <td>0.087</td>
       <td>-0.346</td>
       <td>-0.572</td>
       <td>-0.139</td>
+      <td>0.209</td>
     </tr>
     <tr>
       <th>tests plain_v3/10</th>
       <td>0.202</td>
       <td>0.101</td>
       <td>0.262</td>
+      <td>0.072</td>
       <td>-0.347</td>
       <td>-0.588</td>
       <td>-0.141</td>
+      <td>0.215</td>
     </tr>
     <tr>
       <th>u plans property/10</th>
       <td>0.256</td>
       <td>0.190</td>
       <td>0.369</td>
+      <td>0.091</td>
       <td>-0.293</td>
       <td>-0.519</td>
       <td>-0.073</td>
+      <td>0.211</td>
     </tr>
     <tr>
       <th>u plans plain_v3/10</th>
       <td>0.430</td>
       <td>0.188</td>
       <td>0.515</td>
+      <td>0.196</td>
       <td>-0.120</td>
       <td>-0.454</td>
       <td>0.084</td>
+      <td>0.279</td>
     </tr>
   </tbody>
 </table>
@@ -481,9 +501,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <th>safety</th>
       <th>safety low</th>
       <th>safety high</th>
+      <th>safety ±</th>
       <th>minus monitor</th>
       <th>minus monitor low</th>
       <th>minus monitor high</th>
+      <th>minus monitor ±</th>
     </tr>
   </thead>
   <tbody>
@@ -494,6 +516,8 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.730</td>
       <td>0.520</td>
       <td>0.851</td>
+      <td>0.169</td>
+      <td>0.000</td>
       <td>0.000</td>
       <td>0.000</td>
       <td>0.000</td>
@@ -505,6 +529,8 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.793</td>
       <td>0.641</td>
       <td>0.893</td>
+      <td>0.133</td>
+      <td>0.000</td>
       <td>0.000</td>
       <td>0.000</td>
       <td>0.000</td>
@@ -516,9 +542,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.727</td>
       <td>0.673</td>
       <td>0.780</td>
+      <td>0.055</td>
       <td>-0.003</td>
       <td>-0.123</td>
       <td>0.204</td>
+      <td>0.167</td>
     </tr>
     <tr>
       <th>3</th>
@@ -527,9 +555,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.772</td>
       <td>0.713</td>
       <td>0.836</td>
+      <td>0.062</td>
       <td>-0.020</td>
       <td>-0.127</td>
       <td>0.132</td>
+      <td>0.136</td>
     </tr>
     <tr>
       <th>4</th>
@@ -538,9 +568,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.724</td>
       <td>0.659</td>
       <td>0.793</td>
+      <td>0.069</td>
       <td>-0.006</td>
       <td>-0.126</td>
       <td>0.203</td>
+      <td>0.165</td>
     </tr>
     <tr>
       <th>5</th>
@@ -549,9 +581,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.783</td>
       <td>0.711</td>
       <td>0.829</td>
+      <td>0.061</td>
       <td>-0.010</td>
       <td>-0.122</td>
       <td>0.129</td>
+      <td>0.132</td>
     </tr>
     <tr>
       <th>6</th>
@@ -560,9 +594,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.818</td>
       <td>0.765</td>
       <td>0.858</td>
+      <td>0.046</td>
       <td>0.088</td>
       <td>-0.035</td>
       <td>0.293</td>
+      <td>0.167</td>
     </tr>
     <tr>
       <th>7</th>
@@ -571,9 +607,11 @@ model's work. The hollow marker defers nothing: it is the protocol on its own, a
       <td>0.847</td>
       <td>0.810</td>
       <td>0.887</td>
+      <td>0.038</td>
       <td>0.055</td>
       <td>-0.043</td>
       <td>0.202</td>
+      <td>0.131</td>
     </tr>
   </tbody>
 </table>
@@ -629,58 +667,58 @@ them apart. The dotted line marks 2%, the audit budget of the paper.
     <tr>
       <th>monitor + tests property</th>
       <td>642</td>
-      <td>+23.0 [+15.4, +33.8]</td>
-      <td>+15.2 [+4.1, +23.1]</td>
-      <td>-1.8 [-7.2, +6.7]</td>
-      <td>-1.6 [-5.0, +1.5]</td>
+      <td>+23.0 ± 8.7 [+15.4, +33.8]</td>
+      <td>+15.2 ± 9.5 [+4.1, +23.1]</td>
+      <td>-1.8 ± 6.7 [-7.2, +6.7]</td>
+      <td>-1.6 ± 3.2 [-5.0, +1.5]</td>
     </tr>
     <tr>
       <th>monitor + tests plain_v3</th>
       <td>642</td>
-      <td>+19.4 [+2.6, +30.0]</td>
-      <td>+12.9 [+1.5, +21.4]</td>
-      <td>-0.1 [-7.0, +7.4]</td>
-      <td>-2.9 [-6.2, -0.0]</td>
+      <td>+19.4 ± 12.2 [+2.6, +30.0]</td>
+      <td>+12.9 ± 9.9 [+1.5, +21.4]</td>
+      <td>-0.1 ± 6.9 [-7.0, +7.4]</td>
+      <td>-2.9 ± 3.0 [-6.2, -0.0]</td>
     </tr>
     <tr>
       <th>monitor + u plans property</th>
       <td>642</td>
-      <td>+22.7 [+13.7, +33.9]</td>
-      <td>+17.2 [+5.9, +26.0]</td>
-      <td>+3.5 [-2.0, +12.0]</td>
-      <td>-0.9 [-3.4, +1.7]</td>
+      <td>+22.7 ± 9.5 [+13.7, +33.9]</td>
+      <td>+17.2 ± 9.9 [+5.9, +26.0]</td>
+      <td>+3.5 ± 6.6 [-2.0, +12.0]</td>
+      <td>-0.9 ± 2.5 [-3.4, +1.7]</td>
     </tr>
     <tr>
       <th>tests property/10</th>
       <td>642</td>
-      <td>-40.3 [-48.2, -28.3]</td>
-      <td>-45.1 [-57.9, -31.6]</td>
-      <td>-47.0 [-58.3, -33.2]</td>
-      <td>-35.3 [-42.4, -27.2]</td>
+      <td>-40.3 ± 9.6 [-48.2, -28.3]</td>
+      <td>-45.1 ± 12.8 [-57.9, -31.6]</td>
+      <td>-47.0 ± 12.5 [-58.3, -33.2]</td>
+      <td>-35.3 ± 7.6 [-42.4, -27.2]</td>
     </tr>
     <tr>
       <th>tests plain_v3/10</th>
       <td>642</td>
-      <td>-38.7 [-47.2, -26.4]</td>
-      <td>-42.6 [-55.3, -32.6]</td>
-      <td>-49.6 [-61.0, -38.9]</td>
-      <td>-39.5 [-47.7, -33.8]</td>
+      <td>-38.7 ± 10.3 [-47.2, -26.4]</td>
+      <td>-42.6 ± 11.4 [-55.3, -32.6]</td>
+      <td>-49.6 ± 11.0 [-61.0, -38.9]</td>
+      <td>-39.5 ± 7.0 [-47.7, -33.8]</td>
     </tr>
     <tr>
       <th>u plans property/10</th>
       <td>642</td>
-      <td>-27.8 [-40.7, -14.4]</td>
-      <td>-29.0 [-43.2, -15.4]</td>
-      <td>-32.0 [-42.3, -20.9]</td>
-      <td>-23.8 [-30.2, -17.6]</td>
+      <td>-27.8 ± 12.8 [-40.7, -14.4]</td>
+      <td>-29.0 ± 13.8 [-43.2, -15.4]</td>
+      <td>-32.0 ± 10.4 [-42.3, -20.9]</td>
+      <td>-23.8 ± 6.2 [-30.2, -17.6]</td>
     </tr>
     <tr>
       <th>u plans plain_v3/10</th>
       <td>642</td>
-      <td>-40.7 [-48.4, -24.7]</td>
-      <td>-37.8 [-55.5, -20.1]</td>
-      <td>-37.1 [-47.4, -25.9]</td>
-      <td>-26.7 [-34.7, -18.9]</td>
+      <td>-40.7 ± 11.7 [-48.4, -24.7]</td>
+      <td>-37.8 ± 18.6 [-55.5, -20.1]</td>
+      <td>-37.1 ± 10.4 [-47.4, -25.9]</td>
+      <td>-26.7 ± 7.9 [-34.7, -18.9]</td>
     </tr>
   </tbody>
 </table>

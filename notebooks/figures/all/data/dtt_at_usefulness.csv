@@ -1,9 +1,9 @@
-arm,usefulness,safety,safety low,safety high,minus monitor,minus monitor low,minus monitor high,arm_key
-monitor,0.95,0.73,0.52,0.851,0.0,0.0,0.0,monitor
-monitor,0.9,0.793,0.641,0.893,0.0,0.0,0.0,monitor
-monitor + tests property,0.95,0.727,0.673,0.78,-0.003,-0.123,0.204,monitor_tests_property
-monitor + tests property,0.9,0.772,0.713,0.836,-0.02,-0.127,0.132,monitor_tests_property
-monitor + tests plain_v3,0.95,0.724,0.659,0.793,-0.006,-0.126,0.203,monitor_tests_plain_v3
-monitor + tests plain_v3,0.9,0.783,0.711,0.829,-0.01,-0.122,0.129,monitor_tests_plain_v3
-monitor + u plans property,0.95,0.818,0.765,0.858,0.088,-0.035,0.293,monitor_u_plans_property
-monitor + u plans property,0.9,0.847,0.81,0.887,0.055,-0.043,0.202,monitor_u_plans_property
+arm,usefulness,safety,safety low,safety high,safety ±,minus monitor,minus monitor low,minus monitor high,minus monitor ±,arm_key
+monitor,0.95,0.73,0.52,0.851,0.169,0.0,0.0,0.0,0.0,monitor
+monitor,0.9,0.793,0.641,0.893,0.133,0.0,0.0,0.0,0.0,monitor
+monitor + tests property,0.95,0.727,0.673,0.78,0.055,-0.003,-0.123,0.204,0.167,monitor_tests_property
+monitor + tests property,0.9,0.772,0.713,0.836,0.062,-0.02,-0.127,0.132,0.136,monitor_tests_property
+monitor + tests plain_v3,0.95,0.724,0.659,0.793,0.069,-0.006,-0.126,0.203,0.165,monitor_tests_plain_v3
+monitor + tests plain_v3,0.9,0.783,0.711,0.829,0.061,-0.01,-0.122,0.129,0.132,monitor_tests_plain_v3
+monitor + u plans property,0.95,0.818,0.765,0.858,0.046,0.088,-0.035,0.293,0.167,monitor_u_plans_property
+monitor + u plans property,0.9,0.847,0.81,0.887,0.038,0.055,-0.043,0.202,0.131,monitor_u_plans_property
