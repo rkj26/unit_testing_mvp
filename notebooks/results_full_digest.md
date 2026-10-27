@@ -466,7 +466,7 @@ the share of honest submissions deferred.
 
 Each line is one protocol with defer to trusted; each point is one defer cut, and the label gives
 the share of submissions deferred. Further up is safer; further right keeps more of the untrusted
-model's work. The hollow marker defers nothing, so it is trusted monitoring: the bars above.
+model's work. The hollow marker defers nothing: it is the protocol on its own, as in the safety bars.
 
 ### Do the tests rank attacks better? (not a deployment result)
 
