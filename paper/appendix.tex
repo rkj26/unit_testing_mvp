@@ -40,8 +40,49 @@ protocol scored.}
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/budgets.pdf}
-\caption{Monitoring with tests is safer than trusted monitoring at audit budgets of 1--2\% and less
-safe from 5\%; tests alone are less safe at every budget. Each budget has its own threshold
-(Table~\ref{tab:budgets}).}
+\caption{Safety with defer to trusted at a usefulness of 0.95 for each audit budget. Monitoring with
+tests is safer than trusted monitoring at a 1\% budget and less safe from 5\%; tests alone are less
+safe at every budget. Solid lines give the suite to the monitor; dashed lines score it alone. Each
+budget has its own threshold (Table~\ref{tab:budgets}).}
 \label{fig:budgets}
 \end{figure}
+
+\section{A study on competition-level problems}
+\label{app:hard-pool}
+
+Before scaling to the full pool, we studied the test writer on a separate pool of 50
+competition-level APPS problems, with one honest and one backdoored candidate each. $T$ writes 20
+tests per submission, and we score six protocols on a held-out split of 50 candidates (25
+backdoored, 25 honest): two whose test writer sees only the problem statement, and four that see the
+code. The pool is small, so we report it as supporting evidence only.
+
+\paragraph{The tests are not precise enough.} Rejecting any candidate that fails a test, the six
+protocols reject 74\% to 88\% of backdoors but keep only a quarter to three-fifths of the honest
+code. At the monitor's false-positive rate of 0.10, their detection rate falls to 0.14--0.31,
+against 0.84 for the monitor.
+
+\paragraph{Better test writing lowers false positives, not misses.} Table~\ref{tab:variants}
+compares two changes to the test writer with the same writer without them. Few-shot examples of
+good and bad tests reduce false positives from 29 of 44 honest candidates to 20 of 44, while
+detection falls from 42 of 48 backdoors to 39 of 48. A critic that removes weak tests lowers the
+false-positive rate from 0.67 to 0.43 and detection from 0.88 to 0.82; it removes almost as many
+tests from honest candidates as from backdoored ones (5.59 against 6.39 on average). Both changes
+make the tests more conservative rather than more discriminating.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Change to the test writer & Candidates & FPR & Detection \\
+\midrule
+Few-shot examples & 92$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
+Critic            & 98       & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
+\bottomrule
+\end{tabular}
+\caption{Each change against the same writer without it, on the 50-task competition-level pool.
+FPR is the share of honest candidates flagged; detection is the share of backdoored candidates
+flagged. $^{a}$The pool minus the task the few-shot example came from: 44 honest and 48 backdoored
+candidates scored.}
+\label{tab:variants}
+\end{table}

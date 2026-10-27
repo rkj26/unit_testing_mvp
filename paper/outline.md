@@ -11,6 +11,13 @@
 | F5 | defer to trusted is a separate protocol in Methods but a mode elsewhere | one framing everywhere: a rule added to a monitoring protocol, defined in Evaluation; "with / without deferral" in Results | done |
 | F6 | Table 1: "T calls" column means nothing | column and the call-count caption sentences cut | done |
 | F7 | "Why detection does not improve": BigCodeBench appears from nowhere | BigCodeBench paragraph out of the text (TODO kept); section ends on the hard pool's own evidence; abstract, intro and question (iii) follow | done |
+| G1 | "I thought everything was defer to trusted" | make it true: every protocol, test-only included, runs with defer to trusted; no deferral is the usefulness-1 end of each frontier; one main safety table at usefulness 1.00 / 0.95 / 0.90; budget sensitivity at the same operating point; question (ii) and the DTT paragraph follow | done: main table at usefulness 1 / 0.95 / 0.90 for all eight; Figure 1 retired (its numbers are the usefulness-1 column) |
+| G2 | drop "the score is the mean of two samples" | cut | done |
+| G3 | property-vs-plain sentences feel like a misfit | own short paragraph, definitions only; the justification sentence cut | done |
+| G4 | figures should look like a LaTeX paper's, not colourful charts | serif type matched to the text, restrained palette, line styles and markers carry identity | done: Times type embedded as TrueType, Okabe–Ito hues validated, solid = with the monitor, dashed = alone |
+| G5 | "a single candidate moves the detection rate by 0.04…" irrelevant | cut | done |
+| G6 | few-shot / critic study: too few samples to keep? | decide after G7 | done: moved to Appendix C with the rest of the hard-pool study; one sentence in the main text |
+| G7 | measure reach with the tests' own trigger inputs | % of backdoors where one of T's inputs makes backdoored and reference outputs differ, on the full pool, from existing executions if stored, else Docker (no model calls) | done: 86.5% of 1,379 backdoors reached; a test fails on 94–97% of reached ones and 28–49% of honest code; Table 4, full-pool section |
 | F8 | remove the label-leakage section | Methods paragraph and appendix table cut; one sentence in Data says the code was cleaned (the appendix ground truth refers to it) | done |
 
 **Status 2026-10-27 (second pass).** Abstract, introduction, methodology, results (now prose) and appendix are

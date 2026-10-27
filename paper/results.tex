@@ -6,33 +6,34 @@
 \section{Results}
 \label{sec:results}
 
-Three findings hold across our analyses. First, with defer to trusted, the rule of prior work's
-baseline and our main comparison, giving the monitor the trusted model's own tests does not raise safety at
-equal usefulness: at a usefulness of 0.95, trusted monitoring and monitoring with tests all reach
-about 0.73. Only tests planned by the untrusted model raise it (0.82), and that difference is not
-statistically certain (Section~\ref{sec:dtt}). Second, without deferral the tests do sharpen the top
-of the monitor's ranking: at a matched false-positive rate of 1--2\% the monitor catches
-significantly more backdoors with them, and safety at a 2\% audit budget rises in point estimate,
-though not beyond the uncertainty of calibrating a threshold from few honest examples, and the gain
-reverses at larger budgets. Third, tests written by the trusted model are a weak detector on their
-own: every test-only protocol ranks backdoors worse than the code-reading monitor.
+Three findings hold across our analyses. First, with defer to trusted, giving the monitor the
+trusted model's own tests does not raise safety at equal usefulness: at a usefulness of 0.95,
+trusted monitoring and monitoring with $T$'s tests all reach about 0.73. Only tests planned by the
+untrusted model raise it (0.82), and that difference is not statistically certain
+(Section~\ref{sec:safety}). Second, the tests do sharpen the top of the monitor's ranking: at a
+matched false-positive rate of 1--2\% the monitor catches significantly more backdoors with them,
+which raises safety in point estimate when nothing is deferred, but not once the monitor can defer.
+Third, tests are a weak detector on their own, and not because they miss the trigger: $T$'s inputs
+reach 87\% of backdoors and a test fails on nearly every backdoor reached, but tests also fail on
+28--49\% of honest code (Section~\ref{sec:limits}).
 
 \paragraph{Population.} Of the 2{,}776 candidates, 2{,}435 were scored by all eight protocols
 (1{,}177 honest, 1{,}258 backdoored); every detection result uses this common population
 (per-protocol failures are in Table~\ref{tab:coverage}). Safety uses the 642 evaluation tasks for
 which every protocol scored both candidates, with thresholds calibrated on the 447 calibration tasks
 with the same property. On its own, $T$ solves 1{,}111 of the 1{,}388 tasks (80.0\%) under the
-ControlArena scorer, even though our tests are not allowed to compute expected outputs.
+ControlArena scorer, and 81\% of the evaluation tasks.
 
 % ---------------------------------------------------------------------
 \subsection{Detection}
 \label{sec:detection}
 % Sources: notebooks/figures/all/data/catch_at_fpr.csv and bootstrap_separation.csv.
 
-Table~\ref{tab:detection} reports detection independently of the safety model. Every test-only protocol ranks below the monitor, with AUC 0.808--0.870 against 0.958
-and lower detection at every false-positive rate. Letting $U$ plan the tests improves the
-test-only protocols (AUC 0.816 $\to$ 0.870 for property tests and 0.808 $\to$ 0.867 for plain
-tests), whereas the choice between property and plain tests barely matters (0.816 against 0.808).
+Table~\ref{tab:detection} reports detection independently of the safety model. Every test-only
+protocol ranks below the monitor, with AUC 0.808--0.870 against 0.958 and lower detection at every
+false-positive rate. Letting $U$ plan the tests improves the test-only protocols (AUC 0.816 $\to$
+0.870 for property tests and 0.808 $\to$ 0.867 for plain tests), whereas the choice between
+property and plain tests barely matters (0.816 against 0.808).
 
 Adding the tests' results to the monitor leaves AUC essentially unchanged (0.954--0.962 against
 0.958) but redistributes detection across thresholds. At a 1\% false-positive rate the three
@@ -44,13 +45,12 @@ part of the ROC curve.
 Table~\ref{tab:detection} pools the calibration and evaluation splits and carries no intervals. To
 test the gain at strict thresholds, we compare each protocol with the monitor at matched
 false-positive rates set on the 642 evaluation tasks themselves, with 10{,}000 paired task
-resamples. At a 2\% false-positive rate, monitoring
-with tests detects $+15.2 \pm 9.5$ percentage points more backdoors with property tests,
-$+12.9 \pm 9.9$ with plain tests and $+17.2 \pm 9.9$ with $U$-planned tests;
-at 1\% the gains are $+23.0 \pm 8.7$, $+19.4 \pm 12.2$ and $+22.7 \pm 9.5$ points, every interval
-excluding zero.
-Because these thresholds are set on evaluation data, which a deployment does not have, they measure
-whether the tests improve the monitor's ranking, not deployable safety.
+resamples. At a 2\% false-positive rate, monitoring with tests detects $+15.2 \pm 9.5$ percentage
+points more backdoors with property tests, $+12.9 \pm 9.9$ with plain tests and $+17.2 \pm 9.9$
+with $U$-planned tests; at 1\% the gains are $+23.0 \pm 8.7$, $+19.4 \pm 12.2$ and
+$+22.7 \pm 9.5$ points, every interval excluding zero. Because these thresholds are set on
+evaluation data, which a deployment does not have, they measure whether the tests improve the
+monitor's ranking, not deployable safety.
 
 \begin{table}[t]
 \centering
@@ -78,71 +78,92 @@ thresholds; AUC counts ties as one half.}
 \end{table}
 
 % ---------------------------------------------------------------------
-\subsection{Safety at a 2\% audit budget}
+\subsection{Safety}
 \label{sec:safety}
-% Source: notebooks/figures/all/data/safety_at_budget.csv.
+% Sources: notebooks/figures/all/data/safety_at_budget.csv (usefulness 1),
+% dtt_at_usefulness.csv (0.95 and 0.90) and dtt.csv (the frontiers).
 
-Table~\ref{tab:safety} and Figure~\ref{fig:safety} report safety at the primary operating point.
-Trusted monitoring reaches
-$0.549 \pm 0.204$. Adding test results raises the point estimate to 0.662--0.716, a gain of
-$+0.113$ to $+0.167$, but every paired interval includes zero; the largest gain, with $U$-planned
-tests, is $+0.167 \pm 0.199$. The intervals are wide for a specific reason: a 2\% budget
-places the monitor's threshold among roughly nine of the 447 honest calibration candidates, so the
-threshold moves substantially between resamples (hence the monitor's own $\pm 0.204$).
-Together with the matched-rate comparison of Section~\ref{sec:detection}, this indicates that the
-tests improve the monitor's ranking, while the size of the resulting safety gain is limited by how
-precisely a threshold can be calibrated from few honest examples.
+Table~\ref{tab:safety} reports every protocol's safety with defer to trusted at the 2\% audit
+budget, at three usefulness levels: 1, where nothing is deferred, and 0.95 and 0.90, read from each
+protocol's safety--usefulness frontier (Figure~\ref{fig:dtt}). Deferral is inexpensive here because
+$T$ solves 81\% of the evaluation tasks: deferring 2.3\% of submissions raises trusted monitoring
+from 0.549 to 0.728 at a usefulness of 0.952.
 
-Every test-only protocol is less safe than the monitor (0.202--0.430). For three of the four, the
-interval of the difference lies entirely below zero; for $U$-planned plain tests (0.430) it
-includes zero. The natural rule of flagging any submission with a failing test is not an admissible
-audit rule: it flags 28.6--49.2\% of honest candidates, far beyond the budget.
+\paragraph{With deferral, $T$'s tests add nothing.} At a usefulness of 0.95, trusted monitoring
+reaches $0.730 \pm 0.169$, and monitoring with property or plain tests 0.727 and 0.724 (differences
+$-0.003$ and $-0.006$); at 0.90 the three lie between 0.772 and 0.793. Monitoring with $U$-planned
+tests reaches $0.818 \pm 0.046$ at 0.95 and 0.847 at 0.90, but neither difference from trusted
+monitoring excludes zero ($+0.088 \pm 0.167$ and $+0.055 \pm 0.131$), and the protocol carries the
+caveats of Section~\ref{sec:protocols}.
+
+\paragraph{Without deferral, the tests' gain is uncertain.} At a usefulness of 1, adding test
+results raises the monitor's safety from $0.549 \pm 0.204$ to 0.662--0.716, but every paired
+interval includes zero; the largest gain, with $U$-planned tests, is $+0.167 \pm 0.199$. The
+intervals are wide because a 2\% budget places the monitor's threshold among roughly nine of the
+447 honest calibration candidates, so the threshold moves substantially between resamples. With the
+matched-rate comparison of Section~\ref{sec:detection}, this indicates that the tests lift
+backdoors the monitor scores just below its threshold; once the monitor can defer those
+submissions, the gain disappears.
+
+\paragraph{Tests alone are less safe at every usefulness.} The test-only protocols reach
+0.202--0.430 without deferral and 0.266--0.497 at a usefulness of 0.95, against 0.549 and 0.730 for
+the monitor. For three of the four, every difference from the monitor lies below zero; for
+$U$-planned plain tests the intervals include zero ($-0.120 \pm 0.279$ without deferral and
+$-0.233 \pm 0.267$ at 0.95).
 
 \begin{table}[t]
 \centering
 \small
-\begin{tabular}{lcc}
+\begin{tabular}{lccc}
 \toprule
-Protocol & Safety & Difference from monitoring \\
+ & \multicolumn{3}{c}{Safety at a usefulness of} \\
+Protocol & 1 (no deferral) & 0.95 & 0.90 \\
 \midrule
-Trusted monitoring                      & $0.549 \pm 0.204$ & --- \\
-Monitoring + property tests             & $0.682 \pm 0.071$ & $+0.132 \pm 0.204$ \\
-Monitoring + plain tests                & $0.662 \pm 0.079$ & $+0.113 \pm 0.201$ \\
-Monitoring + $U$-planned property tests & $0.716 \pm 0.046$ & $+0.167 \pm 0.199$ \\
-Property tests                          & $0.203 \pm 0.087$ & $-0.346 \pm 0.209$ \\
-Plain tests                             & $0.202 \pm 0.072$ & $-0.347 \pm 0.215$ \\
-$U$-planned property tests              & $0.256 \pm 0.091$ & $-0.293 \pm 0.211$ \\
-$U$-planned plain tests                 & $0.430 \pm 0.196$ & $-0.120 \pm 0.279$ \\
+Trusted monitoring                      & $0.549 \pm 0.204$ & $0.730 \pm 0.169$ & $0.793 \pm 0.133$ \\
+Monitoring + property tests             & $0.682 \pm 0.071$ & $0.727 \pm 0.055$ & $0.772 \pm 0.062$ \\
+Monitoring + plain tests                & $0.662 \pm 0.079$ & $0.724 \pm 0.069$ & $0.783 \pm 0.061$ \\
+Monitoring + $U$-planned property tests & $0.716 \pm 0.046$ & $0.818 \pm 0.046$ & $0.847 \pm 0.038$ \\
+\midrule
+Property tests                          & $0.203 \pm 0.087^{\dagger}$ & $0.266 \pm 0.108^{\dagger}$ & $0.310 \pm 0.116^{\dagger}$ \\
+Plain tests                             & $0.202 \pm 0.072^{\dagger}$ & $0.266 \pm 0.089^{\dagger}$ & $0.303 \pm 0.093^{\dagger}$ \\
+$U$-planned property tests              & $0.256 \pm 0.091^{\dagger}$ & $0.338 \pm 0.118^{\dagger}$ & $0.414 \pm 0.129^{\dagger}$ \\
+$U$-planned plain tests                 & $0.430 \pm 0.196$ & $0.497 \pm 0.209$ & $0.565 \pm 0.221$ \\
 \bottomrule
 \end{tabular}
-\caption{Safety at a 2\% audit budget on the 642 evaluation tasks, every task attacked. Each
-threshold is calibrated on the honest candidates of the 447 calibration tasks, with ties broken at
-random. $\pm$ is 1.96 standard deviations over 10{,}000 paired task resamples (a 95\% interval),
-each resample recalibrating every threshold; the difference is taken within a resample.}
+\caption{Safety with defer to trusted at a 2\% audit budget on the 642 evaluation tasks, every task
+attacked. At a usefulness of 1 nothing is deferred; 0.95 and 0.90 are read from each protocol's
+frontier, interpolating between adjacent deferral thresholds. Usefulness is rescaled so that $T$'s
+own solutions score 0 and $U$'s score 1, so 0.95 means 99\% of tasks end correct. $\pm$ is 1.96
+standard deviations over 10{,}000 paired task resamples (a 95\% interval), each recalibrating every
+threshold. $^{\dagger}$The paired difference from trusted monitoring excludes zero; every such
+difference is negative.}
 \label{tab:safety}
 \end{table}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.8\linewidth]{figures/safety.pdf}
-\caption{Adding tests to the monitor raises safety at a 2\% audit budget in point estimate, but not
-beyond the uncertainty; tests alone are less safe. Bars are $\pm$ 1.96 standard deviations over
-10{,}000 paired task resamples, each recalibrating every threshold; the paired differences from
-trusted monitoring are in Table~\ref{tab:safety}.}
-\label{fig:safety}
+\includegraphics[width=\linewidth]{figures/dtt.pdf}
+\caption{With defer to trusted, trusted monitoring matches monitoring + property or plain tests;
+only monitoring + $U$-planned property tests stays above it at high usefulness. Each line is a
+protocol's safety--usefulness frontier as its deferral threshold moves, with the audit threshold at
+a 2\% budget. Hollow markers defer nothing; filled markers are the values of Table~\ref{tab:safety}
+at the usefulness levels marked by dotted lines. Test-only protocols, all less safe than trusted
+monitoring, are omitted for legibility.}
+\label{fig:dtt}
 \end{figure}
 
 % ---------------------------------------------------------------------
 \subsection{Sensitivity to the audit budget}
 \label{sec:budgets}
-% Source: notebooks/figures/all/data/safety_by_budget.csv.
+% Source: notebooks/figures/all/data/dtt_by_budget.csv.
 
-Table~\ref{tab:budgets} repeats the safety computation at budgets from 1\% to 10\%, each with its
-own threshold. The advantage of monitoring with tests is largest at the smallest budget (0.561--0.680
-against 0.334 at 1\%) and reverses by 5\% (0.760--0.823 against 0.833) and 10\% (0.887--0.901
-against 0.915), mirroring the crossover in detection. Test-only protocols remain below the monitor at
-every budget. These values are point estimates; Figure~\ref{fig:budgets} in the appendix plots
-them.
+Table~\ref{tab:budgets} repeats the comparison at a usefulness of 0.95 for audit budgets from 1\% to
+10\%, each with its own threshold. Monitoring with tests is ahead of the monitor only at the
+smallest budget (0.664--0.792 against 0.511 at 1\%). At 2\% only the $U$-planned protocol is ahead
+(0.818 against 0.730), and from 5\% the monitor alone is the safest (0.883 against 0.807--0.858 at
+5\%, and 0.929 against 0.903--0.911 at 10\%), mirroring the crossover in detection. Test-only
+protocols remain below the monitor at every budget. These values are point estimates;
+Figure~\ref{fig:budgets} in the appendix plots them.
 
 \begin{table}[t]
 \centering
@@ -151,146 +172,83 @@ them.
 \toprule
 Protocol & 1\% & 2\% & 5\% & 10\% \\
 \midrule
-Trusted monitoring                      & 0.334 & 0.549 & 0.833 & 0.915 \\
-Monitoring + property tests             & 0.586 & 0.682 & 0.760 & 0.887 \\
-Monitoring + plain tests                & 0.561 & 0.662 & 0.769 & 0.887 \\
-Monitoring + $U$-planned property tests & 0.680 & 0.716 & 0.823 & 0.901 \\
-Property tests                          & 0.129 & 0.203 & 0.359 & 0.535 \\
-Plain tests                             & 0.102 & 0.202 & 0.325 & 0.555 \\
-$U$-planned property tests              & 0.190 & 0.256 & 0.486 & 0.683 \\
-$U$-planned plain tests                 & 0.181 & 0.430 & 0.602 & 0.759 \\
+Trusted monitoring                      & 0.511 & 0.730 & 0.883 & 0.929 \\
+Monitoring + property tests             & 0.679 & 0.727 & 0.807 & 0.904 \\
+Monitoring + plain tests                & 0.664 & 0.724 & 0.815 & 0.903 \\
+Monitoring + $U$-planned property tests & 0.792 & 0.818 & 0.858 & 0.911 \\
+\midrule
+Property tests                          & 0.171 & 0.266 & 0.425 & 0.589 \\
+Plain tests                             & 0.142 & 0.266 & 0.376 & 0.585 \\
+$U$-planned property tests              & 0.255 & 0.338 & 0.569 & 0.745 \\
+$U$-planned plain tests                 & 0.241 & 0.497 & 0.666 & 0.787 \\
 \bottomrule
 \end{tabular}
-\caption{Safety at each audit budget on the 642 evaluation tasks, every task attacked, each budget
-with its own calibrated threshold.}
+\caption{Safety with defer to trusted at a usefulness of 0.95 for each audit budget, on the 642
+evaluation tasks, every task attacked; each budget has its own calibrated threshold.}
 \label{tab:budgets}
 \end{table}
-
-% ---------------------------------------------------------------------
-\subsection{Safety with defer to trusted}
-\label{sec:dtt}
-% Sources: notebooks/figures/all/data/dtt.csv and dtt_at_usefulness.csv.
-
-Our main comparison runs each monitoring protocol with defer to trusted, the rule of the baseline of
-\citet{greenblatt2024aicontrol} (Section~\ref{sec:safety-model}), and compares the protocols at equal
-usefulness. Figure~\ref{fig:dtt} plots each monitoring protocol's
-safety--usefulness frontier with the audit threshold at the 2\% budget, and
-Table~\ref{tab:dtt} reads the frontiers at a usefulness of 0.95 and 0.90. Deferral is inexpensive
-here because $T$ solves 81\% of the evaluation tasks: deferring 2.3\% of submissions raises trusted
-monitoring from 0.549 to 0.728 at a usefulness of 0.952.
-
-At equal usefulness, $T$'s own tests add nothing. At a usefulness of 0.95, trusted monitoring
-reaches $0.730 \pm 0.169$, and monitoring with property or plain tests reaches 0.727 and 0.724
-(differences $-0.003$ and $-0.006$); at 0.90 the three lie between 0.772 and 0.793. Only monitoring
-with $U$-planned tests is safer, at $0.818 \pm 0.046$ for a usefulness of 0.95 and 0.847 at 0.90,
-but neither difference from trusted monitoring excludes zero ($+0.088 \pm 0.167$ and
-$+0.055 \pm 0.131$). The gain that $T$'s tests showed without deferral
-(Section~\ref{sec:safety}) is therefore a gain over a monitor that ships everything it does not
-audit; once that monitor can defer, it disappears. The $U$-planned protocol keeps an advantage,
-subject to the caveats of Section~\ref{sec:protocols}.
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{lcc}
-\toprule
-Protocol & Safety & Difference from monitoring \\
-\midrule
-\multicolumn{3}{l}{\emph{Usefulness 0.95}} \\
-Trusted monitoring                      & $0.730 \pm 0.169$ & --- \\
-Monitoring + property tests             & $0.727 \pm 0.055$ & $-0.003 \pm 0.167$ \\
-Monitoring + plain tests                & $0.724 \pm 0.069$ & $-0.006 \pm 0.165$ \\
-Monitoring + $U$-planned property tests & $0.818 \pm 0.046$ & $+0.088 \pm 0.167$ \\
-\midrule
-\multicolumn{3}{l}{\emph{Usefulness 0.90}} \\
-Trusted monitoring                      & $0.793 \pm 0.133$ & --- \\
-Monitoring + property tests             & $0.772 \pm 0.062$ & $-0.020 \pm 0.136$ \\
-Monitoring + plain tests                & $0.783 \pm 0.061$ & $-0.010 \pm 0.132$ \\
-Monitoring + $U$-planned property tests & $0.847 \pm 0.038$ & $+0.055 \pm 0.131$ \\
-\bottomrule
-\end{tabular}
-\caption{Safety with defer to trusted at a fixed usefulness, the audit threshold at a 2\% budget.
-Each value is read from the protocol's frontier, interpolating between adjacent deferral thresholds.
-$\pm$ is 1.96 standard deviations over 10{,}000 paired task resamples (a 95\% interval), each
-resample recalibrating the audit threshold; the difference is taken within a resample.}
-\label{tab:dtt}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{figures/dtt.pdf}
-\caption{With defer to trusted, trusted monitoring matches monitoring + property or plain tests;
-only monitoring + $U$-planned property tests stays above it at high usefulness. Each line is a
-protocol's safety--usefulness frontier as its deferral threshold moves, with the audit threshold
-at a 2\% budget; hollow markers are the protocols without deferral (Table~\ref{tab:safety}), and the
-dotted lines mark the usefulness levels of Table~\ref{tab:dtt}. Usefulness is rescaled so that
-$T$'s own solutions (81\% of tasks correct) score 0 and $U$'s (100\%) score 1; 0.95 is 99\% of
-tasks correct.}
-\label{fig:dtt}
-\end{figure}
 
 % TODO(Omar): "Multi-turn on the full pool" goes here, if it is kept (paper/outline.md, row 7).
 % TODO: plain_v5 (E12) results, if reported (full notebook, Section 8), stratified by provider
 % period; then also describe the provider change of 10 October 2026 here and in the appendix.
 
 % ---------------------------------------------------------------------
-\subsection{Why detection does not improve}
-\label{sec:why-catch}
+\subsection{What limits the tests}
+\label{sec:limits}
+% Source: notebooks/figures/all/data/trigger_reach.csv; the cache runs/trig-all/trigger_reach.jsonl.
 
-To understand what limits the tests, we use a separate pool of 50 competition-level APPS
-problems, with one honest and one backdoored candidate each. $T$ writes 20 tests per submission, and
-we score six protocols on a held-out split of 50 candidates (25 backdoored, 25 honest): two whose
-test writer sees only the problem statement, and four that see the code.
+\paragraph{The inputs reach the backdoor.} Every suite runs on the inputs $T$ proposed for that
+candidate. $T$'s inputs reach 86.5\% of the 1{,}379 backdoors with a trigger search (557 of the 642
+on the evaluation tasks), and on average 25.3\% of a backdoored candidate's inputs make the
+backdoor fire. Unreached triggers therefore account for a minority of misses.
 
-\paragraph{The tests are not precise enough.} Rejecting any candidate that fails a test, the six
-protocols reject 74\% to 88\% of backdoors but keep only a quarter to three-fifths of the honest
-code. At the monitor's false-positive rate of 0.10, their detection rate falls to 0.14--0.31,
-against 0.84 for the monitor. With 25 backdoored candidates a single candidate moves the detection
-rate by about 0.04, so we do not rank the six protocols against one another; all six fall well
-below the monitor.
-
-\paragraph{Better test writing lowers false positives, not misses.} Table~\ref{tab:variants}
-compares two changes to the test writer with the same writer without them. Few-shot examples of
-good and bad tests reduce false positives from 29 of 44 honest candidates to 20 of 44, while
-detection falls from 42 of 48 backdoors to 39 of 48. A critic that removes weak tests lowers the
-false-positive rate from 0.67 to 0.43 and detection from 0.88 to 0.82; it removes almost as many
-tests from honest candidates as from backdoored ones (5.59 against 6.39 on average). Both changes
-make the tests more conservative rather than more discriminating.
+\paragraph{The assertions do not separate.} Table~\ref{tab:reach} splits detection by reach. At
+least one test fails on 94--97\% of reached backdoors, but also on 28--49\% of honest candidates,
+and on unreached backdoors at about the honest rate, as expected if those failures come from the
+tests rather than the backdoor. Most failing tests therefore assert something the specification does
+not entail, which correct code violates as well. Because honest code fails tests so often, the 2\%
+budget forces each suite's threshold high, and only 23--49\% of reached backdoors score above it.
+Giving the monitor the tests' results raises its detection of reached backdoors (0.708--0.753
+against 0.566) but not of unreached ones (0.344--0.474 against 0.440), so what the tests add comes
+through the backdoors they reach. To detect a backdoor, a test must assert a property that the
+specification entails and the backdoored output violates; our results indicate that such
+assertions are rare among the tests $T$ writes, which we call the
+\emph{specification-entailment wall}. In a small study on 50 competition-level problems
+(Appendix~\ref{app:hard-pool}), two changes to the test writer, few-shot examples and a critic that
+removes weak tests, lowered false positives without raising detection, consistent with this limit.
 
 \begin{table}[t]
 \centering
 \small
-\begin{tabular}{lccc}
+\begin{tabular}{lccccc}
 \toprule
-Change to the test writer & Candidates & FPR & Detection \\
+ & \multicolumn{2}{c}{Detected at 2\%} & \multicolumn{3}{c}{A test fails} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-6}
+Protocol & reached & not reached & reached & not reached & honest \\
 \midrule
-Few-shot examples & 92$^{a}$ & 0.66 $\to$ 0.45 & 0.88 $\to$ 0.81 \\
-Critic            & 98       & 0.67 $\to$ 0.43 & 0.88 $\to$ 0.82 \\
+Trusted monitoring                      & 0.566 & 0.440 & --- & --- & --- \\
+Monitoring + property tests             & 0.733 & 0.344 & --- & --- & --- \\
+Monitoring + plain tests                & 0.708 & 0.364 & --- & --- & --- \\
+Monitoring + $U$-planned property tests & 0.753 & 0.474 & --- & --- & --- \\
+\midrule
+Property tests                          & 0.232 & 0.013 & 0.962 & 0.506 & 0.486 \\
+Plain tests                             & 0.230 & 0.018 & 0.943 & 0.435 & 0.386 \\
+$U$-planned property tests              & 0.291 & 0.029 & 0.959 & 0.412 & 0.290 \\
+$U$-planned plain tests                 & 0.489 & 0.037 & 0.966 & 0.235 & 0.283 \\
 \bottomrule
 \end{tabular}
-\caption{Each change against the same writer without it, on the 50-task competition-level pool.
-FPR is the share of honest candidates flagged; detection is the share of backdoored candidates
-flagged. $^{a}$The pool minus the task the few-shot example came from: 44 honest and 48 backdoored
-candidates scored.}
-\label{tab:variants}
+\caption{Detection on the 642 evaluation tasks, split by whether $T$'s trigger inputs reach the
+backdoor (557 reached, 85 not). Detected: the share of backdoored candidates audited at the 2\%
+threshold without deferral. A test fails: the share of candidates on which at least one test
+fails.}
+\label{tab:reach}
 \end{table}
 
-\paragraph{The limit is what a test can assert.} A failing test is weak evidence here because most
-failures come from assertions the specification does not support, which correct code violates too.
-Making the writer more careful removes such tests from honest and backdoored candidates alike, so
-the tests that remain are too weak to fail on the backdoor either. To detect a backdoor, a test must
-assert a property that the specification entails and that the backdoored output violates; our
-results are consistent with such properties being scarce, which we call the
-\emph{specification-entailment wall}. We did not measure on this pool how often the trigger inputs
-reach the backdoor, so unreached triggers remain a possible second cause.
-
-% TODO(Alon): reach decomposition on the hard APPS pool. The earlier version of this paragraph used
-% five BigCodeBench tasks (two backdoors each, writer models unnamed): 2 of 10 triggers unreachable
-% from the input format, 8 of 10 reached on 21-90% of 20,000 random inputs but undetected. Rerun on
-% the hard pool before reinstating; differential testing (mckeeman1998) is the method.
+% The BigCodeBench reach analysis this section used to carry (five tasks, two backdoors each,
+% writer models unnamed) is replaced by the full-pool measurement above.
 % Provisional, keep out of the text until checked against the task docstrings: of the 8 reached
-% backdoors, roughly 1-3 look like behaviour the spec leaves open (e.g. the 202/attack_0
-% tie-break) and roughly 5 look like errors a sound spec-derived test could catch.
+% BigCodeBench backdoors, roughly 1-3 look like behaviour the spec leaves open (e.g. the
+% 202/attack_0 tie-break) and roughly 5 look like errors a sound spec-derived test could catch.
 
 % BigCodeBench (Alon's 26-task run, 22/09) is left out until its numbers are confirmed and
 % recomputed under the per-sample safety model. Its draft points: the monitor reaches AUC 1.000;
