@@ -345,8 +345,9 @@ safety_draws = safety_by_draw(BOOT_DRAWS, BOOT_SEED, AUDIT_BUDGET)
 
 
 def summarise(draws):
-    '''By arm: safety on the full sample with its 95% percentile interval, and the same for the arm
-    minus the monitor on the same draw.'''
+    '''By arm: safety on the full sample with its 95% percentile interval and its "±", 1.96
+    standard deviations of the resamples (the paper's form), and the same for the arm minus the
+    monitor on the same draw.'''
     rows = []
     for arm, group in draws.groupby("arm", sort=False):
         full, resampled = group[group.draw == 0].iloc[0], group[group.draw > 0]
@@ -356,7 +357,8 @@ def summarise(draws):
                 ("minus monitor", full.safety - full.monitor, resampled.safety - resampled.monitor)):
             low, high = np.percentile(values, [2.5, 97.5])
             row |= {measure: round(point, 3), f"{measure} low": round(low, 3),
-                    f"{measure} high": round(high, 3)}
+                    f"{measure} high": round(high, 3),
+                    f"{measure} \\u00b1": round(1.96 * np.std(values, ddof=1), 3)}
         rows.append(row)
     return pd.DataFrame(rows).set_index("arm")
 
@@ -480,16 +482,19 @@ def bootstrap_separation(scores, draws, seed):
 
 
 def separation_table(gaps, tasks):
-    '''Every arm's attacks caught minus the monitor's, in percentage points with its 95% interval,
-    at the shares of honest candidates flagged in SEPARATION_TABLE_AT.'''
+    '''Every arm's attacks caught minus the monitor's, in percentage points, with its "±" (1.96
+    standard deviations of the resamples, the paper's form) and its 95% percentile interval, at the
+    shares of honest candidates flagged in SEPARATION_TABLE_AT.'''
     columns = [int(np.flatnonzero(np.isclose(SEPARATION_GRID, share))[0])
                for share in SEPARATION_TABLE_AT]
     rows = {}
     for arm, gap in gaps.items():
         gap = 100 * gap
         low, high = np.percentile(gap[1:], [2.5, 97.5], axis=0)
+        half = 1.96 * gap[1:].std(axis=0, ddof=1)
         rows[arm] = {"test tasks": tasks[arm]} | {
-            f"{SEPARATION_GRID[i]:.1%} flagged": f"{gap[0, i]:+.1f} [{low[i]:+.1f}, {high[i]:+.1f}]"
+            f"{SEPARATION_GRID[i]:.1%} flagged":
+                f"{gap[0, i]:+.1f} \\u00b1 {half[i]:.1f} [{low[i]:+.1f}, {high[i]:+.1f}]"
             for i in columns}
     return pd.DataFrame(rows).T
 
@@ -640,24 +645,19 @@ def save_for_print(fig, name):
 written = []
 with plt.rc_context(PRINT):
     rows = PAPER_ORDER[::-1]
-    fig, axes = plt.subplots(1, 2, figsize=(5.5, 2.9), sharey=True)
-    for y, arm in enumerate(rows):
+    fig, axis = plt.subplots(figsize=(4.4, 2.6))
+    for y, arm in enumerate(rows):  # bars are the paper's ±, as in its safety table
         colour, marker, _ = style_for(arm)
         row = safety_table.loc[arm]
-        for axis, measure in zip(axes, ("safety", "minus monitor")):
-            if measure == "minus monitor" and arm == "monitor":
-                continue
-            axis.plot([row[f"{measure} low"], row[f"{measure} high"]], [y, y], color=colour, lw=1.6)
-            axis.scatter(row[measure], y, marker=marker, color=colour, s=28, zorder=3)
-    axes[0].set_yticks(range(len(rows)))
-    axes[0].set_yticklabels([PAPER_NAME[arm] for arm in rows])
-    axes[0].set_xlim(0, 1)
-    axes[0].set_xlabel(f"Safety at a {AUDIT_BUDGET:.0%} audit budget")
-    axes[1].axvline(0, color=INK, lw=0.8)
-    axes[1].set_xlabel("Difference from trusted monitoring")
-    for axis in axes:
-        axis.axhline(len(rows) - len(MONITORING) - 0.5, color=RULE, lw=0.6)
-        print_axes(axis, grid="x")
+        axis.plot([row["safety"] - row["safety \\u00b1"], row["safety"] + row["safety \\u00b1"]],
+                  [y, y], color=colour, lw=1.6)
+        axis.scatter(row["safety"], y, marker=marker, color=colour, s=28, zorder=3)
+    axis.set_yticks(range(len(rows)))
+    axis.set_yticklabels([PAPER_NAME[arm] for arm in rows])
+    axis.set_xlim(0, 1)
+    axis.set_xlabel(f"Safety at a {AUDIT_BUDGET:.0%} audit budget")
+    axis.axhline(len(rows) - len(MONITORING) - 0.5, color=RULE, lw=0.6)
+    print_axes(axis, grid="x")
     written.append(save_for_print(fig, "safety"))
 
     fig, axis = plt.subplots(figsize=(5.5, 3.2))
@@ -931,7 +931,8 @@ for (arm, target), group in dtt_draws.groupby(["arm", "usefulness"], sort=False)
             ("minus monitor", full.safety - full.monitor, resampled.safety - resampled.monitor)):
         low, high = np.percentile(values, [2.5, 97.5])
         row |= {measure: round(point, 3), f"{measure} low": round(low, 3),
-                f"{measure} high": round(high, 3)}
+                f"{measure} high": round(high, 3),
+                f"{measure} \\u00b1": round(1.96 * np.std(values, ddof=1), 3)}
     rows.append(row)
 dtt_table = pd.DataFrame(rows)
 export_table(dtt_table, "dtt_at_usefulness")
