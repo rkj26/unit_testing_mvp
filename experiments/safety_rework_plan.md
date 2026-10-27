@@ -24,7 +24,7 @@ protocol).
 | # | module | files | status |
 |---|---|---|---|
 | M0 | housekeeping: D7; `experiments/rerun_plan.md` steps 2b–6 marked blocked (key rotated); D6 note in `experiments/scale_plan.md` | those three | **done**: WIP committed (56c7af2, 26d189c), branch `per-sample-safety`, both notes written |
-| M1 | per-sample safety core: cut (reuse `budget_rule`, `flag_share`), TM safety, DTT safety + usefulness (reuse `trusted_solves`), bootstrap reusing them | `notebooks/build_results.py` | todo |
+| M1 | per-sample safety core: cut (reuse `budget_rule`, `flag_share`), TM safety, DTT safety + usefulness (reuse `trusted_solves`), bootstrap reusing them | `notebooks/build_results.py` | **done** (d06ddf2..7da4ec1): all 8 arms and intervals reproduce game A, ties at random, to 0.001 |
 | M2 | digest Section 8 rebuilt on M1: auditing model in one paragraph; safety bars at 2% with intervals; four-protocol DTT plot, zoomed; safety vs budget (D5) | `notebooks/build_results.py` | todo |
 | M3 | delete the game everywhere: `sequences`, `played_out`, `VARIATIONS`, `exact_safety`, `first_k_by`, paper-values bars, Pareto A/B/C, placement and budget-binds figures, full-notebook §6–§8; findings, predictions, limits and glossary re-pointed | `notebooks/build_results.py` | todo |
 | M4 | paper: methodology safety subsection rewritten; results' three game subsections replaced; limitations (no red-team attack selection; provider change with no R2) | `paper/methodology.tex`, `paper/results.tex` | todo |
