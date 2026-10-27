@@ -1,32 +1,338 @@
-@inproceedings{greenblatt2024control,
+@inproceedings{greenblatt2024aicontrol,
   title     = {{AI} Control: Improving Safety Despite Intentional Subversion},
   author    = {Greenblatt, Ryan and Shlegeris, Buck and Sachan, Kshitij and Roger, Fabien},
-  booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
   year      = {2024},
+  note      = {arXiv:2312.06942},
   eprint    = {2312.06942},
   archivePrefix = {arXiv},
-  url       = {https://arxiv.org/abs/2312.06942}
+  primaryClass  = {cs.LG}
 }
 
-@misc{terekhov2025controltax,
-  title     = {Control Tax: The Price of Keeping {AI} in Check},
-  author    = {Terekhov, Mikhail and Liu, Zhen Ning David and Gulcehre, Caglar and Albanie, Samuel},
+@inproceedings{wen2025adaptive,
+  title     = {Adaptive Deployment of Untrusted {LLMs} Reduces Distributed Threats},
+  author    = {Wen, Jiaxin and Hebbar, Vivek and Larson, Caleb and Bhatt, Aryan and Radhakrishnan, Ansh and Sharma, Mrinank and Sleight, Henry and Feng, Shi and He, He and Perez, Ethan and Shlegeris, Buck and Khan, Akbir},
+  booktitle = {International Conference on Learning Representations (ICLR)},
   year      = {2025},
-  eprint    = {2506.05296},
+  note      = {arXiv:2411.17693},
+  eprint    = {2411.17693},
   archivePrefix = {arXiv},
-  url       = {https://arxiv.org/abs/2506.05296}
+  primaryClass  = {cs.LG}
 }
+
+@article{bhatt2025ctrlz,
+  title   = {Ctrl-{Z}: Controlling {AI} Agents via Resampling},
+  author  = {Bhatt, Aryan and Rushing, Cody and Kaufman, Adam and Tracy, Tyler and Georgiev, Vasil and Matolcsi, David and Khan, Akbir and Shlegeris, Buck},
+  journal = {arXiv preprint arXiv:2504.10374},
+  year    = {2025},
+  eprint  = {2504.10374},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}
+
+@article{terekhov2025controltax,
+  title   = {Control Tax: The Price of Keeping {AI} in Check},
+  author  = {Terekhov, Mikhail and Liu, Zhen Ning David and Gulcehre, Caglar and Albanie, Samuel},
+  journal = {arXiv preprint arXiv:2506.05296},
+  year    = {2025},
+  eprint  = {2506.05296},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI}
+}
+
+% VERIFY: author list confirmed from a citing paper's reference list, not the source.
+@article{kutasov2025evaluating,
+  title   = {Evaluating Control Protocols for Untrusted {AI} Agents},
+  author  = {Kutasov, Jon and Loughridge, Chloe and Sun, Yuqi and Sleight, Henry and Shlegeris, Buck and Tracy, Tyler and Benton, Joe},
+  journal = {arXiv preprint arXiv:2511.02997},
+  year    = {2025},
+  eprint  = {2511.02997},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}
+
+% VERIFY: taken from the team research doc (2602.04930). Confirm full author list and title.
+@article{schaeffer2026attackselection,
+  title   = {Attack Selection Reduces Safety in Concentrated {AI} Control Settings against Trusted Monitoring},
+  author  = {Schaeffer, Joachim and others},
+  journal = {arXiv preprint arXiv:2602.04930},
+  year    = {2026},
+  eprint  = {2602.04930},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}
+
+% VERIFY: seen in a reference list (2510.09462, ICLR 2026). Confirm before use.
+@inproceedings{terekhov2026adaptive,
+  title     = {Adaptive Attacks on Trusted Monitors Subvert {AI} Control Protocols},
+  author    = {Terekhov, Mikhail and Panfilov, Andrey and Dzenhaliou, Dzmitry and Gulcehre, Caglar and Andriushchenko, Maksym and Prabhu, Ameya and Geiping, Jonas},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2026},
+  note      = {arXiv:2510.09462},
+  eprint    = {2510.09462},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}
+
+% ---------- Automated test generation for bug finding ----------
+
+@inproceedings{claessen2000quickcheck,
+  title     = {{QuickCheck}: A Lightweight Tool for Random Testing of {Haskell} Programs},
+  author    = {Claessen, Koen and Hughes, John},
+  booktitle = {Proceedings of the 5th ACM SIGPLAN International Conference on Functional Programming (ICFP)},
+  pages     = {268--279},
+  year      = {2000}
+}
+
+% VERIFY: JOSS volume/issue/page.
+@article{maciver2019hypothesis,
+  title   = {Hypothesis: A new approach to property-based testing},
+  author  = {MacIver, David R. and Hatfield-Dodds, Zac and {many other contributors}},
+  journal = {Journal of Open Source Software},
+  volume  = {4},
+  number  = {43},
+  pages   = {1891},
+  year    = {2019}
+}
+
+@article{mckeeman1998differential,
+  title   = {Differential Testing for Software},
+  author  = {McKeeman, William M.},
+  journal = {Digital Technical Journal},
+  volume  = {10},
+  number  = {1},
+  pages   = {100--107},
+  year    = {1998}
+}
+
+@inproceedings{hughes2020specify,
+  title     = {How to Specify It! A Guide to Writing Properties of Pure Functions},
+  author    = {Hughes, John},
+  booktitle = {Trends in Functional Programming (TFP 2019)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {12053},
+  pages     = {58--83},
+  publisher = {Springer},
+  year      = {2020}
+}
+
+@article{manes2021fuzzing,
+  title   = {The Art, Science, and Engineering of Fuzzing: A Survey},
+  author  = {Man{\`e}s, Valentin J. M. and Han, HyungSeok and Han, Choongwoo and Cha, Sang Kil and Egele, Manuel and Schwartz, Edward J. and Woo, Maverick},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {47},
+  number  = {11},
+  pages   = {2312--2331},
+  year    = {2021}
+}
+
+@article{chen2022codet,
+  title   = {{CodeT}: Code Generation with Generated Tests},
+  author  = {Chen, Bei and Zhang, Fengji and Nguyen, Anh and Zan, Daoguang and Lin, Zeqi and Lou, Jian-Guang and Chen, Weizhu},
+  journal = {arXiv preprint arXiv:2207.10397},
+  year    = {2022},
+  eprint  = {2207.10397},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
+}
+
+% VERIFY: arXiv:2402.09171; appeared at FSE 2024 (industry track).
+@inproceedings{alshahwan2024testgen,
+  title     = {Automated Unit Test Improvement using Large Language Models at {Meta}},
+  author    = {Alshahwan, Nadia and Chheda, Jubin and Finogenova, Anastasia and Gokkaya, Beliz and Harman, Mark and Harper, Inna and Marginean, Alexandru and Sengupta, Shubho and Wang, Eddy},
+  booktitle = {Companion Proceedings of the ACM International Conference on the Foundations of Software Engineering (FSE)},
+  year      = {2024},
+  note      = {arXiv:2402.09171},
+  eprint    = {2402.09171},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SE}
+}
+
+% ---------- Test-oracle problem and capability asymmetry ----------
+
+@article{barr2015oracle,
+  title   = {The Oracle Problem in Software Testing: A Survey},
+  author  = {Barr, Earl T. and Harman, Mark and McMinn, Phil and Shahbaz, Muzammil and Yoo, Shin},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {41},
+  number  = {5},
+  pages   = {507--525},
+  year    = {2015}
+}
+
+@techreport{chen1998metamorphic,
+  title       = {Metamorphic Testing: A New Approach for Generating Next Test Cases},
+  author      = {Chen, Tsong Yueh and Cheung, Shing Chi and Yiu, Shiu Ming},
+  institution = {Department of Computer Science, Hong Kong University of Science and Technology},
+  number      = {HKUST-CS98-01},
+  year        = {1998}
+}
+
+@article{burns2023weaktostrong,
+  title   = {Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision},
+  author  = {Burns, Collin and Izmailov, Pavel and Kirchner, Jan Hendrik and Baker, Bowen and Gao, Leo and Aschenbrenner, Leopold and Chen, Yining and Ecoffet, Adrien and Joglekar, Manas and Leike, Jan and Sutskever, Ilya and Wu, Jeff},
+  journal = {arXiv preprint arXiv:2312.09390},
+  year    = {2023},
+  eprint  = {2312.09390},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
+}
+
+@inproceedings{prasad2025utgen,
+  title     = {Learning to Generate Unit Tests for Automated Debugging},
+  author    = {Prasad, Archiki and Stengel-Eskin, Elias and Chen, Justin Chih-Yao and Khan, Zaid and Bansal, Mohit},
+  booktitle = {Conference on Language Modeling (COLM)},
+  year      = {2025},
+  note      = {arXiv:2502.01619},
+  eprint    = {2502.01619},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
+}
+
+@article{hubinger2024sleeper,
+  title   = {Sleeper Agents: Training Deceptive {LLMs} that Persist Through Safety Training},
+  author  = {Hubinger, Evan and Denison, Carson and Mu, Jesse and Lambert, Mike and Tong, Meg and MacDiarmid, Monte and Lanham, Tamera and Ziegler, Daniel M. and Maxwell, Tim and Cheng, Newton and others},
+  journal = {arXiv preprint arXiv:2401.05566},
+  year    = {2024},
+  eprint  = {2401.05566},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CR}
+}
+
+% ---------- Datasets (cite here or in the methods/setup section) ----------
 
 @inproceedings{hendrycks2021apps,
   title     = {Measuring Coding Challenge Competence With {APPS}},
   author    = {Hendrycks, Dan and Basart, Steven and Kadavath, Saurav and Mazeika, Mantas and Arora, Akul and Guo, Ethan and Burns, Collin and Puranik, Samir and He, Horace and Song, Dawn and Steinhardt, Jacob},
-  booktitle = {Advances in Neural Information Processing Systems, Datasets and Benchmarks Track},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},
   year      = {2021},
+  note      = {arXiv:2105.09938},
   eprint    = {2105.09938},
   archivePrefix = {arXiv},
-  url       = {https://arxiv.org/abs/2105.09938}
+  primaryClass  = {cs.SE}
 }
 
+@inproceedings{zhuo2025bigcodebench,
+  title     = {{BigCodeBench}: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions},
+  author    = {Zhuo, Terry Yue and Vu, Minh Chien and Chim, Jenny and Hu, Han and Yu, Wenhao and Widyasari, Ratnadira and Yusuf, Imam Nur Bani and Zhan, Haolan and He, Junda and Paul, Indraneil and others},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025},
+  note      = {arXiv:2406.15877},
+  eprint    = {2406.15877},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SE}
+}
+
+@article{zhuo2024,
+  title={BigCodeBench: Benchmarking Code Generation with Diverse Function Calls and Complex Instructions},
+  author={Zhuo, Terry Yue and Vu, Minh Chien and Chim, Jenny and Hu, Han and Yu, Wenhao and Widyasari, Ratnadira and Yusuf, Imam Nur Bani and Zhan, Haolan and He, Junda and Paul, Indraneil and others},
+  journal={arXiv preprint arXiv:2406.15877},
+  year={2024}
+}
+
+@article{davidson2026,
+  title={The Future of Facts: Tracing the Factual Generation-Verification Gap},
+  author={Davidson, Tim R. and Surina, Anja and Gulcehre, Caglar},
+  journal={arXiv preprint arXiv:2605.27564},
+  year={2026}
+}
+
+@article{sahoo2025,
+  title={The Double Life of Code World Models: Provably Unmasking Malicious Behavior Through Execution Traces},
+  author={Sahoo, Subramanyam and Junkin, Jared},
+  journal={arXiv preprint arXiv:2512.13821},
+  year={2025}
+}
+
+@article{bhatt2025,
+  author  = {Bhatt, Aryan and Rushing, Cody and Kaufman, Adam and Tracy, Tyler and
+             Georgiev, Vasil and Matolcsi, David and Khan, Akbir and Shlegeris, Buck},
+  title   = {{Ctrl-Z}: Controlling {AI} Agents via Resampling},
+  journal = {arXiv preprint arXiv:2504.10374},
+  year    = {2025},
+}
+
+@inproceedings{wen2025,
+  author    = {Wen, Jiaxin and Hebbar, Vivek and Larson, Caleb and Bhatt, Aryan and
+               Radhakrishnan, Ansh and Sharma, Mrinank and Sleight, Henry and Feng, Shi and
+               He, He and Perez, Ethan and Shlegeris, Buck and Khan, Akbir},
+  title     = {Adaptive Deployment of Untrusted {LLMs} Reduces Distributed Threats},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025},
+}
+
+@article{schaeffer2026,
+  author  = {Schaeffer, Joachim and Khandelwal, Arjun and Tracy, Tyler},
+  title   = {Attack Selection Reduces Safety in Concentrated {AI} Control Settings
+             against Trusted Monitoring},
+  journal = {arXiv preprint arXiv:2602.04930},
+  year    = {2026},
+}
+
+@article{prasad2025,
+  author  = {Prasad, Archiki and Stengel-Eskin, Elias and Chen, Justin Chih-Yao and
+             Khan, Zaid and Bansal, Mohit},
+  title   = {Learning to Generate Unit Tests for Automated Debugging},
+  journal = {arXiv preprint arXiv:2502.01619},
+  year    = {2025},
+}
+
+@inproceedings{alshahwan2024,
+  author    = {Alshahwan, Nadia and Chheda, Jubin and Finogenova, Anastasia and
+               Gokkaya, Beliz and Harman, Mark and Harper, Inna and Marginean, Alexandru and
+               Sengupta, Shubho and Wang, Eddy},
+  title     = {Automated Unit Test Improvement using Large Language Models at {Meta}},
+  booktitle = {Companion Proceedings of the 32nd ACM International Conference on the
+               Foundations of Software Engineering (FSE Companion)},
+  year      = {2024},
+}
+
+@inproceedings{chen2022,
+  author    = {Chen, Bei and Zhang, Fengji and Nguyen, Anh and Zan, Daoguang and
+               Lin, Zeqi and Lou, Jian-Guang and Chen, Weizhu},
+  title     = {{CodeT}: Code Generation with Generated Tests},
+  booktitle = {The Eleventh International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+}
+
+@inproceedings{claessen2000,
+  author    = {Claessen, Koen and Hughes, John},
+  title     = {{QuickCheck}: A Lightweight Tool for Random Testing of {Haskell} Programs},
+  booktitle = {Proceedings of the Fifth ACM SIGPLAN International Conference on
+               Functional Programming (ICFP)},
+  pages     = {268--279},
+  year      = {2000},
+}
+
+@article{maciver2019,
+  author  = {MacIver, David R. and Hatfield-Dodds, Zac and {many contributors}},
+  title   = {Hypothesis: A New Approach to Property-Based Testing},
+  journal = {Journal of Open Source Software},
+  volume  = {4},
+  number  = {43},
+  pages   = {1891},
+  year    = {2019},
+}
+
+@article{barr2015,
+  author  = {Barr, Earl T. and Harman, Mark and McMinn, Phil and Shahbaz, Muzammil and Yoo, Shin},
+  title   = {The Oracle Problem in Software Testing: A Survey},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {41},
+  number  = {5},
+  pages   = {507--525},
+  year    = {2015},
+}
+
+@article{mckeeman1998,
+  author  = {McKeeman, William M.},
+  title   = {Differential Testing for Software},
+  journal = {Digital Technical Journal},
+  volume  = {10},
+  number  = {1},
+  pages   = {100--107},
+  year    = {1998},
+}
 @misc{appscontrolarena,
   title        = {apps-control-arena},
   author       = {Inglis, Rogan},
