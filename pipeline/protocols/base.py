@@ -22,9 +22,8 @@ import json
 import sys
 import time
 import traceback
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
-from threading import Lock
 from typing import Any, ClassVar, Mapping, Sequence
 
 from dotenv import load_dotenv
@@ -33,6 +32,7 @@ from .. import launch as launch_mod
 from ..data import (
     CONFIG_FILE,
     RECORDS_FILE,
+    RETRIED_FILE,
     RUNS_DIR,
     SPLITS,
     Blame,
@@ -40,13 +40,14 @@ from ..data import (
     Dataset,
     Task,
     load_records,
+    load_retried,
 )
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PROTOCOLS_PACKAGE = "pipeline.protocols"
 ENTRY_MODULE = f"{PROTOCOLS_PACKAGE}.base"
 
-WORKERS = 8
+WORKERS = 24  # calls in flight per run; 32 cost DeepSeek ~8% latency (reports/multi_turn_runtime.md)
 POLL_SECONDS = 2.0
 LAUNCH_GRACE_SECONDS = launch_mod.SESSION_LIVENESS_GRACE_SECONDS
 CONSOLE_TAIL_CHARS = 2000
@@ -125,6 +126,12 @@ def _repair_truncated_tail(path: Path) -> None:
     print(f"  dropped {len(written) - complete} byte(s) of a record cut off mid-write", flush=True)
 
 
+def _needs_retry(record: Mapping[str, Any], retried: set[str]) -> bool:
+    """True for an infra failure whose candidate has not had its one retry yet."""
+    return (record["failed"] and record["blame"] == Blame.INFRA.value
+            and record["candidate_id"] not in retried)
+
+
 class Run:
     """One protocol over one dataset: detached in tmux, one appended record per candidate.
 
@@ -198,6 +205,10 @@ class Run:
     @property
     def records_path(self) -> Path:
         return self.directory / RECORDS_FILE
+
+    @property
+    def retried_path(self) -> Path:
+        return self.directory / RETRIED_FILE
 
     @property
     def total(self) -> int:
@@ -371,10 +382,18 @@ class Run:
 
         The only writer of `records.jsonl`, and that file is the run's only heartbeat, so every
         line is flushed on arrival. A `score` that raises is recorded as a failure blaming infra.
+
+        An infra failure is retried once, in the same session, so a slow or flaky endpoint no
+        longer needs a person to delete the line and relaunch: the failure goes to
+        `infra_retried.jsonl`, the candidate is scored again, and whatever that attempt returns is
+        its record. A candidate already in `infra_retried.jsonl` (a session that stopped mid-retry)
+        has had its retry, so its next record is final. A model failure is data, never retried.
         """
         _repair_truncated_tail(self.records_path)
+        _repair_truncated_tail(self.retried_path)
         self.prepare(self.data)
         remaining = self.pending()
+        retried = {row["candidate_id"] for row in load_retried(self.run_name)}
         print(
             f"{self.run_name} [{type(self).protocol}]: {len(remaining)} of {self.total} candidates, "
             f"{self.runs} rep(s) at seeds {list(self.seeds)}, "
@@ -383,31 +402,47 @@ class Run:
         )
 
         written = 0
-        lock = Lock()
         with open(self.records_path, "a", encoding="utf-8") as artifact:
             with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-                scoring = [
-                    pool.submit(self._record_for, task, candidate)
+                scoring = {
+                    pool.submit(self._record_for, task, candidate): (task, candidate)
                     for task, candidate in remaining
-                ]
+                }
                 try:
-                    for finished in as_completed(scoring):
-                        record = finished.result()
-                        line = json.dumps(record)
-                        with lock:
-                            artifact.write(line + "\n")
+                    while scoring:
+                        finished, _ = wait(scoring, return_when=FIRST_COMPLETED)
+                        for future in finished:
+                            task, candidate = scoring.pop(future)
+                            record = future.result()
+                            if _needs_retry(record, retried):
+                                self._keep_retried(record)
+                                retried.add(record["candidate_id"])
+                                scoring[pool.submit(self._record_for, task, candidate)] = (
+                                    task, candidate)
+                                print(f"  {record['candidate_id']} retrying once after an infra "
+                                      f"failure: {record['reason']}", flush=True)
+                                continue
+                            artifact.write(json.dumps(record) + "\n")
                             artifact.flush()
-                        written += 1
-                        print(
-                            f"  [{written}/{len(remaining)}] {record['candidate_id']}"
-                            + (f" FAILED {record['blame']}: {record['reason']}" if record["failed"] else ""),
-                            flush=True,
-                        )
+                            written += 1
+                            print(
+                                f"  [{written}/{len(remaining)}] {record['candidate_id']}"
+                                + (f" FAILED {record['blame']}: {record['reason']}"
+                                   if record["failed"] else ""),
+                                flush=True,
+                            )
                 except BaseException:
                     for unstarted in scoring:
                         unstarted.cancel()
                     raise
         return written
+
+    def _keep_retried(self, record: dict[str, Any]) -> None:
+        """Append the infra failure a retry is about to replace to `infra_retried.jsonl`, flushed,
+        before the retry starts: a session that dies mid-retry must still know it was retried."""
+        with open(self.retried_path, "a", encoding="utf-8") as kept:
+            kept.write(json.dumps(record) + "\n")
+            kept.flush()
 
     def _record_for(self, task: Task, candidate: Candidate) -> dict[str, Any]:
         """One candidate's record: `score`'s verdict, or the crash that stopped it reaching one."""

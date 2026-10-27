@@ -31,6 +31,7 @@ NO_STATEMENT_EXAMPLES = "(none provided)"
 RUNS_DIR = Path("runs")
 CONFIG_FILE = "config.json"
 RECORDS_FILE = "records.jsonl"
+RETRIED_FILE = "infra_retried.jsonl"
 
 
 class Blame(str, Enum):
@@ -427,3 +428,31 @@ def load_records(run_name: str, runs_dir: Path | None = None) -> list[dict[str, 
                 "to skip it, because a dropped record leaves a denominator it was counted in"
             ) from broken
     return records
+
+
+def load_retried(run_name: str, runs_dir: Path | None = None) -> list[dict[str, Any]]:
+    """The first infra failure of every candidate `Run.execute` retried, in the order they landed.
+
+    `records.jsonl` keeps one verdict per candidate: the retry's. The failure the retry replaced is
+    kept here, so no failure leaves the run directory. A run that never retried has no file and
+    returns `[]`; a directory with no `config.json` raises, as in `load_records`. A truncated final
+    line is what a process killed mid-write leaves, and is dropped; a malformed line anywhere else
+    raises.
+    """
+    directory = (RUNS_DIR if runs_dir is None else Path(runs_dir)) / run_name
+    if not (directory / CONFIG_FILE).exists():
+        raise FileNotFoundError(f"{directory} holds no {CONFIG_FILE}, so it is not a run")
+    path = directory / RETRIED_FILE
+    if not path.exists():
+        return []
+    text = path.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    retried = []
+    for number, line in enumerate(lines, start=1):
+        try:
+            retried.append(json.loads(line))
+        except json.JSONDecodeError as broken:
+            if number == len(lines) and not text.endswith("\n"):
+                return retried
+            raise ValueError(f"{path}: line {number} of {len(lines)} is not JSON ({broken})") from broken
+    return retried

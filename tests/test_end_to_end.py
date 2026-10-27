@@ -41,7 +41,7 @@ import pytest
 from build_dataset import build
 from pipeline import model as model_mod
 from pipeline import sandbox
-from pipeline.data import Dataset, Task, load_records
+from pipeline.data import Dataset, Task, load_records, load_retried
 from pipeline.protocols import monitor_with_tests as mwt_mod
 from pipeline.protocols import solve as solve_mod
 from pipeline.protocols import tm as tm_mod
@@ -51,6 +51,7 @@ from pipeline.protocols.tm import TM
 from pipeline.protocols.trigger_search import TriggerSearch
 from pipeline.protocols.unit_testing import UnitTesting
 from pipeline.model import Completion
+from pipeline.protocols.base import CALLS, Echo
 from pipeline.sandbox import run_raw as harness_run_raw
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -805,3 +806,116 @@ def test_a_real_detached_run_rebuilds_itself_in_the_subprocess(dataset: Dataset)
         (r["candidate_id"], r["blame"], r["reason"]) for r in records.values() if r["failed"]
     ]
     assert run.status()["scored"] == CANDIDATES
+
+
+ENDPOINT_TIMEOUT = OSError("synthetic endpoint timeout")
+MODEL_FAILURE = {CALLS: [], "failed": True, "blame": "model", "reason": "no parseable answer"}
+
+
+def flaky_echo(monkeypatch: pytest.MonkeyPatch, victim: str, outcomes: list[Any]) -> list[Any]:
+    """Echo whose `score` for `victim` gives each of `outcomes` in turn (an exception is raised, a
+    dict returned) and its real answer once they run out. Returns the queue, so a test can see how
+    many attempts were made."""
+    queue = list(outcomes)
+    real = Echo.score
+
+    def score(self: Echo, task: Task, candidate: Any) -> dict[str, Any]:
+        if candidate.candidate_id == victim and queue:
+            outcome = queue.pop(0)
+            if isinstance(outcome, BaseException):
+                raise outcome
+            return outcome
+        return real(self, task, candidate)
+
+    monkeypatch.setattr(Echo, "score", score)
+    return queue
+
+
+def echo_run(name: str) -> Echo:
+    run = Echo(run_name=name, data=DATASET_FILE)
+    run.write_config()
+    return run
+
+
+def test_an_infra_failure_is_retried_once_and_the_failure_it_replaced_is_kept(
+        dataset: Dataset, monkeypatch: pytest.MonkeyPatch) -> None:
+    victim = dataset.train[0].honest.candidate_id
+    queue = flaky_echo(monkeypatch, victim, [ENDPOINT_TIMEOUT])
+    echo_run("echo-retry").execute()
+
+    records = load_records("echo-retry")
+    assert sorted(r["candidate_id"] for r in records) == sorted(
+        c.candidate_id for _, c in dataset.candidates())
+    assert not any(r["failed"] for r in records) and queue == []
+    retried = load_retried("echo-retry")
+    assert [(r["candidate_id"], r["blame"]) for r in retried] == [(victim, "infra")]
+
+
+def test_an_infra_failure_that_recurs_after_its_retry_is_final(
+        dataset: Dataset, monkeypatch: pytest.MonkeyPatch) -> None:
+    victim = dataset.train[0].honest.candidate_id
+    queue = flaky_echo(monkeypatch, victim, [ENDPOINT_TIMEOUT, ENDPOINT_TIMEOUT, ENDPOINT_TIMEOUT])
+    echo_run("echo-twice").execute()
+
+    final = by_candidate(load_records("echo-twice"))[victim]
+    assert final["failed"] and final["blame"] == "infra"
+    assert len(queue) == 1, "one attempt and one retry, never a third"
+    assert len(load_retried("echo-twice")) == 1
+
+
+def test_a_model_failure_is_data_and_is_never_retried(
+        dataset: Dataset, monkeypatch: pytest.MonkeyPatch) -> None:
+    victim = dataset.train[0].honest.candidate_id
+    flaky_echo(monkeypatch, victim, [MODEL_FAILURE])
+    echo_run("echo-model").execute()
+
+    final = by_candidate(load_records("echo-model"))[victim]
+    assert final["failed"] and final["blame"] == "model"
+    assert load_retried("echo-model") == []
+    assert not (Path("runs") / "echo-model" / "infra_retried.jsonl").exists()
+
+
+def test_a_session_that_stopped_mid_retry_does_not_retry_again(
+        dataset: Dataset, monkeypatch: pytest.MonkeyPatch) -> None:
+    victim = dataset.train[0].honest.candidate_id
+    run = echo_run("echo-resumed")
+    first = {"candidate_id": victim, "failed": True, "blame": "infra", "reason": "timeout"}
+    run.retried_path.write_text(json.dumps(first) + "\n", encoding="utf-8")
+    queue = flaky_echo(monkeypatch, victim, [ENDPOINT_TIMEOUT, ENDPOINT_TIMEOUT])
+    run.execute()
+
+    final = by_candidate(load_records("echo-resumed"))[victim]
+    assert final["failed"] and final["blame"] == "infra"
+    assert len(queue) == 1 and len(load_retried("echo-resumed")) == 1
+
+
+def test_docker_harnesses_never_exceed_their_slots_however_many_workers_wait() -> None:
+    import threading
+    import time
+
+    inside, most, guard = 0, 0, threading.Lock()
+
+    def harness(isolation: sandbox.Isolation) -> None:
+        nonlocal inside, most
+        with sandbox._container_slot(isolation):
+            with guard:
+                inside += 1
+                most = max(most, inside)
+            time.sleep(0.05)
+            with guard:
+                inside -= 1
+
+    def peak(isolation: sandbox.Isolation, callers: int) -> int:
+        nonlocal most
+        most = 0
+        threads = [threading.Thread(target=harness, args=(isolation,)) for _ in range(callers)]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
+        return most
+
+    assert peak(sandbox.Isolation.DOCKER, 3 * sandbox.MAX_CONCURRENT_CONTAINERS) == \
+        sandbox.MAX_CONCURRENT_CONTAINERS
+    assert peak(sandbox.Isolation.SUBPROCESS, 3 * sandbox.MAX_CONCURRENT_CONTAINERS) > \
+        sandbox.MAX_CONCURRENT_CONTAINERS

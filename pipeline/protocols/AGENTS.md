@@ -210,25 +210,28 @@ with its own name.
 That forgiveness expires the moment a resumed run appends: the fragment stops being the last line,
 and the whole artifact then raises. `execute` truncates back to the last complete record first.
 
-## A resume does not retry an infra failure — you have to delete the record
+## An infra failure is retried once, automatically; a second one is final
 
-`pending()` counts any record as scored, including `failed` ones, so a candidate that died on a dead
-socket is never attempted again and the run reports complete. That contradicts the reason `blame`
-exists at all: `"model"` is data about the thing being measured, `"infra"` is our noise and should be
-retried.
+`"model"` is data about the thing being measured; `"infra"` is our noise and should be retried. So
+`execute` retries every infra failure once, in the same session (2026-10-27, after Kimi's slow calls
+made the manual loop below most of a run's wall time). The failure goes to `infra_retried.jsonl`
+beside `records.jsonl`, the candidate is scored again at once, and whatever that attempt returns is
+its record. `records.jsonl` therefore keeps one verdict per candidate and no reader changes, while
+every failure stays in the run directory (`load_retried` reads them). A candidate already in
+`infra_retried.jsonl`, from a session that died mid-retry, has had its retry: its next record is
+final. A model failure is never retried.
 
-It is left this way deliberately. Retrying appends a *second* record for a candidate that already has
-one and `load_records` keeps both, which double-counts it in every denominator — so the honest fix is
-"a candidate's record is its latest attempt", a change to the artifact contract rather than a patch.
-
-Until then the recovery is manual, and it works:
+A failure that persists after its retry stays as an infra exclusion: it leaves every denominator,
+which is the retry-once-then-accept policy. To try such a candidate again anyway, the old manual
+recovery still works; it is now the exception, not the routine:
 
     # stop the run, drop the infra failures, resume — it picks them up as pending
     python -c "from pipeline import launch; launch.kill('ut-with-plain_v2')"
     # rewrite records.jsonl without lines where failed and blame == "infra"
     python -c "from pipeline.protocols import UnitTesting; UnitTesting.attach('ut-with-plain_v2').run()"
 
-Back the file up first. And print `Counter((r['failed'], r['blame']) ...)` after every run — a run
+Back the file up first. Such a candidate is already in `infra_retried.jsonl`, so it gets one attempt
+and no further retry. And print `Counter((r['failed'], r['blame']) ...)` after every run — a run
 that is 100% infra failures otherwise reads as a completed one.
 
 ## A rebound `protocol` name raises rather than letting the later import win

@@ -482,8 +482,10 @@ off at `runs > 1` and raises on an explicit `runs > 1, cache=True`, but nothing 
 runs from colliding — and for this protocol the collision is invisible, because two identical spaces
 look exactly like a deterministic model.
 
-**A resume does not retry an infra failure.** `pending()` (`base.py:292`) counts any record as
-scored, `failed` ones included, so a candidate lost to a dead socket is never attempted again and
+**An infra failure is retried once, then it is final.** `execute` retries it in the session and
+keeps the replaced failure in `infra_retried.jsonl` (`protocols/AGENTS.md`). After that, `pending()`
+counts any record as scored, `failed` ones included, so a candidate whose retry also failed is not
+attempted again and
 the run reports complete. Downstream this becomes `spaces_from` refusing to start `UnitTesting` at
 all — which is the loud direction — but only because `spaces_from` raises. Print
 `Counter((r["failed"], r["blame"]) for r in load_records(name))` after every trigger run; a run that

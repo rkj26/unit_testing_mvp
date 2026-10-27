@@ -452,15 +452,14 @@ honest before attack. A killed run therefore costs at most the calls that were i
 where `total` (`base.py:203`) counts both halves of the dataset. Both read the file fresh, so both
 work mid-run and from any process.
 
-**The known limitation: `pending()` counts a failed record as done.** A candidate that died on a dead
-socket already has a record, so it is never attempted again and the run reports complete. That
-contradicts why `blame` exists at all — `"model"` is data about the thing under study, `"infra"` is
-our noise and should be retried. It is left this way deliberately, because retrying appends a *second*
-record for a candidate that already has one and `load_records` keeps both, double-counting it in every
-denominator; the honest fix is "a candidate's record is its latest attempt", a change to the artifact
-contract rather than a patch.
+**`pending()` counts a failed record as done, so `execute` retries infra failures before writing
+them.** `"model"` is data about the thing under study; `"infra"` is our noise and should be retried.
+Appending a second record would double-count the candidate, so instead `execute` holds an infra
+failure out of `records.jsonl`: it appends it to `infra_retried.jsonl`, scores the candidate again
+at once, and writes whatever that attempt returns. One retry per candidate; a candidate already in
+`infra_retried.jsonl` gets none, and a failure that persists is final (`protocols/AGENTS.md`).
 
-Until then the recovery is manual, and it works. Back the file up first.
+To try a final infra failure again anyway, the manual recovery still works. Back the file up first.
 
 ```
 # stop the run, drop the infra failures, resume — it picks them up as pending

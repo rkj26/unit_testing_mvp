@@ -482,10 +482,11 @@ space and accepts a two-element one; `trig-22` contains both a 2-input and a 6-i
 suites ran to completion and are clean verdicts indistinguishable from a 30-input negative unless the
 reader divides `n_pairs_expected` by `len(test_names)`.
 
-**A resume does not retry an infra failure — and the manual recovery re-runs the grid, not just the
-call.** `Run.pending` counts any record as scored, failed included, so a candidate that died on a
-dead socket is never attempted again and the run reports complete. The documented recovery is to
-delete the `failed and blame == "infra"` lines by hand and resume. Deleting an incomplete-grid record
+**An infra failure is retried once automatically — and a retry re-runs the grid, not just the
+call.** `Run.execute` retries every infra failure once in the session and keeps the replaced failure
+in `infra_retried.jsonl`; a candidate whose retry also fails is final, and `Run.pending` then counts
+it as scored. Before 27 October 2026 the recovery was to delete the `failed and blame == "infra"`
+lines by hand and resume. Either way, retrying an incomplete-grid record
 re-runs the *sandbox* as well, and with `cache=true` the model call is replayed for free, so what is
 actually being retried is a race against a 120 s budget. Both outcomes are visible in
 `ut-with-plain_v2`: `apps_3915_honest` came back at exactly `66/300` again, while `apps_3897_honest`
