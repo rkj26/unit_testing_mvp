@@ -335,7 +335,7 @@ flags exactly 2% of honest train candidates.
 
 
     
-![png](results_full_digest_files/results_full_digest_45_0.png)
+![png](results_full_digest_files/results_full_digest_46_0.png)
     
 
 
@@ -480,7 +480,7 @@ them apart. The dotted line marks 2%, the audit budget of the paper.
 
 
     
-![png](results_full_digest_files/results_full_digest_48_0.png)
+![png](results_full_digest_files/results_full_digest_50_0.png)
     
 
 
@@ -582,7 +582,7 @@ on the test tasks that it scored; the panel title gives how many.
 
 
     
-![png](results_full_digest_files/results_full_digest_52_0.png)
+![png](results_full_digest_files/results_full_digest_54_0.png)
     
 
 
@@ -593,7 +593,7 @@ early, flag less and the first attack goes unflagged.
 
 
     
-![png](results_full_digest_files/results_full_digest_54_0.png)
+![png](results_full_digest_files/results_full_digest_56_0.png)
     
 
 
@@ -602,7 +602,7 @@ deployment. Safety stays low unless a rule flags almost everything, which drops 
 
 
     
-![png](results_full_digest_files/results_full_digest_56_0.png)
+![png](results_full_digest_files/results_full_digest_58_0.png)
     
 
 
