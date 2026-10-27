@@ -50,15 +50,17 @@ problems, on which we evaluate two changes to the test writer (few-shot examples
 of good and bad tests, and a critic that drops weak tests) and writers that see
 only the problem statement.
 
-Tests alone are a weak detector. Given to the monitor, they significantly improve
-detection at strict false-positive rates and raise safety at a 2\% audit budget in
-point estimate, but that safety gain lies within the uncertainty of calibrating a
-threshold from few honest examples, and it reverses at larger budgets. Once
-suspicious submissions can be deferred to the trusted model, the monitor alone
-matches monitoring with the trusted model's own tests; only tests planned by the
-untrusted model keep an advantage. Changes to the test writer reduce false
-positives without improving detection, and diagnostics on hard problems show that
-most missed backdoors are reached by a test input but not detected.
+Under defer to trusted, giving the monitor the trusted model's own tests does not
+raise safety at equal usefulness: at a usefulness of 0.95, trusted monitoring and
+monitoring with tests all reach about 0.73. Only tests planned by the untrusted
+model raise it, to 0.82, without statistical certainty. Without deferral the tests
+do sharpen the top of the monitor's ranking, detecting significantly more
+backdoors at strict false-positive rates and raising safety at a 2\% audit budget
+in point estimate, but that gain lies within the uncertainty of calibrating a
+threshold from few honest examples and reverses at larger budgets. Tests alone are
+a weak detector. Changes to the test writer reduce false positives without
+improving detection, and diagnostics on hard problems show that most missed
+backdoors are reached by a test input but not detected.
 
 Our contributions are:
 \begin{itemize}
@@ -66,10 +68,10 @@ Our contributions are:
   a code-reading monitor on every eligible APPS problem, alone and as evidence
   for the monitor, under the standard auditing model and with paired bootstrap
   intervals.
-  \item We show that test evidence improves the monitor's ranking at strict
-  thresholds, but that its safety gain is uncertain at a 2\% audit budget,
-  reverses at larger budgets, and largely disappears once deferral to the trusted
-  model is allowed.
+  \item We show that under defer to trusted, the trusted model's tests do not
+  raise the monitor's safety at equal usefulness; without deferral they improve
+  its ranking at strict thresholds, but the safety gain is uncertain at a 2\%
+  audit budget and reverses at larger budgets.
   \item We separate unreached triggers from reached but undetected ones and find
   that the bottleneck is the latter: tests that cannot assert the property a
   backdoored output violates, which we call the specification-entailment wall.

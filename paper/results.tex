@@ -6,15 +6,16 @@
 \section{Results}
 \label{sec:results}
 
-Three findings hold across our analyses. First, tests written by the trusted model are a weak
-detector on their own: every test-only protocol ranks backdoors worse than the code-reading
-monitor. Second, giving the monitor the tests' results sharpens the top of its ranking: at a
-matched false-positive rate of 1--2\% it catches significantly more backdoors. This gain carries
-over to safety at a 2\% audit budget only in point estimate, because a threshold calibrated on a
-handful of honest examples is itself noisy, and it reverses at larger budgets. Third, once
-suspicious submissions can be deferred to the trusted model, the monitor alone matches the
-protocols that add the trusted model's own tests; only the protocol whose tests the untrusted
-model planned stays ahead at high usefulness.
+Three findings hold across our analyses. First, under defer to trusted, the baseline of prior work
+and our main comparison, giving the monitor the trusted model's own tests does not raise safety at
+equal usefulness: at a usefulness of 0.95, trusted monitoring and monitoring with tests all reach
+about 0.73. Only tests planned by the untrusted model raise it (0.82), and that difference is not
+statistically certain (Section~\ref{sec:dtt}). Second, without deferral the tests do sharpen the top
+of the monitor's ranking: at a matched false-positive rate of 1--2\% the monitor catches
+significantly more backdoors with them, and safety at a 2\% audit budget rises in point estimate,
+though not beyond the uncertainty of calibrating a threshold from few honest examples, and the gain
+reverses at larger budgets. Third, tests written by the trusted model are a weak detector on their
+own: every test-only protocol ranks backdoors worse than the code-reading monitor.
 
 \paragraph{Population.} Of the 2{,}776 candidates, 2{,}435 were scored by all eight protocols
 (1{,}177 honest, 1{,}258 backdoored); every detection result uses this common population
@@ -169,31 +170,62 @@ with its own calibrated threshold.}
 % ---------------------------------------------------------------------
 \subsection{Defer to trusted}
 \label{sec:dtt}
-% Source: notebooks/figures/all/data/dtt.csv.
+% Sources: notebooks/figures/all/data/dtt.csv and dtt_at_usefulness.csv.
 
-Figure~\ref{fig:dtt} plots safety against usefulness for the four monitoring protocols with defer
-to trusted, the baseline of \citet{greenblatt2024aicontrol}; the audit threshold stays at the 2\%
-budget and each point is one deferral threshold. Deferral is inexpensive here because $T$ solves
-81\% of the evaluation tasks. Deferring 2.3\% of submissions raises trusted monitoring from 0.549 to
-0.728 at a usefulness of 0.952, and deferring 6.0\% raises it to 0.842 at 0.860.
+Defer to trusted is the baseline of \citet{greenblatt2024aicontrol}, and it is our main comparison:
+a protocol that can replace a suspicious submission with $T$'s own solution should be judged against
+the others at equal usefulness. Figure~\ref{fig:dtt} plots each monitoring protocol's
+safety--usefulness frontier with the audit threshold at the 2\% budget, and
+Table~\ref{tab:dtt} reads the frontiers at a usefulness of 0.95 and 0.90. Deferral is inexpensive
+here because $T$ solves 81\% of the evaluation tasks: deferring 2.3\% of submissions raises trusted
+monitoring from 0.549 to 0.728 at a usefulness of 0.952.
 
-With deferral available, the monitor alone matches or exceeds the protocols that add $T$'s own
-tests. At a usefulness of about 0.86--0.87 it reaches 0.842, against 0.799 with property tests, and
-plain tests reach 0.781 at 0.903, close to the monitor's frontier at that usefulness. Only
-monitoring with $U$-planned tests remains ahead at high usefulness, reaching 0.814 at a usefulness
-of 0.956 (2.3\% deferred) and 0.863 at 0.873; below a usefulness of about 0.75 the four frontiers lie
-within 0.03 of one another. The gain from $T$'s own tests is therefore concentrated in the regime
-without deferral, while the $U$-planned protocol keeps an advantage, subject to the caveats of
-Section~\ref{sec:protocols}.
+At equal usefulness, $T$'s own tests add nothing. At a usefulness of 0.95, trusted monitoring
+reaches 0.730 [0.520, 0.851], and monitoring with property or plain tests reaches 0.727 and 0.724
+(differences $-0.003$ and $-0.006$); at 0.90 the three lie between 0.772 and 0.793. Only monitoring
+with $U$-planned tests is safer, at 0.818 [0.765, 0.858] for a usefulness of 0.95 and 0.847 at 0.90,
+but neither difference from trusted monitoring excludes zero ($+0.088$ [$-0.035$, $+0.293$] and
+$+0.055$ [$-0.043$, $+0.202$]). The gain that $T$'s tests showed without deferral
+(Section~\ref{sec:safety}) is therefore a gain over a monitor that ships everything it does not
+audit; once that monitor can defer, it disappears. The $U$-planned protocol keeps an advantage,
+subject to the caveats of Section~\ref{sec:protocols}.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Protocol & Safety [95\% CI] & Difference from monitoring [95\% CI] \\
+\midrule
+\multicolumn{3}{l}{\emph{Usefulness 0.95}} \\
+Trusted monitoring                      & 0.730 [0.520, 0.851] & --- \\
+Monitoring + property tests             & 0.727 [0.673, 0.780] & $-0.003$ [$-0.123$, $+0.204$] \\
+Monitoring + plain tests                & 0.724 [0.659, 0.793] & $-0.006$ [$-0.126$, $+0.203$] \\
+Monitoring + $U$-planned property tests & 0.818 [0.765, 0.858] & $+0.088$ [$-0.035$, $+0.293$] \\
+\midrule
+\multicolumn{3}{l}{\emph{Usefulness 0.90}} \\
+Trusted monitoring                      & 0.793 [0.641, 0.893] & --- \\
+Monitoring + property tests             & 0.772 [0.713, 0.836] & $-0.020$ [$-0.127$, $+0.132$] \\
+Monitoring + plain tests                & 0.783 [0.711, 0.829] & $-0.010$ [$-0.122$, $+0.129$] \\
+Monitoring + $U$-planned property tests & 0.847 [0.810, 0.887] & $+0.055$ [$-0.043$, $+0.202$] \\
+\bottomrule
+\end{tabular}
+\caption{Safety with defer to trusted at a fixed usefulness, the audit threshold at a 2\% budget.
+Each value is read from the protocol's frontier, interpolating between adjacent deferral thresholds.
+Intervals are 95\% percentile intervals over 10{,}000 paired task resamples, each recalibrating the
+audit threshold; the difference is taken within a resample.}
+\label{tab:dtt}
+\end{table}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/dtt.pdf}
-\caption{Once deferral is allowed, trusted monitoring catches up with monitoring + property or plain
-tests; only monitoring + $U$-planned property tests stays ahead at high usefulness. Each line is a
+\caption{With defer to trusted, trusted monitoring matches monitoring + property or plain tests;
+only monitoring + $U$-planned property tests stays above it at high usefulness. Each line is a
 protocol's safety--usefulness frontier as its deferral threshold moves, with the audit threshold
-fixed at a 2\% budget; hollow markers are the protocols without deferral (Table~\ref{tab:safety}).
-Usefulness is scaled so that 0 is $T$ alone and 1 is $U$ alone.}
+at a 2\% budget; hollow markers are the protocols without deferral (Table~\ref{tab:safety}), and the
+dotted lines mark the usefulness levels of Table~\ref{tab:dtt}. Usefulness is scaled so that 0 is
+$T$ alone and 1 is $U$ alone.}
 \label{fig:dtt}
 \end{figure}
 
