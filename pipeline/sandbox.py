@@ -22,6 +22,7 @@ enforce RLIMIT_AS/DATA/RSS and an unbounded candidate takes the host down instea
 
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import re
@@ -30,9 +31,10 @@ import signal
 import subprocess
 import sys
 import tempfile
+import threading
 from enum import Enum
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 from .data import Task
 from .prompts import SUITE_FUNCTION_PREFIXES
@@ -41,6 +43,8 @@ SINGLE_CANDIDATE_CALL_SECONDS = 6
 DEFAULT_PBT_TIMEOUT = 60
 HARNESS_KILL_GRACE_SECONDS = SINGLE_CANDIDATE_CALL_SECONDS
 PIPE_DRAIN_SECONDS = 5
+MAX_CONCURRENT_CONTAINERS = 8  # Docker harnesses at once in one process, whatever WORKERS is
+_CONTAINER_SLOTS = threading.BoundedSemaphore(MAX_CONCURRENT_CONTAINERS)
 RESULT_FILENAME = "pbt_result.jsonl"
 HARNESS_FILENAME = "harness.py"
 
@@ -373,6 +377,19 @@ def _docker_kill(container: str) -> None:
         pass
 
 
+@contextlib.contextmanager
+def _container_slot(isolation: Isolation) -> Iterator[None]:
+    """Hold one of `MAX_CONCURRENT_CONTAINERS` slots while a Docker harness runs, so raising the
+    number of model calls in flight (`WORKERS`) does not raise the number of containers with it. A
+    subprocess harness takes no slot. The harness's timeout starts once it holds one, so waiting
+    for a slot never eats into it."""
+    if isolation is not Isolation.DOCKER:
+        yield
+        return
+    with _CONTAINER_SLOTS:
+        yield
+
+
 def run_raw(
     task: Task,
     code: str,
@@ -412,31 +429,32 @@ def run_raw(
             if isolation is Isolation.DOCKER
             else [sys.executable, HARNESS_FILENAME]
         )
-        proc = subprocess.Popen(
-            command,
-            cwd=directory,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            env=_harness_env(),
-            start_new_session=True,
-        )
         hard_kill_s = timeout_s + HARNESS_KILL_GRACE_SECONDS
-        try:
-            _out, err = proc.communicate(timeout=hard_kill_s)
-            exit_note = (
-                f"harness exited {proc.returncode}: "
-                f"{(err or '').strip() or 'no stderr'}"
+        with _container_slot(isolation):
+            proc = subprocess.Popen(
+                command,
+                cwd=directory,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                env=_harness_env(),
+                start_new_session=True,
             )
-        except subprocess.TimeoutExpired:
-            if isolation is Isolation.DOCKER:
-                _docker_kill(container)
-            kill_group(proc)
             try:
-                proc.communicate(timeout=PIPE_DRAIN_SECONDS)
+                _out, err = proc.communicate(timeout=hard_kill_s)
+                exit_note = (
+                    f"harness exited {proc.returncode}: "
+                    f"{(err or '').strip() or 'no stderr'}"
+                )
             except subprocess.TimeoutExpired:
-                pass
-            exit_note = f"killed after {hard_kill_s}s"
+                if isolation is Isolation.DOCKER:
+                    _docker_kill(container)
+                kill_group(proc)
+                try:
+                    proc.communicate(timeout=PIPE_DRAIN_SECONDS)
+                except subprocess.TimeoutExpired:
+                    pass
+                exit_note = f"killed after {hard_kill_s}s"
         result, unreadable = _stream(_result_text(directory))
         if result is None:
             return _failed(f"{unreadable} ({exit_note})")

@@ -133,7 +133,7 @@ parser depends on: *"end your answer with EXACTLY one line: SUSPICION_SCORE: &lt
 ### The repetition loop — sequential, and only the seed varies
 
 `tm.py:142` is a list comprehension, not a second thread pool: the reps for one candidate run one
-after another, and the concurrency comes entirely from the base's eight workers over candidates. At
+after another, and the concurrency comes entirely from the base's `WORKERS` (24) over candidates. At
 `runs=2` a candidate costs two serial calls.
 
 `TM.temperature` (`tm.py:108`) returns `0.0` at `runs=1` and `0.7` above it — and on the endpoint

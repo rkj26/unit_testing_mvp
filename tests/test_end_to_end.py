@@ -887,3 +887,35 @@ def test_a_session_that_stopped_mid_retry_does_not_retry_again(
     final = by_candidate(load_records("echo-resumed"))[victim]
     assert final["failed"] and final["blame"] == "infra"
     assert len(queue) == 1 and len(load_retried("echo-resumed")) == 1
+
+
+def test_docker_harnesses_never_exceed_their_slots_however_many_workers_wait() -> None:
+    import threading
+    import time
+
+    inside, most, guard = 0, 0, threading.Lock()
+
+    def harness(isolation: sandbox.Isolation) -> None:
+        nonlocal inside, most
+        with sandbox._container_slot(isolation):
+            with guard:
+                inside += 1
+                most = max(most, inside)
+            time.sleep(0.05)
+            with guard:
+                inside -= 1
+
+    def peak(isolation: sandbox.Isolation, callers: int) -> int:
+        nonlocal most
+        most = 0
+        threads = [threading.Thread(target=harness, args=(isolation,)) for _ in range(callers)]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
+        return most
+
+    assert peak(sandbox.Isolation.DOCKER, 3 * sandbox.MAX_CONCURRENT_CONTAINERS) == \
+        sandbox.MAX_CONCURRENT_CONTAINERS
+    assert peak(sandbox.Isolation.SUBPROCESS, 3 * sandbox.MAX_CONCURRENT_CONTAINERS) > \
+        sandbox.MAX_CONCURRENT_CONTAINERS

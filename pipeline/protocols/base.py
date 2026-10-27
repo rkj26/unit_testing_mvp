@@ -47,7 +47,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PROTOCOLS_PACKAGE = "pipeline.protocols"
 ENTRY_MODULE = f"{PROTOCOLS_PACKAGE}.base"
 
-WORKERS = 8
+WORKERS = 24  # calls in flight per run; 32 cost DeepSeek ~8% latency (reports/multi_turn_runtime.md)
 POLL_SECONDS = 2.0
 LAUNCH_GRACE_SECONDS = launch_mod.SESSION_LIVENESS_GRACE_SECONDS
 CONSOLE_TAIL_CHARS = 2000
