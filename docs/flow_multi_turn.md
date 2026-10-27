@@ -127,10 +127,13 @@ together with the smoke dataset, executing the notebook reproduces the section f
 
 ## Infra failures
 
-A resume does not retry an infra failure (`protocols/AGENTS.md`), and for the inputs and arm A that
-would be permanent: the replay freezes A into the bundle, and B, C and D's hash checks refuse any
-later change. So the chain raises `UnretriedInfraFailures` after the inputs and after A if either
-holds infra failures, before the next stage starts. To retry them, from the repository root:
+`Run.execute` retries every infra failure once, automatically, and keeps the failure it replaced in
+`infra_retried.jsonl` (`protocols/AGENTS.md`). A failure that persists after that retry is carried on
+as an explicit exclusion, with no stop. For the inputs and arm A a failure with *no* retry would be
+permanent, because the replay freezes A into the bundle and B, C and D's hash checks refuse any
+later change; so the chain still raises `UnretriedInfraFailures` after the inputs and after A if
+either holds an infra failure that never had its retry. In practice that means records written
+before automatic retries (27 October 2026). To retry those, from the repository root:
 
 ```python
 import json, shutil
@@ -143,9 +146,10 @@ path.write_text("".join(json.dumps(row) + "\n" for row in kept))
 print(f"removed {len(rows) - len(kept)} infra failure(s); re-run the notebook cell")
 ```
 
-Re-running the cell scores those candidates again. If some still fail on infrastructure, set
-`MT_ACCEPT_INFRA_FAILURES = True` (`accept_infra_failures=True`) to carry them on as explicit
-exclusions; the analysis lists them by reason. Model failures never stop the chain — they are data.
+Re-running the cell scores those candidates again, each with its automatic retry. If you would
+rather keep old failures as they are, set `MT_ACCEPT_INFRA_FAILURES = True`
+(`accept_infra_failures=True`) to carry them on as explicit exclusions; the analysis lists them by
+reason. Model failures never stop the chain — they are data.
 
 The reference arm lends the dataset, Docker image and runtime settings only. Its records and
 trigger inputs are never read, and no team notebook, run or population is changed.

@@ -294,6 +294,24 @@ is the first replayed. A live run made 2 calls and wrote 1 cache entry.
 **An arm is not a code concept.** It is one protocol run twice with different arguments, compared in
 a cell — a dict and a loop, no `Arm` class and no registry.
 
+### Infra failures, concurrency, and a slow model
+
+- **An infra failure is retried once, automatically.** `Run.execute` keeps the failure in
+  `runs/<name>/infra_retried.jsonl` and scores the candidate again at once; the retry's outcome is
+  its record, and a second infra failure is final. No line needs deleting by hand
+  (`pipeline/protocols/AGENTS.md`).
+- **24 model calls in flight per run** (`WORKERS`), with at most 8 Docker harnesses at once
+  (`sandbox.MAX_CONCURRENT_CONTAINERS`). Neither is in `config.json`, so changing them never
+  changes a result. Whether an endpoint tolerates 24 has only been measured for DeepSeek (32 in
+  flight cost about 8% latency); a refused call is an infra failure, and gets its retry.
+- **A slow model needs its own timeout.** The effort's default (120 s at `low`) was tuned on
+  DeepSeek. Kimi K3 calls ran past it often, so set `call_seconds=600` (and `max_tokens` if you want
+  a different cap) on every Kimi run. Both are written to `config.json`, so such a run gets a new
+  name and does not resume an old one.
+- **Independent runs can go side by side.** `TrustedSolve` and `TriggerSearch` read only the dataset,
+  so launch both with `run(wait=False)` rather than one after the other; nothing downstream reads
+  `TrustedSolve`. The costs in `reports/kimi_speedup.md` assume this.
+
 ---
 
 ## 3 · The record
