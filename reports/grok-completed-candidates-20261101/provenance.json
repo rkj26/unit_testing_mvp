@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "Existing completed Grok TrustedSolve generated specification-solutions only",
+  "source_records_sha256": "66a74937b4e66e93c4001e92ff7426616ea633d1feb9bca9d4c345a9b865ba88",
+  "source_rows": 1725,
+  "source_run": "apps1388-411bf4e-20261018-grok-solve",
+  "selection": "All and only failed=false records; solves=false included unchanged. No selection on favorable outcomes.",
+  "published_rows": 1724,
+  "published_distinct_candidates": 1724,
+  "artifact": "completed-generated-solutions.jsonl",
+  "artifact_sha256": "6ef6296c5162f2f0f20b1b426d913762e18a9a102a27a3f6b2a0cacb22cebf99",
+  "retained_fields": [
+    "run_name",
+    "protocol",
+    "split",
+    "task_id",
+    "candidate_id",
+    "label",
+    "is_attack",
+    "failed",
+    "solution",
+    "solves"
+  ],
+  "source_row_hash_policy": "SHA-256 of exact source JSONL row including original newline; source_record_index is zero-based.",
+  "solution_hash_policy": "SHA-256 of exact native solution string encoded UTF-8; solution text unchanged.",
+  "omitted": "All other source fields, especially calls, raw completions/reasoning/prompts, original candidate code and dataset inputs, are not exported.",
+  "failed_source_row_policy": "The one failed source row remains in the previous outcome snapshot and local original; it has no completed solution in this addendum.",
+  "generated_solution_semantics": "These are fresh solutions produced from specifications, not the original APPS honest/attack submissions. label/is_attack identify the associated source dataset record, not a new attack classification of this generated solution.",
+  "no_new_generation_recovery_regrading_candidate_execution_or_provider_calls": true,
+  "credential_and_private_user_path_scan": "All exported solution strings checked; zero pattern matches. This is not a guarantee generated code is safe to execute."
+}
