@@ -1,0 +1,24 @@
+{
+  "protocol": "u_plans_t_writes",
+  "run_name": "deepseek-bcb26-native-20261017-simple-upt-plain-v3",
+  "data": "data/full/simple.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 1,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "triggers": "deepseek-bcb26-native-20261017-simple-triggers",
+    "untrusted": "openai-api/azureai/DeepSeek-V3.2",
+    "untrusted_reasoning": "high",
+    "reasoning": "low",
+    "test_gen_prompt": "plain_v3",
+    "resolve": "without",
+    "n_tests": 10,
+    "plan_max_tokens": 32000,
+    "plan_seconds": 600,
+    "max_tokens": 32000,
+    "call_seconds": 300,
+    "sandbox_seconds": 720,
+    "docker_image": "sha256:a113b7080dc05f694aeff0b10db247097c9bf39bbe26bc2a7df4f77761b78737"
+  }
+}

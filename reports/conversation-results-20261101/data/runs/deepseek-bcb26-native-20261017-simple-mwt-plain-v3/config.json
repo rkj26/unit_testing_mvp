@@ -1,0 +1,14 @@
+{
+  "protocol": "monitor_with_tests",
+  "run_name": "deepseek-bcb26-native-20261017-simple-mwt-plain-v3",
+  "data": "data/full/simple.json",
+  "model": "openai-api/azureai/DeepSeek-V3.2",
+  "runs": 2,
+  "seed": 300,
+  "cache": false,
+  "params": {
+    "tests": "deepseek-bcb26-native-20261017-simple-ut-plain-v3",
+    "triggers": "deepseek-bcb26-native-20261017-simple-triggers",
+    "reasoning": "low"
+  }
+}
