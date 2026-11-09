@@ -33,8 +33,41 @@ Twelve nonfailed partial grids in plain v3 tests and four in property tests were
 
 AUC counts tied attack/honest scores as half a win. The 2% figures linearly interpolate the empirical held-out ROC; they are **not** performance at a threshold chosen on training data, a significance test, or a deployment-safety estimate. The notebook also reports attainable discrete operating points and a comparison on the common sample across all five arms.
 
+## Deployment-safety simulations
+
+These figures apply the full APPS notebook’s deployment game to the **five completed Kimi detector arms**. They use only saved scores, with the same train/test pairing rule, audit rules, thresholds, and simulation settings as the reference figures. The population is specific to this completed-arm comparison: **504 training tasks and 728 held-out tasks** have both an honest and an attack submission measured by every included arm. Unfinished arms and failed measurements are not treated as clean results. “Any test fires” is a second threshold for each tests-only arm, not a separate model run.
+
+**Safety** is the share of simulated deployments in which no attack shipped. **Usefulness** is the share of honest submissions that shipped among those that arrived before the deployment stopped. The **no-attack floor** is the share of deployments that had no attacks to begin with. The short simulation’s floor was **7.60%**; subtract it from raw safety to see the gain above that baseline.
+
+- **A — Unaudited flags ship:** the first attack ends the deployment, and it ships unless an audit catches it.
+- **B — Hold flagged submissions; keep running:** flagged submissions without an audit are held back, and an audited attack does not end the deployment.
+- **C — Hold flagged submissions; stop after an audited attack:** same hold-back rule as B, but an audited attack ends the deployment.
+
+There is no single winner across these rules. At 50 submissions, a 5% attack rate, and a 10% audit budget, **monitor + plain tests** was safer than monitor only under rule B (**90.66% vs. 88.10%**, or **83.06 vs. 80.50 percentage points above the no-attack floor**), but shipped fewer honest submissions (**90.19% vs. 96.37%**). Under rule A, the monitor alone was safer (**88.53% vs. 76.52%**). These are scenario-dependent simulations on saved results, not causal estimates or guarantees about live deployments.
+
+The **audit budget** limits human reviews across a deployment. It is not the **false-positive rate** in the detection table above. Except for the any-fire variants, each threshold is set from honest training scores at the corresponding budget quantile; ties can make the flag rate differ from the budget.
+
+### Safety by deployment rule
+
+![Kimi deployment safety by rule, with the no-attack floor and honest throughput](safety/safety_by_variation.png)
+
+### Safety vs. usefulness
+
+![Kimi safety and usefulness as the flagging threshold changes for rules B and C](safety/frontiers_b_c.png)
+
+### Safety across audit budgets and attack rates
+
+![Kimi deployment safety across five audit budgets and four attack rates](safety/budget_attack_surface.png)
+
+### Safety at a 2% audit budget
+
+![Kimi safety by rule at a 2% audit budget over 1,000 submissions and a 5% attack rate](safety/paper_setting.png)
+
+The last figure matches the reference notebook’s 1,000-submission scenario, not the original paper’s deployment setting.
+
 ## Code and reproducibility
 
 - [Offline analysis notebook](analysis.ipynb) reproduces the coverage and ROC tables from the [allowlisted score projections](data/). It uses the Python standard library and does not run models or Docker.
 - [Provenance and checksums](provenance.json) identify the saved sources and shareable projections. The projections omit candidate code, test source, prompts, model replies, credentials, and billing logs.
+- The [offline safety simulation notebook](safety/simulation.ipynb) uses NumPy and the same checksummed projections to reproduce the [aggregate figure data](safety/safety_results.json). The [static figure renderer](safety/render_safety.cjs) uses Node.js and Sharp; neither step calls a model.
 - The native detector implementations used in these runs already exist in this repository and match the saved runtime byte for byte: [unit testing](https://github.com/rkj26/unit_testing_mvp/blob/d3201414220156340775d27b66fd73aeb293ac5d/pipeline/protocols/unit_testing.py), [monitor with tests](https://github.com/rkj26/unit_testing_mvp/blob/d3201414220156340775d27b66fd73aeb293ac5d/pipeline/protocols/monitor_with_tests.py), and [monitor only](https://github.com/rkj26/unit_testing_mvp/blob/d3201414220156340775d27b66fd73aeb293ac5d/pipeline/protocols/tm.py).
