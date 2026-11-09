@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "source_manifest_sha256": "52ad1eb7fc0c16f8e99c23b8660e1e9a757328f2923ec1e6c4d8c84ae19f1eee",
+  "arms": {
+    "monitor": {
+      "source_run": "apps1388-411bf4e-20261018-kimi-tm",
+      "source_record_sha256": "467bbf6bc9b8036f970d779c8c0d4bb738dce0ef5ce558c69862ac8a1c9e55b7",
+      "source_config_sha256": "d099863dadcb468b8e9c4cd08650e47f19dc5ad82934decfa2fa5c892ea8a8b4",
+      "config_hash_also_pinned_by_source_manifest": true,
+      "rows": 2776,
+      "projection": "data/monitor.jsonl",
+      "projection_sha256": "8bffdb4bc552c51dd9116c8a918317e9f6ebbeab54ea5bae0e6d1ad24dd773f2",
+      "score": "mean suspicion (avg_score)"
+    },
+    "plain_v3": {
+      "source_run": "apps1388-411bf4e-20261018-kimi-ut_plain_v3-blind-v1",
+      "source_record_sha256": "f9be062a09a936dca06175ef3ebd425dd8954dc4741796c2046ab97d41300527",
+      "source_config_sha256": "33fb92b2ffef58efe6f80d90ed24fa5e55928c58ec5a6167d13df8f7b422f5e0",
+      "config_hash_also_pinned_by_source_manifest": true,
+      "rows": 2776,
+      "projection": "data/plain_v3.jsonl",
+      "projection_sha256": "2a977fa4556e7f65d484e8066f2ff406402be5f5a00d433fb6780514860c2550",
+      "score": "distinct fired test count"
+    },
+    "monitor_plain_v3": {
+      "source_run": "apps1388-411bf4e-20261018-kimi-mwt_plain_v3-blind-v1",
+      "source_record_sha256": "c2adca9812a37245386a67d53393774fbb88a5b7349ee2c13976cb83476ef8fb",
+      "source_config_sha256": "170fbb78666e3eecf3a986aa096669e06c3c7ecfa15348e7c40239a127641b8d",
+      "config_hash_also_pinned_by_source_manifest": false,
+      "rows": 2776,
+      "projection": "data/monitor_plain_v3.jsonl",
+      "projection_sha256": "10a52101a3da1f03a714669e569f3ef3ab874ebba17402cae6463d6d1722f92d",
+      "score": "mean suspicion (avg_score)"
+    },
+    "property": {
+      "source_run": "apps1388-411bf4e-20261018-kimi-ut_property-blind-v1",
+      "source_record_sha256": "ed1c6b35f9c26ccc7ed13d75418f03fcc52732ae7613d6719eb29a949bb59a51",
+      "source_config_sha256": "f3b31342639b1d93b50ec3e60cca5fe8caaf37631819c5754ff3889a176dacbd",
+      "config_hash_also_pinned_by_source_manifest": true,
+      "rows": 2776,
+      "projection": "data/property.jsonl",
+      "projection_sha256": "1403c70a45964e20d94ea25f5ae7975fef77a1c2e930f18a19df1c91c9f26676",
+      "score": "distinct fired test count"
+    },
+    "monitor_property": {
+      "source_run": "apps1388-411bf4e-20261018-kimi-mwt_property-blind-v1",
+      "source_record_sha256": "05ceedb7a7683038cde611e6a42a812f172163750877ff46a870a2c3cb40a97b",
+      "source_config_sha256": "84c5a7468e6f81e3b0a665ced44f12e66b7f6bb803241f6c3e8b13664fec63a6",
+      "config_hash_also_pinned_by_source_manifest": false,
+      "rows": 2776,
+      "projection": "data/monitor_property.jsonl",
+      "projection_sha256": "0dea207d3fda0c8ebb12de98c1d834e36dce70cf32961c59eb946bc2212728dc",
+      "score": "mean suspicion (avg_score)"
+    }
+  }
+}
