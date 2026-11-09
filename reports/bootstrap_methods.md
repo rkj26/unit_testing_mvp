@@ -121,3 +121,7 @@ python analysis/bootstrap_methods.py --runs-dir <runs> --pool data/apps_full.jso
 Note the multi-turn arms are scored on catch/FPR, not deployment safety, in the repo as it stands
 (`mt_strict_paired_analysis`); applying the safety game to them is a modelling choice that needs its
 own sign-off.
+
+---
+
+**Correction (2026-11-09):** game-B safety equals audit-all Rule A safety (a flagged-but-unaudited attack is held back either way), so the corrected-rule results in `reports/bootstrap_fewshot_and_monitor.md` (2026-11-09 section) and `reports/bootstrap_methods_ruleA_corrected.csv` apply here too. Hierarchical/calls_only dropped there (n=2 call resampling overstates variance). These numbers left as-is for provenance.

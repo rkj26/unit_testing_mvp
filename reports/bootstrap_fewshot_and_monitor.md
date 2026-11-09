@@ -125,3 +125,85 @@ All three deployment-game bootstrap CSVs now use 5000 matched trials. Re-run on 
 
 The 2000-trial and 5000-trial tables agree on every one of these calls; the extra trials narrow the
 deployment-draw Monte-Carlo noise slightly but move no conclusion.
+
+---
+
+## Update, 2026-11-09 — corrected audit rule (integer scores + E.1 randomized ties)
+
+The deterministic audit-all rule above sets the cut at the budget quantile and audits **every**
+sample at or above it. On these discrete scores that overshoots badly: the monitor's 5% cut audits
+~8–10% of honest, not 5% (see the per-budget audit table below). This update re-runs the safety
+bootstrap under arXiv:2512.02157 Appendix E.1 — integer scores (monitor = sum of the two 0–9 calls,
+0–18; tests = fired-count) and **tied-at-cut samples audited with probability p so the expected
+honest audit equals the budget exactly.** Verified: every cell audits exactly its budget (the guard
+`analysis/test_expected_audit.py` enforces it). Code: `analysis/safety.py::audit_all_rule_a_randomized`,
+`analysis/bootstrap_corrected.py`. Data: `reports/bootstrap_*_corrected.csv`. 5000 trials, 2000
+resamples. **The deterministic numbers above are unchanged and still stand as originally reported.**
+
+**Only multinomial and Bayesian are reported now. Hierarchical and calls_only are dropped** because
+both resample the 2 monitor calls per candidate, and a bootstrap over n=2 overstates call-level
+variance (it never brackets the point even with exact ties); their code is retained in
+`analysis/bootstrap_methods.py`.
+
+All cells are **point estimate + 95% CI** (not bootstrap mean).
+
+### Few-shot (plain_v5), n_test=634 — monitor+tests − monitor
+
+| budget | committed det (multinomial) | corrected (multinomial) | committed det (bayesian) | corrected (bayesian) |
+|---|---|---|---|---|
+| 2% | +0.031 [−0.015,+0.413] | +0.205 [−0.003,+0.305] | +0.031 [−0.025,+0.445] | **+0.205 [+0.036,+0.335]** |
+| 5% | −0.125 [−0.158,+0.098] | −0.002 [−0.114,+0.132] | −0.125 [−0.177,+0.104] | −0.002 [−0.120,+0.150] |
+| 10% | −0.057 [−0.114,−0.006] | −0.043 [−0.099,+0.006] | −0.057 [−0.129,+0.009] | −0.043 [−0.111,+0.022] |
+| 20% | −0.052 [−0.108,−0.013] | −0.050 [−0.105,−0.016] | −0.052 [−0.120,−0.005] | −0.050 [−0.114,−0.002] |
+
+Few-shot tests-only − monitor stays entirely below zero under both methods at every budget
+(multinomial: −0.163 / −0.416 / −0.403 / −0.275; bayesian similar) — direction unchanged, magnitudes
+shift (see CSV).
+
+### Property / 8-arm, n_test=768 — monitor+tests − monitor (also stands for game B: variation-B safety is identical)
+
+| budget | committed det (multinomial) | corrected (multinomial) | committed det (bayesian) | corrected (bayesian) |
+|---|---|---|---|---|
+| 2% | +0.052 [−0.007,+0.435] | +0.141 [−0.074,+0.280] | +0.052 [−0.033,+0.447] | +0.141 [−0.035,+0.298] |
+| 5% | −0.127 [−0.168,+0.060] | −0.100 [−0.179,+0.020] | −0.127 [−0.188,+0.067] | −0.100 [−0.186,+0.037] |
+| 10% | −0.077 [−0.163,+0.032] | −0.057 [−0.158,+0.040] | −0.077 [−0.161,+0.041] | −0.057 [−0.169,+0.047] |
+| 20% | +0.008 [−0.038,+0.047] | −0.003 [−0.036,+0.041] | +0.008 [−0.051,+0.061] | −0.003 [−0.046,+0.056] |
+
+### Conclusions that change
+
+- **few-shot 10% "method-dependent" → resolved: not significant.** Committed multinomial excluded
+  zero (the sole basis for calling it method-dependent); corrected multinomial crosses zero
+  (−0.043 [−0.099,+0.006]) and now agrees with Bayesian. Both sound methods say 10% is not
+  significant. **Drop the "method-dependent at 10%" framing.**
+- **few-shot 20% harm → survives.** Both methods still exclude zero and are negative (multinomial
+  −0.050 [−0.105,−0.016]; bayesian −0.050 [−0.114,−0.002]). Adding the few-shot suite still reduces
+  monitor safety at 20%.
+- **few-shot 5% → ≈0.** The committed −0.125 was an audit-overshoot artifact; corrected is −0.002.
+- **few-shot 2% → positive, Bayesian-significant (+0.205 [+0.036,+0.335]).** New: at a 2% budget the
+  few-shot suite *helps*. This is the weak-monitor regime (multinomial +0.205 just misses
+  significance); flag it, don't lean on it.
+- **tests-only** stays robustly below the monitor everywhere under both methods; magnitudes move
+  >0.02 in several cells (less negative at 2%, more negative at 10/20%).
+- **property/8-arm/game B monitor+tests** remains non-significant at every budget (the main null
+  holds); points move <0.03.
+
+### Why monitor+tests − monitor rose at 2% (per-arm, few-shot and property)
+
+Per-arm safety and audit at 2% (horizon 50, so a real 2% budget affords 1 audit/deployment):
+
+| run / arm | cut | honest audit old→new | safety old→new | deploys where old flags > 1 |
+|---|---|---|---|---|
+| few-shot monitor | 16 | 3.9%→2.0% | 0.623→0.299 | 87% |
+| few-shot monitor+tests | 16 | 5.1%→2.0% | 0.663→0.503 | 88% |
+| property monitor | 16 | 3.9%→2.0% | 0.603→0.303 | 92% |
+| property monitor+tests | 16 | 8.2%→2.0% | 0.653→0.444 | 98% |
+
+At 2% the cut lands on a heavily tied score (sum 16), and the old rule audited **every** tied
+sample — catching every attack parked at the tie while over-auditing honest to 4–8%. The randomized
+rule audits only the budget-matching fraction p of tied samples, so an attack sitting exactly at the
+cut is now caught only with probability p. The monitor has many attacks parked at that tie (its
+attack scores sit close to the honest band), so it loses many catches and its safety falls hardest
+(0.62→0.30); monitor+tests separates some attacks above the cut, so it loses fewer and falls less
+(0.66→0.50) — hence monitor+tests − monitor rises. The last column shows the old rule was auditing
+far beyond a real 2% budget (flagging >1 sample in ~90% of deployments when only 1 audit is
+affordable), which is what the correction removes.

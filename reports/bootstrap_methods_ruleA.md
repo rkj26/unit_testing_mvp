@@ -88,3 +88,7 @@ Bayesian still tracks multinomial closely; hierarchical is not systematically wi
 calls_only is narrowest. Recommend **multinomial** for the headline (the repo's existing approach),
 the others as robustness checks. The degenerate-quantile case still does not arise at n_train=554
 (cuts distinct), so the Bayesian bootstrap has nothing to fix here.
+
+---
+
+**Correction (2026-11-09):** the audit rule here overshoots the budget on discrete scores; a corrected run (integer scores + E.1 randomized ties, multinomial/Bayesian only) is in `reports/bootstrap_fewshot_and_monitor.md` (dated section) and `reports/bootstrap_methods_ruleA_corrected.csv`. These deterministic numbers are left as-is for provenance.
