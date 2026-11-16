@@ -44,15 +44,17 @@ def main():
     df = pd.read_csv(a.csv)
     df = df[(df.method == a.method) & (df.budget.isin(BUDGETS))]
 
-    fig, ax = plt.subplots(figsize=(6.6, 4.0))
-    ax.axhline(0.0, color="#2b2b28", lw=1.0, zorder=1)
-    ax.text(BUDGETS[-1], 0.0, "  trusted monitoring", va="center", ha="left",
-            fontsize=8, color="#2b2b28")
+    # Sized for one AAAI column (~3.3in) at width=\linewidth, so the PDF is drawn at final size and
+    # nothing is scaled down in LaTeX. Fonts >= 7pt; the legend sits below the axes, clear of lines.
+    plt.rcParams.update({"font.size": 7, "axes.labelsize": 7, "legend.fontsize": 7,
+                         "xtick.labelsize": 7, "ytick.labelsize": 7})
+    fig, ax = plt.subplots(figsize=(3.3, 2.5))
+    ax.axhline(0.0, color="#2b2b28", lw=0.9, zorder=1)
     for name, label, colour, marker in STYLE:
         rows = df[df.arm == name].set_index("budget").reindex(BUDGETS)
         ax.fill_between(BUDGETS, rows.paper_diff_lo, rows.paper_diff_hi, color=colour, alpha=0.15,
                         lw=0, zorder=2)
-        ax.plot(BUDGETS, rows.paper_diff, color=colour, marker=marker, lw=1.8, ms=6, label=label,
+        ax.plot(BUDGETS, rows.paper_diff, color=colour, marker=marker, lw=1.2, ms=4, label=label,
                 zorder=3)
 
     ax.set_xscale("log")
@@ -60,13 +62,13 @@ def main():
     ax.set_xticklabels([f"{b:.0%}" for b in BUDGETS])
     ax.minorticks_off()
     ax.set_xlabel("audit budget")
-    ax.set_ylabel("safety minus trusted monitoring")
-    ax.grid(alpha=0.2, lw=0.8)
+    ax.set_ylabel("safety $-$ trusted monitoring")
+    ax.grid(alpha=0.2, lw=0.6)
     ax.set_axisbelow(True)
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
-    ax.legend(loc="lower right", fontsize=8, frameon=False, ncol=2)
-    fig.tight_layout()
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.28), ncol=2, fontsize=7, frameon=False,
+              handlelength=1.4, columnspacing=1.2, labelspacing=0.3)
     a.out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(a.out, bbox_inches="tight")
     print(f"wrote {a.out}")
