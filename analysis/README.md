@@ -50,11 +50,16 @@ on the choice of bootstrap or on the audit rule.
 `tests-only − monitor` (arm `ut-all-property-10`) is robustly negative — whole CI below zero —
 under every method at 5/10/20%.
 
+> **Where the cited reports live.** The four `reports/` files above are **not on `main`** and are
+> **not committed to this branch** — outputs are kept out of `main`. They live on branch
+> `analysis-bootstrap-coverage` at commit `e2a81a3`
+> (`e2a81a3d5a52ebf6fa0d7328d757bd8614b15730`). The repro commands below regenerate them from the
+> run directories.
+>
 > **Population note.** These are dev/validation numbers on the **3-arm intersection** (1283 tasks)
 > used for the method comparison. They are **not** the paper's 8-arm `tab:budgets` numbers, which
 > use a different common population (2435 candidates, 642 test tasks) and the per-sample
-> defer-to-trusted safety model. The report CSVs above are not committed to this branch (outputs are
-> kept out of `main`); regenerate them with the commands below.
+> defer-to-trusted safety model.
 
 ## Reproduce
 
@@ -94,8 +99,11 @@ python analysis/bootstrap_corrected.py \
     --out-csv reports/bootstrap_methods_ruleA_corrected.csv
 
 # 5. Paper's per-sample defer-to-trusted safety model, same task bootstrap.
-#    Requires a ControlArena regrade jsonl (--grading); this file is NOT shipped in the
-#    repo — supply your own absolute path.
+#    Requires a ControlArena regrade jsonl (--grading). This file is NOT in this repo tree;
+#    it lives as data/apps_full.control_arena.jsonl on branch origin/per-sample-safety
+#    (also on origin/faster-runs). Fetch it to a local path, e.g.:
+#        git show origin/per-sample-safety:data/apps_full.control_arena.jsonl \
+#            > /abs/path/to/apps_full.control_arena.jsonl
 python analysis/safety_paper_model.py \
     --runs-dir runs --pool data/apps_full.json.gz \
     --grading /abs/path/to/apps_full.control_arena.jsonl \
